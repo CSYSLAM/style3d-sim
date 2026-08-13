@@ -1,0 +1,32 @@
+[project]
+name = "synreal-solver"
+version = "0.1.0"
+description = "CUDA implicit solver for particles, cloth, and affine rigid bodies"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "newton>=1.5.0",
+    "pybind11>=3.1.0",
+]
+
+[project.optional-dependencies]
+# `uv sync --extra examples`.
+examples = [
+    "newton[examples]>=1.5.0",
+]
+
+[build-system]
+requires = [
+    "pybind11>=3.1.0",
+    "scikit-build-core>=0.10",
+]
+build-backend = "scikit_build_core.build"
+
+[tool.scikit-build]
+# Package the public Python sources alongside the compiled `_core` extension.
+wheel.packages = ["src/synreal_solver"]
+
+[tool.poe.tasks]
+# Generate `_core.pyi` from the docstrings and signatures of the built module.
+# Run `uv run poe stubs` after building or installing the `_core` extension.
+stubs = "pybind11-stubgen synreal_solver._core -o python"
