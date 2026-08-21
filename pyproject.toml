@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "newton>=1.5.0",
-    "pybind11>=3.1.0",
 ]
 
 [project.optional-dependencies]
@@ -15,12 +14,14 @@ examples = [
     "newton[examples]>=1.5.0",
 ]
 
-[build-system]
-requires = [
-    "pybind11>=3.1.0",
-    "scikit-build-core>=0.10",
+[dependency-groups]
+# Tools used for local testing, binding development, and stub generation.
+dev = [
+    "pytest>=9.1.1",
+    "pybind11>=2.13",
+    "poethepoet>=0.38",
+    "pybind11-stubgen>=2.5",
 ]
-build-backend = "scikit_build_core.build"
 
 [tool.scikit-build]
 # Package the public Python sources alongside the compiled `_core` extension.
@@ -29,4 +30,4 @@ wheel.packages = ["src/synreal_solver"]
 [tool.poe.tasks]
 # Generate `_core.pyi` from the docstrings and signatures of the built module.
 # Run `uv run poe stubs` after building or installing the `_core` extension.
-stubs = "pybind11-stubgen synreal_solver._core -o python"
+stubs = "pybind11-stubgen synreal_solver._core -o src"

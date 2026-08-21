@@ -1,14 +1,50 @@
 """Python API for synreal-solver."""
 
-from typing import Any
+from typing import Any, Protocol
 
-from ._core import Config, Contact, Control, Model, Solver, Span, State, is_logged_in, login
+from ._core import (
+    Config,
+    Contact,
+    Control,
+    LogLevel,
+    Model,
+    Solver,
+    Span,
+    State,
+    is_logged_in,
+    login,
+    set_log_callback as _set_log_callback,
+)
+
+
+class LogCallback(Protocol):
+    """Callable interface used to receive native solver log messages."""
+
+    def __call__(
+        self,
+        file_name: str,
+        function_name: str,
+        line: int,
+        level: LogLevel,
+        message: str,
+        /,
+    ) -> None:
+        ...
+
+
+def set_log_callback(callback: LogCallback) -> None:
+    """Register a Python callback for native solver log messages."""
+
+    # Keep the native function private so callers see the named callback protocol.
+    _set_log_callback(callback)
 
 __all__ = [
     "Config",
     "Contact",
     "Control",
     "is_logged_in",
+    "LogCallback",
+    "LogLevel",
     "login",
     "Model",
     "ModelBuilder",
@@ -16,6 +52,7 @@ __all__ = [
     "Solver",
     "Span",
     "State",
+    "set_log_callback",
 ]
 
 

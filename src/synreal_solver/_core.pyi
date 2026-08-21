@@ -7,8 +7,9 @@ device memory. The caller is responsible for keeping every referenced device
 allocation alive for as long as native code may access it.
 """
 from __future__ import annotations
+import collections.abc
 import typing
-__all__: list[str] = ['Config', 'Contact', 'Control', 'Model', 'Solver', 'Span', 'State', 'is_logged_in', 'login']
+__all__: list[str] = ['Config', 'Contact', 'Control', 'LogLevel', 'Model', 'Solver', 'Span', 'State', 'is_logged_in', 'login', 'set_log_callback']
 class Config:
     """
     
@@ -230,6 +231,63 @@ class Control:
         """
     @joint_target_qd.setter
     def joint_target_qd(self, arg1: Span) -> None:
+        ...
+class LogLevel:
+    """
+    Members:
+    
+      INFO
+    
+      ERROR
+    
+      DEBUG
+    
+      WARNING
+    """
+    DEBUG: typing.ClassVar[LogLevel]  # value = <LogLevel.DEBUG: 2>
+    ERROR: typing.ClassVar[LogLevel]  # value = <LogLevel.ERROR: 1>
+    INFO: typing.ClassVar[LogLevel]  # value = <LogLevel.INFO: 0>
+    WARNING: typing.ClassVar[LogLevel]  # value = <LogLevel.WARNING: 4>
+    __members__: typing.ClassVar[dict[str, LogLevel]]  # value = {'INFO': <LogLevel.INFO: 0>, 'ERROR': <LogLevel.ERROR: 1>, 'DEBUG': <LogLevel.DEBUG: 2>, 'WARNING': <LogLevel.WARNING: 4>}
+    @typing.overload
+    def __eq__(self, other: LogLevel) -> bool:
+        ...
+    @typing.overload
+    def __eq__(self, other: typing.SupportsInt | typing.SupportsIndex) -> bool:
+        ...
+    @typing.overload
+    def __eq__(self, other: typing.Any) -> bool:
+        ...
+    def __getstate__(self) -> int:
+        ...
+    def __hash__(self) -> int:
+        ...
+    def __index__(self) -> int:
+        ...
+    def __init__(self, value: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __int__(self) -> int:
+        ...
+    @typing.overload
+    def __ne__(self, other: LogLevel) -> bool:
+        ...
+    @typing.overload
+    def __ne__(self, other: typing.SupportsInt | typing.SupportsIndex) -> bool:
+        ...
+    @typing.overload
+    def __ne__(self, other: typing.Any) -> bool:
+        ...
+    def __repr__(self) -> str:
+        ...
+    def __setstate__(self, state: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __str__(self) -> str:
+        ...
+    @property
+    def name(self) -> str:
+        ...
+    @property
+    def value(self) -> int:
         ...
 class Model:
     """
@@ -981,13 +1039,13 @@ class Solver:
         Advance the simulation by one time step.
         
         Parameters:
-            state_in: State containing the input particle data.
-            state_out: State whose referenced device memory receives the output data.
-            control: Non-owning views of Newton's generalized joint-control buffers.
-            contact: Non-owning views of the active Newton rigid-contact buffers.
-            dt: Time-step duration.
-            stream: CUDA Stream Protocol object, integer CUDA stream handle, or None for
-                the default stream. All asynchronous work is submitted to this stream.
+        	state_in: State containing the input particle data.
+        	state_out: State whose referenced device memory receives the output data.
+        	control: Non-owning views of Newton's generalized joint-control buffers.
+        	contact: Non-owning views of the active Newton rigid-contact buffers.
+        	dt: Time-step duration.
+        	stream: CUDA Stream Protocol object, integer CUDA stream handle, or None for
+        		the default stream. All asynchronous work is submitted to this stream.
         
         initialize() must be called before this method. All referenced device
         allocations must remain valid until the solver work finishes.
@@ -1074,9 +1132,13 @@ class State:
         ...
 def is_logged_in() -> bool:
     """
-    Return whether the S3DNet session is authenticated.
+    Return whether the session is authenticated.
     """
-def login(login_name: str, password: str, force_login: bool = False) -> bool:
+def login(name: str, password: str) -> None:
     """
     Authenticate the SynReal client.
+    """
+def set_log_callback(callback: collections.abc.Callable[[str, str, int, LogLevel, str], None]) -> None:
+    """
+    Register a callback invoked for each native log message.
     """
