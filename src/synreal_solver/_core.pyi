@@ -39,6 +39,14 @@ class Config:
     def distance_constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
     @property
+    def enable_affine_body_velocity_correction(self) -> bool:
+        """
+        Whether to apply contact-independent rigid-body velocity prediction and projection to affine-body proxies.
+        """
+    @enable_affine_body_velocity_correction.setter
+    def enable_affine_body_velocity_correction(self, arg0: bool) -> None:
+        ...
+    @property
     def joint_constraint_alpha(self) -> float:
         """
         Maximum generalized eigenvalue of dt^2*K_joint*v = alpha*M*v for generated joint constraints.
@@ -1134,7 +1142,7 @@ def is_logged_in() -> bool:
     """
     Return whether the session is authenticated.
     """
-def login(name: str, password: str) -> None:
+def login(name: str, password: str, force_signin: bool) -> bool:
     """
     Authenticate the SynReal client.
     """

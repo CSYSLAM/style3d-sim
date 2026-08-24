@@ -93,12 +93,16 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         assert actual.size == expected.size
 
 
-def test_config_exposes_distance_constraint_alpha() -> None:
+def test_config_exposes_runtime_options() -> None:
     config = sr.Config()
 
     assert config.distance_constraint_alpha == pytest.approx(100.0)
     config.distance_constraint_alpha = 25.0
     assert config.distance_constraint_alpha == pytest.approx(25.0)
+
+    assert config.enable_affine_body_velocity_correction is True
+    config.enable_affine_body_velocity_correction = False
+    assert config.enable_affine_body_velocity_correction is False
 
 
 def test_model_fields_require_span() -> None:
