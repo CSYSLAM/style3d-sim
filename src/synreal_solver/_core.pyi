@@ -9,7 +9,55 @@ allocation alive for as long as native code may access it.
 from __future__ import annotations
 import collections.abc
 import typing
-__all__: list[str] = ['Config', 'Contact', 'Control', 'LogLevel', 'Model', 'Solver', 'Span', 'State', 'is_logged_in', 'login', 'set_log_callback']
+__all__: list[str] = ['AffineBodyRigidityModel', 'Config', 'Contact', 'Control', 'LogLevel', 'Model', 'Solver', 'Span', 'State', 'is_logged_in', 'login', 'set_log_callback']
+class AffineBodyRigidityModel:
+    """
+    Members:
+    
+      CO_ROTATED
+    
+      ABD_ORTHOGONALITY
+    
+      SIX_SPRINGS
+    """
+    ABD_ORTHOGONALITY: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.ABD_ORTHOGONALITY: 1>
+    CO_ROTATED: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.CO_ROTATED: 0>
+    SIX_SPRINGS: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.SIX_SPRINGS: 2>
+    __members__: typing.ClassVar[dict[str, AffineBodyRigidityModel]]  # value = {'CO_ROTATED': <AffineBodyRigidityModel.CO_ROTATED: 0>, 'ABD_ORTHOGONALITY': <AffineBodyRigidityModel.ABD_ORTHOGONALITY: 1>, 'SIX_SPRINGS': <AffineBodyRigidityModel.SIX_SPRINGS: 2>}
+    @typing.overload
+    def __eq__(self, other: AffineBodyRigidityModel) -> bool:
+        ...
+    @typing.overload
+    def __eq__(self, other: typing.Any) -> bool:
+        ...
+    def __getstate__(self) -> int:
+        ...
+    def __hash__(self) -> int:
+        ...
+    def __index__(self) -> int:
+        ...
+    def __init__(self, value: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __int__(self) -> int:
+        ...
+    @typing.overload
+    def __ne__(self, other: AffineBodyRigidityModel) -> bool:
+        ...
+    @typing.overload
+    def __ne__(self, other: typing.Any) -> bool:
+        ...
+    def __repr__(self) -> str:
+        ...
+    def __setstate__(self, state: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __str__(self) -> str:
+        ...
+    @property
+    def name(self) -> str:
+        ...
+    @property
+    def value(self) -> int:
+        ...
 class Config:
     """
     
@@ -23,9 +71,17 @@ class Config:
         Create the default solver configuration.
         """
     @property
+    def affine_body_rigidity_model(self) -> AffineBodyRigidityModel:
+        """
+        Rigidity law used for affine bodies: co-rotated, original ABD orthogonality, or six springs.
+        """
+    @affine_body_rigidity_model.setter
+    def affine_body_rigidity_model(self, arg0: AffineBodyRigidityModel) -> None:
+        ...
+    @property
     def affine_body_spring_alpha(self) -> float:
         """
-        Maximum generalized eigenvalue of dt^2*K_rigidity*v = alpha*M*v for the six affine proxy springs.
+        Maximum generalized eigenvalue of dt^2*K_rigidity*v = alpha*M*v for the selected affine-body rigidity model.
         """
     @affine_body_spring_alpha.setter
     def affine_body_spring_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
@@ -310,6 +366,22 @@ class Model:
         Create an empty model with no referenced device data.
         """
     @property
+    def affine_body_axis_lengths(self) -> Span:
+        """
+        Device span containing one reference frame-axis length per affine body.
+        """
+    @affine_body_axis_lengths.setter
+    def affine_body_axis_lengths(self, arg1: Span) -> None:
+        ...
+    @property
+    def affine_body_corotated_scales(self) -> Span:
+        """
+        Device span containing one co-rotated mass-normalization scale per affine body.
+        """
+    @affine_body_corotated_scales.setter
+    def affine_body_corotated_scales(self, arg1: Span) -> None:
+        ...
+    @property
     def affine_body_ids(self) -> Span:
         """
         Device span mapping affine bodies to Newton body indices.
@@ -326,9 +398,17 @@ class Model:
     def affine_body_indices(self, arg1: Span) -> None:
         ...
     @property
+    def affine_body_orthogonality_scales(self) -> Span:
+        """
+        Device span containing one original-ABD mass-normalization scale per affine body.
+        """
+    @affine_body_orthogonality_scales.setter
+    def affine_body_orthogonality_scales(self, arg1: Span) -> None:
+        ...
+    @property
     def affine_body_rigidity_scales(self) -> Span:
         """
-        Device span containing one mass-normalization scale per affine body.
+        Device span containing one six-spring mass-normalization scale per affine body.
         """
     @affine_body_rigidity_scales.setter
     def affine_body_rigidity_scales(self, arg1: Span) -> None:

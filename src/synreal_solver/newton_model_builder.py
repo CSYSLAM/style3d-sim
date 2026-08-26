@@ -33,8 +33,9 @@ class ModelBuilder(_newton.ModelBuilder):
     Four particles form a right tetrahedron for every dynamic body. The first
     particle is placed at the body center of mass and the remaining particles
     lie at one common distance on the positive body-local x, y, and z axes. The
-    native solver preserves all six proxy-edge lengths with a time-step-scaled
-    rigidity constraint. A coupled four-vertex mass matrix preserves the body's
+    native solver can preserve the frame with six proxy-edge springs, the
+    original ABD orthogonality potential, or M-ABD-style co-rotated linear
+    elasticity. A coupled four-vertex mass matrix preserves the body's
     translational mass and inertia tensor in affine coordinates.
 
     The proxy topology is added immediately before finalization, after attached
@@ -75,6 +76,9 @@ class ModelBuilder(_newton.ModelBuilder):
         self.affine_body_particle_indices: list[tuple[int, int, int, int]] = []
         self.affine_body_particle_mass_matrices: list[np.ndarray] = []
         self.affine_body_rigidity_scales: list[float] = []
+        self.affine_body_axis_lengths: list[float] = []
+        self.affine_body_orthogonality_scales: list[float] = []
+        self.affine_body_corotated_scales: list[float] = []
         self.body_spring_specs: list[
             tuple[int, int, np.ndarray, np.ndarray, float, float | None]
         ] = []
@@ -182,6 +186,81 @@ class ModelBuilder(_newton.ModelBuilder):
         rigidity_scale = 1.0 / maximum_generalized_eigenvalue
 
         return axis_length, vertex_mass.astype(np.float32), rigidity_scale
+
+    @staticmethod
+    def _alternative_rigidity_scales(
+        body_index: int,
+        vertex_mass: np.ndarray,
+        axis_length: float,
+    ) -> tuple[float, float]:
+        """Normalize the ABD and co-rotated rest tangents by the coupled mass."""
+        mass = np.kron(
+            np.asarray(vertex_mass, dtype=np.float64),
+            np.eye(3, dtype=np.float64),
+        )
+        mass_eigenvalues, mass_eigenvectors = np.linalg.eigh(mass)
+        mass_tolerance = (
+            32.0
+            * np.finfo(np.float32).eps
+            * max(float(np.max(mass_eigenvalues)), np.finfo(np.float64).tiny)
+        )
+        if float(np.min(mass_eigenvalues)) <= mass_tolerance:
+            raise ValueError(
+                f"Body {body_index} produced a singular affine proxy mass matrix."
+            )
+        inverse_sqrt_mass = (
+            mass_eigenvectors
+            * np.reciprocal(np.sqrt(mass_eigenvalues))[None, :]
+        ) @ mass_eigenvectors.T
+
+        def pullback(gradient: np.ndarray) -> np.ndarray:
+            result = np.zeros((4, 3), dtype=np.float64)
+            result[1:] = gradient.T / axis_length
+            result[0] = -np.sum(result[1:], axis=0)
+            return result
+
+        orthogonality_hessian = np.zeros((12, 12), dtype=np.float64)
+        corotated_hessian = np.zeros((12, 12), dtype=np.float64)
+        for column in range(12):
+            point_increment = np.zeros((4, 3), dtype=np.float64)
+            point_increment.reshape(-1)[column] = 1.0
+            affine_increment = (
+                point_increment[1:] - point_increment[0]
+            ).T / axis_length
+
+            # E_ABD = L^2/4 ||A A^T-I||_F^2.  At A=I its Gauss-Newton
+            # tangent is L^2(dA+dA^T).
+            orthogonality_gradient = axis_length**2 * (
+                affine_increment + affine_increment.T
+            )
+            orthogonality_hessian[:, column] = pullback(
+                orthogonality_gradient
+            ).reshape(-1)
+
+            # M-ABD Eq. (15) with the fixed comparison ratio lambda=mu=1.
+            corotated_gradient = axis_length**2 * (
+                affine_increment
+                + affine_increment.T
+                + np.trace(affine_increment) * np.eye(3, dtype=np.float64)
+            )
+            corotated_hessian[:, column] = pullback(corotated_gradient).reshape(
+                -1
+            )
+
+        def normalized_scale(hessian: np.ndarray, name: str) -> float:
+            hessian = 0.5 * (hessian + hessian.T)
+            normalized = inverse_sqrt_mass @ hessian @ inverse_sqrt_mass
+            maximum = float(np.max(np.linalg.eigvalsh(normalized)))
+            if not np.isfinite(maximum) or maximum <= 0.0:
+                raise ValueError(
+                    f"Body {body_index} produced an invalid {name} rigidity scale."
+                )
+            return 1.0 / maximum
+
+        return (
+            normalized_scale(orthogonality_hessian, "ABD orthogonality"),
+            normalized_scale(corotated_hessian, "co-rotated"),
+        )
 
     def add_body_spring(
         self,
@@ -677,7 +756,18 @@ class ModelBuilder(_newton.ModelBuilder):
         )
 
         proxy_specs: list[
-            tuple[int, int, np.ndarray, np.ndarray, np.ndarray, np.ndarray, float]
+            tuple[
+                int,
+                int,
+                np.ndarray,
+                np.ndarray,
+                np.ndarray,
+                np.ndarray,
+                float,
+                float,
+                float,
+                float,
+            ]
         ] = []
 
         for body_index in dynamic_bodies:
@@ -689,6 +779,11 @@ class ModelBuilder(_newton.ModelBuilder):
 
             axis_length, mass_matrix, rigidity_scale = self._proxy_mass_matrix(
                 body_index, mass, self.body_inertia[body_index]
+            )
+            orthogonality_scale, corotated_scale = (
+                self._alternative_rigidity_scales(
+                    body_index, mass_matrix, axis_length
+                )
             )
             body_transform = np.asarray(self.body_q[body_index], dtype=np.float64)
             body_position = body_transform[:3]
@@ -731,6 +826,9 @@ class ModelBuilder(_newton.ModelBuilder):
                     np.full(4, mass, dtype=np.float64),
                     mass_matrix,
                     rigidity_scale,
+                    axis_length,
+                    orthogonality_scale,
+                    corotated_scale,
                 )
             )
 
@@ -742,6 +840,9 @@ class ModelBuilder(_newton.ModelBuilder):
             masses,
             mass_matrix,
             rigidity_scale,
+            axis_length,
+            orthogonality_scale,
+            corotated_scale,
         ) in proxy_specs:
             particle_indices: list[int] = []
             for position, velocity, mass in zip(positions, velocities, masses):
@@ -760,6 +861,9 @@ class ModelBuilder(_newton.ModelBuilder):
             self.affine_body_particle_indices.append(tuple(particle_indices))
             self.affine_body_particle_mass_matrices.append(mass_matrix)
             self.affine_body_rigidity_scales.append(rigidity_scale)
+            self.affine_body_axis_lengths.append(axis_length)
+            self.affine_body_orthogonality_scales.append(orthogonality_scale)
+            self.affine_body_corotated_scales.append(corotated_scale)
 
         self._group_particles_by_world()
         self._affine_body_proxies_added = True
@@ -862,6 +966,19 @@ class ModelBuilder(_newton.ModelBuilder):
         )
         model.synreal_affine_body_rigidity_scales = wp.array(
             self.affine_body_rigidity_scales, dtype=wp.float32, device=model.device
+        )
+        model.synreal_affine_body_axis_lengths = wp.array(
+            self.affine_body_axis_lengths, dtype=wp.float32, device=model.device
+        )
+        model.synreal_affine_body_orthogonality_scales = wp.array(
+            self.affine_body_orthogonality_scales,
+            dtype=wp.float32,
+            device=model.device,
+        )
+        model.synreal_affine_body_corotated_scales = wp.array(
+            self.affine_body_corotated_scales,
+            dtype=wp.float32,
+            device=model.device,
         )
         model.synreal_affine_body_masses = wp.array(
             [self.body_mass[body] for body in body_ids],

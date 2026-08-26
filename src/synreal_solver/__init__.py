@@ -3,6 +3,7 @@
 from typing import Any, Protocol
 
 from ._core import (
+    AffineBodyRigidityModel,
     Config,
     Contact,
     Control,
@@ -39,6 +40,7 @@ def set_log_callback(callback: LogCallback) -> None:
     _set_log_callback(callback)
 
 __all__ = [
+    "AffineBodyRigidityModel",
     "Config",
     "Contact",
     "Control",

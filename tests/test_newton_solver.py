@@ -4,8 +4,43 @@ import pytest
 newton = pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
+import synreal_solver as sr  # noqa: E402
 from synreal_solver.newton_model_builder import ModelBuilder  # noqa: E402
 from synreal_solver.newton_solver import NewtonSolver, _scatter_affine_body_forces, _update_affine_body_poses  # noqa: E402
+
+
+AFFINE_BODY_RIGIDITY_MODELS = (
+    pytest.param(sr.AffineBodyRigidityModel.CO_ROTATED, id="co-rotated"),
+    pytest.param(
+        sr.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
+        id="abd-orthogonality",
+    ),
+    pytest.param(sr.AffineBodyRigidityModel.SIX_SPRINGS, id="six-springs"),
+)
+
+
+def _affine_frame_rigidity_error(points: np.ndarray, axis_length: float) -> float:
+    affine = (points[1:] - points[0]).T / axis_length
+    return float(np.linalg.norm(affine @ affine.T - np.eye(3), ord="fro"))
+
+
+def _deform_affine_frame(points: np.ndarray) -> np.ndarray:
+    deformation = np.array(
+        (
+            (1.35, 0.30, -0.10),
+            (0.05, 0.75, 0.25),
+            (0.15, -0.05, 1.20),
+        ),
+        dtype=np.float32,
+    )
+    deformed = points.copy()
+    deformed[1:] = points[0] + (deformation @ (points[1:] - points[0]).T).T
+    return deformed
+
+
+def _set_particle_positions(state: object, positions: np.ndarray, device: object) -> None:
+    source = wp.array(positions, dtype=wp.vec3, device=device)
+    wp.copy(state.particle_q, source)
 
 
 def test_model_builder_import_paths() -> None:
@@ -88,14 +123,70 @@ def test_model_builder_adds_affine_body_proxy_particles() -> None:
     world_inertia = rotation_matrix @ inertia @ rotation_matrix.T
     expected_kinetic_energy = 0.5 * mass * np.dot(linear_velocity, linear_velocity) + 0.5 * angular_velocity @ world_inertia @ angular_velocity
     assert np.allclose(actual_kinetic_energy, expected_kinetic_energy, rtol=1.0e-5)
-    rigidity_scale = float(model.synreal_affine_body_rigidity_scales.numpy()[0])
-    mass_eigenvalues, mass_eigenvectors = np.linalg.eigh(actual_mass_matrix)
+    actual_axis_length = float(model.synreal_affine_body_axis_lengths.numpy()[0])
+    assert actual_axis_length == pytest.approx(axis_length, rel=1.0e-5)
+
+    vector_mass_matrix = np.kron(actual_mass_matrix, np.eye(3, dtype=np.float32))
+    mass_eigenvalues, mass_eigenvectors = np.linalg.eigh(vector_mass_matrix)
     inverse_sqrt_mass = (
         mass_eigenvectors * np.reciprocal(np.sqrt(mass_eigenvalues))[None, :]
     ) @ mass_eigenvectors.T
     laplacian = 4.0 * np.eye(4, dtype=np.float32) - np.ones((4, 4), dtype=np.float32)
-    normalized_rigidity = rigidity_scale * inverse_sqrt_mass @ laplacian @ inverse_sqrt_mass
-    assert np.isclose(np.max(np.linalg.eigvalsh(normalized_rigidity)), 1.0, rtol=1.0e-5)
+    spring_hessian = np.kron(laplacian, np.eye(3, dtype=np.float32))
+
+    def pull_back_affine_gradient(gradient: np.ndarray) -> np.ndarray:
+        point_gradient = np.zeros((4, 3), dtype=np.float64)
+        point_gradient[1:] = gradient.T / actual_axis_length
+        point_gradient[0] = -np.sum(point_gradient[1:], axis=0)
+        return point_gradient
+
+    orthogonality_hessian = np.zeros((12, 12), dtype=np.float64)
+    corotated_hessian = np.zeros((12, 12), dtype=np.float64)
+    for column in range(12):
+        point_increment = np.zeros((4, 3), dtype=np.float64)
+        point_increment.reshape(-1)[column] = 1.0
+        affine_increment = (
+            point_increment[1:] - point_increment[0]
+        ).T / actual_axis_length
+        orthogonality_gradient = actual_axis_length**2 * (
+            affine_increment + affine_increment.T
+        )
+        corotated_gradient = actual_axis_length**2 * (
+            affine_increment
+            + affine_increment.T
+            + np.trace(affine_increment) * np.eye(3)
+        )
+        orthogonality_hessian[:, column] = pull_back_affine_gradient(
+            orthogonality_gradient
+        ).reshape(-1)
+        corotated_hessian[:, column] = pull_back_affine_gradient(
+            corotated_gradient
+        ).reshape(-1)
+
+    scales_and_rest_hessians = (
+        (
+            float(model.synreal_affine_body_rigidity_scales.numpy()[0]),
+            spring_hessian,
+        ),
+        (
+            float(model.synreal_affine_body_orthogonality_scales.numpy()[0]),
+            orthogonality_hessian,
+        ),
+        (
+            float(model.synreal_affine_body_corotated_scales.numpy()[0]),
+            corotated_hessian,
+        ),
+    )
+    for scale, rest_hessian in scales_and_rest_hessians:
+        normalized_rigidity = (
+            scale * inverse_sqrt_mass @ rest_hessian @ inverse_sqrt_mass
+        )
+        assert np.isfinite(scale) and scale > 0.0
+        assert np.isclose(
+            np.max(np.linalg.eigvalsh(normalized_rigidity)),
+            1.0,
+            rtol=1.0e-5,
+        )
 
 
 def test_model_builder_groups_replicated_cloth_and_affine_proxies_by_world() -> None:
@@ -555,14 +646,77 @@ def test_newton_solver_regularizes_prebuilt_affine_proxy_mass() -> None:
     builder.add_articulation([joint])
     model = builder.finalize(device="cuda:0")
     authored_proxy_inertia = model.synreal_affine_body_inertia.numpy().copy()
+    authored_scales = (
+        model.synreal_affine_body_rigidity_scales.numpy().copy(),
+        model.synreal_affine_body_axis_lengths.numpy().copy(),
+        model.synreal_affine_body_orthogonality_scales.numpy().copy(),
+        model.synreal_affine_body_corotated_scales.numpy().copy(),
+    )
+    proxy_indices = model.synreal_affine_body_indices.numpy()[0]
+    disturbed_positions = model.particle_q.numpy().copy()
+    disturbed_positions[proxy_indices] = _deform_affine_frame(
+        disturbed_positions[proxy_indices]
+    )
+    _set_particle_positions(model, disturbed_positions, model.device)
 
     solver = NewtonSolver(model, joint_drive_armature=0.01)
 
     expected_inertia = inertia + 0.01 * np.eye(3, dtype=np.float32)
+    expected_axis_length, expected_mass_matrix, expected_spring_scale = (
+        ModelBuilder._proxy_mass_matrix(
+            body,
+            2.0,
+            expected_inertia,
+            axis_length=float(authored_scales[1][0]),
+        )
+    )
+    expected_orthogonality_scale, expected_corotated_scale = (
+        ModelBuilder._alternative_rigidity_scales(
+            body, expected_mass_matrix, expected_axis_length
+        )
+    )
     assert np.array_equal(
         model.synreal_affine_body_inertia.numpy(), authored_proxy_inertia
     )
+    for authored, current in zip(
+        authored_scales,
+        (
+            model.synreal_affine_body_rigidity_scales.numpy(),
+            model.synreal_affine_body_axis_lengths.numpy(),
+            model.synreal_affine_body_orthogonality_scales.numpy(),
+            model.synreal_affine_body_corotated_scales.numpy(),
+        ),
+    ):
+        assert np.array_equal(current, authored)
     assert np.allclose(solver._affine_body_inertia.numpy()[0], expected_inertia)
+    assert solver._affine_body_rigidity_scales.numpy()[0] == pytest.approx(
+        expected_spring_scale
+    )
+    assert solver._affine_body_axis_lengths.numpy()[0] == pytest.approx(
+        expected_axis_length
+    )
+    assert solver._affine_body_orthogonality_scales.numpy()[0] == pytest.approx(
+        expected_orthogonality_scale
+    )
+    assert solver._affine_body_corotated_scales.numpy()[0] == pytest.approx(
+        expected_corotated_scale
+    )
+    assert (
+        solver.synreal_model.affine_body_rigidity_scales.ptr
+        == solver._affine_body_rigidity_scales.ptr
+    )
+    assert (
+        solver.synreal_model.affine_body_axis_lengths.ptr
+        == solver._affine_body_axis_lengths.ptr
+    )
+    assert (
+        solver.synreal_model.affine_body_orthogonality_scales.ptr
+        == solver._affine_body_orthogonality_scales.ptr
+    )
+    assert (
+        solver.synreal_model.affine_body_corotated_scales.ptr
+        == solver._affine_body_corotated_scales.ptr
+    )
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
@@ -637,7 +791,167 @@ def test_newton_solver_supports_scoped_capture() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_newton_solver_updates_affine_body_pose_during_capture() -> None:
+@pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
+def test_affine_body_rigidity_models_are_stationary_at_rest_and_restore_frames(
+    rigidity_model: sr.AffineBodyRigidityModel,
+) -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    builder.add_body(
+        mass=2.0,
+        inertia=wp.mat33(3.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 5.0),
+        lock_inertia=True,
+    )
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = rigidity_model
+    solver.config.nonlinear_iterations = 15
+    solver.config.linear_iterations = 15
+    proxy_indices = model.synreal_affine_body_indices.numpy()[0]
+    axis_length = float(model.synreal_affine_body_axis_lengths.numpy()[0])
+
+    rest_in = model.state()
+    rest_out = model.state()
+    rest_positions = rest_in.particle_q.numpy().copy()
+    rest_in.clear_forces()
+    solver.step(rest_in, rest_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    stationary_positions = rest_out.particle_q.numpy()
+    assert np.allclose(stationary_positions, rest_positions, atol=2.0e-6)
+    assert _affine_frame_rigidity_error(
+        stationary_positions[proxy_indices], axis_length
+    ) < 2.0e-5
+
+    deformed_in = model.state()
+    deformed_out = model.state()
+    positions = deformed_in.particle_q.numpy().copy()
+    positions[proxy_indices] = _deform_affine_frame(positions[proxy_indices])
+    initial_error = _affine_frame_rigidity_error(
+        positions[proxy_indices], axis_length
+    )
+    _set_particle_positions(deformed_in, positions, model.device)
+    deformed_in.clear_forces()
+    solver.step(deformed_in, deformed_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    final_positions = deformed_out.particle_q.numpy()[proxy_indices]
+    final_error = _affine_frame_rigidity_error(final_positions, axis_length)
+    assert np.isfinite(final_positions).all()
+    assert final_error < 0.25 * initial_error
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_affine_body_rigidity_model_can_switch_between_steps() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    builder.add_body(
+        mass=2.0,
+        inertia=wp.mat33(3.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 5.0),
+        lock_inertia=True,
+    )
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_iterations = 15
+    solver.config.linear_iterations = 15
+    proxy_indices = model.synreal_affine_body_indices.numpy()[0]
+    axis_length = float(model.synreal_affine_body_axis_lengths.numpy()[0])
+    rest_positions = model.particle_q.numpy().copy()
+    deformed_positions = rest_positions.copy()
+    deformed_positions[proxy_indices] = _deform_affine_frame(
+        deformed_positions[proxy_indices]
+    )
+    initial_error = _affine_frame_rigidity_error(
+        deformed_positions[proxy_indices], axis_length
+    )
+    responses = []
+
+    for rigidity_model in (
+        sr.AffineBodyRigidityModel.CO_ROTATED,
+        sr.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
+        sr.AffineBodyRigidityModel.SIX_SPRINGS,
+    ):
+        state_in = model.state()
+        state_out = model.state()
+        _set_particle_positions(state_in, deformed_positions, model.device)
+        state_in.clear_forces()
+        solver.config.affine_body_rigidity_model = rigidity_model
+        solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+        wp.synchronize_device(model.device)
+        response = state_out.particle_q.numpy()[proxy_indices].copy()
+        responses.append(response)
+        assert _affine_frame_rigidity_error(response, axis_length) < initial_error
+
+    for first in range(len(responses)):
+        for second in range(first + 1, len(responses)):
+            assert np.linalg.norm(responses[first] - responses[second]) > 1.0e-5
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
+def test_affine_body_rigidity_models_are_world_local_when_replicated(
+    rigidity_model: sr.AffineBodyRigidityModel,
+) -> None:
+    world_count = 3
+    scene = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    scene.add_body(
+        mass=2.0,
+        inertia=wp.mat33(3.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 5.0),
+        lock_inertia=True,
+    )
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    builder.replicate(scene, world_count)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = rigidity_model
+    solver.config.nonlinear_iterations = 15
+    solver.config.linear_iterations = 15
+    proxy_indices = model.synreal_affine_body_indices.numpy()
+    axis_lengths = model.synreal_affine_body_axis_lengths.numpy()
+    state_in = model.state()
+    state_out = model.state()
+    initial_positions = state_in.particle_q.numpy().copy()
+    positions = initial_positions.copy()
+    deformed_world = 1
+    deformed_indices = proxy_indices[deformed_world]
+    positions[deformed_indices] = _deform_affine_frame(
+        positions[deformed_indices]
+    )
+    initial_error = _affine_frame_rigidity_error(
+        positions[deformed_indices], float(axis_lengths[deformed_world])
+    )
+    _set_particle_positions(state_in, positions, model.device)
+    state_in.clear_forces()
+
+    solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    final_positions = state_out.particle_q.numpy()
+    assert solver.synreal_model.world_count == world_count
+    assert solver.synreal_model.body_count == 1
+    assert solver.synreal_model.body_state_count == world_count
+    for world, indices in enumerate(proxy_indices):
+        frame = final_positions[indices]
+        assert np.isfinite(frame).all()
+        if world == deformed_world:
+            assert (
+                _affine_frame_rigidity_error(
+                    frame, float(axis_lengths[deformed_world])
+                )
+                < initial_error
+            )
+        else:
+            assert np.allclose(
+                frame,
+                initial_positions[indices],
+                rtol=0.0,
+                atol=1.0e-6,
+            )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
+def test_newton_solver_updates_affine_body_pose_during_capture(
+    rigidity_model: sr.AffineBodyRigidityModel,
+) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_body(
         xform=wp.transform(wp.vec3(0.0, 0.0, 1.0), wp.quat_identity()),
@@ -650,6 +964,7 @@ def test_newton_solver_updates_affine_body_pose_during_capture() -> None:
     state_in = model.state()
     state_out = model.state()
     solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = rigidity_model
     assert solver.synreal_model.particle_masses.ptr == model.synreal_particle_mass_diagonal.ptr
     assert solver.synreal_model.particle_mass_non_diagonal_count == len(model.synreal_particle_mass_non_diagonal_indices)
     assert solver.synreal_model.particle_mass_non_diagonal_indices.ptr == model.synreal_particle_mass_non_diagonal_indices.ptr
@@ -683,6 +998,47 @@ def test_newton_solver_updates_affine_body_pose_during_capture() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
+def test_affine_body_rigidity_models_restore_frames_during_capture(
+    rigidity_model: sr.AffineBodyRigidityModel,
+) -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    builder.add_body(
+        mass=2.0,
+        inertia=wp.mat33(3.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 5.0),
+        lock_inertia=True,
+    )
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = rigidity_model
+    proxy_indices = model.synreal_affine_body_indices.numpy()[0]
+    axis_length = float(model.synreal_affine_body_axis_lengths.numpy()[0])
+    positions = state_in.particle_q.numpy().copy()
+    positions[proxy_indices] = _deform_affine_frame(positions[proxy_indices])
+    initial_error = _affine_frame_rigidity_error(
+        positions[proxy_indices], axis_length
+    )
+    _set_particle_positions(state_in, positions, model.device)
+    state_in.clear_forces()
+    stream = wp.get_stream(model.device)
+
+    with wp.ScopedCapture(stream=stream) as capture:
+        solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+
+    wp.capture_launch(capture.graph, stream=stream)
+    wp.synchronize_stream(stream)
+
+    final_positions = state_out.particle_q.numpy()[proxy_indices]
+    assert np.isfinite(final_positions).all()
+    assert (
+        _affine_frame_rigidity_error(final_positions, axis_length)
+        < 0.25 * initial_error
+    )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 def test_newton_solver_preserves_free_body_angular_speed() -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_body(
@@ -705,6 +1061,119 @@ def test_newton_solver_preserves_free_body_angular_speed() -> None:
     final_velocity = state_in.body_qd.numpy()[body]
     assert np.isfinite(final_velocity).all()
     assert np.isclose(np.linalg.norm(final_velocity[3:]), initial_speed, rtol=2.0e-3)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
+def test_affine_body_rigidity_models_preserve_fixed_body_under_spring_load(
+    rigidity_model: sr.AffineBodyRigidityModel,
+) -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    inertia = wp.mat33(2.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 4.0)
+    fixed_body = builder.add_link(
+        xform=wp.transform(wp.vec3(0.0, 0.0, 0.0), wp.quat_identity()),
+        mass=2.0,
+        inertia=inertia,
+        lock_inertia=True,
+    )
+    free_body = builder.add_link(
+        xform=wp.transform(wp.vec3(2.0, 0.0, 0.0), wp.quat_identity()),
+        mass=2.0,
+        inertia=inertia,
+        lock_inertia=True,
+    )
+    fixed_joint = builder.add_joint_fixed(parent=-1, child=fixed_body)
+    builder.add_articulation([fixed_joint])
+    builder.add_body_spring(
+        fixed_body,
+        free_body,
+        stiffness=1.0e5,
+        rest_length=0.5,
+    )
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = rigidity_model
+    affine_body_ids = model.synreal_affine_body_ids.numpy()
+    fixed_affine_body = int(np.flatnonzero(affine_body_ids == fixed_body)[0])
+    fixed_proxy_indices = model.synreal_affine_body_indices.numpy()[
+        fixed_affine_body
+    ]
+    initial_proxy_positions = state_in.particle_q.numpy()[
+        fixed_proxy_indices
+    ].copy()
+    initial_fixed_pose = state_in.body_q.numpy()[fixed_body].copy()
+    initial_free_position = state_in.body_q.numpy()[free_body, :3].copy()
+    state_in.clear_forces()
+
+    solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    final_proxy_positions = state_out.particle_q.numpy()[fixed_proxy_indices]
+    final_fixed_pose = state_out.body_q.numpy()[fixed_body]
+    final_free_position = state_out.body_q.numpy()[free_body, :3]
+    assert solver._fixed_affine_body_ids == [fixed_body]
+    assert np.array_equal(final_proxy_positions, initial_proxy_positions)
+    assert np.array_equal(final_fixed_pose, initial_fixed_pose)
+    assert final_free_position[0] < initial_free_position[0] - 1.0e-6
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
+def test_affine_body_rigidity_models_preserve_fixed_body_during_contact(
+    rigidity_model: sr.AffineBodyRigidityModel,
+) -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    inertia = wp.mat33(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
+    fixed_body = builder.add_link(
+        xform=wp.transform(wp.vec3(0.0, 0.0, 0.0), wp.quat_identity()),
+        mass=2.0,
+        inertia=inertia,
+        lock_inertia=True,
+    )
+    free_body = builder.add_link(
+        xform=wp.transform(wp.vec3(0.3, 0.0, 0.0), wp.quat_identity()),
+        mass=2.0,
+        inertia=inertia,
+        lock_inertia=True,
+    )
+    builder.add_shape_sphere(fixed_body, radius=0.25)
+    builder.add_shape_sphere(free_body, radius=0.25)
+    fixed_joint = builder.add_joint_fixed(parent=-1, child=fixed_body)
+    builder.add_articulation([fixed_joint])
+
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = rigidity_model
+    collision_pipeline = newton.CollisionPipeline(model)
+    contacts = collision_pipeline.contacts()
+    collision_pipeline.collide(state_in, contacts)
+    affine_body_ids = model.synreal_affine_body_ids.numpy()
+    fixed_affine_body = int(np.flatnonzero(affine_body_ids == fixed_body)[0])
+    fixed_proxy_indices = model.synreal_affine_body_indices.numpy()[
+        fixed_affine_body
+    ]
+    initial_positions = state_in.particle_q.numpy().copy()
+    initial_fixed_pose = state_in.body_q.numpy()[fixed_body].copy()
+    initial_free_position = state_in.body_q.numpy()[free_body, :3].copy()
+    state_in.clear_forces()
+
+    solver.step(state_in, state_out, None, contacts, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    final_positions = state_out.particle_q.numpy()
+    final_fixed_pose = state_out.body_q.numpy()[fixed_body]
+    final_free_position = state_out.body_q.numpy()[free_body, :3]
+    assert int(contacts.rigid_contact_count.numpy()[0]) > 0
+    assert np.array_equal(
+        final_positions[fixed_proxy_indices],
+        initial_positions[fixed_proxy_indices],
+    )
+    assert np.array_equal(final_fixed_pose, initial_fixed_pose)
+    assert final_free_position[0] > initial_free_position[0] + 1.0e-6
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")

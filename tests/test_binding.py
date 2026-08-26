@@ -68,6 +68,9 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "body_local_transforms",
         "body_inertia_tensors",
         "affine_body_indices",
+        "affine_body_axis_lengths",
+        "affine_body_orthogonality_scales",
+        "affine_body_corotated_scales",
         "body_spring_indices",
         "body_spring_points0",
         "body_spring_points1",
@@ -103,6 +106,22 @@ def test_config_exposes_runtime_options() -> None:
     assert config.enable_affine_body_velocity_correction is True
     config.enable_affine_body_velocity_correction = False
     assert config.enable_affine_body_velocity_correction is False
+
+    rigidity_models = (
+        sr.AffineBodyRigidityModel.CO_ROTATED,
+        sr.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
+        sr.AffineBodyRigidityModel.SIX_SPRINGS,
+    )
+    assert config.affine_body_rigidity_model == rigidity_models[-1]
+    assert {model.name for model in rigidity_models} == {
+        "CO_ROTATED",
+        "ABD_ORTHOGONALITY",
+        "SIX_SPRINGS",
+    }
+    assert len({model.value for model in rigidity_models}) == len(rigidity_models)
+    for model in rigidity_models:
+        config.affine_body_rigidity_model = model
+        assert config.affine_body_rigidity_model == model
 
 
 def test_model_fields_require_span() -> None:

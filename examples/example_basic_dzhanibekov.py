@@ -87,7 +87,9 @@ class Example:
             color=wp.vec3(0.15, 0.42, 0.78),
         )
 
-        builder.body_qd[self.body] = wp.spatial_vector(0.0, 0.0, 0.0, 0.0, 20.0, 0.0)
+        # Exact intermediate-axis spin is an unstable equilibrium. Use a fixed
+        # perturbation so every rigidity model demonstrates the same instability.
+        builder.body_qd[self.body] = wp.spatial_vector(0.0, 0.0, 0.0, 0.01, 20.0, 0.0)
         builder.joint_qd = np.array(builder.body_qd).flatten().tolist()
 
         if self.solver_type == "vbd":
@@ -115,6 +117,10 @@ class Example:
             self.contacts = None
         elif self.solver_type == "synreal":
             self.solver = synreal_solver.NewtonSolver(model=self.model)
+            self.solver.config.enable_affine_body_velocity_correction = True
+            self.solver.config.affine_body_rigidity_model = (
+                synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
+            )
             self.contacts = self.model.contacts()
         else:
             raise ValueError(
