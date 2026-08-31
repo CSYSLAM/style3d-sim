@@ -17,6 +17,7 @@ from ._core import (
     login,
     set_log_callback as _set_log_callback,
 )
+from .viewer_polyscope import ViewerPolyscope
 
 
 class LogCallback(Protocol):
@@ -57,6 +58,7 @@ __all__ = [
     "Span",
     "State",
     "set_log_callback",
+    "ViewerPolyscope",
 ]
 
 
