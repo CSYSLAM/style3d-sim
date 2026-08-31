@@ -97,7 +97,7 @@ class Config:
     @property
     def enable_affine_body_velocity_correction(self) -> bool:
         """
-        Whether to apply contact-independent rigid-body velocity prediction and projection to affine-body proxies.
+        Whether the Newton Python adapter rebuilds affine-proxy linear velocities from body twists before stepping.
         """
     @enable_affine_body_velocity_correction.setter
     def enable_affine_body_velocity_correction(self, arg0: bool) -> None:

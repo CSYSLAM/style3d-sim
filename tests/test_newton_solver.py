@@ -380,7 +380,11 @@ def test_affine_body_pose_reconstruction_uses_proxy_columns() -> None:
             state.particle_qd,
             model.synreal_affine_body_indices,
             model.synreal_affine_body_ids,
+            wp.zeros(1, dtype=wp.int32, device="cpu"),
             model.body_com,
+            model.synreal_affine_body_inertia,
+            model.synreal_affine_body_axis_lengths,
+            1.0 / 60.0,
         ],
         outputs=[state.body_q, state.body_qd],
         device="cpu",
@@ -1064,6 +1068,48 @@ def test_newton_solver_preserves_free_body_angular_speed() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_preserves_asymmetric_free_body_invariants() -> None:
+    inertia = np.diag((1.0, 2.0, 2.5)).astype(np.float32)
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    body = builder.add_body(
+        mass=2.0,
+        inertia=wp.mat33(inertia),
+        lock_inertia=True,
+    )
+    builder.body_qd[body] = wp.spatial_vector(
+        0.0, 0.0, 0.0, 0.01, 20.0, 0.0
+    )
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = sr.AffineBodyRigidityModel.SIX_SPRINGS
+
+    def invariants(state: object) -> tuple[np.ndarray, float]:
+        pose = state.body_q.numpy()[body]
+        omega = state.body_qd.numpy()[body, 3:]
+        rotation = np.asarray(
+            wp.quat_to_matrix(wp.quat(*pose[3:7])), dtype=np.float64
+        ).reshape(3, 3)
+        world_inertia = rotation @ inertia @ rotation.T
+        momentum = world_inertia @ omega
+        energy = 0.5 * omega @ momentum
+        return momentum, float(energy)
+
+    initial_momentum, initial_energy = invariants(state_in)
+    for _ in range(1200):
+        state_in.clear_forces()
+        solver.step(state_in, state_out, None, None, 1.0 / 240.0)
+        state_in, state_out = state_out, state_in
+
+    final_momentum, final_energy = invariants(state_in)
+    assert np.linalg.norm(final_momentum - initial_momentum) < (
+        1.0e-3 * np.linalg.norm(initial_momentum)
+    )
+    assert np.isclose(final_energy, initial_energy, rtol=3.0e-3)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
 def test_affine_body_rigidity_models_preserve_fixed_body_under_spring_load(
     rigidity_model: sr.AffineBodyRigidityModel,
@@ -1553,11 +1599,14 @@ def test_newton_solver_applies_affine_body_wrench() -> None:
         device=model.device,
     )
     wp.copy(state_in.body_f, body_wrench)
+    input_wrench = state_in.body_f.numpy().copy()
 
     solver.step(state_in, state_out, None, None, dt)
     wp.synchronize_device(model.device)
 
     body_velocity = state_out.body_qd.numpy()[body]
+    assert np.array_equal(state_in.body_f.numpy(), input_wrench)
+    assert np.count_nonzero(state_in.particle_f.numpy()) == 0
     assert np.allclose(body_velocity[:3], dt * force / mass, rtol=2.0e-3, atol=1.0e-6)
     assert np.allclose(body_velocity[3:], dt * np.linalg.solve(inertia, torque), rtol=2.0e-3, atol=1.0e-6)
 

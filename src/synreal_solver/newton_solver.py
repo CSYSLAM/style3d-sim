@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from importlib import import_module
 from itertools import combinations
+from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 
-from ._core import Config, Contact, Control, Model, Solver, Span, State
+from ._core import Config, Contact, Control, Model, Solver, Span, State, login
 
 if TYPE_CHECKING:
     from .newton_model_builder import ModelBuilder
@@ -14,23 +15,9 @@ if TYPE_CHECKING:
 __all__ = ["ModelBuilder", "NewtonSolver"]
 
 
-def _load_newton() -> Any:
-    """Load the optional Newton dependency when this adapter is imported."""
-    try:
-        return import_module("newton")
-    except ModuleNotFoundError as error:
-        if error.name == "newton":
-            raise ModuleNotFoundError(
-                "NewtonSolver requires the optional Newton dependencies. "
-                "Install them with `pip install newton`."
-            ) from error
-        raise
-
-
-_newton = _load_newton()
-np = import_module("numpy")
-wp = import_module("warp")
-
+import warp as wp
+import numpy as np
+import newton as _newton
 
 def __getattr__(name: str) -> Any:
     """Load the moved builder lazily for the legacy module-level import path."""
@@ -41,6 +28,230 @@ def __getattr__(name: str) -> Any:
         return ModelBuilder
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
+"""Energy--momentum integration of a force-free rigid body on SO(3).
+
+Notation
+--------
+``I`` is the constant inertia tensor in body coordinates
+``Pi`` is body angular momentum
+``omega = I^{-1} Pi`` is body angular velocity,
+``R`` maps body coordinates to world coordinates
+``h`` is the time step
+Thus the spatial angular momentum is ``L = R Pi``.
+
+This module implements the implicit-midpoint/Cayley pair
+
+    Pi_1 - Pi_0 = h Pi_m x omega_m,
+    Pi_m = (Pi_0 + Pi_1) / 2,       omega_m = I^{-1} Pi_m,
+    R_1 = R_0 Q,                    Q = cay(h [omega_m]_x).
+
+The two equations must be used together. They preserve rotational kinetic
+energy ``E = 1/2 Pi^T I^{-1} Pi`` and spatial angular momentum ``L = R Pi`` up
+to nonlinear-solve and floating-point errors.
+
+References
+----------
+[1] J. C. Simo and K. K. Wong, "Unconditionally stable algorithms for rigid
+    body dynamics that exactly preserve energy and momentum," International
+    Journal for Numerical Methods in Engineering, 31(1), 19--52, 1991.
+[2] J. E. Marsden and M. West, "Discrete mechanics and variational
+    integrators," Acta Numerica, 10, 357--514, 2001.
+[3] E. Hairer, C. Lubich, and G. Wanner, Geometric Numerical Integration,
+    2nd ed., Springer, 2006, chapters IV and VII.
+"""
+
+
+@wp.func
+def solve_energy_momentum_midpoint(
+    inertia: wp.mat33,
+    angular_momentum: wp.vec3,
+    dt: float,
+) -> tuple[wp.vec3, wp.vec3, wp.vec3]:
+    """Solve the energy--momentum midpoint equation in body coordinates.
+
+    Given ``Pi_0 = angular_momentum``, solve the three-dimensional equation
+
+        r(Pi_1) = Pi_1 - Pi_0 - h Pi_m x I^{-1} Pi_m = 0,
+        Pi_m = (Pi_0 + Pi_1) / 2.
+
+    With ``[a]_x b = a x b``, its Newton Jacobian is
+
+        dr/dPi_1 = Id + h/2 [omega_m]_x
+                        - h/2 [Pi_m]_x I^{-1}.
+
+    Returns ``(Pi_1, Pi_m, omega_m)``. Eight Newton iterations are deliberately
+    fixed so the solver and validation example execute the identical map.
+    See references [1]--[3] in the module docstring.
+    """
+    inv_inertia = wp.inverse(inertia)
+
+    # Explicit Euler supplies only the initial guess for the implicit solve.
+    next_angular_momentum = angular_momentum + dt * wp.cross(
+        angular_momentum,
+        inv_inertia * angular_momentum,
+    )
+
+    for _ in range(8):
+        midpoint_angular_momentum = 0.5 * (angular_momentum + next_angular_momentum)
+        midpoint_angular_velocity = inv_inertia * midpoint_angular_momentum
+        residual = (
+            next_angular_momentum
+            - angular_momentum
+            - dt * wp.cross(midpoint_angular_momentum, midpoint_angular_velocity)
+        )
+        jacobian = (
+            wp.identity(3, dtype=float)
+            + 0.5 * dt * wp.skew(midpoint_angular_velocity)
+            - 0.5 * dt * wp.skew(midpoint_angular_momentum) * inv_inertia
+        )
+        next_angular_momentum = next_angular_momentum - wp.inverse(jacobian) * residual
+
+    midpoint_angular_momentum = 0.5 * (angular_momentum + next_angular_momentum)
+    midpoint_angular_velocity = inv_inertia * midpoint_angular_momentum
+    return (
+        next_angular_momentum,
+        midpoint_angular_momentum,
+        midpoint_angular_velocity,
+    )
+
+
+@wp.func
+def cayley_increment_from_midpoint(
+    midpoint_angular_velocity: wp.vec3,
+    dt: float,
+) -> wp.mat33:
+    """Return the body-frame rotation increment paired with the midpoint solve.
+
+    For ``A = h [omega_m]_x``, the Cayley map is
+
+        Q = cay(A) = (Id - A/2)^{-1} (Id + A/2),
+        R_1 = R_0 Q.
+
+    Rewriting the midpoint equation gives ``Q Pi_1 = Pi_0``; hence
+    ``R_1 Pi_1 = R_0 Pi_0`` and spatial angular momentum is preserved. Energy
+    preservation follows by dotting the midpoint equation with ``omega_m``.
+    See references [1]--[3] in the module docstring.
+    """
+    identity = wp.identity(3, dtype=float)
+    generator = dt * wp.skew(midpoint_angular_velocity)
+    return wp.inverse(identity - 0.5 * generator) * (identity + 0.5 * generator)
+
+
+@wp.func
+def recover_energy_momentum_end_velocity(
+    inertia: wp.mat33,
+    relative_rotation: wp.mat33,
+    dt: float,
+) -> wp.vec3:
+    """Recover the end body angular velocity from ``Q = R_0^T R_1``.
+
+    Inverse Cayley first recovers the midpoint velocity:
+
+        h [omega_m]_x = 2 (Q - Id) (Q + Id)^{-1}.
+
+    The endpoint midpoint identity then gives
+
+        Pi_m = I omega_m,
+        Pi_1 = Pi_m + h/2 (Pi_m x omega_m),
+        omega_1 = I^{-1} Pi_1.
+
+    This is the inverse closure paired with the forward update above. It is
+    undefined for an exact pi rotation, where ``Q + Id`` is singular.
+    """
+    identity = wp.identity(3, dtype=float)
+    generator = 2.0 * (relative_rotation - identity) * wp.inverse(relative_rotation + identity)
+
+    # The exact inverse-Cayley result is skew; remove floating-point symmetry.
+    generator = 0.5 * (generator - wp.transpose(generator))
+    midpoint_angular_velocity = wp.vec3(generator[2, 1], generator[0, 2], generator[1, 0]) / dt
+    midpoint_angular_momentum = inertia * midpoint_angular_velocity
+    next_angular_momentum = midpoint_angular_momentum + 0.5 * dt * wp.cross(
+        midpoint_angular_momentum,
+        midpoint_angular_velocity,
+    )
+    return wp.inverse(inertia) * next_angular_momentum
+
+
+
+@wp.kernel
+def _predict_affine_body_inertia(
+    body_q: wp.array(dtype=wp.transform),
+    body_qd: wp.array(dtype=wp.spatial_vector),
+    body_f: wp.array(dtype=wp.spatial_vector),
+    affine_body_ids: wp.array(dtype=wp.int32),
+    body_com: wp.array(dtype=wp.vec3),
+    body_mass: wp.array(dtype=wp.float32),
+    affine_body_inertia: wp.array(dtype=wp.mat33),
+    dt: float,
+    predicted_body_q: wp.array(dtype=wp.transform),
+    predicted_body_qd: wp.array(dtype=wp.spatial_vector),
+):
+    """Build an energy-momentum rigid-body inertia target."""
+    affine_body = wp.tid()
+    body = affine_body_ids[affine_body]
+    pose = body_q[body]
+    rotation = wp.transform_get_rotation(pose)
+    velocity = body_qd[body]
+    wrench = body_f[body]
+    mass = body_mass[body]
+    linear_velocity = wp.spatial_top(velocity) + dt * wp.spatial_top(wrench) / mass
+    angular_velocity = wp.spatial_bottom(velocity)
+    body_angular_velocity = wp.quat_rotate_inv(rotation, angular_velocity)
+    inertia = affine_body_inertia[affine_body]
+    inverse_inertia = wp.inverse(inertia)
+    initial_angular_momentum = (
+        inertia * body_angular_velocity +
+        dt * wp.quat_rotate_inv(rotation, wp.spatial_bottom(wrench))
+    )
+    center = wp.transform_get_translation(pose) + wp.quat_rotate(rotation, body_com[body])
+    predicted_center = center + dt * linear_velocity
+
+    (
+        next_angular_momentum,
+        midpoint_angular_momentum,
+        midpoint_angular_velocity,
+    ) = solve_energy_momentum_midpoint(inertia, initial_angular_momentum, dt)
+    relative_rotation_matrix = cayley_increment_from_midpoint(midpoint_angular_velocity, dt)
+    relative_rotation = wp.quat_from_matrix(relative_rotation_matrix)
+    predicted_rotation = rotation * relative_rotation
+    next_angular_velocity = wp.quat_rotate(predicted_rotation, inverse_inertia * next_angular_momentum)
+    predicted_body_q[body] = wp.transform(
+        predicted_center - wp.quat_rotate(predicted_rotation, body_com[body]),
+        predicted_rotation,
+    )
+    predicted_body_qd[body] = wp.spatial_vector(linear_velocity, next_angular_velocity)
+
+
+@wp.kernel
+def _predict_affine_body_velocities(
+    body_q: wp.array(dtype=wp.transform),
+    predicted_body_q: wp.array(dtype=wp.transform),
+    affine_body_indices: wp.array(dtype=wp.vec4i),
+    affine_body_ids: wp.array(dtype=wp.int32),
+    body_com: wp.array(dtype=wp.vec3),
+    particle_q: wp.array(dtype=wp.vec3),
+    dt: float,
+    particle_qd: wp.array(dtype=wp.vec3),
+):
+    """Convert a Newton rigid-body prediction to affine-proxy linear velocities."""
+    affine_body = wp.tid()
+    particle_indices = affine_body_indices[affine_body]
+    body = affine_body_ids[affine_body]
+    pose = body_q[body]
+    predicted_pose = predicted_body_q[body]
+
+    rotation = wp.transform_get_rotation(pose)
+    center = wp.transform_get_translation(pose) + wp.quat_rotate(rotation, body_com[body])
+    predicted_rotation = wp.transform_get_rotation(predicted_pose)
+    predicted_center = wp.transform_get_translation(predicted_pose) + wp.quat_rotate(predicted_rotation, body_com[body])
+
+    for local_proxy in range(4):
+        particle = particle_indices[local_proxy]
+        current_position = particle_q[particle]
+        local_offset = wp.quat_rotate_inv(rotation, current_position - center)
+        predicted_position = predicted_center + wp.quat_rotate(predicted_rotation, local_offset)
+        particle_qd[particle] = (predicted_position - current_position) / dt
+
 
 @wp.kernel
 def _update_affine_body_poses(
@@ -48,48 +259,51 @@ def _update_affine_body_poses(
     particle_qd: wp.array(dtype=wp.vec3),
     affine_body_indices: wp.array(dtype=wp.vec4i),
     affine_body_ids: wp.array(dtype=wp.int32),
+    fixed_affine_body_flags: wp.array(dtype=wp.int32),
     body_com: wp.array(dtype=wp.vec3),
+    affine_body_inertia: wp.array(dtype=wp.mat33),
+    affine_body_axis_lengths: wp.array(dtype=wp.float32),
+    dt: float,
     body_q: wp.array(dtype=wp.transform),
     body_qd: wp.array(dtype=wp.spatial_vector),
 ):
     """Reconstruct Newton body poses and twists from affine proxy particles."""
     affine_body = wp.tid()
+    if fixed_affine_body_flags[affine_body] != 0:
+        return
     particle_indices = affine_body_indices[affine_body]
     body = affine_body_ids[affine_body]
     origin = particle_q[particle_indices[0]]
 
-    x_delta = particle_q[particle_indices[1]] - origin
-    y_delta = particle_q[particle_indices[2]] - origin
-    z_delta = particle_q[particle_indices[3]] - origin
-    if (
-        wp.length(x_delta) <= 1.0e-8
-        or wp.length(y_delta) <= 1.0e-8
-        or wp.length(z_delta) <= 1.0e-8
-    ):
+    axis_length = affine_body_axis_lengths[affine_body]
+    if axis_length <= 1.0e-8:
         return
 
-    x_axis = wp.normalize(x_delta)
-    y_orthogonal = y_delta - wp.dot(y_delta, x_axis) * x_axis
-    if wp.length(y_orthogonal) <= 1.0e-8:
+    affine_matrix = wp.matrix_from_cols(
+        (particle_q[particle_indices[1]] - origin) / axis_length,
+        (particle_q[particle_indices[2]] - origin) / axis_length,
+        (particle_q[particle_indices[3]] - origin) / axis_length,
+    )
+    # Extract the closest rotation in the authored ABD mass metric. The affine
+    # kinetic energy weights frame columns by the second moment D, so the
+    # weighted Procrustes problem maximizes tr(R^T A D), not tr(R^T A).
+    inertia = affine_body_inertia[affine_body]
+    second_moment = 0.5 * wp.trace(inertia) * wp.identity(3, dtype=float) - inertia
+    weighted_affine_matrix = affine_matrix * second_moment
+    left_basis, singular_values, right_basis = wp.svd3(weighted_affine_matrix)
+    if singular_values[2] <= 1.0e-8:
         return
 
-    y_axis = wp.normalize(y_orthogonal)
-    z_orthogonal = wp.cross(x_axis, y_axis)
-    if wp.length(z_orthogonal) <= 1.0e-8:
-        return
+    polar_rotation = left_basis * wp.transpose(right_basis)
+    if wp.determinant(polar_rotation) < 0.0:
+        left_basis = wp.matrix_from_cols(
+            wp.vec3(left_basis[0, 0], left_basis[1, 0], left_basis[2, 0]),
+            wp.vec3(left_basis[0, 1], left_basis[1, 1], left_basis[2, 1]),
+            -wp.vec3(left_basis[0, 2], left_basis[1, 2], left_basis[2, 2]),
+        )
+        polar_rotation = left_basis * wp.transpose(right_basis)
 
-    z_axis = wp.normalize(z_orthogonal)
-
-    # A valid right tetrahedron has its third axis on the positive side of x cross y.
-    # Preserve a proper rotation if a severely distorted element crosses that plane.
-    handedness = wp.dot(z_axis, z_delta)
-    if wp.abs(handedness) <= 1.0e-8 * wp.length(z_delta):
-        return
-    if handedness < 0.0:
-        y_axis = -y_axis
-        z_axis = -z_axis
-
-    rotation = wp.quat_from_matrix(wp.matrix_from_cols(x_axis, y_axis, z_axis))
+    rotation = wp.quat_from_matrix(polar_rotation)
     previous_rotation = wp.transform_get_rotation(body_q[body])
     quaternion_dot = (
         rotation[0] * previous_rotation[0]
@@ -102,24 +316,24 @@ def _update_affine_body_poses(
     # the previous hemisphere so a small negative angle cannot appear as 2*pi.
     if quaternion_dot < 0.0:
         rotation = wp.quat(-rotation[0], -rotation[1], -rotation[2], -rotation[3])
-    body_q[body] = wp.transform(
-        origin - wp.quat_rotate(rotation, body_com[body]), rotation
-    )
     center_velocity = particle_qd[particle_indices[0]]
-    angular_velocity = 0.5 * (
-        wp.cross(
-            x_axis,
-            (particle_qd[particle_indices[1]] - center_velocity) / wp.length(x_delta),
+    # Recover the body-frame Cayley increment Q = R_n^T R_{n+1}. This is the
+    # inverse of the rotation update used by the inertia construction.
+    relative_rotation = wp.quat_inverse(previous_rotation) * rotation
+    if relative_rotation[3] < 0.0:
+        relative_rotation = wp.quat(
+            -relative_rotation[0],
+            -relative_rotation[1],
+            -relative_rotation[2],
+            -relative_rotation[3],
         )
-        + wp.cross(
-            y_axis,
-            (particle_qd[particle_indices[2]] - center_velocity) / wp.length(y_delta),
-        )
-        + wp.cross(
-            z_axis,
-            (particle_qd[particle_indices[3]] - center_velocity) / wp.length(z_delta),
-        )
+    next_body_angular_velocity = recover_energy_momentum_end_velocity(
+        inertia,
+        wp.quat_to_matrix(relative_rotation),
+        dt,
     )
+    angular_velocity = wp.quat_rotate(rotation, next_body_angular_velocity)
+    body_q[body] = wp.transform(origin - wp.quat_rotate(rotation, body_com[body]), rotation)
     body_qd[body] = wp.spatial_vector(center_velocity, angular_velocity)
 
 
@@ -232,6 +446,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
             armature=float(joint_drive_armature),
             armature_body_ids=active_joint_drive_body_ids,
         )
+        self._body_prediction_state = SimpleNamespace(
+            body_q=wp.empty_like(model.body_q),
+            body_qd=wp.empty_like(model.body_qd),
+        )
         self._particle_mass_diagonal: Any | None = getattr(
             model, "synreal_particle_mass_diagonal", None
         )
@@ -333,6 +551,18 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._joint_drive_dof_indices: Any | None = None
         self._joint_drive_target_indices: Any | None = None
         self._fixed_affine_body_ids = self._find_fixed_affine_bodies()
+        fixed_affine_body_set = set(self._fixed_affine_body_ids)
+        affine_body_count = (
+            0 if self._affine_body_ids is None else len(self._affine_body_ids)
+        )
+        self._fixed_affine_body_flags = wp.array(
+            [
+                int(affine_body in fixed_affine_body_set)
+                for affine_body in range(affine_body_count)
+            ],
+            dtype=wp.int32,
+            device=model.device,
+        )
         self._fixed_affine_bodies = (
             None
             if not self._fixed_affine_body_ids
@@ -380,9 +610,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             return
         particles_per_world = particle_count // world_count
         bodies_per_world = body_count // world_count
-        expected_particle_world = np.repeat(
-            np.arange(world_count), particles_per_world
-        )
+        expected_particle_world = np.repeat(np.arange(world_count), particles_per_world)
         if not np.array_equal(particle_world, expected_particle_world):
             return
         body_world = np.asarray(self.model.body_world.numpy(), dtype=np.int64)
@@ -478,16 +706,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
             ),
             "joint_body_point_line_count": self._joint_body_point_line_count,
             "joint_drive_count": (
-                0
-                if self._joint_drive_types is None
-                else len(self._joint_drive_types)
+                0 if self._joint_drive_types is None else len(self._joint_drive_types)
             ),
             "joint_dof_count": int(self.model.joint_dof_count),
             "joint_target_count": len(self.model.joint_target_q),
         }
-        local_counts = {
-            name: per_world(total) for name, total in count_sources.items()
-        }
+        local_counts = {name: per_world(total) for name, total in count_sources.items()}
         if any(count is None for count in local_counts.values()):
             return
 
@@ -533,12 +757,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 return
             if not has_repeated_particle_index_blocks(indices, count):
                 return
-            if not all(has_repeated_blocks(attribute, count) for attribute in attributes):
+            if not all(
+                has_repeated_blocks(attribute, count) for attribute in attributes
+            ):
                 return
 
-        mass_non_diagonal_count = local_counts[
-            "particle_mass_non_diagonal_count"
-        ]
+        mass_non_diagonal_count = local_counts["particle_mass_non_diagonal_count"]
         if mass_non_diagonal_count and (
             not has_repeated_particle_index_blocks(
                 self._particle_mass_non_diagonal_indices,
@@ -557,9 +781,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         ):
             return
 
-        distance_constraints_per_world = local_counts[
-            "body_distance_constraint_count"
-        ]
+        distance_constraints_per_world = local_counts["body_distance_constraint_count"]
         if distance_constraints_per_world:
             constraint_indices = np.asarray(
                 self._body_distance_constraint_indices.numpy(), dtype=np.int64
@@ -618,16 +840,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
             values = np.asarray(getattr(self.model, name).numpy())[
                 :replicated_shape_total
             ]
-            blocks = values.reshape(
-                (world_count, shapes_per_world, *values.shape[1:])
-            )
+            blocks = values.reshape((world_count, shapes_per_world, *values.shape[1:]))
             if any(not np.array_equal(block, blocks[0]) for block in blocks[1:]):
                 return
 
         self._shared_world_count = world_count
-        self._shared_counts = {
-            name: int(count) for name, count in local_counts.items()
-        }
+        self._shared_counts = {name: int(count) for name, count in local_counts.items()}
         self._shared_counts["shape_replicated_count"] = shapes_per_world
         self._shared_counts["shape_count"] = shapes_per_world + global_shape_count
 
@@ -685,9 +903,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             if not bool(joint_enabled[joint]):
                 continue
             joint_type = int(joint_types[joint])
-            linear_dofs, angular_dofs = (
-                int(value) for value in joint_dof_dims[joint]
-            )
+            linear_dofs, angular_dofs = (int(value) for value in joint_dof_dims[joint])
             dof_start = int(joint_dof_starts[joint])
             driven_dofs: tuple[int, ...] = ()
             if joint_type == int(_newton.JointType.REVOLUTE):
@@ -738,15 +954,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
         body_centers_of_mass = model.body_com.numpy()
         dynamic_flag = int(_newton.BodyFlags.DYNAMIC)
         body_ids = [
-            body
-            for body, flags in enumerate(body_flags)
-            if int(flags) & dynamic_flag
+            body for body, flags in enumerate(body_flags) if int(flags) & dynamic_flag
         ]
         proxy_worlds = [int(body_worlds[body]) for body in body_ids]
 
         world_count = int(model.world_count)
         if any(world < -1 or world >= world_count for world in proxy_worlds):
-            raise ValueError("A dynamic body's world index is outside the model world range.")
+            raise ValueError(
+                "A dynamic body's world index is outside the model world range."
+            )
         original_particle_count = int(model.particle_count)
         positions: list[Any] = list(np.asarray(model.particle_q.numpy()))
         velocities: list[Any] = list(np.asarray(model.particle_qd.numpy()))
@@ -797,10 +1013,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
             rotation = np.asarray(
                 wp.quat_to_matrix(wp.quat(*transform[3:7])), dtype=np.float64
             ).reshape(3, 3)
-            world_com = (
-                transform[:3]
-                + rotation
-                @ np.asarray(body_centers_of_mass[body], dtype=np.float64)
+            world_com = transform[:3] + rotation @ np.asarray(
+                body_centers_of_mass[body], dtype=np.float64
             )
             local_offsets = np.vstack(
                 (
@@ -815,8 +1029,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             body_particle_positions = world_com + world_offsets
             body_particle_velocities = np.asarray(
                 [
-                    body_velocity[:3]
-                    + np.cross(body_velocity[3:], world_offset)
+                    body_velocity[:3] + np.cross(body_velocity[3:], world_offset)
                     for world_offset in world_offsets
                 ],
                 dtype=np.float64,
@@ -885,9 +1098,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 if model.particle_color_groups:
                     model.particle_color_groups = [
                         wp.array(
-                            old_to_new[
-                                np.asarray(group.numpy(), dtype=np.int32)
-                            ],
+                            old_to_new[np.asarray(group.numpy(), dtype=np.int32)],
                             dtype=wp.int32,
                             device=model.device,
                         )
@@ -922,14 +1133,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
             device=device,
             requires_grad=requires_grad,
         )
-        model.particle_flags = wp.array(
-            particle_flags, dtype=wp.int32, device=device
-        )
-        model.particle_world = wp.array(
-            particle_worlds, dtype=wp.int32, device=device
-        )
+        model.particle_flags = wp.array(particle_flags, dtype=wp.int32, device=device)
+        model.particle_world = wp.array(particle_worlds, dtype=wp.int32, device=device)
         ordered_worlds = [-1 if world == -1 else world for world in particle_worlds]
-        if any(first > second for first, second in zip(ordered_worlds, ordered_worlds[1:])):
+        if any(
+            first > second for first, second in zip(ordered_worlds, ordered_worlds[1:])
+        ):
             raise ValueError(
                 "Existing particles and appended affine proxies are not grouped in "
                 "Newton world order. Mixed deformable-rigid adaptation currently "
@@ -944,16 +1153,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
             minlength=world_count,
         )
         for world in range(world_count):
-            world_starts[world + 1] = (
-                world_starts[world] + world_histogram[world]
-            )
+            world_starts[world + 1] = world_starts[world] + world_histogram[world]
         world_starts[-1] = particle_count
         model.particle_world_start = wp.array(
             world_starts, dtype=wp.int32, device=device
         )
-        model.particle_colors = wp.array(
-            particle_colors, dtype=wp.int32, device=device
-        )
+        model.particle_colors = wp.array(particle_colors, dtype=wp.int32, device=device)
         if original_particle_count == 0:
             model.particle_color_groups = [
                 wp.array(range(particle_count), dtype=wp.int32, device=device)
@@ -1296,9 +1501,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             parent_points = self._joint_frame_points(
                 joint_parent_frames[joint], offsets
             )
-            child_points = self._joint_frame_points(
-                joint_child_frames[joint], offsets
-            )
+            child_points = self._joint_frame_points(joint_child_frames[joint], offsets)
             if construction in ("ball", "hinge", "fixed"):
                 for parent_point, child_point in zip(parent_points, child_points):
                     spring_indices.append((parent_affine, child_affine))
@@ -1357,7 +1560,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
         )
 
-        def append_array(current: Any | None, generated: list[Any], dtype: Any) -> Any | None:
+        def append_array(
+            current: Any | None, generated: list[Any], dtype: Any
+        ) -> Any | None:
             if not generated:
                 return current
             values = np.asarray(generated)
@@ -1599,9 +1804,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         if any(len(array) != constraint_count for array in arrays):
             raise ValueError("Body distance constraint arrays have different lengths.")
         if not constraint_count:
-            return self._wp.array(
-                [], dtype=self._wp.float32, device=self.model.device
-            )
+            return self._wp.array([], dtype=self._wp.float32, device=self.model.device)
 
         scales, _ = self._normalize_joint_constraint_stiffnesses(
             [
@@ -1616,9 +1819,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             [],
             description="Body distance constraints",
         )
-        return self._wp.array(
-            scales, dtype=self._wp.float32, device=self.model.device
-        )
+        return self._wp.array(scales, dtype=self._wp.float32, device=self.model.device)
 
     def _normalize_joint_constraint_stiffnesses(
         self,
@@ -1677,9 +1878,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
             ):
                 particle = int(particle)
                 if active[particle]:
-                    coefficients[particle] = (
-                        coefficients.get(particle, 0.0) + sign * float(weight)
-                    )
+                    coefficients[particle] = coefficients.get(
+                        particle, 0.0
+                    ) + sign * float(weight)
 
         constraint_coefficients: list[dict[int, float]] = []
         for bodies, point0, point1 in zip(
@@ -1740,9 +1941,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             len(constraint_coefficients), dtype=np.float64
         )
         for constraints in constraints_by_world.values():
-            particles = sorted(
-                {index for _, values in constraints for index in values}
-            )
+            particles = sorted({index for _, values in constraints for index in values})
             local_index = {particle: index for index, particle in enumerate(particles)}
             size = len(particles)
             mass = np.diag(mass_diagonal[particles])
@@ -1771,8 +1970,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     f"{description} reference a singular proxy mass matrix."
                 )
             inverse_sqrt_mass = (
-                mass_vectors
-                * np.reciprocal(np.sqrt(mass_values_eigen))[None, :]
+                mass_vectors * np.reciprocal(np.sqrt(mass_values_eigen))[None, :]
             ) @ mass_vectors.T
             inverse_mass = inverse_sqrt_mass @ inverse_sqrt_mass
 
@@ -1794,9 +1992,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             # normalization preserves Config.joint_constraint_alpha as the maximum
             # generalized eigenvalue of dt^2*K_joint against the proxy mass matrix.
             normalized_metric = inverse_sqrt_mass @ metric @ inverse_sqrt_mass
-            maximum_eigenvalue = float(
-                np.max(np.linalg.eigvalsh(normalized_metric))
-            )
+            maximum_eigenvalue = float(np.max(np.linalg.eigvalsh(normalized_metric)))
             if not np.isfinite(maximum_eigenvalue) or maximum_eigenvalue <= 0.0:
                 raise ValueError(
                     f"{description} produced an invalid constraint metric."
@@ -2292,11 +2488,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         joint_drive_count = self._shared_counts.get(
             "joint_drive_count",
-            (
-                0
-                if self._joint_drive_types is None
-                else len(self._joint_drive_types)
-            ),
+            (0 if self._joint_drive_types is None else len(self._joint_drive_types)),
         )
         self._synreal_model.joint_drive_count = joint_drive_count
         self._synreal_model.joint_dof_count = self._shared_counts.get(
@@ -2374,9 +2566,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._shared_shape_arrays.get("shape_margins", self.model.shape_margin),
                 shape_count,
             )
-        self._synreal_model.soft_contact_stiffness = float(
-            self.model.soft_contact_ke
-        )
+        self._synreal_model.soft_contact_stiffness = float(self.model.soft_contact_ke)
         self._synreal_model.soft_contact_damping = float(self.model.soft_contact_kd)
         self._synreal_model.soft_contact_friction = float(self.model.soft_contact_mu)
 
@@ -2523,9 +2713,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         joint_target_state_count = (
             self._synreal_model.joint_target_count * self._shared_world_count
         )
-        native_control.joint_f = self._as_span(
-            control.joint_f, joint_dof_state_count
-        )
+        native_control.joint_f = self._as_span(control.joint_f, joint_dof_state_count)
         native_control.joint_target_q = self._as_span(
             control.joint_target_q, joint_target_state_count
         )
@@ -2551,11 +2739,21 @@ class NewtonSolver(_newton.solvers.SolverBase):
             contacts: Newton collision-pipeline contact data.
             dt: Time-step duration in seconds.
 
-        The native nonlinear solve updates ``state_in.particle_q`` in place to
-        its latest iterate. On return, both particle-position buffers contain
-        the new positions, while ``state_out.body_q`` and ``state_out.body_qd``
-        contain the reconstructed body poses and twists.
+        When affine-body inertial prediction is enabled, Python integrates the
+        rigid-body inertia state including the applied body wrench and converts
+        its pose displacement into affine-proxy secant velocities. That body
+        wrench is not scattered into the native particle-force buffer, so it is
+        applied exactly once through the rigid inertia target. Gravity, particle
+        forces, joints, and contacts retain their native paths.
+        The native solver then applies affine rigidity, joints, and contacts to
+        Cartesian particle positions and velocities. On return, both particle-
+        position buffers contain the new positions, while Python reconstructs
+        ``state_out.body_q`` and ``state_out.body_qd`` from the resulting proxy
+        position and linear-velocity fields.
         """
+        if not np.isfinite(dt) or dt <= 0.0:
+            raise ValueError("dt must be finite and greater than zero")
+
         native_state_in = self._as_synreal_state(state_in)
         native_state_out = self._as_synreal_state(state_out)
         native_control = self._as_synreal_control(control)
@@ -2574,9 +2772,52 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         if (
             affine_body_state_count
+            and self.config.enable_affine_body_velocity_correction
+        ):
+            self._wp.launch(
+                _predict_affine_body_inertia,
+                dim=affine_body_state_count,
+                inputs=[
+                    state_in.body_q,
+                    state_in.body_qd,
+                    state_in.body_f,
+                    self._affine_body_ids,
+                    self.model.body_com,
+                    self.model.body_mass,
+                    self._affine_body_inertia,
+                    dt,
+                ],
+                outputs=[
+                    self._body_prediction_state.body_q,
+                    self._body_prediction_state.body_qd,
+                ],
+                device=self.device,
+                stream=stream,
+            )
+            self._wp.launch(
+                _predict_affine_body_velocities,
+                dim=affine_body_state_count,
+                inputs=[
+                    state_in.body_q,
+                    self._body_prediction_state.body_q,
+                    self._affine_body_indices,
+                    self._affine_body_ids,
+                    self.model.body_com,
+                    state_in.particle_q,
+                    dt,
+                ],
+                outputs=[state_in.particle_qd],
+                device=self.device,
+                stream=stream,
+            )
+        elif (
+            affine_body_state_count
             and state_in.body_f is not None
             and state_in.particle_f is not None
         ):
+            # Compatibility path for the legacy free-particle inertia target.
+            # The rigid predictor above consumes the wrench directly and must
+            # never enter this scatter path as well.
             self._wp.launch(
                 _scatter_affine_body_forces,
                 dim=affine_body_state_count,
@@ -2590,7 +2831,18 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 device=self.device,
                 stream=stream,
             )
-
+        if affine_body_state_count and self._fixed_affine_bodies is not None:
+            self._wp.launch(
+                _clear_fixed_affine_body_velocities,
+                dim=len(self._fixed_affine_body_ids),
+                inputs=[
+                    state_in.particle_qd,
+                    self._affine_body_indices,
+                    self._fixed_affine_bodies,
+                ],
+                device=self.device,
+                stream=stream,
+            )
         self._synreal_solver.step(
             native_state_in,
             native_state_out,
@@ -2621,7 +2873,11 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     state_out.particle_qd,
                     self._affine_body_indices,
                     self._affine_body_ids,
+                    self._fixed_affine_body_flags,
                     self.model.body_com,
+                    self._affine_body_inertia,
+                    self._affine_body_axis_lengths,
+                    dt,
                 ],
                 outputs=[state_out.body_q, state_out.body_qd],
                 device=self.device,
