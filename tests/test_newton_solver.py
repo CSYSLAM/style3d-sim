@@ -43,6 +43,46 @@ def _set_particle_positions(state: object, positions: np.ndarray, device: object
     wp.copy(state.particle_q, source)
 
 
+def _add_tetrahedral_cube(
+    builder: object,
+    *,
+    k_mu: float = 2.0e5,
+    k_lambda: float = 2.0e5,
+    k_damp: float = 2.0e3,
+    tri_ke: float = 0.0,
+) -> None:
+    builder.add_soft_grid(
+        pos=wp.vec3(0.0),
+        rot=wp.quat_identity(),
+        vel=wp.vec3(0.0),
+        dim_x=1,
+        dim_y=1,
+        dim_z=1,
+        cell_x=0.2,
+        cell_y=0.2,
+        cell_z=0.2,
+        density=1.0e3,
+        k_mu=k_mu,
+        k_lambda=k_lambda,
+        k_damp=k_damp,
+        tri_ke=tri_ke,
+        add_surface_mesh_edges=False,
+    )
+
+
+def _tetrahedron_deformation_error(model: object, positions: np.ndarray) -> float:
+    indices = np.asarray(model.tet_indices.numpy(), dtype=np.int64)
+    inverse_dms = np.asarray(model.tet_poses.numpy(), dtype=np.float64)
+    errors = []
+    for tetrahedron, inverse_dm in zip(indices, inverse_dms):
+        points = positions[tetrahedron]
+        ds = np.column_stack(
+            (points[1] - points[0], points[2] - points[0], points[3] - points[0])
+        )
+        errors.append(np.linalg.norm(ds @ inverse_dm - np.eye(3), ord="fro"))
+    return float(np.mean(errors))
+
+
 def test_model_builder_import_paths() -> None:
     from synreal_solver import ModelBuilder as package_model_builder
     from synreal_solver.newton_solver import ModelBuilder as legacy_model_builder
@@ -471,6 +511,124 @@ def test_model_builder_supports_articulated_dynamic_body() -> None:
 
     assert model.joint_count == 1
     assert model.synreal_affine_body_ids.numpy().tolist() == [body]
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_bridges_tetrahedron_model_and_control() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    _add_tetrahedral_cube(
+        builder,
+        k_mu=1.25e5,
+        k_lambda=2.5e5,
+        k_damp=750.0,
+    )
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    native = solver.synreal_model
+
+    assert model.tet_count == 5
+    assert model.tri_count > 0
+    assert native.tetrahedron_count == model.tet_count
+    assert native.tetrahedron_indices.ptr == model.tet_indices.ptr
+    assert native.tetrahedron_indices.size == model.tet_count
+    assert native.tetrahedron_inverse_dms.ptr == model.tet_poses.ptr
+    assert native.tetrahedron_inverse_dms.size == model.tet_count
+    assert native.tetrahedron_materials.ptr == model.tet_materials.ptr
+    assert native.tetrahedron_materials.size == model.tet_count
+    assert native.triangle_count == 0
+    assert native.edge_count == 0
+
+    control = model.control()
+    native_control = solver._as_synreal_control(control)
+    assert native_control.tetrahedron_activations.ptr == control.tet_activations.ptr
+    assert native_control.tetrahedron_activations.size == model.tet_count
+    assert solver._as_synreal_control(None).tetrahedron_activations.size == 0
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_rejects_generic_surface_elasticity() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    _add_tetrahedral_cube(builder, tri_ke=1.0)
+    model = builder.finalize(device="cuda:0")
+
+    with pytest.raises(NotImplementedError, match="surface elasticity"):
+        NewtonSolver(model)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_tetrahedron_recovers_from_deformation() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    _add_tetrahedral_cube(builder)
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+
+    rest_positions = state_in.particle_q.numpy().copy()
+    center = np.mean(rest_positions, axis=0)
+    deformation = np.array(
+        (
+            (1.35, 0.15, 0.0),
+            (0.0, 0.75, 0.10),
+            (0.05, 0.0, 1.15),
+        ),
+        dtype=np.float32,
+    )
+    deformed_positions = center + (deformation @ (rest_positions - center).T).T
+    _set_particle_positions(state_in, deformed_positions, model.device)
+    state_in.particle_qd.zero_()
+    initial_error = _tetrahedron_deformation_error(model, deformed_positions)
+    errors = []
+
+    for _ in range(30):
+        state_in.clear_forces()
+        solver.step(state_in, state_out, None, None, 1.0 / 240.0)
+        state_in, state_out = state_out, state_in
+        wp.synchronize_device(model.device)
+        positions = state_in.particle_q.numpy()
+        assert np.isfinite(positions).all()
+        errors.append(_tetrahedron_deformation_error(model, positions))
+
+    assert min(errors) < 0.9 * initial_error
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("world_count", (2, 4))
+def test_newton_solver_shares_replicated_tetrahedron_data(world_count: int) -> None:
+    scene = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    _add_tetrahedral_cube(scene)
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.replicate(
+        scene,
+        world_count,
+        xforms=[wp.transform_identity()] * world_count,
+    )
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    native = solver.synreal_model
+
+    assert native.world_count == world_count
+    assert native.particle_count == model.particle_count // world_count
+    assert native.particle_state_count == model.particle_count
+    assert native.tetrahedron_count == model.tet_count // world_count
+    assert native.tetrahedron_indices.ptr == model.tet_indices.ptr
+    assert native.tetrahedron_inverse_dms.ptr == model.tet_poses.ptr
+    assert native.tetrahedron_materials.ptr == model.tet_materials.ptr
+    assert native.triangle_count == 0
+    assert native.edge_count == 0
+
+    control = model.control()
+    native_control = solver._as_synreal_control(control)
+    assert native_control.tetrahedron_activations.size == model.tet_count
+
+    state_in = model.state()
+    state_out = model.state()
+    solver.step(state_in, state_out, control, None, 1.0 / 240.0)
+    wp.synchronize_device(model.device)
+    particles = state_out.particle_q.numpy().reshape(world_count, -1, 3)
+    assert np.isfinite(particles).all()
+    for world in range(1, world_count):
+        assert np.allclose(particles[world], particles[0], atol=1.0e-6)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")

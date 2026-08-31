@@ -391,8 +391,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
     The adapter passes Newton-owned Warp CUDA arrays to Synreal as non-owning
     device-memory spans. Newton continues to own every model and state array.
 
-    The native solver supports particles, Style3D cloth, dynamic affine bodies,
-    and rigid and soft contacts from Newton's collision pipeline.
+    The native solver supports particles, tetrahedral soft bodies, Style3D
+    cloth, dynamic affine bodies, and rigid and soft contacts from Newton's
+    collision pipeline.
     Newton ball, revolute, prismatic, fixed, free, and equivalent D6 joints are
     assembled from affine-body point-point and point-line constraints.
     Joint controls and Newton collision-pipeline contacts are passed to the
@@ -412,7 +413,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
         """Create a Synreal-backed solver for a Newton model.
 
         Args:
-            model: Particle or Style3D cloth ``newton.Model`` on a CUDA device.
+            model: Particle, tetrahedral soft-body, or Style3D cloth
+                ``newton.Model`` on a CUDA device.
             joint_damping: Normal damping used for generated point-line constraints.
             joint_attachment_distance: Separation between attachment points that
                 constrain joint orientation.
@@ -423,8 +425,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         Raises:
             ValueError: If the model is not allocated on CUDA or required
-                particle arrays are missing, or if Style3D topology is present
-                without its custom attributes.
+                particle or tetrahedron arrays are invalid.
+            NotImplementedError: If generic Newton surface elasticity is
+                enabled without Style3D attributes.
         """
         for name, value, allow_zero in (
             ("joint_damping", joint_damping, True),
@@ -458,6 +461,19 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         self._particle_mass_non_diagonal_values: Any | None = getattr(
             model, "synreal_particle_mass_non_diagonal_values", None
+        )
+        self._tetrahedron_indices: Any | None = getattr(model, "tet_indices", None)
+        self._tetrahedron_inverse_dms: Any | None = getattr(model, "tet_poses", None)
+        self._tetrahedron_activations: Any | None = getattr(
+            model, "tet_activations", None
+        )
+        self._tetrahedron_materials: Any | None = getattr(model, "tet_materials", None)
+        self._style3d = getattr(model, "style3d", None)
+        self._native_triangle_count = (
+            int(model.tri_count) if self._style3d is not None else 0
+        )
+        self._native_edge_count = (
+            int(model.edge_count) if self._style3d is not None else 0
         )
         self._affine_body_ids: Any | None = getattr(
             model, "synreal_affine_body_ids", None
@@ -685,8 +701,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 else len(self._particle_mass_non_diagonal_indices)
             ),
             "spring_count": int(self.model.spring_count),
-            "triangle_count": int(self.model.tri_count),
-            "edge_count": int(self.model.edge_count),
+            "tetrahedron_count": int(self.model.tet_count),
+            "triangle_count": self._native_triangle_count,
+            "edge_count": self._native_edge_count,
             "body_count": body_count,
             "body_spring_count": (
                 0
@@ -725,14 +742,20 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 ),
             ),
             (
+                "tetrahedron_count",
+                self._tetrahedron_indices,
+                (
+                    self._tetrahedron_inverse_dms,
+                    self._tetrahedron_materials,
+                ),
+            ),
+            (
                 "triangle_count",
                 self.model.tri_indices,
                 (
                     self.model.tri_areas,
                     self.model.tri_poses,
-                    None
-                    if getattr(self.model, "style3d", None) is None
-                    else self.model.style3d.tri_aniso_ke,
+                    None if self._style3d is None else self._style3d.tri_aniso_ke,
                 ),
             ),
             (
@@ -740,12 +763,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self.model.edge_indices,
                 (
                     self.model.edge_bending_properties,
-                    None
-                    if getattr(self.model, "style3d", None) is None
-                    else self.model.style3d.edge_rest_area,
-                    None
-                    if getattr(self.model, "style3d", None) is None
-                    else self.model.style3d.edge_bending_cot,
+                    None if self._style3d is None else self._style3d.edge_rest_area,
+                    None if self._style3d is None else self._style3d.edge_bending_cot,
                 ),
             ),
         )
@@ -2029,6 +2048,123 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 "Particle mass diagonal does not match the particle count."
             )
 
+        tetrahedron_count = int(self.model.tet_count)
+        tetrahedron_arrays = (
+            (
+                self._tetrahedron_indices,
+                (tetrahedron_count, 4),
+                self._wp.int32,
+                "indices",
+            ),
+            (
+                self._tetrahedron_inverse_dms,
+                (tetrahedron_count,),
+                self._wp.mat33,
+                "inverse rest-pose matrices",
+            ),
+            (
+                self._tetrahedron_activations,
+                (tetrahedron_count,),
+                self._wp.float32,
+                "activations",
+            ),
+            (
+                self._tetrahedron_materials,
+                (tetrahedron_count, 3),
+                self._wp.float32,
+                "materials",
+            ),
+        )
+        if tetrahedron_count:
+            for array, expected_shape, expected_dtype, name in tetrahedron_arrays:
+                if array is None:
+                    raise ValueError(
+                        f"Newton tetrahedron {name} must be allocated when tet_count is nonzero."
+                    )
+                if tuple(array.shape) != expected_shape:
+                    raise ValueError(
+                        f"Newton tetrahedron {name} must have shape {expected_shape}, "
+                        f"but received {tuple(array.shape)}."
+                    )
+                if array.dtype != expected_dtype:
+                    raise ValueError(
+                        f"Newton tetrahedron {name} must use {expected_dtype}, "
+                        f"but received {array.dtype}."
+                    )
+
+            tetrahedron_indices = np.asarray(
+                self._tetrahedron_indices.numpy(), dtype=np.int64
+            )
+            if np.any(tetrahedron_indices < 0) or np.any(
+                tetrahedron_indices >= int(self.model.particle_count)
+            ):
+                raise ValueError(
+                    "Newton tetrahedron indices reference an invalid particle."
+                )
+
+            inverse_dms = np.asarray(
+                self._tetrahedron_inverse_dms.numpy(), dtype=np.float64
+            )
+            if not np.isfinite(inverse_dms).all():
+                raise ValueError(
+                    "Newton tetrahedron inverse rest-pose matrices must be finite."
+                )
+            inverse_determinants = np.linalg.det(inverse_dms)
+            if not np.isfinite(inverse_determinants).all() or np.any(
+                inverse_determinants <= 0.0
+            ):
+                raise ValueError(
+                    "Newton tetrahedron inverse rest-pose matrices must have positive determinants."
+                )
+
+            activations = np.asarray(
+                self._tetrahedron_activations.numpy(), dtype=np.float64
+            )
+            if not np.isfinite(activations).all():
+                raise ValueError("Newton tetrahedron activations must be finite.")
+
+            materials = np.asarray(
+                self._tetrahedron_materials.numpy(), dtype=np.float64
+            )
+            if not np.isfinite(materials).all() or np.any(materials < 0.0):
+                raise ValueError(
+                    "Newton tetrahedron material coefficients must be finite and non-negative."
+                )
+
+        if self._style3d is None:
+            generic_surface_arrays = (
+                (
+                    int(self.model.tri_count),
+                    getattr(self.model, "tri_materials", None),
+                    5,
+                    "triangle",
+                ),
+                (
+                    int(self.model.edge_count),
+                    getattr(self.model, "edge_bending_properties", None),
+                    2,
+                    "edge",
+                ),
+            )
+            for count, array, components, name in generic_surface_arrays:
+                if not count:
+                    continue
+                if array is None or tuple(array.shape) != (count, components):
+                    raise ValueError(
+                        f"Newton generic surface {name} materials do not match the topology."
+                    )
+                values = np.asarray(array.numpy(), dtype=np.float64)
+                if not np.isfinite(values).all():
+                    raise ValueError(
+                        f"Newton generic surface {name} materials must be finite."
+                    )
+                if np.any(values != 0.0):
+                    raise NotImplementedError(
+                        "Generic Newton surface elasticity is not supported; "
+                        "use zero-valued surface materials for tetrahedral collision "
+                        "geometry or build Style3D cloth constraints."
+                    )
+
         has_mass_indices = self._particle_mass_non_diagonal_indices is not None
         has_mass_values = self._particle_mass_non_diagonal_values is not None
         if has_mass_indices != has_mass_values:
@@ -2344,6 +2480,26 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 spring_count,
             )
 
+        tetrahedron_count = self._shared_counts.get(
+            "tetrahedron_count", int(self.model.tet_count)
+        )
+        self._synreal_model.tetrahedron_count = tetrahedron_count
+        if tetrahedron_count:
+            self._synreal_model.tetrahedron_indices = self._as_span(
+                self._tetrahedron_indices,
+                tetrahedron_count,
+                storage_components=4,
+            )
+            self._synreal_model.tetrahedron_inverse_dms = self._as_span(
+                self._tetrahedron_inverse_dms,
+                tetrahedron_count,
+            )
+            self._synreal_model.tetrahedron_materials = self._as_span(
+                self._tetrahedron_materials,
+                tetrahedron_count,
+                storage_components=3,
+            )
+
         state_affine_body_count = (
             0 if self._affine_body_ids is None else len(self._affine_body_ids)
         )
@@ -2571,16 +2727,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._synreal_model.soft_contact_friction = float(self.model.soft_contact_mu)
 
         triangle_count = self._shared_counts.get(
-            "triangle_count", int(self.model.tri_count)
+            "triangle_count", self._native_triangle_count
         )
         self._synreal_model.triangle_count = triangle_count
         if triangle_count:
-            style3d = getattr(self.model, "style3d", None)
-            if style3d is None:
-                raise ValueError(
-                    "Style3D cloth attributes are missing. Register SolverStyle3D "
-                    "custom attributes before building the Newton model."
-                )
             self._synreal_model.triangle_indices = self._as_span(
                 self.model.tri_indices,
                 triangle_count,
@@ -2595,18 +2745,13 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 triangle_count,
             )
             self._synreal_model.triangle_aniso_stiffnesses = self._as_span(
-                style3d.tri_aniso_ke,
+                self._style3d.tri_aniso_ke,
                 triangle_count,
             )
 
-        edge_count = self._shared_counts.get("edge_count", int(self.model.edge_count))
+        edge_count = self._shared_counts.get("edge_count", self._native_edge_count)
         self._synreal_model.edge_count = edge_count
         if edge_count:
-            style3d = getattr(self.model, "style3d", None)
-            if style3d is None:
-                raise ValueError(
-                    "Style3D edge attributes are missing from the Newton model."
-                )
             self._synreal_model.edge_indices = self._as_span(
                 self.model.edge_indices,
                 edge_count,
@@ -2618,11 +2763,11 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 storage_components=2,
             )
             self._synreal_model.edge_rest_areas = self._as_span(
-                style3d.edge_rest_area,
+                self._style3d.edge_rest_area,
                 edge_count,
             )
             self._synreal_model.edge_bending_cots = self._as_span(
-                style3d.edge_bending_cot,
+                self._style3d.edge_bending_cot,
                 edge_count,
             )
 
@@ -2700,8 +2845,26 @@ class NewtonSolver(_newton.solvers.SolverBase):
         return native_contact
 
     def _as_synreal_control(self, control: Any | None) -> Control:
-        """Wrap Newton joint-control buffers without taking ownership."""
+        """Wrap Newton control buffers without taking ownership."""
         native_control = Control()
+
+        tetrahedron_state_count = int(self.model.tet_count)
+        if tetrahedron_state_count and control is not None:
+            tetrahedron_activations = getattr(control, "tet_activations", None)
+            if tetrahedron_activations is not None:
+                if (
+                    tuple(tetrahedron_activations.shape) != (tetrahedron_state_count,)
+                    or tetrahedron_activations.dtype != self._wp.float32
+                ):
+                    raise ValueError(
+                        "Newton control tetrahedron activations must be a float32 "
+                        f"array with shape ({tetrahedron_state_count},)."
+                    )
+                native_control.tetrahedron_activations = self._as_span(
+                    tetrahedron_activations,
+                    tetrahedron_state_count,
+                )
+
         if not self._synreal_model.joint_drive_count:
             return native_control
         if control is None:

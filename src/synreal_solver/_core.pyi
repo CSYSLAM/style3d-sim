@@ -296,6 +296,14 @@ class Control:
     @joint_target_qd.setter
     def joint_target_qd(self, arg1: Span) -> None:
         ...
+    @property
+    def tetrahedron_activations(self) -> Span:
+        """
+        Device span containing optional per-tetrahedron volumetric activations.
+        """
+    @tetrahedron_activations.setter
+    def tetrahedron_activations(self, arg1: Span) -> None:
+        ...
 class LogLevel:
     """
     Members:
@@ -1036,6 +1044,38 @@ class Model:
         """
     @spring_stiffnesses.setter
     def spring_stiffnesses(self, arg1: Span) -> None:
+        ...
+    @property
+    def tetrahedron_count(self) -> int:
+        """
+        Number of volumetric tetrahedra in one static world template.
+        """
+    @tetrahedron_count.setter
+    def tetrahedron_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def tetrahedron_indices(self) -> Span:
+        """
+        Device span containing the four particle indices of each tetrahedron.
+        """
+    @tetrahedron_indices.setter
+    def tetrahedron_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def tetrahedron_inverse_dms(self) -> Span:
+        """
+        Device span containing one inverse rest-shape matrix per tetrahedron.
+        """
+    @tetrahedron_inverse_dms.setter
+    def tetrahedron_inverse_dms(self, arg1: Span) -> None:
+        ...
+    @property
+    def tetrahedron_materials(self) -> Span:
+        """
+        Device span containing k_mu, k_lambda, and k_damp per tetrahedron.
+        """
+    @tetrahedron_materials.setter
+    def tetrahedron_materials(self, arg1: Span) -> None:
         ...
     @property
     def triangle_aniso_stiffnesses(self) -> Span:

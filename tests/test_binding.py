@@ -18,6 +18,7 @@ def test_model_count_fields() -> None:
     model.particle_state_count = 20
     model.spring_count = 3
     model.triangle_count = 4
+    model.tetrahedron_count = 5
     model.hinge_count = 5
     model.body_count = 6
     model.body_state_count = 60
@@ -30,6 +31,7 @@ def test_model_count_fields() -> None:
     assert model.particle_state_count == 20
     assert model.spring_count == 3
     assert model.triangle_count == 4
+    assert model.tetrahedron_count == 5
     assert model.hinge_count == 5
     assert model.body_count == 6
     assert model.body_state_count == 60
@@ -57,6 +59,9 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "triangle_inv_dms",
         "triangle_masses",
         "triangle_aniso_stiffnesses",
+        "tetrahedron_indices",
+        "tetrahedron_inverse_dms",
+        "tetrahedron_materials",
         "edge_indices",
         "edge_bending_properties",
         "edge_rest_areas",
@@ -129,3 +134,13 @@ def test_model_fields_require_span() -> None:
 
     with pytest.raises(TypeError):
         model.particle_masses = [1.0, 2.0]
+
+
+def test_control_tetrahedron_activations_round_trip_raw_span() -> None:
+    control = sr.Control()
+    expected = sr.Span(ptr=0xBEEF, size=3)
+
+    control.tetrahedron_activations = expected
+
+    assert control.tetrahedron_activations.ptr == expected.ptr
+    assert control.tetrahedron_activations.size == expected.size
