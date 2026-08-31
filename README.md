@@ -137,6 +137,7 @@ synreal_solver/
 |-- _core.cp312-win_amd64.pyd
 |-- _core.pyi
 |-- newton_model_builder.py
+|-- rigid_body_dynamics.py
 `-- newton_solver.py
 ```
 

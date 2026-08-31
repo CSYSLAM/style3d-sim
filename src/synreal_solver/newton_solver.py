@@ -8,6 +8,11 @@ from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 
 from ._core import Config, Contact, Control, Model, Solver, Span, State, login
+from .rigid_body_dynamics import (
+    NONE,
+    integrate_rigid_body,
+    recover_rigid_body_end_velocity,
+)
 
 if TYPE_CHECKING:
     from .newton_model_builder import ModelBuilder
@@ -19,6 +24,7 @@ import warp as wp
 import numpy as np
 import newton as _newton
 
+
 def __getattr__(name: str) -> Any:
     """Load the moved builder lazily for the legacy module-level import path."""
     if name == "ModelBuilder":
@@ -27,150 +33,6 @@ def __getattr__(name: str) -> Any:
         globals()[name] = ModelBuilder
         return ModelBuilder
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
-
-"""Energy--momentum integration of a force-free rigid body on SO(3).
-
-Notation
---------
-``I`` is the constant inertia tensor in body coordinates
-``Pi`` is body angular momentum
-``omega = I^{-1} Pi`` is body angular velocity,
-``R`` maps body coordinates to world coordinates
-``h`` is the time step
-Thus the spatial angular momentum is ``L = R Pi``.
-
-This module implements the implicit-midpoint/Cayley pair
-
-    Pi_1 - Pi_0 = h Pi_m x omega_m,
-    Pi_m = (Pi_0 + Pi_1) / 2,       omega_m = I^{-1} Pi_m,
-    R_1 = R_0 Q,                    Q = cay(h [omega_m]_x).
-
-The two equations must be used together. They preserve rotational kinetic
-energy ``E = 1/2 Pi^T I^{-1} Pi`` and spatial angular momentum ``L = R Pi`` up
-to nonlinear-solve and floating-point errors.
-
-References
-----------
-[1] J. C. Simo and K. K. Wong, "Unconditionally stable algorithms for rigid
-    body dynamics that exactly preserve energy and momentum," International
-    Journal for Numerical Methods in Engineering, 31(1), 19--52, 1991.
-[2] J. E. Marsden and M. West, "Discrete mechanics and variational
-    integrators," Acta Numerica, 10, 357--514, 2001.
-[3] E. Hairer, C. Lubich, and G. Wanner, Geometric Numerical Integration,
-    2nd ed., Springer, 2006, chapters IV and VII.
-"""
-
-
-@wp.func
-def solve_energy_momentum_midpoint(
-    inertia: wp.mat33,
-    angular_momentum: wp.vec3,
-    dt: float,
-) -> tuple[wp.vec3, wp.vec3, wp.vec3]:
-    """Solve the energy--momentum midpoint equation in body coordinates.
-
-    Given ``Pi_0 = angular_momentum``, solve the three-dimensional equation
-
-        r(Pi_1) = Pi_1 - Pi_0 - h Pi_m x I^{-1} Pi_m = 0,
-        Pi_m = (Pi_0 + Pi_1) / 2.
-
-    With ``[a]_x b = a x b``, its Newton Jacobian is
-
-        dr/dPi_1 = Id + h/2 [omega_m]_x
-                        - h/2 [Pi_m]_x I^{-1}.
-
-    Returns ``(Pi_1, Pi_m, omega_m)``. Eight Newton iterations are deliberately
-    fixed so the solver and validation example execute the identical map.
-    See references [1]--[3] in the module docstring.
-    """
-    inv_inertia = wp.inverse(inertia)
-
-    # Explicit Euler supplies only the initial guess for the implicit solve.
-    next_angular_momentum = angular_momentum + dt * wp.cross(
-        angular_momentum,
-        inv_inertia * angular_momentum,
-    )
-
-    for _ in range(8):
-        midpoint_angular_momentum = 0.5 * (angular_momentum + next_angular_momentum)
-        midpoint_angular_velocity = inv_inertia * midpoint_angular_momentum
-        residual = (
-            next_angular_momentum
-            - angular_momentum
-            - dt * wp.cross(midpoint_angular_momentum, midpoint_angular_velocity)
-        )
-        jacobian = (
-            wp.identity(3, dtype=float)
-            + 0.5 * dt * wp.skew(midpoint_angular_velocity)
-            - 0.5 * dt * wp.skew(midpoint_angular_momentum) * inv_inertia
-        )
-        next_angular_momentum = next_angular_momentum - wp.inverse(jacobian) * residual
-
-    midpoint_angular_momentum = 0.5 * (angular_momentum + next_angular_momentum)
-    midpoint_angular_velocity = inv_inertia * midpoint_angular_momentum
-    return (
-        next_angular_momentum,
-        midpoint_angular_momentum,
-        midpoint_angular_velocity,
-    )
-
-
-@wp.func
-def cayley_increment_from_midpoint(
-    midpoint_angular_velocity: wp.vec3,
-    dt: float,
-) -> wp.mat33:
-    """Return the body-frame rotation increment paired with the midpoint solve.
-
-    For ``A = h [omega_m]_x``, the Cayley map is
-
-        Q = cay(A) = (Id - A/2)^{-1} (Id + A/2),
-        R_1 = R_0 Q.
-
-    Rewriting the midpoint equation gives ``Q Pi_1 = Pi_0``; hence
-    ``R_1 Pi_1 = R_0 Pi_0`` and spatial angular momentum is preserved. Energy
-    preservation follows by dotting the midpoint equation with ``omega_m``.
-    See references [1]--[3] in the module docstring.
-    """
-    identity = wp.identity(3, dtype=float)
-    generator = dt * wp.skew(midpoint_angular_velocity)
-    return wp.inverse(identity - 0.5 * generator) * (identity + 0.5 * generator)
-
-
-@wp.func
-def recover_energy_momentum_end_velocity(
-    inertia: wp.mat33,
-    relative_rotation: wp.mat33,
-    dt: float,
-) -> wp.vec3:
-    """Recover the end body angular velocity from ``Q = R_0^T R_1``.
-
-    Inverse Cayley first recovers the midpoint velocity:
-
-        h [omega_m]_x = 2 (Q - Id) (Q + Id)^{-1}.
-
-    The endpoint midpoint identity then gives
-
-        Pi_m = I omega_m,
-        Pi_1 = Pi_m + h/2 (Pi_m x omega_m),
-        omega_1 = I^{-1} Pi_1.
-
-    This is the inverse closure paired with the forward update above. It is
-    undefined for an exact pi rotation, where ``Q + Id`` is singular.
-    """
-    identity = wp.identity(3, dtype=float)
-    generator = 2.0 * (relative_rotation - identity) * wp.inverse(relative_rotation + identity)
-
-    # The exact inverse-Cayley result is skew; remove floating-point symmetry.
-    generator = 0.5 * (generator - wp.transpose(generator))
-    midpoint_angular_velocity = wp.vec3(generator[2, 1], generator[0, 2], generator[1, 0]) / dt
-    midpoint_angular_momentum = inertia * midpoint_angular_velocity
-    next_angular_momentum = midpoint_angular_momentum + 0.5 * dt * wp.cross(
-        midpoint_angular_momentum,
-        midpoint_angular_velocity,
-    )
-    return wp.inverse(inertia) * next_angular_momentum
-
 
 
 @wp.kernel
@@ -182,11 +44,12 @@ def _predict_affine_body_inertia(
     body_com: wp.array(dtype=wp.vec3),
     body_mass: wp.array(dtype=wp.float32),
     affine_body_inertia: wp.array(dtype=wp.mat33),
+    rigid_body_integrator: int,
     dt: float,
     predicted_body_q: wp.array(dtype=wp.transform),
     predicted_body_qd: wp.array(dtype=wp.spatial_vector),
 ):
-    """Build an energy-momentum rigid-body inertia target."""
+    """Build the selected rigid-body inertia target."""
     affine_body = wp.tid()
     body = affine_body_ids[affine_body]
     pose = body_q[body]
@@ -200,21 +63,25 @@ def _predict_affine_body_inertia(
     inertia = affine_body_inertia[affine_body]
     inverse_inertia = wp.inverse(inertia)
     initial_angular_momentum = (
-        inertia * body_angular_velocity +
-        dt * wp.quat_rotate_inv(rotation, wp.spatial_bottom(wrench))
+        inertia * body_angular_velocity
+        + dt * wp.quat_rotate_inv(rotation, wp.spatial_bottom(wrench))
     )
-    center = wp.transform_get_translation(pose) + wp.quat_rotate(rotation, body_com[body])
+    center = wp.transform_get_translation(pose) + wp.quat_rotate(
+        rotation, body_com[body]
+    )
     predicted_center = center + dt * linear_velocity
 
-    (
-        next_angular_momentum,
-        midpoint_angular_momentum,
-        midpoint_angular_velocity,
-    ) = solve_energy_momentum_midpoint(inertia, initial_angular_momentum, dt)
-    relative_rotation_matrix = cayley_increment_from_midpoint(midpoint_angular_velocity, dt)
+    next_angular_momentum, relative_rotation_matrix = integrate_rigid_body(
+        inertia,
+        initial_angular_momentum,
+        dt,
+        rigid_body_integrator,
+    )
     relative_rotation = wp.quat_from_matrix(relative_rotation_matrix)
     predicted_rotation = rotation * relative_rotation
-    next_angular_velocity = wp.quat_rotate(predicted_rotation, inverse_inertia * next_angular_momentum)
+    next_angular_velocity = wp.quat_rotate(
+        predicted_rotation, inverse_inertia * next_angular_momentum
+    )
     predicted_body_q[body] = wp.transform(
         predicted_center - wp.quat_rotate(predicted_rotation, body_com[body]),
         predicted_rotation,
@@ -241,15 +108,21 @@ def _predict_affine_body_velocities(
     predicted_pose = predicted_body_q[body]
 
     rotation = wp.transform_get_rotation(pose)
-    center = wp.transform_get_translation(pose) + wp.quat_rotate(rotation, body_com[body])
+    center = wp.transform_get_translation(pose) + wp.quat_rotate(
+        rotation, body_com[body]
+    )
     predicted_rotation = wp.transform_get_rotation(predicted_pose)
-    predicted_center = wp.transform_get_translation(predicted_pose) + wp.quat_rotate(predicted_rotation, body_com[body])
+    predicted_center = wp.transform_get_translation(predicted_pose) + wp.quat_rotate(
+        predicted_rotation, body_com[body]
+    )
 
     for local_proxy in range(4):
         particle = particle_indices[local_proxy]
         current_position = particle_q[particle]
         local_offset = wp.quat_rotate_inv(rotation, current_position - center)
-        predicted_position = predicted_center + wp.quat_rotate(predicted_rotation, local_offset)
+        predicted_position = predicted_center + wp.quat_rotate(
+            predicted_rotation, local_offset
+        )
         particle_qd[particle] = (predicted_position - current_position) / dt
 
 
@@ -263,6 +136,7 @@ def _update_affine_body_poses(
     body_com: wp.array(dtype=wp.vec3),
     affine_body_inertia: wp.array(dtype=wp.mat33),
     affine_body_axis_lengths: wp.array(dtype=wp.float32),
+    rigid_body_integrator: int,
     dt: float,
     body_q: wp.array(dtype=wp.transform),
     body_qd: wp.array(dtype=wp.spatial_vector),
@@ -317,23 +191,45 @@ def _update_affine_body_poses(
     if quaternion_dot < 0.0:
         rotation = wp.quat(-rotation[0], -rotation[1], -rotation[2], -rotation[3])
     center_velocity = particle_qd[particle_indices[0]]
-    # Recover the body-frame Cayley increment Q = R_n^T R_{n+1}. This is the
-    # inverse of the rotation update used by the inertia construction.
-    relative_rotation = wp.quat_inverse(previous_rotation) * rotation
-    if relative_rotation[3] < 0.0:
-        relative_rotation = wp.quat(
-            -relative_rotation[0],
-            -relative_rotation[1],
-            -relative_rotation[2],
-            -relative_rotation[3],
+    angular_velocity = wp.vec3(0.0)
+    if rigid_body_integrator != NONE:
+        # Recover Q = R_n^T R_{n+1} and apply the endpoint closure paired with
+        # the selected rigid-body inertia integrator.
+        relative_rotation = wp.quat_inverse(previous_rotation) * rotation
+        if relative_rotation[3] < 0.0:
+            relative_rotation = wp.quat(
+                -relative_rotation[0],
+                -relative_rotation[1],
+                -relative_rotation[2],
+                -relative_rotation[3],
+            )
+        next_body_angular_velocity = recover_rigid_body_end_velocity(
+            inertia,
+            wp.quat_to_matrix(relative_rotation),
+            dt,
+            rigid_body_integrator,
         )
-    next_body_angular_velocity = recover_energy_momentum_end_velocity(
-        inertia,
-        wp.quat_to_matrix(relative_rotation),
-        dt,
+        angular_velocity = wp.quat_rotate(rotation, next_body_angular_velocity)
+    else:
+        # The legacy free-particle inertia path has no rigid-body rotation map
+        # to invert. Project its converged affine velocity gradient onto the
+        # closest rigid angular velocity in the authored mass metric instead.
+        velocity_gradient = wp.matrix_from_cols(
+            (particle_qd[particle_indices[1]] - center_velocity) / axis_length,
+            (particle_qd[particle_indices[2]] - center_velocity) / axis_length,
+            (particle_qd[particle_indices[3]] - center_velocity) / axis_length,
+        )
+        coupling = velocity_gradient * second_moment * wp.transpose(polar_rotation)
+        angular_momentum = wp.vec3(
+            coupling[2, 1] - coupling[1, 2],
+            coupling[0, 2] - coupling[2, 0],
+            coupling[1, 0] - coupling[0, 1],
+        )
+        world_inertia = polar_rotation * inertia * wp.transpose(polar_rotation)
+        angular_velocity = wp.inverse(world_inertia) * angular_momentum
+    body_q[body] = wp.transform(
+        origin - wp.quat_rotate(rotation, body_com[body]), rotation
     )
-    angular_velocity = wp.quat_rotate(rotation, next_body_angular_velocity)
-    body_q[body] = wp.transform(origin - wp.quat_rotate(rotation, body_com[body]), rotation)
     body_qd[body] = wp.spatial_vector(center_velocity, angular_velocity)
 
 
@@ -2933,10 +2829,11 @@ class NewtonSolver(_newton.solvers.SolverBase):
         affine_body_state_count = (
             0 if self._affine_body_ids is None else len(self._affine_body_ids)
         )
-        if (
-            affine_body_state_count
-            and self.config.enable_affine_body_velocity_correction
-        ):
+        rigid_body_integrator = int(self.config.rigid_body_integrator.value)
+        use_rigid_body_inertia = bool(
+            affine_body_state_count and rigid_body_integrator != NONE
+        )
+        if use_rigid_body_inertia:
             self._wp.launch(
                 _predict_affine_body_inertia,
                 dim=affine_body_state_count,
@@ -2948,6 +2845,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     self.model.body_com,
                     self.model.body_mass,
                     self._affine_body_inertia,
+                    rigid_body_integrator,
                     dt,
                 ],
                 outputs=[
@@ -3040,6 +2938,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     self.model.body_com,
                     self._affine_body_inertia,
                     self._affine_body_axis_lengths,
+                    rigid_body_integrator,
                     dt,
                 ],
                 outputs=[state_out.body_q, state_out.body_qd],

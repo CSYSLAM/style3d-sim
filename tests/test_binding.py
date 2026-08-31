@@ -108,9 +108,7 @@ def test_config_exposes_runtime_options() -> None:
     config.distance_constraint_alpha = 25.0
     assert config.distance_constraint_alpha == pytest.approx(25.0)
 
-    assert config.enable_affine_body_velocity_correction is True
-    config.enable_affine_body_velocity_correction = False
-    assert config.enable_affine_body_velocity_correction is False
+    assert not hasattr(config, "enable_affine_body_velocity_correction")
 
     rigidity_models = (
         sr.AffineBodyRigidityModel.CO_ROTATED,
@@ -127,6 +125,35 @@ def test_config_exposes_runtime_options() -> None:
     for model in rigidity_models:
         config.affine_body_rigidity_model = model
         assert config.affine_body_rigidity_model == model
+
+    rigid_body_integrators = (
+        sr.RigidBodyIntegrator.EXPLICIT_EULER,
+        sr.RigidBodyIntegrator.IMPLICIT_EULER,
+        sr.RigidBodyIntegrator.LIE_GROUP_MIDPOINT,
+        sr.RigidBodyIntegrator.MIDPOINT_CAYLEY,
+        sr.RigidBodyIntegrator.NONE,
+    )
+    assert config.rigid_body_integrator == sr.RigidBodyIntegrator.MIDPOINT_CAYLEY
+    assert {integrator.name for integrator in rigid_body_integrators} == {
+        "EXPLICIT_EULER",
+        "IMPLICIT_EULER",
+        "LIE_GROUP_MIDPOINT",
+        "MIDPOINT_CAYLEY",
+        "NONE",
+    }
+    assert tuple(integrator.value for integrator in rigid_body_integrators) == (
+        0,
+        1,
+        2,
+        3,
+        4,
+    )
+    assert len({integrator.value for integrator in rigid_body_integrators}) == len(
+        rigid_body_integrators
+    )
+    for integrator in rigid_body_integrators:
+        config.rigid_body_integrator = integrator
+        assert config.rigid_body_integrator == integrator
 
 
 def test_model_fields_require_span() -> None:
