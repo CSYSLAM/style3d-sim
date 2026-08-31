@@ -127,6 +127,48 @@ def _predict_affine_body_velocities(
 
 
 @wp.kernel
+def _sync_affine_body_state(
+    reference_particle_q: wp.array(dtype=wp.vec3),
+    affine_body_indices: wp.array(dtype=wp.vec4i),
+    affine_body_ids: wp.array(dtype=wp.int32),
+    body_com: wp.array(dtype=wp.vec3),
+    body_q: wp.array(dtype=wp.transform),
+    body_qd: wp.array(dtype=wp.spatial_vector),
+    particle_q: wp.array(dtype=wp.vec3),
+    particle_qd: wp.array(dtype=wp.vec3),
+):
+    """Map authored Newton body poses and twists to affine proxy particles."""
+    affine_body = wp.tid()
+    indices = affine_body_indices[affine_body]
+    body = affine_body_ids[affine_body]
+    pose = body_q[body]
+    rotation = wp.transform_get_rotation(pose)
+    world_com = wp.transform_get_translation(pose) + wp.quat_rotate(
+        rotation, body_com[affine_body]
+    )
+    linear_velocity = wp.spatial_top(body_qd[body])
+    angular_velocity = wp.spatial_bottom(body_qd[body])
+
+    reference_origin = reference_particle_q[indices[0]]
+    lengths = wp.vec3(
+        wp.length(reference_particle_q[indices[1]] - reference_origin),
+        wp.length(reference_particle_q[indices[2]] - reference_origin),
+        wp.length(reference_particle_q[indices[3]] - reference_origin),
+    )
+    x_offset = wp.quat_rotate(rotation, wp.vec3(lengths[0], 0.0, 0.0))
+    y_offset = wp.quat_rotate(rotation, wp.vec3(0.0, lengths[1], 0.0))
+    z_offset = wp.quat_rotate(rotation, wp.vec3(0.0, 0.0, lengths[2]))
+    particle_q[indices[0]] = world_com
+    particle_qd[indices[0]] = linear_velocity
+    particle_q[indices[1]] = world_com + x_offset
+    particle_q[indices[2]] = world_com + y_offset
+    particle_q[indices[3]] = world_com + z_offset
+    particle_qd[indices[1]] = linear_velocity + wp.cross(angular_velocity, x_offset)
+    particle_qd[indices[2]] = linear_velocity + wp.cross(angular_velocity, y_offset)
+    particle_qd[indices[3]] = linear_velocity + wp.cross(angular_velocity, z_offset)
+
+
+@wp.kernel
 def _update_affine_body_poses(
     particle_q: wp.array(dtype=wp.vec3),
     particle_qd: wp.array(dtype=wp.vec3),
@@ -2686,6 +2728,45 @@ class NewtonSolver(_newton.solvers.SolverBase):
         native_state.particle_qd = self._as_span(state.particle_qd, particle_count)
         native_state.particle_f = self._as_span(state.particle_f, particle_count)
         return native_state
+
+    def sync_affine_body_state(self, state: Any) -> None:
+        """Update affine proxy positions and velocities from Newton body state.
+
+        Call this after ``eval_fk()``, an environment reset, or any direct edit
+        of ``body_q``/``body_qd``. The operation stays on the active CUDA stream
+        and is safe to include in CUDA graph capture. It must not be called
+        before every regular step because that would discard the proxy state
+        integrated by the native solver.
+        """
+        affine_body_count = (
+            0 if self._affine_body_ids is None else len(self._affine_body_ids)
+        )
+        if not affine_body_count:
+            return
+        if state.particle_count != self.model.particle_count:
+            raise ValueError(
+                f"Newton state has {state.particle_count} particles, "
+                f"but the solver model has {self.model.particle_count}."
+            )
+        if state.body_q is None or state.body_qd is None:
+            raise ValueError("Affine body synchronization requires body_q and body_qd.")
+
+        stream = self._wp.get_stream(self.device)
+        self._wp.launch(
+            _sync_affine_body_state,
+            dim=affine_body_count,
+            inputs=[
+                self.model.particle_q,
+                self._affine_body_indices,
+                self._affine_body_ids,
+                self._affine_body_com,
+                state.body_q,
+                state.body_qd,
+            ],
+            outputs=[state.particle_q, state.particle_qd],
+            device=self.device,
+            stream=stream,
+        )
 
     def _as_synreal_contact(self, contacts: Any | None) -> Contact:
         """Wrap Newton rigid- and soft-contact buffers without taking ownership."""

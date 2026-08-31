@@ -809,6 +809,86 @@ def test_newton_solver_free_fall_matches_symplectic_inertial_prediction(
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_syncs_nonzero_fk_state_to_affine_proxies() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    body = builder.add_link(
+        mass=2.0,
+        inertia=wp.mat33(0.02, 0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.04),
+        lock_inertia=True,
+    )
+    joint = builder.add_joint_revolute(
+        parent=-1,
+        child=body,
+        axis=(0.0, 0.0, 1.0),
+        target_ke=0.0,
+        target_kd=0.0,
+        damping=0.0,
+    )
+    builder.add_articulation([joint])
+    builder.joint_q[0] = 0.8
+    builder.joint_qd[0] = -0.6
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+    state = model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state)
+
+    indices = solver._affine_body_indices.numpy()[0]
+    before = state.particle_q.numpy()[indices].copy()
+    solver.sync_affine_body_state(state)
+    wp.synchronize_device(model.device)
+    after = state.particle_q.numpy()[indices]
+    velocities = state.particle_qd.numpy()[indices]
+    pose = state.body_q.numpy()[body]
+    twist = state.body_qd.numpy()[body]
+    rotation = np.asarray(
+        wp.quat_to_matrix(wp.quat(*pose[3:7])), dtype=np.float32
+    ).reshape(3, 3)
+    world_com = pose[:3] + rotation @ solver._affine_body_com.numpy()[0]
+    lengths = np.linalg.norm(
+        model.particle_q.numpy()[indices[1:]] - model.particle_q.numpy()[indices[0]],
+        axis=1,
+    )
+    offsets = (rotation @ np.diag(lengths)).T
+    expected_positions = np.vstack((world_com, world_com + offsets))
+    expected_velocities = twist[:3] + np.cross(twist[3:], np.vstack((np.zeros(3), offsets)))
+
+    assert np.max(np.abs(before - expected_positions)) > 1.0e-2
+    assert np.allclose(after, expected_positions, atol=1.0e-6)
+    assert np.allclose(velocities, expected_velocities, atol=1.0e-6)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_affine_state_sync_supports_cuda_graph_capture() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    body = builder.add_link(
+        mass=1.0,
+        inertia=wp.mat33(0.1, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1),
+        lock_inertia=True,
+    )
+    joint = builder.add_joint_revolute(parent=-1, child=body, axis=(0.0, 1.0, 0.0))
+    builder.add_articulation([joint])
+    builder.joint_q[0] = -0.7
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    state = model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state)
+    stream = wp.get_stream(model.device)
+
+    with wp.ScopedCapture(stream=stream) as capture:
+        solver.sync_affine_body_state(state)
+
+    state.particle_q.zero_()
+    state.particle_qd.zero_()
+    wp.capture_launch(capture.graph, stream=stream)
+    wp.synchronize_stream(stream)
+
+    indices = solver._affine_body_indices.numpy()[0]
+    points = state.particle_q.numpy()[indices]
+    assert np.isfinite(points).all()
+    assert np.linalg.norm(points[1] - points[0]) > 1.0e-3
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize(
     ("joint_kind", "expected_springs", "expected_lines"),
     (
