@@ -151,6 +151,14 @@ class Config:
     def self_collision_edge_face_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
     @property
+    def self_collision_particle_particle_stiffness(self) -> float:
+        """
+        Dimensionless stiffness scale for free-particle pair collision penalties.
+        """
+    @self_collision_particle_particle_stiffness.setter
+    def self_collision_particle_particle_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
     def self_collision_radius(self) -> float:
         """
         Radius used to thicken deformable collision primitives.
@@ -692,6 +700,22 @@ class Model:
         """
     @collision_edge_indices.setter
     def collision_edge_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def collision_particle_count(self) -> int:
+        """
+        Number of active free particles in one static world template.
+        """
+    @collision_particle_count.setter
+    def collision_particle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def collision_particle_indices(self) -> Span:
+        """
+        Device span containing active unconstrained particle indices.
+        """
+    @collision_particle_indices.setter
+    def collision_particle_indices(self, arg1: Span) -> None:
         ...
     @property
     def collision_triangle_count(self) -> int:

@@ -117,7 +117,6 @@ class Example:
             self.contacts = None
         elif self.solver_type == "synreal":
             self.solver = synreal_solver.NewtonSolver(model=self.model)
-            self.solver.config.enable_affine_body_velocity_correction = True
             self.solver.config.affine_body_rigidity_model = (
                 synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
             )

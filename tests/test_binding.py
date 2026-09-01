@@ -19,6 +19,7 @@ def test_model_count_fields() -> None:
     model.spring_count = 3
     model.triangle_count = 4
     model.tetrahedron_count = 5
+    model.collision_particle_count = 8
     model.collision_triangle_count = 6
     model.collision_edge_count = 7
     model.hinge_count = 5
@@ -34,6 +35,7 @@ def test_model_count_fields() -> None:
     assert model.spring_count == 3
     assert model.triangle_count == 4
     assert model.tetrahedron_count == 5
+    assert model.collision_particle_count == 8
     assert model.collision_triangle_count == 6
     assert model.collision_edge_count == 7
     assert model.hinge_count == 5
@@ -55,6 +57,7 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "particle_flags",
         "particle_world",
         "particle_rest_positions",
+        "collision_particle_indices",
         "gravity",
         "spring_indices",
         "spring_stiffnesses",
@@ -126,6 +129,7 @@ def test_config_exposes_runtime_options() -> None:
         "self_collision_vertex_face_stiffness": 0.75,
         "self_collision_edge_edge_stiffness": 0.25,
         "self_collision_edge_face_stiffness": 1.5,
+        "self_collision_particle_particle_stiffness": 2.0,
     }
     for name, expected in collision_options.items():
         setattr(config, name, expected)

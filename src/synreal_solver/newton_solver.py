@@ -529,6 +529,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
         )
         self._particle_flags = self._build_particle_flags()
+        self._collision_particle_indices = self._build_collision_particle_indices()
+        self._collision_particle_count = len(self._collision_particle_indices)
         self._body_distance_constraint_mass_scales = (
             self._normalize_body_distance_constraint_mass_scales()
         )
@@ -646,6 +648,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             "edge_count": self._native_edge_count,
             "collision_triangle_count": self._collision_triangle_count,
             "collision_edge_count": self._collision_edge_count,
+            "collision_particle_count": self._collision_particle_count,
             "body_count": body_count,
             "body_spring_count": (
                 0
@@ -717,6 +720,11 @@ class NewtonSolver(_newton.solvers.SolverBase):
             (
                 "collision_edge_count",
                 self.model.edge_indices,
+                (),
+            ),
+            (
+                "collision_particle_count",
+                self._collision_particle_indices,
                 (),
             ),
         )
@@ -1263,6 +1271,48 @@ class NewtonSolver(_newton.solvers.SolverBase):
         particle_flags[fixed_particle_indices] &= ~active_flag
         return wp.array(
             particle_flags,
+            dtype=wp.int32,
+            device=self.model.device,
+        )
+
+    def _build_collision_particle_indices(self) -> Any:
+        """Return active free particles with finite positive mass and radius."""
+        particle_count = int(self.model.particle_count)
+        constrained = np.zeros(particle_count, dtype=bool)
+
+        def mark_particles(array: Any | None) -> None:
+            if array is None or not len(array):
+                return
+            indices = np.asarray(array.numpy(), dtype=np.int64).reshape(-1)
+            indices = indices[(indices >= 0) & (indices < particle_count)]
+            constrained[indices] = True
+
+        for topology in (
+            self.model.spring_indices,
+            self.model.tri_indices,
+            self.model.edge_indices,
+            self._tetrahedron_indices,
+            self._affine_body_indices,
+            self._particle_mass_non_diagonal_indices,
+        ):
+            mark_particles(topology)
+
+        flags = np.asarray(self._particle_flags.numpy(), dtype=np.int32)
+        masses = np.asarray(self.model.particle_mass.numpy(), dtype=np.float32)
+        radii = np.asarray(self.model.particle_radius.numpy(), dtype=np.float32)
+        active = (flags & int(_newton.ParticleFlags.ACTIVE)) != 0
+        proxy = (flags & int(_newton.ParticleFlags.PROXY)) != 0
+        free_particles = np.flatnonzero(
+            ~constrained
+            & active
+            & ~proxy
+            & np.isfinite(masses)
+            & (masses > 0.0)
+            & np.isfinite(radii)
+            & (radii > 0.0)
+        ).astype(np.int32)
+        return wp.array(
+            free_particles,
             dtype=wp.int32,
             device=self.model.device,
         )
@@ -2414,6 +2464,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self.model.particle_radius,
                 particle_count,
             )
+            collision_particle_count = self._shared_counts.get(
+                "collision_particle_count", self._collision_particle_count
+            )
+            self._synreal_model.collision_particle_count = collision_particle_count
+            if collision_particle_count:
+                self._synreal_model.collision_particle_indices = self._as_span(
+                    self._collision_particle_indices,
+                    collision_particle_count,
+                )
         else:
             self._particle_indices = None
 

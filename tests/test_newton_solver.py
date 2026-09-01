@@ -83,6 +83,27 @@ def _add_tetrahedral_cube(
     )
 
 
+def _add_morton_reversed_overlapping_particles(builder: object) -> np.ndarray:
+    """Add one overlapping pair whose particle IDs oppose their Morton order."""
+    positions = np.asarray(
+        (
+            (0.03, 0.02, 0.01),
+            (-0.03, -0.02, -0.01),
+            (-2.0, -2.0, -2.0),
+            (2.0, 2.0, 2.0),
+        ),
+        dtype=np.float32,
+    )
+    for position, radius in zip(positions, (0.06, 0.06, 0.01, 0.01)):
+        builder.add_particle(
+            pos=position,
+            vel=(0.0, 0.0, 0.0),
+            mass=1.0,
+            radius=radius,
+        )
+    return positions
+
+
 def _tetrahedron_deformation_error(model: object, positions: np.ndarray) -> float:
     indices = np.asarray(model.tet_indices.numpy(), dtype=np.int64)
     inverse_dms = np.asarray(model.tet_poses.numpy(), dtype=np.float64)
@@ -678,6 +699,111 @@ def test_newton_solver_bridges_tetrahedron_model_and_control() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_bridges_free_collision_particles() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    for index, radius in enumerate((0.02, 0.03, 0.04, np.inf)):
+        builder.add_particle(
+            pos=(float(index), 0.0, 0.0),
+            vel=(0.0, 0.0, 0.0),
+            mass=1.0,
+            radius=radius,
+        )
+
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    native = solver.synreal_model
+
+    assert model.particle_count == 4
+    assert native.collision_particle_count == 3
+    assert (
+        native.collision_particle_indices.ptr == solver._collision_particle_indices.ptr
+    )
+    assert native.collision_particle_indices.size == 3
+    assert np.array_equal(solver._collision_particle_indices.numpy(), (0, 1, 2))
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_excludes_constrained_and_proxy_collision_particles() -> None:
+    from newton.solvers import style3d
+
+    tetrahedron_builder = newton.ModelBuilder(
+        up_axis=newton.Axis.Z, gravity=wp.vec3(0.0)
+    )
+    _add_tetrahedral_cube(tetrahedron_builder)
+    tetrahedron_model = tetrahedron_builder.finalize(device="cuda:0")
+
+    cloth_builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    newton.solvers.SolverStyle3D.register_custom_attributes(cloth_builder)
+    style3d.add_cloth_grid(
+        cloth_builder,
+        pos=wp.vec3(0.0),
+        rot=wp.quat_identity(),
+        vel=wp.vec3(0.0),
+        dim_x=1,
+        dim_y=1,
+        cell_x=0.2,
+        cell_y=0.2,
+        mass=0.1,
+        particle_radius=0.02,
+    )
+    cloth_model = cloth_builder.finalize(device="cuda:0")
+
+    proxy_builder = ModelBuilder(
+        up_axis=newton.Axis.Z,
+        gravity=wp.vec3(0.0),
+        affine_body_particle_radius=0.02,
+    )
+    proxy_builder.add_body(
+        mass=1.0,
+        inertia=wp.mat33(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0),
+        lock_inertia=True,
+    )
+    proxy_model = proxy_builder.finalize(device="cuda:0")
+
+    for model in (tetrahedron_model, cloth_model, proxy_model):
+        solver = NewtonSolver(model)
+        assert solver.synreal_model.collision_particle_count == 0
+        assert solver.synreal_model.collision_particle_indices.size == 0
+        assert len(solver._collision_particle_indices) == 0
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_shares_replicated_collision_particle_indices() -> None:
+    world_count = 3
+    scene = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    for index, radius in enumerate((0.03, 0.0, 0.04)):
+        scene.add_particle(
+            pos=(float(index), 0.0, 0.0),
+            vel=(0.0, 0.0, 0.0),
+            mass=1.0,
+            radius=radius,
+        )
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.replicate(
+        scene,
+        world_count,
+        xforms=[wp.transform_identity()] * world_count,
+    )
+
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    native = solver.synreal_model
+
+    assert native.world_count == world_count
+    assert native.particle_count == 3
+    assert native.particle_state_count == 3 * world_count
+    assert native.collision_particle_count == 2
+    assert (
+        native.collision_particle_indices.ptr == solver._collision_particle_indices.ptr
+    )
+    assert native.collision_particle_indices.size == 2
+    assert np.array_equal(
+        solver._collision_particle_indices.numpy(),
+        (0, 2, 3, 5, 6, 8),
+    )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 def test_newton_solver_rejects_generic_surface_elasticity() -> None:
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     _add_tetrahedral_cube(builder, tri_ke=1.0)
@@ -788,6 +914,41 @@ def test_newton_solver_bridges_particle_states() -> None:
     solver.step(state_in, state_out, None, None, 1.0 / 60.0)
 
     assert not (state_out.particle_q.numpy() == positions_before).all()
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_resolves_morton_reversed_particle_pair() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    authored_positions = _add_morton_reversed_overlapping_particles(builder)
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.enable_self_collision = True
+    solver.config.self_collision_particle_particle_stiffness = 2.0
+    solver.config.nonlinear_iterations = 15
+    solver.config.linear_iterations = 15
+
+    initial_positions = state_in.particle_q.numpy().copy()
+    initial_distance = float(
+        np.linalg.norm(initial_positions[0] - initial_positions[1])
+    )
+    initial_pair_center = np.mean(initial_positions[:2], axis=0)
+    assert np.all(authored_positions[1] < authored_positions[0])
+    assert initial_distance < 0.12
+
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    positions = state_out.particle_q.numpy()
+    velocities = state_out.particle_qd.numpy()
+    final_distance = float(np.linalg.norm(positions[0] - positions[1]))
+    assert np.isfinite(positions).all()
+    assert final_distance > initial_distance + 1.0e-4
+    assert np.allclose(np.mean(positions[:2], axis=0), initial_pair_center, atol=1.0e-6)
+    assert np.allclose(np.sum(velocities[:2], axis=0), 0.0, atol=1.0e-5)
+    assert np.allclose(positions[2:], initial_positions[2:], atol=1.0e-6)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
@@ -1141,6 +1302,67 @@ def test_newton_solver_advances_style3d_cloth_without_collisions() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_particle_cloth_vertex_face_collision_is_bidirectional() -> None:
+    from newton.solvers import style3d
+
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    newton.solvers.SolverStyle3D.register_custom_attributes(builder)
+    style3d.add_cloth_grid(
+        builder,
+        pos=wp.vec3(0.0),
+        rot=wp.quat_identity(),
+        vel=wp.vec3(0.0),
+        dim_x=1,
+        dim_y=1,
+        cell_x=0.4,
+        cell_y=0.4,
+        mass=0.1,
+        tri_aniso_ke=wp.vec3(5.0e3, 5.0e3, 1.0e3),
+        edge_aniso_ke=wp.vec3(1.0e-5),
+        particle_radius=0.02,
+    )
+    cloth_count = len(builder.particle_q)
+    collision_particle = builder.add_particle(
+        pos=(0.1, 0.1, 0.04),
+        vel=(0.0, 0.0, 0.0),
+        mass=0.1,
+        radius=0.08,
+    )
+
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.enable_self_collision = True
+    solver.config.self_collision_radius = 0.02
+    solver.config.self_collision_vertex_face_stiffness = 2.0
+    solver.config.nonlinear_iterations = 15
+    solver.config.linear_iterations = 15
+
+    assert solver.synreal_model.collision_particle_count == 1
+    assert np.array_equal(
+        solver._collision_particle_indices.numpy(),
+        (collision_particle,),
+    )
+
+    initial_positions = state_in.particle_q.numpy().copy()
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    positions = state_out.particle_q.numpy()
+    particle_vertical_motion = (
+        positions[collision_particle, 2] - initial_positions[collision_particle, 2]
+    )
+    cloth_vertical_motion = (
+        positions[:cloth_count, 2] - initial_positions[:cloth_count, 2]
+    )
+    assert np.isfinite(positions).all()
+    assert particle_vertical_motion > 1.0e-5
+    assert np.mean(cloth_vertical_motion) < -1.0e-6
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 def test_newton_solver_supports_scoped_capture() -> None:
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z)
     for index in range(3):
@@ -1167,6 +1389,41 @@ def test_newton_solver_supports_scoped_capture() -> None:
 
     assert np.isfinite(positions).all()
     assert np.mean(positions[:, 2] - initial_positions[:, 2]) < 0.0
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_particle_self_collision_supports_capture_replay() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    _add_morton_reversed_overlapping_particles(builder)
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.enable_self_collision = True
+    solver.config.self_collision_particle_particle_stiffness = 2.0
+    stream = wp.get_stream(model.device)
+    initial_positions = state_in.particle_q.numpy().copy()
+    initial_distance = float(
+        np.linalg.norm(initial_positions[0] - initial_positions[1])
+    )
+    state_in.clear_forces()
+
+    with wp.ScopedCapture(stream=stream) as capture:
+        solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+
+    wp.capture_launch(capture.graph, stream=stream)
+    wp.synchronize_stream(stream)
+    first_replay_positions = state_out.particle_q.numpy().copy()
+    wp.capture_launch(capture.graph, stream=stream)
+    wp.synchronize_stream(stream)
+    second_replay_positions = state_out.particle_q.numpy()
+
+    assert np.isfinite(second_replay_positions).all()
+    assert (
+        np.linalg.norm(second_replay_positions[0] - second_replay_positions[1])
+        > initial_distance + 1.0e-4
+    )
+    assert np.allclose(second_replay_positions, first_replay_positions, atol=1.0e-6)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
@@ -2041,3 +2298,47 @@ def test_newton_solver_adds_rigid_body_proxies() -> None:
 
     assert solver is not None
     assert model.synreal_affine_body_ids.numpy().tolist() == [0]
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_global_particle_collides_with_local_world_particle() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(
+        pos=(0.03, 0.0, 0.0),
+        vel=(0.0, 0.0, 0.0),
+        mass=1.0,
+        radius=0.06,
+    )
+    builder.begin_world()
+    builder.add_particle(
+        pos=(-0.03, 0.0, 0.0),
+        vel=(0.0, 0.0, 0.0),
+        mass=1.0,
+        radius=0.06,
+    )
+    builder.end_world()
+
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.enable_self_collision = True
+    solver.config.self_collision_particle_particle_stiffness = 2.0
+    solver.config.nonlinear_iterations = 15
+    solver.config.linear_iterations = 15
+
+    assert np.array_equal(model.particle_world.numpy(), (-1, 0))
+    assert np.array_equal(solver._collision_particle_indices.numpy(), (0, 1))
+    initial_positions = state_in.particle_q.numpy().copy()
+    initial_distance = float(np.linalg.norm(initial_positions[0] - initial_positions[1]))
+    initial_center = np.mean(initial_positions, axis=0)
+
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    positions = state_out.particle_q.numpy()
+    final_distance = float(np.linalg.norm(positions[0] - positions[1]))
+    assert np.isfinite(positions).all()
+    assert final_distance > initial_distance + 1.0e-4
+    assert np.allclose(np.mean(positions, axis=0), initial_center, atol=1.0e-6)
