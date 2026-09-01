@@ -13,6 +13,14 @@ dependencies = [
 examples = [
     "newton[examples]>=1.5.0",
 ]
+# GPU policy inference and MP4 capture for cross-simulator benchmarks.
+benchmark = [
+    "imageio-ffmpeg>=0.6",
+    "mujoco>=3.3",
+    "newton[examples]>=1.5.0",
+    "numpy",
+    "torch>=2.7",
+]
 
 [dependency-groups]
 # Tools used for local testing, binding development, and stub generation.
