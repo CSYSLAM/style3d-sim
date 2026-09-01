@@ -413,6 +413,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._native_edge_count = (
             int(model.edge_count) if self._style3d is not None else 0
         )
+        self._collision_triangle_count = int(model.tri_count)
+        self._collision_edge_count = int(model.edge_count)
         self._affine_body_ids: Any | None = getattr(
             model, "synreal_affine_body_ids", None
         )
@@ -642,6 +644,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
             "tetrahedron_count": int(self.model.tet_count),
             "triangle_count": self._native_triangle_count,
             "edge_count": self._native_edge_count,
+            "collision_triangle_count": self._collision_triangle_count,
+            "collision_edge_count": self._collision_edge_count,
             "body_count": body_count,
             "body_spring_count": (
                 0
@@ -704,6 +708,16 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     None if self._style3d is None else self._style3d.edge_rest_area,
                     None if self._style3d is None else self._style3d.edge_bending_cot,
                 ),
+            ),
+            (
+                "collision_triangle_count",
+                self.model.tri_indices,
+                (),
+            ),
+            (
+                "collision_edge_count",
+                self.model.edge_indices,
+                (),
             ),
         )
         for count_name, indices, attributes in deformable_specs:
@@ -2343,6 +2357,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self.model.gravity,
             self._shared_world_count,
         )
+        self._synreal_model.particle_rest_positions = self._as_span(
+            self.model.particle_q,
+            state_particle_count,
+        )
 
         if particle_count:
             # Synreal uses an explicit particle indirection array. Retain the
@@ -2707,6 +2725,28 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._synreal_model.edge_bending_cots = self._as_span(
                 self._style3d.edge_bending_cot,
                 edge_count,
+            )
+
+        collision_triangle_count = self._shared_counts.get(
+            "collision_triangle_count", self._collision_triangle_count
+        )
+        self._synreal_model.collision_triangle_count = collision_triangle_count
+        if collision_triangle_count:
+            self._synreal_model.collision_triangle_indices = self._as_span(
+                self.model.tri_indices,
+                collision_triangle_count,
+                storage_components=3,
+            )
+
+        collision_edge_count = self._shared_counts.get(
+            "collision_edge_count", self._collision_edge_count
+        )
+        self._synreal_model.collision_edge_count = collision_edge_count
+        if collision_edge_count:
+            self._synreal_model.collision_edge_indices = self._as_span(
+                self.model.edge_indices,
+                collision_edge_count,
+                storage_components=4,
             )
 
         # Native initialization copies Style3D coefficients to the host while

@@ -19,6 +19,8 @@ def test_model_count_fields() -> None:
     model.spring_count = 3
     model.triangle_count = 4
     model.tetrahedron_count = 5
+    model.collision_triangle_count = 6
+    model.collision_edge_count = 7
     model.hinge_count = 5
     model.body_count = 6
     model.body_state_count = 60
@@ -32,6 +34,8 @@ def test_model_count_fields() -> None:
     assert model.spring_count == 3
     assert model.triangle_count == 4
     assert model.tetrahedron_count == 5
+    assert model.collision_triangle_count == 6
+    assert model.collision_edge_count == 7
     assert model.hinge_count == 5
     assert model.body_count == 6
     assert model.body_state_count == 60
@@ -50,6 +54,7 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "particle_mass_non_diagonal_values",
         "particle_flags",
         "particle_world",
+        "particle_rest_positions",
         "gravity",
         "spring_indices",
         "spring_stiffnesses",
@@ -66,6 +71,8 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "edge_bending_properties",
         "edge_rest_areas",
         "edge_bending_cots",
+        "collision_triangle_indices",
+        "collision_edge_indices",
         "hinge_indices",
         "hinge_rest_angles",
         "hinge_stiffnesses",
@@ -109,6 +116,20 @@ def test_config_exposes_runtime_options() -> None:
     assert config.distance_constraint_alpha == pytest.approx(25.0)
 
     assert not hasattr(config, "enable_affine_body_velocity_correction")
+
+    assert config.enable_self_collision is False
+    config.enable_self_collision = True
+    assert config.enable_self_collision is True
+
+    collision_options = {
+        "self_collision_radius": 0.012,
+        "self_collision_vertex_face_stiffness": 0.75,
+        "self_collision_edge_edge_stiffness": 0.25,
+        "self_collision_edge_face_stiffness": 1.5,
+    }
+    for name, expected in collision_options.items():
+        setattr(config, name, expected)
+        assert getattr(config, name) == pytest.approx(expected)
 
     rigidity_models = (
         sr.AffineBodyRigidityModel.CO_ROTATED,

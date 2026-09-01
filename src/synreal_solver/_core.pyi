@@ -95,6 +95,14 @@ class Config:
     def distance_constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
     @property
+    def enable_self_collision(self) -> bool:
+        """
+        Whether deformable self-collision is enabled.
+        """
+    @enable_self_collision.setter
+    def enable_self_collision(self, arg0: bool) -> None:
+        ...
+    @property
     def joint_constraint_alpha(self) -> float:
         """
         Maximum generalized eigenvalue of dt^2*K_joint*v = alpha*M*v for generated joint constraints.
@@ -125,6 +133,38 @@ class Config:
         """
     @rigid_body_integrator.setter
     def rigid_body_integrator(self, arg0: RigidBodyIntegrator) -> None:
+        ...
+    @property
+    def self_collision_edge_edge_stiffness(self) -> float:
+        """
+        Dimensionless stiffness scale for edge-edge self-collision penalties.
+        """
+    @self_collision_edge_edge_stiffness.setter
+    def self_collision_edge_edge_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def self_collision_edge_face_stiffness(self) -> float:
+        """
+        Dimensionless stiffness scale for edge-face untangling penalties.
+        """
+    @self_collision_edge_face_stiffness.setter
+    def self_collision_edge_face_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def self_collision_radius(self) -> float:
+        """
+        Radius used to thicken deformable collision primitives.
+        """
+    @self_collision_radius.setter
+    def self_collision_radius(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def self_collision_vertex_face_stiffness(self) -> float:
+        """
+        Dimensionless stiffness scale for vertex-face self-collision penalties.
+        """
+    @self_collision_vertex_face_stiffness.setter
+    def self_collision_vertex_face_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
 class Contact:
     """
@@ -638,6 +678,38 @@ class Model:
     def body_state_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
         ...
     @property
+    def collision_edge_count(self) -> int:
+        """
+        Number of collision surface edges in one static world template.
+        """
+    @collision_edge_count.setter
+    def collision_edge_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def collision_edge_indices(self) -> Span:
+        """
+        Device span containing collision edge adjacency and endpoint particle indices.
+        """
+    @collision_edge_indices.setter
+    def collision_edge_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def collision_triangle_count(self) -> int:
+        """
+        Number of collision surface triangles in one static world template.
+        """
+    @collision_triangle_count.setter
+    def collision_triangle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def collision_triangle_indices(self) -> Span:
+        """
+        Device span containing collision surface triangle particle indices.
+        """
+    @collision_triangle_indices.setter
+    def collision_triangle_indices(self, arg1: Span) -> None:
+        ...
+    @property
     def edge_bending_cots(self) -> Span:
         """
         Device span containing four rest-pose cotangents per bending edge.
@@ -916,6 +988,14 @@ class Model:
         """
     @particle_radii.setter
     def particle_radii(self, arg1: Span) -> None:
+        ...
+    @property
+    def particle_rest_positions(self) -> Span:
+        """
+        Device span containing initial particle positions for all dynamic world states.
+        """
+    @particle_rest_positions.setter
+    def particle_rest_positions(self, arg1: Span) -> None:
         ...
     @property
     def particle_state_count(self) -> int:

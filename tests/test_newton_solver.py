@@ -62,6 +62,7 @@ def _add_tetrahedral_cube(
     k_lambda: float = 2.0e5,
     k_damp: float = 2.0e3,
     tri_ke: float = 0.0,
+    add_surface_mesh_edges: bool = False,
 ) -> None:
     builder.add_soft_grid(
         pos=wp.vec3(0.0),
@@ -78,7 +79,7 @@ def _add_tetrahedral_cube(
         k_lambda=k_lambda,
         k_damp=k_damp,
         tri_ke=tri_ke,
-        add_surface_mesh_edges=False,
+        add_surface_mesh_edges=add_surface_mesh_edges,
     )
 
 
@@ -642,6 +643,7 @@ def test_newton_solver_bridges_tetrahedron_model_and_control() -> None:
         k_mu=1.25e5,
         k_lambda=2.5e5,
         k_damp=750.0,
+        add_surface_mesh_edges=True,
     )
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
@@ -658,6 +660,15 @@ def test_newton_solver_bridges_tetrahedron_model_and_control() -> None:
     assert native.tetrahedron_materials.size == model.tet_count
     assert native.triangle_count == 0
     assert native.edge_count == 0
+    assert native.particle_rest_positions.ptr == model.particle_q.ptr
+    assert native.particle_rest_positions.size == model.particle_count
+    assert native.collision_triangle_count == model.tri_count
+    assert native.collision_triangle_indices.ptr == model.tri_indices.ptr
+    assert native.collision_triangle_indices.size == model.tri_count
+    assert native.collision_edge_count == model.edge_count
+    assert native.collision_edge_count > 0
+    assert native.collision_edge_indices.ptr == model.edge_indices.ptr
+    assert native.collision_edge_indices.size == model.edge_count
 
     control = model.control()
     native_control = solver._as_synreal_control(control)
@@ -737,6 +748,11 @@ def test_newton_solver_shares_replicated_tetrahedron_data(world_count: int) -> N
     assert native.tetrahedron_materials.ptr == model.tet_materials.ptr
     assert native.triangle_count == 0
     assert native.edge_count == 0
+    assert native.particle_rest_positions.ptr == model.particle_q.ptr
+    assert native.particle_rest_positions.size == model.particle_count
+    assert native.collision_triangle_count == model.tri_count // world_count
+    assert native.collision_triangle_indices.ptr == model.tri_indices.ptr
+    assert native.collision_edge_count == model.edge_count // world_count == 0
 
     control = model.control()
     native_control = solver._as_synreal_control(control)
@@ -1930,6 +1946,12 @@ def test_newton_solver_shares_replicated_cloth_rigid_model_data(
     assert native.spring_count == model.spring_count // world_count
     assert native.triangle_count == model.tri_count // world_count
     assert native.edge_count == model.edge_count // world_count
+    assert native.particle_rest_positions.ptr == model.particle_q.ptr
+    assert native.particle_rest_positions.size == model.particle_count
+    assert native.collision_triangle_count == model.tri_count // world_count
+    assert native.collision_triangle_indices.ptr == model.tri_indices.ptr
+    assert native.collision_edge_count == model.edge_count // world_count
+    assert native.collision_edge_indices.ptr == model.edge_indices.ptr
 
     particles_per_world = native.particle_count
     particle_world = model.particle_world.numpy()
