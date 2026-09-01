@@ -177,9 +177,7 @@ class Example:
 
         self.model = builder.finalize()
         self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.rigid_body_integrator = (
-            synreal_solver.RigidBodyIntegrator.NONE
-        )
+        self.solver.config.inertia_mode = synreal_solver.InertiaMode.NONE
         self.solver.config.affine_body_spring_alpha = 1e3
         self.solver.config.joint_constraint_alpha = 3e3
         self.solver.config.nonlinear_iterations = 20

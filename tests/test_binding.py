@@ -119,6 +119,8 @@ def test_config_exposes_runtime_options() -> None:
     assert config.distance_constraint_alpha == pytest.approx(25.0)
 
     assert not hasattr(config, "enable_affine_body_velocity_correction")
+    assert not hasattr(config, "rigid_body_integrator")
+    assert not hasattr(sr, "RigidBodyIntegrator")
 
     assert config.enable_self_collision is False
     config.enable_self_collision = True
@@ -151,34 +153,32 @@ def test_config_exposes_runtime_options() -> None:
         config.affine_body_rigidity_model = model
         assert config.affine_body_rigidity_model == model
 
-    rigid_body_integrators = (
-        sr.RigidBodyIntegrator.EXPLICIT_EULER,
-        sr.RigidBodyIntegrator.IMPLICIT_EULER,
-        sr.RigidBodyIntegrator.LIE_GROUP_MIDPOINT,
-        sr.RigidBodyIntegrator.MIDPOINT_CAYLEY,
-        sr.RigidBodyIntegrator.NONE,
+    inertia_modes = (
+        sr.InertiaMode.EXPLICIT_EULER,
+        sr.InertiaMode.IMPLICIT_EULER,
+        sr.InertiaMode.LIE_GROUP_MIDPOINT,
+        sr.InertiaMode.MIDPOINT_CAYLEY,
+        sr.InertiaMode.NONE,
     )
-    assert config.rigid_body_integrator == sr.RigidBodyIntegrator.MIDPOINT_CAYLEY
-    assert {integrator.name for integrator in rigid_body_integrators} == {
+    assert config.inertia_mode == sr.InertiaMode.MIDPOINT_CAYLEY
+    assert {mode.name for mode in inertia_modes} == {
         "EXPLICIT_EULER",
         "IMPLICIT_EULER",
         "LIE_GROUP_MIDPOINT",
         "MIDPOINT_CAYLEY",
         "NONE",
     }
-    assert tuple(integrator.value for integrator in rigid_body_integrators) == (
+    assert tuple(mode.value for mode in inertia_modes) == (
         0,
         1,
         2,
         3,
         4,
     )
-    assert len({integrator.value for integrator in rigid_body_integrators}) == len(
-        rigid_body_integrators
-    )
-    for integrator in rigid_body_integrators:
-        config.rigid_body_integrator = integrator
-        assert config.rigid_body_integrator == integrator
+    assert len({mode.value for mode in inertia_modes}) == len(inertia_modes)
+    for mode in inertia_modes:
+        config.inertia_mode = mode
+        assert config.inertia_mode == mode
 
 
 def test_model_fields_require_span() -> None:

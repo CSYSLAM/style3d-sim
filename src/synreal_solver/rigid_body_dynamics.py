@@ -4,7 +4,7 @@ All quantities are expressed in body coordinates. ``inertia`` is constant,
 ``angular_momentum`` is the beginning-of-step body angular momentum, and the
 returned rotation increment satisfies ``R_next = R @ relative_rotation``.
 
-The integer method codes match ``RigidBodyIntegrator`` in the native binding.
+The integer method codes match ``InertiaMode`` in the native binding.
 
 The exponential-map closures use the principal SO(3) logarithm, so their
 relative step rotation must stay below pi. The Cayley closure is defined when

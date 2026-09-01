@@ -18,14 +18,14 @@ AFFINE_BODY_RIGIDITY_MODELS = (
     pytest.param(sr.AffineBodyRigidityModel.SIX_SPRINGS, id="six-springs"),
 )
 
-RIGID_BODY_INTEGRATORS = (
-    pytest.param(sr.RigidBodyIntegrator.EXPLICIT_EULER, id="explicit-euler"),
-    pytest.param(sr.RigidBodyIntegrator.IMPLICIT_EULER, id="implicit-euler"),
+INERTIA_MODES = (
+    pytest.param(sr.InertiaMode.EXPLICIT_EULER, id="explicit-euler"),
+    pytest.param(sr.InertiaMode.IMPLICIT_EULER, id="implicit-euler"),
     pytest.param(
-        sr.RigidBodyIntegrator.LIE_GROUP_MIDPOINT,
+        sr.InertiaMode.LIE_GROUP_MIDPOINT,
         id="lie-group-midpoint",
     ),
-    pytest.param(sr.RigidBodyIntegrator.MIDPOINT_CAYLEY, id="midpoint-cayley"),
+    pytest.param(sr.InertiaMode.MIDPOINT_CAYLEY, id="midpoint-cayley"),
 )
 
 
@@ -469,7 +469,7 @@ def test_affine_body_pose_reconstruction_uses_proxy_columns() -> None:
             model.body_com,
             model.synreal_affine_body_inertia,
             model.synreal_affine_body_axis_lengths,
-            int(sr.RigidBodyIntegrator.MIDPOINT_CAYLEY.value),
+            int(sr.InertiaMode.MIDPOINT_CAYLEY.value),
             1.0 / 60.0,
         ],
         outputs=[state.body_q, state.body_qd],
@@ -549,7 +549,7 @@ def test_affine_body_velocity_reconstruction_uses_mass_weighted_rigid_fit(
             model.body_com,
             model.synreal_affine_body_inertia,
             model.synreal_affine_body_axis_lengths,
-            int(sr.RigidBodyIntegrator.NONE.value),
+            int(sr.InertiaMode.NONE.value),
             1.0 / 60.0,
         ],
         outputs=[state.body_q, state.body_qd],
@@ -1695,9 +1695,9 @@ def test_affine_body_rigidity_models_restore_frames_during_capture(
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-@pytest.mark.parametrize("integrator", RIGID_BODY_INTEGRATORS)
+@pytest.mark.parametrize("inertia_mode", INERTIA_MODES)
 def test_newton_solver_preserves_free_body_angular_speed(
-    integrator: sr.RigidBodyIntegrator,
+    inertia_mode: sr.InertiaMode,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_body(
@@ -1710,7 +1710,7 @@ def test_newton_solver_preserves_free_body_angular_speed(
     state_in = model.state()
     state_out = model.state()
     solver = NewtonSolver(model)
-    solver.config.rigid_body_integrator = integrator
+    solver.config.inertia_mode = inertia_mode
     initial_speed = np.linalg.norm(state_in.body_qd.numpy()[body, 3:])
 
     for _ in range(120):
@@ -1738,7 +1738,7 @@ def test_newton_solver_preserves_asymmetric_free_body_invariants() -> None:
     state_out = model.state()
     solver = NewtonSolver(model)
     solver.config.affine_body_rigidity_model = sr.AffineBodyRigidityModel.SIX_SPRINGS
-    solver.config.rigid_body_integrator = sr.RigidBodyIntegrator.MIDPOINT_CAYLEY
+    solver.config.inertia_mode = sr.InertiaMode.MIDPOINT_CAYLEY
 
     def invariants(state: object) -> tuple[np.ndarray, float]:
         pose = state.body_q.numpy()[body]

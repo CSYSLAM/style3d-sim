@@ -85,7 +85,7 @@ def _run_step(
         ),
     ),
 )
-def test_rigid_body_integrator_equations_and_endpoint_recovery(
+def test_inertia_mode_equations_and_endpoint_recovery(
     integrator: int,
     device: str,
 ) -> None:

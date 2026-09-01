@@ -44,7 +44,7 @@ def _predict_affine_body_inertia(
     body_com: wp.array(dtype=wp.vec3),
     body_mass: wp.array(dtype=wp.float32),
     affine_body_inertia: wp.array(dtype=wp.mat33),
-    rigid_body_integrator: int,
+    inertia_mode: int,
     dt: float,
     predicted_body_q: wp.array(dtype=wp.transform),
     predicted_body_qd: wp.array(dtype=wp.spatial_vector),
@@ -75,7 +75,7 @@ def _predict_affine_body_inertia(
         inertia,
         initial_angular_momentum,
         dt,
-        rigid_body_integrator,
+        inertia_mode,
     )
     relative_rotation = wp.quat_from_matrix(relative_rotation_matrix)
     predicted_rotation = rotation * relative_rotation
@@ -178,7 +178,7 @@ def _update_affine_body_poses(
     body_com: wp.array(dtype=wp.vec3),
     affine_body_inertia: wp.array(dtype=wp.mat33),
     affine_body_axis_lengths: wp.array(dtype=wp.float32),
-    rigid_body_integrator: int,
+    inertia_mode: int,
     dt: float,
     body_q: wp.array(dtype=wp.transform),
     body_qd: wp.array(dtype=wp.spatial_vector),
@@ -234,7 +234,7 @@ def _update_affine_body_poses(
         rotation = wp.quat(-rotation[0], -rotation[1], -rotation[2], -rotation[3])
     center_velocity = particle_qd[particle_indices[0]]
     angular_velocity = wp.vec3(0.0)
-    if rigid_body_integrator != NONE:
+    if inertia_mode != NONE:
         # Recover Q = R_n^T R_{n+1} and apply the endpoint closure paired with
         # the selected rigid-body inertia integrator.
         relative_rotation = wp.quat_inverse(previous_rotation) * rotation
@@ -249,7 +249,7 @@ def _update_affine_body_poses(
             inertia,
             wp.quat_to_matrix(relative_rotation),
             dt,
-            rigid_body_integrator,
+            inertia_mode,
         )
         angular_velocity = wp.quat_rotate(rotation, next_body_angular_velocity)
     else:
@@ -3009,9 +3009,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         affine_body_state_count = (
             0 if self._affine_body_ids is None else len(self._affine_body_ids)
         )
-        rigid_body_integrator = int(self.config.rigid_body_integrator.value)
+        inertia_mode = int(self.config.inertia_mode.value)
         use_rigid_body_inertia = bool(
-            affine_body_state_count and rigid_body_integrator != NONE
+            affine_body_state_count and inertia_mode != NONE
         )
         if use_rigid_body_inertia:
             self._wp.launch(
@@ -3025,7 +3025,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     self.model.body_com,
                     self.model.body_mass,
                     self._affine_body_inertia,
-                    rigid_body_integrator,
+                    inertia_mode,
                     dt,
                 ],
                 outputs=[
@@ -3118,7 +3118,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     self.model.body_com,
                     self._affine_body_inertia,
                     self._affine_body_axis_lengths,
-                    rigid_body_integrator,
+                    inertia_mode,
                     dt,
                 ],
                 outputs=[state_out.body_q, state_out.body_qd],
