@@ -4,18 +4,16 @@
 from __future__ import annotations
 
 import argparse
+import getpass
 import hashlib
 import json
 import math
 import os
-import select
 import sys
 import time
 import urllib.request
-from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterator
 
 import imageio_ffmpeg
 import newton
@@ -241,6 +239,35 @@ def ensure_checkpoint(profile: PolicyProfile, override: Path | None = None) -> P
     return path
 
 
+def ensure_synreal_login(force_signin: bool = False) -> None:
+    """Authenticate interactively or from environment variables when required."""
+    if synreal_solver.is_logged_in():
+        return
+
+    login_name = os.environ.get("SYNREAL_LOGIN_NAME", "").strip()
+    password = os.environ.get("SYNREAL_LOGIN_PASSWORD", "")
+    if sys.stdin.isatty():
+        try:
+            if not login_name:
+                login_name = input("SynReal login name: ").strip()
+            if not password:
+                password = getpass.getpass("SynReal password: ")
+        except EOFError:
+            pass
+    if not login_name or not password:
+        raise RuntimeError(
+            "SynReal authentication is required. Run from an interactive terminal "
+            "or set SYNREAL_LOGIN_NAME and SYNREAL_LOGIN_PASSWORD."
+        )
+    if not synreal_solver.login(login_name, password, force_signin):
+        retry = (
+            " Retry with --force-signin only if replacing another active session is intended."
+            if not force_signin
+            else ""
+        )
+        raise RuntimeError(f"SynReal login failed.{retry}")
+
+
 def resolve_asset(profile: PolicyProfile) -> Path:
     if profile.asset_kind == "newton_mjcf":
         root = newton.utils.download_asset(profile.asset_folder)
@@ -352,28 +379,6 @@ class VideoWriter:
 
     def close(self) -> None:
         self._writer.close()
-
-
-@contextmanager
-def raw_terminal(enabled: bool) -> Iterator[None]:
-    if not enabled or not sys.stdin.isatty():
-        yield
-        return
-    import termios
-    import tty
-    original = termios.tcgetattr(sys.stdin)
-    try:
-        tty.setcbreak(sys.stdin.fileno())
-        yield
-    finally:
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, original)
-
-
-def reset_requested() -> bool:
-    if not sys.stdin.isatty():
-        return False
-    ready, _, _ = select.select([sys.stdin], [], [], 0.0)
-    return bool(ready and sys.stdin.read(1).lower() == "p")
 
 
 class SynRealPolicyPlayer:
@@ -617,6 +622,7 @@ class SynRealPolicyPlayer:
 
 
 def run(args: argparse.Namespace) -> dict:
+    ensure_synreal_login(args.force_signin)
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required; CPU fallback is intentionally disabled")
     torch.cuda.set_device(0)
@@ -647,38 +653,42 @@ def run(args: argparse.Namespace) -> dict:
     trajectory: dict[str, list] = {}
     initial_xy = wp.to_torch(player.state_0.body_q)[0, :2].cpu().tolist()
     final_xyz: list[float] | None = None
+    reset_key_previous = False
     start = time.perf_counter()
     try:
-        with raw_terminal(not args.headless):
-            for frame_index in range(frames):
-                if reset_requested():
-                    player.reset()
-                if replay_actions is None:
-                    _, _, action = player.policy_step()
-                    target = player.default + player.action_scale * action
-                else:
-                    action = replay_actions[frame_index].unsqueeze(0)
-                    target = player.set_action(action)
-                player.simulate_control_period()
-                if args.trajectory:
-                    sample = player.trajectory_sample(action, target)
-                    for name, value in sample.items():
-                        trajectory.setdefault(name, []).append(value)
-                observation, body_q, gravity_body = player.observe()
-                step_finite = bool(torch.isfinite(observation).all() and torch.isfinite(action).all() and torch.isfinite(body_q).all())
-                finite = finite and step_finite
-                xyz = body_q[0, :3].detach()
-                final_xyz = xyz.cpu().tolist()
-                heights.append(float(xyz[2].item()))
-                upright.append(float((-gravity_body[0, 2]).item()))
-                if not step_finite:
-                    raise FloatingPointError(f"non-finite state at frame {frame_index}")
-                if viewer is not None:
-                    image = player.render((frame_index + 1) / FPS, xyz)
-                    if writer is not None:
-                        writer.append(image)
-                if (frame_index + 1) % FPS == 0:
-                    print(f"[{profile.name}] {(frame_index + 1) / FPS:.0f}/{args.duration:g}s height={heights[-1]:.3f} upright={upright[-1]:.3f}", flush=True)
+        for frame_index in range(frames):
+            reset_key_down = bool(
+                not args.headless and viewer is not None and viewer.is_key_down("p")
+            )
+            if reset_key_down and not reset_key_previous:
+                player.reset()
+            reset_key_previous = reset_key_down
+            if replay_actions is None:
+                _, _, action = player.policy_step()
+                target = player.default + player.action_scale * action
+            else:
+                action = replay_actions[frame_index].unsqueeze(0)
+                target = player.set_action(action)
+            player.simulate_control_period()
+            if args.trajectory:
+                sample = player.trajectory_sample(action, target)
+                for name, value in sample.items():
+                    trajectory.setdefault(name, []).append(value)
+            observation, body_q, gravity_body = player.observe()
+            step_finite = bool(torch.isfinite(observation).all() and torch.isfinite(action).all() and torch.isfinite(body_q).all())
+            finite = finite and step_finite
+            xyz = body_q[0, :3].detach()
+            final_xyz = xyz.cpu().tolist()
+            heights.append(float(xyz[2].item()))
+            upright.append(float((-gravity_body[0, 2]).item()))
+            if not step_finite:
+                raise FloatingPointError(f"non-finite state at frame {frame_index}")
+            if viewer is not None:
+                image = player.render((frame_index + 1) / FPS, xyz)
+                if writer is not None:
+                    writer.append(image)
+            if (frame_index + 1) % FPS == 0:
+                print(f"[{profile.name}] {(frame_index + 1) / FPS:.0f}/{args.duration:g}s height={heights[-1]:.3f} upright={upright[-1]:.3f}", flush=True)
     finally:
         if writer is not None:
             writer.close()
@@ -784,6 +794,11 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--summary", type=Path)
     parser.add_argument("--trajectory", type=Path, help="write policy-rate state/action trajectory as NPZ")
     parser.add_argument("--replay-actions", type=Path, help="replay the action array from another trajectory")
+    parser.add_argument(
+        "--force-signin",
+        action="store_true",
+        help="replace another active SynReal session when authenticating",
+    )
     parser.add_argument("--width", type=int, default=960)
     parser.add_argument("--height", type=int, default=540)
     mode = parser.add_mutually_exclusive_group()
