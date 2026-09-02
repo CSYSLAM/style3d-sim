@@ -1455,6 +1455,67 @@ def test_newton_solver_regularizes_active_joint_drive_inertia(armature: float) -
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_angular_joint_drive_balances_force_on_each_body() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    inertia = wp.mat33(0.02, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.03)
+    parent = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
+    child = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
+    joint = builder.add_joint_revolute(
+        parent=parent,
+        child=child,
+        axis=(0.0, 1.0, 0.0),
+        target_pos=0.2,
+        target_ke=150.0,
+        target_kd=5.0,
+        damping=0.0,
+        actuator_mode=newton.JointTargetMode.POSITION,
+    )
+    builder.add_articulation([joint])
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+    solver.config.joint_constraint_alpha = 0.0
+    solver.config.nonlinear_iterations = 1
+    solver.config.linear_iterations = 100
+
+    state_in, state_out = model.state(), model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_in)
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_out)
+    solver.sync_affine_body_state(state_in)
+    solver.sync_affine_body_state(state_out)
+    wp.synchronize_device(model.device)
+
+    # Separate the joint origins to cover the configuration where the former
+    # cross-body spring representation generated a spurious resultant force.
+    affine_body_ids = solver._affine_body_ids.numpy()
+    affine_bodies = solver._affine_body_indices.numpy()
+    parent_affine = int(np.flatnonzero(affine_body_ids == parent)[0])
+    child_affine = int(np.flatnonzero(affine_body_ids == child)[0])
+    child_particles = affine_bodies[child_affine]
+    for state in (state_in, state_out):
+        positions = state.particle_q.numpy()
+        positions[child_particles] += np.array((0.01, 0.02, 0.0), dtype=np.float32)
+        _set_particle_positions(state, positions, model.device)
+
+    control = model.control()
+    control.joint_f.fill_(1.0)
+    wp.copy(control.joint_target_q, model.joint_target_q)
+    wp.copy(control.joint_target_qd, model.joint_target_qd)
+    state_in.clear_forces()
+    solver.step(state_in, state_out, control, None, 1.0e-3)
+    wp.synchronize_device(model.device)
+
+    proxy_velocities = state_out.particle_qd.numpy()
+    center_velocities = proxy_velocities[
+        affine_bodies[[parent_affine, child_affine], 0]
+    ]
+    assert np.allclose(center_velocities, 0.0, atol=1.0e-6)
+
+    angular_velocities = state_out.body_qd.numpy()[[parent, child], 3:]
+    assert angular_velocities[0, 1] < 0.0
+    assert angular_velocities[1, 1] > 0.0
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 def test_newton_solver_regularizes_prebuilt_affine_proxy_mass() -> None:
     inertia = np.diag((0.02, 0.03, 0.04)).astype(np.float32)
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
