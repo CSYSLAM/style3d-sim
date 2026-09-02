@@ -9,7 +9,7 @@ allocation alive for as long as native code may access it.
 from __future__ import annotations
 import collections.abc
 import typing
-__all__: list[str] = ['AffineBodyRigidityModel', 'Config', 'Contact', 'Control', 'InertiaMode', 'LogLevel', 'Model', 'Solver', 'Span', 'State', 'is_logged_in', 'login', 'set_log_callback']
+__all__: list[str] = ['AffineBodyRigidityModel', 'Config', 'Contact', 'Control', 'InertiaMode', 'JointConstraintMode', 'LogLevel', 'Model', 'Solver', 'Span', 'State', 'is_logged_in', 'login', 'set_log_callback']
 class AffineBodyRigidityModel:
     """
     Members:
@@ -102,7 +102,8 @@ class Config:
     @enable_self_collision.setter
     def enable_self_collision(self, arg0: bool) -> None:
         ...
-    @property    def inertia_mode(self) -> InertiaMode:
+    @property
+    def inertia_mode(self) -> InertiaMode:
         """
         ABD inertia construction and velocity recovery mode; NONE selects the free-particle path.
         """
@@ -112,10 +113,18 @@ class Config:
     @property
     def joint_constraint_alpha(self) -> float:
         """
-        Maximum generalized eigenvalue of dt^2*K_joint*v = alpha*M*v for generated joint constraints.
+        Dimensionless mass-normalized joint parameter: maximum dt^2*K/M eigenvalue in PENALTY mode and augmented-Lagrangian penalty eigenvalue in AUGMENTED_LAGRANGIAN mode. Zero disables generated joint constraints.
         """
     @joint_constraint_alpha.setter
     def joint_constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def joint_constraint_mode(self) -> JointConstraintMode:
+        """
+        Joint-constraint enforcement method; PENALTY preserves the legacy behavior.
+        """
+    @joint_constraint_mode.setter
+    def joint_constraint_mode(self, arg0: JointConstraintMode) -> None:
         ...
     @property
     def linear_iterations(self) -> int:
@@ -354,15 +363,15 @@ class Control:
 class InertiaMode:
     """
     Members:
-
+    
       EXPLICIT_EULER
-
+    
       IMPLICIT_EULER
-
+    
       LIE_GROUP_MIDPOINT
-
+    
       MIDPOINT_CAYLEY
-
+    
       NONE
     """
     EXPLICIT_EULER: typing.ClassVar[InertiaMode]  # value = <InertiaMode.EXPLICIT_EULER: 0>
@@ -389,6 +398,51 @@ class InertiaMode:
         ...
     @typing.overload
     def __ne__(self, other: InertiaMode) -> bool:
+        ...
+    @typing.overload
+    def __ne__(self, other: typing.Any) -> bool:
+        ...
+    def __repr__(self) -> str:
+        ...
+    def __setstate__(self, state: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __str__(self) -> str:
+        ...
+    @property
+    def name(self) -> str:
+        ...
+    @property
+    def value(self) -> int:
+        ...
+class JointConstraintMode:
+    """
+    Members:
+    
+      PENALTY
+    
+      AUGMENTED_LAGRANGIAN
+    """
+    AUGMENTED_LAGRANGIAN: typing.ClassVar[JointConstraintMode]  # value = <JointConstraintMode.AUGMENTED_LAGRANGIAN: 1>
+    PENALTY: typing.ClassVar[JointConstraintMode]  # value = <JointConstraintMode.PENALTY: 0>
+    __members__: typing.ClassVar[dict[str, JointConstraintMode]]  # value = {'PENALTY': <JointConstraintMode.PENALTY: 0>, 'AUGMENTED_LAGRANGIAN': <JointConstraintMode.AUGMENTED_LAGRANGIAN: 1>}
+    @typing.overload
+    def __eq__(self, other: JointConstraintMode) -> bool:
+        ...
+    @typing.overload
+    def __eq__(self, other: typing.Any) -> bool:
+        ...
+    def __getstate__(self) -> int:
+        ...
+    def __hash__(self) -> int:
+        ...
+    def __index__(self) -> int:
+        ...
+    def __init__(self, value: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __int__(self) -> int:
+        ...
+    @typing.overload
+    def __ne__(self, other: JointConstraintMode) -> bool:
         ...
     @typing.overload
     def __ne__(self, other: typing.Any) -> bool:

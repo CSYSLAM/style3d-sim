@@ -1127,6 +1127,294 @@ def test_newton_solver_joint_constraint_topology_matrix(
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_rejects_invalid_joint_constraint_mode_at_step() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=(0.0, 0.0, 0.0), vel=(0.0, 0.0, 0.0), mass=1.0)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.joint_constraint_mode = sr.JointConstraintMode(99)
+
+    with pytest.raises(ValueError, match="config.joint_constraint_mode is invalid"):
+        solver.step(model.state(), model.state(), None, None, 1.0 / 60.0)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_rejects_nonzero_joint_spring_rest_length() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    body = builder.add_link(
+        mass=2.0,
+        inertia=wp.mat33(5.0, 0.0, 0.0, 0.0, 6.0, 0.0, 0.0, 0.0, 7.0),
+        lock_inertia=True,
+    )
+    joint = builder.add_joint_ball(parent=-1, child=body)
+    builder.add_articulation([joint])
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    joint_spring_start = (
+        solver.synreal_model.body_spring_count
+        - solver.synreal_model.joint_body_spring_count
+    )
+    rest_lengths = solver._body_spring_rest_lengths.numpy()
+    rest_lengths[joint_spring_start:] = 1.0
+    solver._body_spring_rest_lengths = wp.array(
+        rest_lengths, dtype=wp.float32, device=model.device
+    )
+
+    with pytest.raises(
+        ValueError, match="joint-generated body springs must have zero rest length"
+    ):
+        solver._initialize_synreal_solver()
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize(
+    "joint_kind",
+    ("free", "fixed", "ball", "revolute", "prismatic", "cylindrical"),
+)
+def test_joint_augmented_lagrangian_supported_joint_smoke(joint_kind: str) -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    body = builder.add_link(
+        mass=2.0,
+        inertia=wp.mat33(5.0, 0.0, 0.0, 0.0, 6.0, 0.0, 0.0, 0.0, 7.0),
+        lock_inertia=True,
+    )
+    identity = wp.transform_identity()
+    if joint_kind == "free":
+        joint = builder.add_joint_free(child=body)
+    elif joint_kind == "fixed":
+        parent = builder.add_link(
+            mass=2.0,
+            inertia=wp.mat33(5.0, 0.0, 0.0, 0.0, 6.0, 0.0, 0.0, 0.0, 7.0),
+            lock_inertia=True,
+        )
+        joint = builder.add_joint_fixed(parent=parent, child=body, child_xform=identity)
+    elif joint_kind == "ball":
+        joint = builder.add_joint_ball(parent=-1, child=body, child_xform=identity)
+    elif joint_kind == "revolute":
+        joint = builder.add_joint_revolute(
+            parent=-1, child=body, axis=(0.0, 0.0, 1.0), child_xform=identity
+        )
+    elif joint_kind == "prismatic":
+        joint = builder.add_joint_prismatic(
+            parent=-1, child=body, axis=(1.0, 0.0, 0.0), child_xform=identity
+        )
+    else:
+        axis = builder.JointDofConfig.create_unlimited(newton.Axis.X)
+        joint = builder.add_joint_d6(
+            parent=-1,
+            child=body,
+            linear_axes=[axis],
+            angular_axes=[axis],
+            child_xform=identity,
+        )
+    builder.add_articulation([joint])
+
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.joint_constraint_mode = (
+        sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+    )
+    solver.config.nonlinear_iterations = 2
+    state_in, state_out = model.state(), model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_in)
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_out)
+    solver.sync_affine_body_state(state_in)
+    solver.sync_affine_body_state(state_out)
+
+    solver.step(state_in, state_out, model.control(), None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    assert np.isfinite(state_out.particle_q.numpy()).all()
+    assert np.isfinite(state_out.particle_qd.numpy()).all()
+    assert np.isfinite(state_out.body_q.numpy()).all()
+    assert np.isfinite(state_out.body_qd.numpy()).all()
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_joint_constraint_modes_reuse_assembled_constraints() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    parent = builder.add_body(
+        mass=2.0,
+        inertia=wp.mat33(5.0, 0.0, 0.0, 0.0, 6.0, 0.0, 0.0, 0.0, 7.0),
+        lock_inertia=True,
+    )
+    child = builder.add_body(
+        mass=2.0,
+        inertia=wp.mat33(5.0, 0.0, 0.0, 0.0, 6.0, 0.0, 0.0, 0.0, 7.0),
+        lock_inertia=True,
+    )
+    revolute = builder.add_joint_revolute(
+        parent=-1,
+        child=parent,
+        axis=(0.0, 0.0, 1.0),
+        child_xform=wp.transform_identity(),
+    )
+    prismatic = builder.add_joint_prismatic(
+        parent=parent,
+        child=child,
+        axis=(1.0, 0.0, 0.0),
+        child_xform=wp.transform_identity(),
+    )
+    builder.add_articulation([revolute, prismatic])
+    solver = NewtonSolver(builder.finalize(device="cuda:0"))
+
+    def assembled_constraint_layout() -> tuple[object, ...]:
+        model = solver.synreal_model
+        spans = (
+            model.body_spring_indices,
+            model.body_spring_stiffnesses,
+            model.body_spring_rest_lengths,
+            model.body_point_line_indices,
+            model.body_point_line_stiffnesses,
+            model.body_point_line_dampings,
+        )
+        return (
+            model.body_spring_count,
+            model.joint_body_spring_count,
+            model.body_point_line_count,
+            model.joint_body_point_line_count,
+            *((span.ptr, len(span)) for span in spans),
+        )
+
+    assembled_constraints = assembled_constraint_layout()
+
+    assert solver.config.joint_constraint_mode == sr.JointConstraintMode.PENALTY
+    assert solver.synreal_model.body_spring_count == 2
+    assert solver.synreal_model.joint_body_spring_count == 2
+    assert solver.synreal_model.body_point_line_count == 4
+    assert solver.synreal_model.joint_body_point_line_count == 4
+
+    solver.config.joint_constraint_mode = sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+
+    assert (
+        solver.config.joint_constraint_mode
+        == sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+    )
+    assert assembled_constraint_layout() == assembled_constraints
+
+
+def _loaded_joint_transverse_displacement(
+    joint_kind: str,
+    mode: sr.JointConstraintMode,
+    nonlinear_iterations: int,
+) -> float:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    body = builder.add_link(
+        mass=2.0,
+        inertia=wp.mat33(0.02, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.03),
+        lock_inertia=True,
+    )
+    if joint_kind == "revolute":
+        joint = builder.add_joint_revolute(
+            parent=-1,
+            child=body,
+            axis=(0.0, 1.0, 0.0),
+            target_ke=0.0,
+            target_kd=0.0,
+            damping=0.0,
+        )
+    elif joint_kind == "prismatic":
+        joint = builder.add_joint_prismatic(
+            parent=-1,
+            child=body,
+            axis=(0.0, 1.0, 0.0),
+            target_ke=0.0,
+            target_kd=0.0,
+            damping=0.0,
+        )
+    else:
+        raise AssertionError(f"unsupported test joint: {joint_kind}")
+    builder.add_articulation([joint])
+
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+    solver.config.joint_constraint_mode = mode
+    solver.config.joint_constraint_alpha = 10.0
+    solver.config.nonlinear_iterations = nonlinear_iterations
+    solver.config.linear_iterations = 100
+    state_in, state_out = model.state(), model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_in)
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_out)
+    solver.sync_affine_body_state(state_in)
+    solver.sync_affine_body_state(state_out)
+    state_in.body_f.fill_(wp.spatial_vector(1.0e3, 0.0, 0.0, 0.0, 0.0, 0.0))
+
+    solver.step(state_in, state_out, model.control(), None, 0.01)
+    wp.synchronize_device(model.device)
+    return float(state_out.body_q.numpy()[body, 0])
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("joint_kind", ("revolute", "prismatic"))
+def test_joint_augmented_lagrangian_reduces_loaded_constraint_error(
+    joint_kind: str,
+) -> None:
+    penalty_first = _loaded_joint_transverse_displacement(
+        joint_kind, sr.JointConstraintMode.PENALTY, 1
+    )
+    augmented_first = _loaded_joint_transverse_displacement(
+        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 1
+    )
+    penalty_converged = _loaded_joint_transverse_displacement(
+        joint_kind, sr.JointConstraintMode.PENALTY, 10
+    )
+    augmented_converged = _loaded_joint_transverse_displacement(
+        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 10
+    )
+
+    # The first AL primal iteration is exactly the legacy penalty solve. Further
+    # AL dual updates should remove most of the loaded transverse joint error.
+    assert np.isclose(augmented_first, penalty_first, rtol=2.0e-4, atol=2.0e-7)
+    assert abs(augmented_converged) < 0.2 * abs(penalty_converged)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_replicated_world_joint_constraints_keep_full_layout() -> None:
+    scene = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    body = scene.add_link(
+        mass=2.0,
+        inertia=wp.mat33(0.02, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.03),
+        lock_inertia=True,
+    )
+    joint = scene.add_joint_revolute(
+        parent=-1,
+        child=body,
+        axis=(0.0, 1.0, 0.0),
+        target_ke=0.0,
+        target_kd=0.0,
+        damping=0.0,
+    )
+    scene.add_articulation([joint])
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.replicate(scene, 2)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+
+    assert solver.synreal_model.world_count == 1
+    assert solver.synreal_model.particle_count == model.particle_count
+    assert solver.synreal_model.body_spring_count == len(
+        solver._body_spring_indices
+    )
+    assert solver.synreal_model.joint_body_spring_count == (
+        solver._joint_body_spring_count
+    )
+
+    solver.config.joint_constraint_mode = (
+        sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+    )
+    solver.config.nonlinear_iterations = 2
+    state_in, state_out = model.state(), model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_in)
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_out)
+    solver.sync_affine_body_state(state_in)
+    solver.sync_affine_body_state(state_out)
+    solver.step(state_in, state_out, model.control(), None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    assert np.isfinite(state_out.body_q.numpy()).all()
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("armature", (0.0, 0.01))
 def test_newton_solver_regularizes_active_joint_drive_inertia(armature: float) -> None:
     mass = 2.0

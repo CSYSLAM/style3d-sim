@@ -180,6 +180,20 @@ def test_config_exposes_runtime_options() -> None:
         config.inertia_mode = mode
         assert config.inertia_mode == mode
 
+    joint_constraint_modes = (
+        sr.JointConstraintMode.PENALTY,
+        sr.JointConstraintMode.AUGMENTED_LAGRANGIAN,
+    )
+    assert config.joint_constraint_mode == sr.JointConstraintMode.PENALTY
+    assert {mode.name for mode in joint_constraint_modes} == {
+        "PENALTY",
+        "AUGMENTED_LAGRANGIAN",
+    }
+    assert tuple(mode.value for mode in joint_constraint_modes) == (0, 1)
+    for mode in joint_constraint_modes:
+        config.joint_constraint_mode = mode
+        assert config.joint_constraint_mode == mode
+
 
 def test_model_fields_require_span() -> None:
     model = sr.Model()

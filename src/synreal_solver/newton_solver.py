@@ -677,6 +677,19 @@ class NewtonSolver(_newton.solvers.SolverBase):
         if any(count is None for count in local_counts.values()):
             return
 
+        # Joint constraints are appended after any authored body constraints as
+        # one global suffix. That ordering is not a sequence of identical
+        # per-world blocks, so taking only the first block would misclassify the
+        # suffix and can also reuse a world-space anchor in another world. Keep
+        # the full model layout whenever either family is present; a future
+        # compaction path may explicitly reorder and validate these arrays.
+        if (
+            count_sources["body_spring_count"]
+            or count_sources["body_point_line_count"]
+            or count_sources["joint_drive_count"]
+        ):
+            return
+
         deformable_specs = (
             (
                 "spring_count",
