@@ -1386,7 +1386,14 @@ def test_replicated_world_joint_constraints_keep_full_layout() -> None:
     )
     scene.add_articulation([joint])
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
-    builder.replicate(scene, 2)
+    builder.replicate(
+        scene,
+        2,
+        xforms=(
+            wp.transform_identity(),
+            wp.transform((2.0, 0.0, 0.0), wp.quat_identity()),
+        ),
+    )
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
 
@@ -2701,6 +2708,51 @@ def test_newton_solver_shares_replicated_rigid_model_data(world_count: int) -> N
             poses[start : start + bodies_per_world],
             atol=1.0e-6,
         )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_shares_replicated_joint_constraints_and_drives() -> None:
+    world_count = 4
+    scene = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    inertia = wp.mat33(0.02, 0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.04)
+    parent = scene.add_link(mass=1.0, inertia=inertia, lock_inertia=True)
+    child = scene.add_link(mass=1.0, inertia=inertia, lock_inertia=True)
+    joint = scene.add_joint_revolute(
+        parent=parent,
+        child=child,
+        axis=(0.0, 0.0, 1.0),
+        target_pos=0.1,
+        target_ke=100.0,
+        target_kd=1.0,
+        damping=0.0,
+        actuator_mode=newton.JointTargetMode.POSITION,
+    )
+    scene.add_articulation([joint])
+    scene.joint_effort_limit[0] = 2.0
+
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.replicate(scene, world_count)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+    native = solver.synreal_model
+
+    assert native.world_count == world_count
+    assert native.body_count == model.body_count // world_count
+    assert native.particle_count == model.particle_count // world_count
+    assert native.body_spring_count == solver._joint_body_spring_count // world_count
+    assert native.joint_body_spring_count == native.body_spring_count
+    assert native.joint_drive_count == len(solver._joint_drive_types) // world_count
+    assert native.joint_dof_count == model.joint_dof_count // world_count
+    assert native.joint_target_count == len(model.joint_target_q) // world_count
+
+    state_in, state_out = model.state(), model.state()
+    control = model.control()
+    solver.step(state_in, state_out, control, None, 1.0e-4)
+    wp.synchronize_device(model.device)
+    particles = state_out.particle_q.numpy().reshape(world_count, -1, 3)
+    assert np.isfinite(particles).all()
+    for world in range(1, world_count):
+        assert np.allclose(particles[world], particles[0], atol=1.0e-6)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")

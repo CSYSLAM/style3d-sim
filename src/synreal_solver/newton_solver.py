@@ -583,7 +583,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
             blocks = values.reshape((world_count, block_size, *values.shape[1:]))
             return all(np.array_equal(block, blocks[0]) for block in blocks[1:])
 
-        def has_repeated_particle_index_blocks(array: Any, block_size: int) -> bool:
+        def has_repeated_index_blocks(
+            array: Any, block_size: int, index_stride: int
+        ) -> bool:
             values = np.asarray(array.numpy(), dtype=np.int64)
             state_count = block_size * world_count
             if state_count == 0 or values.size % state_count:
@@ -591,12 +593,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
             components = values.size // state_count
             blocks = values.reshape((world_count, block_size, components))
             first = blocks[0]
-            if np.any(first < -1) or np.any(first >= particles_per_world):
+            if np.any(first < -1) or np.any(first >= index_stride):
                 return False
             for world, block in enumerate(blocks[1:], start=1):
                 normalized = np.where(
                     block >= 0,
-                    block - world * particles_per_world,
+                    block - world * index_stride,
                     block,
                 )
                 if not np.array_equal(normalized, first):
@@ -676,18 +678,17 @@ class NewtonSolver(_newton.solvers.SolverBase):
         if any(count is None for count in local_counts.values()):
             return
 
-        # Joint constraints are appended after any authored body constraints as
-        # one global suffix. That ordering is not a sequence of identical
-        # per-world blocks, so taking only the first block would misclassify the
-        # suffix and can also reuse a world-space anchor in another world. Keep
-        # the full model layout whenever either family is present; a future
-        # compaction path may explicitly reorder and validate these arrays.
-        if (
-            count_sources["body_spring_count"]
-            or count_sources["body_point_line_count"]
-            or count_sources["joint_drive_count"]
+        # Generated joint constraints form a suffix after authored constraints.
+        # A mixed prefix/suffix is not one contiguous per-world template, while
+        # either family by itself can be shared after validating every block.
+        for total_name, joint_name in (
+            ("body_spring_count", "joint_body_spring_count"),
+            ("body_point_line_count", "joint_body_point_line_count"),
         ):
-            return
+            total = count_sources[total_name]
+            joint = count_sources[joint_name]
+            if joint not in (0, total):
+                return
 
         deformable_specs = (
             (
@@ -746,7 +747,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 continue
             if indices is None or any(attribute is None for attribute in attributes):
                 return
-            if not has_repeated_particle_index_blocks(indices, count):
+            if not has_repeated_index_blocks(indices, count, particles_per_world):
                 return
             if not all(
                 has_repeated_blocks(attribute, count) for attribute in attributes
@@ -755,9 +756,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         mass_non_diagonal_count = local_counts["particle_mass_non_diagonal_count"]
         if mass_non_diagonal_count and (
-            not has_repeated_particle_index_blocks(
+            not has_repeated_index_blocks(
                 self._particle_mass_non_diagonal_indices,
                 mass_non_diagonal_count,
+                particles_per_world,
             )
             or not has_repeated_blocks(
                 self._particle_mass_non_diagonal_values,
@@ -766,11 +768,91 @@ class NewtonSolver(_newton.solvers.SolverBase):
         ):
             return
 
-        if body_count and not has_repeated_particle_index_blocks(
+        if body_count and not has_repeated_index_blocks(
             self._affine_body_indices,
             bodies_per_world,
+            particles_per_world,
         ):
             return
+
+        body_springs_per_world = local_counts["body_spring_count"]
+        if body_springs_per_world:
+            if not has_repeated_index_blocks(
+                self._body_spring_indices,
+                body_springs_per_world,
+                bodies_per_world,
+            ) or not all(
+                has_repeated_blocks(array, body_springs_per_world)
+                for array in (
+                    self._body_spring_points0,
+                    self._body_spring_points1,
+                    self._body_spring_stiffnesses,
+                    self._body_spring_rest_lengths,
+                )
+            ):
+                return
+
+        body_point_lines_per_world = local_counts["body_point_line_count"]
+        if body_point_lines_per_world:
+            if not has_repeated_index_blocks(
+                self._body_point_line_indices,
+                body_point_lines_per_world,
+                bodies_per_world,
+            ) or not all(
+                has_repeated_blocks(array, body_point_lines_per_world)
+                for array in (
+                    self._body_point_line_points,
+                    self._body_point_line_endpoints0,
+                    self._body_point_line_endpoints1,
+                    self._body_point_line_stiffnesses,
+                    self._body_point_line_dampings,
+                )
+            ):
+                return
+
+        joint_drives_per_world = local_counts["joint_drive_count"]
+        if joint_drives_per_world:
+            joint_dofs_per_world = local_counts["joint_dof_count"]
+            joint_targets_per_world = local_counts["joint_target_count"]
+            if (
+                not has_repeated_blocks(
+                    self._joint_drive_types, joint_drives_per_world
+                )
+                or not has_repeated_index_blocks(
+                    self._joint_drive_body_indices,
+                    joint_drives_per_world,
+                    bodies_per_world,
+                )
+                or not has_repeated_index_blocks(
+                    self._joint_drive_dof_indices,
+                    joint_drives_per_world,
+                    joint_dofs_per_world,
+                )
+                or not has_repeated_index_blocks(
+                    self._joint_drive_target_indices,
+                    joint_drives_per_world,
+                    joint_targets_per_world,
+                )
+                or not all(
+                    has_repeated_blocks(array, joint_drives_per_world)
+                    for array in (
+                        self._joint_drive_parent_origins,
+                        self._joint_drive_child_origins,
+                        self._joint_drive_parent_axis_points,
+                        self._joint_drive_parent_reference_points,
+                        self._joint_drive_child_reference_points,
+                    )
+                )
+                or not all(
+                    has_repeated_blocks(array, joint_dofs_per_world)
+                    for array in (
+                        self.model.joint_target_ke,
+                        self.model.joint_target_kd,
+                        self.model.joint_effort_limit,
+                    )
+                )
+            ):
+                return
 
         distance_constraints_per_world = local_counts["body_distance_constraint_count"]
         if distance_constraints_per_world:
