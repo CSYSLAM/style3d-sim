@@ -516,12 +516,10 @@ class SynRealPolicyPlayer:
         self.model, q_indices, qd_indices = build_model(profile, self.asset_path)
         self.solver = synreal_solver.NewtonSolver(self.model)
         self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
         self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
-        self.solver.config.affine_body_rigidity_model = (
-            synreal_solver.AffineBodyRigidityModel.CO_ROTATED
-        )
         self.solver.config.nonlinear_iterations = 30
-        self.solver.config.linear_iterations = 10
+        self.solver.config.linear_iterations = 5
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
         self.control = self.model.control()
