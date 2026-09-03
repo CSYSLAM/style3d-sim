@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+"""Train a Go2 or G1 locomotion policy with RSL-RL.
+
+The default invocation performs configuration validation only.  Actual PPO
+rollouts require the explicit ``--run`` flag, making accidental long training
+jobs impossible during smoke validation.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from datetime import datetime
+from pathlib import Path
+
+import yaml
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from locomotion.env import SynRealLocomotionEnv
+    from locomotion.policy_spec import load_policy_spec
+else:
+    from .env import SynRealLocomotionEnv
+    from .policy_spec import load_policy_spec
+
+
+def rsl_rl_config(robot: str) -> dict:
+    spec = load_policy_spec(robot)
+    ppo = spec.ppo
+    return {
+        "num_steps_per_env": int(ppo["num_steps_per_env"]),
+        "max_iterations": int(ppo["max_iterations"]),
+        "save_interval": int(ppo["save_interval"]),
+        "experiment_name": f"synreal_{spec.name}_locomotion",
+        "empirical_normalization": False,
+        "logger": "tensorboard",
+        "policy": {
+            "class_name": "ActorCritic",
+            "init_noise_std": float(ppo["init_noise_std"]),
+            "actor_hidden_dims": list(ppo["actor_hidden_dims"]),
+            "critic_hidden_dims": list(ppo["critic_hidden_dims"]),
+            "activation": str(ppo["activation"]),
+        },
+        "algorithm": {
+            "class_name": "PPO",
+            "value_loss_coef": 1.0,
+            "use_clipped_value_loss": True,
+            "clip_param": float(ppo["clip_param"]),
+            "entropy_coef": float(ppo["entropy_coef"]),
+            "num_learning_epochs": int(ppo["num_learning_epochs"]),
+            "num_mini_batches": int(ppo["num_mini_batches"]),
+            "learning_rate": float(ppo["learning_rate"]),
+            "schedule": "adaptive",
+            "gamma": float(ppo["gamma"]),
+            "lam": float(ppo["lam"]),
+            "desired_kl": float(ppo["desired_kl"]),
+            "max_grad_norm": 1.0,
+        },
+    }
+
+
+def create_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--robot", choices=("go2", "g1"), required=True)
+    parser.add_argument("--num-envs", type=int)
+    parser.add_argument("--device", default="cuda:0")
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--asset", type=Path)
+    parser.add_argument("--log-root", type=Path, default=Path("logs/rsl_rl"))
+    parser.add_argument("--iterations", type=int)
+    parser.add_argument("--resume", type=Path)
+    parser.add_argument("--no-randomization", action="store_true")
+    parser.add_argument("--disable-logs", action="store_true", help="disable checkpoints and TensorBoard")
+    parser.add_argument("--run", action="store_true", help="start PPO; omitted means validate only")
+    return parser
+
+
+def main() -> None:
+    args = create_parser().parse_args()
+    spec = load_policy_spec(args.robot)
+    cfg = rsl_rl_config(args.robot)
+    if args.iterations is not None:
+        cfg["max_iterations"] = args.iterations
+    summary = {
+        "robot": spec.name,
+        "abi_sha256": spec.abi_sha256,
+        "observation_dim": spec.observation_dim,
+        "frame_observation_dim": spec.frame_observation_dim,
+        "history_length": spec.history_length,
+        "action_dim": spec.action_dim,
+        "policy_dt": spec.policy_dt,
+        "rsl_rl": cfg,
+    }
+    print(json.dumps(summary, indent=2))
+    if not args.run:
+        print("configuration valid; pass --run to start PPO")
+        return
+
+    try:
+        from rsl_rl.runners import OnPolicyRunner
+    except ImportError as error:
+        raise SystemExit(
+            "RSL-RL is not installed in this environment. Install the "
+            "locomotion dependencies with `uv sync --extra locomotion`."
+        ) from error
+    num_envs = args.num_envs or (2048 if args.robot == "go2" else 512)
+    env = SynRealLocomotionEnv(
+        args.robot,
+        num_envs=num_envs,
+        device=args.device,
+        asset=args.asset,
+        seed=args.seed,
+        randomize=not args.no_randomization,
+    )
+    log_dir = None
+    if not args.disable_logs:
+        run_name = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        log_dir = args.log_root / cfg["experiment_name"] / run_name
+        log_dir.mkdir(parents=True, exist_ok=False)
+        (log_dir / "policy_spec.yaml").write_bytes(spec.abi_bytes())
+        (log_dir / "agent.yaml").write_text(
+            yaml.safe_dump(cfg, sort_keys=False), encoding="utf-8"
+        )
+    runner = OnPolicyRunner(
+        env,
+        cfg,
+        log_dir=str(log_dir) if log_dir is not None else None,
+        device=args.device,
+    )
+    if args.disable_logs:
+        runner.disable_logs = True
+    if args.resume:
+        runner.load(str(args.resume))
+    runner.learn(num_learning_iterations=cfg["max_iterations"], init_at_random_ep_len=True)
+    print("training complete", flush=True)
+
+
+if __name__ == "__main__":
+    main()

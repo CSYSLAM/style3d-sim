@@ -21,6 +21,18 @@ benchmark = [
     "numpy",
     "torch>=2.7",
 ]
+# Go2/G1 PPO training, checkpoint export, and ONNX Runtime verification.
+locomotion = [
+    "ipywidgets>=8.0.4",
+    "newton[examples]>=1.5.0",
+    "onnx>=1.17",
+    "onnxruntime>=1.20",
+    "onnxscript>=0.4",
+    "pyyaml>=6.0",
+    "rsl-rl-lib==2.3.1",
+    "tensorboard>=2.17",
+    "torch>=2.7",
+]
 
 [dependency-groups]
 # Tools used for local testing, binding development, and stub generation.
