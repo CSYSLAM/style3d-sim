@@ -74,6 +74,119 @@ class PolicyProfile:
         return self.observation_dim * (len(self.history) or 1)
 
 
+def quaternion_yaw(quat_xyzw) -> float:
+    """Return the world-Z yaw of an XYZW quaternion."""
+    x, y, z, w = (float(value) for value in quat_xyzw)
+    return math.atan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
+
+
+def wrap_angle(angle: float) -> float:
+    return math.atan2(math.sin(angle), math.cos(angle))
+
+
+@dataclass
+class StraightLineCommandTracker:
+    """Convert a nominal body command into a world-straight policy command."""
+
+    nominal_command: tuple[float, float, float]
+    enabled: bool = True
+    heading_kp: float = 1.2
+    heading_ki: float = 0.6
+    cross_track_kp: float = 0.6
+    yaw_command_limit: float = 0.6
+    cross_track_speed_limit: float = 0.5
+    integral_limit: float = 1.0
+    reference_xy: tuple[float, float] = (0.0, 0.0)
+    reference_yaw: float = 0.0
+    heading_error_integral: float = 0.0
+    heading_error: float = 0.0
+    cross_track_error: float = 0.0
+    effective_command: tuple[float, float, float] = (0.0, 0.0, 0.0)
+
+    @property
+    def active(self) -> bool:
+        # A nonzero yaw-rate request describes a curve, not a straight path.
+        return self.enabled and abs(self.nominal_command[2]) <= 1.0e-8
+
+    def reset(self, root_xy, root_yaw: float) -> None:
+        self.reference_xy = (float(root_xy[0]), float(root_xy[1]))
+        self.reference_yaw = float(root_yaw)
+        self.heading_error_integral = 0.0
+        self.heading_error = 0.0
+        self.cross_track_error = 0.0
+        self.effective_command = self.nominal_command
+
+    def errors(self, root_xy, root_yaw: float) -> tuple[float, float]:
+        heading_error = wrap_angle(self.reference_yaw - float(root_yaw))
+        vx, vy, _ = self.nominal_command
+        speed = math.hypot(vx, vy)
+        if speed <= 1.0e-8:
+            return heading_error, 0.0
+
+        cosine = math.cos(self.reference_yaw)
+        sine = math.sin(self.reference_yaw)
+        world_vx = cosine * vx - sine * vy
+        world_vy = sine * vx + cosine * vy
+        normal_x = -world_vy / speed
+        normal_y = world_vx / speed
+        offset_x = float(root_xy[0]) - self.reference_xy[0]
+        offset_y = float(root_xy[1]) - self.reference_xy[1]
+        cross_track_error = offset_x * normal_x + offset_y * normal_y
+        return heading_error, cross_track_error
+
+    def update(self, root_xy, root_yaw: float, dt: float) -> tuple[float, float, float]:
+        if not self.active:
+            self.heading_error_integral = 0.0
+            self.heading_error = 0.0
+            self.cross_track_error = 0.0
+            self.effective_command = self.nominal_command
+            return self.effective_command
+
+        self.heading_error, self.cross_track_error = self.errors(root_xy, root_yaw)
+        self.heading_error_integral = float(
+            np.clip(
+                self.heading_error_integral + dt * self.heading_error,
+                -self.integral_limit,
+                self.integral_limit,
+            )
+        )
+
+        vx, vy, _ = self.nominal_command
+        speed = math.hypot(vx, vy)
+        reference_cosine = math.cos(self.reference_yaw)
+        reference_sine = math.sin(self.reference_yaw)
+        world_vx = reference_cosine * vx - reference_sine * vy
+        world_vy = reference_sine * vx + reference_cosine * vy
+        if speed > 1.0e-8:
+            normal_x = -world_vy / speed
+            normal_y = world_vx / speed
+            correction_limit = min(self.cross_track_speed_limit, speed)
+            correction = float(
+                np.clip(
+                    -self.cross_track_kp * self.cross_track_error,
+                    -correction_limit,
+                    correction_limit,
+                )
+            )
+            world_vx += correction * normal_x
+            world_vy += correction * normal_y
+
+        body_cosine = math.cos(root_yaw)
+        body_sine = math.sin(root_yaw)
+        body_vx = body_cosine * world_vx + body_sine * world_vy
+        body_vy = -body_sine * world_vx + body_cosine * world_vy
+        yaw_command = float(
+            np.clip(
+                self.heading_kp * self.heading_error
+                + self.heading_ki * self.heading_error_integral,
+                -self.yaw_command_limit,
+                self.yaw_command_limit,
+            )
+        )
+        self.effective_command = (body_vx, body_vy, yaw_command)
+        return self.effective_command
+
+
 G1_JOINTS = (
     "left_hip_pitch_joint", "left_hip_roll_joint", "left_hip_yaw_joint",
     "left_knee_joint", "left_ankle_pitch_joint", "left_ankle_roll_joint",
@@ -159,9 +272,9 @@ PROFILES = {
         ang_vel_scale=0.25,
         dof_vel_scale=0.05,
         commands_scale=(2.0, 2.0, 0.25),
-        asset_kind="menagerie_mjcf",
-        asset_folder="unitree_a1",
-        asset_relative_path="a1.xml",
+        asset_kind="zoo_urdf",
+        asset_folder="a1_description",
+        asset_relative_path="urdf/a1_description.urdf",
         initial_height=0.43,
         fall_height=0.14,
         contact_ke=2.0e3,
@@ -316,6 +429,10 @@ def build_model(
     robot.default_shape_cfg.kd = profile.contact_kd
     robot.default_shape_cfg.kf = 1.0e3
     robot.default_shape_cfg.mu = 0.75
+    if profile.asset_kind.endswith("urdf"):
+        # Preserve authored URDF inertias. Several fixed collision-only links do
+        # not define inertials and must not acquire density-derived mass.
+        robot.default_shape_cfg.density = 0.0
     kwargs = dict(floating=floating, collapse_fixed_joints=True, enable_self_collisions=False)
     if profile.asset_kind.endswith("urdf"):
         robot.add_urdf(str(asset_path), xform=wp.transform(wp.vec3(0.0, 0.0, profile.initial_height)), **kwargs)
@@ -382,14 +499,29 @@ class VideoWriter:
 
 
 class SynRealPolicyPlayer:
-    def __init__(self, profile: PolicyProfile, checkpoint: Path, command: tuple[float, float, float], viewer):
+    def __init__(
+        self,
+        profile: PolicyProfile,
+        checkpoint: Path,
+        command: tuple[float, float, float],
+        viewer,
+        command_tracker: StraightLineCommandTracker | None = None,
+    ):
         self.profile = profile
+        self.command_tracker = command_tracker or StraightLineCommandTracker(
+            command, enabled=False
+        )
         self.command = torch.tensor(command, device=DEVICE, dtype=torch.float32).unsqueeze(0)
         self.asset_path = resolve_asset(profile)
         self.model, q_indices, qd_indices = build_model(profile, self.asset_path)
         self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.nonlinear_iterations = profile.solver_iterations
-        self.solver.config.linear_iterations = profile.solver_iterations
+        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        self.solver.config.affine_body_rigidity_model = (
+            synreal_solver.AffineBodyRigidityModel.CO_ROTATED
+        )
+        self.solver.config.nonlinear_iterations = 30
+        self.solver.config.linear_iterations = 10
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
         self.control = self.model.control()
@@ -513,7 +645,18 @@ class SynRealPolicyPlayer:
         self.history.zero_()
         self.last_foot_contact.fill(0)
         reset_recurrent_policy(self.policy)
+        root_pose = self.state_0.body_q.numpy()[0]
+        self.command_tracker.reset(root_pose[:2], quaternion_yaw(root_pose[3:7]))
+        self.update_policy_command()
         self.reset_count += 1
+
+    def update_policy_command(self) -> tuple[float, float, float]:
+        root_pose = self.state_0.body_q.numpy()[0]
+        command = self.command_tracker.update(
+            root_pose[:2], quaternion_yaw(root_pose[3:7]), 1.0 / FPS
+        )
+        self.command.copy_(self.command.new_tensor((command,)))
+        return command
 
     def observe(self) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         newton.eval_ik(self.model, self.state_0, self.joint_q, self.joint_qd)
@@ -589,6 +732,7 @@ class SynRealPolicyPlayer:
             "joint_position": q.detach().cpu().numpy(),
             "joint_velocity": qd.detach().cpu().numpy(),
             "action": action.squeeze(0).detach().cpu().numpy(),
+            "policy_command": self.command.squeeze(0).detach().cpu().numpy(),
             "joint_target": target.squeeze(0).detach().cpu().numpy(),
             "joint_torque_command": torque_command.detach().cpu().numpy(),
             "contact_count": int(wp.to_torch(self.contacts.rigid_contact_count).item()),
@@ -622,12 +766,17 @@ class SynRealPolicyPlayer:
 
 
 def run(args: argparse.Namespace) -> dict:
-    ensure_synreal_login(args.force_signin)
+    #ensure_synreal_login(args.force_signin)
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required; CPU fallback is intentionally disabled")
     torch.cuda.set_device(0)
     wp.set_device(DEVICE)
     profile = PROFILES[args.robot]
+    straight_line_hold = (
+        profile.name == "a1"
+        if args.straight_line_hold is None
+        else args.straight_line_hold
+    )
     checkpoint = ensure_checkpoint(profile, args.checkpoint)
     viewer = None
     if args.record or not args.headless:
@@ -637,7 +786,22 @@ def run(args: argparse.Namespace) -> dict:
         if not viewer.device.is_cuda or viewer.device.ordinal != 0:
             raise RuntimeError(f"ViewerGL must use cuda:0, got {viewer.device}")
     writer = VideoWriter(args.record, args.width, args.height) if args.record else None
-    player = SynRealPolicyPlayer(profile, checkpoint, (args.cmd_vx, args.cmd_vy, args.cmd_yaw), viewer)
+    command_tracker = StraightLineCommandTracker(
+        (args.cmd_vx, args.cmd_vy, args.cmd_yaw),
+        enabled=straight_line_hold,
+        heading_kp=args.heading_kp,
+        heading_ki=args.heading_ki,
+        cross_track_kp=args.cross_track_kp,
+        yaw_command_limit=args.yaw_command_limit,
+        cross_track_speed_limit=args.cross_track_speed_limit,
+    )
+    player = SynRealPolicyPlayer(
+        profile,
+        checkpoint,
+        (args.cmd_vx, args.cmd_vy, args.cmd_yaw),
+        viewer,
+        command_tracker,
+    )
     frames = int(round(args.duration * FPS))
     replay_actions = None
     if args.replay_actions:
@@ -647,8 +811,11 @@ def run(args: argparse.Namespace) -> dict:
             raise ValueError(
                 f"replay action shape is {tuple(replay_actions.shape)}, expected {(frames, profile.action_dim)}"
             )
+    line_hold_applied = player.command_tracker.active and replay_actions is None
     heights: list[float] = []
     upright: list[float] = []
+    heading_errors: list[float] = []
+    cross_track_errors: list[float] = []
     finite = True
     trajectory: dict[str, list] = {}
     initial_xy = wp.to_torch(player.state_0.body_q)[0, :2].cpu().tolist()
@@ -658,12 +825,16 @@ def run(args: argparse.Namespace) -> dict:
     try:
         for frame_index in range(frames):
             reset_key_down = bool(
-                not args.headless and viewer is not None and viewer.is_key_down("p")
+                replay_actions is None
+                and not args.headless
+                and viewer is not None
+                and viewer.is_key_down("p")
             )
             if reset_key_down and not reset_key_previous:
                 player.reset()
             reset_key_previous = reset_key_down
             if replay_actions is None:
+                player.update_policy_command()
                 _, _, action = player.policy_step()
                 target = player.default + player.action_scale * action
             else:
@@ -681,6 +852,12 @@ def run(args: argparse.Namespace) -> dict:
             final_xyz = xyz.cpu().tolist()
             heights.append(float(xyz[2].item()))
             upright.append(float((-gravity_body[0, 2]).item()))
+            root_yaw = quaternion_yaw(body_q[0, 3:7])
+            heading_error, cross_track_error = player.command_tracker.errors(
+                xyz[:2], root_yaw
+            )
+            heading_errors.append(heading_error)
+            cross_track_errors.append(cross_track_error)
             if not step_finite:
                 raise FloatingPointError(f"non-finite state at frame {frame_index}")
             if viewer is not None:
@@ -688,7 +865,19 @@ def run(args: argparse.Namespace) -> dict:
                 if writer is not None:
                     writer.append(image)
             if (frame_index + 1) % FPS == 0:
-                print(f"[{profile.name}] {(frame_index + 1) / FPS:.0f}/{args.duration:g}s height={heights[-1]:.3f} upright={upright[-1]:.3f}", flush=True)
+                if line_hold_applied:
+                    tracking_status = (
+                        f"cross_track={cross_track_errors[-1]:+.3f}m "
+                        f"heading_error={math.degrees(heading_errors[-1]):+.2f}deg"
+                    )
+                else:
+                    tracking_status = f"yaw={math.degrees(root_yaw):+.2f}deg"
+                print(
+                    f"[{profile.name}] {(frame_index + 1) / FPS:.0f}/{args.duration:g}s "
+                    f"height={heights[-1]:.3f} upright={upright[-1]:.3f} "
+                    f"{tracking_status}",
+                    flush=True,
+                )
     finally:
         if writer is not None:
             writer.close()
@@ -725,12 +914,32 @@ def run(args: argparse.Namespace) -> dict:
         "asset": str(player.asset_path),
         "robot_asset_sha256": _sha256(player.asset_path),
         "command": [args.cmd_vx, args.cmd_vy, args.cmd_yaw],
+        "straight_line_hold": {
+            "enabled": straight_line_hold,
+            "active": player.command_tracker.active,
+            "applied_to_policy": line_hold_applied,
+            "heading_kp": args.heading_kp,
+            "heading_ki": args.heading_ki,
+            "cross_track_kp": args.cross_track_kp,
+            "yaw_command_limit": args.yaw_command_limit,
+            "cross_track_speed_limit": args.cross_track_speed_limit,
+            "effective_command_final": list(player.command_tracker.effective_command),
+        },
         "rollout_mode": "open_loop_action_replay" if replay_actions is not None else "closed_loop_policy",
         "replay_actions": str(args.replay_actions.resolve()) if args.replay_actions else None,
         "dt": DT,
         "decimation": DECIMATION,
         "policy_hz": FPS,
-        "solver_iterations": profile.solver_iterations,
+        "solver_iterations": player.solver.config.nonlinear_iterations,
+        "solver_config": {
+            "nonlinear_iterations": player.solver.config.nonlinear_iterations,
+            "linear_iterations": player.solver.config.linear_iterations,
+            "inertia_mode": player.solver.config.inertia_mode.name,
+            "affine_body_rigidity_model": (
+                player.solver.config.affine_body_rigidity_model.name
+            ),
+            "joint_constraint_mode": player.solver.config.joint_constraint_mode.name,
+        },
         "simulated_seconds": frames / FPS,
         "frames": frames,
         "wall_seconds": elapsed,
@@ -750,6 +959,27 @@ def run(args: argparse.Namespace) -> dict:
         "finite": finite,
         "root_displacement_xy": displacement,
         "root_final_xyz": final_xyz,
+        "root_final_yaw_degrees": math.degrees(
+            quaternion_yaw(player.state_0.body_q.numpy()[0, 3:7])
+        ),
+        "cross_track_error_final": (
+            cross_track_errors[-1] if line_hold_applied else None
+        ),
+        "cross_track_error_max_abs": (
+            max(abs(value) for value in cross_track_errors)
+            if line_hold_applied
+            else None
+        ),
+        "heading_error_final_degrees": (
+            math.degrees(heading_errors[-1])
+            if line_hold_applied
+            else None
+        ),
+        "heading_error_max_abs_degrees": (
+            math.degrees(max(abs(value) for value in heading_errors))
+            if line_hold_applied
+            else None
+        ),
         "height_min": min(heights),
         "height_final": heights[-1],
         "upright_min": min(upright),
@@ -789,6 +1019,20 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--cmd-vx", type=float, default=0.5)
     parser.add_argument("--cmd-vy", type=float, default=0.0)
     parser.add_argument("--cmd-yaw", type=float, default=0.0)
+    parser.add_argument(
+        "--straight-line-hold",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help=(
+            "hold the initial world heading/path when cmd-yaw is zero "
+            "(enabled by default for A1)"
+        ),
+    )
+    parser.add_argument("--heading-kp", type=float, default=1.2)
+    parser.add_argument("--heading-ki", type=float, default=0.6)
+    parser.add_argument("--cross-track-kp", type=float, default=0.6)
+    parser.add_argument("--yaw-command-limit", type=float, default=0.6)
+    parser.add_argument("--cross-track-speed-limit", type=float, default=0.5)
     parser.add_argument("--duration", type=float, default=10.0)
     parser.add_argument("--record", type=Path)
     parser.add_argument("--summary", type=Path)
@@ -812,6 +1056,15 @@ def main() -> None:
     args = create_parser().parse_args()
     if args.duration <= 0 or args.width <= 0 or args.height <= 0:
         raise SystemExit("duration, width, and height must be positive")
+    gains = (
+        args.heading_kp,
+        args.heading_ki,
+        args.cross_track_kp,
+        args.yaw_command_limit,
+        args.cross_track_speed_limit,
+    )
+    if any(not math.isfinite(value) or value < 0.0 for value in gains):
+        raise SystemExit("straight-line hold gains and limits must be finite and nonnegative")
     run(args)
 
 

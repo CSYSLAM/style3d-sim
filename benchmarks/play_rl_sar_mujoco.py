@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 import json
 import math
 import sys
@@ -74,6 +75,15 @@ class VideoWriter:
 
 
 def resolve_mujoco_asset(profile: PolicyProfile) -> Path:
+    # The SynReal A1 path uses rl_sar_zoo's deployment URDF. This reference
+    # player still needs a MuJoCo scene with a floating root and floor.
+    if profile.name == "a1" and profile.asset_kind == "zoo_urdf":
+        profile = replace(
+            profile,
+            asset_kind="menagerie_mjcf",
+            asset_folder="unitree_a1",
+            asset_relative_path="a1.xml",
+        )
     asset = resolve_asset(profile)
     if profile.name in ("g1", "go2", "a1"):
         scene_name = "scene_29dof.xml" if profile.name == "g1" else "scene.xml"

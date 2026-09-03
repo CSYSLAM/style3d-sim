@@ -47,7 +47,10 @@ def _run_player(
     if simulator == "mujoco":
         command.extend(("--trajectory", str(output / "mujoco.npz")))
     else:
-        command.append("--headless")
+        # Keep simulator comparisons open-loop with respect to world heading.
+        # The interactive A1 player enables straight-line hold by default, while
+        # the MuJoCo reference player intentionally uses the nominal command.
+        command.extend(("--headless", "--no-straight-line-hold"))
 
     environment = os.environ.copy()
     if simulator == "mujoco":
