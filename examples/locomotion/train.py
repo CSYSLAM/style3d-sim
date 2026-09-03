@@ -38,6 +38,7 @@ def rsl_rl_config(robot: str) -> dict:
         "policy": {
             "class_name": "ActorCritic",
             "init_noise_std": float(ppo["init_noise_std"]),
+            "noise_std_type": "log",
             "actor_hidden_dims": list(ppo["actor_hidden_dims"]),
             "critic_hidden_dims": list(ppo["critic_hidden_dims"]),
             "activation": str(ppo["activation"]),
@@ -71,6 +72,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--iterations", type=int)
     parser.add_argument("--resume", type=Path)
     parser.add_argument("--no-randomization", action="store_true")
+    parser.add_argument("--visualize", action="store_true", help="show all training worlds in ViewerGL")
     parser.add_argument("--disable-logs", action="store_true", help="disable checkpoints and TensorBoard")
     parser.add_argument("--run", action="store_true", help="start PPO; omitted means validate only")
     return parser
@@ -105,6 +107,11 @@ def main() -> None:
             "locomotion dependencies with `uv sync --extra locomotion`."
         ) from error
     num_envs = args.num_envs or (2048 if args.robot == "go2" else 512)
+    viewer = None
+    if args.visualize:
+        import newton
+
+        viewer = newton.viewer.ViewerGL(vsync=True)
     env = SynRealLocomotionEnv(
         args.robot,
         num_envs=num_envs,
@@ -112,6 +119,7 @@ def main() -> None:
         asset=args.asset,
         seed=args.seed,
         randomize=not args.no_randomization,
+        viewer=viewer,
     )
     log_dir = None
     if not args.disable_logs:
@@ -132,8 +140,11 @@ def main() -> None:
         runner.disable_logs = True
     if args.resume:
         runner.load(str(args.resume))
-    runner.learn(num_learning_iterations=cfg["max_iterations"], init_at_random_ep_len=True)
-    print("training complete", flush=True)
+    try:
+        runner.learn(num_learning_iterations=cfg["max_iterations"], init_at_random_ep_len=True)
+        print("training complete", flush=True)
+    finally:
+        env.close()
 
 
 if __name__ == "__main__":

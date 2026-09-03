@@ -100,6 +100,7 @@ def test_rsl_rl_configuration_matches_upstream_baseline() -> None:
         cfg = rsl_rl_config(robot)
         assert cfg["num_steps_per_env"] == 24
         assert cfg["policy"]["actor_hidden_dims"] == [512, 256, 128]
+        assert cfg["policy"]["noise_std_type"] == "log"
         assert cfg["algorithm"]["clip_param"] == 0.2
         assert cfg["algorithm"]["gamma"] == 0.99
         assert cfg["algorithm"]["lam"] == 0.95

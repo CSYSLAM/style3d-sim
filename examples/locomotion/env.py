@@ -57,6 +57,7 @@ class SynRealLocomotionEnv:
         seed: int = 42,
         randomize: bool = True,
         auto_reset: bool = True,
+        viewer: Any | None = None,
     ) -> None:
         if num_envs <= 0:
             raise ValueError("num_envs must be positive")
@@ -79,6 +80,8 @@ class SynRealLocomotionEnv:
         self.max_episode_length = self.spec.max_episode_length
         self.auto_reset = auto_reset
         self.randomize = randomize
+        self.viewer = viewer
+        self.sim_time = 0.0
         self.device = torch.device(device)
         torch.cuda.set_device(self.device)
         self.wp_device = wp.get_device(device)
@@ -89,6 +92,9 @@ class SynRealLocomotionEnv:
         builder, layout = self._build_model(num_envs)
         self.model = builder.finalize(device=self.wp_device)
         self.model.set_gravity((0.0, 0.0, -9.81))
+        if self.viewer is not None:
+            self.viewer.set_model(self.model)
+            self.viewer.set_world_offsets((2.5, 2.5, 0.0))
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
         self.solver = synreal_solver.NewtonSolver(self.model)
         self.solver.config.nonlinear_iterations = self.spec.solver_iterations
@@ -455,6 +461,8 @@ class SynRealLocomotionEnv:
                 self.model, self.state_0, self.state_0.joint_q, self.state_0.joint_qd
             )
         self.wp.synchronize_stream(self.stream)
+        self.sim_time += self.spec.policy_dt
+        self.render()
         self.episode_length_buf += 1
 
         root, linear, angular, gravity, q, qd = self._state()
@@ -484,7 +492,11 @@ class SynRealLocomotionEnv:
         self.reset_buf = terminated(root[:, 2], gravity, self.spec.fall_height, finite)
         self.timeout_buf = self.episode_length_buf >= self.max_episode_length
         done = self.reset_buf | self.timeout_buf
-        reward = reward - 100.0 * self.reset_buf.float()
+        # A diverging world can remain finite for one step while producing an
+        # enormous penalty. Do not let that terminal sample poison PPO returns.
+        reward = torch.nan_to_num(reward, nan=-100.0, posinf=100.0, neginf=-100.0)
+        reward = reward.clamp(-100.0, 100.0)
+        reward = torch.where(self.reset_buf, -100.0, reward)
         self.episode_return += reward
         self.extras = {
             "time_outs": self.timeout_buf.clone(),
@@ -503,3 +515,14 @@ class SynRealLocomotionEnv:
             self.reset(env_ids)
             observation = self.history.value()
         return observation, reward, done, self.extras
+
+    def render(self) -> None:
+        if self.viewer is None or not self.viewer.is_running():
+            return
+        self.viewer.begin_frame(self.sim_time)
+        self.viewer.log_state(self.state_0)
+        self.viewer.end_frame()
+
+    def close(self) -> None:
+        if self.viewer is not None:
+            self.viewer.close()
