@@ -6,19 +6,15 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "newton>=1.5.0",
+    "numpy>=2.0.0",
 ]
 
 [project.optional-dependencies]
 # `uv sync --extra examples`.
 examples = [
     "newton[examples]>=1.5.0",
-]
-# GPU policy inference and MP4 capture for cross-simulator benchmarks.
-benchmark = [
     "imageio-ffmpeg>=0.6",
     "mujoco>=3.3",
-    "newton[examples]>=1.5.0",
-    "numpy",
     "torch>=2.7",
 ]
 # Go2/G1 PPO training, checkpoint export, and ONNX Runtime verification.
@@ -42,6 +38,15 @@ dev = [
     "poethepoet>=0.38",
     "pybind11-stubgen>=2.5",
 ]
+
+[[tool.uv.index]]
+name = "pytorch-cu132"
+url = "https://download.pytorch.org/whl/cu132"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu132" }
+torchvision = { index = "pytorch-cu132" }
 
 [tool.scikit-build]
 # Package the public Python sources alongside the compiled `_core` extension.

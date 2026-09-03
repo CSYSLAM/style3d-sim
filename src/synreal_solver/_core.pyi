@@ -1033,6 +1033,14 @@ class Model:
     def joint_drive_types(self, arg1: Span) -> None:
         ...
     @property
+    def joint_effort_limits(self) -> Span:
+        """
+        Device span containing symmetric joint effort magnitude limits.
+        """
+    @joint_effort_limits.setter
+    def joint_effort_limits(self, arg1: Span) -> None:
+        ...
+    @property
     def joint_target_count(self) -> int:
         """
         Number of generalized joint-position targets.
@@ -1047,14 +1055,6 @@ class Model:
         """
     @joint_target_dampings.setter
     def joint_target_dampings(self, arg1: Span) -> None:
-        ...
-    @property
-    def joint_effort_limits(self) -> Span:
-        """
-        Device span containing symmetric joint effort magnitude limits.
-        """
-    @joint_effort_limits.setter
-    def joint_effort_limits(self, arg1: Span) -> None:
         ...
     @property
     def joint_target_stiffnesses(self) -> Span:
