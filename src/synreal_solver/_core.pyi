@@ -1049,6 +1049,14 @@ class Model:
     def joint_target_dampings(self, arg1: Span) -> None:
         ...
     @property
+    def joint_effort_limits(self) -> Span:
+        """
+        Device span containing symmetric joint effort magnitude limits.
+        """
+    @joint_effort_limits.setter
+    def joint_effort_limits(self, arg1: Span) -> None:
+        ...
+    @property
     def joint_target_stiffnesses(self) -> Span:
         """
         Device span containing joint target stiffness values.

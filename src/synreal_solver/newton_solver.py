@@ -62,9 +62,8 @@ def _predict_affine_body_inertia(
     body_angular_velocity = wp.quat_rotate_inv(rotation, angular_velocity)
     inertia = affine_body_inertia[affine_body]
     inverse_inertia = wp.inverse(inertia)
-    initial_angular_momentum = (
-        inertia * body_angular_velocity
-        + dt * wp.quat_rotate_inv(rotation, wp.spatial_bottom(wrench))
+    initial_angular_momentum = inertia * body_angular_velocity + dt * wp.quat_rotate_inv(
+        rotation, wp.spatial_bottom(wrench)
     )
     center = wp.transform_get_translation(pose) + wp.quat_rotate(
         rotation, body_com[body]
@@ -2715,6 +2714,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._synreal_model.joint_target_dampings = self._as_span(
                 self.model.joint_target_kd, self._synreal_model.joint_dof_count
             )
+            self._synreal_model.joint_effort_limits = self._as_span(
+                self.model.joint_effort_limit, self._synreal_model.joint_dof_count
+            )
 
         shape_count = self._shared_counts.get(
             "shape_count", int(self.model.shape_count)
@@ -2992,11 +2994,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
             dt: Time-step duration in seconds.
 
         When affine-body inertial prediction is enabled, Python integrates the
-        rigid-body inertia state including the applied body wrench and converts
-        its pose displacement into affine-proxy secant velocities. That body
-        wrench is not scattered into the native particle-force buffer, so it is
-        applied exactly once through the rigid inertia target. Gravity, particle
-        forces, joints, and contacts retain their native paths.
+        rigid-body inertia state including the applied body wrench, then converts
+        its pose displacement into affine-proxy secant velocities. Joint
+        feedforward, target stiffness, and damping remain together in the native
+        implicit solve so their total effort can be limited consistently.
+        Gravity, particle forces, joint constraints, and contacts retain their
+        native paths.
         The native solver then applies affine rigidity, joints, and contacts to
         Cartesian particle positions and velocities. On return, both particle-
         position buffers contain the new positions, while Python reconstructs

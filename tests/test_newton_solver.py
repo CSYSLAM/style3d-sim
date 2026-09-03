@@ -1492,9 +1492,16 @@ def test_angular_joint_drive_balances_force_on_each_body() -> None:
     child_affine = int(np.flatnonzero(affine_body_ids == child)[0])
     child_particles = affine_bodies[child_affine]
     for state in (state_in, state_out):
+        offset = np.array((0.01, 0.02, 0.0), dtype=np.float32)
         positions = state.particle_q.numpy()
-        positions[child_particles] += np.array((0.01, 0.02, 0.0), dtype=np.float32)
+        positions[child_particles] += offset
         _set_particle_positions(state, positions, model.device)
+        poses = state.body_q.numpy()
+        poses[child, :3] += offset
+        wp.copy(
+            state.body_q,
+            wp.array(poses, dtype=wp.transform, device=model.device),
+        )
 
     control = model.control()
     control.joint_f.fill_(1.0)
@@ -1513,6 +1520,196 @@ def test_angular_joint_drive_balances_force_on_each_body() -> None:
     angular_velocities = state_out.body_qd.numpy()[[parent, child], 3:]
     assert angular_velocities[0, 1] < 0.0
     assert angular_velocities[1, 1] > 0.0
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize(
+    "inertia_mode",
+    [sr.InertiaMode.MIDPOINT_CAYLEY, sr.InertiaMode.NONE],
+    ids=["rigid-predictor", "native-abd"],
+)
+@pytest.mark.parametrize(
+    ("feedforward", "effort_limit", "expected_effort"),
+    [(2.0, 0.5, 0.5), (-2.0, 0.5, -0.5), (2.0, 0.0, 0.0)],
+    ids=["positive-limit", "negative-limit", "zero-limit"],
+)
+def test_angular_joint_drive_applies_mass_metric_pure_torque(
+    inertia_mode: sr.InertiaMode,
+    feedforward: float,
+    effort_limit: float,
+    expected_effort: float,
+) -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    inertia_values = np.diag((0.0048, 0.16906667, 0.16906667)).astype(
+        np.float32
+    )
+    inertia = wp.mat33(inertia_values)
+    parent = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
+    child = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
+    joint = builder.add_joint_revolute(
+        parent=parent,
+        child=child,
+        axis=(0.0, 0.0, 1.0),
+        target_ke=0.0,
+        target_kd=0.0,
+        damping=0.0,
+    )
+    builder.add_articulation([joint])
+    builder.joint_effort_limit[0] = effort_limit
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+    solver.config.joint_constraint_alpha = 0.0
+    solver.config.affine_body_spring_alpha = 0.0
+    solver.config.nonlinear_iterations = 1
+    solver.config.linear_iterations = 100
+    solver.config.inertia_mode = inertia_mode
+
+    state_in, state_out = model.state(), model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_in)
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_out)
+    solver.sync_affine_body_state(state_in)
+    solver.sync_affine_body_state(state_out)
+
+    control = model.control()
+    control.joint_f.fill_(feedforward)
+    wp.copy(control.joint_target_q, model.joint_target_q)
+    wp.copy(control.joint_target_qd, model.joint_target_qd)
+    state_in.clear_forces()
+    dt = 1.0e-4
+    solver.step(state_in, state_out, control, None, dt)
+    wp.synchronize_device(model.device)
+    assert np.array_equal(
+        control.joint_f.numpy(), np.array([feedforward], dtype=np.float32)
+    )
+    assert solver.synreal_model.joint_effort_limits.ptr == model.joint_effort_limit.ptr
+    assert len(solver.synreal_model.joint_effort_limits) == model.joint_dof_count
+
+    affine_body_ids = solver._affine_body_ids.numpy()
+    affine_indices = solver._affine_body_indices.numpy()
+    axis_lengths = solver._affine_body_axis_lengths.numpy()
+    velocities = state_out.particle_qd.numpy()
+    velocity_gradients = []
+    center_velocities = []
+    for body in (parent, child):
+        affine_body = int(np.flatnonzero(affine_body_ids == body)[0])
+        indices = affine_indices[affine_body]
+        center_velocity = velocities[indices[0]]
+        gradient = np.column_stack(
+            [
+                (velocities[index] - center_velocity) / axis_lengths[affine_body]
+                for index in indices[1:]
+            ]
+        )
+        center_velocities.append(center_velocity)
+        velocity_gradients.append(gradient)
+
+    assert np.allclose(center_velocities, 0.0, atol=1.0e-6)
+    for gradient in velocity_gradients:
+        assert np.allclose(gradient + gradient.T, 0.0, atol=2.0e-5)
+
+    expected_speed = expected_effort * dt / inertia_values[2, 2]
+    assert np.isclose(velocity_gradients[0][1, 0], -expected_speed, rtol=2.0e-3)
+    assert np.isclose(velocity_gradients[1][1, 0], expected_speed, rtol=2.0e-3)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_angular_joint_effort_limit_clamps_feedforward_plus_pd() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    inertia = wp.mat33(0.02, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.03)
+    bodies = []
+    joints = []
+    for _ in range(2):
+        parent = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
+        child = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
+        bodies.append((parent, child))
+        joints.append(
+            builder.add_joint_revolute(
+                parent=parent,
+                child=child,
+                axis=(0.0, 0.0, 1.0),
+                target_pos=0.1,
+                target_ke=100.0,
+                target_kd=0.0,
+                damping=0.0,
+                actuator_mode=newton.JointTargetMode.POSITION,
+            )
+        )
+    for joint in joints:
+        builder.add_articulation([joint])
+    builder.joint_effort_limit[:] = [1.0, 1.0e6]
+
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+    solver.config.joint_constraint_alpha = 0.0
+    solver.config.affine_body_spring_alpha = 0.0
+    solver.config.nonlinear_iterations = 1
+    solver.config.linear_iterations = 100
+
+    state_in, state_out = model.state(), model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_in)
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_out)
+    solver.sync_affine_body_state(state_in)
+    solver.sync_affine_body_state(state_out)
+    control = model.control()
+    # Both drives evaluate to +1 Nm after limiting:
+    #   first:  +2 + 100*(0.1 - 0) = +12 -> +1
+    #   second: -9 + 100*(0.1 - 0) =  +1 -> +1
+    wp.copy(control.joint_f, wp.array([2.0, -9.0], dtype=wp.float32, device=model.device))
+    wp.copy(control.joint_target_q, model.joint_target_q)
+    wp.copy(control.joint_target_qd, model.joint_target_qd)
+    state_in.clear_forces()
+
+    solver.step(state_in, state_out, control, None, 1.0e-4)
+    wp.synchronize_device(model.device)
+    angular_velocity = state_out.body_qd.numpy()[:, 3:]
+    assert np.allclose(
+        angular_velocity[list(bodies[0])],
+        angular_velocity[list(bodies[1])],
+        rtol=2.0e-3,
+        atol=1.0e-7,
+    )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_prismatic_joint_effort_limit_projects_to_boundary_spring() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    inertia = wp.mat33(0.03, 0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.03)
+    body = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
+    joint = builder.add_joint_prismatic(
+        parent=-1,
+        child=body,
+        axis=(1.0, 0.0, 0.0),
+        target_pos=0.1,
+        target_ke=100.0,
+        target_kd=0.0,
+        damping=0.0,
+        actuator_mode=newton.JointTargetMode.POSITION,
+    )
+    builder.add_articulation([joint])
+    builder.joint_effort_limit[0] = 0.5
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
+    solver.config.joint_constraint_alpha = 0.0
+    solver.config.affine_body_spring_alpha = 0.0
+    solver.config.nonlinear_iterations = 1
+    solver.config.linear_iterations = 100
+
+    state_in, state_out = model.state(), model.state()
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_in)
+    newton.eval_fk(model, model.joint_q, model.joint_qd, state_out)
+    solver.sync_affine_body_state(state_in)
+    solver.sync_affine_body_state(state_out)
+    control = model.control()
+    wp.copy(control.joint_target_q, model.joint_target_q)
+    wp.copy(control.joint_target_qd, model.joint_target_qd)
+    state_in.clear_forces()
+
+    dt = 1.0e-4
+    solver.step(state_in, state_out, control, None, dt)
+    wp.synchronize_device(model.device)
+    linear_velocity = state_out.body_qd.numpy()[body, :3]
+    assert np.isclose(linear_velocity[0], 0.5 * dt / 2.0, rtol=2.0e-3)
+    assert np.allclose(linear_velocity[1:], 0.0, atol=1.0e-7)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
