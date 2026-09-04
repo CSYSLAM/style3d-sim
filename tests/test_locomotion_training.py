@@ -105,6 +105,7 @@ def test_rsl_rl_configuration_matches_upstream_baseline() -> None:
         assert cfg["algorithm"]["gamma"] == 0.99
         assert cfg["algorithm"]["lam"] == 0.95
         assert cfg["algorithm"]["desired_kl"] == 0.01
+    assert rsl_rl_config("g1")["policy"]["init_noise_std"] == 0.2
 
 
 def test_foot_slide_reward_is_scalar_per_environment() -> None:
