@@ -194,6 +194,10 @@ def test_config_exposes_runtime_options() -> None:
         config.joint_constraint_mode = mode
         assert config.joint_constraint_mode == mode
 
+    assert config.joint_constraint_primal_iterations == 4
+    config.joint_constraint_primal_iterations = 7
+    assert config.joint_constraint_primal_iterations == 7
+
 
 def test_model_fields_require_span() -> None:
     model = sr.Model()

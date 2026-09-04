@@ -127,6 +127,14 @@ class Config:
     def joint_constraint_mode(self, arg0: JointConstraintMode) -> None:
         ...
     @property
+    def joint_constraint_primal_iterations(self) -> int:
+        """
+        Primal Newton iterations performed with a fixed augmented-Lagrangian dual before each multiplier update.
+        """
+    @joint_constraint_primal_iterations.setter
+    def joint_constraint_primal_iterations(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
     def linear_iterations(self) -> int:
         """
         PCG iterations per nonlinear iteration.

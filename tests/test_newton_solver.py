@@ -1139,6 +1139,24 @@ def test_newton_solver_rejects_invalid_joint_constraint_mode_at_step() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("iterations", (0, 1000))
+def test_newton_solver_rejects_invalid_joint_constraint_primal_iterations(
+    iterations: int,
+) -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=(0.0, 0.0, 0.0), vel=(0.0, 0.0, 0.0), mass=1.0)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.joint_constraint_primal_iterations = iterations
+
+    with pytest.raises(
+        ValueError,
+        match="config.joint_constraint_primal_iterations must be between 1 and 999",
+    ):
+        solver.step(model.state(), model.state(), None, None, 1.0 / 60.0)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 def test_newton_solver_rejects_nonzero_joint_spring_rest_length() -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     body = builder.add_link(

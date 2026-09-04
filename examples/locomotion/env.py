@@ -97,8 +97,11 @@ class SynRealLocomotionEnv:
             self.viewer.set_world_offsets((2.5, 2.5, 0.0))
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
         self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.nonlinear_iterations = self.spec.solver_iterations
-        self.solver.config.linear_iterations = self.spec.solver_iterations
+        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
+        self.solver.config.inertia_mode = synreal_solver.InertiaMode.NONE
+        self.solver.config.nonlinear_iterations = 30
+        self.solver.config.linear_iterations = 10
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
         self.state_0 = self.model.state()
@@ -166,7 +169,7 @@ class SynRealLocomotionEnv:
         self.reset()
 
     def _build_model(self, num_envs: int) -> tuple[Any, dict[str, Any]]:
-        newton, wp = self.newton, self.wp
+        newton = self.newton
         spec = self.spec
         robot = newton.ModelBuilder(up_axis=newton.Axis.Z)
         robot.default_joint_cfg = newton.ModelBuilder.JointDofConfig(
