@@ -100,10 +100,10 @@ class SynRealLocomotionEnv:
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
         self.solver = synreal_solver.NewtonSolver(self.model)
         self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.NONE
+        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.CO_ROTATED
+        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
         self.solver.config.joint_constraint_alpha = 2e2
-        self.solver.config.nonlinear_iterations = 30
+        self.solver.config.nonlinear_iterations = self.spec.solver_iterations
         self.solver.config.linear_iterations = 10
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
@@ -569,20 +569,24 @@ class SynRealLocomotionEnv:
         self.episode_return += reward
         self.extras = {
             "time_outs": self.timeout_buf.clone(),
-            "observations": {"critic": self.history.value()},
             "reward_terms": {name: value.mean() for name, value in terms.items()},
         }
-        if torch.any(done):
+        has_done = bool(torch.any(done))
+        if has_done:
             self.extras["episode"] = {
                 "return": self.episode_return[done].mean(),
                 "length": self.episode_length_buf[done].float().mean(),
             }
         frame = self._frame(corrupt=True)
         observation = self.history.append(frame)
-        if self.auto_reset and torch.any(done):
+        if self.auto_reset and has_done:
             env_ids = torch.nonzero(done, as_tuple=False).squeeze(-1)
             self.reset(env_ids)
             observation = self.history.value()
+        # Actor and critic share the deployment observation. Publish it only
+        # after history advancement and auto-reset so both networks see the
+        # same state at the next policy evaluation.
+        self.extras["observations"] = {"critic": observation}
         return observation, reward, done, self.extras
 
     def render(self) -> None:
