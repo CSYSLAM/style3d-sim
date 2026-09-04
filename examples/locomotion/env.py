@@ -58,6 +58,7 @@ class SynRealLocomotionEnv:
         randomize: bool = True,
         auto_reset: bool = True,
         viewer: Any | None = None,
+        use_cuda_graph: bool = True,
     ) -> None:
         if num_envs <= 0:
             raise ValueError("num_envs must be positive")
@@ -81,6 +82,7 @@ class SynRealLocomotionEnv:
         self.auto_reset = auto_reset
         self.randomize = randomize
         self.viewer = viewer
+        self.use_cuda_graph = use_cuda_graph
         self.sim_time = 0.0
         self.device = torch.device(device)
         torch.cuda.set_device(self.device)
@@ -100,6 +102,7 @@ class SynRealLocomotionEnv:
         self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
         self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
         self.solver.config.inertia_mode = synreal_solver.InertiaMode.NONE
+        self.solver.config.joint_constraint_alpha = 2e2
         self.solver.config.nonlinear_iterations = 30
         self.solver.config.linear_iterations = 10
         self.collision_pipeline = newton.CollisionPipeline(self.model)
@@ -165,8 +168,12 @@ class SynRealLocomotionEnv:
         self.random = EpisodeRandomization.create(
             self.spec, num_envs, self.device, self.generator, randomize
         )
+        self._bind_capture_arrays()
+        self.simulation_graph = None
         self.extras: dict[str, Any] = {}
         self.reset()
+        if self.use_cuda_graph:
+            self.capture_simulation_graph()
 
     def _build_model(self, num_envs: int) -> tuple[Any, dict[str, Any]]:
         newton = self.newton
@@ -265,6 +272,19 @@ class SynRealLocomotionEnv:
         self.model_effort = wp.to_torch(self.model.joint_effort_limit).view(
             self.num_envs, self.qd_per_env
         )
+
+    def _bind_capture_arrays(self) -> None:
+        wp = self.wp
+        self._desired_targets_wp = wp.from_torch(self.desired_targets)
+        self._base_stiffness_wp = wp.from_torch(self.base_stiffness)
+        self._base_damping_wp = wp.from_torch(self.base_damping)
+        self._base_effort_wp = wp.from_torch(self.base_effort)
+        self._stiffness_scale_wp = wp.from_torch(self.random.stiffness_scale)
+        self._damping_scale_wp = wp.from_torch(self.random.damping_scale)
+        self._motor_strength_wp = wp.from_torch(self.random.motor_strength)
+        self._policy_q_wp = wp.from_torch(self.policy_q)
+        self._policy_qd_wp = wp.from_torch(self.policy_qd)
+        self._policy_targets_wp = wp.from_torch(self.policy_targets)
 
     def _state(self) -> tuple[torch.Tensor, ...]:
         root_q = self.body_q_0[:, self.root_body]
@@ -412,22 +432,44 @@ class SynRealLocomotionEnv:
         self.random.resample_push(self.spec, env_ids, self.generator)
         self.random.next_push_step[env_ids] += self.episode_length_buf[env_ids]
 
-    def _simulate(self) -> None:
-        for _ in range(self.spec.decimation):
+    def _launch_limited_joint_targets(self) -> None:
+        from .simulation_kernels import update_limited_joint_targets
+
+        self.wp.launch(
+            update_limited_joint_targets,
+            dim=self.num_envs * self.num_actions,
+            inputs=[
+                self.state_0.joint_q,
+                self.state_0.joint_qd,
+                self._desired_targets_wp,
+                self._base_stiffness_wp,
+                self._base_damping_wp,
+                self._base_effort_wp,
+                self._stiffness_scale_wp,
+                self._damping_scale_wp,
+                self._motor_strength_wp,
+                self._policy_q_wp,
+                self._policy_qd_wp,
+                self._policy_targets_wp,
+                self.num_actions,
+                self.q_per_env,
+                self.qd_per_env,
+                self.target_per_env,
+            ],
+            outputs=[self.control.joint_target_q],
+            device=self.wp_device,
+            stream=self.stream,
+        )
+
+    def _simulate_uncaptured(self, *, keep_state_buffers: bool = False) -> None:
+        for substep in range(self.spec.decimation):
             # The current SynReal/Newton adapter does not consume Newton's
             # joint_effort_limit. Convert the desired position target into an
             # equivalent target whose ideal-PD torque is explicitly clipped.
+            self._launch_limited_joint_targets()
             self.newton.eval_ik(
                 self.model, self.state_0, self.state_0.joint_q, self.state_0.joint_qd
             )
-            q = self.joint_q_0.index_select(1, self.policy_q)
-            qd = self.joint_qd_0.index_select(1, self.policy_qd)
-            kp = self.base_stiffness * self.random.stiffness_scale
-            kd = self.base_damping * self.random.damping_scale
-            limit = self.base_effort * self.random.motor_strength
-            torque = (kp * (self.desired_targets - q) - kd * qd).clamp(-limit, limit)
-            limited_target = q + (torque + kd * qd) / kp.clamp_min(1.0e-6)
-            self.control_targets[:, self.policy_targets] = limited_target
             self.collision_pipeline.collide(self.state_0, self.contacts)
             self.state_0.clear_forces()
             self.solver.step(
@@ -437,8 +479,32 @@ class SynRealLocomotionEnv:
                 self.contacts,
                 self.spec.dt,
             )
-            self.state_0, self.state_1 = self.state_1, self.state_0
-            self._bind_views()
+            is_last_odd_substep = (
+                keep_state_buffers
+                and self.spec.decimation % 2 == 1
+                and substep == self.spec.decimation - 1
+            )
+            if is_last_odd_substep:
+                self.state_0.assign(self.state_1)
+            else:
+                self.state_0, self.state_1 = self.state_1, self.state_0
+        self._bind_views()
+
+    def capture_simulation_graph(self) -> None:
+        """Capture one policy interval after solver configuration changes."""
+        self.wp.synchronize_stream(self.stream)
+        self.simulation_graph = None
+        torch.cuda.current_stream(self.device).synchronize()
+        with self.wp.ScopedStream(self.stream):
+            with self.wp.ScopedCapture(stream=self.stream) as capture:
+                self._simulate_uncaptured(keep_state_buffers=True)
+        self.simulation_graph = capture.graph
+
+    def _simulate(self) -> None:
+        if self.simulation_graph is None:
+            self._simulate_uncaptured()
+        else:
+            self.wp.capture_launch(self.simulation_graph, stream=self.stream)
 
     @torch.no_grad()
     def step(

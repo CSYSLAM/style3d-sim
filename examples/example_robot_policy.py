@@ -299,6 +299,11 @@ class Example:
             )
         else:
             self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.CO_ROTATED
+            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+            self.solver.config.nonlinear_iterations = 30
+            self.solver.config.linear_iterations = 10
 
         self.state_temp = self.model.state()
         self.state_0 = self.model.state()

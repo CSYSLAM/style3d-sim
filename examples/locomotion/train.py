@@ -73,6 +73,11 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--resume", type=Path)
     parser.add_argument("--no-randomization", action="store_true")
     parser.add_argument("--visualize", action="store_true", help="show all training worlds in ViewerGL")
+    parser.add_argument(
+        "--disable-cuda-graph",
+        action="store_true",
+        help="run simulation kernels without Warp CUDA Graph replay",
+    )
     parser.add_argument("--disable-logs", action="store_true", help="disable checkpoints and TensorBoard")
     parser.add_argument("--run", action="store_true", help="start PPO; omitted means validate only")
     return parser
@@ -92,6 +97,7 @@ def main() -> None:
         "history_length": spec.history_length,
         "action_dim": spec.action_dim,
         "policy_dt": spec.policy_dt,
+        "cuda_graph": not args.disable_cuda_graph,
         "rsl_rl": cfg,
     }
     print(json.dumps(summary, indent=2))
@@ -120,6 +126,7 @@ def main() -> None:
         seed=args.seed,
         randomize=not args.no_randomization,
         viewer=viewer,
+        use_cuda_graph=not args.disable_cuda_graph,
     )
     log_dir = None
     if not args.disable_logs:
