@@ -9,13 +9,50 @@ from pathlib import Path
 import newton
 import torch
 import warp as wp
-from tensordict import TensorDict
 
 import synreal_solver
 
 
 def _name(label: str) -> str:
     return label.rsplit("/", 1)[-1]
+
+
+def _joint_values(value, joint_names, label):
+    """Expand a scalar, joint-name mapping, or sequence in policy order."""
+
+    if isinstance(value, (int, float)):
+        values = [float(value)] * len(joint_names)
+    elif isinstance(value, dict):
+        missing = [name for name in joint_names if name not in value]
+        if missing:
+            raise ValueError(f"{label} is missing joints: {missing}")
+        values = [float(value[name]) for name in joint_names]
+    else:
+        values = [float(item) for item in value]
+        if len(values) != len(joint_names):
+            raise ValueError(
+                f"{label} must contain {len(joint_names)} values, got {len(values)}"
+            )
+    return values
+
+
+def _joint_target_bounds(value, joint_names):
+    if value is None:
+        return None
+    missing = [name for name in joint_names if name not in value]
+    if missing:
+        raise ValueError(f"joint_target_limits is missing joints: {missing}")
+    lower = []
+    upper = []
+    for name in joint_names:
+        bounds = value[name]
+        if len(bounds) != 2 or bounds[0] >= bounds[1]:
+            raise ValueError(
+                f"joint_target_limits[{name!r}] must be an increasing pair"
+            )
+        lower.append(float(bounds[0]))
+        upper.append(float(bounds[1]))
+    return lower, upper
 
 
 def _rotate_inverse(quaternion: torch.Tensor, vector: torch.Tensor) -> torch.Tensor:
@@ -64,6 +101,7 @@ class Go2Env:
         show_viewer=False,
         enable_viewer_forces=False,
         auto_reset=True,
+        structured_observations=True,
     ):
         if num_envs <= 0:
             raise ValueError("num_envs must be positive")
@@ -80,6 +118,16 @@ class Go2Env:
         self.reward_cfg = reward_cfg
         self.command_cfg = command_cfg
         self.auto_reset = bool(auto_reset)
+        if structured_observations:
+            try:
+                from tensordict import TensorDict
+            except ImportError as error:
+                raise ImportError(
+                    "structured observations require the 'tensordict' package"
+                ) from error
+            self._tensor_dict_type = TensorDict
+        else:
+            self._tensor_dict_type = None
         self.device = torch.device("cuda:0")
         self.wp_device = wp.get_device(str(self.device))
         self.stream = wp.get_stream(self.wp_device)
@@ -167,6 +215,39 @@ class Go2Env:
             dtype=torch.float32,
             device=self.device,
         )
+        self.action_scale = torch.tensor(
+            _joint_values(
+                env_cfg["action_scale"], env_cfg["joint_names"], "action_scale"
+            ),
+            dtype=torch.float32,
+            device=self.device,
+        )
+        if torch.any(self.action_scale <= 0.0):
+            raise ValueError("action_scale values must be positive")
+        self.action_clip = float(env_cfg["clip_actions"])
+        if not math.isfinite(self.action_clip) or self.action_clip <= 0.0:
+            raise ValueError("clip_actions must be a positive finite value")
+        target_bounds = _joint_target_bounds(
+            env_cfg.get("joint_target_limits"), env_cfg["joint_names"]
+        )
+        if target_bounds is None:
+            self.joint_target_lower = torch.full_like(
+                self.default_dof_pos, -torch.inf
+            )
+            self.joint_target_upper = torch.full_like(
+                self.default_dof_pos, torch.inf
+            )
+        else:
+            self.joint_target_lower = torch.tensor(
+                target_bounds[0], dtype=torch.float32, device=self.device
+            )
+            self.joint_target_upper = torch.tensor(
+                target_bounds[1], dtype=torch.float32, device=self.device
+            )
+        if torch.any(self.default_dof_pos <= self.joint_target_lower) or torch.any(
+            self.default_dof_pos >= self.joint_target_upper
+        ):
+            raise ValueError("default_joint_angles must lie inside joint_target_limits")
         self.init_base_pos = torch.tensor(
             env_cfg["base_init_pos"], dtype=torch.float32, device=self.device
         )
@@ -258,22 +339,42 @@ class Go2Env:
         robot.default_shape_cfg.kd = 1.0e2
         robot.default_shape_cfg.kf = 1.0e3
         robot.default_shape_cfg.mu = 0.75
-        robot.add_usd(
-            str(asset_path),
-            floating=True,
-            collapse_fixed_joints=True,
-            enable_self_collisions=False,
-            hide_collision_shapes=True,
-        )
+        if asset_path.suffix.lower() == ".xml":
+            robot.add_mjcf(
+                str(asset_path),
+                floating=True,
+                collapse_fixed_joints=True,
+                enable_self_collisions=False,
+            )
+        else:
+            robot.add_usd(
+                str(asset_path),
+                floating=True,
+                collapse_fixed_joints=True,
+                enable_self_collisions=False,
+                hide_collision_shapes=True,
+            )
 
         joints = {_name(label): index for index, label in enumerate(robot.joint_label)}
         missing = [name for name in self.env_cfg["joint_names"] if name not in joints]
         if missing:
             raise ValueError(f"Go2 asset is missing joints: {missing}")
 
+        torque_limits = None
+        if "torque_limits" in self.env_cfg:
+            torque_limits = _joint_values(
+                self.env_cfg["torque_limits"],
+                self.env_cfg["joint_names"],
+                "torque_limits",
+            )
+            if any(
+                not math.isfinite(value) or value <= 0.0
+                for value in torque_limits
+            ):
+                raise ValueError("torque_limits values must be positive and finite")
         q_indices = []
         qd_indices = []
-        for name in self.env_cfg["joint_names"]:
+        for slot, name in enumerate(self.env_cfg["joint_names"]):
             joint = joints[name]
             q_index = int(robot.joint_q_start[joint])
             qd_index = int(robot.joint_qd_start[joint])
@@ -284,6 +385,8 @@ class Go2Env:
             robot.joint_target_q[q_index] = position
             robot.joint_target_ke[qd_index] = float(self.env_cfg["kp"])
             robot.joint_target_kd[qd_index] = float(self.env_cfg["kd"])
+            if torque_limits is not None:
+                robot.joint_effort_limit[qd_index] = torque_limits[slot]
             robot.joint_target_mode[qd_index] = int(newton.JointTargetMode.POSITION)
 
         base_wxyz = self.env_cfg["base_init_quat"]
@@ -402,11 +505,16 @@ class Go2Env:
             )
         self.actions.copy_(
             actions.to(self.device).clamp(
-                -self.env_cfg["clip_actions"], self.env_cfg["clip_actions"]
+                -self.action_clip,
+                self.action_clip,
             )
         )
         executed = self.last_actions if self.simulate_action_latency else self.actions
-        targets = self.default_dof_pos + float(self.env_cfg["action_scale"]) * executed
+        targets = self.default_dof_pos + self.action_scale * executed
+        targets = torch.maximum(
+            torch.minimum(targets, self.joint_target_upper),
+            self.joint_target_lower,
+        )
         self.control_targets[:, self.motor_qd] = targets
         self._simulate()
         self.sim_time += self.dt
@@ -444,7 +552,11 @@ class Go2Env:
         return self.get_observations(), self.rew_buf, done, self.extras
 
     def get_observations(self):
-        return TensorDict({"policy": self.obs_buf}, batch_size=[self.num_envs])
+        if self._tensor_dict_type is None:
+            return self.obs_buf
+        return self._tensor_dict_type(
+            {"policy": self.obs_buf}, batch_size=[self.num_envs]
+        )
 
     def _reset_idx(self, mask=None):
         if mask is None:
@@ -452,6 +564,7 @@ class Go2Env:
         if not bool(torch.any(mask)):
             self.extras["episode"] = {}
             return
+        env_ids = torch.nonzero(mask, as_tuple=False).squeeze(-1)
 
         for current, alternate, initial in (
             (self.joint_q, self.next_joint_q, self._initial["joint_q"]),
@@ -477,6 +590,7 @@ class Go2Env:
 
         self.actions[mask] = 0.0
         self.last_actions[mask] = 0.0
+        self.control_targets[env_ids[:, None], self.motor_qd] = self.default_dof_pos
         self.last_dof_vel[mask] = 0.0
         self.episode_length_buf[mask] = 0
         self.reset_buf[mask] = True
@@ -586,9 +700,20 @@ def _preview_configs():
         "base_init_quat": [1.0, 0.0, 0.0, 0.0],
         "episode_length_s": 20.0,
         "resampling_time_s": 4.0,
-        "action_scale": 0.25,
+        "action_scale": [0.125, 0.25, 0.25] * 4,
+        "joint_target_limits": {
+            name: (
+                [-0.5, 0.5]
+                if "hip" in name
+                else [0.4, 1.4]
+                if "thigh" in name
+                else [-2.3, -0.85]
+            )
+            for name in joint_names
+        },
+        "torque_limits": 23.5,
         "simulate_action_latency": True,
-        "clip_actions": 100.0,
+        "clip_actions": 1.0,
     }
     obs_cfg = {
         "obs_scales": {
