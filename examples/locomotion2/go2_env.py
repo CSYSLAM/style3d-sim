@@ -145,6 +145,12 @@ class Go2Env:
         self.reward_scales = {
             name: scale * self.dt for name, scale in reward_cfg["reward_scales"].items()
         }
+        self.contact_stiffness = float(env_cfg.get("contact_stiffness", 4.0e4))
+        self.contact_damping = float(env_cfg.get("contact_damping", 4.5e2))
+        if not math.isfinite(self.contact_stiffness) or self.contact_stiffness <= 0.0:
+            raise ValueError("contact_stiffness must be positive and finite")
+        if not math.isfinite(self.contact_damping) or self.contact_damping < 0.0:
+            raise ValueError("contact_damping must be non-negative and finite")
 
         self.viewer = newton.viewer.ViewerGL(vsync=True) if show_viewer else None
         self.enable_viewer_forces = bool(enable_viewer_forces)
@@ -156,12 +162,16 @@ class Go2Env:
             world = robot
         else:
             world.replicate(robot, self.num_envs)
-        world.default_shape_cfg.ke = 2.0e3
-        world.default_shape_cfg.kd = 1.0e2
+        world.default_shape_cfg.ke = self.contact_stiffness
+        world.default_shape_cfg.kd = self.contact_damping
         world.default_shape_cfg.mu = 0.75
         world.add_ground_plane()
 
         self.model = world.finalize(device=self.wp_device)
+        # USD assets may carry per-shape material values. Apply the configured
+        # contact parameters after finalization so feet and ground use one model.
+        wp.to_torch(self.model.shape_material_ke).fill_(self.contact_stiffness)
+        wp.to_torch(self.model.shape_material_kd).fill_(self.contact_damping)
         self.model.set_gravity((0.0, 0.0, -9.81))
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
 
@@ -335,8 +345,8 @@ class Go2Env:
             limit_kd=10.0,
             friction=1.0e-5,
         )
-        robot.default_shape_cfg.ke = 2.0e3
-        robot.default_shape_cfg.kd = 1.0e2
+        robot.default_shape_cfg.ke = self.contact_stiffness
+        robot.default_shape_cfg.kd = self.contact_damping
         robot.default_shape_cfg.kf = 1.0e3
         robot.default_shape_cfg.mu = 0.75
         if asset_path.suffix.lower() == ".xml":
@@ -694,6 +704,8 @@ def _preview_configs():
         "default_joint_angles": default_joint_angles,
         "kp": 80.0,
         "kd": 2.0,
+        "contact_stiffness": 4.0e4,
+        "contact_damping": 4.5e2,
         "termination_if_roll_greater_than": 35.0,
         "termination_if_pitch_greater_than": 35.0,
         "base_init_pos": [0.0, 0.0, 0.42],

@@ -97,6 +97,9 @@ def get_cfgs():
         # PD
         "kp": 80.0,
         "kd": 2.0,
+        # contact
+        "contact_stiffness": 4.0e4,
+        "contact_damping": 4.5e2,
         # termination
         "termination_if_roll_greater_than": 35,  # degree
         "termination_if_pitch_greater_than": 35,
