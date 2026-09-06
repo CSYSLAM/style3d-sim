@@ -706,6 +706,11 @@ def _preview_configs():
         "kd": 2.0,
         "contact_stiffness": 4.0e4,
         "contact_damping": 4.5e2,
+        # A single preview environment can afford tighter convergence. The
+        # default 10/10 solve leaves a small tangential residual that makes a
+        # standing Go2 creep across the ground.
+        "solver_iterations": 30,
+        "linear_iterations": 10,
         "termination_if_roll_greater_than": 35.0,
         "termination_if_pitch_greater_than": 35.0,
         "base_init_pos": [0.0, 0.0, 0.42],
