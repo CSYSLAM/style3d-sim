@@ -712,7 +712,7 @@ def _preview_configs():
         "base_init_quat": [1.0, 0.0, 0.0, 0.0],
         "episode_length_s": 20.0,
         "resampling_time_s": 4.0,
-        "action_scale": [0.125, 0.25, 0.25] * 4,
+        "action_scale": [0.25, 0.25, 0.25] * 4,
         "joint_target_limits": {
             name: (
                 [-0.5, 0.5]
