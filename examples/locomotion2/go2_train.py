@@ -123,6 +123,7 @@ def get_cfgs():
         # termination
         "termination_if_roll_greater_than": 35,  # degree
         "termination_if_pitch_greater_than": 35,
+        "termination_if_base_height_less_than": 0.24,
         # base pose
         "base_init_pos": [0.0, 0.0, 0.42],
         "base_init_quat": [1.0, 0.0, 0.0, 0.0],
@@ -170,7 +171,7 @@ def get_cfgs():
         },
     }
     reward_cfg = {
-        "tracking_sigma": 0.25,
+        "tracking_sigma": 0.1,
         "base_height_target": 0.3,
         "feet_height_target": 0.075,
         "reward_scales": {

@@ -145,6 +145,17 @@ class Go2Env:
         self.reward_scales = {
             name: scale * self.dt for name, scale in reward_cfg["reward_scales"].items()
         }
+        self.termination_if_base_height_less_than = env_cfg.get(
+            "termination_if_base_height_less_than"
+        )
+        if self.termination_if_base_height_less_than is not None:
+            self.termination_if_base_height_less_than = float(
+                self.termination_if_base_height_less_than
+            )
+            if not math.isfinite(self.termination_if_base_height_less_than):
+                raise ValueError(
+                    "termination_if_base_height_less_than must be finite"
+                )
         self.contact_stiffness = float(env_cfg.get("contact_stiffness", 4.0e4))
         self.contact_damping = float(env_cfg.get("contact_damping", 4.5e2))
         if not math.isfinite(self.contact_stiffness) or self.contact_stiffness <= 0.0:
@@ -550,6 +561,10 @@ class Go2Env:
             torch.abs(self.base_euler[:, 0])
             > self.env_cfg["termination_if_roll_greater_than"]
         )
+        if self.termination_if_base_height_less_than is not None:
+            self.reset_buf.logical_or_(
+                self.base_pos[:, 2] < self.termination_if_base_height_less_than
+            )
         self.reset_buf.logical_or_(invalid)
         done = self.reset_buf.clone()
         self.extras["time_outs"] = timed_out.float()
