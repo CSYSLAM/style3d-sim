@@ -17,6 +17,26 @@ import torch
 from go2_env import Go2Env
 
 
+def start_tensorboard(log_dir, port):
+    from tensorboard import program
+
+    tensorboard = program.TensorBoard()
+    tensorboard.configure(
+        argv=[
+            None,
+            "--logdir",
+            str(Path(log_dir).resolve()),
+            "--host",
+            "127.0.0.1",
+            "--port",
+            port,
+        ]
+    )
+    url = tensorboard.launch()
+    print(f"TensorBoard: {url}", flush=True)
+    return tensorboard
+
+
 def get_train_cfg(exp_name):
     train_cfg_dict = {
         "algorithm": {
@@ -180,6 +200,12 @@ def main():
     parser.add_argument("--seed", type=int, default=1, help="Random seed")
     parser.add_argument("--headless", action="store_true", help="Disable Newton Viewer during training")
     parser.add_argument("--resume", type=Path, help="Resume from an RSL-RL .pt checkpoint")
+    parser.add_argument("--no-tensorboard", action="store_true", help="Do not start the TensorBoard web server")
+    parser.add_argument(
+        "--tensorboard-port",
+        default="default",
+        help="TensorBoard port, or 'default' to use 6006 and find a nearby free port",
+    )
     args = parser.parse_args()
 
     resume_path = None
@@ -204,6 +230,10 @@ def main():
 
         with open(f"{log_dir}/cfgs.pkl", "wb") as f:
             pickle.dump([env_cfg, obs_cfg, reward_cfg, command_cfg, train_cfg], f)
+
+    _tensorboard = None
+    if not args.no_tensorboard:
+        _tensorboard = start_tensorboard(log_dir, args.tensorboard_port)
 
     # Parallel environments provide training throughput and require a CUDA GPU.
     torch.manual_seed(args.seed)
