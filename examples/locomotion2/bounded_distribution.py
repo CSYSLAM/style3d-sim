@@ -6,14 +6,22 @@ import math
 
 import torch
 from torch import nn
+from torch.nn import functional as F
 from torch.distributions import Normal
 
 from rsl_rl.modules.distribution import Distribution
 
 
 class _TanhOutput(nn.Module):
+    def __init__(self, latent_mean_bound: float) -> None:
+        super().__init__()
+        self.latent_mean_bound = latent_mean_bound
+
     def forward(self, value: torch.Tensor) -> torch.Tensor:
-        return torch.tanh(value)
+        mean = self.latent_mean_bound * torch.tanh(
+            value / self.latent_mean_bound
+        )
+        return torch.tanh(mean)
 
 
 class TanhGaussianDistribution(Distribution):
@@ -27,9 +35,11 @@ class TanhGaussianDistribution(Distribution):
         self,
         output_dim: int,
         init_std: float = 0.3,
-        std_range: tuple[float, float] = (1e-4, 2.0),
+        std_range: tuple[float, float] = (1e-4, 0.8),
         std_type: str = "scalar",
         learn_std: bool = True,
+        latent_mean_bound: float = 3.0,
+        latent_sample_bound: float = 6.0,
     ) -> None:
         super().__init__(output_dim)
         if init_std <= 0.0:
@@ -38,8 +48,18 @@ class TanhGaussianDistribution(Distribution):
             raise ValueError("std_type must be 'scalar' or 'log'")
         if len(std_range) != 2 or not 0.0 < std_range[0] < std_range[1]:
             raise ValueError("std_range must be an increasing positive pair")
+        if not math.isfinite(latent_mean_bound) or latent_mean_bound <= 0.0:
+            raise ValueError("latent_mean_bound must be positive and finite")
+        if (
+            not math.isfinite(latent_sample_bound)
+            or latent_sample_bound <= latent_mean_bound
+        ):
+            raise ValueError("latent_sample_bound must be finite and exceed the mean bound")
         self.std_type = std_type
         self.std_range = (float(std_range[0]), float(std_range[1]))
+        self.latent_mean_bound = float(latent_mean_bound)
+        self.latent_sample_bound = float(latent_sample_bound)
+        self.action_bound = math.tanh(self.latent_sample_bound)
         if std_type == "scalar":
             self.std_param = nn.Parameter(
                 torch.full((output_dim,), init_std), requires_grad=learn_std
@@ -72,8 +92,12 @@ class TanhGaussianDistribution(Distribution):
         nn.init.zeros_(final_linear.weight)
         nn.init.zeros_(final_linear.bias)
 
+    def _bounded_mean(self, value: torch.Tensor) -> torch.Tensor:
+        return self.latent_mean_bound * torch.tanh(value / self.latent_mean_bound)
+
     def update(self, mlp_output: torch.Tensor) -> None:
-        self._distribution = Normal(mlp_output, self._std().expand_as(mlp_output))
+        mean = self._bounded_mean(mlp_output)
+        self._distribution = Normal(mean, self._std().expand_as(mean))
 
     def _require_distribution(self) -> Normal:
         if self._distribution is None:
@@ -81,13 +105,16 @@ class TanhGaussianDistribution(Distribution):
         return self._distribution
 
     def sample(self) -> torch.Tensor:
-        return torch.tanh(self._require_distribution().sample())
+        latent = self._require_distribution().sample().clamp(
+            -self.latent_sample_bound, self.latent_sample_bound
+        )
+        return torch.tanh(latent)
 
     def deterministic_output(self, mlp_output: torch.Tensor) -> torch.Tensor:
-        return torch.tanh(mlp_output)
+        return torch.tanh(self._bounded_mean(mlp_output))
 
     def as_deterministic_output_module(self) -> nn.Module:
-        return _TanhOutput()
+        return _TanhOutput(self.latent_mean_bound)
 
     @property
     def mean(self) -> torch.Tensor:
@@ -110,11 +137,12 @@ class TanhGaussianDistribution(Distribution):
 
     def log_prob(self, outputs: torch.Tensor) -> torch.Tensor:
         distribution = self._require_distribution()
-        eps = torch.finfo(outputs.dtype).eps
-        bounded = outputs.clamp(-1.0 + eps, 1.0 - eps)
+        bounded = outputs.clamp(-self.action_bound, self.action_bound)
         pre_tanh = torch.atanh(bounded)
-        correction = torch.log1p(-bounded.square() + eps)
-        return (distribution.log_prob(pre_tanh) - correction).sum(dim=-1)
+        log_jacobian = 2.0 * (
+            math.log(2.0) - pre_tanh - F.softplus(-2.0 * pre_tanh)
+        )
+        return (distribution.log_prob(pre_tanh) - log_jacobian).sum(dim=-1)
 
     def kl_divergence(
         self,

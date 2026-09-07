@@ -173,14 +173,19 @@ def get_cfgs():
     reward_cfg = {
         "tracking_sigma": 0.1,
         "base_height_target": 0.3,
-        "feet_height_target": 0.075,
+        "walk_min_swing_duration": 0.08,
+        "walk_max_swing_duration": 0.24,
         "reward_scales": {
             "tracking_lin_vel": 3.0,
             "tracking_ang_vel": 1.0,
-            "lin_vel_z": -1.0,
+            "lin_vel_z": -5.0,
             "base_height": -50.0,
-            "action_rate": -0.005,
+            "action_rate": -0.02,
             "similar_to_default": -0.1,
+            "single_foot_swing": 0.5,
+            "walk_step": 0.25,
+            "walk_swing_stall": -1.0,
+            "excess_feet_airborne": -2.0,
         },
     }
     command_cfg = {
@@ -191,6 +196,39 @@ def get_cfgs():
     }
 
     return env_cfg, obs_cfg, reward_cfg, command_cfg
+
+
+def apply_current_gait_rewards(reward_cfg):
+    """Use the current gait objective when resuming older checkpoints."""
+
+    current_reward_cfg = get_cfgs()[2]
+    gait_parameters = (
+        "walk_min_swing_duration",
+        "walk_max_swing_duration",
+    )
+    gait_rewards = (
+        "single_foot_swing",
+        "walk_step",
+        "walk_swing_stall",
+        "excess_feet_airborne",
+    )
+    for name in gait_parameters:
+        reward_cfg[name] = current_reward_cfg[name]
+    scales = reward_cfg["reward_scales"]
+    for obsolete in (
+        "trot_gait",
+        "trot_action",
+        "trot_contact",
+        "trot_switch",
+        "trot_stall",
+        "feet_air_time",
+        "all_feet_contact",
+    ):
+        scales.pop(obsolete, None)
+    scales["lin_vel_z"] = current_reward_cfg["reward_scales"]["lin_vel_z"]
+    scales["action_rate"] = current_reward_cfg["reward_scales"]["action_rate"]
+    for name in gait_rewards:
+        scales[name] = current_reward_cfg["reward_scales"][name]
 
 
 def main():
@@ -219,6 +257,7 @@ def main():
             raise SystemExit(f"Resume configuration does not exist: {config_path}")
         with config_path.open("rb") as f:
             env_cfg, obs_cfg, reward_cfg, command_cfg, train_cfg = pickle.load(f)
+        apply_current_gait_rewards(reward_cfg)
         log_dir = str(resume_path.parent)
     else:
         log_dir = f"logs/{args.exp_name}"
