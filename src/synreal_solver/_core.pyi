@@ -9,7 +9,7 @@ allocation alive for as long as native code may access it.
 from __future__ import annotations
 import collections.abc
 import typing
-__all__: list[str] = ['AffineBodyRigidityModel', 'Config', 'Contact', 'Control', 'InertiaMode', 'JointConstraintMode', 'LogLevel', 'Model', 'Solver', 'Span', 'State', 'is_logged_in', 'login', 'set_log_callback']
+__all__: list[str] = ['AffineBodyRigidityModel', 'Config', 'Contact', 'Control', 'InertiaMode', 'JointConstraintMode', 'LogLevel', 'Model', 'NonlinearSolver', 'Solver', 'Span', 'State', 'is_logged_in', 'login', 'set_log_callback']
 class AffineBodyRigidityModel:
     """
     Members:
@@ -149,6 +149,14 @@ class Config:
         """
     @nonlinear_iterations.setter
     def nonlinear_iterations(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def nonlinear_solver(self) -> NonlinearSolver:
+        """
+        Implicit-Euler nonlinear method: NEWTON or the legacy PD_NEWTON method.
+        """
+    @nonlinear_solver.setter
+    def nonlinear_solver(self, arg0: NonlinearSolver) -> None:
         ...
     @property
     def self_collision_edge_edge_stiffness(self) -> float:
@@ -1359,6 +1367,51 @@ class Model:
         """
     @world_count.setter
     def world_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+class NonlinearSolver:
+    """
+    Members:
+
+      NEWTON
+
+      PD_NEWTON
+    """
+    NEWTON: typing.ClassVar[NonlinearSolver]  # value = <NonlinearSolver.NEWTON: 0>
+    PD_NEWTON: typing.ClassVar[NonlinearSolver]  # value = <NonlinearSolver.PD_NEWTON: 1>
+    __members__: typing.ClassVar[dict[str, NonlinearSolver]]  # value = {'NEWTON': <NonlinearSolver.NEWTON: 0>, 'PD_NEWTON': <NonlinearSolver.PD_NEWTON: 1>}
+    @typing.overload
+    def __eq__(self, other: NonlinearSolver) -> bool:
+        ...
+    @typing.overload
+    def __eq__(self, other: typing.Any) -> bool:
+        ...
+    def __getstate__(self) -> int:
+        ...
+    def __hash__(self) -> int:
+        ...
+    def __index__(self) -> int:
+        ...
+    def __init__(self, value: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __int__(self) -> int:
+        ...
+    @typing.overload
+    def __ne__(self, other: NonlinearSolver) -> bool:
+        ...
+    @typing.overload
+    def __ne__(self, other: typing.Any) -> bool:
+        ...
+    def __repr__(self) -> str:
+        ...
+    def __setstate__(self, state: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    def __str__(self) -> str:
+        ...
+    @property
+    def name(self) -> str:
+        ...
+    @property
+    def value(self) -> int:
         ...
 class Solver:
     """

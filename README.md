@@ -101,6 +101,15 @@ uv run python -c "import synreal_solver; print(synreal_solver.__file__)"
 uv run python -c "import synreal_solver._core as core; print(core.__file__)"
 ```
 
+## 非线性求解器
+
+默认配置为现有的 `PD_NEWTON`。如需让隐式欧拉在每次非线性迭代中重新装配约束的
+Gauss-Newton Hessian，并使用 3x3 block PCG 求解，可切换为：
+
+```python
+solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+```
+
 ## 构建 Wheel
 
 使用自动选择：

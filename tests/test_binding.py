@@ -114,6 +114,16 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
 def test_config_exposes_runtime_options() -> None:
     config = sr.Config()
 
+    nonlinear_solvers = (
+        sr.NonlinearSolver.NEWTON,
+        sr.NonlinearSolver.PD_NEWTON,
+    )
+    assert config.nonlinear_solver == sr.NonlinearSolver.PD_NEWTON
+    assert tuple(solver.value for solver in nonlinear_solvers) == (0, 1)
+    for solver in nonlinear_solvers:
+        config.nonlinear_solver = solver
+        assert config.nonlinear_solver == solver
+
     assert config.distance_constraint_alpha == pytest.approx(100.0)
     config.distance_constraint_alpha = 25.0
     assert config.distance_constraint_alpha == pytest.approx(25.0)

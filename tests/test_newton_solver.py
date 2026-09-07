@@ -28,6 +28,11 @@ INERTIA_MODES = (
     pytest.param(sr.InertiaMode.MIDPOINT_CAYLEY, id="midpoint-cayley"),
 )
 
+NONLINEAR_SOLVERS = (
+    pytest.param(sr.NonlinearSolver.NEWTON, id="newton"),
+    pytest.param(sr.NonlinearSolver.PD_NEWTON, id="pd-newton"),
+)
+
 
 def _affine_frame_rigidity_error(points: np.ndarray, axis_length: float) -> float:
     affine = (points[1:] - points[0]).T / axis_length
@@ -1139,6 +1144,18 @@ def test_newton_solver_rejects_invalid_joint_constraint_mode_at_step() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_rejects_invalid_nonlinear_solver_at_step() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=(0.0, 0.0, 0.0), vel=(0.0, 0.0, 0.0), mass=1.0)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = sr.NonlinearSolver(99)
+
+    with pytest.raises(ValueError, match="config.nonlinear_solver is invalid"):
+        solver.step(model.state(), model.state(), None, None, 1.0 / 60.0)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("iterations", (0, 1000))
 def test_newton_solver_rejects_invalid_joint_constraint_primal_iterations(
     iterations: int,
@@ -1315,6 +1332,7 @@ def _loaded_joint_transverse_displacement(
     joint_kind: str,
     mode: sr.JointConstraintMode,
     nonlinear_iterations: int,
+    nonlinear_solver: sr.NonlinearSolver,
 ) -> float:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_link(
@@ -1347,6 +1365,7 @@ def _loaded_joint_transverse_displacement(
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
     solver.config.joint_constraint_mode = mode
+    solver.config.nonlinear_solver = nonlinear_solver
     solver.config.joint_constraint_alpha = 10.0
     solver.config.nonlinear_iterations = nonlinear_iterations
     solver.config.linear_iterations = 100
@@ -1364,25 +1383,37 @@ def _loaded_joint_transverse_displacement(
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("joint_kind", ("revolute", "prismatic"))
+@pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
 def test_joint_augmented_lagrangian_reduces_loaded_constraint_error(
     joint_kind: str,
+    nonlinear_solver: sr.NonlinearSolver,
 ) -> None:
     penalty_first = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.PENALTY, 1
+        joint_kind, sr.JointConstraintMode.PENALTY, 1, nonlinear_solver
     )
     augmented_first = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 1
+        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 1, nonlinear_solver
     )
     penalty_converged = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.PENALTY, 10
+        joint_kind, sr.JointConstraintMode.PENALTY, 10, nonlinear_solver
     )
     augmented_converged = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 10
+        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 10, nonlinear_solver
     )
 
     # The first AL primal iteration is exactly the legacy penalty solve. Further
     # AL dual updates should remove most of the loaded transverse joint error.
-    assert np.isclose(augmented_first, penalty_first, rtol=2.0e-4, atol=2.0e-7)
+    first_iteration_rtol = (
+        5.0e-4
+        if nonlinear_solver == sr.NonlinearSolver.NEWTON
+        else 2.0e-4
+    )
+    assert np.isclose(
+        augmented_first,
+        penalty_first,
+        rtol=first_iteration_rtol,
+        atol=2.0e-7,
+    )
     assert abs(augmented_converged) < 0.2 * abs(penalty_converged)
 
 
@@ -2443,7 +2474,10 @@ def test_affine_body_rigidity_models_preserve_fixed_body_during_contact(
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_newton_solver_applies_body_point_spring() -> None:
+@pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
+def test_newton_solver_applies_body_point_spring(
+    nonlinear_solver: sr.NonlinearSolver,
+) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     inertia = wp.mat33(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
     body0 = builder.add_body(
@@ -2463,6 +2497,7 @@ def test_newton_solver_applies_body_point_spring() -> None:
     state_in = model.state()
     state_out = model.state()
     solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = nonlinear_solver
     initial_distance = np.linalg.norm(
         state_in.body_q.numpy()[body1, :3] - state_in.body_q.numpy()[body0, :3]
     )
@@ -2644,7 +2679,10 @@ def test_newton_solver_preserves_distinct_world_distance_anchors() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_newton_solver_applies_world_space_point_line() -> None:
+@pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
+def test_newton_solver_applies_world_space_point_line(
+    nonlinear_solver: sr.NonlinearSolver,
+) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_body(
         xform=wp.transform(wp.vec3(0.0, 1.0, 0.0), wp.quat_identity()),
@@ -2664,6 +2702,7 @@ def test_newton_solver_applies_world_space_point_line() -> None:
     state_in = model.state()
     state_out = model.state()
     solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = nonlinear_solver
     initial_y = float(state_in.body_q.numpy()[body, 1])
 
     for _ in range(4):
@@ -2692,6 +2731,7 @@ def test_newton_solver_shares_replicated_rigid_model_data(world_count: int) -> N
     builder.add_ground_plane()
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
     native = solver.synreal_model
 
     assert native.world_count == world_count
@@ -2810,6 +2850,7 @@ def test_newton_solver_shares_replicated_cloth_rigid_model_data(
     builder.replicate(scene, world_count)
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
     native = solver.synreal_model
 
     assert native.world_count == world_count
