@@ -66,17 +66,6 @@ def _rotate_inverse(quaternion: torch.Tensor, vector: torch.Tensor) -> torch.Ten
     )
 
 
-def _rotate(quaternion: torch.Tensor, vector: torch.Tensor) -> torch.Tensor:
-    """Rotate vectors by XYZW quaternions."""
-
-    axis = quaternion[..., :3]
-    scalar = quaternion[..., 3:4]
-    first_cross = torch.linalg.cross(axis, vector, dim=-1)
-    return vector + 2.0 * (
-        scalar * first_cross + torch.linalg.cross(axis, first_cross, dim=-1)
-    )
-
-
 def _relative_rpy_degrees(
     quaternion: torch.Tensor, initial_wxyz: torch.Tensor
 ) -> torch.Tensor:
@@ -156,17 +145,6 @@ class Go2Env:
         self.reward_scales = {
             name: scale * self.dt for name, scale in reward_cfg["reward_scales"].items()
         }
-        self.termination_if_base_height_less_than = env_cfg.get(
-            "termination_if_base_height_less_than"
-        )
-        if self.termination_if_base_height_less_than is not None:
-            self.termination_if_base_height_less_than = float(
-                self.termination_if_base_height_less_than
-            )
-            if not math.isfinite(self.termination_if_base_height_less_than):
-                raise ValueError(
-                    "termination_if_base_height_less_than must be finite"
-                )
         self.contact_stiffness = float(env_cfg.get("contact_stiffness", 4.0e4))
         self.contact_damping = float(env_cfg.get("contact_damping", 4.5e2))
         if not math.isfinite(self.contact_stiffness) or self.contact_stiffness <= 0.0:
@@ -198,18 +176,14 @@ class Go2Env:
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
 
         self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.joint_constraint_mode = (
-            synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-        )
-        self.solver.config.affine_body_rigidity_model = (
-            synreal_solver.AffineBodyRigidityModel.CO_ROTATED
-        )
+        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
         self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
-        self.solver.config.joint_constraint_alpha = 2.0e2
-        self.solver.config.nonlinear_iterations = int(
-            env_cfg.get("solver_iterations", 10)
-        )
-        self.solver.config.linear_iterations = int(env_cfg.get("linear_iterations", 10))
+        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+        self.solver.config.joint_constraint_primal_iterations = 2
+        self.solver.config.nonlinear_iterations = 30
+        self.solver.config.linear_iterations = 10
+
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
 
@@ -235,7 +209,6 @@ class Go2Env:
             joint_layout["qd"], dtype=torch.long, device=self.device
         )
         self._bind_state_tensors()
-        self._configure_foot_contacts()
         self._initial = {
             "joint_q": self.joint_q.clone(),
             "joint_qd": self.joint_qd.clone(),
@@ -456,130 +429,6 @@ class Go2Env:
             self.num_envs, self.target_per_env
         )
 
-    def _configure_foot_contacts(self):
-        foot_slots = {"FR": 0, "FL": 1, "RR": 2, "RL": 3}
-        shape_bodies = self.model.shape_body.numpy().tolist()
-        shape_to_foot = [-1] * self.model.shape_count
-        mapped_per_env = [set() for _ in range(self.num_envs)]
-        for shape, label in enumerate(self.model.shape_label):
-            for leg, slot in foot_slots.items():
-                if f"/{leg}_foot/collisions/" not in label:
-                    continue
-                body = int(shape_bodies[shape])
-                env = body // self.body_per_env
-                foot = env * len(foot_slots) + slot
-                shape_to_foot[shape] = foot
-                mapped_per_env[env].add(slot)
-                break
-        if any(len(mapped) != len(foot_slots) for mapped in mapped_per_env):
-            raise ValueError("Go2 asset is missing one or more foot collision shapes")
-
-        self.shape_to_foot = torch.tensor(
-            shape_to_foot, dtype=torch.long, device=self.device
-        )
-        self.contact_count = wp.to_torch(self.contacts.rigid_contact_count)
-        self.contact_shape0 = wp.to_torch(self.contacts.rigid_contact_shape0)
-        self.contact_shape1 = wp.to_torch(self.contacts.rigid_contact_shape1)
-        self.contact_point0 = wp.to_torch(self.contacts.rigid_contact_point0)
-        self.contact_point1 = wp.to_torch(self.contacts.rigid_contact_point1)
-        self.contact_normal = wp.to_torch(self.contacts.rigid_contact_normal)
-        self.contact_margin0 = wp.to_torch(self.contacts.rigid_contact_margin0)
-        self.contact_margin1 = wp.to_torch(self.contacts.rigid_contact_margin1)
-        self.shape_body = wp.to_torch(self.model.shape_body).long()
-        self.contact_rows = torch.arange(
-            len(self.contact_shape0), dtype=torch.long, device=self.device
-        )
-        self.foot_contact_counts = torch.zeros(
-            self.num_envs * len(foot_slots), dtype=torch.int32, device=self.device
-        )
-        self.feet_contact = torch.zeros(
-            (self.num_envs, len(foot_slots)), dtype=torch.bool, device=self.device
-        )
-        self.last_feet_contact = torch.zeros_like(self.feet_contact)
-        self.active_walk_swing_foot = torch.full(
-            (self.num_envs,), -1, dtype=torch.int8, device=self.device
-        )
-        self.current_walk_swing_foot = torch.full_like(
-            self.active_walk_swing_foot, -1
-        )
-        self.last_completed_walk_foot = torch.full_like(
-            self.active_walk_swing_foot, -1
-        )
-        self.walk_swing_age = torch.zeros(
-            self.num_envs, dtype=torch.float32, device=self.device
-        )
-        self.walk_step_completed = torch.zeros(
-            self.num_envs, dtype=torch.bool, device=self.device
-        )
-
-    def _read_foot_contacts(self):
-        self.foot_contact_counts.zero_()
-        active = self.contact_rows < self.contact_count[0]
-        safe_shape0 = self.contact_shape0.clamp(0, self.model.shape_count - 1)
-        safe_shape1 = self.contact_shape1.clamp(0, self.model.shape_count - 1)
-        body0 = self.shape_body.index_select(0, safe_shape0)
-        body1 = self.shape_body.index_select(0, safe_shape1)
-        flat_body_q = self.body_q.view(-1, 7)
-
-        def world_points(points, bodies):
-            safe_bodies = bodies.clamp(0, len(flat_body_q) - 1)
-            poses = flat_body_q.index_select(0, safe_bodies)
-            transformed = poses[:, :3] + _rotate(poses[:, 3:7], points)
-            return torch.where((bodies >= 0).unsqueeze(1), transformed, points)
-
-        point0 = world_points(self.contact_point0, body0)
-        point1 = world_points(self.contact_point1, body1)
-        separation = torch.sum((point1 - point0) * self.contact_normal, dim=1)
-        penetrating = separation < (self.contact_margin0 + self.contact_margin1)
-
-        for shapes in (safe_shape0, safe_shape1):
-            safe_shapes = shapes.clamp(0, self.model.shape_count - 1)
-            feet = self.shape_to_foot.index_select(0, safe_shapes)
-            hits = active & penetrating & (feet >= 0)
-            indices = torch.where(hits, feet, 0)
-            self.foot_contact_counts.scatter_add_(0, indices, hits.to(torch.int32))
-        self.feet_contact.copy_(self.foot_contact_counts.view(self.num_envs, 4) > 0)
-
-    def _prepare_gait_rewards(self):
-        single_swing = (~self.feet_contact).sum(dim=1) == 1
-        swing_feet = torch.argmax((~self.feet_contact).to(torch.int8), dim=1)
-        self.current_walk_swing_foot.fill_(-1)
-        self.current_walk_swing_foot[single_swing] = swing_feet[single_swing].to(
-            torch.int8
-        )
-        active = self.active_walk_swing_foot >= 0
-        active_indices = self.active_walk_swing_foot.long().clamp(0, 3).unsqueeze(1)
-        active_foot_landed = self.feet_contact.gather(1, active_indices).squeeze(1)
-        minimum_duration = float(
-            self.reward_cfg.get("walk_min_swing_duration", 0.08)
-        )
-        maximum_duration = float(
-            self.reward_cfg.get("walk_max_swing_duration", 0.24)
-        )
-        self.walk_step_completed.copy_(
-            active
-            & active_foot_landed
-            & (self.walk_swing_age >= minimum_duration)
-            & (self.walk_swing_age <= maximum_duration)
-            & (self.active_walk_swing_foot != self.last_completed_walk_foot)
-        )
-
-    def _advance_gait_state(self):
-        self.last_completed_walk_foot[self.walk_step_completed] = (
-            self.active_walk_swing_foot[self.walk_step_completed]
-        )
-        single_swing = self.current_walk_swing_foot >= 0
-        changed_swing = single_swing & (
-            self.current_walk_swing_foot != self.active_walk_swing_foot
-        )
-        self.walk_swing_age.add_(self.dt)
-        self.walk_swing_age[~single_swing | changed_swing] = 0.0
-        self.active_walk_swing_foot[changed_swing] = (
-            self.current_walk_swing_foot[changed_swing]
-        )
-        self.active_walk_swing_foot[~single_swing] = -1
-        self.last_feet_contact.copy_(self.feet_contact)
-
     def _resample_commands(self, mask):
         count = self.num_envs if mask is None else int(mask.sum().item())
         if count == 0:
@@ -677,15 +526,12 @@ class Go2Env:
         self.sim_time += self.dt
         self.episode_length_buf += 1
         self._read_state()
-        self._read_foot_contacts()
-        self._prepare_gait_rewards()
 
         self.rew_buf.zero_()
         for name, reward_function in self.reward_functions.items():
             contribution = reward_function() * self.reward_scales[name]
             self.rew_buf.add_(contribution)
             self.episode_sums[name].add_(contribution)
-        self._advance_gait_state()
 
         interval = max(1, int(self.env_cfg["resampling_time_s"] / self.dt))
         self._resample_commands(self.episode_length_buf.remainder(interval) == 0)
@@ -700,10 +546,6 @@ class Go2Env:
             torch.abs(self.base_euler[:, 0])
             > self.env_cfg["termination_if_roll_greater_than"]
         )
-        if self.termination_if_base_height_less_than is not None:
-            self.reset_buf.logical_or_(
-                self.base_pos[:, 2] < self.termination_if_base_height_less_than
-            )
         self.reset_buf.logical_or_(invalid)
         done = self.reset_buf.clone()
         self.extras["time_outs"] = timed_out.float()
@@ -756,12 +598,6 @@ class Go2Env:
         self.last_actions[mask] = 0.0
         self.control_targets[env_ids[:, None], self.motor_qd] = self.default_dof_pos
         self.last_dof_vel[mask] = 0.0
-        self.last_feet_contact[mask] = False
-        self.active_walk_swing_foot[mask] = -1
-        self.current_walk_swing_foot[mask] = -1
-        self.last_completed_walk_foot[mask] = -1
-        self.walk_swing_age[mask] = 0.0
-        self.walk_step_completed[mask] = False
         self.episode_length_buf[mask] = 0
         self.reset_buf[mask] = True
         self.extras["episode"] = {}
@@ -828,21 +664,6 @@ class Go2Env:
     def _reward_base_height(self):
         return (self.base_pos[:, 2] - self.reward_cfg["base_height_target"]).square()
 
-    def _reward_single_foot_swing(self):
-        return ((~self.feet_contact).sum(dim=1) == 1).float()
-
-    def _reward_walk_step(self):
-        return self.walk_step_completed.float() / self.dt
-
-    def _reward_walk_swing_stall(self):
-        maximum_duration = float(
-            self.reward_cfg.get("walk_max_swing_duration", 0.24)
-        )
-        return (self.walk_swing_age > maximum_duration).float()
-
-    def _reward_excess_feet_airborne(self):
-        airborne = (~self.feet_contact).sum(dim=1).float()
-        return torch.clamp(airborne - 1.0, min=0.0)
 
 def _preview_configs():
     joint_names = (
