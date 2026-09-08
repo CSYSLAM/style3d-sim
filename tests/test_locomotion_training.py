@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import torch
 
@@ -11,10 +12,15 @@ _EXAMPLES = Path(__file__).parents[1] / "examples"
 sys.path.insert(0, str(_EXAMPLES))
 
 from locomotion.deployment import build_actor, deploy_config, export_actor_onnx  # noqa: E402
+from locomotion.env import TERMINATION_REWARD  # noqa: E402
 from locomotion.observations import ObservationHistory, actor_frame  # noqa: E402
 from locomotion.policy_spec import load_policy_spec  # noqa: E402
 from locomotion.rewards import locomotion_reward  # noqa: E402
-from locomotion.train import rsl_rl_config  # noqa: E402
+from locomotion.train import (  # noqa: E402
+    apply_runner_overrides,
+    parse_reset_joint_curriculum,
+    rsl_rl_config,
+)
 
 
 def test_policy_contract_dimensions_and_rate() -> None:
@@ -34,9 +40,55 @@ def test_go2_fanziqi_contract() -> None:
         "FR_hip_joint", "FR_thigh_joint", "FR_calf_joint",
         "FL_hip_joint", "FL_thigh_joint", "FL_calf_joint",
     )
-    assert spec.action_scale == (0.125, 0.25, 0.25) * 4
+    assert spec.action_scale == (0.25, 0.25, 0.25) * 4
     assert spec.ang_vel_scale == 0.25
     assert spec.joint_vel_scale == 0.05
+
+
+def test_go2_matches_locomotion2_training_baseline() -> None:
+    spec = load_policy_spec("go2")
+    assert spec.asset_source == "newton"
+    assert spec.asset_name == "unitree_go2"
+    assert spec.asset_relative_path == "usd/go2.usda"
+    assert spec.default_joint_pos == (
+        0.0, 0.8, -1.5, 0.0, 0.8, -1.5,
+        0.0, 1.0, -1.5, 0.0, 1.0, -1.5,
+    )
+    assert spec.stiffness == (80.0,) * 12
+    assert spec.damping == (2.0,) * 12
+    assert spec.command_ranges == {
+        "lin_vel_x": (0.5, 0.5),
+        "lin_vel_y": (0.0, 0.0),
+        "ang_vel_z": (0.0, 0.0),
+    }
+    assert spec.standing_probability == 0.0
+    assert spec.action_clip == 1.0
+    assert spec.joint_target_limits is not None
+    assert spec.termination_roll_degrees == 35.0
+    assert spec.termination_pitch_degrees == 35.0
+    assert spec.fall_height == 0.12
+    assert spec.fall_grace_s == 0.6
+    assert spec.fall_confirm_s == 0.12
+    assert spec.base_height_target == 0.28
+    assert spec.base_height_sigma == 0.05
+    assert spec.contact_stiffness == 15000.0
+    assert spec.contact_damping == 250.0
+    assert spec.solver_iterations == 30
+    assert spec.linear_iterations == 10
+    assert spec.randomization.policy_delay_ticks == (1, 1)
+    assert spec.randomization.push_velocity == (0.0, 0.0)
+    assert spec.randomization.reset_joint_position == (0.0, 0.0)
+    assert TERMINATION_REWARD == -100.0
+    assert spec.ppo["init_noise_std"] == 0.03
+    assert spec.ppo["learning_rate"] == 3.0e-4
+    assert spec.ppo["num_learning_epochs"] == 5
+    assert spec.ppo["clip_param"] == 0.2
+
+
+def test_reset_joint_curriculum_parser() -> None:
+    assert parse_reset_joint_curriculum(
+        ["0:0.0", "2000:0.01", "3000:0.015", "4000:0.02"]
+    ) == ((0, 0.0), (2000, 0.01), (3000, 0.015), (4000, 0.02))
 
 
 def test_g1_unitree_sdk_mapping() -> None:
@@ -79,7 +131,10 @@ def test_observation_and_actor_shapes() -> None:
         history = ObservationHistory(batch, spec, torch.device("cpu"))
         history.reset(torch.arange(batch), frame)
         observation = history.value()
-        assert build_actor(spec)(observation).shape == (batch, spec.action_dim)
+        output = build_actor(spec)(observation)
+        assert output.shape == (batch, spec.action_dim)
+        if robot == "go2":
+            assert output.abs().max() <= 1.0
 
 
 def test_deploy_yaml_is_dimensionally_identical_to_training() -> None:
@@ -101,20 +156,45 @@ def test_rsl_rl_configuration_matches_upstream_baseline() -> None:
         assert cfg["num_steps_per_env"] == 24
         assert cfg["policy"]["actor_hidden_dims"] == [512, 256, 128]
         assert cfg["policy"]["noise_std_type"] == "log"
-        assert cfg["algorithm"]["clip_param"] == 0.2
         assert cfg["algorithm"]["gamma"] == 0.99
         assert cfg["algorithm"]["lam"] == 0.95
-        assert cfg["algorithm"]["desired_kl"] == 0.01
+    go2 = rsl_rl_config("go2")
+    assert go2["policy"]["class_name"] == "BoundedActorCritic"
+    assert go2["algorithm"]["clip_param"] == 0.2
+    assert go2["algorithm"]["schedule"] == "adaptive"
+    assert go2["algorithm"]["desired_kl"] == 0.01
+    g1 = rsl_rl_config("g1")
+    assert g1["policy"]["class_name"] == "ActorCritic"
+    assert g1["algorithm"]["clip_param"] == 0.2
+    assert g1["algorithm"]["schedule"] == "adaptive"
+    assert g1["algorithm"]["desired_kl"] == 0.01
     assert rsl_rl_config("g1")["policy"]["init_noise_std"] == 0.2
 
 
-def test_foot_slide_reward_is_scalar_per_environment() -> None:
-    for robot, foot_count in (("go2", 4), ("g1", 2)):
+def test_resume_overrides_update_policy_and_optimizer() -> None:
+    policy = SimpleNamespace(
+        noise_std_type="log",
+        log_std=torch.nn.Parameter(torch.zeros(12)),
+    )
+    optimizer = torch.optim.Adam([policy.log_std], lr=1.0e-5)
+    algorithm = SimpleNamespace(
+        policy=policy,
+        optimizer=optimizer,
+        learning_rate=1.0e-5,
+    )
+    runner = SimpleNamespace(alg=algorithm)
+
+    apply_runner_overrides(runner, noise_std=0.02, learning_rate=2.0e-5)
+
+    assert torch.allclose(policy.log_std.exp(), torch.full((12,), 0.02))
+    assert algorithm.learning_rate == 2.0e-5
+    assert optimizer.param_groups[0]["lr"] == 2.0e-5
+
+
+def test_locomotion_reward_is_scalar_per_environment() -> None:
+    for robot in ("go2", "g1"):
         batch = 3
         joint_count = 12 if robot == "go2" else 29
-        foot_speed_xy = torch.ones(batch, foot_count, 2)
-        contact = torch.zeros(batch, foot_count, dtype=torch.bool)
-        contact[:, 0] = True
         reward, terms = locomotion_reward(
             robot=robot,
             commands=torch.zeros(batch, 3),
@@ -125,13 +205,51 @@ def test_foot_slide_reward_is_scalar_per_environment() -> None:
             joint_velocity=torch.zeros(batch, joint_count),
             actions=torch.zeros(batch, joint_count),
             previous_actions=torch.zeros(batch, joint_count),
-            foot_height=torch.full((batch, foot_count), 0.035),
-            foot_speed_xy=foot_speed_xy,
-            contact=contact,
+            root_height=torch.full((batch,), 0.28),
+            base_height_target=0.28,
+            base_height_sigma=0.05,
+            base_height_reward_scale=1.0,
         )
         assert reward.shape == (batch,)
-        assert terms["foot_slide"].shape == (batch,)
-        assert torch.equal(terms["foot_slide"], torch.full((batch,), 2.0))
+        assert "foot_slide" not in terms
+
+
+def test_go2_tracking_reward_is_additive_and_discourages_low_posture() -> None:
+    def reward(
+        *,
+        root_height: float,
+        gravity_z: float,
+        velocity_x: float = 0.5,
+        action: float = 0.0,
+    ):
+        batch = 2
+        values, _ = locomotion_reward(
+            robot="go2",
+            commands=torch.tensor([[0.5, 0.0, 0.0]]).repeat(batch, 1),
+            linear_velocity_body=torch.tensor([[velocity_x, 0.0, 0.0]]).repeat(batch, 1),
+            angular_velocity_body=torch.zeros(batch, 3),
+            gravity_body=torch.tensor([[0.0, 0.0, gravity_z]]).repeat(batch, 1),
+            joint_position_error=torch.zeros(batch, 12),
+            joint_velocity=torch.zeros(batch, 12),
+            actions=torch.full((batch, 12), action),
+            previous_actions=torch.full((batch, 12), action),
+            root_height=torch.full((batch,), root_height),
+            base_height_target=0.28,
+            base_height_sigma=0.05,
+            base_height_reward_scale=1.0,
+        )
+        return values
+
+    healthy = reward(root_height=0.28, gravity_z=-1.0)
+    crouched = reward(root_height=0.12, gravity_z=-1.0)
+    tilted = reward(root_height=0.28, gravity_z=0.0)
+    standing = reward(root_height=0.28, gravity_z=-1.0, velocity_x=0.0)
+    active = reward(root_height=0.28, gravity_z=-1.0, action=1.0)
+
+    assert torch.all(healthy > standing)
+    assert torch.all(healthy > crouched)
+    assert torch.all(healthy > tilted)
+    assert torch.allclose(active, healthy)
 
 
 def test_onnx_export_embeds_weights(monkeypatch, tmp_path: Path) -> None:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +13,9 @@ from .observations import ObservationHistory, actor_frame
 from .policy_spec import PolicySpec, load_policy_spec
 from .randomization import EpisodeRandomization, uniform
 from .rewards import locomotion_reward, terminated
+
+
+TERMINATION_REWARD = -100.0
 
 
 RL_SAR_ZOO_COMMIT = "7dd30bdc7806898950b354260655d5a7f0ce844e"
@@ -25,6 +29,11 @@ def _basename(label: str) -> str:
 def resolve_asset(spec: PolicySpec, override: Path | None = None) -> Path:
     if override is not None:
         path = override.expanduser().resolve()
+    elif spec.asset_source == "newton":
+        import newton
+
+        root = Path(newton.utils.download_asset(spec.asset_name))
+        path = root / spec.asset_relative_path
     else:
         from newton._src.utils.download_assets import download_git_folder
 
@@ -59,6 +68,8 @@ class SynRealLocomotionEnv:
         auto_reset: bool = True,
         viewer: Any | None = None,
         use_cuda_graph: bool = True,
+        command_vx: float | None = None,
+        reset_joint_position_curriculum: tuple[tuple[int, float], ...] = (),
     ) -> None:
         if num_envs <= 0:
             raise ValueError("num_envs must be positive")
@@ -83,6 +94,10 @@ class SynRealLocomotionEnv:
         self.randomize = randomize
         self.viewer = viewer
         self.use_cuda_graph = use_cuda_graph
+        self.command_vx = command_vx
+        self.reset_joint_position_curriculum = reset_joint_position_curriculum
+        self.policy_step_count = 0
+        self.steps_per_learning_iteration = int(self.spec.ppo["num_steps_per_env"])
         self.sim_time = 0.0
         self.device = torch.device(device)
         torch.cuda.set_device(self.device)
@@ -94,17 +109,13 @@ class SynRealLocomotionEnv:
         builder, layout = self._build_model(num_envs)
         self.model = builder.finalize(device=self.wp_device)
         self.model.set_gravity((0.0, 0.0, -9.81))
+        self._configure_model_before_solver()
         if self.viewer is not None:
             self.viewer.set_model(self.model)
             self.viewer.set_world_offsets((2.5, 2.5, 0.0))
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
         self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.CO_ROTATED
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
-        self.solver.config.joint_constraint_alpha = 2e2
-        self.solver.config.nonlinear_iterations = self.spec.solver_iterations
-        self.solver.config.linear_iterations = 10
+        self._configure_solver()
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
         self.state_0 = self.model.state()
@@ -134,7 +145,6 @@ class SynRealLocomotionEnv:
         # seven free-root coordinates.  For revolute joints target index == qd.
         self.policy_targets = torch.tensor(layout["qd"], dtype=torch.long, device=self.device)
         self.root_body = int(layout["root_body"])
-        self.foot_bodies = torch.tensor(layout["foot_bodies"], dtype=torch.long, device=self.device)
         self._bind_views()
 
         self.initial_joint_q = self.joint_q_0.clone()
@@ -143,6 +153,16 @@ class SynRealLocomotionEnv:
         self.initial_body_qd = self.body_qd_0.clone()
         self.default_joint_pos = self.spec.tensor("default_joint_pos", self.device)
         self.action_scale = self.spec.tensor("action_scale", self.device)
+        self.action_clip = self.spec.action_clip
+        if self.spec.joint_target_limits is None:
+            self.joint_target_lower = torch.full_like(self.action_scale, -torch.inf)
+            self.joint_target_upper = torch.full_like(self.action_scale, torch.inf)
+        else:
+            target_limits = torch.tensor(
+                self.spec.joint_target_limits, device=self.device, dtype=torch.float32
+            )
+            self.joint_target_lower = target_limits[:, 0]
+            self.joint_target_upper = target_limits[:, 1]
         self.base_stiffness = self.spec.tensor("stiffness", self.device)
         self.base_damping = self.spec.tensor("damping", self.device)
         self.base_effort = self.spec.tensor("torque_limits", self.device)
@@ -151,8 +171,6 @@ class SynRealLocomotionEnv:
             (num_envs, self.num_actions), device=self.device
         )
 
-        initial_feet = self.body_q_0[:, self.foot_bodies, 2]
-        self.contact_height = initial_feet.min(dim=0).values + 0.015
         self.commands = torch.zeros((num_envs, 3), device=self.device)
         self.actions = torch.zeros((num_envs, self.num_actions), device=self.device)
         self.previous_actions = torch.zeros_like(self.actions)
@@ -162,12 +180,25 @@ class SynRealLocomotionEnv:
         )
         self.history = ObservationHistory(num_envs, self.spec, self.device)
         self.episode_length_buf = torch.zeros(num_envs, dtype=torch.long, device=self.device)
+        # RSL-RL may randomize episode_length_buf at startup to stagger timeouts.
+        # Keep startup fall protection tied to real steps since the last reset.
+        self.steps_since_reset_buf = torch.zeros_like(self.episode_length_buf)
+        self.low_height_steps = torch.zeros(
+            num_envs, dtype=torch.long, device=self.device
+        )
+        self.fall_grace_steps = math.ceil(
+            self.spec.fall_grace_s / self.spec.policy_dt
+        )
+        self.fall_confirm_steps = max(
+            1, math.ceil(self.spec.fall_confirm_s / self.spec.policy_dt)
+        )
         self.episode_return = torch.zeros(num_envs, device=self.device)
         self.reset_buf = torch.zeros(num_envs, dtype=torch.bool, device=self.device)
         self.timeout_buf = torch.zeros_like(self.reset_buf)
         self.random = EpisodeRandomization.create(
             self.spec, num_envs, self.device, self.generator, randomize
         )
+        self._configure_task_buffers()
         self._bind_capture_arrays()
         self.simulation_graph = None
         self.extras: dict[str, Any] = {}
@@ -175,11 +206,26 @@ class SynRealLocomotionEnv:
         if self.use_cuda_graph:
             self.capture_simulation_graph()
 
+    def _configure_solver(self) -> None:
+        synreal_solver = self.synreal_solver
+        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.CO_ROTATED
+        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        self.solver.config.joint_constraint_alpha = 2e2
+        self.solver.config.nonlinear_iterations = self.spec.solver_iterations
+        self.solver.config.linear_iterations = self.spec.linear_iterations
+
     def _build_model(self, num_envs: int) -> tuple[Any, dict[str, Any]]:
         newton = self.newton
         spec = self.spec
-        robot = newton.ModelBuilder(up_axis=newton.Axis.Z)
+        builder_type = (
+            self.synreal_solver.ModelBuilder
+            if spec.asset_source == "newton"
+            else newton.ModelBuilder
+        )
+        robot = builder_type(up_axis=newton.Axis.Z)
         robot.default_joint_cfg = newton.ModelBuilder.JointDofConfig(
+            armature=0.01 if spec.asset_source == "newton" else 0.0,
             limit_ke=1.0e3,
             limit_kd=10.0,
             friction=1.0e-5,
@@ -188,12 +234,16 @@ class SynRealLocomotionEnv:
         robot.default_shape_cfg.kd = spec.contact_damping
         robot.default_shape_cfg.kf = 1.0e3
         robot.default_shape_cfg.mu = spec.contact_friction
-        robot.add_mjcf(
-            str(self.asset_path),
-            floating=True,
-            collapse_fixed_joints=True,
-            enable_self_collisions=False,
-        )
+        asset_options = self._asset_options()
+        if self.asset_path.suffix.lower() in {".usd", ".usda", ".usdc"}:
+            robot.add_usd(
+                str(self.asset_path),
+                hide_collision_shapes=True,
+                **asset_options,
+            )
+        else:
+            robot.add_mjcf(str(self.asset_path), **asset_options)
+
         joint_by_name = {
             _basename(label): index for index, label in enumerate(robot.joint_label)
         }
@@ -217,22 +267,10 @@ class SynRealLocomotionEnv:
         robot.joint_q[:3] = [0.0, 0.0, spec.initial_height]
         robot.joint_q[3:7] = [0.0, 0.0, 0.0, 1.0]
 
-        body_labels = tuple(_basename(label) for label in robot.body_label)
-        if spec.name == "go2":
-            candidates = tuple(f"{leg}_calf" for leg in ("FR", "FL", "RR", "RL"))
-        else:
-            candidates = ("left_ankle_roll_link", "right_ankle_roll_link")
-        foot_bodies = []
-        for name in candidates:
-            matches = [index for index, label in enumerate(body_labels) if label == name]
-            if len(matches) != 1:
-                raise ValueError(f"expected one foot body {name!r}, found {matches}")
-            foot_bodies.append(matches[0])
-
         if num_envs == 1:
             builder = robot
         else:
-            builder = newton.ModelBuilder(up_axis=newton.Axis.Z)
+            builder = builder_type(up_axis=newton.Axis.Z)
             builder.default_shape_cfg.ke = spec.contact_stiffness
             builder.default_shape_cfg.kd = spec.contact_damping
             builder.default_shape_cfg.kf = 1.0e3
@@ -243,8 +281,20 @@ class SynRealLocomotionEnv:
             "q": q_indices,
             "qd": qd_indices,
             "root_body": 0,
-            "foot_bodies": foot_bodies,
         }
+
+    def _asset_options(self) -> dict[str, bool]:
+        return {
+            "floating": True,
+            "collapse_fixed_joints": True,
+            "enable_self_collisions": False,
+        }
+
+    def _configure_model_before_solver(self) -> None:
+        """Allow task variants to update finalized model data before solver setup."""
+
+    def _configure_task_buffers(self) -> None:
+        """Allow task variants to allocate buffers before reset and graph capture."""
 
     def _bind_views(self) -> None:
         wp = self.wp
@@ -325,8 +375,14 @@ class SynRealLocomotionEnv:
             self.commands[env_ids, index] = uniform(
                 (len(env_ids),), self.spec.command_ranges[key], self.device, self.generator
             )
-        standing = torch.rand((len(env_ids),), device=self.device, generator=self.generator) < 0.1
-        self.commands[env_ids[standing]] = 0.0
+        if self.spec.standing_probability > 0.0:
+            standing = (
+                torch.rand((len(env_ids),), device=self.device, generator=self.generator)
+                < self.spec.standing_probability
+            )
+            self.commands[env_ids[standing]] = 0.0
+        if self.command_vx is not None:
+            self.commands[env_ids, 0] = self.command_vx
 
     @torch.no_grad()
     def reset(self, env_ids: torch.Tensor | None = None) -> torch.Tensor:
@@ -345,9 +401,25 @@ class SynRealLocomotionEnv:
         self.body_qd_1[env_ids] = self.initial_body_qd[env_ids]
         if self.randomize:
             root = self.joint_q_0[env_ids, :3]
-            root[:, :2] += uniform((len(env_ids), 2), (-0.05, 0.05), self.device, self.generator)
+            root[:, :2] += uniform(
+                (len(env_ids), 2),
+                self.spec.randomization.reset_xy,
+                self.device,
+                self.generator,
+            )
             q = self.joint_q_0[env_ids].index_select(1, self.policy_q)
-            q += uniform(q.shape, (-0.02, 0.02), self.device, self.generator)
+            reset_bounds = self.spec.randomization.reset_joint_position
+            if self.reset_joint_position_curriculum:
+                learning_iteration = (
+                    self.policy_step_count // self.steps_per_learning_iteration
+                )
+                magnitude = self.reset_joint_position_curriculum[0][1]
+                for start_iteration, stage_magnitude in self.reset_joint_position_curriculum:
+                    if learning_iteration < start_iteration:
+                        break
+                    magnitude = stage_magnitude
+                reset_bounds = (-magnitude, magnitude)
+            q += uniform(q.shape, reset_bounds, self.device, self.generator)
             self.joint_q_0[env_ids[:, None], self.policy_q] = q
             self.joint_q_1[env_ids] = self.joint_q_0[env_ids]
         self.control_targets[env_ids] = self.default_targets[env_ids]
@@ -356,6 +428,8 @@ class SynRealLocomotionEnv:
         self.previous_actions[env_ids] = 0.0
         self.action_queue[env_ids] = 0.0
         self.episode_length_buf[env_ids] = 0
+        self.steps_since_reset_buf[env_ids] = 0
+        self.low_height_steps[env_ids] = 0
         self.episode_return[env_ids] = 0.0
         self.reset_buf[env_ids] = False
         self.timeout_buf[env_ids] = False
@@ -512,7 +586,7 @@ class SynRealLocomotionEnv:
     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, dict[str, Any]]:
         if actions.shape != (self.num_envs, self.num_actions):
             raise ValueError(f"expected actions {(self.num_envs, self.num_actions)}, got {actions.shape}")
-        actions = actions.to(self.device).clamp(-100.0, 100.0)
+        actions = actions.to(self.device).clamp(-self.action_clip, self.action_clip)
         delayed = self._delayed_action(actions)
         self.previous_actions.copy_(self.actions)
         self.actions.copy_(actions)
@@ -520,6 +594,9 @@ class SynRealLocomotionEnv:
             self.default_joint_pos
             + self.random.joint_zero_offset
             + self.action_scale * delayed
+        )
+        target = torch.maximum(
+            torch.minimum(target, self.joint_target_upper), self.joint_target_lower
         )
         self.desired_targets.copy_(target)
         self._push_due_envs()
@@ -533,12 +610,10 @@ class SynRealLocomotionEnv:
         self.sim_time += self.spec.policy_dt
         self.render()
         self.episode_length_buf += 1
+        self.steps_since_reset_buf += 1
+        self.policy_step_count += 1
 
         root, linear, angular, gravity, q, qd = self._state()
-        foot_q = self.body_q_0.index_select(1, self.foot_bodies)
-        foot_qd = self.body_qd_0.index_select(1, self.foot_bodies)
-        foot_height = foot_q[:, :, 2] - self.contact_height
-        contact = foot_q[:, :, 2] <= self.contact_height
         reward, terms = locomotion_reward(
             robot=self.spec.name,
             commands=self.commands,
@@ -549,23 +624,39 @@ class SynRealLocomotionEnv:
             joint_velocity=qd,
             actions=self.actions,
             previous_actions=self.previous_actions,
-            foot_height=foot_height,
-            foot_speed_xy=foot_qd[:, :, :2],
-            contact=contact,
+            root_height=root[:, 2],
+            base_height_target=self.spec.base_height_target,
+            base_height_sigma=self.spec.base_height_sigma,
+            base_height_reward_scale=self.spec.base_height_reward_scale,
         )
         finite = (
             torch.isfinite(root).all(-1)
             & torch.isfinite(q).all(-1)
             & torch.isfinite(qd).all(-1)
         )
-        self.reset_buf = terminated(root[:, 2], gravity, self.spec.fall_height, finite)
+        low_height = root[:, 2] < self.spec.fall_height
+        eligible_for_height_fall = self.steps_since_reset_buf > self.fall_grace_steps
+        self.low_height_steps = torch.where(
+            eligible_for_height_fall & low_height,
+            self.low_height_steps + 1,
+            torch.zeros_like(self.low_height_steps),
+        )
+        low_height_confirmed = self.low_height_steps >= self.fall_confirm_steps
+        self.reset_buf = terminated(
+            torch.nn.functional.normalize(root[:, 3:7], dim=-1),
+            gravity,
+            self.spec.termination_roll_degrees,
+            self.spec.termination_pitch_degrees,
+            low_height_confirmed,
+            finite,
+        )
         self.timeout_buf = self.episode_length_buf >= self.max_episode_length
         done = self.reset_buf | self.timeout_buf
         # A diverging world can remain finite for one step while producing an
         # enormous penalty. Do not let that terminal sample poison PPO returns.
         reward = torch.nan_to_num(reward, nan=-100.0, posinf=100.0, neginf=-100.0)
         reward = reward.clamp(-100.0, 100.0)
-        reward = torch.where(self.reset_buf, -100.0, reward)
+        reward = torch.where(self.reset_buf, TERMINATION_REWARD, reward)
         self.episode_return += reward
         self.extras = {
             "time_outs": self.timeout_buf.clone(),

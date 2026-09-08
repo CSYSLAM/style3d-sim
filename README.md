@@ -5,6 +5,25 @@
 - 从 `synreal-solver/` 子模块中的 C++/CUDA 源码编译；
 - 从 `synreal-solver-bin/` 子模块安装预编译文件。
 
+## Go2/G1 强化学习
+
+Go2/G1 平地速度策略代码位于 `examples/locomotion/`，实现记录见
+[SynReal Go2/G1 训练与部署](docs/synreal_go2_g1_locomotion.md)。安装并验证：
+
+```bash
+uv sync --extra locomotion
+uv run --extra locomotion python -m examples.locomotion.validate --robot all
+uv run --extra locomotion python -m examples.locomotion.train --robot go2
+uv run --extra locomotion python -m examples.locomotion.train --robot g1
+```
+
+`train` 默认只校验配置；实际训练必须显式增加 `--run`：
+
+```bash
+uv run --extra locomotion python -m examples.locomotion.train \
+  --robot go2 --num-envs 2048 --run
+```
+
 ## 环境要求
 
 运行环境：

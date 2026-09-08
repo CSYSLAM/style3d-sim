@@ -79,6 +79,8 @@ def build_actor(spec: PolicySpec) -> torch.nn.Sequential:
         layers.append(torch.nn.Linear(input_dim, output_dim))
         if index < len(dims) - 2:
             layers.append(activation())
+    if spec.ppo.get("bounded_actions", False):
+        layers.append(torch.nn.Tanh())
     return torch.nn.Sequential(*layers)
 
 
