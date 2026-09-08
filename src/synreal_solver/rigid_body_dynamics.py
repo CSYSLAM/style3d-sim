@@ -44,10 +44,7 @@ def _exponential_increment(angular_velocity: wp.vec3, dt: float) -> wp.mat33:
     rotation_vector = dt * angular_velocity
     angle = wp.length(rotation_vector)
     if angle > 1.0e-8:
-        rotation = wp.quat_from_axis_angle(
-            rotation_vector / angle,
-            angle,
-        )
+        rotation = wp.quat_from_axis_angle(rotation_vector / angle, angle)
         return wp.quat_to_matrix(rotation)
     return wp.identity(3, dtype=float)
 
@@ -126,10 +123,7 @@ def integrate_lie_group_midpoint(
     midpoint_angular_velocity = inverse_inertia * angular_momentum
 
     for _ in range(8):
-        half_rotation = _exponential_increment(
-            midpoint_angular_velocity,
-            0.5 * dt,
-        )
+        half_rotation = _exponential_increment(midpoint_angular_velocity, 0.5 * dt)
         midpoint_angular_velocity = (
             half_rotation
             * inverse_inertia
@@ -214,11 +208,12 @@ def integrate_rigid_body(
     """Dispatch one free-rigid-body step to the selected integrator."""
     if integrator == EXPLICIT_EULER:
         return integrate_explicit_euler(inertia, angular_momentum, dt)
-    if integrator == IMPLICIT_EULER:
+    elif integrator == IMPLICIT_EULER:
         return integrate_implicit_euler(inertia, angular_momentum, dt)
-    if integrator == LIE_GROUP_MIDPOINT:
+    elif integrator == LIE_GROUP_MIDPOINT:
         return integrate_lie_group_midpoint(inertia, angular_momentum, dt)
-    return integrate_midpoint_cayley(inertia, angular_momentum, dt)
+    elif integrator == MIDPOINT_CAYLEY:
+        return integrate_midpoint_cayley(inertia, angular_momentum, dt)
 
 
 @wp.func
@@ -230,10 +225,7 @@ def recover_explicit_euler_end_velocity(
     """Recover explicit Euler's end velocity from its rotation increment."""
     initial_velocity = _logarithmic_velocity(relative_rotation, dt)
     initial_momentum = inertia * initial_velocity
-    next_momentum = initial_momentum + dt * wp.cross(
-        initial_momentum,
-        initial_velocity,
-    )
+    next_momentum = initial_momentum + dt * wp.cross(initial_momentum, initial_velocity)
     return wp.inverse(inertia) * next_momentum
 
 
@@ -300,25 +292,10 @@ def recover_rigid_body_end_velocity(
 ) -> wp.vec3:
     """Recover the endpoint velocity paired with the selected integrator."""
     if integrator == EXPLICIT_EULER:
-        return recover_explicit_euler_end_velocity(
-            inertia,
-            relative_rotation,
-            dt,
-        )
-    if integrator == IMPLICIT_EULER:
-        return recover_implicit_euler_end_velocity(
-            inertia,
-            relative_rotation,
-            dt,
-        )
-    if integrator == LIE_GROUP_MIDPOINT:
-        return recover_lie_group_midpoint_end_velocity(
-            inertia,
-            relative_rotation,
-            dt,
-        )
-    return recover_midpoint_cayley_end_velocity(
-        inertia,
-        relative_rotation,
-        dt,
-    )
+        return recover_explicit_euler_end_velocity(inertia, relative_rotation, dt)
+    elif integrator == IMPLICIT_EULER:
+        return recover_implicit_euler_end_velocity(inertia, relative_rotation, dt)
+    elif integrator == LIE_GROUP_MIDPOINT:
+        return recover_lie_group_midpoint_end_velocity(inertia, relative_rotation, dt)
+    elif integrator == MIDPOINT_CAYLEY:
+        return recover_midpoint_cayley_end_velocity(inertia, relative_rotation, dt)
