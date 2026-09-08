@@ -6,7 +6,12 @@ wp = pytest.importorskip("warp")
 
 import synreal_solver as sr  # noqa: E402
 from synreal_solver.newton_model_builder import ModelBuilder  # noqa: E402
-from synreal_solver.newton_solver import NewtonSolver, _scatter_affine_body_forces, _update_affine_body_poses  # noqa: E402
+from synreal_solver.newton_solver import (  # noqa: E402
+    NewtonSolver,
+    _scatter_affine_body_forces,
+    _sync_affine_body_state,
+    _update_affine_body_poses,
+)
 
 
 AFFINE_BODY_RIGIDITY_MODELS = (
@@ -580,6 +585,63 @@ def test_affine_body_velocity_reconstruction_uses_mass_weighted_rigid_fit(
     )
     assert np.allclose(recovered_velocity[:3], linear_velocity, atol=2.0e-6)
     assert np.allclose(recovered_velocity[3:], expected_angular_velocity, atol=2.0e-6)
+
+    projected_proxy_velocities = state.particle_qd.numpy()[proxy_indices].copy()
+    wp.launch(
+        _sync_affine_body_state,
+        dim=1,
+        inputs=[
+            model.particle_q,
+            model.synreal_affine_body_indices,
+            model.synreal_affine_body_ids,
+            model.body_com,
+            state.body_q,
+            state.body_qd,
+        ],
+        outputs=[state.particle_q, state.particle_qd],
+        device=device,
+    )
+    restored_proxy_velocities = state.particle_qd.numpy()[proxy_indices]
+    assert np.allclose(
+        restored_proxy_velocities,
+        projected_proxy_velocities,
+        atol=2.0e-6,
+    )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_none_inertia_proxy_velocities_round_trip_through_body_qd() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    body = builder.add_body(
+        xform=wp.transform(wp.vec3(0.3, -0.2, 0.8), wp.quat_identity()),
+        com=wp.vec3(0.2, -0.1, 0.3),
+        mass=2.0,
+        inertia=wp.mat33(3.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 5.0),
+        lock_inertia=True,
+    )
+    builder.body_qd[body] = wp.spatial_vector(1.2, -0.4, 0.8, 0.7, -1.1, 1.6)
+    model = builder.finalize(device="cuda:0")
+    state_in, state_out = model.state(), model.state()
+    solver = NewtonSolver(model)
+    solver.config.inertia_mode = sr.InertiaMode.NONE
+    solver.config.nonlinear_iterations = 15
+    solver.config.linear_iterations = 50
+    state_in.clear_forces()
+
+    solver.step(state_in, state_out, None, None, 1.0 / 240.0)
+    wp.synchronize_device(model.device)
+    proxy_indices = model.synreal_affine_body_indices.numpy()[0]
+    solved_proxy_velocities = state_out.particle_qd.numpy()[proxy_indices].copy()
+    assert np.linalg.norm(state_out.body_qd.numpy()[body]) > 0.0
+
+    solver.sync_affine_body_state(state_out)
+    wp.synchronize_device(model.device)
+    restored_proxy_velocities = state_out.particle_qd.numpy()[proxy_indices]
+    assert np.allclose(
+        restored_proxy_velocities,
+        solved_proxy_velocities,
+        atol=2.0e-6,
+    )
 
 
 def test_affine_body_wrench_is_distributed_to_proxy_particles() -> None:

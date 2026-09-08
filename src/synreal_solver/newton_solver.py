@@ -182,7 +182,7 @@ def _update_affine_body_poses(
     body_q: wp.array(dtype=wp.transform),
     body_qd: wp.array(dtype=wp.spatial_vector),
 ):
-    """Reconstruct Newton body poses and twists from affine proxy particles."""
+    """Reconstruct Newton body state and canonicalize NONE proxy velocities."""
     affine_body = wp.tid()
     if fixed_affine_body_flags[affine_body] != 0:
         return
@@ -268,6 +268,24 @@ def _update_affine_body_poses(
         )
         world_inertia = polar_rotation * inertia * wp.transpose(polar_rotation)
         angular_velocity = wp.inverse(world_inertia) * angular_momentum
+
+        # body_qd stores only a rigid twist, so make the externally visible
+        # proxy velocities the exact rigid field represented by that twist.
+        # This makes NONE's velocity projection idempotent: recovering body_qd
+        # and expanding it again produces the same proxy velocities.
+        x_offset = wp.quat_rotate(rotation, wp.vec3(axis_length, 0.0, 0.0))
+        y_offset = wp.quat_rotate(rotation, wp.vec3(0.0, axis_length, 0.0))
+        z_offset = wp.quat_rotate(rotation, wp.vec3(0.0, 0.0, axis_length))
+        particle_qd[particle_indices[0]] = center_velocity
+        particle_qd[particle_indices[1]] = center_velocity + wp.cross(
+            angular_velocity, x_offset
+        )
+        particle_qd[particle_indices[2]] = center_velocity + wp.cross(
+            angular_velocity, y_offset
+        )
+        particle_qd[particle_indices[3]] = center_velocity + wp.cross(
+            angular_velocity, z_offset
+        )
     body_q[body] = wp.transform(
         origin - wp.quat_rotate(rotation, body_com[body]), rotation
     )
@@ -3086,7 +3104,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         Cartesian particle positions and velocities. On return, both particle-
         position buffers contain the new positions, while Python reconstructs
         ``state_out.body_q`` and ``state_out.body_qd`` from the resulting proxy
-        position and linear-velocity fields.
+        position and linear-velocity fields. In ``InertiaMode.NONE``, the
+        returned proxy velocities are projected onto the rigid velocity field
+        represented by ``state_out.body_qd`` so the two representations round-trip.
         """
         if not np.isfinite(dt) or dt <= 0.0:
             raise ValueError("dt must be finite and greater than zero")
