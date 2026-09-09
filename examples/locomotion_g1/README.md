@@ -69,6 +69,26 @@ Play a checkpoint deterministically:
   --cmd-x 0.3
 ```
 
+Validate the same checkpoint in native MuJoCo. The evaluator rebuilds the
+MuJoCo model from the training USD and checks topology, inertials, joint
+limits, and zero/default-pose forward kinematics before rollout:
+
+```bash
+uv run examples/locomotion_g1/mujoco_eval.py \
+  --checkpoint runs/synreal_g1_locomotion/<run>/model_1000.pt \
+  --command-vx 0.3 --duration 20
+```
+
+Use `--headless --summary result.json` for automated evaluation. A single
+MuJoCo world cannot reproduce the training-time friction distribution, so it
+uses the midpoint of the recorded range by default; select a deterministic
+slice explicitly with `--robot-friction`.
+
+New training runs record the resolved asset path and SHA256 in
+`environment.json`. The MuJoCo evaluator refuses to run if that asset hash no
+longer matches. Older checkpoints without the hash still receive topology,
+inertial, joint-limit, and forward-kinematics contract checks.
+
 The exact Unitree RL Lab USD is selected automatically when it exists at the
 local development path. Set `G1_ASSET_PATH` or pass `--asset` on another
 machine. If neither is available, the loader falls back to Newton's downloaded

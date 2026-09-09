@@ -21,6 +21,8 @@ from locomotion_g1.config import (
     RewardConfig,
 )
 from locomotion_g1.math_ops import TermHistory
+from locomotion_g1.mujoco_eval import TermHistory as MuJoCoTermHistory
+from locomotion_g1.mujoco_eval import resolve_training_asset
 from locomotion_g1.observations import (
     critic_terms,
     policy_terms,
@@ -67,6 +69,38 @@ def test_term_history_is_oldest_to_newest_and_term_major() -> None:
     history.update((torch.tensor([[1.0]]), torch.tensor([[11.0, 21.0]])))
     output = history.update((torch.tensor([[2.0]]), torch.tensor([[12.0, 22.0]])))
     assert output.tolist() == [[0.0, 1.0, 2.0, 10.0, 20.0, 11.0, 21.0, 12.0, 22.0]]
+
+
+def test_mujoco_history_matches_training_layout() -> None:
+    import numpy as np
+
+    history = MuJoCoTermHistory((1, 2), 3)
+    history.fill((np.asarray([0.0]), np.asarray([10.0, 20.0])))
+    history.update((np.asarray([1.0]), np.asarray([11.0, 21.0])))
+    output = history.update((np.asarray([2.0]), np.asarray([12.0, 22.0])))
+    assert output.tolist() == [0.0, 1.0, 2.0, 10.0, 20.0, 11.0, 21.0, 12.0, 22.0]
+
+
+def test_mujoco_requires_the_asset_recorded_by_training(tmp_path: Path) -> None:
+    import hashlib
+
+    import pytest
+
+    asset = tmp_path / "g1.usd"
+    asset.write_bytes(b"training asset")
+    snapshot = {
+        "resolved_asset": str(asset),
+        "asset_sha256": hashlib.sha256(asset.read_bytes()).hexdigest(),
+        "environment_config": {"asset_path": None},
+    }
+    resolved, source, verified = resolve_training_asset(snapshot, None)
+    assert resolved == asset.resolve()
+    assert source == "training_resolved_asset"
+    assert verified
+
+    asset.write_bytes(b"modified asset")
+    with pytest.raises(ValueError, match="differs from the training snapshot"):
+        resolve_training_asset(snapshot, None)
 
 
 def test_observation_terms_match_unitree_scaling() -> None:

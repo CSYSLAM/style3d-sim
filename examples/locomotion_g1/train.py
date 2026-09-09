@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from dataclasses import asdict
@@ -26,6 +27,14 @@ def _json_default(value: Any) -> str:
     if isinstance(value, Path):
         return str(value)
     raise TypeError(f"Cannot serialize {type(value).__name__}")
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -110,11 +119,19 @@ def main() -> None:
 
         viewer = newton.viewer.ViewerGL(vsync=True)
     env = SynRealG1LocomotionEnv(environment_config, viewer=viewer)
+    summary.update(
+        {
+            "resolved_asset": str(env.asset_path),
+            "asset_source": env.asset_source,
+            "asset_sha256": _sha256(env.asset_path),
+        }
+    )
     print(
         json.dumps(
             {
-                "resolved_asset": str(env.asset_path),
-                "asset_source": env.asset_source,
+                "resolved_asset": summary["resolved_asset"],
+                "asset_source": summary["asset_source"],
+                "asset_sha256": summary["asset_sha256"],
                 "contact_capacity": int(env.contacts.rigid_contact_max),
                 "self_collisions": environment_config.enable_self_collisions,
                 "friction": env.friction_summary,
