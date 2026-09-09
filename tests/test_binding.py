@@ -86,6 +86,7 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "affine_body_axis_lengths",
         "affine_body_orthogonality_scales",
         "affine_body_corotated_scales",
+        "affine_body_so3_scales",
         "body_spring_indices",
         "body_spring_points0",
         "body_spring_points1",
@@ -151,17 +152,23 @@ def test_config_exposes_runtime_options() -> None:
         sr.AffineBodyRigidityModel.CO_ROTATED,
         sr.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
         sr.AffineBodyRigidityModel.SIX_SPRINGS,
+        sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN,
     )
-    assert config.affine_body_rigidity_model == rigidity_models[-1]
+    assert config.affine_body_rigidity_model == sr.AffineBodyRigidityModel.SIX_SPRINGS
     assert {model.name for model in rigidity_models} == {
         "CO_ROTATED",
         "ABD_ORTHOGONALITY",
         "SIX_SPRINGS",
+        "SO3_AUGMENTED_LAGRANGIAN",
     }
     assert len({model.value for model in rigidity_models}) == len(rigidity_models)
     for model in rigidity_models:
         config.affine_body_rigidity_model = model
         assert config.affine_body_rigidity_model == model
+
+    assert config.affine_body_rigidity_primal_iterations == 4
+    config.affine_body_rigidity_primal_iterations = 6
+    assert config.affine_body_rigidity_primal_iterations == 6
 
     inertia_modes = (
         sr.InertiaMode.EXPLICIT_EULER,

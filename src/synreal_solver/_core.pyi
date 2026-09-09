@@ -19,11 +19,14 @@ class AffineBodyRigidityModel:
       ABD_ORTHOGONALITY
     
       SIX_SPRINGS
+
+      SO3_AUGMENTED_LAGRANGIAN
     """
     ABD_ORTHOGONALITY: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.ABD_ORTHOGONALITY: 1>
     CO_ROTATED: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.CO_ROTATED: 0>
     SIX_SPRINGS: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.SIX_SPRINGS: 2>
-    __members__: typing.ClassVar[dict[str, AffineBodyRigidityModel]]  # value = {'CO_ROTATED': <AffineBodyRigidityModel.CO_ROTATED: 0>, 'ABD_ORTHOGONALITY': <AffineBodyRigidityModel.ABD_ORTHOGONALITY: 1>, 'SIX_SPRINGS': <AffineBodyRigidityModel.SIX_SPRINGS: 2>}
+    SO3_AUGMENTED_LAGRANGIAN: typing.ClassVar[AffineBodyRigidityModel]
+    __members__: typing.ClassVar[dict[str, AffineBodyRigidityModel]]
     @typing.overload
     def __eq__(self, other: AffineBodyRigidityModel) -> bool:
         ...
@@ -73,7 +76,8 @@ class Config:
     @property
     def affine_body_rigidity_model(self) -> AffineBodyRigidityModel:
         """
-        Rigidity law used for affine bodies: co-rotated, original ABD orthogonality, or six springs.
+        Rigidity law used for affine bodies: co-rotated, original ABD
+        orthogonality, six springs, or SO(3) AL.
         """
     @affine_body_rigidity_model.setter
     def affine_body_rigidity_model(self, arg0: AffineBodyRigidityModel) -> None:
@@ -85,6 +89,17 @@ class Config:
         """
     @affine_body_spring_alpha.setter
     def affine_body_spring_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def affine_body_rigidity_primal_iterations(self) -> int:
+        """
+        Primal Newton iterations performed with a fixed affine-body SO(3) AL
+        state before each update.
+        """
+    @affine_body_rigidity_primal_iterations.setter
+    def affine_body_rigidity_primal_iterations(
+        self, arg0: typing.SupportsInt | typing.SupportsIndex
+    ) -> None:
         ...
     @property
     def distance_constraint_alpha(self) -> float:
@@ -591,6 +606,14 @@ class Model:
         """
     @affine_body_rigidity_scales.setter
     def affine_body_rigidity_scales(self, arg1: Span) -> None:
+        ...
+    @property
+    def affine_body_so3_scales(self) -> Span:
+        """
+        Device span containing one SO(3) AL mass-normalization scale per affine body.
+        """
+    @affine_body_so3_scales.setter
+    def affine_body_so3_scales(self, arg1: Span) -> None:
         ...
     @property
     def body_centers_of_mass(self) -> Span:

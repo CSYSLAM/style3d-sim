@@ -79,6 +79,7 @@ class ModelBuilder(_newton.ModelBuilder):
         self.affine_body_axis_lengths: list[float] = []
         self.affine_body_orthogonality_scales: list[float] = []
         self.affine_body_corotated_scales: list[float] = []
+        self.affine_body_so3_scales: list[float] = []
         self.body_spring_specs: list[
             tuple[int, int, np.ndarray, np.ndarray, float, float | None]
         ] = []
@@ -261,6 +262,52 @@ class ModelBuilder(_newton.ModelBuilder):
             normalized_scale(orthogonality_hessian, "ABD orthogonality"),
             normalized_scale(corotated_hessian, "co-rotated"),
         )
+
+    @staticmethod
+    def _so3_rigidity_scale(
+        body_index: int, vertex_mass: np.ndarray, axis_length: float
+    ) -> float:
+        """Normalize the fixed-rotation SO(3) AL metric by the proxy mass."""
+        mass = np.asarray(vertex_mass, dtype=np.float64)
+        mass_eigenvalues, mass_eigenvectors = np.linalg.eigh(mass)
+        mass_tolerance = (
+            32.0
+            * np.finfo(np.float32).eps
+            * max(float(np.max(mass_eigenvalues)), np.finfo(np.float64).tiny)
+        )
+        if float(np.min(mass_eigenvalues)) <= mass_tolerance:
+            raise ValueError(
+                f"Body {body_index} produced a singular affine proxy mass matrix."
+            )
+        inverse_sqrt_mass = (
+            mass_eigenvectors
+            * np.reciprocal(np.sqrt(mass_eigenvalues))[None, :]
+        ) @ mass_eigenvectors.T
+        # A = [(x1-x0), (x2-x0), (x3-x0)] / L pulls this metric back to a
+        # three-edge star Laplacian after multiplying by L^2.
+        star_laplacian = np.array(
+            (
+                (3.0, -1.0, -1.0, -1.0),
+                (-1.0, 1.0, 0.0, 0.0),
+                (-1.0, 0.0, 1.0, 0.0),
+                (-1.0, 0.0, 0.0, 1.0),
+            ),
+            dtype=np.float64,
+        )
+        if not np.isfinite(axis_length) or axis_length <= 0.0:
+            raise ValueError(f"Body {body_index} has an invalid affine axis length.")
+        normalized_metric = inverse_sqrt_mass @ (
+            star_laplacian / (axis_length * axis_length)
+        ) @ inverse_sqrt_mass
+        maximum_generalized_eigenvalue = float(
+            np.max(np.linalg.eigvalsh(normalized_metric))
+        )
+        if (
+            not np.isfinite(maximum_generalized_eigenvalue)
+            or maximum_generalized_eigenvalue <= 0.0
+        ):
+            raise ValueError(f"Body {body_index} produced an invalid SO(3) AL scale.")
+        return 1.0 / maximum_generalized_eigenvalue
 
     def add_body_spring(
         self,
@@ -767,6 +814,7 @@ class ModelBuilder(_newton.ModelBuilder):
                 float,
                 float,
                 float,
+                float,
             ]
         ] = []
 
@@ -784,6 +832,9 @@ class ModelBuilder(_newton.ModelBuilder):
                 self._alternative_rigidity_scales(
                     body_index, mass_matrix, axis_length
                 )
+            )
+            so3_scale = self._so3_rigidity_scale(
+                body_index, mass_matrix, axis_length
             )
             body_transform = np.asarray(self.body_q[body_index], dtype=np.float64)
             body_position = body_transform[:3]
@@ -829,6 +880,7 @@ class ModelBuilder(_newton.ModelBuilder):
                     axis_length,
                     orthogonality_scale,
                     corotated_scale,
+                    so3_scale,
                 )
             )
 
@@ -843,6 +895,7 @@ class ModelBuilder(_newton.ModelBuilder):
             axis_length,
             orthogonality_scale,
             corotated_scale,
+            so3_scale,
         ) in proxy_specs:
             particle_indices: list[int] = []
             for position, velocity, mass in zip(positions, velocities, masses):
@@ -864,6 +917,7 @@ class ModelBuilder(_newton.ModelBuilder):
             self.affine_body_axis_lengths.append(axis_length)
             self.affine_body_orthogonality_scales.append(orthogonality_scale)
             self.affine_body_corotated_scales.append(corotated_scale)
+            self.affine_body_so3_scales.append(so3_scale)
 
         self._group_particles_by_world()
         self._affine_body_proxies_added = True
@@ -977,6 +1031,11 @@ class ModelBuilder(_newton.ModelBuilder):
         )
         model.synreal_affine_body_corotated_scales = wp.array(
             self.affine_body_corotated_scales,
+            dtype=wp.float32,
+            device=model.device,
+        )
+        model.synreal_affine_body_so3_scales = wp.array(
+            self.affine_body_so3_scales,
             dtype=wp.float32,
             device=model.device,
         )

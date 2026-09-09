@@ -456,6 +456,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._affine_body_corotated_scales: Any | None = getattr(
             model, "synreal_affine_body_corotated_scales", None
         )
+        self._affine_body_so3_scales: Any | None = getattr(
+            model, "synreal_affine_body_so3_scales", None
+        )
         self._affine_body_com: Any | None = getattr(
             model, "synreal_affine_body_com", None
         )
@@ -646,6 +649,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._affine_body_axis_lengths,
                 self._affine_body_orthogonality_scales,
                 self._affine_body_corotated_scales,
+                self._affine_body_so3_scales,
                 self._affine_body_com,
             )
         ):
@@ -1078,6 +1082,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         axis_lengths: list[float] = []
         orthogonality_scales: list[float] = []
         corotated_scales: list[float] = []
+        so3_scales: list[float] = []
         proxy_inertias: list[Any] = []
 
         for body in body_ids:
@@ -1099,6 +1104,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 ModelBuilder._alternative_rigidity_scales(
                     body, mass_matrix, axis_length
                 )
+            )
+            so3_scale = ModelBuilder._so3_rigidity_scale(
+                body, mass_matrix, axis_length
             )
             transform = np.asarray(body_transforms[body], dtype=np.float64)
             rotation = np.asarray(
@@ -1134,6 +1142,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             axis_lengths.append(axis_length)
             orthogonality_scales.append(orthogonality_scale)
             corotated_scales.append(corotated_scale)
+            so3_scales.append(so3_scale)
             proxy_inertias.append(proxy_inertia)
             positions.extend(body_particle_positions)
             velocities.extend(body_particle_velocities)
@@ -1294,6 +1303,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         model.synreal_affine_body_corotated_scales = wp.array(
             corotated_scales, dtype=wp.float32, device=device
+        )
+        model.synreal_affine_body_so3_scales = wp.array(
+            so3_scales, dtype=wp.float32, device=device
         )
         model.synreal_affine_body_masses = wp.array(
             body_masses[body_ids], dtype=wp.float32, device=device
@@ -1786,6 +1798,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             or self._affine_body_axis_lengths is None
             or self._affine_body_orthogonality_scales is None
             or self._affine_body_corotated_scales is None
+            or self._affine_body_so3_scales is None
         ):
             raise ValueError("Joint drive armature requires affine body metadata.")
 
@@ -1827,6 +1840,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         corotated_scales = np.asarray(
             self._affine_body_corotated_scales.numpy(), dtype=np.float64
+        )
+        so3_scales = np.asarray(
+            self._affine_body_so3_scales.numpy(), dtype=np.float64
         )
         mass_diagonal_array = (
             self._particle_mass_diagonal
@@ -1876,10 +1892,14 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     axis_length,
                 )
             )
+            so3_scale = ModelBuilder._so3_rigidity_scale(
+                int(affine_body_ids[affine_body]), mass_matrix, axis_length
+            )
             body_inertias[affine_body] = regularized_inertia
             rigidity_scales[affine_body] = rigidity_scale
             orthogonality_scales[affine_body] = orthogonality_scale
             corotated_scales[affine_body] = corotated_scale
+            so3_scales[affine_body] = so3_scale
             for local_index, particle in enumerate(indices):
                 mass_diagonal[particle] = mass_matrix[local_index, local_index]
             for first, second in combinations(range(4), 2):
@@ -1915,6 +1935,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         self._affine_body_corotated_scales = wp.array(
             corotated_scales, dtype=wp.float32, device=device
+        )
+        self._affine_body_so3_scales = wp.array(
+            so3_scales, dtype=wp.float32, device=device
         )
 
     def _normalize_body_distance_constraint_mass_scales(self) -> Any | None:
@@ -2341,6 +2364,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     "orthogonality rigidity scales",
                 ),
                 (self._affine_body_corotated_scales, "co-rotated rigidity scales"),
+                (self._affine_body_so3_scales, "SO(3) AL rigidity scales"),
             ):
                 if values is None or len(values) != affine_body_count:
                     raise ValueError(
@@ -2656,6 +2680,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
             self._synreal_model.affine_body_corotated_scales = self._as_span(
                 self._affine_body_corotated_scales, affine_body_count
+            )
+            self._synreal_model.affine_body_so3_scales = self._as_span(
+                self._affine_body_so3_scales, affine_body_count
             )
             self._synreal_model.affine_body_ids = self._as_span(
                 self._affine_body_ids, affine_body_count

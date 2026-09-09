@@ -21,6 +21,10 @@ AFFINE_BODY_RIGIDITY_MODELS = (
         id="abd-orthogonality",
     ),
     pytest.param(sr.AffineBodyRigidityModel.SIX_SPRINGS, id="six-springs"),
+    pytest.param(
+        sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN,
+        id="so3-augmented-lagrangian",
+    ),
 )
 
 INERTIA_MODES = (
@@ -1236,6 +1240,24 @@ def test_newton_solver_rejects_invalid_joint_constraint_primal_iterations(
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("iterations", (0, 1000))
+def test_newton_solver_rejects_invalid_affine_body_rigidity_primal_iterations(
+    iterations: int,
+) -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=(0.0, 0.0, 0.0), vel=(0.0, 0.0, 0.0), mass=1.0)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_primal_iterations = iterations
+
+    with pytest.raises(
+        ValueError,
+        match="config.affine_body_rigidity_primal_iterations must be between 1 and 999",
+    ):
+        solver.step(model.state(), model.state(), None, None, 1.0 / 60.0)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 def test_newton_solver_rejects_nonzero_joint_spring_rest_length() -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     body = builder.add_link(
@@ -2137,6 +2159,47 @@ def test_affine_body_rigidity_models_are_stationary_at_rest_and_restore_frames(
     final_error = _affine_frame_rigidity_error(final_positions, axis_length)
     assert np.isfinite(final_positions).all()
     assert final_error < 0.25 * initial_error
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
+def test_affine_body_so3_augmented_lagrangian_reduces_constraint_error(
+    nonlinear_solver: sr.NonlinearSolver,
+) -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    builder.add_body(
+        mass=2.0,
+        inertia=wp.mat33(3.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 5.0),
+        lock_inertia=True,
+    )
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = (
+        sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+    )
+    solver.config.nonlinear_solver = nonlinear_solver
+    solver.config.affine_body_spring_alpha = 10.0
+    solver.config.affine_body_rigidity_primal_iterations = 1
+    solver.config.nonlinear_iterations = 12
+    solver.config.linear_iterations = 50
+    state_in, state_out = model.state(), model.state()
+    proxy_indices = model.synreal_affine_body_indices.numpy()[0]
+    axis_length = float(model.synreal_affine_body_axis_lengths.numpy()[0])
+    positions = state_in.particle_q.numpy().copy()
+    positions[proxy_indices] = _deform_affine_frame(positions[proxy_indices])
+    initial_error = _affine_frame_rigidity_error(positions[proxy_indices], axis_length)
+    _set_particle_positions(state_in, positions, model.device)
+    state_in.clear_forces()
+
+    solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+    wp.synchronize_device(model.device)
+
+    final_positions = state_out.particle_q.numpy()[proxy_indices]
+    final_error = _affine_frame_rigidity_error(final_positions, axis_length)
+    affine = (final_positions[1:] - final_positions[0]).T / axis_length
+    assert np.isfinite(final_positions).all()
+    assert np.linalg.det(affine) > 0.0
+    assert final_error < 0.05 * initial_error
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
