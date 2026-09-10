@@ -16,10 +16,14 @@ import torch
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-    from locomotion_g1.config import G1EnvConfig, make_ppo_config
+    from locomotion_g1.config import (
+        G1EnvConfig,
+        make_ppo_config,
+        make_velocity_bootstrap_config,
+    )
     from locomotion_g1.env import SynRealG1LocomotionEnv
 else:
-    from .config import G1EnvConfig, make_ppo_config
+    from .config import G1EnvConfig, make_ppo_config, make_velocity_bootstrap_config
     from .env import SynRealG1LocomotionEnv
 
 
@@ -35,6 +39,22 @@ def _sha256(path: Path) -> str:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def load_actor_only(policy: torch.nn.Module, checkpoint: Path) -> int:
+    """Warm-start the actor without restoring critic, exploration, or optimizer state."""
+
+    state = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    model_state = state.get("model_state_dict", state.get("model", state))
+    actor_state = {
+        name.removeprefix("actor."): value
+        for name, value in model_state.items()
+        if name.startswith("actor.")
+    }
+    if not actor_state:
+        raise ValueError(f"checkpoint contains no actor parameters: {checkpoint}")
+    policy.actor.load_state_dict(actor_state, strict=True)
+    return len(actor_state)
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -63,7 +83,18 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--asset", type=Path)
-    parser.add_argument("--resume", type=Path)
+    initialization = parser.add_mutually_exclusive_group()
+    initialization.add_argument("--resume", type=Path)
+    initialization.add_argument(
+        "--actor-init",
+        type=Path,
+        help="initialize only actor weights; critic, exploration, and optimizer stay fresh",
+    )
+    parser.add_argument(
+        "--velocity-bootstrap",
+        action="store_true",
+        help="enable the forward-only preset for escaping the standing optimum",
+    )
     parser.add_argument("--log-root", type=Path, default=Path("runs"))
     parser.add_argument("--disable-logs", action="store_true")
     parser.add_argument("--visualize", action="store_true")
@@ -87,6 +118,13 @@ def main() -> None:
         or args.smoke_report_interval <= 0
     ):
         raise SystemExit("environment, iteration, and smoke-step counts are invalid")
+    if args.velocity_bootstrap and args.actor_init is None:
+        raise SystemExit("--velocity-bootstrap requires --actor-init")
+    actor_checkpoint = None
+    if args.actor_init is not None:
+        actor_checkpoint = args.actor_init.expanduser().resolve()
+        if not actor_checkpoint.is_file():
+            raise SystemExit(f"actor checkpoint does not exist: {actor_checkpoint}")
     environment_config = G1EnvConfig(
         num_envs=args.num_envs,
         device=args.device,
@@ -96,9 +134,44 @@ def main() -> None:
         mesh_approximation=args.mesh_approximation,
         use_cuda_graph=not args.disable_cuda_graph,
     )
-    ppo_config = make_ppo_config(args.iterations)
+    if args.velocity_bootstrap:
+        environment_config = make_velocity_bootstrap_config(environment_config)
+    experiment_name = (
+        "synreal_g1_velocity_bootstrap"
+        if args.velocity_bootstrap
+        else "synreal_g1_locomotion"
+    )
+    ppo_config = make_ppo_config(
+        args.iterations,
+        experiment_name=experiment_name,
+        init_noise_std=0.5 if args.velocity_bootstrap else 1.0,
+    )
+    resume_checkpoint = (
+        args.resume.expanduser().resolve() if args.resume is not None else None
+    )
+    source_checkpoint = actor_checkpoint or resume_checkpoint
+    initialization_summary = {
+        "mode": (
+            "actor_only"
+            if actor_checkpoint is not None
+            else "resume"
+            if resume_checkpoint is not None
+            else "fresh"
+        ),
+        "checkpoint": str(source_checkpoint) if source_checkpoint is not None else None,
+        "checkpoint_sha256": (
+            _sha256(source_checkpoint) if source_checkpoint is not None else None
+        ),
+        "critic": "fresh" if resume_checkpoint is None else "restored",
+        "optimizer": "fresh" if resume_checkpoint is None else "restored",
+        "exploration_std": ppo_config["policy"]["init_noise_std"],
+    }
     summary = {
         "environment": "synreal_g1_locomotion",
+        "training_preset": (
+            "velocity_bootstrap_v1" if args.velocity_bootstrap else "official_parity"
+        ),
+        "initialization": initialization_summary,
         "policy_observation_dim": SynRealG1LocomotionEnv.num_obs,
         "critic_observation_dim": SynRealG1LocomotionEnv.num_privileged_obs,
         "action_dim": SynRealG1LocomotionEnv.num_actions,
@@ -219,6 +292,19 @@ def main() -> None:
         runner.disable_logs = True
     if args.resume is not None:
         runner.load(str(args.resume.expanduser().resolve()))
+    elif actor_checkpoint is not None:
+        loaded_tensors = load_actor_only(runner.alg.policy, actor_checkpoint)
+        print(
+            json.dumps(
+                {
+                    "actor_initialization": str(actor_checkpoint),
+                    "actor_tensors_loaded": loaded_tensors,
+                    "critic_optimizer_and_exploration_restored": False,
+                },
+                indent=2,
+            ),
+            flush=True,
+        )
     try:
         runner.learn(
             num_learning_iterations=args.iterations,

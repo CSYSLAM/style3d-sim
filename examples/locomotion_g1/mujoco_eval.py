@@ -49,8 +49,12 @@ else:
 VISIBLE = 1
 COLLIDABLE = 2
 ACTION_DIM = len(JOINT_NAMES)
-LOCAL_UNITREE_RL_LAB_ASSET = Path(
-    "/home/ubuntu/trampoline_sim/assets/unitree_g1_29dof/g1_29dof_rev_1_0.usd"
+MUJOCO_INTEGRATION_REFINEMENT = 2
+LOCAL_UNITREE_RL_LAB_ASSET = (
+    Path(__file__).resolve().parent
+    / "assets"
+    / "unitree_g1_29dof"
+    / "g1_29dof_rev_1_0.usd"
 )
 
 
@@ -59,6 +63,8 @@ class RunSettings:
     """Physics and policy settings captured beside a training checkpoint."""
 
     snapshot: Path
+    training_dt: float
+    training_decimation: int
     dt: float
     decimation: int
     gravity: float
@@ -129,10 +135,14 @@ def load_run_settings(checkpoint: Path, robot_friction: float | None) -> RunSett
         else float(robot_friction)
     )
     policy = data["rsl_rl"]["policy"]
+    training_dt = float(simulation["dt"])
+    training_decimation = int(simulation["decimation"])
     return RunSettings(
         snapshot=snapshot,
-        dt=float(simulation["dt"]),
-        decimation=int(simulation["decimation"]),
+        training_dt=training_dt,
+        training_decimation=training_decimation,
+        dt=training_dt / MUJOCO_INTEGRATION_REFINEMENT,
+        decimation=training_decimation * MUJOCO_INTEGRATION_REFINEMENT,
         gravity=float(simulation["gravity"]),
         contact_stiffness=float(simulation["contact_stiffness"]),
         contact_damping=float(simulation["contact_damping"]),
@@ -207,7 +217,9 @@ def resolve_training_asset(
     environment_path = os.environ.get("G1_ASSET_PATH")
     if environment_path:
         candidates.append((Path(environment_path).expanduser(), "G1_ASSET_PATH"))
-    candidates.append((LOCAL_UNITREE_RL_LAB_ASSET, "unitree_rl_lab"))
+    candidates.append(
+        (LOCAL_UNITREE_RL_LAB_ASSET, "repository_local_derived_usd")
+    )
     for path, source in candidates:
         if path.is_file():
             asset = path.resolve()
@@ -585,6 +597,24 @@ def build_mujoco_model(
 
     _add_shapes(mj_spec, reference, bodies, settings)
     excluded_body_pairs = _add_collision_excludes(mj_spec, reference)
+    mj_spec.add_texture(
+        name="ground_checker",
+        type=mujoco.mjtTexture.mjTEXTURE_2D,
+        builtin=mujoco.mjtBuiltin.mjBUILTIN_CHECKER,
+        mark=mujoco.mjtMark.mjMARK_EDGE,
+        rgb1=[0.88, 0.93, 0.98],
+        rgb2=[0.10, 0.32, 0.58],
+        markrgb=[0.98, 0.98, 1.0],
+        width=300,
+        height=300,
+    )
+    mj_spec.add_material(
+        name="ground_material",
+        textures=["", "ground_checker"],
+        texrepeat=[5.0, 5.0],
+        texuniform=1,
+        reflectance=0.15,
+    )
     mj_spec.worldbody.add_geom(
         name="floor",
         type=mujoco.mjtGeom.mjGEOM_PLANE,
@@ -593,7 +623,7 @@ def build_mujoco_model(
         conaffinity=1,
         friction=[settings.ground_friction, 0.005, 0.0001],
         solref=[-settings.contact_stiffness, -settings.contact_damping],
-        rgba=[0.18, 0.22, 0.25, 1.0],
+        material="ground_material",
     )
     mj_spec.worldbody.add_light(
         name="scene_light",
@@ -1025,6 +1055,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "ground_friction": settings.ground_friction,
             "training_robot_friction_range": list(settings.friction_range),
             "note": "MuJoCo and SynReal combine friction and solve compliant contact differently.",
+        },
+        "integration": {
+            "training_physics_dt": settings.training_dt,
+            "training_decimation": settings.training_decimation,
+            "mujoco_physics_dt": settings.dt,
+            "mujoco_decimation": settings.decimation,
+            "policy_dt": settings.policy_dt,
         },
         "simulated_seconds": player.steps * settings.policy_dt,
         "steps": player.steps,

@@ -37,8 +37,11 @@ from .math_ops import TermHistory, yaw_quaternion
 from .observations import critic_terms, policy_terms, root_terms
 from .rewards import RewardInputs, compute_reward
 
-DEFAULT_UNITREE_RL_LAB_ASSET = Path(
-    "/home/ubuntu/trampoline_sim/assets/unitree_g1_29dof/g1_29dof_rev_1_0.usd"
+DEFAULT_UNITREE_RL_LAB_ASSET = (
+    Path(__file__).resolve().parent
+    / "assets"
+    / "unitree_g1_29dof"
+    / "g1_29dof_rev_1_0.usd"
 )
 
 
@@ -47,7 +50,7 @@ def _basename(label: str) -> str:
 
 
 def resolve_g1_asset(configured_path: Path | None) -> tuple[Path, str]:
-    """Resolve the exact local Unitree RL Lab asset, with a portable fallback."""
+    """Resolve the local derived USD package, with a portable URDF fallback."""
 
     candidates: list[tuple[Path, str]] = []
     if configured_path is not None:
@@ -55,7 +58,7 @@ def resolve_g1_asset(configured_path: Path | None) -> tuple[Path, str]:
     environment_path = os.environ.get("G1_ASSET_PATH")
     if environment_path:
         candidates.append((Path(environment_path).expanduser(), "G1_ASSET_PATH"))
-    candidates.append((DEFAULT_UNITREE_RL_LAB_ASSET, "unitree_rl_lab"))
+    candidates.append((DEFAULT_UNITREE_RL_LAB_ASSET, "repository_local_derived_usd"))
     for path, source in candidates:
         resolved = path.resolve()
         if resolved.is_file():
@@ -416,6 +419,41 @@ class SynRealG1LocomotionEnv:
         )
         self.episode_return = torch.zeros(self.num_envs, device=self.device)
         self.episode_track_reward = torch.zeros(self.num_envs, device=self.device)
+        self.episode_sample_steps = torch.zeros(
+            self.num_envs, dtype=torch.long, device=self.device
+        )
+        self.episode_forward_velocity_sum = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_velocity_error_sum = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_flight_steps = torch.zeros(self.num_envs, device=self.device)
+        self.episode_single_support_steps = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_left_air_steps = torch.zeros(self.num_envs, device=self.device)
+        self.episode_right_air_steps = torch.zeros(self.num_envs, device=self.device)
+        self.episode_action_over_three = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_max_abs_action = torch.zeros(self.num_envs, device=self.device)
+        self.episode_max_abs_arm_action = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_torque_saturation = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_touchdowns = torch.zeros(self.num_envs, device=self.device)
+        self.episode_alternating_touchdowns = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.previous_policy_foot_contact = torch.zeros(
+            (self.num_envs, 2), dtype=torch.bool, device=self.device
+        )
+        self.last_touchdown_foot = torch.full(
+            (self.num_envs,), -1, dtype=torch.long, device=self.device
+        )
         self.reset_buf = torch.zeros(
             self.num_envs, dtype=torch.bool, device=self.device
         )
@@ -596,6 +634,21 @@ class SynRealG1LocomotionEnv:
         self.episode_length_buf[env_ids] = 0
         self.episode_return[env_ids] = 0.0
         self.episode_track_reward[env_ids] = 0.0
+        self.episode_sample_steps[env_ids] = 0
+        self.episode_forward_velocity_sum[env_ids] = 0.0
+        self.episode_velocity_error_sum[env_ids] = 0.0
+        self.episode_flight_steps[env_ids] = 0.0
+        self.episode_single_support_steps[env_ids] = 0.0
+        self.episode_left_air_steps[env_ids] = 0.0
+        self.episode_right_air_steps[env_ids] = 0.0
+        self.episode_action_over_three[env_ids] = 0.0
+        self.episode_max_abs_action[env_ids] = 0.0
+        self.episode_max_abs_arm_action[env_ids] = 0.0
+        self.episode_torque_saturation[env_ids] = 0.0
+        self.episode_touchdowns[env_ids] = 0.0
+        self.episode_alternating_touchdowns[env_ids] = 0.0
+        self.previous_policy_foot_contact[env_ids] = False
+        self.last_touchdown_foot[env_ids] = -1
         self.reset_buf[env_ids] = False
         self.timeout_buf[env_ids] = False
         self.contact_tracker.reset(env_ids)
@@ -649,6 +702,8 @@ class SynRealG1LocomotionEnv:
             wp.capture_launch(self.simulation_graph, stream=self.stream)
 
     def _update_curriculum(self, done: torch.Tensor) -> None:
+        if not self.cfg.commands.curriculum_enabled:
+            return
         if self.common_step_counter % self.max_episode_length != 0:
             return
         if not torch.any(done):
@@ -681,6 +736,8 @@ class SynRealG1LocomotionEnv:
         self._resample_commands(due)
 
     def _apply_periodic_push(self) -> None:
+        if not self.cfg.periodic_push_enabled:
+            return
         interval = round(5.0 / self.step_dt)
         if self.common_step_counter == 0 or self.common_step_counter % interval != 0:
             return
@@ -739,6 +796,21 @@ class SynRealG1LocomotionEnv:
             min=-self.effort_limit,
             max=self.effort_limit,
         )
+        foot_contact = self.contact_tracker.foot_contact
+        contact_count = foot_contact.sum(dim=-1)
+        touchdowns = foot_contact & ~self.previous_policy_foot_contact
+        touchdown_count = touchdowns.sum(dim=-1)
+        touchdown_foot = touchdowns.to(torch.int64).argmax(dim=-1)
+        single_touchdown = touchdown_count == 1
+        alternating = (
+            single_touchdown
+            & (self.last_touchdown_foot >= 0)
+            & (touchdown_foot != self.last_touchdown_foot)
+        )
+        self.episode_touchdowns += single_touchdown.float()
+        self.episode_alternating_touchdowns += alternating.float()
+        self.last_touchdown_foot[single_touchdown] = touchdown_foot[single_touchdown]
+        self.previous_policy_foot_contact.copy_(foot_contact)
         reward, reward_terms = compute_reward(
             RewardInputs(
                 commands=self.commands,
@@ -777,6 +849,28 @@ class SynRealG1LocomotionEnv:
         self.previous_joint_velocity.copy_(state["joint_velocity"])
         self.episode_return += reward
         self.episode_track_reward += reward_terms["track_lin_vel_xy"]
+        self.episode_sample_steps += 1
+        self.episode_forward_velocity_sum += state["linear_velocity"][:, 0]
+        self.episode_velocity_error_sum += torch.abs(
+            self.commands[:, 0] - state["linear_velocity"][:, 0]
+        )
+        self.episode_flight_steps += (contact_count == 0).float()
+        self.episode_single_support_steps += (contact_count == 1).float()
+        self.episode_left_air_steps += (~foot_contact[:, 0]).float()
+        self.episode_right_air_steps += (~foot_contact[:, 1]).float()
+        self.episode_action_over_three += (self.actions.abs() > 3.0).float().mean(
+            dim=-1
+        )
+        self.episode_max_abs_action = torch.maximum(
+            self.episode_max_abs_action, self.actions.abs().max(dim=-1).values
+        )
+        self.episode_max_abs_arm_action = torch.maximum(
+            self.episode_max_abs_arm_action,
+            self.actions.index_select(1, self.arm_indices).abs().max(dim=-1).values,
+        )
+        self.episode_torque_saturation += (
+            estimated_torque.abs() >= (self.effort_limit - 1.0e-5)
+        ).float().mean(dim=-1)
 
         self._update_curriculum(done)
         done_ids = torch.nonzero(done, as_tuple=False).squeeze(-1)
@@ -803,9 +897,28 @@ class SynRealG1LocomotionEnv:
                 "joint_velocity_limit_fraction": (
                     (state["joint_velocity"].abs() > self.velocity_limit).float().mean()
                 ),
+                "locomotion/body_vx": state["linear_velocity"][:, 0].mean(),
+                "locomotion/vx_abs_error": torch.abs(
+                    self.commands[:, 0] - state["linear_velocity"][:, 0]
+                ).mean(),
+                "locomotion/flight_fraction": (contact_count == 0).float().mean(),
+                "locomotion/single_support_fraction": (
+                    contact_count == 1
+                ).float().mean(),
+                "action/mean_abs": self.actions.abs().mean(),
+                "action/max_abs": self.actions.abs().max(),
+                "action/over_3_fraction": (self.actions.abs() > 3.0).float().mean(),
+                "action/arm_over_3_fraction": (
+                    self.actions.index_select(1, self.arm_indices).abs() > 3.0
+                ).float().mean(),
+                "torque/saturation_fraction": (
+                    estimated_torque.abs() >= (self.effort_limit - 1.0e-5)
+                ).float().mean(),
             },
         }
         if done_ids.numel() > 0:
+            sample_steps = self.episode_sample_steps[done_ids].clamp_min(1).float()
+            touchdowns = self.episode_touchdowns[done_ids]
             extras["episode"] = {
                 "return": self.episode_return[done_ids].mean(),
                 "length": self.episode_length_buf[done_ids].float().mean(),
@@ -813,6 +926,42 @@ class SynRealG1LocomotionEnv:
                     self.episode_track_reward[done_ids].mean()
                     / self.cfg.simulation.episode_length_s
                 ),
+                "mean_body_vx": (
+                    self.episode_forward_velocity_sum[done_ids] / sample_steps
+                ).mean(),
+                "mean_vx_abs_error": (
+                    self.episode_velocity_error_sum[done_ids] / sample_steps
+                ).mean(),
+                "forward_displacement": (
+                    self.episode_forward_velocity_sum[done_ids]
+                    * self.step_dt
+                ).mean(),
+                "flight_fraction": (
+                    self.episode_flight_steps[done_ids] / sample_steps
+                ).mean(),
+                "single_support_fraction": (
+                    self.episode_single_support_steps[done_ids] / sample_steps
+                ).mean(),
+                "left_air_fraction": (
+                    self.episode_left_air_steps[done_ids] / sample_steps
+                ).mean(),
+                "right_air_fraction": (
+                    self.episode_right_air_steps[done_ids] / sample_steps
+                ).mean(),
+                "alternating_touchdown_fraction": (
+                    self.episode_alternating_touchdowns[done_ids]
+                    / touchdowns.clamp_min(1.0)
+                ).mean(),
+                "action_over_3_fraction": (
+                    self.episode_action_over_three[done_ids] / sample_steps
+                ).mean(),
+                "max_abs_action": self.episode_max_abs_action[done_ids].mean(),
+                "max_abs_arm_action": self.episode_max_abs_arm_action[
+                    done_ids
+                ].mean(),
+                "torque_saturation_fraction": (
+                    self.episode_torque_saturation[done_ids] / sample_steps
+                ).mean(),
             }
         if self.cfg.auto_reset and done_ids.numel() > 0:
             self._reset_state(done_ids)

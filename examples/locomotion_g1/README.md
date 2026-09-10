@@ -54,6 +54,9 @@ Start the requested 512-world training configuration:
   --run --num-envs 512 --iterations 50000
 ```
 
+The forward-only actor warm-start procedure and its recorded source checkpoint are documented in
+[VELOCITY_BOOTSTRAP.md](VELOCITY_BOOTSTRAP.md).
+
 Inspect the model with zero actions:
 
 ```bash
@@ -84,15 +87,24 @@ MuJoCo world cannot reproduce the training-time friction distribution, so it
 uses the midpoint of the recorded range by default; select a deterministic
 slice explicitly with `--robot-friction`.
 
+The strict-transfer MuJoCo baseline preserves the recorded 50 Hz policy
+interval, PD control, effort limits, and direct contact-parameter mapping. It
+refines only the MuJoCo integration from the training snapshot's `5 ms x 4`
+to `2.5 ms x 8`; armature semantics remain unchanged and are not calibrated.
+
 New training runs record the resolved asset path and SHA256 in
 `environment.json`. The MuJoCo evaluator refuses to run if that asset hash no
 longer matches. Older checkpoints without the hash still receive topology,
 inertial, joint-limit, and forward-kinematics contract checks.
 
-The exact Unitree RL Lab USD is selected automatically when it exists at the
-local development path. Set `G1_ASSET_PATH` or pass `--asset` on another
-machine. If neither is available, the loader falls back to Newton's downloaded
-29-DoF URDF and reports that asset-source change at startup.
+The repository-local derived USD is selected automatically when the ignored
+asset package has been installed under
+`examples/locomotion_g1/assets/unitree_g1_29dof`. See [ASSET.md](ASSET.md) for
+its provenance, file manifest, modified foot collisions, and installation
+layout. Set `G1_ASSET_PATH` or pass `--asset` to use another location. If the
+USD is unavailable, the loader falls back to Newton's downloaded 29-DoF URDF
+and reports that source change. The fallback has different collision geometry
+and must not be treated as a reproduction of a USD-trained checkpoint.
 
 Useful diagnostic switches are `--disable-self-collisions`,
 `--disable-cuda-graph`, and `--mesh-approximation bounding_box`. A run using

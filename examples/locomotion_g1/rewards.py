@@ -82,6 +82,20 @@ def compute_reward(
         inputs.foot_position_world[..., 2] - config.foot_clearance_target
     )
     clearance_motion = torch.tanh(config.foot_clearance_tanh_multiplier * foot_xy_speed)
+    if config.supported_swing_clearance:
+        opposite_contact = inputs.foot_contact.flip(dims=(1,))
+        supported_swing = (~inputs.foot_contact) & opposite_contact
+        height_score = torch.exp(
+            -clearance_error / (config.foot_clearance_std * config.foot_clearance_std)
+        )
+        clearance = torch.sum(
+            height_score * clearance_motion * supported_swing.float(), dim=-1
+        ) * moving
+    else:
+        clearance = torch.exp(
+            -torch.sum(clearance_error * clearance_motion, dim=-1)
+            / config.foot_clearance_std
+        )
 
     raw = {
         "track_lin_vel_xy": torch.exp(
@@ -124,13 +138,14 @@ def compute_reward(
         "feet_slide": torch.sum(
             foot_xy_speed * inputs.recent_foot_contact.float(), dim=-1
         ),
-        "feet_clearance": torch.exp(
-            -torch.sum(clearance_error * clearance_motion, dim=-1)
-            / config.foot_clearance_std
-        ),
+        "feet_clearance": clearance,
         "undesired_contacts": torch.sum(
             inputs.recent_undesired_contact, dim=-1
         ).float(),
+        "action_l2": torch.sum(torch.square(inputs.actions), dim=-1),
+        "arm_action_l2": torch.sum(
+            torch.square(inputs.actions.index_select(1, arm_indices)), dim=-1
+        ),
     }
     names = {item.name for item in fields(config)}
     weighted = {

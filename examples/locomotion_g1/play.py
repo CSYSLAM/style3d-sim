@@ -36,6 +36,11 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--cmd-yaw", type=float, default=0.0)
     parser.add_argument("--headless", action="store_true")
     parser.add_argument("--enable-noise", action="store_true")
+    parser.add_argument(
+        "--enable-periodic-push",
+        action="store_true",
+        help="enable the five-second random velocity pushes for robustness testing",
+    )
     parser.add_argument("--disable-self-collisions", action="store_true")
     parser.add_argument("--disable-cuda-graph", action="store_true")
     return parser
@@ -57,6 +62,7 @@ def main() -> None:
         asset_path=args.asset,
         enable_self_collisions=not args.disable_self_collisions,
         use_cuda_graph=not args.disable_cuda_graph,
+        periodic_push_enabled=args.enable_periodic_push,
         observation_noise=ObservationNoiseConfig(enabled=args.enable_noise),
     )
     env = SynRealG1LocomotionEnv(config, viewer=viewer)

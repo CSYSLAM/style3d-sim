@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 JOINT_NAMES = (
@@ -162,6 +162,7 @@ class CommandConfig:
     standing_fraction: float = 0.02
     curriculum_increment: float = 0.1
     curriculum_success_rate: float = 0.8
+    curriculum_enabled: bool = True
 
 
 @dataclass(frozen=True)
@@ -194,6 +195,8 @@ class RewardConfig:
     feet_slide: float = -0.2
     feet_clearance: float = 1.0
     undesired_contacts: float = -1.0
+    action_l2: float = 0.0
+    arm_action_l2: float = 0.0
     tracking_std: float = 0.5
     base_height_target: float = 0.78
     foot_clearance_target: float = 0.1
@@ -202,6 +205,7 @@ class RewardConfig:
     gait_period: float = 0.8
     gait_stance_ratio: float = 0.55
     gait_offsets: tuple[float, float] = (0.0, 0.5)
+    supported_swing_clearance: bool = False
 
 
 @dataclass(frozen=True)
@@ -216,6 +220,7 @@ class G1EnvConfig:
     initial_base_height: float = 0.8
     auto_reset: bool = True
     use_cuda_graph: bool = True
+    periodic_push_enabled: bool = True
     simulation: SimulationConfig = field(default_factory=SimulationConfig)
     contacts: ContactConfig = field(default_factory=ContactConfig)
     randomization: RandomizationConfig = field(default_factory=RandomizationConfig)
@@ -226,19 +231,53 @@ class G1EnvConfig:
     rewards: RewardConfig = field(default_factory=RewardConfig)
 
 
-def make_ppo_config(max_iterations: int = 50_000) -> dict:
+def make_velocity_bootstrap_config(config: G1EnvConfig) -> G1EnvConfig:
+    """Return the forward-only preset used to escape the standing optimum."""
+
+    return replace(
+        config,
+        periodic_push_enabled=False,
+        commands=replace(
+            config.commands,
+            initial_lin_vel_x=(0.35, 0.65),
+            initial_lin_vel_y=(0.0, 0.0),
+            initial_ang_vel_z=(0.0, 0.0),
+            standing_fraction=0.0,
+            curriculum_enabled=False,
+        ),
+        rewards=replace(
+            config.rewards,
+            track_lin_vel_xy=4.0,
+            alive=0.05,
+            joint_deviation_waists=-0.5,
+            joint_deviation_legs=-0.5,
+            base_height=-5.0,
+            gait=0.0,
+            action_l2=-0.001,
+            arm_action_l2=-0.003,
+            supported_swing_clearance=True,
+        ),
+    )
+
+
+def make_ppo_config(
+    max_iterations: int = 50_000,
+    *,
+    experiment_name: str = "synreal_g1_locomotion",
+    init_noise_std: float = 1.0,
+) -> dict:
     """Return the RSL-RL settings used by Unitree RL Lab locomotion."""
 
     return {
         "num_steps_per_env": 24,
         "max_iterations": max_iterations,
         "save_interval": 100,
-        "experiment_name": "synreal_g1_locomotion",
+        "experiment_name": experiment_name,
         "empirical_normalization": False,
         "logger": "tensorboard",
         "policy": {
             "class_name": "ActorCritic",
-            "init_noise_std": 1.0,
+            "init_noise_std": init_noise_std,
             "noise_std_type": "scalar",
             "actor_hidden_dims": [512, 256, 128],
             "critic_hidden_dims": [512, 256, 128],
