@@ -12,6 +12,11 @@ def test_span_exposes_pointer_and_element_count() -> None:
     assert repr(span) == "Span(ptr=4660, size=7)"
 
 
+def test_span_rejects_nonempty_null_pointer() -> None:
+    with pytest.raises(ValueError, match="nonzero device address"):
+        sr.Span(ptr=0, size=1)
+
+
 def test_model_count_fields() -> None:
     model = sr.Model()
     model.particle_count = 2
@@ -221,6 +226,38 @@ def test_model_fields_require_span() -> None:
 
     with pytest.raises(TypeError):
         model.particle_masses = [1.0, 2.0]
+
+
+@pytest.mark.parametrize(
+    ("field", "message"),
+    (
+        ("particle_state_count", "requires a nonzero particle_count"),
+        ("body_state_count", "requires a nonzero body_count"),
+    ),
+)
+def test_solver_rejects_state_count_without_local_count(
+    field: str, message: str
+) -> None:
+    model = sr.Model()
+    setattr(model, field, 1)
+
+    with pytest.raises(ValueError, match=message):
+        sr.Solver().initialize(model)
+
+
+def test_solver_rejects_excess_replicated_shape_count() -> None:
+    model = sr.Model()
+    model.shape_count = 1
+    model.shape_replicated_count = 2
+    storage = sr.Span(ptr=0x1000, size=1)
+    model.shape_bodies = storage
+    model.shape_contact_stiffnesses = storage
+    model.shape_contact_dampings = storage
+    model.shape_frictions = storage
+    model.shape_margins = storage
+
+    with pytest.raises(ValueError, match="shape_replicated_count exceeds shape_count"):
+        sr.Solver().initialize(model)
 
 
 def test_control_tetrahedron_activations_round_trip_raw_span() -> None:

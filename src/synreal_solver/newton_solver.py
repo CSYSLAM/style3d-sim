@@ -7,7 +7,7 @@ from itertools import combinations
 from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 
-from ._core import Config, Contact, Control, Model, Solver, Span, State, login
+from ._core import Config, Contact, Control, Model, Solver, Span, State
 from .rigid_body_dynamics import (
     NONE,
     integrate_rigid_body,
@@ -2509,18 +2509,34 @@ class NewtonSolver(_newton.solvers.SolverBase):
             if any(len(array) != drive_count for array in joint_drive_arrays):
                 raise ValueError("Joint drive arrays have different lengths.")
 
-    @staticmethod
     def _as_span(
+        self,
         array: Any | None,
         expected_size: int,
         *,
         storage_components: int = 1,
+        expected_dtype: Any | None = None,
     ) -> Span:
         """Create a typed native span over a Newton allocation."""
+        if expected_size < 0:
+            raise ValueError("Expected array size cannot be negative.")
         if array is None:
             if expected_size:
                 raise ValueError("Newton state is missing a required particle array.")
             return Span()
+
+        array_device = getattr(array, "device", None)
+        if array_device != self.device:
+            raise ValueError(
+                f"Expected an array on {self.device}, but received {array_device}."
+            )
+        if not getattr(array, "is_contiguous", False):
+            raise ValueError("Native solver arrays must be contiguous.")
+        if expected_dtype is not None and array.dtype != expected_dtype:
+            raise ValueError(
+                f"Expected a Newton array with dtype {expected_dtype}, "
+                f"but received {array.dtype}."
+            )
 
         expected_storage_size = expected_size * storage_components
         if array.size < expected_storage_size:
@@ -2965,9 +2981,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
 
         native_state = State()
-        native_state.particle_q = self._as_span(state.particle_q, particle_count)
-        native_state.particle_qd = self._as_span(state.particle_qd, particle_count)
-        native_state.particle_f = self._as_span(state.particle_f, particle_count)
+        native_state.particle_q = self._as_span(
+            state.particle_q, particle_count, expected_dtype=self._wp.vec3
+        )
+        native_state.particle_qd = self._as_span(
+            state.particle_qd, particle_count, expected_dtype=self._wp.vec3
+        )
+        native_state.particle_f = self._as_span(
+            state.particle_f, particle_count, expected_dtype=self._wp.vec3
+        )
         return native_state
 
     def sync_affine_body_state(self, state: Any) -> None:
@@ -3016,49 +3038,81 @@ class NewtonSolver(_newton.solvers.SolverBase):
             return native_contact
 
         rigid_capacity = int(contacts.rigid_contact_max)
+        if rigid_capacity < 0:
+            raise ValueError("Newton rigid contact capacity cannot be negative.")
         if rigid_capacity:
             native_contact.max_count = rigid_capacity
-            native_contact.count = self._as_span(contacts.rigid_contact_count, 1)
+            native_contact.count = self._as_span(
+                contacts.rigid_contact_count, 1, expected_dtype=self._wp.int32
+            )
             native_contact.shape0 = self._as_span(
-                contacts.rigid_contact_shape0, rigid_capacity
+                contacts.rigid_contact_shape0,
+                rigid_capacity,
+                expected_dtype=self._wp.int32,
             )
             native_contact.shape1 = self._as_span(
-                contacts.rigid_contact_shape1, rigid_capacity
+                contacts.rigid_contact_shape1,
+                rigid_capacity,
+                expected_dtype=self._wp.int32,
             )
             native_contact.point0 = self._as_span(
-                contacts.rigid_contact_point0, rigid_capacity
+                contacts.rigid_contact_point0,
+                rigid_capacity,
+                expected_dtype=self._wp.vec3,
             )
             native_contact.point1 = self._as_span(
-                contacts.rigid_contact_point1, rigid_capacity
+                contacts.rigid_contact_point1,
+                rigid_capacity,
+                expected_dtype=self._wp.vec3,
             )
             native_contact.normal = self._as_span(
-                contacts.rigid_contact_normal, rigid_capacity
+                contacts.rigid_contact_normal,
+                rigid_capacity,
+                expected_dtype=self._wp.vec3,
             )
             native_contact.margin0 = self._as_span(
-                contacts.rigid_contact_margin0, rigid_capacity
+                contacts.rigid_contact_margin0,
+                rigid_capacity,
+                expected_dtype=self._wp.float32,
             )
             native_contact.margin1 = self._as_span(
-                contacts.rigid_contact_margin1, rigid_capacity
+                contacts.rigid_contact_margin1,
+                rigid_capacity,
+                expected_dtype=self._wp.float32,
             )
 
         soft_capacity = int(contacts.soft_contact_max)
+        if soft_capacity < 0:
+            raise ValueError("Newton soft contact capacity cannot be negative.")
         if soft_capacity:
             native_contact.soft_max_count = soft_capacity
-            native_contact.soft_count = self._as_span(contacts.soft_contact_count, 1)
+            native_contact.soft_count = self._as_span(
+                contacts.soft_contact_count, 1, expected_dtype=self._wp.int32
+            )
             native_contact.soft_particle = self._as_span(
-                contacts.soft_contact_particle, soft_capacity
+                contacts.soft_contact_particle,
+                soft_capacity,
+                expected_dtype=self._wp.int32,
             )
             native_contact.soft_shape = self._as_span(
-                contacts.soft_contact_shape, soft_capacity
+                contacts.soft_contact_shape,
+                soft_capacity,
+                expected_dtype=self._wp.int32,
             )
             native_contact.soft_body_pos = self._as_span(
-                contacts.soft_contact_body_pos, soft_capacity
+                contacts.soft_contact_body_pos,
+                soft_capacity,
+                expected_dtype=self._wp.vec3,
             )
             native_contact.soft_body_vel = self._as_span(
-                contacts.soft_contact_body_vel, soft_capacity
+                contacts.soft_contact_body_vel,
+                soft_capacity,
+                expected_dtype=self._wp.vec3,
             )
             native_contact.soft_normal = self._as_span(
-                contacts.soft_contact_normal, soft_capacity
+                contacts.soft_contact_normal,
+                soft_capacity,
+                expected_dtype=self._wp.vec3,
             )
         return native_contact
 
@@ -3081,6 +3135,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 native_control.tetrahedron_activations = self._as_span(
                     tetrahedron_activations,
                     tetrahedron_state_count,
+                    expected_dtype=self._wp.float32,
                 )
 
         if not self._synreal_model.joint_drive_count:
@@ -3094,12 +3149,20 @@ class NewtonSolver(_newton.solvers.SolverBase):
         joint_target_state_count = (
             self._synreal_model.joint_target_count * self._shared_world_count
         )
-        native_control.joint_f = self._as_span(control.joint_f, joint_dof_state_count)
+        native_control.joint_f = self._as_span(
+            control.joint_f,
+            joint_dof_state_count,
+            expected_dtype=self._wp.float32,
+        )
         native_control.joint_target_q = self._as_span(
-            control.joint_target_q, joint_target_state_count
+            control.joint_target_q,
+            joint_target_state_count,
+            expected_dtype=self._wp.float32,
         )
         native_control.joint_target_qd = self._as_span(
-            control.joint_target_qd, joint_dof_state_count
+            control.joint_target_qd,
+            joint_dof_state_count,
+            expected_dtype=self._wp.float32,
         )
         return native_control
 

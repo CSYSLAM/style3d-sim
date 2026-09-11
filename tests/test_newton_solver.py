@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 
@@ -136,6 +138,92 @@ def test_model_builder_import_paths() -> None:
     from synreal_solver.newton_solver import ModelBuilder as legacy_model_builder
 
     assert ModelBuilder is package_model_builder is legacy_model_builder
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_rejects_cpu_array_span() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=wp.vec3(0.0), vel=wp.vec3(0.0), mass=1.0)
+    solver = NewtonSolver(builder.finalize(device="cuda:0"))
+
+    with pytest.raises(ValueError, match="Expected an array on cuda:0"):
+        solver._as_span(wp.zeros(1, dtype=wp.vec3, device="cpu"), 1)
+    with pytest.raises(ValueError, match="Expected an array on cuda:0"):
+        solver._as_span(np.zeros((1, 3), dtype=np.float32), 1)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_rejects_wrong_state_dtype() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=wp.vec3(0.0), vel=wp.vec3(0.0), mass=1.0)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    state = model.state()
+    state.particle_q = wp.zeros(1, dtype=wp.float32, device=model.device)
+
+    with pytest.raises(ValueError, match="dtype.*vec3f"):
+        solver._as_synreal_state(state)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_native_solver_rejects_partial_particle_force_span() -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=wp.vec3(0.0), vel=wp.vec3(0.0), mass=1.0)
+    builder.add_particle(pos=wp.vec3(1.0), vel=wp.vec3(0.0), mass=1.0)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    state_in = model.state()
+    state_out = model.state()
+    native_state_in = solver._as_synreal_state(state_in)
+    native_state_out = solver._as_synreal_state(state_out)
+    native_state_in.particle_f = sr.Span(ptr=state_in.particle_f.ptr, size=1)
+
+    with pytest.raises(ValueError, match="particle_f is smaller"):
+        solver.synreal_solver.step(
+            native_state_in,
+            native_state_out,
+            sr.Control(),
+            sr.Contact(),
+            0.01,
+            wp.get_stream(model.device),
+        )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("field", ("particle_flags", "particle_world"))
+def test_native_solver_rejects_partial_particle_metadata(field: str) -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=wp.vec3(0.0), vel=wp.vec3(0.0), mass=1.0)
+    builder.add_particle(pos=wp.vec3(1.0), vel=wp.vec3(0.0), mass=1.0)
+    model = builder.finalize(device="cuda:0")
+    wrapped_solver = NewtonSolver(model)
+    native_model = wrapped_solver.synreal_model
+    source = getattr(model, field)
+    setattr(native_model, field, sr.Span(ptr=source.ptr, size=1))
+
+    with pytest.raises(ValueError, match=f"{field} is smaller"):
+        sr.Solver().initialize(native_model)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize(
+    ("field", "message"),
+    (
+        ("rigid_contact_max", "rigid contact capacity"),
+        ("soft_contact_max", "soft contact capacity"),
+    ),
+)
+def test_newton_solver_rejects_negative_contact_capacity(
+    field: str, message: str
+) -> None:
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.add_particle(pos=wp.vec3(0.0), vel=wp.vec3(0.0), mass=1.0)
+    solver = NewtonSolver(builder.finalize(device="cuda:0"))
+    contacts = SimpleNamespace(rigid_contact_max=0, soft_contact_max=0)
+    setattr(contacts, field, -1)
+
+    with pytest.raises(ValueError, match=message):
+        solver._as_synreal_contact(contacts)
 
 
 def test_model_builder_adds_affine_body_proxy_particles() -> None:
@@ -1054,6 +1142,32 @@ def test_newton_solver_free_fall_matches_symplectic_inertial_prediction(
     assert np.allclose(positions[:, 2], expected_position, rtol=1.0e-5, atol=1.0e-6)
     assert np.allclose(velocities[:, :2], 0.0, atol=1.0e-6)
     assert np.allclose(velocities[:, 2], expected_velocity, rtol=1.0e-5, atol=1.0e-6)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_pcg_updates_more_than_1024_blocks() -> None:
+    world_count = 1024 * 256 + 512
+    gravity = wp.vec3(0.0, 0.0, -1.0)
+    dt = 0.01
+    scene = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=gravity)
+    scene.add_particle(pos=(0.0, 0.0, 1.0), vel=(0.0, 0.0, 0.0), mass=1.0)
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=gravity)
+    builder.replicate(scene, world_count)
+
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_iterations = 1
+    solver.config.linear_iterations = 1
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, None, dt)
+    wp.synchronize_device(model.device)
+
+    expected_z = 1.0 + gravity[2] * dt * dt
+    positions = state_out.particle_q.numpy()
+    assert np.allclose(positions[:, :2], 0.0, atol=1.0e-7)
+    assert np.allclose(positions[:, 2], expected_z, rtol=1.0e-5, atol=1.0e-7)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
@@ -2891,6 +3005,62 @@ def test_newton_solver_shares_replicated_rigid_model_data(world_count: int) -> N
             poses[start : start + bodies_per_world],
             atol=1.0e-6,
         )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_newton_solver_rejects_cross_world_soft_contact() -> None:
+    scene = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    scene.add_particle(pos=wp.vec3(0.0), vel=wp.vec3(0.0), mass=1.0, radius=0.1)
+    body = scene.add_body(
+        mass=1.0,
+        inertia=wp.mat33(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0),
+        lock_inertia=True,
+    )
+    scene.add_shape_box(body, hx=0.1, hy=0.1, hz=0.1)
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.replicate(scene, 2)
+
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    assert solver.synreal_model.world_count == 2
+    assert solver.synreal_model.shape_replicated_count == 1
+    initial_positions = state_in.particle_q.numpy().copy()
+    contacts = SimpleNamespace(
+        rigid_contact_max=0,
+        soft_contact_max=1,
+        soft_contact_count=wp.array((1,), dtype=wp.int32, device=model.device),
+        soft_contact_particle=wp.array((0,), dtype=wp.int32, device=model.device),
+        # Shape 1 belongs to world 1, while particle 0 belongs to world 0.
+        soft_contact_shape=wp.array((1,), dtype=wp.int32, device=model.device),
+        soft_contact_body_pos=wp.zeros(1, dtype=wp.vec3, device=model.device),
+        soft_contact_body_vel=wp.zeros(1, dtype=wp.vec3, device=model.device),
+        soft_contact_normal=wp.array(
+            (wp.vec3(0.0, 0.0, 1.0),), dtype=wp.vec3, device=model.device
+        ),
+    )
+
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, contacts, 0.01)
+    wp.synchronize_device(model.device)
+
+    assert np.allclose(state_out.particle_q.numpy(), initial_positions, atol=1.0e-7)
+
+    same_world_state_in = model.state()
+    same_world_state_out = model.state()
+    same_world_contacts = SimpleNamespace(**vars(contacts))
+    same_world_contacts.soft_contact_shape = wp.array(
+        (0,), dtype=wp.int32, device=model.device
+    )
+    same_world_state_in.clear_forces()
+    NewtonSolver(model).step(
+        same_world_state_in, same_world_state_out, None, same_world_contacts, 0.01
+    )
+    wp.synchronize_device(model.device)
+
+    displacement = same_world_state_out.particle_q.numpy() - initial_positions
+    assert np.max(np.linalg.norm(displacement, axis=1)) > 1.0e-6
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")

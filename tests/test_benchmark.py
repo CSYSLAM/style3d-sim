@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 BENCHMARK_PATH = (
-    Path(__file__).resolve().parents[2]
+    Path(__file__).resolve().parents[1]
     / "benchmarks"
     / "benchmark_robot_h1_genesis.py"
 )
