@@ -18,12 +18,22 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
     from locomotion_g1.config import (
         G1EnvConfig,
+        make_effort_bootstrap_config,
         make_ppo_config,
+        make_robustness_config,
+        make_straight_symmetry_config,
         make_velocity_bootstrap_config,
     )
     from locomotion_g1.env import SynRealG1LocomotionEnv
 else:
-    from .config import G1EnvConfig, make_ppo_config, make_velocity_bootstrap_config
+    from .config import (
+        G1EnvConfig,
+        make_effort_bootstrap_config,
+        make_ppo_config,
+        make_robustness_config,
+        make_straight_symmetry_config,
+        make_velocity_bootstrap_config,
+    )
     from .env import SynRealG1LocomotionEnv
 
 
@@ -90,10 +100,28 @@ def create_parser() -> argparse.ArgumentParser:
         type=Path,
         help="initialize only actor weights; critic, exploration, and optimizer stay fresh",
     )
-    parser.add_argument(
+    preset = parser.add_mutually_exclusive_group()
+    preset.add_argument(
         "--velocity-bootstrap",
         action="store_true",
         help="enable the forward-only preset for escaping the standing optimum",
+    )
+    preset.add_argument(
+        "--effort-bootstrap",
+        action="store_true",
+        help="adapt a walking actor to nominal effort limits before randomization",
+    )
+    preset.add_argument(
+        "--straight-symmetry-stage",
+        type=int,
+        choices=(1, 2),
+        help="enable staged phase-free straightness and bilateral-balance training",
+    )
+    preset.add_argument(
+        "--robustness-stage",
+        type=int,
+        choices=(1, 2, 3),
+        help="enable staged actuator, latency, and push robustness training",
     )
     parser.add_argument("--log-root", type=Path, default=Path("runs"))
     parser.add_argument("--disable-logs", action="store_true")
@@ -118,8 +146,14 @@ def main() -> None:
         or args.smoke_report_interval <= 0
     ):
         raise SystemExit("environment, iteration, and smoke-step counts are invalid")
-    if args.velocity_bootstrap and args.actor_init is None:
-        raise SystemExit("--velocity-bootstrap requires --actor-init")
+    actor_only_preset = (
+        args.velocity_bootstrap
+        or args.effort_bootstrap
+        or args.straight_symmetry_stage
+        or args.robustness_stage
+    )
+    if actor_only_preset and args.actor_init is None:
+        raise SystemExit("the selected training preset requires --actor-init")
     actor_checkpoint = None
     if args.actor_init is not None:
         actor_checkpoint = args.actor_init.expanduser().resolve()
@@ -136,15 +170,44 @@ def main() -> None:
     )
     if args.velocity_bootstrap:
         environment_config = make_velocity_bootstrap_config(environment_config)
-    experiment_name = (
-        "synreal_g1_velocity_bootstrap"
-        if args.velocity_bootstrap
-        else "synreal_g1_locomotion"
-    )
+    elif args.effort_bootstrap:
+        environment_config = make_effort_bootstrap_config(environment_config)
+    elif args.straight_symmetry_stage is not None:
+        environment_config = make_straight_symmetry_config(
+            environment_config, args.straight_symmetry_stage
+        )
+    elif args.robustness_stage is not None:
+        environment_config = make_robustness_config(
+            environment_config, args.robustness_stage
+        )
+    if args.velocity_bootstrap:
+        experiment_name = "synreal_g1_velocity_bootstrap"
+        training_preset = "velocity_bootstrap_v1"
+        init_noise_std = 0.5
+    elif args.effort_bootstrap:
+        experiment_name = "synreal_g1_effort_bootstrap"
+        training_preset = "effort_bootstrap_v1"
+        init_noise_std = 0.1
+    elif args.straight_symmetry_stage is not None:
+        experiment_name = (
+            f"synreal_g1_straight_symmetry_s{args.straight_symmetry_stage}"
+        )
+        training_preset = (
+            f"straight_symmetry_v1_stage{args.straight_symmetry_stage}"
+        )
+        init_noise_std = 0.3
+    elif args.robustness_stage is not None:
+        experiment_name = f"synreal_g1_robustness_s{args.robustness_stage}"
+        training_preset = f"robustness_v1_stage{args.robustness_stage}"
+        init_noise_std = 0.2
+    else:
+        experiment_name = "synreal_g1_locomotion"
+        training_preset = "official_parity"
+        init_noise_std = 1.0
     ppo_config = make_ppo_config(
         args.iterations,
         experiment_name=experiment_name,
-        init_noise_std=0.5 if args.velocity_bootstrap else 1.0,
+        init_noise_std=init_noise_std,
     )
     resume_checkpoint = (
         args.resume.expanduser().resolve() if args.resume is not None else None
@@ -168,16 +231,28 @@ def main() -> None:
     }
     summary = {
         "environment": "synreal_g1_locomotion",
-        "training_preset": (
-            "velocity_bootstrap_v1" if args.velocity_bootstrap else "official_parity"
-        ),
+        "training_preset": training_preset,
         "initialization": initialization_summary,
         "policy_observation_dim": SynRealG1LocomotionEnv.num_obs,
         "critic_observation_dim": SynRealG1LocomotionEnv.num_privileged_obs,
         "action_dim": SynRealG1LocomotionEnv.num_actions,
         "contact_semantics": "debounced_geometry_not_force_threshold",
-        "friction_semantics": "single_coulomb_coefficient_64_bucket_per_shape",
+        "friction_semantics": (
+            "single_coulomb_coefficient_64_bucket_correlated_per_env"
+            if environment_config.randomization.correlate_friction_per_env
+            else "single_coulomb_coefficient_64_bucket_per_shape"
+        ),
+        "actuator_randomization": (
+            "per_joint_per_environment_per_episode"
+            if environment_config.randomization.actuator_enabled
+            else "disabled"
+        ),
+        "effort_limit_enforced_in_control": (
+            environment_config.randomization.actuator_enabled
+        ),
+        "raw_action_clipping": False,
         "mass_randomization": False,
+        "com_randomization": False,
         "environment_config": asdict(environment_config),
         "rsl_rl": ppo_config,
     }

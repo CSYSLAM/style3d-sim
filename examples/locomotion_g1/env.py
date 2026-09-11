@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import os
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -19,6 +20,7 @@ from .config import (
     ARM_JOINTS,
     CRITIC_OBSERVATION_DIM,
     CRITIC_TERM_DIMS,
+    CommandConfig,
     DEFAULT_JOINT_POS,
     HISTORY_LENGTH,
     JOINT_EFFORT_LIMIT,
@@ -33,8 +35,9 @@ from .config import (
     G1EnvConfig,
 )
 from .contact import GeometryContactTracker
-from .math_ops import TermHistory, yaw_quaternion
+from .math_ops import FootContactDutyWindow, TermHistory, yaw_quaternion
 from .observations import critic_terms, policy_terms, root_terms
+from .randomization import EpisodeRandomization, delayed_action, uniform
 from .rewards import RewardInputs, compute_reward
 
 DEFAULT_UNITREE_RL_LAB_ASSET = (
@@ -96,7 +99,8 @@ def _randomize_robot_friction(
     friction_range: tuple[float, float],
     num_buckets: int,
     seed: int,
-) -> dict[str, float]:
+    correlate_per_env: bool,
+) -> dict[str, float | bool]:
     if num_buckets <= 0:
         raise ValueError("friction_buckets must be positive")
     low, high = friction_range
@@ -104,11 +108,10 @@ def _randomize_robot_friction(
         raise ValueError("friction_range must be non-negative and ordered")
     generator = torch.Generator(device="cpu").manual_seed(seed)
     buckets = low + (high - low) * torch.rand(num_buckets, generator=generator)
-    bucket_ids = torch.randint(
-        num_buckets,
-        (num_envs, shapes_per_env),
-        generator=generator,
-    )
+    bucket_shape = (num_envs, 1) if correlate_per_env else (num_envs, shapes_per_env)
+    bucket_ids = torch.randint(num_buckets, bucket_shape, generator=generator)
+    if correlate_per_env:
+        bucket_ids = bucket_ids.expand(-1, shapes_per_env)
     coefficients = buckets[bucket_ids]
     robot_shape_count = num_envs * shapes_per_env
     builder.shape_material_mu[:robot_shape_count] = coefficients.flatten().tolist()
@@ -116,7 +119,109 @@ def _randomize_robot_friction(
         "minimum": float(coefficients.min()),
         "mean": float(coefficients.mean()),
         "maximum": float(coefficients.max()),
+        "correlated_per_env": correlate_per_env,
     }
+
+
+def _sample_range(
+    count: int,
+    bounds: tuple[float, float],
+    *,
+    device: torch.device,
+    generator: torch.Generator,
+) -> torch.Tensor:
+    low, high = bounds
+    if high < low:
+        raise ValueError(f"invalid sampling range {bounds}")
+    return low + (high - low) * torch.rand(
+        count, device=device, generator=generator
+    )
+
+
+def sample_velocity_commands(
+    config: CommandConfig,
+    count: int,
+    *,
+    device: torch.device,
+    generator: torch.Generator,
+) -> torch.Tensor:
+    """Sample either upstream-uniform or explicitly mirrored staged commands."""
+
+    if count < 0:
+        raise ValueError("command count must be non-negative")
+    if count == 0:
+        return torch.zeros((0, 3), device=device)
+    if config.sampling_mode == "uniform":
+        commands = torch.stack(
+            [
+                _sample_range(
+                    count, bounds, device=device, generator=generator
+                )
+                for bounds in (
+                    config.initial_lin_vel_x,
+                    config.initial_lin_vel_y,
+                    config.initial_ang_vel_z,
+                )
+            ],
+            dim=-1,
+        )
+        standing = torch.rand(count, device=device, generator=generator)
+        commands[standing <= config.standing_fraction] = 0.0
+        return commands
+    if config.sampling_mode != "straight_symmetry":
+        raise ValueError(f"unsupported command sampling mode {config.sampling_mode!r}")
+
+    fractions = (
+        config.standing_fraction,
+        config.slow_fraction,
+        config.turn_fraction,
+        config.lateral_fraction,
+    )
+    if any(value < 0.0 for value in fractions) or sum(fractions) > 1.0:
+        raise ValueError("straight-symmetry command fractions must sum to at most one")
+    sample_count = (count + 1) // 2 if config.mirror_sampled_commands else count
+    commands = torch.zeros((sample_count, 3), device=device)
+    draw = torch.rand(sample_count, device=device, generator=generator)
+    standing_end = config.standing_fraction
+    slow_end = standing_end + config.slow_fraction
+    turn_end = slow_end + config.turn_fraction
+    lateral_end = turn_end + config.lateral_fraction
+    masks = {
+        "standing": draw < standing_end,
+        "slow": (draw >= standing_end) & (draw < slow_end),
+        "turn": (draw >= slow_end) & (draw < turn_end),
+        "lateral": (draw >= turn_end) & (draw < lateral_end),
+        "straight": draw >= lateral_end,
+    }
+    mode_ranges = {
+        "slow": (config.slow_lin_vel_x, None, None),
+        "turn": (config.turn_lin_vel_x, None, config.turn_ang_vel_z),
+        "lateral": (
+            config.lateral_lin_vel_x,
+            config.lateral_lin_vel_y,
+            None,
+        ),
+        "straight": (config.initial_lin_vel_x, None, None),
+    }
+    for mode, (x_range, y_range, yaw_range) in mode_ranges.items():
+        mask = masks[mode]
+        mode_count = int(mask.sum())
+        commands[mask, 0] = _sample_range(
+            mode_count, x_range, device=device, generator=generator
+        )
+        if y_range is not None:
+            commands[mask, 1] = _sample_range(
+                mode_count, y_range, device=device, generator=generator
+            )
+        if yaw_range is not None:
+            commands[mask, 2] = _sample_range(
+                mode_count, yaw_range, device=device, generator=generator
+            )
+    if not config.mirror_sampled_commands:
+        return commands
+    mirrored = commands.clone()
+    mirrored[:, 1:] *= -1.0
+    return torch.cat((commands, mirrored), dim=0)[:count]
 
 
 def build_g1_scene(config: G1EnvConfig) -> tuple[Any, dict[str, Any]]:
@@ -211,6 +316,7 @@ def build_g1_scene(config: G1EnvConfig) -> tuple[Any, dict[str, Any]]:
         friction_range=config.randomization.friction_range,
         num_buckets=config.randomization.friction_buckets,
         seed=config.seed,
+        correlate_per_env=config.randomization.correlate_friction_per_env,
     )
     ground_config = newton.ModelBuilder.ShapeConfig(
         ke=simulation.contact_stiffness,
@@ -360,11 +466,12 @@ class SynRealG1LocomotionEnv:
         self.default_joint_position = torch.tensor(
             DEFAULT_JOINT_POS, dtype=torch.float32, device=self.device
         ).expand(self.num_envs, -1)
-        self.kp = torch.tensor(JOINT_KP, device=self.device).expand(self.num_envs, -1)
-        self.kd = torch.tensor(JOINT_KD, device=self.device).expand(self.num_envs, -1)
-        self.effort_limit = torch.tensor(JOINT_EFFORT_LIMIT, device=self.device).expand(
-            self.num_envs, -1
-        )
+        self.base_kp = torch.tensor(JOINT_KP, device=self.device)
+        self.base_kd = torch.tensor(JOINT_KD, device=self.device)
+        self.base_effort_limit = torch.tensor(JOINT_EFFORT_LIMIT, device=self.device)
+        self.kp = self.base_kp.expand(self.num_envs, -1).clone()
+        self.kd = self.base_kd.expand(self.num_envs, -1).clone()
+        self.effort_limit = self.base_effort_limit.expand(self.num_envs, -1).clone()
         self.velocity_limit = torch.tensor(
             JOINT_VELOCITY_LIMIT, device=self.device
         ).expand(self.num_envs, -1)
@@ -398,11 +505,32 @@ class SynRealG1LocomotionEnv:
             device=self.wp_device,
             stream=self.stream,
         )
+        duty_window_steps = round(contact_cfg.duty_window_s / self.step_dt)
+        self.foot_contact_duty = FootContactDutyWindow(
+            self.num_envs, duty_window_steps, device=self.device
+        )
 
         self.actions = torch.zeros(
             (self.num_envs, self.num_actions), device=self.device
         )
         self.previous_actions = torch.zeros_like(self.actions)
+        self.applied_actions = torch.zeros_like(self.actions)
+        self.desired_targets = torch.zeros_like(self.actions)
+        delay_high = self.cfg.randomization.policy_delay_ticks[1]
+        if delay_high < 0:
+            raise ValueError("maximum policy delay must be non-negative")
+        self.action_queue = torch.zeros(
+            (self.num_envs, delay_high + 1, self.num_actions), device=self.device
+        )
+        self.episode_randomization = EpisodeRandomization.create(
+            self.cfg.randomization,
+            self.num_envs,
+            self.num_actions,
+            self.step_dt,
+            self.device,
+            self.generator,
+        )
+        self._bind_actuator_arrays()
         self.previous_joint_velocity = torch.zeros_like(self.actions)
         self.commands = torch.zeros((self.num_envs, 3), device=self.device)
         self.command_steps = torch.zeros(
@@ -428,6 +556,21 @@ class SynRealG1LocomotionEnv:
         self.episode_velocity_error_sum = torch.zeros(
             self.num_envs, device=self.device
         )
+        self.episode_lateral_velocity_abs_sum = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_lateral_velocity_sum = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_yaw_rate_error_abs_sum = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_lateral_displacement = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_yaw_error_integral = torch.zeros(
+            self.num_envs, device=self.device
+        )
         self.episode_flight_steps = torch.zeros(self.num_envs, device=self.device)
         self.episode_single_support_steps = torch.zeros(
             self.num_envs, device=self.device
@@ -444,8 +587,13 @@ class SynRealG1LocomotionEnv:
         self.episode_torque_saturation = torch.zeros(
             self.num_envs, device=self.device
         )
+        self.episode_push_count = torch.zeros(self.num_envs, device=self.device)
+        self.last_push_velocity = torch.zeros((self.num_envs, 2), device=self.device)
         self.episode_touchdowns = torch.zeros(self.num_envs, device=self.device)
         self.episode_alternating_touchdowns = torch.zeros(
+            self.num_envs, device=self.device
+        )
+        self.episode_repeated_touchdowns = torch.zeros(
             self.num_envs, device=self.device
         )
         self.previous_policy_foot_contact = torch.zeros(
@@ -513,6 +661,28 @@ class SynRealG1LocomotionEnv:
         self.control_targets = wp.to_torch(self.control.joint_target_q).view(
             self.num_envs, self.targets_per_env
         )
+        self.model_stiffness = wp.to_torch(self.model.joint_target_ke).view(
+            self.num_envs, self.qd_per_env
+        )
+        self.model_damping = wp.to_torch(self.model.joint_target_kd).view(
+            self.num_envs, self.qd_per_env
+        )
+        self.model_effort = wp.to_torch(self.model.joint_effort_limit).view(
+            self.num_envs, self.qd_per_env
+        )
+
+    def _bind_actuator_arrays(self) -> None:
+        randomization = self.episode_randomization
+        self._desired_targets_wp = wp.from_torch(self.desired_targets)
+        self._base_kp_wp = wp.from_torch(self.base_kp)
+        self._base_kd_wp = wp.from_torch(self.base_kd)
+        self._base_effort_limit_wp = wp.from_torch(self.base_effort_limit)
+        self._stiffness_scale_wp = wp.from_torch(randomization.stiffness_scale)
+        self._damping_scale_wp = wp.from_torch(randomization.damping_scale)
+        self._motor_strength_wp = wp.from_torch(randomization.motor_strength)
+        self._q_indices_wp = wp.from_torch(self.q_indices)
+        self._qd_indices_wp = wp.from_torch(self.qd_indices)
+        self._target_indices_wp = wp.from_torch(self.target_indices)
 
     def _current_state(self) -> dict[str, torch.Tensor]:
         root_pose = self.body_q_0[:, self.root_body]
@@ -537,12 +707,13 @@ class SynRealG1LocomotionEnv:
     def _observation_terms(
         self, state: dict[str, torch.Tensor]
     ) -> tuple[tuple[torch.Tensor, ...], tuple[torch.Tensor, ...]]:
+        randomized_default = self._randomized_default_joint_position()
         policy = policy_terms(
             state["angular_velocity"],
             state["projected_gravity"],
             self.commands,
             state["joint_position"],
-            self.default_joint_position,
+            randomized_default,
             state["joint_velocity"],
             self.actions,
             self.cfg.observation_noise,
@@ -554,7 +725,7 @@ class SynRealG1LocomotionEnv:
             state["projected_gravity"],
             self.commands,
             state["joint_position"],
-            self.default_joint_position,
+            randomized_default,
             state["joint_velocity"],
             self.actions,
         )
@@ -586,16 +757,80 @@ class SynRealG1LocomotionEnv:
         count = env_ids.numel()
         if count == 0:
             return
-        for column, key in enumerate(("x", "y", "yaw")):
-            low, high = self.command_ranges[key]
-            self.commands[env_ids, column] = self._uniform(count, low, high)
-        standing = (
-            torch.rand(count, device=self.device, generator=self.generator)
-            <= self.cfg.commands.standing_fraction
+        command_config = self.cfg.commands
+        if command_config.sampling_mode == "uniform":
+            command_config = replace(
+                command_config,
+                initial_lin_vel_x=tuple(self.command_ranges["x"]),
+                initial_lin_vel_y=tuple(self.command_ranges["y"]),
+                initial_ang_vel_z=tuple(self.command_ranges["yaw"]),
+            )
+        self.commands[env_ids] = sample_velocity_commands(
+            command_config,
+            count,
+            device=self.device,
+            generator=self.generator,
         )
-        if torch.any(standing):
-            self.commands[env_ids[standing]] = 0.0
         self.command_steps[env_ids] = 0
+
+    def _randomized_default_joint_position(self) -> torch.Tensor:
+        return (
+            self.default_joint_position
+            + self.episode_randomization.joint_zero_offset
+        )
+
+    def _apply_episode_randomization(self, env_ids: torch.Tensor) -> None:
+        randomization = self.episode_randomization
+        randomization.resample(
+            self.cfg.randomization,
+            env_ids,
+            self.step_dt,
+            self.generator,
+        )
+        self.kp[env_ids] = self.base_kp * randomization.stiffness_scale[env_ids]
+        self.kd[env_ids] = self.base_kd * randomization.damping_scale[env_ids]
+        self.effort_limit[env_ids] = (
+            self.base_effort_limit * randomization.motor_strength[env_ids]
+        )
+        self.model_stiffness[env_ids[:, None], self.qd_indices] = self.kp[env_ids]
+        self.model_damping[env_ids[:, None], self.qd_indices] = self.kd[env_ids]
+        self.model_effort[env_ids[:, None], self.qd_indices] = self.effort_limit[
+            env_ids
+        ]
+
+    def _delayed_action(self, actions: torch.Tensor) -> torch.Tensor:
+        return delayed_action(
+            self.action_queue, self.episode_randomization.delay_ticks, actions
+        )
+
+    def _launch_limited_joint_targets(self) -> None:
+        from .simulation_kernels import update_limited_joint_targets
+
+        wp.launch(
+            update_limited_joint_targets,
+            dim=self.num_envs * self.num_actions,
+            inputs=[
+                self.state_0.joint_q,
+                self.state_0.joint_qd,
+                self._desired_targets_wp,
+                self._base_kp_wp,
+                self._base_kd_wp,
+                self._base_effort_limit_wp,
+                self._stiffness_scale_wp,
+                self._damping_scale_wp,
+                self._motor_strength_wp,
+                self._q_indices_wp,
+                self._qd_indices_wp,
+                self._target_indices_wp,
+                self.num_actions,
+                self.q_per_env,
+                self.qd_per_env,
+                self.targets_per_env,
+            ],
+            outputs=[self.control.joint_target_q],
+            device=self.wp_device,
+            stream=self.stream,
+        )
 
     def _sync_kinematics(self) -> None:
         torch.cuda.current_stream(self.device).synchronize()
@@ -611,6 +846,8 @@ class SynRealG1LocomotionEnv:
             return
         env_ids = env_ids.to(device=self.device, dtype=torch.long)
         count = env_ids.numel()
+        self._apply_episode_randomization(env_ids)
+        randomized_default = self._randomized_default_joint_position()
         reset_q = self.initial_joint_q[env_ids].clone()
         reset_qd = self.initial_joint_qd[env_ids].clone()
         reset_q[:, 0] += self._uniform(count, -0.5, 0.5)
@@ -626,8 +863,14 @@ class SynRealG1LocomotionEnv:
         self.joint_qd_0[env_ids] = reset_qd
         self.joint_qd_1[env_ids] = reset_qd
         self.control_targets[env_ids] = self.default_control_targets[env_ids]
+        self.control_targets[env_ids[:, None], self.target_indices] = randomized_default[
+            env_ids
+        ]
+        self.desired_targets[env_ids] = randomized_default[env_ids]
         self.actions[env_ids] = 0.0
         self.previous_actions[env_ids] = 0.0
+        self.applied_actions[env_ids] = 0.0
+        self.action_queue[env_ids] = 0.0
         self.previous_joint_velocity[env_ids] = reset_qd.index_select(
             1, self.qd_indices
         )
@@ -637,6 +880,11 @@ class SynRealG1LocomotionEnv:
         self.episode_sample_steps[env_ids] = 0
         self.episode_forward_velocity_sum[env_ids] = 0.0
         self.episode_velocity_error_sum[env_ids] = 0.0
+        self.episode_lateral_velocity_abs_sum[env_ids] = 0.0
+        self.episode_lateral_velocity_sum[env_ids] = 0.0
+        self.episode_yaw_rate_error_abs_sum[env_ids] = 0.0
+        self.episode_lateral_displacement[env_ids] = 0.0
+        self.episode_yaw_error_integral[env_ids] = 0.0
         self.episode_flight_steps[env_ids] = 0.0
         self.episode_single_support_steps[env_ids] = 0.0
         self.episode_left_air_steps[env_ids] = 0.0
@@ -645,13 +893,17 @@ class SynRealG1LocomotionEnv:
         self.episode_max_abs_action[env_ids] = 0.0
         self.episode_max_abs_arm_action[env_ids] = 0.0
         self.episode_torque_saturation[env_ids] = 0.0
+        self.episode_push_count[env_ids] = 0.0
+        self.last_push_velocity[env_ids] = 0.0
         self.episode_touchdowns[env_ids] = 0.0
         self.episode_alternating_touchdowns[env_ids] = 0.0
+        self.episode_repeated_touchdowns[env_ids] = 0.0
         self.previous_policy_foot_contact[env_ids] = False
         self.last_touchdown_foot[env_ids] = -1
         self.reset_buf[env_ids] = False
         self.timeout_buf[env_ids] = False
         self.contact_tracker.reset(env_ids)
+        self.foot_contact_duty.reset(env_ids)
         self._resample_commands(env_ids)
         self._sync_kinematics()
 
@@ -668,6 +920,8 @@ class SynRealG1LocomotionEnv:
 
     def _simulate_uncaptured(self) -> None:
         for _ in range(self.cfg.simulation.decimation):
+            if self.cfg.randomization.actuator_enabled:
+                self._launch_limited_joint_targets()
             self.state_0.clear_forces()
             self.collision_pipeline.collide(self.state_0, self.contacts)
             self.contact_tracker.update(self.state_0.body_q)
@@ -735,6 +989,35 @@ class SynRealG1LocomotionEnv:
         due = torch.nonzero(self.command_steps >= interval, as_tuple=False).squeeze(-1)
         self._resample_commands(due)
 
+    def _apply_random_push(self) -> None:
+        config = self.cfg.randomization
+        self.last_push_velocity.zero_()
+        if not config.push_enabled:
+            return
+        randomization = self.episode_randomization
+        due = self.episode_length_buf >= randomization.next_push_step
+        if not torch.any(due):
+            return
+        env_ids = torch.nonzero(due, as_tuple=False).squeeze(-1)
+        velocity = uniform(
+            (env_ids.numel(), 2),
+            config.push_velocity,
+            self.device,
+            self.generator,
+        )
+        self.joint_qd_0[env_ids, :2] += velocity
+        self.joint_qd_1[env_ids, :2] = self.joint_qd_0[env_ids, :2]
+        self.last_push_velocity[env_ids] = velocity
+        self.episode_push_count[env_ids] += 1.0
+        randomization.resample_push(
+            config,
+            env_ids,
+            self.step_dt,
+            self.generator,
+            current_step=self.episode_length_buf[env_ids],
+        )
+        self._sync_kinematics()
+
     def _apply_periodic_push(self) -> None:
         if not self.cfg.periodic_push_enabled:
             return
@@ -759,11 +1042,16 @@ class SynRealG1LocomotionEnv:
         actions = actions.to(device=self.device, dtype=torch.float32)
         if not torch.isfinite(actions).all():
             actions = torch.nan_to_num(actions, nan=0.0, posinf=10.0, neginf=-10.0)
+        applied_actions = self._delayed_action(actions)
         self.previous_actions.copy_(self.actions)
         self.actions.copy_(actions)
-        targets = self.default_joint_position + self.cfg.action_scale * self.actions
+        self.applied_actions.copy_(applied_actions)
+        randomized_default = self._randomized_default_joint_position()
+        targets = randomized_default + self.cfg.action_scale * applied_actions
+        self.desired_targets.copy_(targets)
         self.control_targets.copy_(self.default_control_targets)
         self.control_targets[:, self.target_indices] = targets
+        self._apply_random_push()
 
         torch.cuda.current_stream(self.device).synchronize()
         with wp.ScopedStream(self.stream):
@@ -790,9 +1078,12 @@ class SynRealG1LocomotionEnv:
         self.reset_buf = (state["root_position"][:, 2] < 0.2) | (tilt > 0.8) | ~finite
         self.timeout_buf = self.episode_length_buf >= self.max_episode_length
         done = self.reset_buf | self.timeout_buf
-        estimated_torque = torch.clamp(
+        raw_torque = (
             self.kp * (targets - state["joint_position"])
-            - self.kd * state["joint_velocity"],
+            - self.kd * state["joint_velocity"]
+        )
+        estimated_torque = torch.clamp(
+            raw_torque,
             min=-self.effort_limit,
             max=self.effort_limit,
         )
@@ -802,13 +1093,21 @@ class SynRealG1LocomotionEnv:
         touchdown_count = touchdowns.sum(dim=-1)
         touchdown_foot = touchdowns.to(torch.int64).argmax(dim=-1)
         single_touchdown = touchdown_count == 1
+        repeated_touchdown = (
+            single_touchdown
+            & (self.last_touchdown_foot >= 0)
+            & (touchdown_foot == self.last_touchdown_foot)
+        )
         alternating = (
             single_touchdown
             & (self.last_touchdown_foot >= 0)
             & (touchdown_foot != self.last_touchdown_foot)
         )
+        foot_duty = self.foot_contact_duty.update(foot_contact)
+        foot_duty_imbalance = torch.abs(foot_duty[:, 0] - foot_duty[:, 1])
         self.episode_touchdowns += single_touchdown.float()
         self.episode_alternating_touchdowns += alternating.float()
+        self.episode_repeated_touchdowns += repeated_touchdown.float()
         self.last_touchdown_foot[single_touchdown] = touchdown_foot[single_touchdown]
         self.previous_policy_foot_contact.copy_(foot_contact)
         reward, reward_terms = compute_reward(
@@ -821,7 +1120,7 @@ class SynRealG1LocomotionEnv:
                 root_angular_velocity_body=state["angular_velocity"],
                 projected_gravity=state["projected_gravity"],
                 joint_position=state["joint_position"],
-                default_joint_position=self.default_joint_position,
+                default_joint_position=randomized_default,
                 joint_velocity=state["joint_velocity"],
                 previous_joint_velocity=self.previous_joint_velocity,
                 actions=self.actions,
@@ -836,6 +1135,8 @@ class SynRealG1LocomotionEnv:
                 recent_undesired_contact=(
                     self.contact_tracker.recent_undesired_contact
                 ),
+                foot_duty_imbalance=foot_duty_imbalance,
+                repeated_touchdown=repeated_touchdown.float(),
                 episode_steps=self.episode_length_buf,
                 terminated=self.reset_buf,
             ),
@@ -854,6 +1155,15 @@ class SynRealG1LocomotionEnv:
         self.episode_velocity_error_sum += torch.abs(
             self.commands[:, 0] - state["linear_velocity"][:, 0]
         )
+        lateral_velocity_error = (
+            state["linear_velocity"][:, 1] - self.commands[:, 1]
+        )
+        yaw_rate_error = state["angular_velocity"][:, 2] - self.commands[:, 2]
+        self.episode_lateral_velocity_sum += state["linear_velocity"][:, 1]
+        self.episode_lateral_velocity_abs_sum += torch.abs(lateral_velocity_error)
+        self.episode_yaw_rate_error_abs_sum += torch.abs(yaw_rate_error)
+        self.episode_lateral_displacement += lateral_velocity_error * self.step_dt
+        self.episode_yaw_error_integral += yaw_rate_error * self.step_dt
         self.episode_flight_steps += (contact_count == 0).float()
         self.episode_single_support_steps += (contact_count == 1).float()
         self.episode_left_air_steps += (~foot_contact[:, 0]).float()
@@ -901,19 +1211,51 @@ class SynRealG1LocomotionEnv:
                 "locomotion/vx_abs_error": torch.abs(
                     self.commands[:, 0] - state["linear_velocity"][:, 0]
                 ).mean(),
+                "locomotion/body_vy": state["linear_velocity"][:, 1].mean(),
+                "locomotion/vy_abs_error": torch.abs(lateral_velocity_error).mean(),
+                "locomotion/yaw_rate_abs_error": torch.abs(yaw_rate_error).mean(),
                 "locomotion/flight_fraction": (contact_count == 0).float().mean(),
                 "locomotion/single_support_fraction": (
                     contact_count == 1
                 ).float().mean(),
+                "gait/left_contact_duty": foot_duty[:, 0].mean(),
+                "gait/right_contact_duty": foot_duty[:, 1].mean(),
+                "gait/contact_duty_imbalance": foot_duty_imbalance.mean(),
+                "gait/repeated_touchdown_fraction": (
+                    repeated_touchdown.float().sum()
+                    / single_touchdown.float().sum().clamp_min(1.0)
+                ),
                 "action/mean_abs": self.actions.abs().mean(),
                 "action/max_abs": self.actions.abs().max(),
                 "action/over_3_fraction": (self.actions.abs() > 3.0).float().mean(),
                 "action/arm_over_3_fraction": (
                     self.actions.index_select(1, self.arm_indices).abs() > 3.0
                 ).float().mean(),
+                "action/delay_delta_mean_abs": (
+                    self.actions - self.applied_actions
+                ).abs().mean(),
                 "torque/saturation_fraction": (
                     estimated_torque.abs() >= (self.effort_limit - 1.0e-5)
                 ).float().mean(),
+                "randomization/stiffness_scale_mean": (
+                    self.episode_randomization.stiffness_scale.mean()
+                ),
+                "randomization/damping_scale_mean": (
+                    self.episode_randomization.damping_scale.mean()
+                ),
+                "randomization/motor_strength_mean": (
+                    self.episode_randomization.motor_strength.mean()
+                ),
+                "randomization/joint_zero_offset_abs_mean": (
+                    self.episode_randomization.joint_zero_offset.abs().mean()
+                ),
+                "randomization/delay_ticks_mean": (
+                    self.episode_randomization.delay_ticks.float().mean()
+                ),
+                "push/applied_fraction": (
+                    self.last_push_velocity.abs().sum(dim=-1) > 0.0
+                ).float().mean(),
+                "push/velocity_abs_mean": self.last_push_velocity.abs().mean(),
             },
         }
         if done_ids.numel() > 0:
@@ -932,9 +1274,31 @@ class SynRealG1LocomotionEnv:
                 "mean_vx_abs_error": (
                     self.episode_velocity_error_sum[done_ids] / sample_steps
                 ).mean(),
+                "mean_body_vy": (
+                    self.episode_lateral_velocity_sum[done_ids] / sample_steps
+                ).mean(),
+                "mean_vy_abs_error": (
+                    self.episode_lateral_velocity_abs_sum[done_ids] / sample_steps
+                ).mean(),
+                "mean_yaw_rate_abs_error": (
+                    self.episode_yaw_rate_error_abs_sum[done_ids] / sample_steps
+                ).mean(),
                 "forward_displacement": (
                     self.episode_forward_velocity_sum[done_ids]
                     * self.step_dt
+                ).mean(),
+                "lateral_error_displacement": self.episode_lateral_displacement[
+                    done_ids
+                ].mean(),
+                "integrated_yaw_error": self.episode_yaw_error_integral[
+                    done_ids
+                ].mean(),
+                "absolute_yaw_error_per_forward_meter": (
+                    self.episode_yaw_error_integral[done_ids].abs()
+                    / (
+                        self.episode_forward_velocity_sum[done_ids].abs()
+                        * self.step_dt
+                    ).clamp_min(0.1)
                 ).mean(),
                 "flight_fraction": (
                     self.episode_flight_steps[done_ids] / sample_steps
@@ -948,8 +1312,16 @@ class SynRealG1LocomotionEnv:
                 "right_air_fraction": (
                     self.episode_right_air_steps[done_ids] / sample_steps
                 ).mean(),
+                "foot_air_fraction_imbalance": torch.abs(
+                    self.episode_left_air_steps[done_ids]
+                    - self.episode_right_air_steps[done_ids]
+                ).div(sample_steps).mean(),
                 "alternating_touchdown_fraction": (
                     self.episode_alternating_touchdowns[done_ids]
+                    / touchdowns.clamp_min(1.0)
+                ).mean(),
+                "repeated_touchdown_fraction": (
+                    self.episode_repeated_touchdowns[done_ids]
                     / touchdowns.clamp_min(1.0)
                 ).mean(),
                 "action_over_3_fraction": (
@@ -962,6 +1334,22 @@ class SynRealG1LocomotionEnv:
                 "torque_saturation_fraction": (
                     self.episode_torque_saturation[done_ids] / sample_steps
                 ).mean(),
+                "push_count": self.episode_push_count[done_ids].mean(),
+                "stiffness_scale_mean": self.episode_randomization.stiffness_scale[
+                    done_ids
+                ].mean(),
+                "damping_scale_mean": self.episode_randomization.damping_scale[
+                    done_ids
+                ].mean(),
+                "motor_strength_mean": self.episode_randomization.motor_strength[
+                    done_ids
+                ].mean(),
+                "joint_zero_offset_abs_mean": (
+                    self.episode_randomization.joint_zero_offset[done_ids].abs().mean()
+                ),
+                "delay_ticks_mean": self.episode_randomization.delay_ticks[
+                    done_ids
+                ].float().mean(),
             }
         if self.cfg.auto_reset and done_ids.numel() > 0:
             self._reset_state(done_ids)

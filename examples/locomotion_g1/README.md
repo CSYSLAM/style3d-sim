@@ -57,6 +57,17 @@ Start the requested 512-world training configuration:
 The forward-only actor warm-start procedure and its recorded source checkpoint are documented in
 [VELOCITY_BOOTSTRAP.md](VELOCITY_BOOTSTRAP.md).
 
+The phase-free straight-line and bilateral-balance follow-up preset is documented in
+[STRAIGHT_SYMMETRY.md](STRAIGHT_SYMMETRY.md). It is split into two explicit stages and does not add
+mass randomization or hard deployment action constraints.
+
+The subsequent actuator, latency, and push schedule is documented in
+[ROBUSTNESS.md](ROBUSTNESS.md). It preserves the policy ABI and keeps mass/COM randomization and
+hard action constraints disabled.
+
+Completed stage results, rejected checkpoints, MuJoCo outcomes, and promotion decisions are
+recorded in [TRAINING_HISTORY.md](TRAINING_HISTORY.md).
+
 Inspect the model with zero actions:
 
 ```bash

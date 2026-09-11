@@ -33,6 +33,8 @@ class RewardInputs:
     foot_contact: torch.Tensor
     recent_foot_contact: torch.Tensor
     recent_undesired_contact: torch.Tensor
+    foot_duty_imbalance: torch.Tensor
+    repeated_touchdown: torch.Tensor
     episode_steps: torch.Tensor
     terminated: torch.Tensor
 
@@ -146,6 +148,12 @@ def compute_reward(
         "arm_action_l2": torch.sum(
             torch.square(inputs.actions.index_select(1, arm_indices)), dim=-1
         ),
+        "lateral_vel_error_l2": torch.square(
+            inputs.commands[:, 1] - yaw_linear_velocity[:, 1]
+        ),
+        "yaw_rate_error_l2": angular_error,
+        "foot_duty_imbalance": inputs.foot_duty_imbalance,
+        "repeated_touchdown": inputs.repeated_touchdown,
     }
     names = {item.name for item in fields(config)}
     weighted = {

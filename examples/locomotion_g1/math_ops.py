@@ -82,3 +82,35 @@ class TermHistory:
         return torch.cat(
             [buffer.flatten(start_dim=1) for buffer in self.buffers], dim=-1
         )
+
+
+class FootContactDutyWindow:
+    """Track per-foot contact duty without prescribing an external gait phase."""
+
+    def __init__(self, num_envs: int, window_steps: int, *, device: torch.device) -> None:
+        if window_steps <= 0:
+            raise ValueError("window_steps must be positive")
+        self.buffer = torch.zeros(
+            (num_envs, window_steps, 2), dtype=torch.bool, device=device
+        )
+        self.sample_count = torch.zeros(num_envs, dtype=torch.long, device=device)
+        self.window_steps = window_steps
+        self.cursor = 0
+
+    def update(self, foot_contact: torch.Tensor) -> torch.Tensor:
+        if foot_contact.shape != (self.buffer.shape[0], 2):
+            raise ValueError(
+                f"expected foot contacts {(self.buffer.shape[0], 2)}, "
+                f"got {tuple(foot_contact.shape)}"
+            )
+        self.buffer[:, self.cursor].copy_(foot_contact)
+        self.cursor = (self.cursor + 1) % self.window_steps
+        self.sample_count.add_(1).clamp_(max=self.window_steps)
+        denominator = self.sample_count.clamp_min(1).unsqueeze(-1)
+        return self.buffer.sum(dim=1) / denominator
+
+    def reset(self, env_ids: torch.Tensor) -> None:
+        if env_ids.numel() == 0:
+            return
+        self.buffer[env_ids] = False
+        self.sample_count[env_ids] = 0

@@ -142,12 +142,23 @@ class ContactConfig:
     debounce_substeps: int = 2
     history_substeps: int = 3
     maximum_separation: float = 1.0e-4
+    duty_window_s: float = 0.8
 
 
 @dataclass(frozen=True)
 class RandomizationConfig:
     friction_range: tuple[float, float] = (0.3, 1.0)
     friction_buckets: int = 64
+    correlate_friction_per_env: bool = False
+    actuator_enabled: bool = False
+    stiffness_scale: tuple[float, float] = (1.0, 1.0)
+    damping_scale: tuple[float, float] = (1.0, 1.0)
+    motor_strength: tuple[float, float] = (1.0, 1.0)
+    joint_zero_offset: tuple[float, float] = (0.0, 0.0)
+    policy_delay_ticks: tuple[int, int] = (0, 0)
+    push_enabled: bool = False
+    push_interval_s: tuple[float, float] = (10.0, 15.0)
+    push_velocity: tuple[float, float] = (0.0, 0.0)
 
 
 @dataclass(frozen=True)
@@ -163,6 +174,16 @@ class CommandConfig:
     curriculum_increment: float = 0.1
     curriculum_success_rate: float = 0.8
     curriculum_enabled: bool = True
+    sampling_mode: str = "uniform"
+    slow_fraction: float = 0.0
+    turn_fraction: float = 0.0
+    lateral_fraction: float = 0.0
+    slow_lin_vel_x: tuple[float, float] = (0.0, 0.0)
+    turn_lin_vel_x: tuple[float, float] = (0.0, 0.0)
+    turn_ang_vel_z: tuple[float, float] = (0.0, 0.0)
+    lateral_lin_vel_x: tuple[float, float] = (0.0, 0.0)
+    lateral_lin_vel_y: tuple[float, float] = (0.0, 0.0)
+    mirror_sampled_commands: bool = False
 
 
 @dataclass(frozen=True)
@@ -197,6 +218,10 @@ class RewardConfig:
     undesired_contacts: float = -1.0
     action_l2: float = 0.0
     arm_action_l2: float = 0.0
+    lateral_vel_error_l2: float = 0.0
+    yaw_rate_error_l2: float = 0.0
+    foot_duty_imbalance: float = 0.0
+    repeated_touchdown: float = 0.0
     tracking_std: float = 0.5
     base_height_target: float = 0.78
     foot_clearance_target: float = 0.1
@@ -256,6 +281,131 @@ def make_velocity_bootstrap_config(config: G1EnvConfig) -> G1EnvConfig:
             action_l2=-0.001,
             arm_action_l2=-0.003,
             supported_swing_clearance=True,
+        ),
+    )
+
+
+def make_straight_symmetry_config(
+    config: G1EnvConfig, stage: int = 1
+) -> G1EnvConfig:
+    """Return a phase-free preset for straight and bilaterally balanced walking."""
+
+    if stage not in (1, 2):
+        raise ValueError("straight-symmetry stage must be 1 or 2")
+    command_overrides = {
+        "initial_lin_vel_x": (0.25, 0.70),
+        "initial_lin_vel_y": (0.0, 0.0),
+        "initial_ang_vel_z": (0.0, 0.0),
+        "standing_fraction": 0.05,
+        "curriculum_enabled": False,
+        "sampling_mode": "straight_symmetry",
+        "slow_fraction": 0.10,
+        "slow_lin_vel_x": (0.05, 0.25),
+        "mirror_sampled_commands": True,
+    }
+    if stage == 2:
+        command_overrides.update(
+            {
+                "initial_lin_vel_x": (0.20, 0.75),
+                "standing_fraction": 0.10,
+                "slow_fraction": 0.15,
+                "turn_fraction": 0.10,
+                "lateral_fraction": 0.05,
+                "turn_lin_vel_x": (0.20, 0.60),
+                "turn_ang_vel_z": (-0.15, 0.15),
+                "lateral_lin_vel_x": (0.20, 0.60),
+                "lateral_lin_vel_y": (-0.08, 0.08),
+            }
+        )
+    return replace(
+        config,
+        periodic_push_enabled=False,
+        randomization=replace(
+            config.randomization,
+            correlate_friction_per_env=True,
+        ),
+        commands=replace(config.commands, **command_overrides),
+        rewards=replace(
+            config.rewards,
+            track_lin_vel_xy=4.0,
+            track_ang_vel_z=1.5,
+            alive=0.05,
+            joint_deviation_waists=-0.5,
+            joint_deviation_legs=-0.5,
+            base_height=-5.0,
+            gait=0.0,
+            feet_clearance=0.5,
+            action_l2=-0.001,
+            arm_action_l2=-0.003,
+            lateral_vel_error_l2=-0.5,
+            yaw_rate_error_l2=-0.5,
+            foot_duty_imbalance=-0.25,
+            repeated_touchdown=-0.5,
+            supported_swing_clearance=True,
+        ),
+    )
+
+
+def make_robustness_config(config: G1EnvConfig, stage: int = 1) -> G1EnvConfig:
+    """Add staged actuator, latency, and push variation to the straight preset."""
+
+    if stage not in (1, 2, 3):
+        raise ValueError("robustness stage must be 1, 2, or 3")
+    ranges = {
+        1: {
+            "stiffness_scale": (0.95, 1.05),
+            "damping_scale": (0.90, 1.10),
+            "motor_strength": (0.95, 1.05),
+            "joint_zero_offset": (-0.01, 0.01),
+            "policy_delay_ticks": (0, 1),
+            "push_enabled": False,
+        },
+        2: {
+            "stiffness_scale": (0.90, 1.10),
+            "damping_scale": (0.85, 1.15),
+            "motor_strength": (0.90, 1.10),
+            "joint_zero_offset": (-0.015, 0.015),
+            "policy_delay_ticks": (0, 2),
+            "push_enabled": False,
+        },
+        3: {
+            "stiffness_scale": (0.80, 1.20),
+            "damping_scale": (0.80, 1.20),
+            "motor_strength": (0.85, 1.15),
+            "joint_zero_offset": (-0.02, 0.02),
+            "policy_delay_ticks": (0, 2),
+            "push_enabled": True,
+            "push_interval_s": (8.0, 12.0),
+            "push_velocity": (-0.20, 0.20),
+        },
+    }
+    straight = make_straight_symmetry_config(config, stage=2)
+    return replace(
+        straight,
+        randomization=replace(
+            straight.randomization,
+            actuator_enabled=True,
+            **ranges[stage],
+        ),
+    )
+
+
+def make_effort_bootstrap_config(config: G1EnvConfig) -> G1EnvConfig:
+    """Adapt the walking actor to the deployment effort envelope before randomization."""
+
+    bootstrap = make_velocity_bootstrap_config(config)
+    return replace(
+        bootstrap,
+        randomization=replace(
+            bootstrap.randomization,
+            correlate_friction_per_env=True,
+            actuator_enabled=True,
+            stiffness_scale=(1.0, 1.0),
+            damping_scale=(1.0, 1.0),
+            motor_strength=(1.0, 1.0),
+            joint_zero_offset=(0.0, 0.0),
+            policy_delay_ticks=(0, 0),
+            push_enabled=False,
         ),
     )
 
