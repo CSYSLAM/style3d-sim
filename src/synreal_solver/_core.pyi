@@ -74,6 +74,12 @@ class Config:
         Create the default solver configuration.
         """
     @property
+    def air_density(self) -> float:
+        """Ambient air density in kg/m^3; zero disables aerodynamic drag."""
+    @air_density.setter
+    def air_density(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
     def affine_body_rigidity_model(self) -> AffineBodyRigidityModel:
         """
         Rigidity law used for affine bodies: co-rotated, original ABD
@@ -213,6 +219,12 @@ class Config:
     @self_collision_vertex_face_stiffness.setter
     def self_collision_vertex_face_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
+    @property
+    def wind_velocity(self) -> tuple[float, float, float]:
+        """Ambient air velocity as a world-coordinate (x, y, z) tuple in m/s."""
+    @wind_velocity.setter
+    def wind_velocity(self, arg0: typing.Sequence[typing.SupportsFloat | typing.SupportsIndex]) -> None:
+        ...
 class Contact:
     """
     
@@ -222,6 +234,24 @@ class Contact:
         """
         Create an empty contact view.
         """
+    @property
+    def soft_indices(self) -> Span:
+        """Optional particle, edge, or face contact ids as -1-padded triples."""
+    @soft_indices.setter
+    def soft_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def soft_barycentric(self) -> Span:
+        """Optional barycentric weights paired with soft_indices, replacing soft_particle."""
+    @soft_barycentric.setter
+    def soft_barycentric(self, arg1: Span) -> None:
+        ...
+    @property
+    def soft_particle_only_shapes(self) -> Span:
+        """Optional per-original-shape flags selecting legacy particle contacts."""
+    @soft_particle_only_shapes.setter
+    def soft_particle_only_shapes(self, arg1: Span) -> None:
+        ...
     @property
     def count(self) -> Span:
         """
@@ -1350,6 +1380,12 @@ class Model:
         """
     @triangle_count.setter
     def triangle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def triangle_drag_coefficients(self) -> Span:
+        """Optional normal-drag Cd per collision triangle, or elastic triangle if collision topology is absent."""
+    @triangle_drag_coefficients.setter
+    def triangle_drag_coefficients(self, arg1: Span) -> None:
         ...
     @property
     def triangle_indices(self) -> Span:

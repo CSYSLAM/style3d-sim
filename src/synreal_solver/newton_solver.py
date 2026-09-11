@@ -432,6 +432,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         self._collision_triangle_count = int(model.tri_count)
         self._collision_edge_count = int(model.edge_count)
+        self._triangle_drag_coefficients = self._extract_triangle_drag_coefficients()
+        self._soft_particle_only_shapes = self._extract_particle_only_shapes()
         self._affine_body_ids: Any | None = getattr(
             model, "synreal_affine_body_ids", None
         )
@@ -750,7 +752,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             (
                 "collision_triangle_count",
                 self.model.tri_indices,
-                (),
+                (() if self._triangle_drag_coefficients is None else (self._triangle_drag_coefficients,)),
             ),
             (
                 "collision_edge_count",
@@ -2295,10 +2297,14 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     raise ValueError(
                         f"Newton generic surface {name} materials must be finite."
                     )
-                if np.any(values != 0.0):
+                unsupported_values = values.copy()
+                if name == "triangle":
+                    # Normal air drag is independent of the optional Style3D elastic material.
+                    unsupported_values[:, 3] = 0.0
+                if np.any(unsupported_values != 0.0):
                     raise NotImplementedError(
                         "Generic Newton surface elasticity is not supported; "
-                        "use zero-valued surface materials for tetrahedral collision "
+                        "use zero-valued elastic surface materials for tetrahedral collision "
                         "geometry or build Style3D cloth constraints."
                     )
 
@@ -2546,6 +2552,37 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
 
         return Span(ptr=array.ptr, size=expected_size)
+
+    def _extract_triangle_drag_coefficients(self) -> Any | None:
+        """Keep Newton's complete triangle order, including zero-drag tetrahedral surfaces."""
+        count = int(self.model.tri_count)
+        if count == 0:
+            return None
+        materials = getattr(self.model, "tri_materials", None)
+        if materials is None or tuple(materials.shape) != (count, 5):
+            raise ValueError("Newton triangle materials must have shape (tri_count, 5).")
+        coefficients = np.asarray(materials.numpy()[:, 3], dtype=np.float32)
+        if not np.isfinite(coefficients).all() or np.any(coefficients < 0.0):
+            raise ValueError("Newton triangle drag coefficients must be finite and non-negative.")
+        if not np.any(coefficients):
+            return None
+        # The native solver compacts Cd>0 faces once; retaining all coefficients here keeps shared-world validation exact.
+        return self._wp.array(coefficients.copy(), dtype=self._wp.float32, device=self.device)
+
+    def _extract_particle_only_shapes(self) -> Any | None:
+        """A static infinite plane's signed distance reaches its minimum at a soft feature vertex."""
+        if not self.model.shape_count:
+            return None
+        shape_types = self.model.shape_type.numpy()
+        scales = self.model.shape_scale.numpy()
+        infinite_planes = (
+            (shape_types == int(_newton.GeoType.PLANE))
+            & (self.model.shape_body.numpy() < 0)
+            & ((scales[:, 0] <= 0) | (scales[:, 1] <= 0))
+        )
+        if not np.any(infinite_planes):
+            return None
+        return self._wp.array(infinite_planes.astype(np.int32), dtype=self._wp.int32, device=self.device)
 
     def _initialize_synreal_solver(self) -> None:
         """Rebuild native model views and initialize the wrapped solver."""
@@ -2954,6 +2991,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 collision_triangle_count,
                 storage_components=3,
             )
+            if self._triangle_drag_coefficients is not None:
+                self._synreal_model.triangle_drag_coefficients = self._as_span(
+                    self._triangle_drag_coefficients, collision_triangle_count
+                )
 
         collision_edge_count = self._shared_counts.get(
             "collision_edge_count", self._collision_edge_count
@@ -3094,6 +3135,17 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 soft_capacity,
                 expected_dtype=self._wp.int32,
             )
+            if getattr(contacts, "_enable_rigid_soft_full_surface_contact", False):
+                native_contact.soft_indices = self._as_span(
+                    contacts.soft_contact_indices, soft_capacity, expected_dtype=self._wp.vec3i
+                )
+                native_contact.soft_barycentric = self._as_span(
+                    contacts.soft_contact_barycentric, soft_capacity, expected_dtype=self._wp.vec3
+                )
+                if self._soft_particle_only_shapes is not None:
+                    native_contact.soft_particle_only_shapes = self._as_span(
+                        self._soft_particle_only_shapes, int(self.model.shape_count), expected_dtype=self._wp.int32
+                    )
             native_contact.soft_shape = self._as_span(
                 contacts.soft_contact_shape,
                 soft_capacity,
@@ -3337,6 +3389,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
     def notify_model_changed(self, flags: Any) -> None:
         """Refresh native views after Newton model arrays are modified."""
         del flags
+        self._triangle_drag_coefficients = self._extract_triangle_drag_coefficients()
+        self._soft_particle_only_shapes = self._extract_particle_only_shapes()
         self._body_distance_constraint_mass_scales = (
             self._normalize_body_distance_constraint_mass_scales()
         )
