@@ -2595,10 +2595,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._synreal_model.gravity = self._as_span(
             self.model.gravity,
             self._shared_world_count,
+            expected_dtype=self._wp.vec3,
         )
         self._synreal_model.particle_rest_positions = self._as_span(
             self.model.particle_q,
             state_particle_count,
+            expected_dtype=self._wp.vec3,
         )
 
         if particle_count:
@@ -2612,6 +2614,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._synreal_model.particle_indices = self._as_span(
                 self._particle_indices,
                 particle_count,
+                expected_dtype=self._wp.int32,
             )
             mass_diagonal = (
                 self._particle_mass_diagonal
@@ -2619,7 +2622,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 else self.model.particle_mass
             )
             self._synreal_model.particle_masses = self._as_span(
-                mass_diagonal, particle_count
+                mass_diagonal, particle_count, expected_dtype=self._wp.float32
             )
             mass_non_diagonal_count = self._shared_counts.get(
                 "particle_mass_non_diagonal_count",
@@ -2636,22 +2639,27 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._synreal_model.particle_mass_non_diagonal_indices = self._as_span(
                     self._particle_mass_non_diagonal_indices,
                     mass_non_diagonal_count,
+                    expected_dtype=self._wp.vec2i,
                 )
                 self._synreal_model.particle_mass_non_diagonal_values = self._as_span(
                     self._particle_mass_non_diagonal_values,
                     mass_non_diagonal_count,
+                    expected_dtype=self._wp.float32,
                 )
             self._synreal_model.particle_flags = self._as_span(
                 self._particle_flags,
                 particle_count,
+                expected_dtype=self._wp.int32,
             )
             self._synreal_model.particle_world = self._as_span(
                 self.model.particle_world,
                 particle_count,
+                expected_dtype=self._wp.int32,
             )
             self._synreal_model.particle_radii = self._as_span(
                 self.model.particle_radius,
                 particle_count,
+                expected_dtype=self._wp.float32,
             )
             collision_particle_count = self._shared_counts.get(
                 "collision_particle_count", self._collision_particle_count
@@ -2661,6 +2669,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._synreal_model.collision_particle_indices = self._as_span(
                     self._collision_particle_indices,
                     collision_particle_count,
+                    expected_dtype=self._wp.int32,
                 )
         else:
             self._particle_indices = None
@@ -2674,14 +2683,17 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self.model.spring_indices,
                 spring_count,
                 storage_components=2,
+                expected_dtype=self._wp.int32,
             )
             self._synreal_model.spring_stiffnesses = self._as_span(
                 self.model.spring_stiffness,
                 spring_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.spring_rest_lengths = self._as_span(
                 self.model.spring_rest_length,
                 spring_count,
+                expected_dtype=self._wp.float32,
             )
 
         tetrahedron_count = self._shared_counts.get(
@@ -2693,15 +2705,18 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._tetrahedron_indices,
                 tetrahedron_count,
                 storage_components=4,
+                expected_dtype=self._wp.int32,
             )
             self._synreal_model.tetrahedron_inverse_dms = self._as_span(
                 self._tetrahedron_inverse_dms,
                 tetrahedron_count,
+                expected_dtype=self._wp.mat33,
             )
             self._synreal_model.tetrahedron_materials = self._as_span(
                 self._tetrahedron_materials,
                 tetrahedron_count,
                 storage_components=3,
+                expected_dtype=self._wp.float32,
             )
 
         state_affine_body_count = (
@@ -2714,34 +2729,34 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._synreal_model.body_state_count = state_affine_body_count
         if affine_body_count:
             self._synreal_model.body_masses = self._as_span(
-                self._affine_body_masses, affine_body_count
+                self._affine_body_masses, affine_body_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.body_inertia_tensors = self._as_span(
-                self._affine_body_inertia, affine_body_count
+                self._affine_body_inertia, affine_body_count, expected_dtype=self._wp.mat33
             )
             self._synreal_model.affine_body_indices = self._as_span(
-                self._affine_body_indices, affine_body_count
+                self._affine_body_indices, affine_body_count, expected_dtype=self._wp.vec4i
             )
             self._synreal_model.affine_body_rigidity_scales = self._as_span(
-                self._affine_body_rigidity_scales, affine_body_count
+                self._affine_body_rigidity_scales, affine_body_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.affine_body_axis_lengths = self._as_span(
-                self._affine_body_axis_lengths, affine_body_count
+                self._affine_body_axis_lengths, affine_body_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.affine_body_orthogonality_scales = self._as_span(
-                self._affine_body_orthogonality_scales, affine_body_count
+                self._affine_body_orthogonality_scales, affine_body_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.affine_body_corotated_scales = self._as_span(
-                self._affine_body_corotated_scales, affine_body_count
+                self._affine_body_corotated_scales, affine_body_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.affine_body_so3_scales = self._as_span(
-                self._affine_body_so3_scales, affine_body_count
+                self._affine_body_so3_scales, affine_body_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.affine_body_ids = self._as_span(
-                self._affine_body_ids, affine_body_count
+                self._affine_body_ids, affine_body_count, expected_dtype=self._wp.int32
             )
             self._synreal_model.body_centers_of_mass = self._as_span(
-                self._affine_body_com, affine_body_count
+                self._affine_body_com, affine_body_count, expected_dtype=self._wp.vec3
             )
 
         body_spring_count = self._shared_counts.get(
@@ -2758,19 +2773,19 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         if body_spring_count:
             self._synreal_model.body_spring_indices = self._as_span(
-                self._body_spring_indices, body_spring_count
+                self._body_spring_indices, body_spring_count, expected_dtype=self._wp.vec2i
             )
             self._synreal_model.body_spring_points0 = self._as_span(
-                self._body_spring_points0, body_spring_count
+                self._body_spring_points0, body_spring_count, expected_dtype=self._wp.vec3
             )
             self._synreal_model.body_spring_points1 = self._as_span(
-                self._body_spring_points1, body_spring_count
+                self._body_spring_points1, body_spring_count, expected_dtype=self._wp.vec3
             )
             self._synreal_model.body_spring_stiffnesses = self._as_span(
-                self._body_spring_stiffnesses, body_spring_count
+                self._body_spring_stiffnesses, body_spring_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.body_spring_rest_lengths = self._as_span(
-                self._body_spring_rest_lengths, body_spring_count
+                self._body_spring_rest_lengths, body_spring_count, expected_dtype=self._wp.float32
             )
 
         body_distance_constraint_count = self._shared_counts.get(
@@ -2788,30 +2803,37 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._synreal_model.body_distance_constraint_indices = self._as_span(
                 self._body_distance_constraint_indices,
                 body_distance_constraint_count,
+                expected_dtype=self._wp.vec2i,
             )
             self._synreal_model.body_distance_constraint_points0 = self._as_span(
                 self._body_distance_constraint_points0,
                 body_distance_constraint_count,
+                expected_dtype=self._wp.vec3,
             )
             self._synreal_model.body_distance_constraint_points1 = self._as_span(
                 self._body_distance_constraint_points1,
                 body_distance_constraint_count,
+                expected_dtype=self._wp.vec3,
             )
             self._synreal_model.body_distance_constraint_weights0 = self._as_span(
                 self._body_distance_constraint_weights0,
                 body_distance_constraint_count,
+                expected_dtype=self._wp.vec4,
             )
             self._synreal_model.body_distance_constraint_weights1 = self._as_span(
                 self._body_distance_constraint_weights1,
                 body_distance_constraint_count,
+                expected_dtype=self._wp.vec4,
             )
             self._synreal_model.body_distance_constraint_mass_scales = self._as_span(
                 self._body_distance_constraint_mass_scales,
                 body_distance_constraint_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.body_distance_constraint_rest_lengths = self._as_span(
                 self._body_distance_constraint_rest_lengths,
                 body_distance_constraint_count,
+                expected_dtype=self._wp.float32,
             )
 
         body_point_line_count = self._shared_counts.get(
@@ -2831,22 +2853,34 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         if body_point_line_count:
             self._synreal_model.body_point_line_indices = self._as_span(
-                self._body_point_line_indices, body_point_line_count
+                self._body_point_line_indices,
+                body_point_line_count,
+                expected_dtype=self._wp.vec2i,
             )
             self._synreal_model.body_point_line_points = self._as_span(
-                self._body_point_line_points, body_point_line_count
+                self._body_point_line_points,
+                body_point_line_count,
+                expected_dtype=self._wp.vec3,
             )
             self._synreal_model.body_point_line_endpoints0 = self._as_span(
-                self._body_point_line_endpoints0, body_point_line_count
+                self._body_point_line_endpoints0,
+                body_point_line_count,
+                expected_dtype=self._wp.vec3,
             )
             self._synreal_model.body_point_line_endpoints1 = self._as_span(
-                self._body_point_line_endpoints1, body_point_line_count
+                self._body_point_line_endpoints1,
+                body_point_line_count,
+                expected_dtype=self._wp.vec3,
             )
             self._synreal_model.body_point_line_stiffnesses = self._as_span(
-                self._body_point_line_stiffnesses, body_point_line_count
+                self._body_point_line_stiffnesses,
+                body_point_line_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.body_point_line_dampings = self._as_span(
-                self._body_point_line_dampings, body_point_line_count
+                self._body_point_line_dampings,
+                body_point_line_count,
+                expected_dtype=self._wp.float32,
             )
 
         joint_drive_count = self._shared_counts.get(
@@ -2862,40 +2896,40 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         if joint_drive_count:
             self._synreal_model.joint_drive_types = self._as_span(
-                self._joint_drive_types, joint_drive_count
+                self._joint_drive_types, joint_drive_count, expected_dtype=self._wp.int32
             )
             self._synreal_model.joint_drive_body_indices = self._as_span(
-                self._joint_drive_body_indices, joint_drive_count
+                self._joint_drive_body_indices, joint_drive_count, expected_dtype=self._wp.vec2i
             )
             self._synreal_model.joint_drive_parent_origins = self._as_span(
-                self._joint_drive_parent_origins, joint_drive_count
+                self._joint_drive_parent_origins, joint_drive_count, expected_dtype=self._wp.vec3
             )
             self._synreal_model.joint_drive_child_origins = self._as_span(
-                self._joint_drive_child_origins, joint_drive_count
+                self._joint_drive_child_origins, joint_drive_count, expected_dtype=self._wp.vec3
             )
             self._synreal_model.joint_drive_parent_axis_points = self._as_span(
-                self._joint_drive_parent_axis_points, joint_drive_count
+                self._joint_drive_parent_axis_points, joint_drive_count, expected_dtype=self._wp.vec3
             )
             self._synreal_model.joint_drive_parent_reference_points = self._as_span(
-                self._joint_drive_parent_reference_points, joint_drive_count
+                self._joint_drive_parent_reference_points, joint_drive_count, expected_dtype=self._wp.vec3
             )
             self._synreal_model.joint_drive_child_reference_points = self._as_span(
-                self._joint_drive_child_reference_points, joint_drive_count
+                self._joint_drive_child_reference_points, joint_drive_count, expected_dtype=self._wp.vec3
             )
             self._synreal_model.joint_drive_dof_indices = self._as_span(
-                self._joint_drive_dof_indices, joint_drive_count
+                self._joint_drive_dof_indices, joint_drive_count, expected_dtype=self._wp.int32
             )
             self._synreal_model.joint_drive_target_indices = self._as_span(
-                self._joint_drive_target_indices, joint_drive_count
+                self._joint_drive_target_indices, joint_drive_count, expected_dtype=self._wp.int32
             )
             self._synreal_model.joint_target_stiffnesses = self._as_span(
-                self.model.joint_target_ke, self._synreal_model.joint_dof_count
+                self.model.joint_target_ke, self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.joint_target_dampings = self._as_span(
-                self.model.joint_target_kd, self._synreal_model.joint_dof_count
+                self.model.joint_target_kd, self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.joint_effort_limits = self._as_span(
-                self.model.joint_effort_limit, self._synreal_model.joint_dof_count
+                self.model.joint_effort_limit, self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
             )
 
         shape_count = self._shared_counts.get(
@@ -2909,28 +2943,33 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._synreal_model.shape_bodies = self._as_span(
                 self._shared_shape_arrays.get("shape_bodies", self.model.shape_body),
                 shape_count,
+                expected_dtype=self._wp.int32,
             )
             self._synreal_model.shape_contact_stiffnesses = self._as_span(
                 self._shared_shape_arrays.get(
                     "shape_contact_stiffnesses", self.model.shape_material_ke
                 ),
                 shape_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.shape_contact_dampings = self._as_span(
                 self._shared_shape_arrays.get(
                     "shape_contact_dampings", self.model.shape_material_kd
                 ),
                 shape_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.shape_frictions = self._as_span(
                 self._shared_shape_arrays.get(
                     "shape_frictions", self.model.shape_material_mu
                 ),
                 shape_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.shape_margins = self._as_span(
                 self._shared_shape_arrays.get("shape_margins", self.model.shape_margin),
                 shape_count,
+                expected_dtype=self._wp.float32,
             )
         self._synreal_model.soft_contact_stiffness = float(self.model.soft_contact_ke)
         self._synreal_model.soft_contact_damping = float(self.model.soft_contact_kd)
@@ -2945,18 +2984,22 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self.model.tri_indices,
                 triangle_count,
                 storage_components=3,
+                expected_dtype=self._wp.int32,
             )
             self._synreal_model.triangle_rest_areas = self._as_span(
                 self.model.tri_areas,
                 triangle_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.triangle_inv_dms = self._as_span(
                 self.model.tri_poses,
                 triangle_count,
+                expected_dtype=self._wp.mat22,
             )
             self._synreal_model.triangle_aniso_stiffnesses = self._as_span(
                 self._style3d.tri_aniso_ke,
                 triangle_count,
+                expected_dtype=self._wp.vec3,
             )
 
         edge_count = self._shared_counts.get("edge_count", self._native_edge_count)
@@ -2966,19 +3009,23 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self.model.edge_indices,
                 edge_count,
                 storage_components=4,
+                expected_dtype=self._wp.int32,
             )
             self._synreal_model.edge_bending_properties = self._as_span(
                 self.model.edge_bending_properties,
                 edge_count,
                 storage_components=2,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.edge_rest_areas = self._as_span(
                 self._style3d.edge_rest_area,
                 edge_count,
+                expected_dtype=self._wp.float32,
             )
             self._synreal_model.edge_bending_cots = self._as_span(
                 self._style3d.edge_bending_cot,
                 edge_count,
+                expected_dtype=self._wp.vec4,
             )
 
         collision_triangle_count = self._shared_counts.get(
@@ -2990,10 +3037,11 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self.model.tri_indices,
                 collision_triangle_count,
                 storage_components=3,
+                expected_dtype=self._wp.int32,
             )
             if self._triangle_drag_coefficients is not None:
                 self._synreal_model.triangle_drag_coefficients = self._as_span(
-                    self._triangle_drag_coefficients, collision_triangle_count
+                    self._triangle_drag_coefficients, collision_triangle_count, expected_dtype=self._wp.float32
                 )
 
         collision_edge_count = self._shared_counts.get(
@@ -3005,6 +3053,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self.model.edge_indices,
                 collision_edge_count,
                 storage_components=4,
+                expected_dtype=self._wp.int32,
             )
 
         # Native initialization copies Style3D coefficients to the host while
@@ -3031,7 +3080,28 @@ class NewtonSolver(_newton.solvers.SolverBase):
         native_state.particle_f = self._as_span(
             state.particle_f, particle_count, expected_dtype=self._wp.vec3
         )
+        body_count = int(self.model.body_count)
+        if body_count:
+            for name, dtype in (
+                ("body_q", self._wp.transform),
+                ("body_qd", self._wp.spatial_vector),
+            ):
+                body_array = getattr(state, name, None)
+                if body_array is None:
+                    raise ValueError(f"Newton state is missing required {name} array.")
+                self._as_span(body_array, body_count, expected_dtype=dtype)
+            body_force = getattr(state, "body_f", None)
+            if body_force is not None:
+                self._as_span(body_force, body_count, expected_dtype=self._wp.spatial_vector)
         return native_state
+
+    def _validate_body_state_arrays(self, state: Any) -> None:
+        """Validate body arrays used by Python-side affine prediction kernels."""
+        body_count = int(self.model.body_count)
+        if not body_count:
+            return
+        self._as_span(state.body_q, body_count, expected_dtype=self._wp.transform)
+        self._as_span(state.body_qd, body_count, expected_dtype=self._wp.spatial_vector)
 
     def sync_affine_body_state(self, state: Any) -> None:
         """Update affine proxy positions and velocities from Newton body state.
@@ -3054,6 +3124,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
         if state.body_q is None or state.body_qd is None:
             raise ValueError("Affine body synchronization requires body_q and body_qd.")
+        self._validate_body_state_arrays(state)
+        self._as_span(state.particle_q, self.model.particle_count, expected_dtype=self._wp.vec3)
+        self._as_span(state.particle_qd, self.model.particle_count, expected_dtype=self._wp.vec3)
 
         stream = self._wp.get_stream(self.device)
         self._wp.launch(
@@ -3130,11 +3203,16 @@ class NewtonSolver(_newton.solvers.SolverBase):
             native_contact.soft_count = self._as_span(
                 contacts.soft_contact_count, 1, expected_dtype=self._wp.int32
             )
-            native_contact.soft_particle = self._as_span(
-                contacts.soft_contact_particle,
-                soft_capacity,
-                expected_dtype=self._wp.int32,
-            )
+            # Full-surface records can identify the deformable side with three
+            # vertices and barycentric weights, so the legacy particle id is
+            # optional unless particle-only shape fallback is enabled.
+            soft_particle = getattr(contacts, "soft_contact_particle", None)
+            if soft_particle is not None:
+                native_contact.soft_particle = self._as_span(
+                    soft_particle,
+                    soft_capacity,
+                    expected_dtype=self._wp.int32,
+                )
             if getattr(contacts, "_enable_rigid_soft_full_surface_contact", False):
                 native_contact.soft_indices = self._as_span(
                     contacts.soft_contact_indices, soft_capacity, expected_dtype=self._wp.vec3i
@@ -3255,6 +3333,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         native_state_in = self._as_synreal_state(state_in)
         native_state_out = self._as_synreal_state(state_out)
+        self._validate_body_state_arrays(state_in)
+        self._validate_body_state_arrays(state_out)
         native_control = self._as_synreal_control(control)
         native_contact = self._as_synreal_contact(contacts)
         stream = self._wp.get_stream(self.device)
