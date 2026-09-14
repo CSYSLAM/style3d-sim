@@ -34,6 +34,11 @@ def validate(report):
     metadata = json.loads((ROOT / "simulation_metadata.json").read_text(encoding="utf-8"))
     simulation = metadata["simulation"]
     frames = list(range(simulation["samples"]))
+    frame_seconds = simulation["substep_seconds"] * metadata["physics_parameters"]["substeps"]
+    require(np.isclose(frame_seconds * simulation["fps"], 1.0, rtol=0.0, atol=1.0e-10),
+            "Export sampling rate differs from the recorded physics timestep")
+    require(np.isclose(simulation["duration_seconds"], simulation["frames"] / simulation["fps"]),
+            "Export duration differs from its frame count and sampling rate")
     report["source_hashes"] = []
     for relative, expected in metadata["source_sha256"].items():
         # Metadata created on Windows uses backslashes, even when this bundle is checked on another OS.
@@ -65,6 +70,9 @@ def validate(report):
     require(bodies.shape == (len(frames), simulation["robot_bodies"], 7), "Unexpected raw body array shape")
     require(np.array_equal(times, np.arange(len(frames), dtype=np.float64) / simulation["fps"]),
             "Raw sample timestamps differ from the USD timeline")
+    require([entry["frame"] for entry in metadata["timeline"]] == frames, "Metadata timeline has missing frames")
+    require(np.array_equal([entry["time_seconds"] for entry in metadata["timeline"]], times),
+            "Metadata timestamps differ from the raw sample timestamps")
     require(np.isfinite(particles).all() and np.isfinite(bodies).all(), "Raw positions contain nonfinite values")
     report["raw_shapes"] = {"particle_q": list(particles.shape), "body_q": list(bodies.shape)}
 

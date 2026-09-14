@@ -48,13 +48,28 @@ uv run python .\demo_g1_jelly_mountain.py
 The entry point, G1 assembly, and jelly generation scripts all live in this directory. Robot assets remain in
 `assets/g1_jelly/` at the repository root and are resolved independently of the working directory.
 
+### Jelly material and rebound
+
+The default material uses `--jelly-mu 4000`, `--jelly-lambda 80000`, and `--jelly-damping 12`.
+Compared with the old shear modulus of 2000 and damping of 180, it recovers shape faster and visibly
+oscillates after impact. The volume stiffness stays at 80000 so the stack can still support the robot.
+`--contact-kd 25` reduces normal contact damping; `--substeps 8` resolves the rebound at 480 Hz with the
+current 60 FPS simulation. Increasing `--jelly-damping` suppresses oscillation; increasing `--jelly-mu`
+makes shape recovery firmer. These options are also accepted by `export_simulation.py` and saved in metadata.
+
+A gravity-free, contact-free cube released from 20% volume-preserving compression recovered through its
+rest height in 0.05 s and overshot by 11.8% with this preset. The old material recovered monotonically,
+with no meaningful overshoot at the same timestep. This is a visual tuning preset, not measured food material data.
+Saved USD animations contain baked motion: export again and rebuild the Blender project to see material changes.
+
 Export the current example's physics simulation. Unspecified options use the current defaults from
 `demo_g1_jelly_mountain.py`. You can append `--jelly-width`, `--layers`, `--drop-height`, `--layer-gap`,
-`--base-height`, and other example options. The simulation samples at 60 Hz; `--num-frames 240` saves 241 samples,
-including the initial state.
+`--base-height`, and other example options. The current simulation samples at 50 Hz; `--num-frames 250` saves 251 samples,
+including the initial state. The exporter derives USD FPS, NPZ timestamps, and metadata times from the actual
+`Example.frame_dt`; physics substeps do not change the output sample rate.
 
 ```powershell
-uv run --with usd-core python .\export_simulation.py --num-frames 240 --substeps 4
+uv run --with usd-core python .\export_simulation.py --num-frames 250 --substeps 4
 uv run --with usd-core python .\validate_simulation.py
 ```
 
@@ -72,26 +87,45 @@ Build an editable Blender project from the USD:
     --usd .\outputs\simulation.usdc
 ```
 
+The builder checks `simulation_fps` against USD `timeCodesPerSecond` before importing or saving a project.
+If they differ after changing the simulation rate, re-export with the corrected exporter before rebuilding.
 The `usd` and `project` paths in `render_config.json` are relative to this directory and point into `outputs/` by default.
 If you change the cache length, update `frame_end` in the configuration and `--end` in the encoding command.
 Check camera framing after changing scene dimensions. The build script overwrites `outputs/g1_jelly_mountain.blend`,
 including any manual edits in that file.
 
 After changing example parameters and exporting again, always run `build_render_scene.py` again before rendering.
+`render_config.json` controls G1 metallic with `robot_metallic` (0.05) and floor metallic with
+`floor_metallic` (0.0). `floor_roughness` (0.65) controls the studio floor's roughness.
+Rebuild the Blender project after changing these material settings; no new simulation is needed.
+The viewer and new USD exports omit the ground rings. Rebuilding also hides rings from older USD exports,
+so removing them from a rendered scene does not require another simulation.
 Replacing `simulation.usdc` does not recreate the objects or static geometry already imported into the `.blend`.
 For example, reducing the number of jelly layers can leave old cubes visible in an unreconstructed project.
 The builder starts from an empty scene and records the USD fingerprint; rendering rejects changed caches or missing
 USD object paths and asks you to rebuild. Back up any manually edited project before rebuilding.
 
 The default preset uses Cycles / OptiX GPU, 1920 x 1080 resolution, up to 256 samples, an adaptive threshold of 0.01,
-OpenImageDenoise, AgX, depth of field, and motion blur. Jelly materials use transmission and volume absorption with
+OpenImageDenoise, ACES 2.0 tone mapping, depth of field, and motion blur. Jelly materials use transmission and volume absorption with
 2 levels of render subdivision. The USD retains the original simulation mesh.
+
+Color management uses Blender's native OCIO view transform. Set `view_transform` (default `ACES 2.0`),
+`look` (default `None`), `exposure`, and `gamma` (1.0) in `render_config.json`, then rebuild the Blender project.
+`gamma` is an additional artistic adjustment, not the output encoding gamma. The OCIO display transform already
+handles sRGB output encoding; keep this adjustment at 1.0 for a neutral result with ACES.
+ACES 2.0 requires a Blender installation whose color configuration provides that view (the supplied 5.2 preset does).
+Tone mapping applies when viewing/rendering images; the USD simulation data remains in its original color representation.
+
+The four studio area lights are twice as far from their respective targets as in the previous preset.
+Their power is multiplied by four and their size by two, preserving direct illumination and angular size at each target.
+To repeat this adjustment, use `position = target + scale * (position - target)`, multiply `energy` by `scale**2`,
+and multiply `size` by `scale`. This reduces lighting variation across the floor; indirect light and shadows may still change.
 
 Preview selected frames in `outputs/previews/`:
 
 ```powershell
 & $blenderExe -b .\outputs\g1_jelly_mountain.blend --python-exit-code 1 --python ..\utils\render_frames.py -- `
-    --frames 0,60,120,240 --preview --config .\render_config.json --overwrite
+    --frames 0,50,125,250 --preview --config .\render_config.json --overwrite
 ```
 
 Render the complete sequence and encode the video:
@@ -100,13 +134,13 @@ Render the complete sequence and encode the video:
 & $blenderExe -b .\outputs\g1_jelly_mountain.blend --python-exit-code 1 --python ..\utils\render_frames.py -- `
     --animation --overwrite
 uv run --with imageio-ffmpeg --with pillow python ..\utils\encode_video.py `
-    --output-dir .\outputs --output g1_jelly_mountain.mp4 --start 0 --end 240 --contact-sheet
+    --output-dir .\outputs --output g1_jelly_mountain.mp4 --start 0 --end 250 --contact-sheet
 ```
 
-Final frames are saved as 16-bit RGB PNGs from `outputs/frames/frame_0000.png` through `frame_0240.png`.
+Final frames are saved as 16-bit RGB PNGs from `outputs/frames/frame_0000.png` through `frame_0250.png`.
 The video is written to `outputs/g1_jelly_mountain.mp4` with H.264, CRF 17, 30 fps, BT.709, and yuv420p by default.
-Playing the 241 samples from a 60 Hz simulation at 30 fps gives half-speed playback lasting approximately 8.033 seconds.
-Use `--fps 60` for real-time playback or `--crf 15` for higher encoding quality.
+Encoding all 251 samples from a 50 Hz simulation at 30 fps gives 0.6x playback speed and about 8.37 seconds of video.
+Use `--fps 50` for real-time playback or `--crf 15` for higher encoding quality.
 The encoder checks frame continuity, dimensions, and full video decoding. It preserves all PNGs and saves verification
 results in `outputs/*.video.json`.
 Relative `--input` and `--output` paths for `encode_video.py` resolve under `--output-dir`; absolute paths are supported.

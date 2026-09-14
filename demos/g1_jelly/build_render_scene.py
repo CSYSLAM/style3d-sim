@@ -8,11 +8,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
 import bpy
 from mathutils import Vector
+from pxr import Usd
 
 
 ROOT = Path(__file__).resolve().parent
@@ -58,6 +60,15 @@ def linear_rgb(color):
     return tuple(c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in color)
 
 
+def apply_color_management(scene, cfg):
+    # Use Blender's OCIO output transform so both the viewport and saved PNGs receive the same tone mapping.
+    scene.view_settings.view_transform = cfg.get("view_transform", "ACES 2.0")
+    scene.view_settings.look = cfg.get("look", "None")
+    scene.view_settings.exposure = cfg["exposure"]
+    # This is an extra artistic adjustment; the OCIO display transform already handles sRGB output encoding.
+    scene.view_settings.gamma = cfg.get("gamma", 1.0)
+
+
 def select_gpu():
     prefs = bpy.context.preferences.addons["cycles"].preferences
     prefs.compute_device_type = "OPTIX"
@@ -76,12 +87,24 @@ def main():
     parser.add_argument("--config", type=Path, default=ROOT / "render_config.json")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
     cfg = json.loads(args.config.read_text(encoding="utf-8"))
+    usd_path = (ROOT / cfg["usd"]).resolve()
+    stage = Usd.Stage.Open(str(usd_path))
+    source_fps = stage.GetTimeCodesPerSecond()
+    # Catch stale export timing before replacing the scene or saving an incompatible Blender project.
+    if not math.isclose(cfg["simulation_fps"], source_fps, rel_tol=0.0, abs_tol=1.0e-8):
+        raise ValueError(
+            f"Sampling rate mismatch: render_config simulation_fps={cfg['simulation_fps']}, "
+            f"USD timeCodesPerSecond={source_fps:g}. Re-export with export_simulation.py after changing simulation FPS."
+        )
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scene = bpy.context.scene
-    # Import at the original sampling rate. The encoder alone performs the 2x slow playback.
-    scene.render.fps = cfg["simulation_fps"]
-    bpy.ops.wm.usd_import(filepath=str(ROOT / cfg["usd"]), import_materials=True, set_frame_range=True)
-    scene.render.fps = cfg["simulation_fps"]
+    apply_color_management(scene, cfg)
+    # Preserve simulation timing on import; playback speed changes belong to the video encoder.
+    scene.render.fps = round(source_fps)
+    scene.render.fps_base = scene.render.fps / source_fps
+    bpy.ops.wm.usd_import(filepath=str(usd_path), import_materials=True, set_frame_range=True)
+    scene.render.fps = round(source_fps)
+    scene.render.fps_base = scene.render.fps / source_fps
     scene.frame_start, scene.frame_end = cfg["frame_start"], cfg["frame_end"]
     studio = bpy.data.collections.new("Studio | camera, lights, floor")
     scene.collection.children.link(studio)
@@ -119,12 +142,13 @@ def main():
         elif "floor" in obj.name.lower():
             obj.hide_render = True
         elif "marking" in obj.name.lower():
-            mat, _ = material("Drop zone | satin inlay", (0.34, 0.42, 0.52), metallic=0.45, roughness=0.32)
-            assign(obj, mat)
+            # Hide markings from older USD exports while retaining their objects for cache validation.
+            obj.hide_render = True
+            obj.hide_set(True)
         else:
             dark = max(color) < 0.3
             mat, shader = material(
-                f"Robot | {obj.name}", linear_rgb(color), metallic=0.15 if dark else 0.55,
+                f"Robot | {obj.name}", linear_rgb(color), metallic=cfg.get("robot_metallic", 0.05),
                 roughness=0.30 if dark else 0.26,
             )
             shader.inputs["Coat Weight"].default_value = 0.15
@@ -133,7 +157,10 @@ def main():
                 polygon.use_smooth = True
             counts["robot"] += 1
 
-    floor_mat, floor_shader = material("Studio | graphite satin", cfg["floor_color"], metallic=0.2, roughness=0.29)
+    floor_mat, floor_shader = material(
+        "Studio | graphite satin", cfg["floor_color"], metallic=cfg.get("floor_metallic", 0.0),
+        roughness=cfg.get("floor_roughness", 0.65),
+    )
     bpy.ops.mesh.primitive_plane_add(size=200, location=(0, 0, -0.009))
     floor = bpy.context.object
     floor.name = "Studio floor"
@@ -194,16 +221,18 @@ def main():
     scene.render.image_settings.color_depth = "16"
     scene.render.image_settings.compression = 25
     scene.render.filepath = "//frames/frame_"
-    scene.view_settings.view_transform = "AgX"
-    scene.view_settings.look = "AgX - Medium High Contrast"
-    scene.view_settings.exposure = cfg["exposure"]
     scene.frame_set(0)
     for screen in bpy.data.screens:
         for area in screen.areas:
             if area.type == "VIEW_3D":
                 area.spaces.active.region_3d.view_perspective = "CAMERA"
-    scene["simulation_cache"] = "simulation.usdc | 60 Hz physics cache, frames 0 to 240"
-    scene["video_playback"] = "Encode the 241 rendered frames at 30 fps for 2x slow motion"
+    scene["simulation_cache"] = (
+        f"{usd_path.name} | {source_fps:g} Hz physics cache, frames {scene.frame_start} to {scene.frame_end}"
+    )
+    scene["video_playback"] = (
+        f"Encode {scene.frame_end - scene.frame_start + 1} rendered frames at {cfg['video_fps']} fps "
+        f"for {source_fps / cfg['video_fps']:.3g}x playback duration"
+    )
     scene["render_config"] = args.config.name
     # Establish the project directory before resolving Blender's // relative cache paths.
     (ROOT / cfg["project"]).parent.mkdir(parents=True, exist_ok=True)

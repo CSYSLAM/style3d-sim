@@ -42,7 +42,7 @@ class CaptureViewer(ViewerNull):
         super().__init__(num_frames=frames)
 
     def log_mesh(self, name, points, indices, *args, **kwargs):
-        if name in {"studio_floor", "drop_zone_markings"}:
+        if name == "studio_floor":
             self.decorations[name] = (points.numpy(), indices.numpy(), kwargs)
 
 
@@ -72,9 +72,11 @@ def set_pose(translate, orient, pose, frame=None):
 class SimulationUSD:
     def __init__(self, path, example, decorations, frame_count):
         self.example = example
+        # One USD time code represents one output frame, regardless of the number of physics substeps.
+        self.fps = 1.0 / example.frame_dt
         self.stage = Usd.Stage.CreateNew(str(path))
-        self.stage.SetFramesPerSecond(60)
-        self.stage.SetTimeCodesPerSecond(60)
+        self.stage.SetFramesPerSecond(self.fps)
+        self.stage.SetTimeCodesPerSecond(self.fps)
         self.stage.SetStartTimeCode(0)
         self.stage.SetEndTimeCode(frame_count)
         UsdGeom.SetStageUpAxis(self.stage, UsdGeom.Tokens.z)
@@ -194,7 +196,7 @@ class SimulationUSD:
         robot_bounds = bounds(np.concatenate([transform_points(points, bodies[index]) for index, points in self.robot_meshes]))
         jelly_bounds = bounds(np.concatenate(jelly_bounds))
         self.timeline.append({
-            "frame": frame, "time_seconds": frame / 60.0,
+            "frame": frame, "time_seconds": frame / self.fps,
             "pelvis_position": bodies[self.example.robot.root_body, :3].tolist(),
             "robot_bounds": robot_bounds.tolist(), "jelly_bounds": jelly_bounds.tolist(),
             "content_bounds": bounds(np.concatenate((robot_bounds, jelly_bounds))).tolist(),
@@ -256,7 +258,7 @@ def main():
     state_path = export_args.output.with_name("simulation_states.npz")
     np.savez_compressed(
         state_path, particle_q=np.stack(particle_samples), body_q=np.stack(body_samples),
-        time_seconds=np.arange(args.num_frames + 1, dtype=np.float64) / 60.0,
+        time_seconds=np.arange(args.num_frames + 1, dtype=np.float64) / archive.fps,
     )
     stage = Usd.Stage.Open(str(export_args.output))
     expected_samples = list(range(args.num_frames + 1))
@@ -279,8 +281,9 @@ def main():
         "source_sha256": {path.relative_to(REPOSITORY).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
                           for path in source_files},
         "simulation": {
-            "frames": args.num_frames, "samples": args.num_frames + 1, "fps": 60,
-            "start_time_code": 0, "end_time_code": args.num_frames, "duration_seconds": args.num_frames / 60.0,
+            "frames": args.num_frames, "samples": args.num_frames + 1, "fps": archive.fps,
+            "start_time_code": 0, "end_time_code": args.num_frames, "duration_seconds": args.num_frames / archive.fps,
+            "frame_seconds": example.frame_dt,
             "up_axis": "Z", "meters_per_unit": 1.0, "substep_seconds": example.dt,
             "jelly_cubes": len(example.groups), "robot_bodies": len(archive.bodies),
             "visual_meshes": len(archive.robot_meshes), "jelly_particles": example.mountain["particle_range"][1],

@@ -12,11 +12,14 @@ JELLY_GAP = 0.02
 JELLY_LAYER_GAP = 0.02
 JELLY_BASE_HEIGHT = 0.04
 JELLY_DENSITY = 450.0
-# The lower tiers must support the weight of the freestanding stack before the robot lands.
-JELLY_MU = 2.0e3
+# A firmer shear response restores shape quickly; volume stiffness keeps the loaded stack from collapsing.
+JELLY_MU = 4.0e3
 JELLY_LAMBDA = 8.0e4
-JELLY_DAMPING = 180.0
+JELLY_DAMPING = 12.0
 JELLY_CONTACT_RADIUS = 0.006
+# The three tiers nearest the top are intentionally easy to count in the viewer:
+# one blue cube, four green cubes, and nine red cubes. Lower tiers keep the original palette.
+TOP_LAYER_COLORS = {1: (0.42, 0.62, 1.0), 2: (0.42, 0.95, 0.58), 3: (1.0, 0.42, 0.42)}
 LAYER_COLORS = ((0.12, 0.72, 0.95), (0.23, 0.93, 0.48), (1.0, 0.65, 0.08), (0.96, 0.20, 0.58))
 
 
@@ -76,6 +79,9 @@ def add_jelly_mountain(
     layers: int = JELLY_LAYERS,
     subdivisions: int = 3,
     center_xy: tuple[float, float] = (0.0, 0.0),
+    shear_modulus: float = JELLY_MU,
+    lame_lambda: float = JELLY_LAMBDA,
+    damping: float = JELLY_DAMPING,
 ) -> dict:
     """Add a square pyramid with exactly one cube layer in each tier.
 
@@ -86,6 +92,10 @@ def add_jelly_mountain(
     ending in a single cube. The horizontal gap and contact thickness scale with cube size.
     ``layer_gap`` is the vertical surface clearance between tiers; ``base_z`` is the bottom surface height.
     """
+    if not all(np.isfinite(value) and value > 0.0 for value in (shear_modulus, lame_lambda)):
+        raise ValueError("Jelly material stiffnesses must be finite and positive")
+    if not np.isfinite(damping) or damping < 0.0:
+        raise ValueError("Jelly damping must be finite and nonnegative")
     vertices, tetrahedra = jelly_cube_mesh(side, subdivisions)
     scale = side / JELLY_SIDE
     if gap is None:
@@ -116,12 +126,17 @@ def add_jelly_mountain(
                 builder.add_soft_mesh(
                     pos=wp.vec3(*center), rot=wp.quat_identity(), scale=1.0, vel=wp.vec3(0.0),
                     vertices=vertices, indices=tetrahedra.ravel(), density=JELLY_DENSITY,
-                    k_mu=JELLY_MU, k_lambda=JELLY_LAMBDA, k_damp=JELLY_DAMPING,
+                    k_mu=shear_modulus, k_lambda=lame_lambda, k_damp=damping,
                     particle_radius=contact_radius, add_surface_mesh_edges=True,
                     validate_mesh=True, label=name,
                 )
-                color = np.asarray(LAYER_COLORS[layer % len(LAYER_COLORS)])
-                color = np.clip(color * (0.89 + 0.055 * ((x + 2 * y) % 3)), 0.0, 1.0)
+                # ``tier_from_top`` maps the default 1/4/9 cube tiers to blue/green/red,
+                # while keeping configurable lower tiers visually distinct with the old palette.
+                tier_from_top = layers - layer
+                if tier_from_top in TOP_LAYER_COLORS:
+                    color = np.asarray(TOP_LAYER_COLORS[tier_from_top], dtype=np.float32)
+                else:
+                    color = np.asarray(LAYER_COLORS[layer % len(LAYER_COLORS)], dtype=np.float32)
                 groups[name] = {
                     "particle_range": (particle_start, len(builder.particle_q)),
                     "triangle_range": (triangle_start, len(builder.tri_indices)),

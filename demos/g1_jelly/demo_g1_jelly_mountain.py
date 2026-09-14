@@ -18,12 +18,14 @@ from newton._src.geometry.kernels import sdf_box, sdf_cylinder, sdf_sphere
 if __package__:
     from .g1_jelly_robot import add_g1, measure_joint_errors
     from .jelly_mountain import (
-        JELLY_BASE_HEIGHT, JELLY_LAYER_GAP, JELLY_LAYERS, JELLY_SIDE, add_jelly_mountain, signed_six_volumes,
+        JELLY_BASE_HEIGHT, JELLY_DAMPING, JELLY_LAMBDA, JELLY_LAYER_GAP, JELLY_LAYERS, JELLY_MU, JELLY_SIDE,
+        add_jelly_mountain, signed_six_volumes,
     )
 else:
     from g1_jelly_robot import add_g1, measure_joint_errors
     from jelly_mountain import (
-        JELLY_BASE_HEIGHT, JELLY_LAYER_GAP, JELLY_LAYERS, JELLY_SIDE, add_jelly_mountain, signed_six_volumes,
+        JELLY_BASE_HEIGHT, JELLY_DAMPING, JELLY_LAMBDA, JELLY_LAYER_GAP, JELLY_LAYERS, JELLY_MU, JELLY_SIDE,
+        add_jelly_mountain, signed_six_volumes,
     )
 
 
@@ -169,6 +171,8 @@ class Example:
             raise ValueError("Jelly Drop requires a CUDA device")
         if args.substeps < 1 or args.layers < 1:
             raise ValueError("substeps and layers must be positive")
+        if not math.isfinite(args.contact_kd) or args.contact_kd < 0.0:
+            raise ValueError("contact-kd must be finite and nonnegative")
         if not math.isfinite(args.jelly_width) or args.jelly_width <= 0.0:
             raise ValueError("jelly-width must be positive and finite")
         if not math.isfinite(args.drop_height) or not 0.0 <= args.drop_height <= 50.0:
@@ -193,13 +197,14 @@ class Example:
         # Keep rigid-to-soft contact at the same scale as the global implicit contact solve.
         # Lower shape values are selected by min(global, shape) and let the robot or mountain tunnel through.
         builder.default_shape_cfg.ke = 5.0e4
-        builder.default_shape_cfg.kd = 250.0
-        builder.default_shape_cfg.mu = 0.5
+        builder.default_shape_cfg.kd = args.contact_kd
+        builder.default_shape_cfg.mu = 0.2
         floor = builder.default_shape_cfg.copy()
         floor.is_visible = False
         builder.add_ground_plane(cfg=floor)
         self.mountain = add_jelly_mountain(
             builder, side=args.jelly_width, layers=args.layers, layer_gap=args.layer_gap, base_z=args.base_height,
+            shear_modulus=args.jelly_mu, lame_lambda=args.jelly_lambda, damping=args.jelly_damping,
         )
         self.groups = self.mountain["groups"]
         self.robot = add_g1(builder, (0.02, 0.0, 0.0), tilt_radians=math.radians(args.tilt))
@@ -218,8 +223,8 @@ class Example:
         self.model = builder.finalize()
         # A firm contact response keeps limbs supported by the FEM blocks during landing.
         self.model.soft_contact_ke = 5.0e4
-        self.model.soft_contact_kd = 250.0
-        self.model.soft_contact_mu = 0.6
+        self.model.soft_contact_kd = args.contact_kd
+        self.model.soft_contact_mu = 0.3
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
         self.solver = synreal_solver.NewtonSolver(self.model)
         cfg = self.solver.config
@@ -312,7 +317,6 @@ class Example:
             wp.array([0, 1, 2, 0, 2, 3], dtype=int, device=device),
             color=(0.56, 0.59, 0.66), roughness=0.72, metallic=0.08,
         )
-        self.log_floor_graphics()
         triangles = self.model.tri_indices.numpy()
         source_indices, batches = prepare_surface_batches(triangles, self.groups)
         self.surface_source_indices = wp.array(source_indices, dtype=wp.int32, device=device)
@@ -350,24 +354,6 @@ class Example:
             pos=wp.vec3(center[0] - distance * math.cos(yaw), center[1] - distance * math.sin(yaw),
                         center[2] + distance * math.tan(pitch)),
             pitch=-18.0, yaw=130.0,
-        )
-
-    def log_floor_graphics(self):
-        # Flat markings carry no collision geometry and cannot confine the spreading cubes.
-        points, faces = [], []
-        for ring, (factor, width) in enumerate(((1.0, 0.025), (1.04, 0.008), (1.44, 0.014))):
-            radius = self.zone_radius * factor
-            for i in range(192):
-                if ring == 2 and i % 4 == 3:
-                    continue
-                start = len(points)
-                for r, angle in ((radius, i), (radius + width, i), (radius + width, i + 1), (radius, i + 1)):
-                    theta = angle * 2.0 * math.pi / 192
-                    points.append((r * math.cos(theta), r * math.sin(theta), -0.006))
-                faces.extend((start, start + 1, start + 2, start, start + 2, start + 3))
-        self.viewer.log_mesh(
-            "drop_zone_markings", wp.array(points, dtype=wp.vec3, device=self.model.device),
-            wp.array(faces, dtype=int, device=self.model.device), color=(0.20, 0.26, 0.37), roughness=0.8,
         )
 
     def step(self):
@@ -460,6 +446,8 @@ class Example:
         imgui.text(f"Pyramid layers   {self.mountain['layer_count']:5d}")
         imgui.text(f"Free jelly cubes {self.mountain['block_count']:5d}")
         imgui.text(f"Tetrahedra       {sum(len(g['tet_indices']) for g in self.groups.values()):5d}")
+        imgui.text(f"Shear modulus   {self.args.jelly_mu:g}")
+        imgui.text(f"Material damping {self.args.jelly_damping:g} | Contact damping {self.args.contact_kd:g}")
         imgui.text(f"First contact    {hits[2] * self.dt:.2f} s" if hits[1] else "First contact    falling...")
         imgui.separator()
         imgui.text("R : reset the complete drop")
@@ -562,8 +550,12 @@ class Example:
             "--base-height", type=float, default=JELLY_BASE_HEIGHT,
             help="Initial clearance between the bottom jelly surface and the ground, in metres",
         )
-        # Self-contact adds stiff internal loads during landing; 240 Hz keeps the joint solve stable.
-        parser.add_argument("--substeps", type=int, default=4)
+        parser.add_argument("--jelly-mu", type=float, default=JELLY_MU, help="FEM shear modulus; higher restores shape faster.")
+        parser.add_argument("--jelly-lambda", type=float, default=JELLY_LAMBDA, help="FEM volume stiffness (Lame lambda).")
+        parser.add_argument("--jelly-damping", type=float, default=JELLY_DAMPING, help="FEM viscosity; lower retains wobble.")
+        parser.add_argument("--contact-kd", type=float, default=25.0, help="Normal contact damping for jelly/ground/G1.")
+        # Smaller steps resolve the lightly damped rebound and reduce implicit integration's numerical damping.
+        parser.add_argument("--substeps", type=int, default=2)
         parser.add_argument("--cuda-graph", action=argparse.BooleanOptionalAction, default=True)
         return parser
 
