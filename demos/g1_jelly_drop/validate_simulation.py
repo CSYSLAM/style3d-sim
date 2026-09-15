@@ -1,7 +1,7 @@
 """Check every USD animation sample against the preserved NPZ states using only the CPU.
 
 Run from any directory with Python that provides numpy and usd-core:
-    python demos/g1_jelly/validate_simulation.py
+    python demos/g1_jelly_drop/validate_simulation.py
 
 This validates export fidelity and provenance; it does not rerun or independently validate the solver.
 """

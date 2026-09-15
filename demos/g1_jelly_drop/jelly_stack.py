@@ -69,7 +69,7 @@ def jelly_cube_mesh(side: float = JELLY_SIDE, subdivisions: int = 3) -> tuple[np
     return vertices, tetrahedra
 
 
-def add_jelly_mountain(
+def add_jelly_stack(
     builder: newton.ModelBuilder,
     *,
     side: float = JELLY_SIDE,
@@ -102,7 +102,7 @@ def add_jelly_mountain(
         gap = JELLY_GAP * scale
     contact_radius = JELLY_CONTACT_RADIUS * scale
     if layers < 1 or not all(np.isfinite(value) and value >= 0.0 for value in (gap, layer_gap, base_z)):
-        raise ValueError("The mountain needs positive tiers and finite, nonnegative gaps and base height")
+        raise ValueError("The stack needs positive tiers and finite, nonnegative gaps and base height")
     volumes = signed_six_volumes(vertices, tetrahedra)
     start = len(builder.particle_q)
     groups, centers, layer_ranges = {}, [], []

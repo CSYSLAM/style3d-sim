@@ -1,7 +1,7 @@
-"""JELLY DROP: a G1 drops onto independent FEM jelly cubes.
+"""G1 JELLY DROP: a G1 drops onto independent FEM jelly cubes.
 
-Run: python demos/g1_jelly/demo_g1_jelly_mountain.py
-Check: python demos/g1_jelly/demo_g1_jelly_mountain.py --viewer null --num-frames 1200 --test
+Run: python demos/g1_jelly_drop/demo_g1_jelly_drop.py
+Check: python demos/g1_jelly_drop/demo_g1_jelly_drop.py --viewer null --num-frames 1200 --test
 """
 
 from __future__ import annotations
@@ -16,16 +16,16 @@ import warp as wp
 from newton._src.geometry.kernels import sdf_box, sdf_cylinder, sdf_sphere
 
 if __package__:
-    from .g1_jelly_robot import add_g1, measure_joint_errors
-    from .jelly_mountain import (
+    from .g1_robot import add_g1, measure_joint_errors
+    from .jelly_stack import (
         JELLY_BASE_HEIGHT, JELLY_DAMPING, JELLY_LAMBDA, JELLY_LAYER_GAP, JELLY_LAYERS, JELLY_MU, JELLY_SIDE,
-        add_jelly_mountain, signed_six_volumes,
+        add_jelly_stack, signed_six_volumes,
     )
 else:
-    from g1_jelly_robot import add_g1, measure_joint_errors
-    from jelly_mountain import (
+    from g1_robot import add_g1, measure_joint_errors
+    from jelly_stack import (
         JELLY_BASE_HEIGHT, JELLY_DAMPING, JELLY_LAMBDA, JELLY_LAYER_GAP, JELLY_LAYERS, JELLY_MU, JELLY_SIDE,
-        add_jelly_mountain, signed_six_volumes,
+        add_jelly_stack, signed_six_volumes,
     )
 
 
@@ -195,24 +195,24 @@ class Example:
         )
         newton.solvers.SolverStyle3D.register_custom_attributes(builder)
         # Keep rigid-to-soft contact at the same scale as the global implicit contact solve.
-        # Lower shape values are selected by min(global, shape) and let the robot or mountain tunnel through.
+        # Lower shape values are selected by min(global, shape) and let the robot or stack tunnel through.
         builder.default_shape_cfg.ke = 5.0e4
         builder.default_shape_cfg.kd = args.contact_kd
         builder.default_shape_cfg.mu = 0.2
         floor = builder.default_shape_cfg.copy()
         floor.is_visible = False
         builder.add_ground_plane(cfg=floor)
-        self.mountain = add_jelly_mountain(
+        self.jelly_stack = add_jelly_stack(
             builder, side=args.jelly_width, layers=args.layers, layer_gap=args.layer_gap, base_z=args.base_height,
             shear_modulus=args.jelly_mu, lame_lambda=args.jelly_lambda, damping=args.jelly_damping,
         )
-        self.groups = self.mountain["groups"]
+        self.groups = self.jelly_stack["groups"]
         self.robot = add_g1(builder, (0.02, 0.0, 0.0), tilt_radians=math.radians(args.tilt))
         # Clearance refers to the lowest collision point in the actual bent-knee, tilted pose, not the pelvis.
         builder.joint_q[self.robot.root_coord_start + 2] = (
-            self.mountain["top_z"] + args.drop_height - self.robot.local_bounds[0, 2]
+            self.jelly_stack["top_z"] + args.drop_height - self.robot.local_bounds[0, 2]
         )
-        span = args.layers * args.jelly_width + (args.layers - 1) * self.mountain["block_gap"]
+        span = args.layers * args.jelly_width + (args.layers - 1) * self.jelly_stack["block_gap"]
         self.scene_top = float(
             builder.joint_q[self.robot.root_coord_start + 2] + self.robot.local_bounds[1, 2]
         )
@@ -239,7 +239,7 @@ class Example:
         cfg.nonlinear_iterations = 20
         cfg.linear_iterations = 15
         cfg.enable_self_collision = True
-        cfg.self_collision_radius = self.mountain["contact_radius"]
+        cfg.self_collision_radius = self.jelly_stack["contact_radius"]
         cfg.self_collision_vertex_face_stiffness = 2.0
         cfg.self_collision_edge_edge_stiffness = 0.25
         cfg.self_collision_edge_face_stiffness = 1.0
@@ -279,7 +279,7 @@ class Example:
                 self.state_0, self.state_1 = original
 
     def camera(self, name):
-        height = self.mountain["top_z"]
+        height = self.jelly_stack["top_z"]
         if name == "Stage":
             distance = 10.65 * self.scene_scale
             yaw = math.radians(130.0)
@@ -301,7 +301,7 @@ class Example:
         self.camera("Stage")
         renderer = getattr(self.viewer, "renderer", None)
         if renderer is not None:
-            renderer.set_title("JELLY DROP | G1 + Jelly Mountain")
+            renderer.set_title("G1 JELLY DROP")
             renderer.sky_upper = (0.28, 0.32, 0.42)
             renderer.sky_lower = (0.69, 0.73, 0.79)
             renderer.ambient_sky = (0.72, 0.78, 0.90)
@@ -397,7 +397,7 @@ class Example:
                 self.contacts.soft_contact_indices, self.contacts.soft_contact_barycentric,
                 self.model.shape_body, self.model.shape_type, self.model.shape_transform, self.model.shape_scale,
                 self.model.shape_margin, self.model.particle_radius, self.contacts.soft_contact_max,
-                *self.mountain["particle_range"], self.observations,
+                *self.jelly_stack["particle_range"], self.observations,
             ]
             # Preserve initial overlap and the converged overlap, counting effective contacts only once per substep.
             wp.launch(
@@ -442,9 +442,9 @@ class Example:
         imgui.text(f"Robot mass       {self.robot.total_mass:5.2f} kg")
         imgui.text(f"Peak descent     {self.descent.numpy()[0]:5.2f} m/s")
         imgui.text(f"Peak penetration {1000.0 * self.penetration.numpy()[0]:5.1f} mm")
-        imgui.text(f"Jelly width      {self.mountain['block_side']:5.2f} m")
-        imgui.text(f"Pyramid layers   {self.mountain['layer_count']:5d}")
-        imgui.text(f"Free jelly cubes {self.mountain['block_count']:5d}")
+        imgui.text(f"Jelly width      {self.jelly_stack['block_side']:5.2f} m")
+        imgui.text(f"Pyramid layers   {self.jelly_stack['layer_count']:5d}")
+        imgui.text(f"Free jelly cubes {self.jelly_stack['block_count']:5d}")
         imgui.text(f"Tetrahedra       {sum(len(g['tet_indices']) for g in self.groups.values()):5d}")
         imgui.text(f"Shear modulus   {self.args.jelly_mu:g}")
         imgui.text(f"Material damping {self.args.jelly_damping:g} | Contact damping {self.args.contact_kd:g}")
@@ -506,7 +506,7 @@ class Example:
                 raise AssertionError(f"{name} contains an inverted tetrahedron: {ratios.min():.5f}")
             minimum = min(minimum, float(ratios.min()))
             max_slide = max(max_slide, float(np.linalg.norm(points[a:b].mean(axis=0)[:2] - np.asarray(group["center"])[:2])))
-        a, b = self.mountain["particle_range"]
+        a, b = self.jelly_stack["particle_range"]
         jelly_min_z = float(points[a:b, 2].min())
         pelvis_z = float(bodies[self.robot.root_body, 2])
         if jelly_min_z < -0.06 or pelvis_z < 0.0:

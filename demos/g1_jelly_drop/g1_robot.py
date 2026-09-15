@@ -9,7 +9,7 @@ import newton
 import numpy as np
 import warp as wp
 
-G1_URDF = Path(__file__).resolve().parents[2] / "assets" / "g1_jelly" / "g1_29dof_rev_1_0.urdf"
+G1_URDF = Path(__file__).resolve().parents[2] / "assets" / "g1_jelly_drop" / "g1_29dof_rev_1_0.urdf"
 
 
 def measure_joint_errors(model, body_q: np.ndarray, robot) -> dict:

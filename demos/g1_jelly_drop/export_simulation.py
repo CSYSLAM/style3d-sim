@@ -1,6 +1,6 @@
 """Export the unmodified G1 jelly example to portable, animated USD meshes.
 
-Run from the repository root with: uv run python demos/g1_jelly/export_simulation.py
+Run from the repository root with: uv run python demos/g1_jelly_drop/export_simulation.py
 Generated files are saved in outputs/ by default.
 Additional example physics options, such as --layers or --substeps, are forwarded to its own parser.
 """
@@ -23,15 +23,15 @@ from pxr import Gf, Sdf, Usd, UsdGeom, UsdShade, Vt
 DIRECTORY = Path(__file__).resolve().parent
 REPOSITORY = DIRECTORY.parents[1]
 if __package__:
-    from .demo_g1_jelly_mountain import Example
-    from .g1_jelly_robot import measure_joint_errors
-    from .jelly_mountain import signed_six_volumes
+    from .demo_g1_jelly_drop import Example
+    from .g1_robot import measure_joint_errors
+    from .jelly_stack import signed_six_volumes
 else:
-    from demo_g1_jelly_mountain import Example
-    from g1_jelly_robot import measure_joint_errors
-    from jelly_mountain import signed_six_volumes
+    from demo_g1_jelly_drop import Example
+    from g1_robot import measure_joint_errors
+    from jelly_stack import signed_six_volumes
 
-SOURCE = "demos/g1_jelly/demo_g1_jelly_mountain.py"
+SOURCE = "demos/g1_jelly_drop/demo_g1_jelly_drop.py"
 
 
 class CaptureViewer(ViewerNull):
@@ -274,7 +274,7 @@ def main():
     if observations[1] == 0:
         validation_errors.append({"frame": args.num_frames, "error": "G1 did not contact the jelly"})
     source_files = (
-        DIRECTORY / "demo_g1_jelly_mountain.py", DIRECTORY / "g1_jelly_robot.py", DIRECTORY / "jelly_mountain.py",
+        DIRECTORY / "demo_g1_jelly_drop.py", DIRECTORY / "g1_robot.py", DIRECTORY / "jelly_stack.py",
     )
     metadata = {
         "source": SOURCE, "physics_parameters": vars(args),
@@ -286,7 +286,7 @@ def main():
             "frame_seconds": example.frame_dt,
             "up_axis": "Z", "meters_per_unit": 1.0, "substep_seconds": example.dt,
             "jelly_cubes": len(example.groups), "robot_bodies": len(archive.bodies),
-            "visual_meshes": len(archive.robot_meshes), "jelly_particles": example.mountain["particle_range"][1],
+            "visual_meshes": len(archive.robot_meshes), "jelly_particles": example.jelly_stack["particle_range"][1],
             "elapsed_seconds": time.perf_counter() - started,
         },
         "validation": {

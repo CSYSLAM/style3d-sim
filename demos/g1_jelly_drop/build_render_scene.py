@@ -147,9 +147,10 @@ def main():
             obj.hide_set(True)
         else:
             dark = max(color) < 0.3
+            # Older configs retain the original per-color roughness until a uniform override is supplied.
             mat, shader = material(
                 f"Robot | {obj.name}", linear_rgb(color), metallic=cfg.get("robot_metallic", 0.05),
-                roughness=0.30 if dark else 0.26,
+                roughness=cfg.get("robot_roughness", 0.30 if dark else 0.26),
             )
             shader.inputs["Coat Weight"].default_value = 0.15
             assign(obj, mat)
