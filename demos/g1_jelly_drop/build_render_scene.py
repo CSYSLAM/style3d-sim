@@ -60,6 +60,21 @@ def linear_rgb(color):
     return tuple(c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in color)
 
 
+def configure_camera_fov(camera, cfg):
+    """Use horizontal FOV in degrees, with focal-length compatibility for older configs."""
+    camera.sensor_width = 36.0
+    if "fov" in cfg:
+        fov = float(cfg["fov"])
+        if not math.isfinite(fov) or not 0.0 < fov < 180.0:
+            raise ValueError("camera.fov must be a finite horizontal angle between 0 and 180 degrees")
+        # Fix the horizontal fit so changing the render aspect ratio does not redefine the configured FOV.
+        camera.sensor_fit = "HORIZONTAL"
+        camera.lens_unit = "FOV"
+        camera.angle = math.radians(fov)
+    else:
+        camera.lens = cfg.get("lens", 48.0)
+
+
 def apply_color_management(scene, cfg):
     # Use Blender's OCIO output transform so both the viewport and saved PNGs receive the same tone mapping.
     scene.view_settings.view_transform = cfg.get("view_transform", "ACES 2.0")
@@ -186,7 +201,7 @@ def main():
     camera = bpy.data.objects.new("Hero camera", cam_data)
     studio.objects.link(camera)
     scene.camera = camera
-    cam_data.lens, cam_data.sensor_width = cfg["camera"]["lens"], 36
+    configure_camera_fov(cam_data, cfg["camera"])
     cam_data.clip_end = 500
     cam_data.dof.use_dof = True
     cam_data.dof.aperture_fstop = cfg["camera"]["fstop"]

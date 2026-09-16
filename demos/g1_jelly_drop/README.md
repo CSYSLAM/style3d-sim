@@ -99,6 +99,12 @@ If you change the cache length, update `frame_end` in the configuration and `--e
 Check camera framing after changing scene dimensions. The build script overwrites `outputs/g1_jelly_drop.blend`,
 including any manual edits in that file.
 
+`camera.fov` sets the horizontal field of view in degrees (strictly between 0 and 180).
+The default 41.11209 degrees matches the previous 48 mm lens on a 36 mm sensor. Larger values show more of the
+scene; smaller values frame the subject more tightly. Vertical FOV follows the render aspect ratio.
+Rebuild the Blender project after changing FOV; the USD animation does not need to be regenerated.
+Older configs can still use `camera.lens` in millimeters; `camera.fov` takes precedence when both are present.
+
 After changing example parameters and exporting again, always run `build_render_scene.py` again before rendering.
 `render_config.json` controls G1 metallic with `robot_metallic` and G1 surface roughness with `robot_roughness` (0.3).
 `robot_roughness` applies to all G1 body materials: 0 gives sharp reflections and 1 gives broad, matte reflections.
@@ -132,7 +138,7 @@ Preview selected frames in `outputs/previews/`:
 
 ```powershell
 & $blenderExe -b .\outputs\g1_jelly_drop.blend --python-exit-code 1 --python ..\utils\render_frames.py -- `
-    --frames 0,50,125,250 --preview --config .\render_config.json --overwrite
+    --frames 0,30,60,120,240 --preview --config .\render_config.json --overwrite
 ```
 
 Render the complete sequence and encode the video:
@@ -141,7 +147,7 @@ Render the complete sequence and encode the video:
 & $blenderExe -b .\outputs\g1_jelly_drop.blend --python-exit-code 1 --python ..\utils\render_frames.py -- `
     --animation --overwrite
 uv run --with imageio-ffmpeg --with pillow python ..\utils\encode_video.py `
-    --output-dir .\outputs --output g1_jelly_drop.mp4 --start 0 --end 250 --contact-sheet
+    --output-dir .\outputs --output g1_jelly_drop.mp4 --start 0 --end 240 --contact-sheet
 ```
 
 Final frames are saved as 16-bit RGB PNGs from `outputs/frames/frame_0000.png` through `frame_0250.png`.
