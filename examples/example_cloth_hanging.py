@@ -17,6 +17,7 @@ import newton
 import newton.examples
 from newton.solvers import style3d
 from synreal_solver.newton_solver import NewtonSolver
+import synreal_solver
 
 class Example:
     def __init__(self, viewer, args):
@@ -120,6 +121,11 @@ class Example:
             self.solver = newton.solvers.SolverSemiImplicit(model=self.model)
         elif self.solver_type == "synreal":
             self.solver = NewtonSolver(self.model)
+            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+            self.solver.config.joint_constraint_primal_iterations = 2
+            self.solver.config.nonlinear_iterations = 20
+            self.solver.config.linear_iterations = 5
         elif self.solver_type == "style3d":
             self.solver = newton.solvers.SolverStyle3D(
                 model=self.model,

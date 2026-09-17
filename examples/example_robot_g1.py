@@ -87,8 +87,13 @@ class Example:
             )
         else:
             self.solver = synreal_solver.NewtonSolver(self.model)
-            self.solver.config.nonlinear_iterations = 10
-            self.solver.config.linear_iterations = 2
+            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
+            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+            self.solver.config.joint_constraint_primal_iterations = 2
+            self.solver.config.nonlinear_iterations = 20
+            self.solver.config.linear_iterations = 5
 
         self.state_0 = self.model.state()
         self.state_1 = self.model.state()
@@ -167,7 +172,7 @@ class Example:
         parser = newton.examples.create_parser()
         newton.examples.add_world_count_arg(parser)
         newton.examples.add_mujoco_contacts_arg(parser)
-        parser.set_defaults(world_count=4)
+        parser.set_defaults(world_count=64)
         parser.add_argument(
             "--solver",
             type=str,

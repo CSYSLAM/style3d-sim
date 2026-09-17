@@ -36,14 +36,16 @@ class Example:
         self.fps = 60
         self.frame_dt = 1.0 / self.fps
         self.sim_time = 0.0
-        self.sim_substeps = 4
+        self.sim_substeps = 2
         self.sim_dt = self.frame_dt / self.sim_substeps
 
         self.viewer = viewer
         self.solver_type = args.solver if hasattr(args, "solver") and args.solver else "vbd"
         self.min_stem_axis_y = 1.0
 
-        builder_type = synreal_solver.ModelBuilder if self.solver_type == "synreal" else newton.ModelBuilder
+        builder_type = (
+            synreal_solver.ModelBuilder if self.solver_type == "synreal" else newton.ModelBuilder
+        )
         builder = builder_type(up_axis=newton.Axis.Z)
 
         self.body = builder.add_body(
@@ -117,9 +119,13 @@ class Example:
             self.contacts = None
         elif self.solver_type == "synreal":
             self.solver = synreal_solver.NewtonSolver(model=self.model)
-            self.solver.config.affine_body_rigidity_model = (
-                synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
-            )
+            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+            self.solver.config.joint_constraint_primal_iterations = 2
+            self.solver.config.nonlinear_iterations = 20
+            self.solver.config.linear_iterations = 10
             self.contacts = self.model.contacts()
         else:
             raise ValueError(
@@ -134,7 +140,9 @@ class Example:
         self.body_com = self.model.body_com.numpy()[self.body].copy()
         self.initial_com = (
             self.initial_body_q[self.body][:3]
-            + np.array(wp.quat_to_matrix(wp.quat(*self.initial_body_q[self.body][3:7])), dtype=np.float32).reshape(3, 3)
+            + np.array(
+                wp.quat_to_matrix(wp.quat(*self.initial_body_q[self.body][3:7])), dtype=np.float32
+            ).reshape(3, 3)
             @ self.body_com
         )
 
@@ -164,9 +172,9 @@ class Example:
 
         self.sim_time += self.frame_dt
         body_q = self.state_0.body_q.numpy()
-        local_y_world = np.array(wp.quat_to_matrix(wp.quat(*body_q[self.body][3:7])), dtype=np.float32).reshape(3, 3)[
-            :, 1
-        ]
+        local_y_world = np.array(
+            wp.quat_to_matrix(wp.quat(*body_q[self.body][3:7])), dtype=np.float32
+        ).reshape(3, 3)[:, 1]
         self.min_stem_axis_y = min(self.min_stem_axis_y, float(local_y_world[1]))
 
     def test_final(self):
@@ -176,7 +184,9 @@ class Example:
             raise ValueError("Dzhanibekov rigid body state contains non-finite values")
         final_com = (
             body_q[self.body][:3]
-            + np.array(wp.quat_to_matrix(wp.quat(*body_q[self.body][3:7])), dtype=np.float32).reshape(3, 3)
+            + np.array(
+                wp.quat_to_matrix(wp.quat(*body_q[self.body][3:7])), dtype=np.float32
+            ).reshape(3, 3)
             @ self.body_com
         )
         if np.linalg.norm(final_com - self.initial_com) >= 1.0e-3:

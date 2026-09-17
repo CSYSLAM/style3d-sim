@@ -22,11 +22,11 @@ from newton import JointTargetMode
 
 class Example:
     def __init__(self, viewer, args):
-        self.fps = 50
+        self.fps = 60
         self.frame_dt = 1.0 / self.fps
 
         self.sim_time = 0.0
-        self.sim_substeps = 4
+        self.sim_substeps = 2
         self.sim_dt = self.frame_dt / self.sim_substeps
 
         self.world_count = args.world_count
@@ -80,7 +80,11 @@ class Example:
             )
         else:
             self.solver = synreal_solver.NewtonSolver(self.model)
-            self.solver.config.joint_constraint_alpha = 200
+            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+            self.solver.config.joint_constraint_primal_iterations = 5
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 10
 

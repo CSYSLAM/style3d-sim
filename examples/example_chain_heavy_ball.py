@@ -272,12 +272,13 @@ class Example:
 
         self.model = builder.finalize()
         self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.affine_body_rigidity_model = (
-            synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
-        )
-        self.solver.config.affine_body_spring_alpha = _CHAIN_AFFINE_SPRING_ALPHA
-        self.solver.config.joint_constraint_alpha = _CHAIN_JOINT_CONSTRAINT_ALPHA
-        self.solver.config.linear_iterations = _CHAIN_LINEAR_ITERATIONS
+        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        self.solver.config.joint_constraint_primal_iterations = 2
+        self.solver.config.nonlinear_iterations = 30
+        self.solver.config.linear_iterations = 20
 
         self.state_0 = self.model.state()
         self.state_1 = self.model.state()
@@ -287,16 +288,13 @@ class Example:
         affine_body_ids = self.model.synreal_affine_body_ids.numpy()
         last_affine_body = int(np.flatnonzero(affine_body_ids == self.links[-1]).item())
         proxy_indices = self.model.synreal_affine_body_indices.numpy()[last_affine_body]
-        axis_length = float(
-            self.model.synreal_affine_body_axis_lengths.numpy()[last_affine_body]
-        )
         body_com = self.model.synreal_affine_body_com.numpy()[last_affine_body]
         local_endpoint = np.array(
             (0.0, 0.0, 0.5 * self.segment_lengths[-1]), dtype=np.float64
         )
-        affine_coordinate = (local_endpoint - body_com) / axis_length
+        affine_coordinate = local_endpoint - body_com
         endpoint_weights = np.concatenate(
-            ((1.0 - affine_coordinate.sum(),), affine_coordinate)
+            ((1.0,), affine_coordinate)
         )
         self.last_proxy_indices = wp.vec4i(*(int(value) for value in proxy_indices))
         self.last_endpoint_weights = wp.vec4(

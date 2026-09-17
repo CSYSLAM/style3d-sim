@@ -22,9 +22,9 @@ import warp as wp
 import synreal_solver
 
 _DEFAULT_LENGTH = 3.0
-_DEFAULT_MASS = 50.0
+_DEFAULT_MASS = 5000.0
 _DEFAULT_RADIUS = 0.06
-
+_REFERENCE_TIME_STEP = 1.0 / 60
 _GRAVITY = -9.81
 
 
@@ -99,7 +99,7 @@ class Example:
 
         self.fps = 60
         self.frame_dt = 1.0 / self.fps
-        self.sim_substeps = 4
+        self.sim_substeps = 2
         self.sim_dt = self.frame_dt / self.sim_substeps
         self.sim_time = 0.0
         self.viewer = viewer
@@ -177,9 +177,11 @@ class Example:
 
         self.model = builder.finalize()
         self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.NONE
-        self.solver.config.affine_body_spring_alpha = 1e3
-        self.solver.config.joint_constraint_alpha = 3e3
+        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        self.solver.config.joint_constraint_primal_iterations = 2
         self.solver.config.nonlinear_iterations = 20
         self.solver.config.linear_iterations = 10
 
@@ -192,14 +194,11 @@ class Example:
         affine_body = int(np.flatnonzero(affine_body_ids == self.pendulum).item())
         indices = self.model.synreal_affine_body_indices.numpy()[affine_body]
         self.proxy_indices = wp.vec4i(*(int(value) for value in indices))
-        axis_length = float(
-            self.model.synreal_affine_body_axis_lengths.numpy()[affine_body]
-        )
         body_com = self.model.synreal_affine_body_com.numpy()[affine_body]
 
         def point_weights(local_point: np.ndarray) -> wp.vec4:
-            coordinate = (local_point - body_com) / axis_length
-            weights = np.concatenate(((1.0 - coordinate.sum(),), coordinate))
+            coordinate = local_point - body_com
+            weights = np.concatenate(((1.0,), coordinate))
             return wp.vec4(*(float(value) for value in weights))
 
         self.pivot_weights = point_weights(
@@ -291,6 +290,7 @@ class Example:
             self._update_device_diagnostics()
 
     def _advance_reference(self):
+
         steps = max(1, int(math.ceil(self.frame_dt / _REFERENCE_TIME_STEP)))
         dt = self.frame_dt / steps
 

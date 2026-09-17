@@ -196,12 +196,6 @@ class Example:
         self.body_inertias = self.model.body_inertia.numpy()[self.bodies].astype(
             np.float64
         )
-        self.axis_lengths = self.solver._affine_body_axis_lengths.numpy()[
-            [
-                int(np.flatnonzero(affine_body_ids == body)[0])
-                for body in self.bodies
-            ]
-        ].astype(np.float64)
 
         wp.synchronize_device(self.model.device)
         self.initial_com = self._center_of_mass()
@@ -289,23 +283,15 @@ class Example:
         velocities = self.state_0.particle_qd.numpy().astype(np.float64)
         center = self._center_of_mass()
         momentum = np.zeros(3, dtype=np.float64)
-        for indices, axis_length, mass, inertia in zip(
+        for indices, mass, inertia in zip(
             self.proxy_indices,
-            self.axis_lengths,
             self.body_masses,
             self.body_inertias,
         ):
             origin = positions[indices[0]]
             origin_velocity = velocities[indices[0]]
-            affine = np.column_stack(
-                [(positions[index] - origin) / axis_length for index in indices[1:]]
-            )
-            affine_velocity = np.column_stack(
-                [
-                    (velocities[index] - origin_velocity) / axis_length
-                    for index in indices[1:]
-                ]
-            )
+            affine = positions[indices[1:]].T
+            affine_velocity = velocities[indices[1:]].T
             second_moment = 0.5 * np.trace(inertia) * np.eye(3) - inertia
             coupling = affine_velocity @ second_moment @ affine.T
             spin = np.array(
@@ -361,14 +347,13 @@ class Example:
         proxy_axes = []
         proxy_rods = []
         for indices in self.proxy_indices:
-            origin = proxy_positions[indices[0]]
             proxy_rods.append(
-                (proxy_positions[indices[1]] - origin)
-                / np.linalg.norm(proxy_positions[indices[1]] - origin)
+                proxy_positions[indices[1]]
+                / np.linalg.norm(proxy_positions[indices[1]])
             )
             proxy_axes.append(
-                (proxy_positions[indices[3]] - origin)
-                / np.linalg.norm(proxy_positions[indices[3]] - origin)
+                proxy_positions[indices[3]]
+                / np.linalg.norm(proxy_positions[indices[3]])
             )
         world_z = np.array((0.0, 0.0, 1.0))
         self.axis_tilt = max(

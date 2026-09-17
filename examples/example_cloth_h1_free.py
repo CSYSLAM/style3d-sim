@@ -27,7 +27,7 @@ class Example:
                 raise ValueError(f"{name} must be finite and non-negative")
         self.fps = 60
         self.frame_dt = 1.0 / self.fps
-        self.sim_substeps = 4
+        self.sim_substeps = 2
         self.sim_dt = self.frame_dt / self.sim_substeps
         self.sim_time = 0.0
         self.viewer = viewer
@@ -99,7 +99,7 @@ class Example:
         self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
         self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
         self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-        self.solver.config.joint_constraint_primal_iterations = 2
+        self.solver.config.joint_constraint_primal_iterations = 4
         self.solver.config.nonlinear_iterations = 10
         self.solver.config.linear_iterations = 20
         self.solver.config.enable_self_collision = True
