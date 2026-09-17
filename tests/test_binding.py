@@ -88,10 +88,6 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "body_local_transforms",
         "body_inertia_tensors",
         "affine_body_indices",
-        "affine_body_axis_lengths",
-        "affine_body_orthogonality_scales",
-        "affine_body_corotated_scales",
-        "affine_body_so3_scales",
         "body_spring_indices",
         "body_spring_points0",
         "body_spring_points1",
@@ -130,9 +126,12 @@ def test_config_exposes_runtime_options() -> None:
         config.nonlinear_solver = solver
         assert config.nonlinear_solver == solver
 
-    assert config.distance_constraint_alpha == pytest.approx(100.0)
-    config.distance_constraint_alpha = 25.0
-    assert config.distance_constraint_alpha == pytest.approx(25.0)
+    assert config.constraint_alpha == pytest.approx(20.0)
+    config.constraint_alpha = 25.0
+    assert config.constraint_alpha == pytest.approx(25.0)
+    assert not hasattr(config, "affine_body_spring_alpha")
+    assert not hasattr(config, "joint_constraint_alpha")
+    assert not hasattr(config, "distance_constraint_alpha")
 
     assert not hasattr(config, "enable_affine_body_velocity_correction")
     assert not hasattr(config, "rigid_body_integrator")

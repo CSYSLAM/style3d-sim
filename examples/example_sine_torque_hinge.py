@@ -56,8 +56,7 @@ class Example:
         self.amplitude = args.amplitude
         self.frequency = args.frequency
         self.force_tolerance = args.force_tolerance
-        self.joint_alpha = args.joint_alpha
-        self.affine_alpha = args.affine_alpha
+        self.constraint_alpha = args.constraint_alpha
 
         builder = synreal_solver.ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
         length = 1.0
@@ -130,8 +129,7 @@ class Example:
         )
         self.solver.config.nonlinear_iterations = 10
         self.solver.config.linear_iterations = 50
-        self.solver.config.joint_constraint_alpha = self.joint_alpha
-        self.solver.config.affine_body_spring_alpha = self.affine_alpha
+        self.solver.config.constraint_alpha = self.constraint_alpha
         self.solver.config.joint_constraint_mode = {
             "penalty": synreal_solver.JointConstraintMode.PENALTY,
             "augmented-lagrangian": (
@@ -551,16 +549,10 @@ if __name__ == "__main__":
         help="Maximum accepted numerical resultant-force residual in N.",
     )
     parser.add_argument(
-        "--joint-alpha",
+        "--constraint-alpha",
         type=float,
-        default=100.0,
-        help="Mass-normalized hinge constraint strength.",
-    )
-    parser.add_argument(
-        "--affine-alpha",
-        type=float,
-        default=100.0,
-        help="Mass-normalized affine-body rigidity strength.",
+        default=20.0,
+        help="Shared mass-normalized affine-body and hinge constraint strength.",
     )
     parser.add_argument(
         "--substeps",

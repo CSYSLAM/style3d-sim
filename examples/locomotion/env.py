@@ -211,7 +211,7 @@ class SynRealLocomotionEnv:
         self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
         self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.CO_ROTATED
         self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
-        self.solver.config.joint_constraint_alpha = 2e2
+        self.solver.config.constraint_alpha = 2e2
         self.solver.config.nonlinear_iterations = self.spec.solver_iterations
         self.solver.config.linear_iterations = self.spec.linear_iterations
 

@@ -30,12 +30,11 @@ wp = import_module("warp")
 class ModelBuilder(_newton.ModelBuilder):
     """Build Newton models with particle proxies for dynamic rigid bodies.
 
-    Four particles form a right tetrahedron for every dynamic body. The first
-    particle is placed at the body center of mass and the remaining particles
-    lie at one common distance on the positive body-local x, y, and z axes. The
-    native solver can preserve the frame with six proxy-edge springs, the
+    Four vector-valued particles store the ABD generalized coordinates of every
+    dynamic body: its center of mass followed by the three columns of its affine
+    matrix. The native solver can preserve the frame with six proxy-edge springs, the
     original ABD orthogonality potential, or M-ABD-style co-rotated linear
-    elasticity. A coupled four-vertex mass matrix preserves the body's
+    elasticity. A four-by-four scalar block mass matrix preserves the body's
     translational mass and inertia tensor in affine coordinates.
 
     The proxy topology is added immediately before finalization, after attached
@@ -75,11 +74,6 @@ class ModelBuilder(_newton.ModelBuilder):
         self.affine_body_ids: list[int] = []
         self.affine_body_particle_indices: list[tuple[int, int, int, int]] = []
         self.affine_body_particle_mass_matrices: list[np.ndarray] = []
-        self.affine_body_rigidity_scales: list[float] = []
-        self.affine_body_axis_lengths: list[float] = []
-        self.affine_body_orthogonality_scales: list[float] = []
-        self.affine_body_corotated_scales: list[float] = []
-        self.affine_body_so3_scales: list[float] = []
         self.body_spring_specs: list[
             tuple[int, int, np.ndarray, np.ndarray, float, float | None]
         ] = []
@@ -97,10 +91,11 @@ class ModelBuilder(_newton.ModelBuilder):
         body_index: int,
         mass: float,
         inertia: Any,
-        *,
-        axis_length: float | None = None,
-    ) -> tuple[float, np.ndarray, float]:
-        """Derive proxy geometry, coupled mass, and mass-normalized rigidity scale."""
+    ) -> np.ndarray:
+        """Build the direct ABD mass block."""
+        if not np.isfinite(mass) or mass <= 0.0:
+            raise ValueError(f"Body {body_index} must have positive finite mass.")
+
         inertia_matrix = np.asarray(inertia, dtype=np.float64).reshape(3, 3)
         if not np.isfinite(inertia_matrix).all():
             raise ValueError(f"Body {body_index} has a non-finite inertia tensor.")
@@ -112,202 +107,29 @@ class ModelBuilder(_newton.ModelBuilder):
             raise ValueError(f"Body {body_index} has a non-symmetric inertia tensor.")
         inertia_matrix = 0.5 * (inertia_matrix + inertia_matrix.T)
 
-        # For the column-vector affine map x = p + A q, the ABD rotational mass term uses the second moment
-        # D = 0.5 * trace(J) * I - J, not the inertia tensor J itself. Equal x/y/z proxy edges use the RMS scale
-        # L^2 = trace(J) / (6 * body_mass). With proxy positions [p, p + L*a0, p + L*a1, p + L*a2], coordinate_map
-        # converts their velocities into [p_dot, a0_dot, a1_dot, a2_dot]. The exact scalar 4x4 vertex mass block is
-        # coordinate_map.T @ diag(body_mass, D) @ coordinate_map, and every scalar entry multiplies a 3x3 identity.
+        # For x = p + A*q, the ABD rotational mass term uses the second moment
+        # D = 0.5*trace(J)*I - J. Direct coordinates q=(p, A[:,0], A[:,1], A[:,2]) therefore have mass block
+        # diag(m, D); every scalar entry multiplies a world-space 3x3 identity.
         second_moment = (
             0.5 * np.trace(inertia_matrix) * np.eye(3, dtype=np.float64)
             - inertia_matrix
         )
-        if float(np.min(np.linalg.eigvalsh(second_moment))) < -tolerance:
+        if float(np.min(np.linalg.eigvalsh(second_moment))) <= tolerance:
             raise ValueError(
-                f"Body {body_index} has an invalid inertia tensor with an indefinite second moment."
+                f"Body {body_index} has an invalid inertia tensor with a singular second moment."
             )
-        mean_second_moment = float(np.trace(second_moment)) / 3.0
-        if mean_second_moment <= tolerance:
-            raise ValueError(
-                f"Body {body_index} inertia cannot form a non-degenerate affine proxy tetrahedron."
-            )
+        generalized_mass = np.zeros((4, 4), dtype=np.float64)
+        generalized_mass[0, 0] = mass
+        generalized_mass[1:, 1:] = second_moment
 
-        if axis_length is None:
-            axis_length = float(np.sqrt(mean_second_moment / mass))
-        elif not np.isfinite(axis_length) or axis_length <= 0.0:
-            raise ValueError(
-                f"Body {body_index} affine proxy axis length must be finite and positive."
-            )
-        coordinate_map = np.zeros((4, 4), dtype=np.float64)
-        coordinate_map[0, 0] = 1.0
-        coordinate_map[1:, 0] = -1.0 / axis_length
-        coordinate_map[1:, 1:] = np.eye(3, dtype=np.float64) / axis_length
-        affine_mass = np.zeros((4, 4), dtype=np.float64)
-        affine_mass[0, 0] = mass
-        affine_mass[1:, 1:] = second_moment
-        vertex_mass = coordinate_map.T @ affine_mass @ coordinate_map
-
-        if not np.isfinite(vertex_mass).all() or not np.allclose(
-            vertex_mass, vertex_mass.T, rtol=0.0, atol=tolerance
+        if not np.isfinite(generalized_mass).all() or not np.allclose(
+            generalized_mass, generalized_mass.T, rtol=0.0, atol=tolerance
         ):
             raise ValueError(
-                f"Body {body_index} produced an invalid affine proxy mass matrix."
+                f"Body {body_index} produced an invalid affine generalized mass matrix."
             )
 
-        # The six equal-stiffness edges form the K4 graph Laplacian. Whiten it
-        # by the coupled proxy mass so mu_max is the largest generalized
-        # eigenvalue in L*v = mu*M*v. Multiplying the Laplacian by 1/mu_max
-        # makes its largest mass-normalized eigenvalue exactly one.
-        mass_eigenvalues, mass_eigenvectors = np.linalg.eigh(vertex_mass)
-        mass_tolerance = (
-            32.0
-            * np.finfo(np.float32).eps
-            * max(float(np.max(mass_eigenvalues)), np.finfo(np.float64).tiny)
-        )
-        if float(np.min(mass_eigenvalues)) <= mass_tolerance:
-            raise ValueError(
-                f"Body {body_index} produced a singular affine proxy mass matrix."
-            )
-        inverse_sqrt_mass = (
-            mass_eigenvectors * np.reciprocal(np.sqrt(mass_eigenvalues))[None, :]
-        ) @ mass_eigenvectors.T
-        laplacian = 4.0 * np.eye(4, dtype=np.float64) - np.ones(
-            (4, 4), dtype=np.float64
-        )
-        normalized_laplacian = inverse_sqrt_mass @ laplacian @ inverse_sqrt_mass
-        maximum_generalized_eigenvalue = float(
-            np.max(np.linalg.eigvalsh(normalized_laplacian))
-        )
-        if (
-            not np.isfinite(maximum_generalized_eigenvalue)
-            or maximum_generalized_eigenvalue <= 0.0
-        ):
-            raise ValueError(
-                f"Body {body_index} produced an invalid affine rigidity scale."
-            )
-        rigidity_scale = 1.0 / maximum_generalized_eigenvalue
-
-        return axis_length, vertex_mass.astype(np.float32), rigidity_scale
-
-    @staticmethod
-    def _alternative_rigidity_scales(
-        body_index: int,
-        vertex_mass: np.ndarray,
-        axis_length: float,
-    ) -> tuple[float, float]:
-        """Normalize the ABD and co-rotated rest tangents by the coupled mass."""
-        mass = np.kron(
-            np.asarray(vertex_mass, dtype=np.float64),
-            np.eye(3, dtype=np.float64),
-        )
-        mass_eigenvalues, mass_eigenvectors = np.linalg.eigh(mass)
-        mass_tolerance = (
-            32.0
-            * np.finfo(np.float32).eps
-            * max(float(np.max(mass_eigenvalues)), np.finfo(np.float64).tiny)
-        )
-        if float(np.min(mass_eigenvalues)) <= mass_tolerance:
-            raise ValueError(
-                f"Body {body_index} produced a singular affine proxy mass matrix."
-            )
-        inverse_sqrt_mass = (
-            mass_eigenvectors
-            * np.reciprocal(np.sqrt(mass_eigenvalues))[None, :]
-        ) @ mass_eigenvectors.T
-
-        def pullback(gradient: np.ndarray) -> np.ndarray:
-            result = np.zeros((4, 3), dtype=np.float64)
-            result[1:] = gradient.T / axis_length
-            result[0] = -np.sum(result[1:], axis=0)
-            return result
-
-        orthogonality_hessian = np.zeros((12, 12), dtype=np.float64)
-        corotated_hessian = np.zeros((12, 12), dtype=np.float64)
-        for column in range(12):
-            point_increment = np.zeros((4, 3), dtype=np.float64)
-            point_increment.reshape(-1)[column] = 1.0
-            affine_increment = (
-                point_increment[1:] - point_increment[0]
-            ).T / axis_length
-
-            # E_ABD = L^2/4 ||A A^T-I||_F^2.  At A=I its Gauss-Newton
-            # tangent is L^2(dA+dA^T).
-            orthogonality_gradient = axis_length**2 * (
-                affine_increment + affine_increment.T
-            )
-            orthogonality_hessian[:, column] = pullback(
-                orthogonality_gradient
-            ).reshape(-1)
-
-            # M-ABD Eq. (15) with the fixed comparison ratio lambda=mu=1.
-            corotated_gradient = axis_length**2 * (
-                affine_increment
-                + affine_increment.T
-                + np.trace(affine_increment) * np.eye(3, dtype=np.float64)
-            )
-            corotated_hessian[:, column] = pullback(corotated_gradient).reshape(
-                -1
-            )
-
-        def normalized_scale(hessian: np.ndarray, name: str) -> float:
-            hessian = 0.5 * (hessian + hessian.T)
-            normalized = inverse_sqrt_mass @ hessian @ inverse_sqrt_mass
-            maximum = float(np.max(np.linalg.eigvalsh(normalized)))
-            if not np.isfinite(maximum) or maximum <= 0.0:
-                raise ValueError(
-                    f"Body {body_index} produced an invalid {name} rigidity scale."
-                )
-            return 1.0 / maximum
-
-        return (
-            normalized_scale(orthogonality_hessian, "ABD orthogonality"),
-            normalized_scale(corotated_hessian, "co-rotated"),
-        )
-
-    @staticmethod
-    def _so3_rigidity_scale(
-        body_index: int, vertex_mass: np.ndarray, axis_length: float
-    ) -> float:
-        """Normalize the fixed-rotation SO(3) AL metric by the proxy mass."""
-        mass = np.asarray(vertex_mass, dtype=np.float64)
-        mass_eigenvalues, mass_eigenvectors = np.linalg.eigh(mass)
-        mass_tolerance = (
-            32.0
-            * np.finfo(np.float32).eps
-            * max(float(np.max(mass_eigenvalues)), np.finfo(np.float64).tiny)
-        )
-        if float(np.min(mass_eigenvalues)) <= mass_tolerance:
-            raise ValueError(
-                f"Body {body_index} produced a singular affine proxy mass matrix."
-            )
-        inverse_sqrt_mass = (
-            mass_eigenvectors
-            * np.reciprocal(np.sqrt(mass_eigenvalues))[None, :]
-        ) @ mass_eigenvectors.T
-        # A = [(x1-x0), (x2-x0), (x3-x0)] / L pulls this metric back to a
-        # three-edge star Laplacian after multiplying by L^2.
-        star_laplacian = np.array(
-            (
-                (3.0, -1.0, -1.0, -1.0),
-                (-1.0, 1.0, 0.0, 0.0),
-                (-1.0, 0.0, 1.0, 0.0),
-                (-1.0, 0.0, 0.0, 1.0),
-            ),
-            dtype=np.float64,
-        )
-        if not np.isfinite(axis_length) or axis_length <= 0.0:
-            raise ValueError(f"Body {body_index} has an invalid affine axis length.")
-        normalized_metric = inverse_sqrt_mass @ (
-            star_laplacian / (axis_length * axis_length)
-        ) @ inverse_sqrt_mass
-        maximum_generalized_eigenvalue = float(
-            np.max(np.linalg.eigvalsh(normalized_metric))
-        )
-        if (
-            not np.isfinite(maximum_generalized_eigenvalue)
-            or maximum_generalized_eigenvalue <= 0.0
-        ):
-            raise ValueError(f"Body {body_index} produced an invalid SO(3) AL scale.")
-        return 1.0 / maximum_generalized_eigenvalue
+        return generalized_mass.astype(np.float32)
 
     def add_body_spring(
         self,
@@ -528,25 +350,9 @@ class ModelBuilder(_newton.ModelBuilder):
         def point_weights(body: int, point: np.ndarray) -> np.ndarray:
             if body == -1:
                 return np.zeros(4, dtype=np.float32)
-            affine_body = affine_body_by_newton_body[body]
-            particle_indices = self.affine_body_particle_indices[affine_body]
-            proxy_positions = np.asarray(
-                [self.particle_q[index] for index in particle_indices],
-                dtype=np.float64,
-            )
-            axis_length = float(
-                np.sqrt(
-                    np.mean(
-                        np.sum(
-                            (proxy_positions[1:] - proxy_positions[:1]) ** 2,
-                            axis=1,
-                        )
-                    )
-                )
-            )
-            offset = (point - np.asarray(self.body_com[body])) / axis_length
+            offset = point - np.asarray(self.body_com[body])
             return np.asarray(
-                (1.0 - np.sum(offset), offset[0], offset[1], offset[2]),
+                (1.0, offset[0], offset[1], offset[2]),
                 dtype=np.float32,
             )
 
@@ -810,11 +616,6 @@ class ModelBuilder(_newton.ModelBuilder):
                 np.ndarray,
                 np.ndarray,
                 np.ndarray,
-                float,
-                float,
-                float,
-                float,
-                float,
             ]
         ] = []
 
@@ -825,16 +626,8 @@ class ModelBuilder(_newton.ModelBuilder):
                     f"Dynamic body {body_index} must have positive mass before finalization."
                 )
 
-            axis_length, mass_matrix, rigidity_scale = self._proxy_mass_matrix(
+            mass_matrix = self._proxy_mass_matrix(
                 body_index, mass, self.body_inertia[body_index]
-            )
-            orthogonality_scale, corotated_scale = (
-                self._alternative_rigidity_scales(
-                    body_index, mass_matrix, axis_length
-                )
-            )
-            so3_scale = self._so3_rigidity_scale(
-                body_index, mass_matrix, axis_length
             )
             body_transform = np.asarray(self.body_q[body_index], dtype=np.float64)
             body_position = body_transform[:3]
@@ -846,26 +639,13 @@ class ModelBuilder(_newton.ModelBuilder):
             world_com = body_position + body_rotation @ body_com
             linear_velocity = body_velocity[:3]
             angular_velocity = body_velocity[3:]
-            local_offsets = np.vstack(
+            affine_columns = body_rotation.T.copy()
+            positions = np.vstack((world_com, affine_columns))
+            velocities = np.vstack(
                 (
-                    np.zeros(3, dtype=np.float64),
-                    axis_length * np.eye(3, dtype=np.float64),
+                    linear_velocity,
+                    [np.cross(angular_velocity, column) for column in affine_columns],
                 )
-            )
-            world_offsets = np.array(
-                [body_rotation @ local_offset for local_offset in local_offsets],
-                dtype=np.float64,
-            )
-            velocities = np.array(
-                [
-                    linear_velocity + np.cross(angular_velocity, world_offset)
-                    for world_offset in world_offsets
-                ],
-                dtype=np.float64,
-            )
-            positions = np.array(
-                [world_com + world_offset for world_offset in world_offsets],
-                dtype=np.float64,
             )
 
             proxy_specs.append(
@@ -874,13 +654,8 @@ class ModelBuilder(_newton.ModelBuilder):
                     int(self.body_world[body_index]),
                     positions,
                     velocities,
-                    np.full(4, mass, dtype=np.float64),
+                    np.diag(mass_matrix).astype(np.float64),
                     mass_matrix,
-                    rigidity_scale,
-                    axis_length,
-                    orthogonality_scale,
-                    corotated_scale,
-                    so3_scale,
                 )
             )
 
@@ -891,11 +666,6 @@ class ModelBuilder(_newton.ModelBuilder):
             velocities,
             masses,
             mass_matrix,
-            rigidity_scale,
-            axis_length,
-            orthogonality_scale,
-            corotated_scale,
-            so3_scale,
         ) in proxy_specs:
             particle_indices: list[int] = []
             for position, velocity, mass in zip(positions, velocities, masses):
@@ -913,11 +683,6 @@ class ModelBuilder(_newton.ModelBuilder):
             self.affine_body_ids.append(body_index)
             self.affine_body_particle_indices.append(tuple(particle_indices))
             self.affine_body_particle_mass_matrices.append(mass_matrix)
-            self.affine_body_rigidity_scales.append(rigidity_scale)
-            self.affine_body_axis_lengths.append(axis_length)
-            self.affine_body_orthogonality_scales.append(orthogonality_scale)
-            self.affine_body_corotated_scales.append(corotated_scale)
-            self.affine_body_so3_scales.append(so3_scale)
 
         self._group_particles_by_world()
         self._affine_body_proxies_added = True
@@ -1017,27 +782,6 @@ class ModelBuilder(_newton.ModelBuilder):
         )
         model.synreal_affine_body_indices = wp.array(
             self.affine_body_particle_indices, dtype=wp.vec4i, device=model.device
-        )
-        model.synreal_affine_body_rigidity_scales = wp.array(
-            self.affine_body_rigidity_scales, dtype=wp.float32, device=model.device
-        )
-        model.synreal_affine_body_axis_lengths = wp.array(
-            self.affine_body_axis_lengths, dtype=wp.float32, device=model.device
-        )
-        model.synreal_affine_body_orthogonality_scales = wp.array(
-            self.affine_body_orthogonality_scales,
-            dtype=wp.float32,
-            device=model.device,
-        )
-        model.synreal_affine_body_corotated_scales = wp.array(
-            self.affine_body_corotated_scales,
-            dtype=wp.float32,
-            device=model.device,
-        )
-        model.synreal_affine_body_so3_scales = wp.array(
-            self.affine_body_so3_scales,
-            dtype=wp.float32,
-            device=model.device,
         )
         model.synreal_affine_body_masses = wp.array(
             [self.body_mass[body] for body in body_ids],

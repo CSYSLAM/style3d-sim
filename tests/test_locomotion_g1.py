@@ -42,7 +42,7 @@ def test_g1_contract_dimensions_and_actuators() -> None:
     assert config.simulation.contact_damping == 500.0
     assert config.simulation.contact_friction_gain == 1000.0
     assert config.simulation.ground_friction == 1.0
-    assert config.simulation.joint_constraint_alpha == 200.0
+    assert config.simulation.constraint_alpha == 200.0
     assert config.simulation.joint_constraint_primal_iterations == 2
     assert config.simulation.nonlinear_iterations == 30
     assert config.simulation.linear_iterations == 10

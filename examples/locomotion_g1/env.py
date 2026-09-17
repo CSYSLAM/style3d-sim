@@ -288,9 +288,7 @@ class SynRealG1LocomotionEnv:
         )
         self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
         self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-        self.solver.config.joint_constraint_alpha = (
-            self.cfg.simulation.joint_constraint_alpha
-        )
+        self.solver.config.constraint_alpha = self.cfg.simulation.constraint_alpha
         self.solver.config.joint_constraint_primal_iterations = (
             self.cfg.simulation.joint_constraint_primal_iterations
         )

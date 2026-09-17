@@ -99,7 +99,7 @@ def _predict_affine_body_velocities(
     dt: float,
     particle_qd: wp.array(dtype=wp.vec3),
 ):
-    """Convert a Newton rigid-body prediction to affine-proxy linear velocities."""
+    """Convert a Newton rigid-body prediction to direct ABD velocities."""
     affine_body = wp.tid()
     particle_indices = affine_body_indices[affine_body]
     body = affine_body_ids[affine_body]
@@ -107,22 +107,19 @@ def _predict_affine_body_velocities(
     predicted_pose = predicted_body_q[body]
 
     rotation = wp.transform_get_rotation(pose)
-    center = wp.transform_get_translation(pose) + wp.quat_rotate(
-        rotation, body_com[body]
-    )
     predicted_rotation = wp.transform_get_rotation(predicted_pose)
     predicted_center = wp.transform_get_translation(predicted_pose) + wp.quat_rotate(
         predicted_rotation, body_com[body]
     )
 
-    for local_proxy in range(4):
-        particle = particle_indices[local_proxy]
-        current_position = particle_q[particle]
-        local_offset = wp.quat_rotate_inv(rotation, current_position - center)
-        predicted_position = predicted_center + wp.quat_rotate(
-            predicted_rotation, local_offset
-        )
-        particle_qd[particle] = (predicted_position - current_position) / dt
+    center_particle = particle_indices[0]
+    particle_qd[center_particle] = (predicted_center - particle_q[center_particle]) / dt
+    for local_axis in range(1, 4):
+        particle = particle_indices[local_axis]
+        current_axis = particle_q[particle]
+        local_axis_vector = wp.quat_rotate_inv(rotation, current_axis)
+        predicted_axis = wp.quat_rotate(predicted_rotation, local_axis_vector)
+        particle_qd[particle] = (predicted_axis - current_axis) / dt
 
 
 @wp.kernel
@@ -136,7 +133,7 @@ def _sync_affine_body_state(
     particle_q: wp.array(dtype=wp.vec3),
     particle_qd: wp.array(dtype=wp.vec3),
 ):
-    """Map authored Newton body poses and twists to affine proxy particles."""
+    """Map authored Newton body poses and twists to direct ABD coordinates."""
     affine_body = wp.tid()
     indices = affine_body_indices[affine_body]
     body = affine_body_ids[affine_body]
@@ -148,23 +145,17 @@ def _sync_affine_body_state(
     linear_velocity = wp.spatial_top(body_qd[body])
     angular_velocity = wp.spatial_bottom(body_qd[body])
 
-    reference_origin = reference_particle_q[indices[0]]
-    lengths = wp.vec3(
-        wp.length(reference_particle_q[indices[1]] - reference_origin),
-        wp.length(reference_particle_q[indices[2]] - reference_origin),
-        wp.length(reference_particle_q[indices[3]] - reference_origin),
-    )
-    x_offset = wp.quat_rotate(rotation, wp.vec3(lengths[0], 0.0, 0.0))
-    y_offset = wp.quat_rotate(rotation, wp.vec3(0.0, lengths[1], 0.0))
-    z_offset = wp.quat_rotate(rotation, wp.vec3(0.0, 0.0, lengths[2]))
+    x_axis = wp.quat_rotate(rotation, wp.vec3(1.0, 0.0, 0.0))
+    y_axis = wp.quat_rotate(rotation, wp.vec3(0.0, 1.0, 0.0))
+    z_axis = wp.quat_rotate(rotation, wp.vec3(0.0, 0.0, 1.0))
     particle_q[indices[0]] = world_com
     particle_qd[indices[0]] = linear_velocity
-    particle_q[indices[1]] = world_com + x_offset
-    particle_q[indices[2]] = world_com + y_offset
-    particle_q[indices[3]] = world_com + z_offset
-    particle_qd[indices[1]] = linear_velocity + wp.cross(angular_velocity, x_offset)
-    particle_qd[indices[2]] = linear_velocity + wp.cross(angular_velocity, y_offset)
-    particle_qd[indices[3]] = linear_velocity + wp.cross(angular_velocity, z_offset)
+    particle_q[indices[1]] = x_axis
+    particle_q[indices[2]] = y_axis
+    particle_q[indices[3]] = z_axis
+    particle_qd[indices[1]] = wp.cross(angular_velocity, x_axis)
+    particle_qd[indices[2]] = wp.cross(angular_velocity, y_axis)
+    particle_qd[indices[3]] = wp.cross(angular_velocity, z_axis)
 
 
 @wp.kernel
@@ -176,7 +167,6 @@ def _update_affine_body_poses(
     fixed_affine_body_flags: wp.array(dtype=wp.int32),
     body_com: wp.array(dtype=wp.vec3),
     affine_body_inertia: wp.array(dtype=wp.mat33),
-    affine_body_axis_lengths: wp.array(dtype=wp.float32),
     inertia_mode: int,
     dt: float,
     body_q: wp.array(dtype=wp.transform),
@@ -190,14 +180,10 @@ def _update_affine_body_poses(
     body = affine_body_ids[affine_body]
     origin = particle_q[particle_indices[0]]
 
-    axis_length = affine_body_axis_lengths[affine_body]
-    if axis_length <= 1.0e-8:
-        return
-
     affine_matrix = wp.matrix_from_cols(
-        (particle_q[particle_indices[1]] - origin) / axis_length,
-        (particle_q[particle_indices[2]] - origin) / axis_length,
-        (particle_q[particle_indices[3]] - origin) / axis_length,
+        particle_q[particle_indices[1]],
+        particle_q[particle_indices[2]],
+        particle_q[particle_indices[3]],
     )
     # Extract the closest rotation in the authored ABD mass metric. The affine
     # kinetic energy weights frame columns by the second moment D, so the
@@ -256,9 +242,9 @@ def _update_affine_body_poses(
         # to invert. Project its converged affine velocity gradient onto the
         # closest rigid angular velocity in the authored mass metric instead.
         velocity_gradient = wp.matrix_from_cols(
-            (particle_qd[particle_indices[1]] - center_velocity) / axis_length,
-            (particle_qd[particle_indices[2]] - center_velocity) / axis_length,
-            (particle_qd[particle_indices[3]] - center_velocity) / axis_length,
+            particle_qd[particle_indices[1]],
+            particle_qd[particle_indices[2]],
+            particle_qd[particle_indices[3]],
         )
         coupling = velocity_gradient * second_moment * wp.transpose(polar_rotation)
         angular_momentum = wp.vec3(
@@ -273,19 +259,13 @@ def _update_affine_body_poses(
         # proxy velocities the exact rigid field represented by that twist.
         # This makes NONE's velocity projection idempotent: recovering body_qd
         # and expanding it again produces the same proxy velocities.
-        x_offset = wp.quat_rotate(rotation, wp.vec3(axis_length, 0.0, 0.0))
-        y_offset = wp.quat_rotate(rotation, wp.vec3(0.0, axis_length, 0.0))
-        z_offset = wp.quat_rotate(rotation, wp.vec3(0.0, 0.0, axis_length))
+        x_axis = wp.quat_rotate(rotation, wp.vec3(1.0, 0.0, 0.0))
+        y_axis = wp.quat_rotate(rotation, wp.vec3(0.0, 1.0, 0.0))
+        z_axis = wp.quat_rotate(rotation, wp.vec3(0.0, 0.0, 1.0))
         particle_qd[particle_indices[0]] = center_velocity
-        particle_qd[particle_indices[1]] = center_velocity + wp.cross(
-            angular_velocity, x_offset
-        )
-        particle_qd[particle_indices[2]] = center_velocity + wp.cross(
-            angular_velocity, y_offset
-        )
-        particle_qd[particle_indices[3]] = center_velocity + wp.cross(
-            angular_velocity, z_offset
-        )
+        particle_qd[particle_indices[1]] = wp.cross(angular_velocity, x_axis)
+        particle_qd[particle_indices[2]] = wp.cross(angular_velocity, y_axis)
+        particle_qd[particle_indices[3]] = wp.cross(angular_velocity, z_axis)
     body_q[body] = wp.transform(
         origin - wp.quat_rotate(rotation, body_com[body]), rotation
     )
@@ -300,26 +280,20 @@ def _scatter_affine_body_forces(
     particle_q: wp.array(dtype=wp.vec3),
     particle_f: wp.array(dtype=wp.vec3),
 ):
-    """Distribute a Newton body wrench over the four affine proxy particles."""
+    """Map a Newton body wrench to direct ABD generalized forces."""
     affine_body = wp.tid()
     particle_indices = affine_body_indices[affine_body]
     body = affine_body_ids[affine_body]
     wrench = body_f[body]
     force = wp.spatial_top(wrench)
     torque = wp.spatial_bottom(wrench)
-    origin = particle_q[particle_indices[0]]
-    x_offset = particle_q[particle_indices[1]] - origin
-    y_offset = particle_q[particle_indices[2]] - origin
-    z_offset = particle_q[particle_indices[3]] - origin
-    axis_length_squared = wp.dot(x_offset, x_offset)
-    if axis_length_squared <= 1.0e-12:
-        return
-
-    force_x = wp.cross(torque, x_offset) / (2.0 * axis_length_squared)
-    force_y = wp.cross(torque, y_offset) / (2.0 * axis_length_squared)
-    force_z = wp.cross(torque, z_offset) / (2.0 * axis_length_squared)
-    force_origin = force - force_x - force_y - force_z
-    wp.atomic_add(particle_f, particle_indices[0], force_origin)
+    x_axis = particle_q[particle_indices[1]]
+    y_axis = particle_q[particle_indices[2]]
+    z_axis = particle_q[particle_indices[3]]
+    force_x = 0.5 * wp.cross(torque, x_axis)
+    force_y = 0.5 * wp.cross(torque, y_axis)
+    force_z = 0.5 * wp.cross(torque, z_axis)
+    wp.atomic_add(particle_f, particle_indices[0], force)
     wp.atomic_add(particle_f, particle_indices[1], force_x)
     wp.atomic_add(particle_f, particle_indices[2], force_y)
     wp.atomic_add(particle_f, particle_indices[3], force_z)
@@ -445,21 +419,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         self._affine_body_inertia: Any | None = getattr(
             model, "synreal_affine_body_inertia", None
-        )
-        self._affine_body_rigidity_scales: Any | None = getattr(
-            model, "synreal_affine_body_rigidity_scales", None
-        )
-        self._affine_body_axis_lengths: Any | None = getattr(
-            model, "synreal_affine_body_axis_lengths", None
-        )
-        self._affine_body_orthogonality_scales: Any | None = getattr(
-            model, "synreal_affine_body_orthogonality_scales", None
-        )
-        self._affine_body_corotated_scales: Any | None = getattr(
-            model, "synreal_affine_body_corotated_scales", None
-        )
-        self._affine_body_so3_scales: Any | None = getattr(
-            model, "synreal_affine_body_so3_scales", None
         )
         self._affine_body_com: Any | None = getattr(
             model, "synreal_affine_body_com", None
@@ -647,11 +606,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
             for array in (
                 self._affine_body_masses,
                 self._affine_body_inertia,
-                self._affine_body_rigidity_scales,
-                self._affine_body_axis_lengths,
-                self._affine_body_orthogonality_scales,
-                self._affine_body_corotated_scales,
-                self._affine_body_so3_scales,
                 self._affine_body_com,
             )
         ):
@@ -1080,11 +1034,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         affine_indices: list[tuple[int, int, int, int]] = []
         mass_matrices: list[Any] = []
-        rigidity_scales: list[float] = []
-        axis_lengths: list[float] = []
-        orthogonality_scales: list[float] = []
-        corotated_scales: list[float] = []
-        so3_scales: list[float] = []
         proxy_inertias: list[Any] = []
 
         for body in body_ids:
@@ -1099,17 +1048,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 # regularized inertia. Keeping these consistent gives driven
                 # articulations substantially better nonlinear convergence.
                 proxy_inertia = proxy_inertia + armature * np.eye(3)
-            axis_length, mass_matrix, rigidity_scale = ModelBuilder._proxy_mass_matrix(
-                body, mass, proxy_inertia
-            )
-            orthogonality_scale, corotated_scale = (
-                ModelBuilder._alternative_rigidity_scales(
-                    body, mass_matrix, axis_length
-                )
-            )
-            so3_scale = ModelBuilder._so3_rigidity_scale(
-                body, mass_matrix, axis_length
-            )
+            mass_matrix = ModelBuilder._proxy_mass_matrix(body, mass, proxy_inertia)
             transform = np.asarray(body_transforms[body], dtype=np.float64)
             rotation = np.asarray(
                 wp.quat_to_matrix(wp.quat(*transform[3:7])), dtype=np.float64
@@ -1117,38 +1056,24 @@ class NewtonSolver(_newton.solvers.SolverBase):
             world_com = transform[:3] + rotation @ np.asarray(
                 body_centers_of_mass[body], dtype=np.float64
             )
-            local_offsets = np.vstack(
-                (
-                    np.zeros(3, dtype=np.float64),
-                    axis_length * np.eye(3, dtype=np.float64),
-                )
-            )
-            world_offsets = np.asarray(
-                [rotation @ offset for offset in local_offsets], dtype=np.float64
-            )
+            affine_columns = rotation.T.copy()
             body_velocity = np.asarray(body_velocities[body], dtype=np.float64)
-            body_particle_positions = world_com + world_offsets
-            body_particle_velocities = np.asarray(
-                [
-                    body_velocity[:3] + np.cross(body_velocity[3:], world_offset)
-                    for world_offset in world_offsets
-                ],
-                dtype=np.float64,
+            body_particle_positions = np.vstack((world_com, affine_columns))
+            body_particle_velocities = np.vstack(
+                (
+                    body_velocity[:3],
+                    [np.cross(body_velocity[3:], column) for column in affine_columns],
+                )
             )
 
             first_particle = len(positions)
             indices = tuple(range(first_particle, first_particle + 4))
             affine_indices.append(indices)
             mass_matrices.append(mass_matrix)
-            rigidity_scales.append(rigidity_scale)
-            axis_lengths.append(axis_length)
-            orthogonality_scales.append(orthogonality_scale)
-            corotated_scales.append(corotated_scale)
-            so3_scales.append(so3_scale)
             proxy_inertias.append(proxy_inertia)
             positions.extend(body_particle_positions)
             velocities.extend(body_particle_velocities)
-            particle_masses.extend((mass,) * 4)
+            particle_masses.extend(np.diag(mass_matrix))
             particle_radii.extend((0.0,) * 4)
             particle_flags.extend((int(_newton.ParticleFlags.ACTIVE),) * 4)
             particle_worlds.extend((int(body_worlds[body]),) * 4)
@@ -1293,21 +1218,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         model.synreal_affine_body_indices = wp.array(
             affine_indices, dtype=wp.vec4i, device=device
-        )
-        model.synreal_affine_body_rigidity_scales = wp.array(
-            rigidity_scales, dtype=wp.float32, device=device
-        )
-        model.synreal_affine_body_axis_lengths = wp.array(
-            axis_lengths, dtype=wp.float32, device=device
-        )
-        model.synreal_affine_body_orthogonality_scales = wp.array(
-            orthogonality_scales, dtype=wp.float32, device=device
-        )
-        model.synreal_affine_body_corotated_scales = wp.array(
-            corotated_scales, dtype=wp.float32, device=device
-        )
-        model.synreal_affine_body_so3_scales = wp.array(
-            so3_scales, dtype=wp.float32, device=device
         )
         model.synreal_affine_body_masses = wp.array(
             body_masses[body_ids], dtype=wp.float32, device=device
@@ -1796,11 +1706,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
             or self._affine_body_indices is None
             or self._affine_body_masses is None
             or self._affine_body_inertia is None
-            or self._affine_body_rigidity_scales is None
-            or self._affine_body_axis_lengths is None
-            or self._affine_body_orthogonality_scales is None
-            or self._affine_body_corotated_scales is None
-            or self._affine_body_so3_scales is None
         ):
             raise ValueError("Joint drive armature requires affine body metadata.")
 
@@ -1831,21 +1736,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
         body_inertias = np.asarray(
             self._affine_body_inertia.numpy(), dtype=np.float64
         ).reshape((-1, 3, 3))
-        rigidity_scales = np.asarray(
-            self._affine_body_rigidity_scales.numpy(), dtype=np.float64
-        )
-        axis_lengths = np.asarray(
-            self._affine_body_axis_lengths.numpy(), dtype=np.float64
-        )
-        orthogonality_scales = np.asarray(
-            self._affine_body_orthogonality_scales.numpy(), dtype=np.float64
-        )
-        corotated_scales = np.asarray(
-            self._affine_body_corotated_scales.numpy(), dtype=np.float64
-        )
-        so3_scales = np.asarray(
-            self._affine_body_so3_scales.numpy(), dtype=np.float64
-        )
         mass_diagonal_array = (
             self._particle_mass_diagonal
             if self._particle_mass_diagonal is not None
@@ -1879,29 +1769,13 @@ class NewtonSolver(_newton.solvers.SolverBase):
         identity = np.eye(3, dtype=np.float64)
         for affine_body in sorted(driven_bodies):
             indices = affine_indices[affine_body]
-            axis_length = float(axis_lengths[affine_body])
             regularized_inertia = body_inertias[affine_body] + armature * identity
-            _, mass_matrix, rigidity_scale = ModelBuilder._proxy_mass_matrix(
+            mass_matrix = ModelBuilder._proxy_mass_matrix(
                 int(affine_body_ids[affine_body]),
                 float(body_masses[affine_body]),
                 regularized_inertia,
-                axis_length=axis_length,
-            )
-            orthogonality_scale, corotated_scale = (
-                ModelBuilder._alternative_rigidity_scales(
-                    int(affine_body_ids[affine_body]),
-                    mass_matrix,
-                    axis_length,
-                )
-            )
-            so3_scale = ModelBuilder._so3_rigidity_scale(
-                int(affine_body_ids[affine_body]), mass_matrix, axis_length
             )
             body_inertias[affine_body] = regularized_inertia
-            rigidity_scales[affine_body] = rigidity_scale
-            orthogonality_scales[affine_body] = orthogonality_scale
-            corotated_scales[affine_body] = corotated_scale
-            so3_scales[affine_body] = so3_scale
             for local_index, particle in enumerate(indices):
                 mass_diagonal[particle] = mass_matrix[local_index, local_index]
             for first, second in combinations(range(4), 2):
@@ -1925,21 +1799,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         self._affine_body_inertia = wp.array(
             body_inertias, dtype=wp.mat33, device=device
-        )
-        self._affine_body_rigidity_scales = wp.array(
-            rigidity_scales, dtype=wp.float32, device=device
-        )
-        self._affine_body_axis_lengths = wp.array(
-            axis_lengths, dtype=wp.float32, device=device
-        )
-        self._affine_body_orthogonality_scales = wp.array(
-            orthogonality_scales, dtype=wp.float32, device=device
-        )
-        self._affine_body_corotated_scales = wp.array(
-            corotated_scales, dtype=wp.float32, device=device
-        )
-        self._affine_body_so3_scales = wp.array(
-            so3_scales, dtype=wp.float32, device=device
         )
 
     def _normalize_body_distance_constraint_mass_scales(self) -> Any | None:
@@ -1997,32 +1856,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         affine_indices = np.asarray(self._affine_body_indices.numpy(), dtype=np.int64)
         body_centers = np.asarray(self._affine_body_com.numpy(), dtype=np.float64)
-        particle_positions = np.asarray(self.model.particle_q.numpy(), dtype=np.float64)
-        # Prebuilt proxy metadata keeps its authored particle geometry when the
-        # solver adds armature, so derive interpolation scales from the actual
-        # tetrahedra instead of inferring them from the regularized inertia.
-        proxy_positions = particle_positions[affine_indices]
-        axis_lengths = np.sqrt(
-            np.mean(
-                np.sum(
-                    (proxy_positions[:, 1:] - proxy_positions[:, :1]) ** 2,
-                    axis=2,
-                ),
-                axis=1,
-            )
-        )
-
         active_flag = int(_newton.ParticleFlags.ACTIVE)
         active = (
             np.asarray(self._particle_flags.numpy(), dtype=np.int64) & active_flag
         ) != 0
 
         def point_weights(body: int, point: Any) -> np.ndarray:
-            offset = (
-                np.asarray(point, dtype=np.float64) - body_centers[body]
-            ) / axis_lengths[body]
+            offset = np.asarray(point, dtype=np.float64) - body_centers[body]
             return np.asarray(
-                (1.0 - np.sum(offset), offset[0], offset[1], offset[2]),
+                (1.0, offset[0], offset[1], offset[2]),
                 dtype=np.float64,
             )
 
@@ -2147,7 +1989,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 metric += stiffness * np.outer(vector, vector)
 
             # Coupled constraints can reinforce one another. A final per-world
-            # normalization preserves Config.joint_constraint_alpha as the maximum
+            # Normalization preserves Config.constraint_alpha as the maximum
             # generalized eigenvalue of dt^2*K_joint against the proxy mass matrix.
             normalized_metric = inverse_sqrt_mass @ metric @ inverse_sqrt_mass
             maximum_eigenvalue = float(np.max(np.linalg.eigvalsh(normalized_metric)))
@@ -2356,26 +2198,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 raise ValueError(
                     "Affine body inertia tensors do not match the affine body count."
                 )
-            if (
-                self._affine_body_rigidity_scales is None
-                or len(self._affine_body_rigidity_scales) != affine_body_count
-            ):
-                raise ValueError(
-                    "Affine body rigidity scales do not match the affine body count."
-                )
-            for values, name in (
-                (self._affine_body_axis_lengths, "axis lengths"),
-                (
-                    self._affine_body_orthogonality_scales,
-                    "orthogonality rigidity scales",
-                ),
-                (self._affine_body_corotated_scales, "co-rotated rigidity scales"),
-                (self._affine_body_so3_scales, "SO(3) AL rigidity scales"),
-            ):
-                if values is None or len(values) != affine_body_count:
-                    raise ValueError(
-                        f"Affine body {name} do not match the affine body count."
-                    )
             if (
                 self._affine_body_com is None
                 or len(self._affine_body_com) != affine_body_count
@@ -2736,21 +2558,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
             self._synreal_model.affine_body_indices = self._as_span(
                 self._affine_body_indices, affine_body_count, expected_dtype=self._wp.vec4i
-            )
-            self._synreal_model.affine_body_rigidity_scales = self._as_span(
-                self._affine_body_rigidity_scales, affine_body_count, expected_dtype=self._wp.float32
-            )
-            self._synreal_model.affine_body_axis_lengths = self._as_span(
-                self._affine_body_axis_lengths, affine_body_count, expected_dtype=self._wp.float32
-            )
-            self._synreal_model.affine_body_orthogonality_scales = self._as_span(
-                self._affine_body_orthogonality_scales, affine_body_count, expected_dtype=self._wp.float32
-            )
-            self._synreal_model.affine_body_corotated_scales = self._as_span(
-                self._affine_body_corotated_scales, affine_body_count, expected_dtype=self._wp.float32
-            )
-            self._synreal_model.affine_body_so3_scales = self._as_span(
-                self._affine_body_so3_scales, affine_body_count, expected_dtype=self._wp.float32
             )
             self._synreal_model.affine_body_ids = self._as_span(
                 self._affine_body_ids, affine_body_count, expected_dtype=self._wp.int32
@@ -3457,7 +3264,6 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     self._fixed_affine_body_flags,
                     self.model.body_com,
                     self._affine_body_inertia,
-                    self._affine_body_axis_lengths,
                     inertia_mode,
                     dt,
                 ],

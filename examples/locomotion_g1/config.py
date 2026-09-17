@@ -127,7 +127,7 @@ class SimulationConfig:
     contact_friction_gain: float = 1.0e3
     ground_friction: float = 1.0
     joint_armature_approximation: float = 0.01
-    joint_constraint_alpha: float = 200.0
+    constraint_alpha: float = 200.0
     joint_constraint_primal_iterations: int = 2
     nonlinear_iterations: int = 30
     linear_iterations: int = 10

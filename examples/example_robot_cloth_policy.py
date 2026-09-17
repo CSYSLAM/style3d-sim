@@ -327,7 +327,7 @@ class Example:
             )
         else:
             self.solver = synreal_solver.NewtonSolver(self.model)
-            self.solver.config.joint_constraint_alpha = 200
+            self.solver.config.constraint_alpha = 200
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 10
 

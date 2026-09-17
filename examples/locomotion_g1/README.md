@@ -24,7 +24,7 @@ ground `mu=1.0`. Robot collision-shape
 the ground shape remains at `1.0`. The solver uses augmented-Lagrangian joint
 constraints with two primal iterations, six-spring affine rigidity,
 midpoint-Cayley inertia, Newton nonlinear solves, 30 nonlinear iterations, and
-10 linear iterations. Joint constraint alpha remains `200`.
+10 linear iterations. The shared constraint alpha remains `200`.
 
 All commands that construct the solver must use the authenticated launcher:
 

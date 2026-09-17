@@ -385,7 +385,7 @@ def run_synreal(
 
     model = builder.finalize()
     solver = synreal_solver.NewtonSolver(model)
-    solver.config.joint_constraint_alpha = 200
+    solver.config.constraint_alpha = 200
     solver.config.nonlinear_iterations = 10
     solver.config.linear_iterations = 10
 

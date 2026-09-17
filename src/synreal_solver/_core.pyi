@@ -89,14 +89,6 @@ class Config:
     def affine_body_rigidity_model(self, arg0: AffineBodyRigidityModel) -> None:
         ...
     @property
-    def affine_body_spring_alpha(self) -> float:
-        """
-        Maximum generalized eigenvalue of dt^2*K_rigidity*v = alpha*M*v for the selected affine-body rigidity model.
-        """
-    @affine_body_spring_alpha.setter
-    def affine_body_spring_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
     def affine_body_rigidity_primal_iterations(self) -> int:
         """
         Primal Newton iterations performed with a fixed affine-body SO(3) AL
@@ -108,12 +100,14 @@ class Config:
     ) -> None:
         ...
     @property
-    def distance_constraint_alpha(self) -> float:
+    def constraint_alpha(self) -> float:
         """
-        ADMM penalty eigenvalue for mass-normalized hard distance constraints.
+        Shared dimensionless mass-normalized penalty for affine rigidity,
+        generated joint constraints, and hard distance constraints. Zero disables
+        all three.
         """
-    @distance_constraint_alpha.setter
-    def distance_constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+    @constraint_alpha.setter
+    def constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
     @property
     def enable_self_collision(self) -> bool:
@@ -130,14 +124,6 @@ class Config:
         """
     @inertia_mode.setter
     def inertia_mode(self, arg0: InertiaMode) -> None:
-        ...
-    @property
-    def joint_constraint_alpha(self) -> float:
-        """
-        Dimensionless mass-normalized joint parameter: maximum dt^2*K/M eigenvalue in PENALTY mode and augmented-Lagrangian penalty eigenvalue in AUGMENTED_LAGRANGIAN mode. Zero disables generated joint constraints.
-        """
-    @joint_constraint_alpha.setter
-    def joint_constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
     @property
     def joint_constraint_mode(self) -> JointConstraintMode:
@@ -590,22 +576,6 @@ class Model:
         Create an empty model with no referenced device data.
         """
     @property
-    def affine_body_axis_lengths(self) -> Span:
-        """
-        Device span containing one reference frame-axis length per affine body.
-        """
-    @affine_body_axis_lengths.setter
-    def affine_body_axis_lengths(self, arg1: Span) -> None:
-        ...
-    @property
-    def affine_body_corotated_scales(self) -> Span:
-        """
-        Device span containing one co-rotated mass-normalization scale per affine body.
-        """
-    @affine_body_corotated_scales.setter
-    def affine_body_corotated_scales(self, arg1: Span) -> None:
-        ...
-    @property
     def affine_body_ids(self) -> Span:
         """
         Device span mapping affine bodies to Newton body indices.
@@ -616,34 +586,10 @@ class Model:
     @property
     def affine_body_indices(self) -> Span:
         """
-        Device span containing the four particle indices of each affine body.
+        Device span containing the four direct-ABD coordinate indices of each affine body.
         """
     @affine_body_indices.setter
     def affine_body_indices(self, arg1: Span) -> None:
-        ...
-    @property
-    def affine_body_orthogonality_scales(self) -> Span:
-        """
-        Device span containing one original-ABD mass-normalization scale per affine body.
-        """
-    @affine_body_orthogonality_scales.setter
-    def affine_body_orthogonality_scales(self, arg1: Span) -> None:
-        ...
-    @property
-    def affine_body_rigidity_scales(self) -> Span:
-        """
-        Device span containing one six-spring mass-normalization scale per affine body.
-        """
-    @affine_body_rigidity_scales.setter
-    def affine_body_rigidity_scales(self, arg1: Span) -> None:
-        ...
-    @property
-    def affine_body_so3_scales(self) -> Span:
-        """
-        Device span containing one SO(3) AL mass-normalization scale per affine body.
-        """
-    @affine_body_so3_scales.setter
-    def affine_body_so3_scales(self, arg1: Span) -> None:
         ...
     @property
     def body_centers_of_mass(self) -> Span:
