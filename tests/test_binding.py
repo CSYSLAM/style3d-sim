@@ -100,6 +100,14 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "body_distance_constraint_weights1",
         "body_distance_constraint_mass_scales",
         "body_distance_constraint_rest_lengths",
+        "shape_bodies",
+        "shape_types",
+        "shape_transforms",
+        "shape_scales",
+        "shape_contact_stiffnesses",
+        "shape_contact_dampings",
+        "shape_frictions",
+        "shape_margins",
     ]
 
     # These deliberately invalid addresses are safe because the binding must only
@@ -250,6 +258,9 @@ def test_solver_rejects_excess_replicated_shape_count() -> None:
     model.shape_replicated_count = 2
     storage = sr.Span(ptr=0x1000, size=1)
     model.shape_bodies = storage
+    model.shape_types = storage
+    model.shape_transforms = storage
+    model.shape_scales = storage
     model.shape_contact_stiffnesses = storage
     model.shape_contact_dampings = storage
     model.shape_frictions = storage

@@ -1176,6 +1176,30 @@ class Model:
     def shape_bodies(self, arg1: Span) -> None:
         ...
     @property
+    def shape_types(self) -> Span:
+        """
+        Device span containing Newton collision geometry types.
+        """
+    @shape_types.setter
+    def shape_types(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_transforms(self) -> Span:
+        """
+        Device span containing body-local or world collision shape transforms.
+        """
+    @shape_transforms.setter
+    def shape_transforms(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_scales(self) -> Span:
+        """
+        Device span containing collision geometry scales.
+        """
+    @shape_scales.setter
+    def shape_scales(self, arg1: Span) -> None:
+        ...
+    @property
     def shape_contact_dampings(self) -> Span:
         """
         Device span containing shape contact damping values.

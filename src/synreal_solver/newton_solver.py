@@ -883,6 +883,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
             ):
                 return
         for name in (
+            "shape_type",
+            "shape_transform",
+            "shape_scale",
             "shape_material_ke",
             "shape_material_kd",
             "shape_material_mu",
@@ -902,6 +905,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         for native_name, model_name, dtype in (
             ("shape_bodies", "shape_body", wp.int32),
+            ("shape_types", "shape_type", wp.int32),
+            ("shape_transforms", "shape_transform", wp.transform),
+            ("shape_scales", "shape_scale", wp.vec3),
             ("shape_contact_stiffnesses", "shape_material_ke", wp.float32),
             ("shape_contact_dampings", "shape_material_kd", wp.float32),
             ("shape_frictions", "shape_material_mu", wp.float32),
@@ -2751,6 +2757,21 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._shared_shape_arrays.get("shape_bodies", self.model.shape_body),
                 shape_count,
                 expected_dtype=self._wp.int32,
+            )
+            self._synreal_model.shape_types = self._as_span(
+                self._shared_shape_arrays.get("shape_types", self.model.shape_type),
+                shape_count,
+                expected_dtype=self._wp.int32,
+            )
+            self._synreal_model.shape_transforms = self._as_span(
+                self._shared_shape_arrays.get("shape_transforms", self.model.shape_transform),
+                shape_count,
+                expected_dtype=self._wp.transform,
+            )
+            self._synreal_model.shape_scales = self._as_span(
+                self._shared_shape_arrays.get("shape_scales", self.model.shape_scale),
+                shape_count,
+                expected_dtype=self._wp.vec3,
             )
             self._synreal_model.shape_contact_stiffnesses = self._as_span(
                 self._shared_shape_arrays.get(

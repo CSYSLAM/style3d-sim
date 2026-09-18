@@ -2605,6 +2605,170 @@ def test_affine_body_rigidity_models_preserve_fixed_body_during_contact(
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_sphere_surface_contact_normal_force_has_no_radial_torque() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    for position in (
+        (0.49, 0.04, -0.01),
+        (0.49, 0.04, 0.01),
+        (0.49, 0.07, 0.0),
+    ):
+        builder.add_particle(pos=position, vel=wp.vec3(0.0), mass=100.0, radius=0.02)
+    body = builder.add_body(
+        mass=1.0,
+        inertia=wp.mat33(0.1, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1),
+        lock_inertia=True,
+    )
+    builder.default_shape_cfg.ke = 1.0e4
+    builder.default_shape_cfg.kd = 0.0
+    builder.default_shape_cfg.mu = 0.0
+    shape = builder.add_shape_sphere(body, radius=0.5)
+    model = builder.finalize(device="cuda:0")
+    model.soft_contact_ke = 1.0e4
+    model.soft_contact_kd = 0.0
+    model.soft_contact_mu = 0.0
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_iterations = 3
+
+    contacts = SimpleNamespace(
+        rigid_contact_max=0,
+        soft_contact_max=1,
+        soft_contact_count=wp.array((1,), dtype=wp.int32, device=model.device),
+        soft_contact_particle=wp.array((0,), dtype=wp.int32, device=model.device),
+        soft_contact_indices=wp.array((wp.vec3i(0, 1, 2),), dtype=wp.vec3i, device=model.device),
+        soft_contact_barycentric=wp.array((wp.vec3(1.0 / 3.0),), dtype=wp.vec3, device=model.device),
+        soft_contact_shape=wp.array((shape,), dtype=wp.int32, device=model.device),
+        # Deliberately stale and non-radial: the analytic sphere path must ignore this normal-force arm.
+        soft_contact_body_pos=wp.array((wp.vec3(0.5, 0.05, 0.0),), dtype=wp.vec3, device=model.device),
+        soft_contact_body_vel=wp.zeros(1, dtype=wp.vec3, device=model.device),
+        soft_contact_normal=wp.array((wp.vec3(1.0, 0.0, 0.0),), dtype=wp.vec3, device=model.device),
+        _enable_rigid_soft_full_surface_contact=True,
+    )
+
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, contacts, 0.01)
+    wp.synchronize_device(model.device)
+
+    body_velocity = state_out.body_qd.numpy()[body]
+    assert np.linalg.norm(body_velocity[:3]) > 1.0e-3
+    assert np.linalg.norm(body_velocity[3:]) < 5.0e-5
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_sphere_rigid_contact_normal_force_has_no_radial_torque() -> None:
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    body = builder.add_body(
+        mass=1.0,
+        inertia=wp.mat33(0.1, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1),
+        lock_inertia=True,
+    )
+    builder.default_shape_cfg.ke = 1.0e4
+    builder.default_shape_cfg.kd = 0.0
+    builder.default_shape_cfg.mu = 0.0
+    sphere = builder.add_shape_sphere(body, radius=0.5)
+    obstacle = builder.add_shape_box(-1, hx=0.1, hy=0.1, hz=0.1)
+    model = builder.finalize(device="cuda:0")
+    state_in = model.state()
+    state_out = model.state()
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_iterations = 3
+
+    contacts = SimpleNamespace(
+        rigid_contact_max=1,
+        rigid_contact_count=wp.array((1,), dtype=wp.int32, device=model.device),
+        rigid_contact_shape0=wp.array((sphere,), dtype=wp.int32, device=model.device),
+        rigid_contact_shape1=wp.array((obstacle,), dtype=wp.int32, device=model.device),
+        # A stale surface anchor would create a z torque if the normal force used it.
+        rigid_contact_point0=wp.array((wp.vec3(0.5, 0.05, 0.0),), dtype=wp.vec3, device=model.device),
+        rigid_contact_point1=wp.array((wp.vec3(0.51, 0.0, 0.0),), dtype=wp.vec3, device=model.device),
+        rigid_contact_normal=wp.array((wp.vec3(1.0, 0.0, 0.0),), dtype=wp.vec3, device=model.device),
+        # Newton stores the sphere radius in its rigid margin, in addition to the material margin.
+        rigid_contact_margin0=wp.array((0.52,), dtype=wp.float32, device=model.device),
+        rigid_contact_margin1=wp.array((0.02,), dtype=wp.float32, device=model.device),
+        soft_contact_max=0,
+    )
+
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, contacts, 0.01)
+    wp.synchronize_device(model.device)
+
+    body_velocity = state_out.body_qd.numpy()[body]
+    assert np.linalg.norm(body_velocity[:3]) > 1.0e-3
+    assert np.linalg.norm(body_velocity[3:]) < 5.0e-5
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
+@pytest.mark.parametrize("obstacle", ("sphere", "plane"))
+@pytest.mark.parametrize("gap", (0.015, 0.0, -0.005))
+def test_sphere_rigid_contact_counts_radius_once(nonlinear_solver, obstacle, gap):
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+    builder.default_shape_cfg.ke = 1.0e4
+    builder.default_shape_cfg.kd = 0.0
+    builder.default_shape_cfg.mu = 0.0
+    radius = 0.07
+    sphere_pair = obstacle == "sphere"
+    separation = (2.0 if sphere_pair else 1.0) * radius + gap
+    body = builder.add_body(xform=wp.transform(wp.vec3(0.0, 0.0, separation), wp.quat_identity()))
+    builder.add_shape_sphere(body, radius=radius)
+    if sphere_pair:
+        builder.add_shape_sphere(-1, radius=radius)
+    else:
+        builder.add_ground_plane()
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = nonlinear_solver
+    solver.config.nonlinear_iterations = 4
+    solver.config.enable_collision_hessian_non_diagonal = True
+    state_in, state_out = model.state(), model.state()
+    pipeline = newton.CollisionPipeline(model)
+    contacts = pipeline.contacts()
+    pipeline.collide(state_in, contacts)
+    assert contacts.rigid_contact_count.numpy()[0] > 0
+    state_in.clear_forces()
+    dt = 1.0 / 240.0
+    solver.step(state_in, state_out, None, contacts, dt)
+    position = state_out.body_q.numpy()[body, :3]
+    mass = float(model.body_mass.numpy()[body])
+    # A single frictionless normal DOF has an exact implicit-Euler spring solution.
+    stiffness_dt2 = builder.default_shape_cfg.ke * dt * dt
+    displacement = max(-gap, 0.0) * stiffness_dt2 / (mass + stiffness_dt2)
+    np.testing.assert_allclose(position, (0.0, 0.0, separation + displacement), rtol=0.0, atol=2.0e-6)
+    np.testing.assert_allclose(state_out.body_qd.numpy()[body, 3:], 0.0, rtol=0.0, atol=5.0e-5)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
+def test_sphere_plane_normal_preserves_tangential_velocity(nonlinear_solver):
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    builder.default_shape_cfg.ke = 2.0e4
+    builder.default_shape_cfg.kd = 0.0
+    builder.default_shape_cfg.mu = 0.0
+    body = builder.add_body(xform=wp.transform(wp.vec3(0.0, 0.0, 0.068), wp.quat_identity()))
+    builder.add_shape_sphere(body, radius=0.07)
+    builder.add_ground_plane()
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = nonlinear_solver
+    solver.config.nonlinear_iterations = 4
+    state_in, state_out = model.state(), model.state()
+    velocity = state_in.body_qd.numpy()
+    velocity[body, 0] = 0.4
+    state_in.body_qd.assign(velocity)
+    solver.sync_affine_body_state(state_in)
+    pipeline = newton.CollisionPipeline(model)
+    contacts = pipeline.contacts()
+    pipeline.collide(state_in, contacts)
+    assert contacts.rigid_contact_count.numpy()[0] > 0
+    state_in.clear_forces()
+    dt = 1.0 / 240.0
+    solver.step(state_in, state_out, None, contacts, dt)
+    np.testing.assert_allclose(state_out.body_q.numpy()[body, 0], 0.4 * dt, rtol=0.0, atol=1.0e-7)
+    np.testing.assert_allclose(state_out.body_qd.numpy()[body, 0], 0.4, rtol=0.0, atol=2.0e-5)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
 def test_newton_solver_applies_body_point_spring(
     nonlinear_solver: sr.NonlinearSolver,
