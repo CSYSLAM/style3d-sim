@@ -191,8 +191,17 @@ def _update_affine_body_poses(
     inertia = affine_body_inertia[affine_body]
     second_moment = 0.5 * wp.trace(inertia) * wp.identity(3, dtype=float) - inertia
     weighted_affine_matrix = affine_matrix * second_moment
-    left_basis, singular_values, right_basis = wp.svd3(weighted_affine_matrix)
-    if singular_values[2] <= 1.0e-8:
+    # Warp's SVD uses absolute QR tolerances. Normalize before decomposition so
+    # small physical inertias cannot turn a stationary frame into a false spin.
+    # A positive uniform factor preserves the mass-weighted Procrustes solution.
+    matrix_scale = float(0.0)
+    for row in range(3):
+        for column in range(3):
+            matrix_scale = wp.max(matrix_scale, wp.abs(weighted_affine_matrix[row, column]))
+    if matrix_scale <= 0.0:
+        return
+    left_basis, singular_values, right_basis = wp.svd3(weighted_affine_matrix / matrix_scale)
+    if wp.abs(singular_values[2]) <= 1.0e-8 * wp.abs(singular_values[0]):
         return
 
     polar_rotation = left_basis * wp.transpose(right_basis)
@@ -888,7 +897,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
             "shape_scale",
             "shape_material_ke",
             "shape_material_kd",
+            "shape_material_kf",
             "shape_material_mu",
+            "shape_material_mu_rolling",
+            "shape_material_mu_torsional",
             "shape_margin",
         ):
             values = np.asarray(getattr(self.model, name).numpy())[
@@ -910,7 +922,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
             ("shape_scales", "shape_scale", wp.vec3),
             ("shape_contact_stiffnesses", "shape_material_ke", wp.float32),
             ("shape_contact_dampings", "shape_material_kd", wp.float32),
+            ("shape_contact_friction_gains", "shape_material_kf", wp.float32),
             ("shape_frictions", "shape_material_mu", wp.float32),
+            ("shape_rolling_frictions", "shape_material_mu_rolling", wp.float32),
+            ("shape_torsional_frictions", "shape_material_mu_torsional", wp.float32),
             ("shape_margins", "shape_margin", wp.float32),
         ):
             source = np.asarray(getattr(self.model, model_name).numpy())
@@ -2787,10 +2802,25 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 shape_count,
                 expected_dtype=self._wp.float32,
             )
+            self._synreal_model.shape_contact_friction_gains = self._as_span(
+                self._shared_shape_arrays.get("shape_contact_friction_gains", self.model.shape_material_kf),
+                shape_count,
+                expected_dtype=self._wp.float32,
+            )
             self._synreal_model.shape_frictions = self._as_span(
                 self._shared_shape_arrays.get(
                     "shape_frictions", self.model.shape_material_mu
                 ),
+                shape_count,
+                expected_dtype=self._wp.float32,
+            )
+            self._synreal_model.shape_rolling_frictions = self._as_span(
+                self._shared_shape_arrays.get("shape_rolling_frictions", self.model.shape_material_mu_rolling),
+                shape_count,
+                expected_dtype=self._wp.float32,
+            )
+            self._synreal_model.shape_torsional_frictions = self._as_span(
+                self._shared_shape_arrays.get("shape_torsional_frictions", self.model.shape_material_mu_torsional),
                 shape_count,
                 expected_dtype=self._wp.float32,
             )
@@ -2801,6 +2831,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
         self._synreal_model.soft_contact_stiffness = float(self.model.soft_contact_ke)
         self._synreal_model.soft_contact_damping = float(self.model.soft_contact_kd)
+        self._synreal_model.soft_contact_friction_gain = float(self.model.soft_contact_kf)
         self._synreal_model.soft_contact_friction = float(self.model.soft_contact_mu)
 
         triangle_count = self._shared_counts.get(

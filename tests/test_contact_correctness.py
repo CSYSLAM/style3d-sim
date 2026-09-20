@@ -7,7 +7,7 @@ import pytest
 newton = pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
-from synreal_solver import ModelBuilder, NewtonSolver  # noqa: E402
+from synreal_solver import ModelBuilder, NewtonSolver, NonlinearSolver  # noqa: E402
 
 
 pytestmark = pytest.mark.skipif(
@@ -22,6 +22,8 @@ def _simulate_contacts(
     dt: float = 1.0 / 240.0,
     configure_model: Callable[[Any], None] | None = None,
     apply_forces: Callable[[Any, int], None] | None = None,
+    full_surface: bool = False,
+    configure_solver: Callable[[NewtonSolver], None] | None = None,
 ) -> tuple[Any, Any, Any, NewtonSolver]:
     model = builder.finalize(device="cuda:0")
     if configure_model is not None:
@@ -29,7 +31,9 @@ def _simulate_contacts(
     state_in = model.state()
     state_out = model.state()
     solver = NewtonSolver(model)
-    collision_pipeline = newton.CollisionPipeline(model)
+    if configure_solver is not None:
+        configure_solver(solver)
+    collision_pipeline = newton.CollisionPipeline(model, enable_rigid_soft_full_surface_contact=full_surface)
     contacts = collision_pipeline.contacts()
 
     for step in range(steps):
@@ -90,6 +94,7 @@ def test_rigid_primitives_settle_on_ground(shape: str) -> None:
 def _run_rigid_slide(friction: float) -> tuple[float, int]:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=-9.81)
     builder.default_shape_cfg.mu = friction
+    builder.default_shape_cfg.kf = 1.0e4
     builder.add_ground_plane()
     body, _ = _add_rigid_primitive(
         builder,
@@ -116,6 +121,7 @@ def test_rigid_contact_friction_reduces_tangential_speed() -> None:
 def _run_box_under_horizontal_load(friction: float) -> float:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=-9.81)
     builder.default_shape_cfg.mu = friction
+    builder.default_shape_cfg.kf = 1.0e4
     builder.add_ground_plane()
     body, _ = _add_rigid_primitive(
         builder, "box", position=(0.0, 0.0, 0.2)
@@ -372,3 +378,102 @@ def test_replicated_dynamic_contacts_remain_world_local() -> None:
             velocities[start : start + bodies_per_world],
             atol=1.0e-6,
         )
+
+
+@pytest.mark.parametrize("contact_kind", ("rigid", "particle", "surface"))
+@pytest.mark.parametrize("method", (NonlinearSolver.NEWTON, NonlinearSolver.PD_NEWTON))
+def test_friction_gain_is_independent_of_normal_damping(contact_kind, method):
+    from newton.solvers import style3d
+
+    def slide(mu, gain):
+        builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+        builder.default_shape_cfg.ke = 1.0e4
+        builder.default_shape_cfg.kd = 0.0
+        builder.default_shape_cfg.kf = gain
+        builder.default_shape_cfg.mu = mu
+        builder.add_ground_plane()
+        if contact_kind == "rigid":
+            body, _ = _add_rigid_primitive(builder, "box", position=(0.0, 0.0, 0.18), velocity=(0.5, 0.0, 0.0))
+        elif contact_kind == "particle":
+            builder.add_particle(pos=(0.0, 0.0, 0.01), vel=(0.5, 0.0, 0.0), mass=0.1, radius=0.02)
+        else:
+            newton.solvers.SolverStyle3D.register_custom_attributes(builder)
+            style3d.add_cloth_grid(
+                builder, pos=wp.vec3(0.0, 0.0, 0.01), rot=wp.quat_identity(),
+                dim_x=1, dim_y=1, cell_x=0.1, cell_y=0.1, vel=wp.vec3(0.5, 0.0, 0.0),
+                mass=0.1, particle_radius=0.02,
+            )
+
+        def configure(model):
+            model.soft_contact_ke = 1.0e4
+            model.soft_contact_kd = 0.0
+            model.soft_contact_kf = gain
+            model.soft_contact_mu = mu
+
+        def configure_solver(solver):
+            solver.config.nonlinear_solver = method
+            solver.config.enable_collision_hessian_non_diagonal = True
+
+        _, state, contacts, _ = _simulate_contacts(
+            builder, steps=1, dt=0.005, configure_model=configure, full_surface=contact_kind == "surface",
+            configure_solver=configure_solver,
+        )
+        if contact_kind == "rigid":
+            assert contacts.rigid_contact_count.numpy()[0] > 0
+            return state.body_qd.numpy()[body, 0]
+        assert contacts.soft_contact_count.numpy()[0] > 0
+        if contact_kind == "surface":
+            assert np.any(contacts.soft_contact_indices.numpy()[:, 1] >= 0)
+        return state.particle_qd.numpy()[:, 0].mean()
+
+    frictionless = slide(0.0, 1000.0)
+    disabled = slide(1.0, 0.0)
+    friction = slide(1.0, 1000.0)
+    np.testing.assert_allclose(disabled, frictionless, atol=1.0e-4)
+    assert 0.0 <= friction < frictionless - 0.005
+
+
+@pytest.mark.parametrize("full_surface", (False, True))
+def test_cloth_friction_transfers_momentum_to_dynamic_rigid_body(full_surface):
+    from newton.solvers import style3d
+
+    builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    newton.solvers.SolverStyle3D.register_custom_attributes(builder)
+    style3d.add_cloth_grid(
+        builder, pos=wp.vec3(-0.05, -0.05, 0.01), rot=wp.quat_identity(),
+        dim_x=1, dim_y=1, cell_x=0.1, cell_y=0.1, vel=wp.vec3(0.5, 0.0, 0.0),
+        mass=0.1, particle_radius=0.02,
+    )
+    cloth_count = builder.particle_count
+    body = builder.add_body(
+        xform=wp.transform(wp.vec3(0.0, 0.0, -0.2), wp.quat_identity()), mass=2.0,
+        inertia=wp.mat33(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0), lock_inertia=True,
+    )
+    cfg = builder.default_shape_cfg.copy()
+    cfg.density, cfg.ke, cfg.kd, cfg.kf, cfg.mu = 0.0, 1.0e4, 0.0, 1000.0, 1.0
+    builder.add_shape_box(body, hx=0.3, hy=0.3, hz=0.2, cfg=cfg)
+
+    def configure(model):
+        model.soft_contact_ke = 1.0e4
+        model.soft_contact_kd = 0.0
+        model.soft_contact_kf = 1000.0
+        model.soft_contact_mu = 1.0
+
+    def configure_solver(solver):
+        solver.config.nonlinear_solver = NonlinearSolver.NEWTON
+        solver.config.enable_collision_hessian_non_diagonal = True
+        solver.config.nonlinear_iterations = 20
+        solver.config.linear_iterations = 30
+
+    model, state, contacts, _ = _simulate_contacts(
+        builder, steps=1, dt=0.005, configure_model=configure,
+        full_surface=full_surface, configure_solver=configure_solver,
+    )
+    masses = model.particle_mass.numpy()[:cloth_count]
+    cloth_velocity = state.particle_qd.numpy()[:cloth_count, 0]
+    rigid_velocity = state.body_qd.numpy()[body, 0]
+    assert contacts.soft_contact_count.numpy()[0] > 0
+    assert cloth_velocity.mean() < 0.49
+    assert rigid_velocity > 0.001
+    momentum = np.dot(masses, cloth_velocity) + model.body_mass.numpy()[body] * rigid_velocity
+    np.testing.assert_allclose(momentum, masses.sum() * 0.5, atol=5.0e-4)

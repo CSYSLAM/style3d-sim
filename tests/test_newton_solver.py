@@ -510,6 +510,97 @@ def test_affine_body_pose_reconstruction_uses_proxy_columns() -> None:
     assert np.allclose(recovered_rotation, expected_rotation, atol=1.0e-5)
 
 
+@pytest.mark.parametrize("inertia_scale", (1.0e-9, 1.0e-5, 1.0, 1.0e5))
+@pytest.mark.parametrize("device", ("cpu", pytest.param(
+    "cuda:0", marks=pytest.mark.skipif(not wp.is_cuda_available(), reason="CUDA unavailable"),
+)))
+def test_affine_body_does_not_gain_spurious_spin_when_inertia_is_small(device, inertia_scale):
+    rotation = wp.quat_from_matrix(wp.mat33(
+        0.0620730, 0.0848332, 0.9944598,
+        0.6796974, 0.7260305, -0.1043606,
+        -0.7308614, 0.6824098, -0.0125940,
+    ))
+    # Non-principal inertia exposes scale-dependent SVD errors that diagonal unit tensors hide.
+    inertia = inertia_scale * np.array(((2.79, 0.161, 0.0), (0.161, 2.85, 0.0), (0.0, 0.0, 2.80)))
+    builder = ModelBuilder(gravity=0.0)
+    body = builder.add_body(
+        xform=wp.transform(wp.vec3(0.1, -0.2, 0.3), rotation),
+        com=wp.vec3(0.002, -0.001, 0.003), mass=0.08, inertia=wp.mat33(inertia), lock_inertia=True,
+    )
+    model = builder.finalize(device=device)
+    state = model.state()
+    expected_pose = state.body_q.numpy().copy()
+    # Advance only translation: returning early for tiny inertias must not leave a stale pose either.
+    expected_pose[body, 0] += 0.001
+    center_index = model.synreal_affine_body_indices.numpy()[0, 0]
+    positions = state.particle_q.numpy()
+    positions[center_index, 0] += 0.001
+    state.particle_q.assign(positions)
+    velocities = state.particle_qd.numpy()
+    velocities[center_index, 0] = 0.48
+    state.particle_qd.assign(velocities)
+    wp.launch(
+        _update_affine_body_poses, dim=1,
+        inputs=[state.particle_q, state.particle_qd, model.synreal_affine_body_indices,
+                model.synreal_affine_body_ids, wp.zeros(1, dtype=wp.int32, device=device), model.body_com,
+                model.synreal_affine_body_inertia, int(sr.InertiaMode.MIDPOINT_CAYLEY.value), 1.0 / 480.0],
+        outputs=[state.body_q, state.body_qd], device=device,
+    )
+    np.testing.assert_allclose(state.body_q.numpy(), expected_pose, atol=1.0e-6)
+    assert np.linalg.norm(state.body_qd.numpy()[body, 3:]) < 1.0e-3
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("alpha", (20.0, 100.0))
+@pytest.mark.parametrize("spinning", (False, True))
+def test_small_body_so3_rigidity_does_not_create_angular_momentum(alpha, spinning):
+    inertia = 1.0e-5 * np.array(((2.79, 0.161, 0.0), (0.161, 2.85, 0.0), (0.0, 0.0, 2.80)))
+    rotations = (
+        wp.quat_identity(),
+        wp.quat_from_axis_angle(wp.normalize(wp.vec3(1.0, -2.0, 0.5)), 0.7),
+        wp.quat_from_axis_angle(wp.normalize(wp.vec3(-0.3, 0.8, 0.4)), 2.3),
+    )
+    omega = np.array((1.0, -0.5, 0.75)) if spinning else np.zeros(3)
+    builder = ModelBuilder(gravity=wp.vec3(0.0))
+    for body, rotation in enumerate(rotations):
+        index = builder.add_body(
+            xform=wp.transform(wp.vec3(body, 0.0, 0.0), rotation), mass=0.08,
+            inertia=wp.mat33(inertia), lock_inertia=True,
+        )
+        builder.body_qd[index] = wp.spatial_vector(0.0, 0.0, 0.0, *omega)
+    model = builder.finalize(device="cuda:0")
+    solver = NewtonSolver(model)
+    solver.config.affine_body_rigidity_model = sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+    solver.config.inertia_mode = sr.InertiaMode.MIDPOINT_CAYLEY
+    solver.config.constraint_alpha = alpha
+    solver.config.nonlinear_iterations = 5
+    solver.config.linear_iterations = 50
+    solver.config.affine_body_rigidity_primal_iterations = 4
+    state, following = model.state(), model.state()
+
+    def momenta():
+        poses = state.body_q.numpy()
+        velocities = state.body_qd.numpy()[:, 3:]
+        matrices = np.stack([np.asarray(wp.quat_to_matrix(wp.quat(*q[3:]))).reshape(3, 3) for q in poses])
+        world_inertia = matrices @ inertia @ matrices.transpose(0, 2, 1)
+        return np.einsum("bij,bj->bi", world_inertia, velocities)
+
+    initial_momentum = momenta()
+    with wp.ScopedCapture() as capture:
+        for _ in range(10):
+            state.clear_forces()
+            solver.step(state, following, None, None, 1.0 / 480.0)
+            state, following = following, state
+    for _ in range(10):
+        wp.capture_launch(capture.graph)
+        if spinning:
+            # Internal rigidity must preserve an existing spin as well as avoid creating one at rest.
+            error = np.linalg.norm(momenta() - initial_momentum, axis=1)
+            assert np.all(error < 0.005 * np.linalg.norm(initial_momentum, axis=1))
+        else:
+            assert np.linalg.norm(state.body_qd.numpy()[:, 3:], axis=1).max() < 0.01
+
+
 @pytest.mark.parametrize(
     "device",
     (
@@ -522,8 +613,9 @@ def test_affine_body_pose_reconstruction_uses_proxy_columns() -> None:
         ),
     ),
 )
+@pytest.mark.parametrize("inertia_scale", (1.0e-5, 1.0))
 def test_affine_body_velocity_reconstruction_uses_mass_weighted_rigid_fit(
-    device: str,
+    device: str, inertia_scale: float,
 ) -> None:
     rotation = wp.quat_from_axis_angle(wp.normalize(wp.vec3(1.0, -2.0, 0.5)), 0.7)
     linear_velocity = np.array((1.2, -0.4, 0.8), dtype=np.float32)
@@ -531,7 +623,7 @@ def test_affine_body_velocity_reconstruction_uses_mass_weighted_rigid_fit(
         ((0.3, -1.1, 0.7), (1.5, -0.2, 0.4), (-0.8, 0.6, 0.9)),
         dtype=np.float32,
     )
-    inertia = np.array(
+    inertia = inertia_scale * np.array(
         ((5.0, 0.2, 0.0), (0.2, 6.0, 0.1), (0.0, 0.1, 7.0)),
         dtype=np.float32,
     )
@@ -1951,6 +2043,157 @@ def test_newton_solver_advances_style3d_cloth_without_collisions() -> None:
     assert np.isfinite(positions).all()
     assert np.allclose(positions[fixed], initial_positions[fixed])
     assert np.mean(positions[free, 2] - initial_positions[free, 2]) < 0.0
+
+
+def _step_isolated_cloth_triangle(
+    points: np.ndarray, dt: float = 2.0e-6,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, float, float]:
+    from newton.solvers import style3d
+
+    builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+    newton.solvers.SolverStyle3D.register_custom_attributes(builder)
+    rest = np.array(((0.0, 0.0), (0.01, 0.0), (0.0, 0.01)), dtype=np.float32)
+    style3d.add_cloth_mesh(
+        builder,
+        pos=wp.vec3(0.0),
+        rot=wp.quat_identity(),
+        vel=wp.vec3(0.0),
+        vertices=np.column_stack((rest, np.zeros(3))).tolist(),
+        indices=[0, 1, 2],
+        panel_verts=rest.tolist(),
+        panel_indices=[0, 1, 2],
+        density=0.1,
+        tri_aniso_ke=wp.vec3(1.0e4, 1.0e4, 5.0e3),
+        tri_ka=0.0,
+        tri_kd=0.0,
+        edge_aniso_ke=wp.vec3(0.0),
+        edge_kd=0.0,
+        validate_mesh=True,
+    )
+    model = builder.finalize(device="cuda:0")
+    state_in, state_out = model.state(), model.state()
+    _set_particle_positions(state_in, points.astype(np.float32), model.device)
+    solver = NewtonSolver(model)
+    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+    solver.config.nonlinear_iterations = 4
+    solver.config.linear_iterations = 80
+    solver.config.enable_self_collision = False
+    state_in.clear_forces()
+    solver.step(state_in, state_out, None, None, dt)
+    return (
+        state_out.particle_q.numpy().astype(np.float64),
+        state_out.particle_qd.numpy().astype(np.float64),
+        model.particle_mass.numpy().astype(np.float64),
+        model.tri_poses.numpy()[0].astype(np.float64),
+        float(model.tri_areas.numpy()[0]),
+        dt,
+    )
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("rotation_angle", (0.0, 0.8, 2.1))
+def test_cloth_shear_preserves_momentum_and_matches_energy_gradient(rotation_angle: float) -> None:
+    points = np.array(((0.0, 0.0, 0.0), (0.011, 0.0, 0.0), (0.003, 0.01 * np.sqrt(0.91), 0.0)))
+    points -= points.mean(axis=0)
+    rotation = wp.quat_from_axis_angle(wp.normalize(wp.vec3(0.3, -0.7, 0.2)), rotation_angle)
+    matrix = np.asarray(wp.quat_to_matrix(rotation), dtype=np.float64).reshape(3, 3)
+    final, velocity, mass, inverse_dm, area, dt = _step_isolated_cloth_triangle(points @ matrix.T)
+
+    def energy(vertices: np.ndarray) -> float:
+        deformation = np.column_stack((vertices[1] - vertices[0], vertices[2] - vertices[0])) @ inverse_dm
+        lengths = np.linalg.norm(deformation, axis=0)
+        cosine = np.dot(deformation[:, 0], deformation[:, 1]) / np.prod(lengths)
+        return 0.5 * area * (1.0e4 * np.sum((lengths - 1.0) ** 2) + 5.0e3 * cosine**2)
+
+    # Differentiate only the scalar constitutive energy, independently of the native force formula.
+    expected_force = np.empty_like(final)
+    difference_step = 1.0e-7
+    for vertex in range(3):
+        for axis in range(3):
+            offset = np.zeros_like(final)
+            offset[vertex, axis] = difference_step
+            expected_force[vertex, axis] = -(energy(final + offset) - energy(final - offset)) / (2.0 * difference_step)
+
+    momentum = mass[:, None] * velocity
+    # Unequal warp/weft stretch with shear exposes spurious torque that a pure rotation test misses.
+    assert np.linalg.norm(momentum.sum(axis=0)) < 2.0e-9
+    assert np.linalg.norm(np.cross(final, momentum).sum(axis=0)) < 2.0e-11
+    np.testing.assert_allclose(momentum / dt, expected_force, rtol=1.0e-3, atol=3.0e-3)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize(
+    "points",
+    (
+        np.array(((0.0, 0.0, 0.0), (1.0e-10, 0.0, 0.0), (0.003, 0.009, 0.0))),
+        np.array(((0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (0.003, 0.009, 0.0))),
+        np.zeros((3, 3)),
+    ),
+    ids=("nearly-collapsed-warp", "collapsed-warp", "collapsed-triangle"),
+)
+def test_cloth_shear_remains_finite_for_collapsed_deformation(points: np.ndarray) -> None:
+    # The rest panel remains valid; only the evolving state approaches the normalization singularity.
+    final, velocity, *_ = _step_isolated_cloth_triangle(points)
+    assert np.isfinite(final).all()
+    assert np.isfinite(velocity).all()
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+@pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
+@pytest.mark.parametrize("bending_motion", (True, False), ids=("bending", "translation"))
+def test_cloth_bending_damping_dissipates_only_relative_motion(
+    nonlinear_solver: sr.NonlinearSolver, bending_motion: bool,
+) -> None:
+    from newton.solvers import style3d
+
+    rest = np.array(((-0.005, -0.005), (0.005, -0.005), (0.005, 0.005), (-0.005, 0.005)), dtype=np.float32)
+    points = np.column_stack((rest, (-0.001, 0.002, -0.001, 0.002))).astype(np.float32)
+    translation = np.array((0.13, -0.09, 0.04))
+    velocities = np.tile(translation, (4, 1))
+    if bending_motion:
+        # Shared-edge vertices have twice the mass of the two opposite vertices, so this flexion has zero net momentum.
+        velocities[:, 2] += (-0.05, 0.10, -0.05, 0.10)
+    velocities = velocities.astype(np.float32)
+    kinetic_energies = []
+    for damping in (0.0, 2.0e-6):
+        builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
+        newton.solvers.SolverStyle3D.register_custom_attributes(builder)
+        style3d.add_cloth_mesh(
+            builder,
+            pos=wp.vec3(0.0), rot=wp.quat_identity(), vel=wp.vec3(0.0),
+            vertices=np.column_stack((rest, np.zeros(4))).tolist(), indices=[0, 1, 2, 0, 2, 3],
+            panel_verts=rest.tolist(), panel_indices=[0, 1, 2, 0, 2, 3], density=0.1,
+            tri_aniso_ke=wp.vec3(0.0), tri_ka=0.0, tri_kd=0.0,
+            edge_aniso_ke=wp.vec3(0.0), edge_kd=damping, validate_mesh=True,
+        )
+        model = builder.finalize(device="cuda:0")
+        state_in, state_out = model.state(), model.state()
+        _set_particle_positions(state_in, points, model.device)
+        wp.copy(state_in.particle_qd, wp.array(velocities, dtype=wp.vec3, device=model.device))
+        solver = NewtonSolver(model)
+        solver.config.nonlinear_solver = nonlinear_solver
+        solver.config.nonlinear_iterations = 4
+        solver.config.linear_iterations = 80
+        solver.config.enable_self_collision = False
+        state_in.clear_forces()
+        solver.step(state_in, state_out, None, None, 2.0e-5)
+        final = state_out.particle_q.numpy().astype(np.float64)
+        final_velocity = state_out.particle_qd.numpy().astype(np.float64)
+        mass = model.particle_mass.numpy().astype(np.float64)
+        initial_momentum = mass[:, None] * velocities
+        final_momentum = mass[:, None] * final_velocity
+        np.testing.assert_allclose(final_momentum.sum(axis=0), initial_momentum.sum(axis=0), rtol=0.0, atol=2.0e-9)
+        np.testing.assert_allclose(
+            np.cross(final, final_momentum).sum(axis=0),
+            np.cross(points, initial_momentum).sum(axis=0), rtol=0.0, atol=2.0e-11,
+        )
+        initial_energy = 0.5 * np.sum(mass[:, None] * (velocities - translation)**2)
+        kinetic_energies.append(0.5 * np.sum(mass[:, None] * (final_velocity - translation)**2))
+        if damping == 0.0 or not bending_motion:
+            np.testing.assert_allclose(final_velocity, velocities, rtol=0.0, atol=3.0e-5)
+    if bending_motion:
+        np.testing.assert_allclose(kinetic_energies[0], initial_energy, rtol=1.0e-3)
+        assert kinetic_energies[1] < 0.9 * kinetic_energies[0]
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")

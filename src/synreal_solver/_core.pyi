@@ -74,6 +74,12 @@ class Config:
         Create the default solver configuration.
         """
     @property
+    def rolling_friction_velocity_epsilon(self) -> float:
+        """Positive angular speed [rad/s] below which rolling and torsional resistance become linear."""
+    @rolling_friction_velocity_epsilon.setter
+    def rolling_friction_velocity_epsilon(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
     def air_density(self) -> float:
         """Ambient air density in kg/m^3; zero disables aerodynamic drag."""
     @air_density.setter
@@ -108,6 +114,15 @@ class Config:
         """
     @constraint_alpha.setter
     def constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def enable_collision_hessian_non_diagonal(self) -> bool:
+        """
+        Include coupled contact tangents for rigid, particle-shape, and all self-collision contacts.
+        False keeps their diagonal approximation; full-surface and angular-friction tangents remain coupled.
+        """
+    @enable_collision_hessian_non_diagonal.setter
+    def enable_collision_hessian_non_diagonal(self, arg0: bool) -> None:
         ...
     @property
     def enable_self_collision(self) -> bool:
@@ -1208,6 +1223,12 @@ class Model:
     def shape_contact_dampings(self, arg1: Span) -> None:
         ...
     @property
+    def shape_contact_friction_gains(self) -> Span:
+        """Device span containing tangential friction gains [N s/m]."""
+    @shape_contact_friction_gains.setter
+    def shape_contact_friction_gains(self, arg1: Span) -> None:
+        ...
+    @property
     def shape_contact_stiffnesses(self) -> Span:
         """
         Device span containing shape contact stiffness values.
@@ -1230,6 +1251,18 @@ class Model:
         """
     @shape_frictions.setter
     def shape_frictions(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_rolling_frictions(self) -> Span:
+        """Optional dimensionless rigid-contact rolling coefficients; an empty span disables rolling resistance."""
+    @shape_rolling_frictions.setter
+    def shape_rolling_frictions(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_torsional_frictions(self) -> Span:
+        """Optional dimensionless contact spin coefficients; an empty span disables torsional friction."""
+    @shape_torsional_frictions.setter
+    def shape_torsional_frictions(self, arg1: Span) -> None:
         ...
     @property
     def shape_margins(self) -> Span:
@@ -1262,6 +1295,12 @@ class Model:
         """
     @soft_contact_friction.setter
     def soft_contact_friction(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def soft_contact_friction_gain(self) -> float:
+        """Particle tangential friction gain [N s/m]."""
+    @soft_contact_friction_gain.setter
+    def soft_contact_friction_gain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
     @property
     def soft_contact_stiffness(self) -> float:

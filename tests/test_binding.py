@@ -106,7 +106,10 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
         "shape_scales",
         "shape_contact_stiffnesses",
         "shape_contact_dampings",
+        "shape_contact_friction_gains",
         "shape_frictions",
+        "shape_rolling_frictions",
+        "shape_torsional_frictions",
         "shape_margins",
     ]
 
@@ -263,6 +266,7 @@ def test_solver_rejects_excess_replicated_shape_count() -> None:
     model.shape_scales = storage
     model.shape_contact_stiffnesses = storage
     model.shape_contact_dampings = storage
+    model.shape_contact_friction_gains = storage
     model.shape_frictions = storage
     model.shape_margins = storage
 
