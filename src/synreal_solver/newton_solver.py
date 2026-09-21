@@ -8,6 +8,7 @@ from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 
 from ._core import Config, Contact, Control, Model, Solver, Span, State
+from .joint_drive_effort import evaluate_joint_drive_effort
 from .rigid_body_dynamics import (
     NONE,
     integrate_rigid_body,
@@ -381,6 +382,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         super().__init__(model)
         self._wp = import_module("warp")
+        self._joint_drive_effort: Any | None = None
         active_joint_drive_body_ids = self._find_active_joint_drive_body_ids()
         self._pre_regularized_body_ids: set[int] = set()
         self._ensure_affine_body_proxies(
@@ -414,7 +416,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
             int(model.edge_count) if self._style3d is not None else 0
         )
         self._collision_triangle_count = int(model.tri_count)
-        self._collision_edge_count = int(model.edge_count)
+        self._collision_edge_indices = self._build_collision_edge_indices()
+        self._collision_edge_count = 0 if self._collision_edge_indices is None else len(self._collision_edge_indices)
         self._triangle_drag_coefficients = self._extract_triangle_drag_coefficients()
         self._soft_particle_only_shapes = self._extract_particle_only_shapes()
         self._affine_body_ids: Any | None = getattr(
@@ -544,6 +547,13 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._shared_world_count = 1
         self._shared_counts: dict[str, int] = {}
         self._shared_shape_arrays: dict[str, Any] = {}
+        # Material selections use global Newton indices; preserve them and let the
+        # native hash queries isolate worlds using particle_world.
+        if any(
+            getattr(self.model, f"synreal_{material}_particle_indices", None) is not None
+            for material in ("fluid", "granular")
+        ):
+            return
         if world_count <= 1:
             return
 
@@ -719,7 +729,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             ),
             (
                 "collision_edge_count",
-                self.model.edge_indices,
+                self._collision_edge_indices,
                 (),
             ),
             (
@@ -955,6 +965,93 @@ class NewtonSolver(_newton.solvers.SolverBase):
         """Return the mutable native configuration used by subsequent steps."""
         return self._synreal_solver.config
 
+    def enable_joint_drive_feedback(self) -> Any:
+        """Enable Python evaluation of motor effort after each completed step.
+
+        Call before CUDA graph capture. The independent CUDA output array does
+        not add State fields or change the state, parameters, or dynamics solve.
+        """
+        if self._joint_drive_effort is None:
+            if self._wp.get_stream(self.device).is_capturing:
+                raise RuntimeError("Enable joint drive feedback before CUDA graph capture.")
+            count = int(self.model.joint_dof_count)
+            self._joint_drive_effort = self._wp.zeros(count, dtype=self._wp.float32, device=self.device)
+        return self._joint_drive_effort
+
+    def disable_joint_drive_feedback(self) -> None:
+        """Disable feedback; discard captured graphs referencing the output before calling.
+
+        Existing CUDA graphs keep their captured output address and must be rebuilt
+        after enabling or disabling feedback, just as after configuration changes.
+        """
+        if self._wp.get_stream(self.device).is_capturing:
+            raise RuntimeError("Disable joint drive feedback outside CUDA graph capture.")
+        self._joint_drive_effort = None
+
+    @property
+    def joint_drive_effort(self) -> Any | None:
+        """Return the optional motor-effort CUDA array, indexed like ``control.joint_f``.
+
+        Values are signed along each DOF axis: N for prismatic drives and Nm for
+        angular drives. Python/Warp evaluates limited feedforward plus PD effort
+        from the completed state's body poses and velocities, using the control
+        passed to that step. This is the actuator law at the returned state;
+        it excludes contact and joint-constraint reactions. Undriven DOFs contain
+        zero. Copy after each step to retain history; CUDA graph replay also
+        overwrites this independent array. No State fields are added or changed.
+        """
+        return self._joint_drive_effort
+
+    def compute_joint_drive_effort(self, state: Any, control: Any | None, out: Any | None = None) -> Any:
+        """Evaluate end-state motor effort in Python/Warp without modifying ``state``.
+
+        ``state`` supplies the measured joint position and velocity through its
+        rigid-body poses and COM twists. Controls and motor parameters supply
+        limited feedforward plus PD effort. Angular velocity is measured from
+        the returned twists, not an internal nonlinear iterate's secant velocity.
+        Use the control held during the completed substep for time-aligned feedback.
+        Pass a separate preallocated float32 array indexed like ``control.joint_f``
+        as ``out`` during CUDA graph capture. Unsupported/undriven DOFs are zero.
+        """
+        count = int(self.model.joint_dof_count)
+        stream = self._wp.get_stream(self.device)
+        if out is None:
+            if stream.is_capturing:
+                raise RuntimeError("Preallocate the motor-effort output before CUDA graph capture.")
+            out = self._wp.empty(count, dtype=self._wp.float32, device=self.device)
+        if tuple(out.shape) != (count,):
+            raise ValueError(f"Motor-effort output must have shape ({count},).")
+        self._as_span(out, count, expected_dtype=self._wp.float32)
+        self._validate_body_state_arrays(state)
+        # Clearing an aliased buffer could silently alter the state or the held motor command.
+        for owner in (state, control, self.model):
+            for array in getattr(owner, "__dict__", {}).values():
+                if (isinstance(array, self._wp.array) and out.ptr and array.ptr
+                        and out.ptr < array.ptr + array.capacity and array.ptr < out.ptr + out.capacity):
+                    raise ValueError("Motor-effort output must not alias state, controls, or motor parameters.")
+        if self._joint_drive_types is None or not len(self._joint_drive_types):
+            out.zero_()
+            return out
+        if control is None:
+            raise ValueError("A Newton control is required for driven joints.")
+        self._as_synreal_control(control)
+        out.zero_()
+        self._wp.launch(
+            evaluate_joint_drive_effort,
+            dim=len(self._joint_drive_types),
+            inputs=[
+                state.body_q, state.body_qd, self.model.body_com, self._affine_body_ids,
+                self._joint_drive_types, self._joint_drive_body_indices,
+                self._joint_drive_parent_origins, self._joint_drive_child_origins,
+                self._joint_drive_parent_axis_points, self._joint_drive_parent_reference_points,
+                self._joint_drive_child_reference_points, self._joint_drive_dof_indices,
+                self._joint_drive_target_indices, self.model.joint_target_ke, self.model.joint_target_kd,
+                self.model.joint_effort_limit, control.joint_f, control.joint_target_q, control.joint_target_qd,
+            ],
+            outputs=[out], device=self.device, stream=stream,
+        )
+        return out
+
     def _find_active_joint_drive_body_ids(self) -> set[int]:
         """Return Newton body ids touched by a supported, active joint drive."""
         model = self.model
@@ -1142,6 +1239,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 remap_particle_indices("tri_indices")
                 remap_particle_indices("edge_indices")
                 remap_particle_indices("tet_indices")
+                remap_particle_indices("synreal_fluid_particle_indices")
+                remap_particle_indices("synreal_granular_particle_indices")
+                remap_particle_indices("synreal_granular_bond_indices")
 
                 if model.particle_color_groups:
                     model.particle_color_groups = [
@@ -1331,6 +1431,19 @@ class NewtonSolver(_newton.solvers.SolverBase):
             dtype=wp.int32,
             device=self.model.device,
         )
+
+    def _build_collision_edge_indices(self) -> Any:
+        """Keep every authored bending stencil but collide each physical edge only once."""
+        indices = self.model.edge_indices
+        if indices is None or not len(indices):
+            return indices
+        edges = np.asarray(indices.numpy(), dtype=np.int32)
+        _, first = np.unique(np.sort(edges[:, 2:4], axis=1), axis=0, return_index=True)
+        if len(first) == len(edges):
+            return indices
+        # A welded non-manifold seam can carry several sheet hinges with the same
+        # endpoints. Repeating its contact primitive would multiply contact stiffness.
+        return wp.array(edges[np.sort(first)], dtype=wp.int32, device=self.model.device)
 
     def _build_collision_particle_indices(self) -> Any:
         """Return active free particles with finite positive mass and radius."""
@@ -2517,6 +2630,48 @@ class NewtonSolver(_newton.solvers.SolverBase):
         else:
             self._particle_indices = None
 
+        fluid_indices = getattr(self.model, "synreal_fluid_particle_indices", None)
+        if fluid_indices is not None:
+            self._synreal_model.fluid_particle_count = len(fluid_indices)
+            self._synreal_model.fluid_particle_indices = self._as_span(
+                fluid_indices, len(fluid_indices), expected_dtype=wp.int32
+            )
+            for name in ("rest_density", "smoothing_radius", "bulk_modulus", "viscosity"):
+                setattr(self._synreal_model, f"fluid_{name}", getattr(self.model, f"synreal_fluid_{name}"))
+            boundary_positions = self.model.synreal_fluid_boundary_positions
+            boundary_volumes = self.model.synreal_fluid_boundary_volumes
+            self._fluid_arrays = (fluid_indices, boundary_positions, boundary_volumes)
+            self._synreal_model.fluid_boundary_count = len(boundary_positions)
+            if len(boundary_positions):
+                self._synreal_model.fluid_boundary_positions = self._as_span(
+                    boundary_positions, len(boundary_positions), expected_dtype=wp.vec3
+                )
+                self._synreal_model.fluid_boundary_volumes = self._as_span(
+                    boundary_volumes, len(boundary_volumes), expected_dtype=wp.float32
+                )
+
+        granular_indices = getattr(self.model, "synreal_granular_particle_indices", None)
+        if granular_indices is not None:
+            self._synreal_model.granular_particle_count = len(granular_indices)
+            self._synreal_model.granular_particle_indices = self._as_span(
+                granular_indices, len(granular_indices), expected_dtype=wp.int32
+            )
+            for name in (
+                "contact_stiffness", "friction", "friction_damping", "cohesion", "bond_damping",
+                "yield_strain", "max_compaction", "break_strain",
+                "adhesion", "bond_formation_gap", "bond_formation_speed", "max_dynamic_bonds",
+            ):
+                setattr(self._synreal_model, f"granular_{name}", getattr(self.model, f"synreal_granular_{name}"))
+            bonds = self.model.synreal_granular_bond_indices
+            lengths = self.model.synreal_granular_bond_rest_lengths
+            self._granular_arrays = (granular_indices, bonds, lengths)
+            self._synreal_model.granular_bond_count = len(bonds)
+            if len(bonds):
+                self._synreal_model.granular_bond_indices = self._as_span(bonds, len(bonds), expected_dtype=wp.vec2i)
+                self._synreal_model.granular_bond_rest_lengths = self._as_span(
+                    lengths, len(lengths), expected_dtype=wp.float32
+                )
+
         spring_count = self._shared_counts.get(
             "spring_count", int(self.model.spring_count)
         )
@@ -2909,7 +3064,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._synreal_model.collision_edge_count = collision_edge_count
         if collision_edge_count:
             self._synreal_model.collision_edge_indices = self._as_span(
-                self.model.edge_indices,
+                self._collision_edge_indices,
                 collision_edge_count,
                 storage_components=4,
                 expected_dtype=self._wp.int32,
@@ -3203,6 +3358,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._wp.copy(state_out.body_qd, state_in.body_qd, stream=stream)
 
         if not self.model.particle_count:
+            if self._joint_drive_effort is not None:
+                self._joint_drive_effort.zero_()
             return
 
         affine_body_state_count = (
@@ -3323,6 +3480,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 device=self.device,
                 stream=stream,
             )
+
+        if self._joint_drive_effort is not None:
+            self.compute_joint_drive_effort(state_out, control, out=self._joint_drive_effort)
 
     def notify_model_changed(self, flags: Any) -> None:
         """Refresh native views after Newton model arrays are modified."""

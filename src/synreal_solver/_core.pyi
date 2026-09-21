@@ -74,6 +74,22 @@ class Config:
         Create the default solver configuration.
         """
     @property
+    def fluid_max_step_ratio(self) -> float:
+        """
+        Bound fluid Newton increments relative to kernel radius; zero disables.
+        """
+    @fluid_max_step_ratio.setter
+    def fluid_max_step_ratio(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_relaxation(self) -> float:
+        """
+        Global Newton step scale in fluid scenes, in (0, 1].
+        """
+    @fluid_relaxation.setter
+    def fluid_relaxation(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
     def rolling_friction_velocity_epsilon(self) -> float:
         """Positive angular speed [rad/s] below which rolling and torsional resistance become linear."""
     @rolling_friction_velocity_epsilon.setter
@@ -590,6 +606,168 @@ class Model:
         """
         Create an empty model with no referenced device data.
         """
+    @property
+    def granular_adhesion(self) -> float:
+        ...
+    @granular_adhesion.setter
+    def granular_adhesion(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_formation_gap(self) -> float:
+        ...
+    @granular_bond_formation_gap.setter
+    def granular_bond_formation_gap(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_formation_speed(self) -> float:
+        ...
+    @granular_bond_formation_speed.setter
+    def granular_bond_formation_speed(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_max_dynamic_bonds(self) -> int:
+        ...
+    @granular_max_dynamic_bonds.setter
+    def granular_max_dynamic_bonds(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_particle_count(self) -> int:
+        ...
+    @granular_particle_count.setter
+    def granular_particle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_particle_indices(self) -> Span:
+        ...
+    @granular_particle_indices.setter
+    def granular_particle_indices(self, arg0: Span) -> None:
+        ...
+    @property
+    def granular_contact_stiffness(self) -> float:
+        ...
+    @granular_contact_stiffness.setter
+    def granular_contact_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_friction(self) -> float:
+        ...
+    @granular_friction.setter
+    def granular_friction(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_friction_damping(self) -> float:
+        ...
+    @granular_friction_damping.setter
+    def granular_friction_damping(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_damping(self) -> float:
+        ...
+    @granular_bond_damping.setter
+    def granular_bond_damping(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_cohesion(self) -> float:
+        ...
+    @granular_cohesion.setter
+    def granular_cohesion(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_yield_strain(self) -> float:
+        ...
+    @granular_yield_strain.setter
+    def granular_yield_strain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_max_compaction(self) -> float:
+        ...
+    @granular_max_compaction.setter
+    def granular_max_compaction(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_break_strain(self) -> float:
+        ...
+    @granular_break_strain.setter
+    def granular_break_strain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_count(self) -> int:
+        ...
+    @granular_bond_count.setter
+    def granular_bond_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_indices(self) -> Span:
+        ...
+    @granular_bond_indices.setter
+    def granular_bond_indices(self, arg0: Span) -> None:
+        ...
+    @property
+    def granular_bond_rest_lengths(self) -> Span:
+        ...
+    @granular_bond_rest_lengths.setter
+    def granular_bond_rest_lengths(self, arg0: Span) -> None:
+        ...
+    @property
+    def fluid_boundary_count(self) -> int:
+        ...
+    @fluid_boundary_count.setter
+    def fluid_boundary_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_boundary_positions(self) -> Span:
+        """
+        Fixed boundary quadrature positions; these are not collision shapes.
+        """
+    @fluid_boundary_positions.setter
+    def fluid_boundary_positions(self, arg1: Span) -> None:
+        ...
+    @property
+    def fluid_boundary_volumes(self) -> Span:
+        """
+        Positive boundary quadrature volumes in cubic meters.
+        """
+    @fluid_boundary_volumes.setter
+    def fluid_boundary_volumes(self, arg1: Span) -> None:
+        ...
+    @property
+    def fluid_bulk_modulus(self) -> float:
+        ...
+    @fluid_bulk_modulus.setter
+    def fluid_bulk_modulus(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_particle_count(self) -> int:
+        ...
+    @fluid_particle_count.setter
+    def fluid_particle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_particle_indices(self) -> Span:
+        """
+        Active fluid particle indices; distinct from elastic and affine topology.
+        """
+    @fluid_particle_indices.setter
+    def fluid_particle_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def fluid_rest_density(self) -> float:
+        ...
+    @fluid_rest_density.setter
+    def fluid_rest_density(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_smoothing_radius(self) -> float:
+        ...
+    @fluid_smoothing_radius.setter
+    def fluid_smoothing_radius(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_viscosity(self) -> float:
+        ...
+    @fluid_viscosity.setter
+    def fluid_viscosity(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
     @property
     def affine_body_ids(self) -> Span:
         """

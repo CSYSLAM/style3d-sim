@@ -44,6 +44,8 @@ def set_log_callback(callback: LogCallback) -> None:
     _set_log_callback(callback)
 
 __all__ = [
+    "configure_fluid",
+    "configure_granular",
     "AffineBodyRigidityModel",
     "Config",
     "Contact",
@@ -68,6 +70,16 @@ __all__ = [
 
 def __getattr__(name: str) -> Any:
     """Load the optional Newton adapter only when its public types are requested."""
+    if name == "configure_granular":
+        from .granular import configure_granular
+
+        globals()[name] = configure_granular
+        return configure_granular
+    if name == "configure_fluid":
+        from .fluid import configure_fluid
+
+        globals()[name] = configure_fluid
+        return configure_fluid
     if name == "ModelBuilder":
         from .newton_model_builder import ModelBuilder
 

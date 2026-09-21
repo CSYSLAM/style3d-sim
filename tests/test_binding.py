@@ -137,9 +137,15 @@ def test_config_exposes_runtime_options() -> None:
         config.nonlinear_solver = solver
         assert config.nonlinear_solver == solver
 
-    assert config.constraint_alpha == pytest.approx(20.0)
+    assert config.constraint_alpha == pytest.approx(100.0)
     config.constraint_alpha = 25.0
     assert config.constraint_alpha == pytest.approx(25.0)
+    assert config.fluid_relaxation == pytest.approx(0.5)
+    assert config.fluid_max_step_ratio == pytest.approx(0.25)
+    config.fluid_relaxation = 0.75
+    config.fluid_max_step_ratio = 0.1
+    assert config.fluid_relaxation == pytest.approx(0.75)
+    assert config.fluid_max_step_ratio == pytest.approx(0.1)
     assert not hasattr(config, "affine_body_spring_alpha")
     assert not hasattr(config, "joint_constraint_alpha")
     assert not hasattr(config, "distance_constraint_alpha")
