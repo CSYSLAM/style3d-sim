@@ -3087,8 +3087,11 @@ dependencies = [
 [package.optional-dependencies]
 examples = [
     { name = "imageio-ffmpeg" },
+    { name = "matplotlib" },
     { name = "mujoco" },
     { name = "newton", extra = ["examples"] },
+    { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "scipy", version = "1.18.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "torch" },
 ]
 locomotion = [
@@ -3115,6 +3118,7 @@ dev = [
 requires-dist = [
     { name = "imageio-ffmpeg", marker = "extra == 'examples'", specifier = ">=0.6" },
     { name = "ipywidgets", marker = "extra == 'locomotion'", specifier = ">=8.0.4" },
+    { name = "matplotlib", marker = "extra == 'examples'", specifier = ">=3.9" },
     { name = "mujoco", marker = "extra == 'examples'", specifier = ">=3.3" },
     { name = "newton", specifier = ">=1.5.0" },
     { name = "newton", extras = ["examples"], marker = "extra == 'examples'", specifier = ">=1.5.0" },
@@ -3125,6 +3129,7 @@ requires-dist = [
     { name = "onnxscript", marker = "extra == 'locomotion'", specifier = ">=0.4" },
     { name = "pyyaml", marker = "extra == 'locomotion'", specifier = ">=6.0" },
     { name = "rsl-rl-lib", marker = "extra == 'locomotion'", specifier = "==2.3.1" },
+    { name = "scipy", marker = "extra == 'examples'", specifier = ">=1.14" },
     { name = "tensorboard", marker = "extra == 'locomotion'", specifier = ">=2.17" },
     { name = "torch", marker = "extra == 'examples'", specifier = ">=2.7", index = "https://download.pytorch.org/whl/cu132" },
     { name = "torch", marker = "extra == 'locomotion'", specifier = ">=2.7", index = "https://download.pytorch.org/whl/cu132" },

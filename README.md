@@ -5,6 +5,24 @@
 - 从 `synreal-solver/` 子模块中的 C++/CUDA 源码编译；
 - 从 `synreal-solver-bin/` 子模块安装预编译文件。
 
+## 粒子流体示例
+
+运行 `uv run python examples/example_fluid.py` 可观察默认 36,864 个粒子的水箱溃坝模拟。
+流体密度、黏性与接触已接入原生统一求解器；运行前需重新构建扩展。
+参数、算法和适用范围见[大规模粒子流体示例](docs/particle_fluid.md)。
+
+## 颗粒材料与积雪示例
+
+运行 `uv run python examples/example_snow.py` 可观察雪球沿雪坡滚动，通过接触黏结裹起积雪。
+默认由 280 个种子粒子和 3,520 个雪床粒子组成，支持右键拖拽雪球。
+`granular` 的接触、摩擦及塑性断裂黏结进入统一 Newton/PCG；
+雪是材料参数预设。接口与模型限制见[颗粒材料说明](docs/particle_granular.md)。
+
+运行 `uv run python examples/example_granular_beaf.py` 可观察刚体刀切开内聚颗粒牛肉块。
+默认 12,720 个颗粒组成厚约 0.06 m 的牛排，内部黏结带黏性阻尼，刀具带平滑的小幅随机倾斜。
+刀具在完整砧板上切到底后，轻轻向右拨开右半块，再抬刀；支持右键拖动刀具。
+加 `--no-cut` 可关闭自动下刀；详见[切牛肉示例](docs/particle_granular.md#刚体刀切牛肉)。
+
 ## Go2/G1 强化学习
 
 Go2/G1 平地速度策略代码位于 `examples/locomotion/`，实现记录见
