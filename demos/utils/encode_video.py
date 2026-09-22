@@ -12,9 +12,13 @@ import re
 import shutil
 import struct
 import subprocess
+import sys
 from datetime import datetime, timezone
 from fractions import Fraction
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from render_provenance import sha256, verify_frame_provenance  # noqa: E402
 
 
 def local_path(value: str, base: Path) -> Path:
@@ -142,6 +146,7 @@ def main() -> None:
     if output.suffix.lower() != ".mp4":
         parser.error("--output must use the .mp4 extension.")
     paths, size = inspect_sequence(pattern, args.start, args.end)
+    provenance = verify_frame_provenance(paths, base, args.start, args.fps)
     ffmpeg = find_ffmpeg()
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = output.with_name(output.stem + ".encoding.mp4")
@@ -179,6 +184,8 @@ def main() -> None:
         "crf": args.crf,
         "preset": args.preset,
         "verification": verification,
+        **provenance,
+        "output_sha256": sha256(output),
     }
     output.with_suffix(".video.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(f"Video verified: {output} ({output.stat().st_size / 1024 / 1024:.1f} MiB)", flush=True)

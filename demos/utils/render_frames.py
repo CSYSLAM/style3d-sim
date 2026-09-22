@@ -16,6 +16,7 @@ import bpy
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from usd_cache import validate_usd_sources  # noqa: E402
+from render_provenance import RenderManifest, load_run, validate_scene_run  # noqa: E402
 
 
 def select_device(scene, backend):
@@ -71,16 +72,37 @@ def main():
         if scene.render.engine == "CYCLES":
             scene.cycles.samples = cfg.get("preview_samples", 32)
         scene.render.resolution_percentage = cfg.get("preview_percentage", 60)
+    provenance = None
+    run_path = Path(bpy.data.filepath).parent / "run_manifest.json"
+    if run_path.exists():
+        run = load_run(run_path)
+        if scene.get("run_id") != run["run_id"]:
+            raise ValueError("The Blender project was not built from this sealed simulation run")
+        validate_scene_run(run, list(json.loads(scene.get("usd_source_sha256", "{}")).values()),
+                           scene.frame_start, scene.frame_end, scene.render.fps / scene.render.fps_base)
+        settings = {
+            "engine": scene.render.engine, "width": scene.render.resolution_x,
+            "height": scene.render.resolution_y, "resolution_percentage": scene.render.resolution_percentage,
+            "samples": scene.cycles.samples if scene.render.engine == "CYCLES" else None,
+            "adaptive_threshold": scene.cycles.adaptive_threshold if scene.render.engine == "CYCLES" else None,
+            "format": scene.render.image_settings.file_format, "bit_depth": scene.render.image_settings.color_depth,
+        }
+        provenance = RenderManifest(folder, Path(bpy.data.filepath), run_path, scene.frame_start, scene.frame_end,
+                                    scene.render.fps / scene.render.fps_base, settings, overwrite=args.overwrite)
     frames = range(scene.frame_start, scene.frame_end + 1) if args.animation else map(int, args.frames.split(","))
     start = time.monotonic()
     for frame in frames:
         target = folder / f"frame_{frame:04d}.png"
         if target.exists() and not args.overwrite:
+            if provenance:
+                provenance.validate_existing(frame, target)
             print(f"SKIP {target.name}", flush=True)
             continue
         scene.frame_set(frame)
         scene.render.filepath = str(target)
         bpy.ops.render.render(write_still=True)
+        if provenance:
+            provenance.record(frame, target)
         print(f"FINISHED frame={frame} elapsed={time.monotonic() - start:.1f}s", flush=True)
 
 
