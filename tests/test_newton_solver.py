@@ -510,6 +510,39 @@ def test_affine_body_pose_reconstruction_uses_proxy_columns() -> None:
     assert np.allclose(recovered_rotation, expected_rotation, atol=1.0e-5)
 
 
+@pytest.mark.parametrize("angle", (0.0, -1.0e-7, 1.0e-7))
+@pytest.mark.parametrize("dt", (1.0 / 240.0, 1.0 / 480.0))
+@pytest.mark.parametrize("device", (
+    "cpu", pytest.param("cuda:0", marks=pytest.mark.skipif(not wp.is_cuda_available(), reason="CUDA unavailable")),
+))
+def test_affine_body_rotation_recovery_resolves_rest_and_tiny_rotations(device, dt, angle):
+    builder = ModelBuilder(gravity=wp.vec3(0.0))
+    body = builder.add_body()
+    builder.add_shape_sphere(body, radius=0.07)
+    model = builder.finalize(device=device)
+    state = model.state()
+    axis = np.array((1.0, -2.0, 3.0)) / np.sqrt(14.0)
+    rotation = wp.quat_from_axis_angle(wp.vec3(axis), angle)
+    positions = state.particle_q.numpy()
+    indices = model.synreal_affine_body_indices.numpy()[0]
+    positions[indices[1:]] = np.asarray(wp.quat_to_matrix(rotation)).reshape(3, 3).T
+    state.particle_q.assign(positions)
+
+    # Isolate pose recovery from contacts and integration. Tiny signed rotations
+    # must survive as well as rest, so a rotation dead zone cannot pass this test.
+    wp.launch(
+        _update_affine_body_poses, dim=1,
+        inputs=[state.particle_q, state.particle_qd, model.synreal_affine_body_indices,
+                model.synreal_affine_body_ids, wp.zeros(1, dtype=wp.int32, device=device), model.body_com,
+                model.synreal_affine_body_inertia, int(sr.InertiaMode.MIDPOINT_CAYLEY.value), dt],
+        outputs=[state.body_q, state.body_qd], device=device,
+    )
+
+    expected_velocity = axis * (2.0 * np.tan(0.5 * angle) / dt)
+    np.testing.assert_allclose(state.body_qd.numpy()[body, 3:], expected_velocity, rtol=1.0e-5, atol=1.0e-8)
+    np.testing.assert_allclose(state.body_q.numpy()[body, 3:], np.asarray(rotation), rtol=0.0, atol=1.0e-10)
+
+
 @pytest.mark.parametrize("inertia_scale", (1.0e-9, 1.0e-5, 1.0, 1.0e5))
 @pytest.mark.parametrize("device", ("cpu", pytest.param(
     "cuda:0", marks=pytest.mark.skipif(not wp.is_cuda_available(), reason="CUDA unavailable"),

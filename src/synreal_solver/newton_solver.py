@@ -191,30 +191,36 @@ def _update_affine_body_poses(
     # weighted Procrustes problem maximizes tr(R^T A D), not tr(R^T A).
     inertia = affine_body_inertia[affine_body]
     second_moment = 0.5 * wp.trace(inertia) * wp.identity(3, dtype=float) - inertia
-    weighted_affine_matrix = affine_matrix * second_moment
+    # Keep the mass-weighted rotation extraction in double precision: a float32
+    # SVD can rotate even an identity frame, and endpoint velocity amplifies the
+    # resulting angular error by 1/dt. Do not clamp small physical rotations.
+    inertia64 = wp.mat33d(inertia)
+    second_moment64 = wp.float64(0.5) * wp.trace(inertia64) * wp.identity(3, dtype=wp.float64) - inertia64
+    weighted_affine_matrix = wp.mat33d(affine_matrix) * second_moment64
     # Warp's SVD uses absolute QR tolerances. Normalize before decomposition so
     # small physical inertias cannot turn a stationary frame into a false spin.
     # A positive uniform factor preserves the mass-weighted Procrustes solution.
-    matrix_scale = float(0.0)
+    matrix_scale = wp.float64(0.0)
     for row in range(3):
         for column in range(3):
             matrix_scale = wp.max(matrix_scale, wp.abs(weighted_affine_matrix[row, column]))
-    if matrix_scale <= 0.0:
+    if matrix_scale <= wp.float64(0.0):
         return
     left_basis, singular_values, right_basis = wp.svd3(weighted_affine_matrix / matrix_scale)
-    if wp.abs(singular_values[2]) <= 1.0e-8 * wp.abs(singular_values[0]):
+    if wp.abs(singular_values[2]) <= wp.float64(1.0e-8) * wp.abs(singular_values[0]):
         return
 
     polar_rotation = left_basis * wp.transpose(right_basis)
-    if wp.determinant(polar_rotation) < 0.0:
+    if wp.determinant(polar_rotation) < wp.float64(0.0):
         left_basis = wp.matrix_from_cols(
-            wp.vec3(left_basis[0, 0], left_basis[1, 0], left_basis[2, 0]),
-            wp.vec3(left_basis[0, 1], left_basis[1, 1], left_basis[2, 1]),
-            -wp.vec3(left_basis[0, 2], left_basis[1, 2], left_basis[2, 2]),
+            wp.vec3d(left_basis[0, 0], left_basis[1, 0], left_basis[2, 0]),
+            wp.vec3d(left_basis[0, 1], left_basis[1, 1], left_basis[2, 1]),
+            -wp.vec3d(left_basis[0, 2], left_basis[1, 2], left_basis[2, 2]),
         )
         polar_rotation = left_basis * wp.transpose(right_basis)
 
-    rotation = wp.quat_from_matrix(polar_rotation)
+    rotation = wp.quat(wp.quat_from_matrix(polar_rotation))
+    polar_rotation32 = wp.mat33(polar_rotation)
     previous_rotation = wp.transform_get_rotation(body_q[body])
     quaternion_dot = (
         rotation[0] * previous_rotation[0]
@@ -256,13 +262,13 @@ def _update_affine_body_poses(
             particle_qd[particle_indices[2]],
             particle_qd[particle_indices[3]],
         )
-        coupling = velocity_gradient * second_moment * wp.transpose(polar_rotation)
+        coupling = velocity_gradient * second_moment * wp.transpose(polar_rotation32)
         angular_momentum = wp.vec3(
             coupling[2, 1] - coupling[1, 2],
             coupling[0, 2] - coupling[2, 0],
             coupling[1, 0] - coupling[0, 1],
         )
-        world_inertia = polar_rotation * inertia * wp.transpose(polar_rotation)
+        world_inertia = polar_rotation32 * inertia * wp.transpose(polar_rotation32)
         angular_velocity = wp.inverse(world_inertia) * angular_momentum
 
         # body_qd stores only a rigid twist, so make the externally visible
