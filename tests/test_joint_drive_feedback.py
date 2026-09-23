@@ -59,12 +59,12 @@ def _make_revolute_solver(
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize(
     ("joint_kind", "expected_effort"),
-    [("revolute", 0.5), ("revolute", -0.5), ("prismatic", 0.5), ("prismatic", -0.5)],
+    [("revolute", 2.0), ("revolute", -2.0), ("prismatic", 10.0), ("prismatic", -10.0)],
 )
-def test_joint_drive_feedback_reports_limited_effort(
+def test_joint_drive_feedback_reports_raw_paper_effort(
     joint_kind: str, expected_effort: float
 ) -> None:
-    """Both drive types expose the signed limited actuator output at the returned state."""
+    """Both drive types expose the signed feedforward-plus-PD effort from the paper."""
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     inertia = wp.mat33(0.03, 0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.03)
     body = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
@@ -82,13 +82,15 @@ def test_joint_drive_feedback_reports_limited_effort(
             child=body,
             axis=(1.0, 0.0, 0.0),
             target_pos=np.copysign(0.1, expected_effort),
-            target_ke=100.0,
+            target_ke=0.0,
             target_kd=0.0,
             damping=0.0,
             actuator_mode=newton.JointTargetMode.POSITION,
         )
     builder.add_articulation([joint])
-    builder.joint_effort_limit[0] = abs(expected_effort)
+    # Keep the configured limit below the paper effort.  The reported value is
+    # the raw feedforward-plus-PD effort, so this must not clamp it.
+    builder.joint_effort_limit[0] = 0.5
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
     solver.config.constraint_alpha = 0.0
@@ -101,8 +103,7 @@ def test_joint_drive_feedback_reports_limited_effort(
     solver.sync_affine_body_state(state_in)
     solver.sync_affine_body_state(state_out)
     control = model.control()
-    if joint_kind == "revolute":
-        control.joint_f.fill_(np.copysign(2.0, expected_effort))
+    control.joint_f.fill_(expected_effort)
     wp.copy(control.joint_target_q, model.joint_target_q)
     wp.copy(control.joint_target_qd, model.joint_target_qd)
     state_in.clear_forces()
@@ -155,7 +156,7 @@ def test_joint_drive_feedback_tracks_commands_during_cuda_graph_replay() -> None
             state_in, state_out = state_out, state_in
     graph = capture.graph
     wp.capture_launch(graph, stream=stream)
-    assert np.allclose(samples.numpy(), [0.5, -0.5], atol=1.0e-6)
+    assert np.allclose(samples.numpy(), [0.75, -1.0], atol=1.0e-6)
     for array, value in zip(commands, (-0.25, 0.125), strict=True):
         array.fill_(value)
     wp.capture_launch(graph, stream=stream)
@@ -172,11 +173,16 @@ def test_joint_drive_feedback_uses_completed_pose_and_velocity(iterations: int) 
     control.joint_f.fill_(0.3)
     control.joint_target_qd.fill_(0.1)
     effort = solver.enable_joint_drive_feedback()
+    previous_poses = state_in.body_q.numpy().copy()
     solver.step(state_in, state_out, control, None, 0.02)
-    poses, twists = state_out.body_q.numpy(), state_out.body_qd.numpy()
+    poses = state_out.body_q.numpy()
     angles = 2.0 * np.arctan2(poses[:, 5], poses[:, 6])
+    previous_angles = 2.0 * np.arctan2(previous_poses[:, 5], previous_poses[:, 6])
     position = angles[1] - angles[0]
-    velocity = twists[1, 5] - twists[0, 5]
+    previous_position = previous_angles[1] - previous_angles[0]
+    # The paper defines damping velocity from the generalized-coordinate
+    # secant over the step, rather than from the body's reported twist.
+    velocity = (position - previous_position) / 0.02
     expected = 0.3 + 20.0 * (0.8 - position) + 0.2 * (0.1 - velocity)
     assert np.isclose(effort.numpy()[0], expected, atol=3.0e-5)
     assert abs(expected - (0.3 + 20.0 * 0.8 + 0.2 * 0.1)) > 1.0e-3
@@ -216,18 +222,84 @@ def test_joint_drive_feedback_clears_previous_samples_even_without_nonlinear_ite
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 def test_joint_drive_feedback_wraps_angles_at_pi() -> None:
-    _, solver, state_in, _, control = _make_revolute_solver(target_pos=-np.pi + 0.02)
-    poses = state_in.body_q.numpy()
-    angle = np.pi - 0.03
-    poses[1, 3:] = [0.0, 0.0, np.sin(angle / 2.0), np.cos(angle / 2.0)]
-    state_in.body_q.assign(poses)
-    # Crossing the branch cut gives a 0.05 rad error, not an almost-full revolution.
-    result = solver.compute_joint_drive_effort(state_in, control).numpy()[0]
-    assert np.isclose(result, 20.0 * 0.05, atol=1.0e-5)
+    model, solver, state, _, control = _make_revolute_solver(
+        target_pos=-np.pi + 0.02, target_ke=0.0, target_kd=2.0
+    )
+    current_poses = state.body_q.numpy()
+    previous_poses = current_poses.copy()
+    previous_angle = np.pi - 0.03
+    current_angle = -np.pi + 0.02
+    previous_poses[1, 3:] = [0.0, 0.0, np.sin(previous_angle / 2.0), np.cos(previous_angle / 2.0)]
+    current_poses[1, 3:] = [0.0, 0.0, np.sin(current_angle / 2.0), np.cos(current_angle / 2.0)]
+    state.body_q.assign(current_poses)
+    previous_state = model.state()
+    previous_state.body_q.assign(previous_poses)
+    state.body_qd.zero_()
+    previous_state.body_qd.zero_()
+    control.joint_target_qd.zero_()
+    # Crossing the branch cut gives a 0.05 rad secant, not an almost-full
+    # revolution: qdot = 0.05 / 0.1 = 0.5 rad/s and effort = -2 * qdot.
+    result = solver.compute_joint_drive_effort(
+        state, control, previous_state=previous_state, dt=0.1
+    ).numpy()[0]
+    assert np.isclose(result, -1.0, atol=1.0e-5)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_joint_drive_effort_uses_anchor_velocity_and_moving_parent_axis() -> None:
+def test_joint_drive_feedback_preserves_angle_branch_across_steps() -> None:
+    model, solver, state0, state1, control = _make_revolute_solver(
+        target_pos=3.2, target_ke=1.0, target_kd=0.0
+    )
+    state2 = model.state()
+    poses = state0.body_q.numpy()
+    for state, angle in ((state0, 3.13), (state1, -3.13), (state2, -3.08)):
+        sample = poses.copy()
+        sample[1, 3:] = [0.0, 0.0, np.sin(angle / 2.0), np.cos(angle / 2.0)]
+        state.body_q.assign(sample)
+        state.body_qd.zero_()
+
+    first = solver.compute_joint_drive_effort(
+        state1, control, previous_state=state0, dt=0.1, _advance_angle_state=True
+    ).numpy()[0]
+    second = solver.compute_joint_drive_effort(
+        state2, control, previous_state=state1, dt=0.1, _advance_angle_state=True
+    ).numpy()[0]
+
+    first_angle = -3.13 + 2.0 * np.pi
+    second_angle = -3.08 + 2.0 * np.pi
+    assert np.isclose(first, 3.2 - first_angle, atol=1.0e-5)
+    assert np.isclose(second, 3.2 - second_angle, atol=1.0e-5)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_joint_drive_feedback_keeps_angle_branch_when_reenabled() -> None:
+    """Disabling telemetry must not make a later sample lose accumulated turns."""
+    model, solver, state0, state1, control = _make_revolute_solver(
+        target_pos=3.2, target_ke=1.0, target_kd=0.0
+    )
+    state2 = model.state()
+    poses = state0.body_q.numpy()
+    for state, angle in ((state0, 3.13), (state1, -3.13), (state2, -3.08)):
+        sample = poses.copy()
+        sample[1, 3:] = [0.0, 0.0, np.sin(angle / 2.0), np.cos(angle / 2.0)]
+        state.body_q.assign(sample)
+        state.body_qd.zero_()
+
+    first = solver.compute_joint_drive_effort(
+        state1, control, previous_state=state0, dt=0.1, _advance_angle_state=True
+    ).numpy()[0]
+    solver.disable_joint_drive_feedback()
+    solver.enable_joint_drive_feedback()
+    second = solver.compute_joint_drive_effort(
+        state2, control, previous_state=state1, dt=0.1, _advance_angle_state=True
+    ).numpy()[0]
+
+    assert np.isclose(first, 3.2 - (-3.13 + 2.0 * np.pi), atol=1.0e-5)
+    assert np.isclose(second, 3.2 - (-3.08 + 2.0 * np.pi), atol=1.0e-5)
+
+
+@pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
+def test_joint_drive_effort_uses_coordinate_secant_velocity() -> None:
     builder = newton.ModelBuilder(gravity=wp.vec3(0.0))
     inertia = wp.mat33(np.eye(3, dtype=np.float32))
     parent = builder.add_link(mass=1.0, inertia=inertia, lock_inertia=True)
@@ -239,17 +311,26 @@ def test_joint_drive_effort_uses_anchor_velocity_and_moving_parent_axis() -> Non
     builder.add_articulation([joint])
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
-    state, control = model.state(), model.control()
+    state, previous_state, control = model.state(), model.state(), model.control()
     poses = state.body_q.numpy()
     poses[child, :3] = [0.2, 0.1, 0.0]
     state.body_q.assign(poses)
+    previous_poses = poses.copy()
+    previous_poses[child, :3] = [-0.1, 0.1, 0.0]
+    previous_state.body_q.assign(previous_poses)
+    # Deliberately provide unrelated twists: damping must use the coordinate
+    # secant, not these body velocities.
     state.body_qd.assign(np.array([[1, 0, 0, 0, 0, 1], [3, 0, 0, 0, 0, 2]], dtype=np.float32))
+    previous_state.body_qd.assign(np.array([[-7, 0, 0, 0, 0, -4], [11, 0, 0, 0, 0, 8]], dtype=np.float32))
     control.joint_target_q.fill_(0.5)
     control.joint_target_qd.fill_(0.2)
     control.joint_f.fill_(0.7)
-    # The child's offset COM gives anchor velocity 5 m/s; the moving parent axis contributes 0.1 m/s.
-    expected = 0.7 + 20.0 * (0.5 - 0.2) + 2.0 * (0.2 - (5.0 - 1.0 + 0.1))
-    assert np.isclose(solver.compute_joint_drive_effort(state, control).numpy()[0], expected, atol=2.0e-5)
+    # q = 0.2, q^t = -0.1, and h = 0.1, so qdot = 3 m/s.
+    expected = 0.7 + 20.0 * (0.5 - 0.2) + 2.0 * (0.2 - 3.0)
+    result = solver.compute_joint_drive_effort(
+        state, control, previous_state=previous_state, dt=0.1
+    ).numpy()[0]
+    assert np.isclose(result, expected, atol=2.0e-5)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
@@ -266,4 +347,4 @@ def test_joint_drive_effort_respects_replicated_world_control_indices() -> None:
     assert solver.synreal_model.world_count == 3
     state, control = model.state(), model.control()
     control.joint_f.assign(np.array([0.3, -0.4, 2.0], dtype=np.float32))
-    assert np.allclose(solver.compute_joint_drive_effort(state, control).numpy(), [0.3, -0.4, 0.5], atol=1.0e-6)
+    assert np.allclose(solver.compute_joint_drive_effort(state, control).numpy(), [0.3, -0.4, 2.0], atol=1.0e-6)

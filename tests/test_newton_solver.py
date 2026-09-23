@@ -1786,10 +1786,10 @@ def test_angular_joint_drive_balances_force_on_each_body() -> None:
 )
 @pytest.mark.parametrize(
     ("feedforward", "effort_limit", "expected_effort"),
-    [(2.0, 0.5, 0.5), (-2.0, 0.5, -0.5), (2.0, 0.0, 0.0)],
-    ids=["positive-limit", "negative-limit", "zero-limit"],
+    [(2.0, 0.5, 2.0), (-2.0, 0.5, -2.0), (2.0, 0.0, 2.0)],
+    ids=["positive-effort", "negative-effort", "zero-limit-ignored"],
 )
-def test_angular_joint_drive_applies_mass_metric_pure_torque(
+def test_angular_joint_drive_applies_symmetric_point_force_torque(
     inertia_mode: sr.InertiaMode,
     feedforward: float,
     effort_limit: float,
@@ -1853,16 +1853,25 @@ def test_angular_joint_drive_applies_mass_metric_pure_torque(
         velocity_gradients.append(gradient)
 
     assert np.allclose(center_velocities, 0.0, atol=1.0e-6)
-    for gradient in velocity_gradients:
-        assert np.allclose(gradient + gradient.T, 0.0, atol=2.0e-5)
-
-    expected_speed = expected_effort * dt / inertia_values[2, 2]
-    assert np.isclose(velocity_gradients[0][1, 0], -expected_speed, rtol=2.0e-3)
-    assert np.isclose(velocity_gradients[1][1, 0], expected_speed, rtol=2.0e-3)
+    if inertia_mode == sr.InertiaMode.NONE:
+        # The legacy free-particle recovery projects the affine response back to
+        # its rigid velocity field, so the exact inertia response is observable.
+        for gradient in velocity_gradients:
+            assert np.allclose(gradient + gradient.T, 0.0, atol=2.0e-5)
+        expected_speed = expected_effort * dt / inertia_values[2, 2]
+        assert np.isclose(velocity_gradients[0][1, 0], -expected_speed, rtol=2.0e-3)
+        assert np.isclose(velocity_gradients[1][1, 0], expected_speed, rtol=2.0e-3)
+    else:
+        # With affine rigidity disabled, the exact coordinate gradient may also
+        # excite affine shear.  Its net axial torques must remain balanced.
+        angular_speed = state_out.body_qd.numpy()[[parent, child], 5]
+        assert angular_speed[0] * expected_effort < 0.0
+        assert angular_speed[1] * expected_effort > 0.0
+        assert np.isclose(abs(angular_speed[0]), abs(angular_speed[1]), rtol=2.0e-3)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_angular_joint_effort_limit_clamps_feedforward_plus_pd() -> None:
+def test_angular_joint_drive_uses_raw_feedforward_plus_pd() -> None:
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     inertia = wp.mat33(0.02, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.03)
     bodies = []
@@ -1899,9 +1908,9 @@ def test_angular_joint_effort_limit_clamps_feedforward_plus_pd() -> None:
     solver.sync_affine_body_state(state_in)
     solver.sync_affine_body_state(state_out)
     control = model.control()
-    # Both drives evaluate to +1 Nm after limiting:
-    #   first:  +2 + 100*(0.1 - 0) = +12 -> +1
-    #   second: -9 + 100*(0.1 - 0) =  +1 -> +1
+    # The paper's actuator law leaves both efforts unclipped:
+    #   first:  +2 + 100*(0.1 - 0) = +12
+    #   second: -9 + 100*(0.1 - 0) =  +1
     wp.copy(control.joint_f, wp.array([2.0, -9.0], dtype=wp.float32, device=model.device))
     wp.copy(control.joint_target_q, model.joint_target_q)
     wp.copy(control.joint_target_qd, model.joint_target_qd)
@@ -1909,17 +1918,17 @@ def test_angular_joint_effort_limit_clamps_feedforward_plus_pd() -> None:
 
     solver.step(state_in, state_out, control, None, 1.0e-4)
     wp.synchronize_device(model.device)
-    angular_velocity = state_out.body_qd.numpy()[:, 3:]
+    angular_velocity = state_out.body_qd.numpy()[:, 5]
     assert np.allclose(
         angular_velocity[list(bodies[0])],
-        angular_velocity[list(bodies[1])],
+        12.0 * angular_velocity[list(bodies[1])],
         rtol=2.0e-3,
         atol=1.0e-7,
     )
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_prismatic_joint_effort_limit_projects_to_boundary_spring() -> None:
+def test_prismatic_joint_drive_uses_raw_feedforward_plus_pd() -> None:
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     inertia = wp.mat33(0.03, 0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.03)
     body = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
@@ -1955,7 +1964,7 @@ def test_prismatic_joint_effort_limit_projects_to_boundary_spring() -> None:
     solver.step(state_in, state_out, control, None, dt)
     wp.synchronize_device(model.device)
     linear_velocity = state_out.body_qd.numpy()[body, :3]
-    assert np.isclose(linear_velocity[0], 0.5 * dt / 2.0, rtol=2.0e-3)
+    assert np.isclose(linear_velocity[0], 10.0 * dt / 2.0, rtol=2.0e-3)
     assert np.allclose(linear_velocity[1:], 0.0, atol=1.0e-7)
 
 

@@ -19,14 +19,14 @@ class AffineBodyRigidityModel:
       ABD_ORTHOGONALITY
     
       SIX_SPRINGS
-
+    
       SO3_AUGMENTED_LAGRANGIAN
     """
     ABD_ORTHOGONALITY: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.ABD_ORTHOGONALITY: 1>
     CO_ROTATED: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.CO_ROTATED: 0>
     SIX_SPRINGS: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.SIX_SPRINGS: 2>
-    SO3_AUGMENTED_LAGRANGIAN: typing.ClassVar[AffineBodyRigidityModel]
-    __members__: typing.ClassVar[dict[str, AffineBodyRigidityModel]]
+    SO3_AUGMENTED_LAGRANGIAN: typing.ClassVar[AffineBodyRigidityModel]  # value = <AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN: 3>
+    __members__: typing.ClassVar[dict[str, AffineBodyRigidityModel]]  # value = {'CO_ROTATED': <AffineBodyRigidityModel.CO_ROTATED: 0>, 'ABD_ORTHOGONALITY': <AffineBodyRigidityModel.ABD_ORTHOGONALITY: 1>, 'SIX_SPRINGS': <AffineBodyRigidityModel.SIX_SPRINGS: 2>, 'SO3_AUGMENTED_LAGRANGIAN': <AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN: 3>}
     @typing.overload
     def __eq__(self, other: AffineBodyRigidityModel) -> bool:
         ...
@@ -74,6 +74,54 @@ class Config:
         Create the default solver configuration.
         """
     @property
+    def affine_body_rigidity_model(self) -> AffineBodyRigidityModel:
+        """
+        Rigidity law used for affine bodies: co-rotated, original ABD orthogonality, six springs, or SO(3) AL.
+        """
+    @affine_body_rigidity_model.setter
+    def affine_body_rigidity_model(self, arg0: AffineBodyRigidityModel) -> None:
+        ...
+    @property
+    def affine_body_rigidity_primal_iterations(self) -> int:
+        """
+        Primal Newton iterations performed with a fixed affine-body SO(3) AL state before each update.
+        """
+    @affine_body_rigidity_primal_iterations.setter
+    def affine_body_rigidity_primal_iterations(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def air_density(self) -> float:
+        """
+        Ambient air density in kg/m^3; zero disables aerodynamic drag.
+        """
+    @air_density.setter
+    def air_density(self, arg1: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def constraint_alpha(self) -> float:
+        """
+        Shared dimensionless mass-normalized penalty for affine rigidity, generated joint constraints, and hard distance constraints. Zero disables all three.
+        """
+    @constraint_alpha.setter
+    def constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def enable_collision_hessian_non_diagonal(self) -> bool:
+        """
+        Include coupled contact tangents for rigid, particle-shape, and all self-collision contacts. False keeps their diagonal approximation; full-surface and angular-friction tangents remain coupled.
+        """
+    @enable_collision_hessian_non_diagonal.setter
+    def enable_collision_hessian_non_diagonal(self, arg0: bool) -> None:
+        ...
+    @property
+    def enable_self_collision(self) -> bool:
+        """
+        Whether deformable self-collision is enabled.
+        """
+    @enable_self_collision.setter
+    def enable_self_collision(self, arg0: bool) -> None:
+        ...
+    @property
     def fluid_max_step_ratio(self) -> float:
         """
         Bound fluid Newton increments relative to kernel radius; zero disables.
@@ -88,65 +136,6 @@ class Config:
         """
     @fluid_relaxation.setter
     def fluid_relaxation(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def rolling_friction_velocity_epsilon(self) -> float:
-        """Positive angular speed [rad/s] below which rolling and torsional resistance become linear."""
-    @rolling_friction_velocity_epsilon.setter
-    def rolling_friction_velocity_epsilon(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def air_density(self) -> float:
-        """Ambient air density in kg/m^3; zero disables aerodynamic drag."""
-    @air_density.setter
-    def air_density(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def affine_body_rigidity_model(self) -> AffineBodyRigidityModel:
-        """
-        Rigidity law used for affine bodies: co-rotated, original ABD
-        orthogonality, six springs, or SO(3) AL.
-        """
-    @affine_body_rigidity_model.setter
-    def affine_body_rigidity_model(self, arg0: AffineBodyRigidityModel) -> None:
-        ...
-    @property
-    def affine_body_rigidity_primal_iterations(self) -> int:
-        """
-        Primal Newton iterations performed with a fixed affine-body SO(3) AL
-        state before each update.
-        """
-    @affine_body_rigidity_primal_iterations.setter
-    def affine_body_rigidity_primal_iterations(
-        self, arg0: typing.SupportsInt | typing.SupportsIndex
-    ) -> None:
-        ...
-    @property
-    def constraint_alpha(self) -> float:
-        """
-        Shared dimensionless mass-normalized penalty for affine rigidity,
-        generated joint constraints, and hard distance constraints. Zero disables
-        all three.
-        """
-    @constraint_alpha.setter
-    def constraint_alpha(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def enable_collision_hessian_non_diagonal(self) -> bool:
-        """
-        Include coupled contact tangents for rigid, particle-shape, and all self-collision contacts.
-        False keeps their diagonal approximation; full-surface and angular-friction tangents remain coupled.
-        """
-    @enable_collision_hessian_non_diagonal.setter
-    def enable_collision_hessian_non_diagonal(self, arg0: bool) -> None:
-        ...
-    @property
-    def enable_self_collision(self) -> bool:
-        """
-        Whether deformable self-collision is enabled.
-        """
-    @enable_self_collision.setter
-    def enable_self_collision(self, arg0: bool) -> None:
         ...
     @property
     def inertia_mode(self) -> InertiaMode:
@@ -197,6 +186,14 @@ class Config:
     def nonlinear_solver(self, arg0: NonlinearSolver) -> None:
         ...
     @property
+    def rolling_friction_velocity_epsilon(self) -> float:
+        """
+        Positive contact angular-speed regularization for rolling and torsional friction [rad/s].
+        """
+    @rolling_friction_velocity_epsilon.setter
+    def rolling_friction_velocity_epsilon(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
     def self_collision_edge_edge_stiffness(self) -> float:
         """
         Dimensionless stiffness scale for edge-edge self-collision penalties.
@@ -238,9 +235,11 @@ class Config:
         ...
     @property
     def wind_velocity(self) -> tuple[float, float, float]:
-        """Ambient air velocity as a world-coordinate (x, y, z) tuple in m/s."""
+        """
+        Ambient air velocity as a world-coordinate (x, y, z) tuple in m/s.
+        """
     @wind_velocity.setter
-    def wind_velocity(self, arg0: typing.Sequence[typing.SupportsFloat | typing.SupportsIndex]) -> None:
+    def wind_velocity(self, arg1: collections.abc.Sequence) -> None:
         ...
 class Contact:
     """
@@ -251,24 +250,6 @@ class Contact:
         """
         Create an empty contact view.
         """
-    @property
-    def soft_indices(self) -> Span:
-        """Optional particle, edge, or face contact ids as -1-padded triples."""
-    @soft_indices.setter
-    def soft_indices(self, arg1: Span) -> None:
-        ...
-    @property
-    def soft_barycentric(self) -> Span:
-        """Optional barycentric weights paired with soft_indices, replacing soft_particle."""
-    @soft_barycentric.setter
-    def soft_barycentric(self, arg1: Span) -> None:
-        ...
-    @property
-    def soft_particle_only_shapes(self) -> Span:
-        """Optional per-original-shape flags selecting legacy particle contacts."""
-    @soft_particle_only_shapes.setter
-    def soft_particle_only_shapes(self, arg1: Span) -> None:
-        ...
     @property
     def count(self) -> Span:
         """
@@ -342,6 +323,14 @@ class Contact:
     def shape1(self, arg1: Span) -> None:
         ...
     @property
+    def soft_barycentric(self) -> Span:
+        """
+        Optional barycentric weights for soft_indices; replaces the single-particle contact view.
+        """
+    @soft_barycentric.setter
+    def soft_barycentric(self, arg1: Span) -> None:
+        ...
+    @property
     def soft_body_pos(self) -> Span:
         """
         Device span containing body-local contact points on collision shapes.
@@ -366,6 +355,14 @@ class Contact:
     def soft_count(self, arg1: Span) -> None:
         ...
     @property
+    def soft_indices(self) -> Span:
+        """
+        Optional particle, edge, or face contact ids as -1-padded triples; paired with soft_barycentric.
+        """
+    @soft_indices.setter
+    def soft_indices(self, arg1: Span) -> None:
+        ...
+    @property
     def soft_max_count(self) -> int:
         """
         Maximum number of soft contacts stored in the arrays.
@@ -388,6 +385,14 @@ class Contact:
         """
     @soft_particle.setter
     def soft_particle(self, arg1: Span) -> None:
+        ...
+    @property
+    def soft_particle_only_shapes(self) -> Span:
+        """
+        Optional per-original-shape flags selecting legacy particle contacts instead of full-surface contacts.
+        """
+    @soft_particle_only_shapes.setter
+    def soft_particle_only_shapes(self, arg1: Span) -> None:
         ...
     @property
     def soft_shape(self) -> Span:
@@ -606,168 +611,6 @@ class Model:
         """
         Create an empty model with no referenced device data.
         """
-    @property
-    def granular_adhesion(self) -> float:
-        ...
-    @granular_adhesion.setter
-    def granular_adhesion(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_bond_formation_gap(self) -> float:
-        ...
-    @granular_bond_formation_gap.setter
-    def granular_bond_formation_gap(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_bond_formation_speed(self) -> float:
-        ...
-    @granular_bond_formation_speed.setter
-    def granular_bond_formation_speed(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_max_dynamic_bonds(self) -> int:
-        ...
-    @granular_max_dynamic_bonds.setter
-    def granular_max_dynamic_bonds(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_particle_count(self) -> int:
-        ...
-    @granular_particle_count.setter
-    def granular_particle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_particle_indices(self) -> Span:
-        ...
-    @granular_particle_indices.setter
-    def granular_particle_indices(self, arg0: Span) -> None:
-        ...
-    @property
-    def granular_contact_stiffness(self) -> float:
-        ...
-    @granular_contact_stiffness.setter
-    def granular_contact_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_friction(self) -> float:
-        ...
-    @granular_friction.setter
-    def granular_friction(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_friction_damping(self) -> float:
-        ...
-    @granular_friction_damping.setter
-    def granular_friction_damping(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_bond_damping(self) -> float:
-        ...
-    @granular_bond_damping.setter
-    def granular_bond_damping(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_cohesion(self) -> float:
-        ...
-    @granular_cohesion.setter
-    def granular_cohesion(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_yield_strain(self) -> float:
-        ...
-    @granular_yield_strain.setter
-    def granular_yield_strain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_max_compaction(self) -> float:
-        ...
-    @granular_max_compaction.setter
-    def granular_max_compaction(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_break_strain(self) -> float:
-        ...
-    @granular_break_strain.setter
-    def granular_break_strain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_bond_count(self) -> int:
-        ...
-    @granular_bond_count.setter
-    def granular_bond_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def granular_bond_indices(self) -> Span:
-        ...
-    @granular_bond_indices.setter
-    def granular_bond_indices(self, arg0: Span) -> None:
-        ...
-    @property
-    def granular_bond_rest_lengths(self) -> Span:
-        ...
-    @granular_bond_rest_lengths.setter
-    def granular_bond_rest_lengths(self, arg0: Span) -> None:
-        ...
-    @property
-    def fluid_boundary_count(self) -> int:
-        ...
-    @fluid_boundary_count.setter
-    def fluid_boundary_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def fluid_boundary_positions(self) -> Span:
-        """
-        Fixed boundary quadrature positions; these are not collision shapes.
-        """
-    @fluid_boundary_positions.setter
-    def fluid_boundary_positions(self, arg1: Span) -> None:
-        ...
-    @property
-    def fluid_boundary_volumes(self) -> Span:
-        """
-        Positive boundary quadrature volumes in cubic meters.
-        """
-    @fluid_boundary_volumes.setter
-    def fluid_boundary_volumes(self, arg1: Span) -> None:
-        ...
-    @property
-    def fluid_bulk_modulus(self) -> float:
-        ...
-    @fluid_bulk_modulus.setter
-    def fluid_bulk_modulus(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def fluid_particle_count(self) -> int:
-        ...
-    @fluid_particle_count.setter
-    def fluid_particle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def fluid_particle_indices(self) -> Span:
-        """
-        Active fluid particle indices; distinct from elastic and affine topology.
-        """
-    @fluid_particle_indices.setter
-    def fluid_particle_indices(self, arg1: Span) -> None:
-        ...
-    @property
-    def fluid_rest_density(self) -> float:
-        ...
-    @fluid_rest_density.setter
-    def fluid_rest_density(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def fluid_smoothing_radius(self) -> float:
-        ...
-    @fluid_smoothing_radius.setter
-    def fluid_smoothing_radius(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
-    @property
-    def fluid_viscosity(self) -> float:
-        ...
-    @fluid_viscosity.setter
-    def fluid_viscosity(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
-        ...
     @property
     def affine_body_ids(self) -> Span:
         """
@@ -1089,6 +932,174 @@ class Model:
     def edge_rest_areas(self, arg1: Span) -> None:
         ...
     @property
+    def fluid_boundary_count(self) -> int:
+        ...
+    @fluid_boundary_count.setter
+    def fluid_boundary_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_boundary_positions(self) -> Span:
+        """
+        Fixed boundary quadrature positions; these are not collision shapes.
+        """
+    @fluid_boundary_positions.setter
+    def fluid_boundary_positions(self, arg1: Span) -> None:
+        ...
+    @property
+    def fluid_boundary_volumes(self) -> Span:
+        """
+        Positive boundary quadrature volumes in cubic meters.
+        """
+    @fluid_boundary_volumes.setter
+    def fluid_boundary_volumes(self, arg1: Span) -> None:
+        ...
+    @property
+    def fluid_bulk_modulus(self) -> float:
+        ...
+    @fluid_bulk_modulus.setter
+    def fluid_bulk_modulus(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_particle_count(self) -> int:
+        ...
+    @fluid_particle_count.setter
+    def fluid_particle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_particle_indices(self) -> Span:
+        """
+        Active fluid particle indices; distinct from elastic and affine topology.
+        """
+    @fluid_particle_indices.setter
+    def fluid_particle_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def fluid_rest_density(self) -> float:
+        ...
+    @fluid_rest_density.setter
+    def fluid_rest_density(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_smoothing_radius(self) -> float:
+        ...
+    @fluid_smoothing_radius.setter
+    def fluid_smoothing_radius(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def fluid_viscosity(self) -> float:
+        ...
+    @fluid_viscosity.setter
+    def fluid_viscosity(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_adhesion(self) -> float:
+        ...
+    @granular_adhesion.setter
+    def granular_adhesion(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_count(self) -> int:
+        ...
+    @granular_bond_count.setter
+    def granular_bond_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_damping(self) -> float:
+        ...
+    @granular_bond_damping.setter
+    def granular_bond_damping(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_formation_gap(self) -> float:
+        ...
+    @granular_bond_formation_gap.setter
+    def granular_bond_formation_gap(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_formation_speed(self) -> float:
+        ...
+    @granular_bond_formation_speed.setter
+    def granular_bond_formation_speed(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_bond_indices(self) -> Span:
+        """
+        Initial cohesive bond endpoint particle indices; fracture is irreversible within a solver.
+        """
+    @granular_bond_indices.setter
+    def granular_bond_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def granular_bond_rest_lengths(self) -> Span:
+        """
+        Initial bond rest lengths in meters; plastic history is owned by the solver.
+        """
+    @granular_bond_rest_lengths.setter
+    def granular_bond_rest_lengths(self, arg1: Span) -> None:
+        ...
+    @property
+    def granular_break_strain(self) -> float:
+        ...
+    @granular_break_strain.setter
+    def granular_break_strain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_cohesion(self) -> float:
+        ...
+    @granular_cohesion.setter
+    def granular_cohesion(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_contact_stiffness(self) -> float:
+        ...
+    @granular_contact_stiffness.setter
+    def granular_contact_stiffness(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_friction(self) -> float:
+        ...
+    @granular_friction.setter
+    def granular_friction(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_friction_damping(self) -> float:
+        ...
+    @granular_friction_damping.setter
+    def granular_friction_damping(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_max_compaction(self) -> float:
+        ...
+    @granular_max_compaction.setter
+    def granular_max_compaction(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_max_dynamic_bonds(self) -> int:
+        ...
+    @granular_max_dynamic_bonds.setter
+    def granular_max_dynamic_bonds(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_particle_count(self) -> int:
+        ...
+    @granular_particle_count.setter
+    def granular_particle_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def granular_particle_indices(self) -> Span:
+        """
+        Granular particle indices; disjoint from fluid, elastic, and affine selections.
+        """
+    @granular_particle_indices.setter
+    def granular_particle_indices(self, arg1: Span) -> None:
+        ...
+    @property
+    def granular_yield_strain(self) -> float:
+        ...
+    @granular_yield_strain.setter
+    def granular_yield_strain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
+        ...
+    @property
     def gravity(self) -> Span:
         """
         Device span containing one gravity vector per world.
@@ -1369,30 +1380,6 @@ class Model:
     def shape_bodies(self, arg1: Span) -> None:
         ...
     @property
-    def shape_types(self) -> Span:
-        """
-        Device span containing Newton collision geometry types.
-        """
-    @shape_types.setter
-    def shape_types(self, arg1: Span) -> None:
-        ...
-    @property
-    def shape_transforms(self) -> Span:
-        """
-        Device span containing body-local or world collision shape transforms.
-        """
-    @shape_transforms.setter
-    def shape_transforms(self, arg1: Span) -> None:
-        ...
-    @property
-    def shape_scales(self) -> Span:
-        """
-        Device span containing collision geometry scales.
-        """
-    @shape_scales.setter
-    def shape_scales(self, arg1: Span) -> None:
-        ...
-    @property
     def shape_contact_dampings(self) -> Span:
         """
         Device span containing shape contact damping values.
@@ -1402,7 +1389,9 @@ class Model:
         ...
     @property
     def shape_contact_friction_gains(self) -> Span:
-        """Device span containing tangential friction gains [N s/m]."""
+        """
+        Device span containing tangential friction gains [N s/m].
+        """
     @shape_contact_friction_gains.setter
     def shape_contact_friction_gains(self, arg1: Span) -> None:
         ...
@@ -1431,18 +1420,6 @@ class Model:
     def shape_frictions(self, arg1: Span) -> None:
         ...
     @property
-    def shape_rolling_frictions(self) -> Span:
-        """Optional dimensionless rigid-contact rolling coefficients; an empty span disables rolling resistance."""
-    @shape_rolling_frictions.setter
-    def shape_rolling_frictions(self, arg1: Span) -> None:
-        ...
-    @property
-    def shape_torsional_frictions(self) -> Span:
-        """Optional dimensionless contact spin coefficients; an empty span disables torsional friction."""
-    @shape_torsional_frictions.setter
-    def shape_torsional_frictions(self, arg1: Span) -> None:
-        ...
-    @property
     def shape_margins(self) -> Span:
         """
         Device span containing shape collision margins.
@@ -1457,6 +1434,46 @@ class Model:
         """
     @shape_replicated_count.setter
     def shape_replicated_count(self, arg0: typing.SupportsInt | typing.SupportsIndex) -> None:
+        ...
+    @property
+    def shape_rolling_frictions(self) -> Span:
+        """
+        Optional dimensionless rolling-resistance coefficients; an empty span disables rolling resistance.
+        """
+    @shape_rolling_frictions.setter
+    def shape_rolling_frictions(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_scales(self) -> Span:
+        """
+        Device span containing collision geometry scales.
+        """
+    @shape_scales.setter
+    def shape_scales(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_torsional_frictions(self) -> Span:
+        """
+        Optional dimensionless contact spin-resistance coefficients; an empty span disables torsional friction.
+        """
+    @shape_torsional_frictions.setter
+    def shape_torsional_frictions(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_transforms(self) -> Span:
+        """
+        Device span containing body-local or world collision shape transforms.
+        """
+    @shape_transforms.setter
+    def shape_transforms(self, arg1: Span) -> None:
+        ...
+    @property
+    def shape_types(self) -> Span:
+        """
+        Device span containing Newton collision geometry types.
+        """
+    @shape_types.setter
+    def shape_types(self, arg1: Span) -> None:
         ...
     @property
     def soft_contact_damping(self) -> float:
@@ -1476,7 +1493,9 @@ class Model:
         ...
     @property
     def soft_contact_friction_gain(self) -> float:
-        """Particle tangential friction gain [N s/m]."""
+        """
+        Particle tangential friction gain [N s/m].
+        """
     @soft_contact_friction_gain.setter
     def soft_contact_friction_gain(self, arg0: typing.SupportsFloat | typing.SupportsIndex) -> None:
         ...
@@ -1570,7 +1589,9 @@ class Model:
         ...
     @property
     def triangle_drag_coefficients(self) -> Span:
-        """Optional normal-drag Cd per collision triangle, or elastic triangle if collision topology is absent."""
+        """
+        Optional nonnegative normal-drag Cd per collision triangle, or elastic triangle when collision topology is absent.
+        """
     @triangle_drag_coefficients.setter
     def triangle_drag_coefficients(self, arg1: Span) -> None:
         ...
@@ -1617,9 +1638,9 @@ class Model:
 class NonlinearSolver:
     """
     Members:
-
+    
       NEWTON
-
+    
       PD_NEWTON
     """
     NEWTON: typing.ClassVar[NonlinearSolver]  # value = <NonlinearSolver.NEWTON: 0>
@@ -1677,6 +1698,10 @@ class Solver:
         The model's device allocations must remain valid while the solver uses them.
         Call this method before the first call to step().
         """
+    def reset_joint_drive_state(self, stream: typing.Any = None) -> None:
+        """
+        Reset persistent joint-coordinate branches after an external state reset.
+        """
     @typing.overload
     def step(self, state_in: State, state_out: State, dt: typing.SupportsFloat | typing.SupportsIndex, stream: typing.Any = None) -> None:
         """
@@ -1718,7 +1743,8 @@ class Span:
     A non-owning view of a contiguous CUDA device-memory range.
     
     Span stores an opaque device address and an element count. It does not allocate,
-    free, validate, or dereference the referenced memory.
+    free, or dereference the referenced memory. Construction and field assignment
+    reject a null address paired with a nonzero element count.
     """
     @typing.overload
     def __init__(self) -> None:
