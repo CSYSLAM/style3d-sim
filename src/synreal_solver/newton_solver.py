@@ -353,7 +353,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         joint_damping: float = 100.0,
         joint_attachment_distance: float = 0.1,
         joint_line_half_length: float = 10.0,
-        joint_drive_armature: float = 0.01,
+        joint_drive_armature: float = 0.0,
     ) -> None:
         """Create a Synreal-backed solver for a Newton model.
 
@@ -365,8 +365,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 constrain joint orientation.
             joint_line_half_length: Half-length of generated slider guide segments.
             joint_drive_armature: Isotropic rotational inertia added to bodies
-                connected to active joint drives. Set to zero to preserve the
-                authored inertia exactly.
+                connected to active joint drives. This optional legacy
+                regularization is separate from ``model.joint_armature``,
+                which adds inertia to each supported relative joint coordinate.
 
         Raises:
             ValueError: If the model is not allocated on CUDA or required
@@ -389,15 +390,14 @@ class NewtonSolver(_newton.solvers.SolverBase):
         super().__init__(model)
         self._wp = import_module("warp")
         self._joint_drive_effort: Any | None = None
-        # Preserve the state pair used for the most recent completed-step
-        # sample.  The paper defines damping from the generalized-coordinate
-        # secant over that pair, so a direct telemetry query can reuse it.
+        # Feedback records the same pre-integration actuator evaluation as MuJoCo.
         self._joint_drive_feedback_state: Any | None = None
         self._joint_drive_feedback_previous_state: Any | None = None
         self._joint_drive_feedback_dt: float | None = None
         self._joint_drive_feedback_previous_angles: Any | None = None
         self._joint_drive_feedback_angle_initialized: Any | None = None
         self._joint_drive_feedback_scratch: Any | None = None
+        self._joint_drive_start_velocities: Any | None = None
         active_joint_drive_body_ids = self._find_active_joint_drive_body_ids()
         self._pre_regularized_body_ids: set[int] = set()
         self._ensure_affine_body_proxies(
@@ -865,6 +865,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     for array in (
                         self.model.joint_target_ke,
                         self.model.joint_target_kd,
+                        self.model.joint_target_mode,
+                        self.model.joint_damping,
+                        self.model.joint_armature,
                         self.model.joint_effort_limit,
                     )
                 )
@@ -986,7 +989,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         return self._synreal_solver.config
 
     def enable_joint_drive_feedback(self) -> Any:
-        """Enable Python evaluation of motor effort after each completed step.
+        """Enable recording of the pre-integration motor effort for each step.
 
         Call before CUDA graph capture. The independent CUDA output array does
         not add State fields or change the state, parameters, or dynamics solve.
@@ -1010,6 +1013,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
             and len(self._joint_drive_feedback_angle_initialized) == drive_count
             and self._joint_drive_feedback_scratch is not None
             and len(self._joint_drive_feedback_scratch) == dof_count
+            and self._joint_drive_start_velocities is not None
+            and len(self._joint_drive_start_velocities) == drive_count
         ):
             return
         if self._wp.get_stream(self.device).is_capturing:
@@ -1022,6 +1027,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         self._joint_drive_feedback_scratch = self._wp.empty(
             dof_count, dtype=self._wp.float32, device=self.device
+        )
+        self._joint_drive_start_velocities = self._wp.zeros(
+            drive_count, dtype=self._wp.float32, device=self.device
         )
 
     def disable_joint_drive_feedback(self) -> None:
@@ -1042,10 +1050,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         """Return the optional motor-effort CUDA array, indexed like ``control.joint_f``.
 
         Values are signed along each DOF axis: N for prismatic drives and Nm for
-        angular drives. Python/Warp evaluates feedforward plus PD effort
-        from the completed state's body poses and the coordinate secant over the
-        completed step, using the control passed to that step. This is the actuator law at the returned state;
-        it excludes contact and joint-constraint reactions. Undriven DOFs contain
+        angular drives. Values are ``joint_f`` plus the mode-aware, clipped
+        actuator effort at the beginning of the step, matching MuJoCo's force
+        evaluation. They exclude passive damping, contact, and joint reactions. Unsupported DOFs contain
         zero. Copy after each step to retain history; CUDA graph replay also
         overwrites this independent array. No State fields are added or changed.
         """
@@ -1061,16 +1068,13 @@ class NewtonSolver(_newton.solvers.SolverBase):
         dt: float | None = None,
         _advance_angle_state: bool = False,
     ) -> Any:
-        """Evaluate end-state motor effort in Python/Warp without modifying ``state``.
+        """Evaluate the supplied state's instantaneous motor effort without changing it.
 
-        When ``previous_state`` and ``dt`` are supplied, both prismatic and
-        revolute velocities follow the paper's coordinate difference
-        ``(xi - xi_previous) / dt``.  :meth:`step` supplies this pair for
-        time-aligned damping feedback.  A direct query immediately after an
-        automatic sample reuses the cached pair; standalone legacy queries that
-        omit it retain the rigid-twist velocity fallback.  Pass a separate
-        preallocated float32 array indexed like ``control.joint_f`` as ``out``
-        during CUDA graph capture. Unsupported/undriven DOFs are zero.
+        Velocity comes from body twists, while :meth:`step` records this value
+        before integration. ``previous_state`` and ``dt`` remain accepted for
+        compatibility but do not replace the instantaneous velocity with a secant.
+        A supplied previous pose seeds the angular branch when it is uninitialized.
+        Pass a preallocated float32 ``out`` array during CUDA graph capture.
         """
         count = int(self.model.joint_dof_count)
         stream = self._wp.get_stream(self.device)
@@ -1082,21 +1086,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
             raise ValueError(f"Motor-effort output must have shape ({count},).")
         self._as_span(out, count, expected_dtype=self._wp.float32)
         self._validate_body_state_arrays(state)
-        use_discrete_velocity = 0
-        if previous_state is None and state is self._joint_drive_feedback_state:
-            previous_state = self._joint_drive_feedback_previous_state
-            if dt is None:
-                dt = self._joint_drive_feedback_dt
         if previous_state is not None:
             self._validate_body_state_arrays(previous_state)
             if dt is None or not np.isfinite(dt) or float(dt) <= 0.0:
                 raise ValueError(
                     "dt must be finite and greater than zero when previous_state is provided."
                 )
-            use_discrete_velocity = 1
-        else:
-            # The compatibility twist path ignores inverse_dt.
-            dt = 1.0
         # Clearing an aliased buffer could silently alter the state or the held motor command.
         for owner in (state, previous_state, control, self.model):
             if owner is None:
@@ -1127,12 +1122,12 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._joint_drive_parent_axis_points, self._joint_drive_parent_reference_points,
                 self._joint_drive_child_reference_points, self._joint_drive_dof_indices,
                 self._joint_drive_target_indices, self.model.joint_target_ke, self.model.joint_target_kd,
+                self.model.joint_target_mode,
                 self.model.joint_effort_limit, control.joint_f, control.joint_target_q, control.joint_target_qd,
-                1.0 / float(dt), use_discrete_velocity,
-                int(_advance_angle_state or state is self._joint_drive_feedback_state),
+                int(previous_state is not None),
                 int(_advance_angle_state),
             ],
-            outputs=[out], device=self.device, stream=stream,
+            outputs=[out, self._joint_drive_start_velocities], device=self.device, stream=stream,
         )
         return out
 
@@ -2177,7 +2172,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
                     vector[local_index[particle]] = coefficient
                 coefficient_vectors.append((constraint, vector))
 
-            mass_values_eigen, mass_vectors = np.linalg.eigh(mass)
+            # Translation masses and rotational second moments have different
+            # units and scales. Equilibrate before testing definiteness so a
+            # heavy unrelated body cannot make a valid small link look singular.
+            diagonal = np.diag(mass)
+            if not np.isfinite(mass).all() or np.any(diagonal <= 0.0):
+                raise ValueError(f"{description} reference a singular proxy mass matrix.")
+            inverse_scale = np.reciprocal(np.sqrt(diagonal))
+            scaled_mass = inverse_scale[:, None] * mass * inverse_scale[None, :]
+            mass_values_eigen, mass_vectors = np.linalg.eigh(scaled_mass)
             tolerance = (
                 32.0
                 * np.finfo(np.float32).eps
@@ -2187,10 +2190,11 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 raise ValueError(
                     f"{description} reference a singular proxy mass matrix."
                 )
-            inverse_sqrt_mass = (
+            # W.T @ M @ W = I; W need not be the symmetric inverse square root.
+            mass_whitener = inverse_scale[:, None] * (
                 mass_vectors * np.reciprocal(np.sqrt(mass_values_eigen))[None, :]
-            ) @ mass_vectors.T
-            inverse_mass = inverse_sqrt_mass @ inverse_sqrt_mass
+            )
+            inverse_mass = mass_whitener @ mass_whitener.T
 
             # Give every scalar constraint unit maximum response in mass-normalized
             # coordinates. This prevents a light wrist constraint from setting the
@@ -2209,7 +2213,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             # Coupled constraints can reinforce one another. A final per-world
             # Normalization preserves Config.constraint_alpha as the maximum
             # generalized eigenvalue of dt^2*K_joint against the proxy mass matrix.
-            normalized_metric = inverse_sqrt_mass @ metric @ inverse_sqrt_mass
+            normalized_metric = mass_whitener.T @ metric @ mass_whitener
             maximum_eigenvalue = float(np.max(np.linalg.eigvalsh(normalized_metric)))
             if not np.isfinite(maximum_eigenvalue) or maximum_eigenvalue <= 0.0:
                 raise ValueError(
@@ -2554,6 +2558,38 @@ class NewtonSolver(_newton.solvers.SolverBase):
             drive_count = len(self._joint_drive_types)
             if any(len(array) != drive_count for array in joint_drive_arrays):
                 raise ValueError("Joint drive arrays have different lengths.")
+
+        for name in ("joint_armature", "joint_damping"):
+            values = np.asarray(getattr(self.model, name).numpy())
+            if not np.all(np.isfinite(values)) or np.any(values < 0.0):
+                raise ValueError(f"{name} must contain finite non-negative values.")
+
+        # The scalar-coordinate mapping cannot represent ball-joint inertia or
+        # actuation. Free-root armature is ignored by Newton's MuJoCo adapter too.
+        supported_dofs = set() if self._joint_drive_dof_indices is None else set(self._joint_drive_dof_indices.numpy())
+        starts = self.model.joint_qd_start.numpy()
+        dimensions = self.model.joint_dof_dim.numpy()
+        types = self.model.joint_type.numpy()
+        enabled = self.model.joint_enabled.numpy()
+        armature = self.model.joint_armature.numpy()
+        passive = self.model.joint_damping.numpy()
+        modes = self.model.joint_target_mode.numpy()
+        stiffness = self.model.joint_target_ke.numpy()
+        damping = self.model.joint_target_kd.numpy()
+        for joint, (joint_type, start, dims) in enumerate(zip(types, starts, dimensions)):
+            if not enabled[joint] or int(joint_type) == int(_newton.JointType.FREE):
+                continue
+            if int(joint_type) == int(_newton.JointType.D6) and tuple(dims) == (3, 3):
+                continue
+            for dof in range(int(start), int(start + sum(dims))):
+                if dof in supported_dofs:
+                    continue
+                active = int(modes[dof]) in (1, 2, 3) and (stiffness[dof] != 0.0 or damping[dof] != 0.0)
+                if armature[dof] != 0.0 or passive[dof] != 0.0 or active:
+                    raise NotImplementedError(
+                        f"Joint {joint} has armature, damping, or actuation on an unsupported non-scalar coordinate. "
+                        "Use revolute, prismatic, or supported scalar D6 joints."
+                    )
 
     def _as_span(
         self,
@@ -2998,6 +3034,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._synreal_model.joint_effort_limits = self._as_span(
                 self.model.joint_effort_limit, self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
             )
+            self._synreal_model.joint_target_modes = self._as_span(
+                self.model.joint_target_mode, self._synreal_model.joint_dof_count, expected_dtype=self._wp.int32
+            )
+            self._synreal_model.joint_passive_dampings = self._as_span(
+                self.model.joint_damping, self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
+            )
+            self._synreal_model.joint_armature = self._as_span(
+                self.model.joint_armature, self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
+            )
 
         shape_count = self._shared_counts.get(
             "shape_count", int(self.model.shape_count)
@@ -3398,6 +3443,11 @@ class NewtonSolver(_newton.solvers.SolverBase):
             joint_dof_state_count,
             expected_dtype=self._wp.float32,
         )
+        native_control.joint_drive_velocities = self._as_span(
+            self._joint_drive_start_velocities,
+            len(self._joint_drive_types),
+            expected_dtype=self._wp.float32,
+        )
         return native_control
 
     def step(
@@ -3420,8 +3470,9 @@ class NewtonSolver(_newton.solvers.SolverBase):
         When affine-body inertial prediction is enabled, Python integrates the
         rigid-body inertia state including the applied body wrench, then converts
         its pose displacement into affine-proxy secant velocities. Joint
-        feedforward, target stiffness, and damping remain together in the native
-        implicit solve with the raw feedforward-plus-PD law from the paper.
+        actuator forces use MuJoCo's mode and actuator-limit semantics. Position
+        error is evaluated before integration; actuator and passive damping are
+        linearized implicitly in velocity, as in MuJoCo's ``implicitfast``.
         Gravity, particle forces, joint constraints, and contacts retain their
         native paths.
         The native solver then applies affine rigidity, joints, and contacts to
@@ -3451,6 +3502,18 @@ class NewtonSolver(_newton.solvers.SolverBase):
             if self._joint_drive_effort is not None:
                 self._joint_drive_effort.zero_()
             return
+
+        if self._joint_drive_types is not None and len(self._joint_drive_types):
+            # The rigid predictor overwrites particle_qd with its secant target.
+            # Capture physical joint velocity before that overwrite for both
+            # joint-space armature and the implicit velocity linearization.
+            self.compute_joint_drive_effort(
+                state_in,
+                control,
+                out=(self._joint_drive_effort if self._joint_drive_effort is not None
+                     else self._joint_drive_feedback_scratch),
+                _advance_angle_state=True,
+            )
 
         affine_body_state_count = (
             0 if self._affine_body_ids is None else len(self._affine_body_ids)
@@ -3572,25 +3635,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
             )
 
         if self._joint_drive_types is not None and len(self._joint_drive_types):
-            # Feed the completed-state telemetry kernel the exact beginning-of-
-            # step pose.  This makes translational and angular damping use the
-            # same discrete coordinate velocity as the paper and keeps direct
-            # post-step queries time-aligned through the cache above.  The
-            # scratch output advances the persistent angle branch even when
-            # public feedback has not been enabled yet.
+            # Advance only the continuous-angle branch after integration; public
+            # telemetry retains the pre-integration sample above.
             self._joint_drive_feedback_state = state_out
             self._joint_drive_feedback_previous_state = state_in
             self._joint_drive_feedback_dt = float(dt)
             self.compute_joint_drive_effort(
                 state_out,
                 control,
-                out=(
-                    self._joint_drive_effort
-                    if self._joint_drive_effort is not None
-                    else self._joint_drive_feedback_scratch
-                ),
-                previous_state=state_in,
-                dt=dt,
+                out=self._joint_drive_feedback_scratch,
                 _advance_angle_state=True,
             )
 
@@ -3611,6 +3664,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._joint_drive_feedback_previous_angles = None
         self._joint_drive_feedback_angle_initialized = None
         self._joint_drive_feedback_scratch = None
+        self._joint_drive_start_velocities = None
         if self._joint_drive_effort is not None:
             if self._wp.get_stream(self.device).is_capturing:
                 raise RuntimeError("Model changes are not supported during CUDA graph capture.")

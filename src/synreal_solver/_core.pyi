@@ -420,6 +420,12 @@ class Control:
     def joint_f(self, arg1: Span) -> None:
         ...
     @property
+    def joint_drive_velocities(self) -> Span:
+        """Optional beginning-of-step scalar joint velocities, indexed by drive state."""
+    @joint_drive_velocities.setter
+    def joint_drive_velocities(self, arg1: Span) -> None:
+        ...
+    @property
     def joint_target_q(self) -> Span:
         """
         Device span containing generalized joint-position targets.
@@ -1274,6 +1280,24 @@ class Model:
         """
     @joint_target_dampings.setter
     def joint_target_dampings(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_target_modes(self) -> Span:
+        """Optional Newton target mode per DOF (0 through 4)."""
+    @joint_target_modes.setter
+    def joint_target_modes(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_passive_dampings(self) -> Span:
+        """Optional passive viscous damping per DOF, independent of actuator limits."""
+    @joint_passive_dampings.setter
+    def joint_passive_dampings(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_armature(self) -> Span:
+        """Optional reflected inertia per scalar relative joint coordinate."""
+    @joint_armature.setter
+    def joint_armature(self, arg1: Span) -> None:
         ...
     @property
     def joint_target_stiffnesses(self) -> Span:

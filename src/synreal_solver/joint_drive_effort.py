@@ -1,4 +1,4 @@
-"""Read-only actuator-law evaluation at a completed Newton rigid-body state."""
+"""Instantaneous scalar-joint actuator effort using Newton/MuJoCo semantics."""
 
 import warp as wp
 
@@ -37,15 +37,15 @@ def evaluate_joint_drive_effort(
     target_indices: wp.array(dtype=wp.int32),
     stiffness: wp.array(dtype=wp.float32),
     damping: wp.array(dtype=wp.float32),
-    effort_limits: wp.array(dtype=wp.float32),  # Retained for launch ABI compatibility.
+    target_modes: wp.array(dtype=wp.int32),
+    effort_limits: wp.array(dtype=wp.float32),
     feedforward: wp.array(dtype=wp.float32),
     target_q: wp.array(dtype=wp.float32),
     target_qd: wp.array(dtype=wp.float32),
-    inverse_dt: float,
-    use_discrete_velocity: int,
-    use_persistent_angle_state: int,
+    use_previous_pose: int,
     advance_angle_state: int,
     effort: wp.array(dtype=wp.float32),
+    coordinate_velocity: wp.array(dtype=wp.float32),
 ):
     drive = wp.tid()
     bodies = drive_bodies[drive]
@@ -78,16 +78,8 @@ def evaluate_joint_drive_effort(
     axis = axis_vector / axis_length
     displacement = child_origin - parent_origin
     q = wp.dot(displacement, axis)
-    # The paper defines drive velocity from the generalized coordinate itself:
-    #   q_dot = (q - q^t) / h.
-    # Keep the twist-based expression only as a compatibility fallback for
-    # direct calls that do not provide the beginning-of-step pose.
-    qd = wp.float32(0.0)
-    if use_discrete_velocity == 0:
-        # Differentiate the coordinate in the moving parent frame, including any finite constraint error.
-        qd = wp.dot(child_velocity - parent_velocity, axis) + wp.dot(displacement, wp.cross(parent_omega, axis))
+    qd = wp.dot(child_velocity - parent_velocity, axis) + wp.dot(displacement, wp.cross(parent_omega, axis))
     dof = dof_indices[drive]
-    target = target_q[target_indices[drive]]
     if drive_types[drive] == 1:
         parent_arm = parent_reference - parent_origin
         child_arm = child_reference - child_origin
@@ -95,85 +87,47 @@ def evaluate_joint_drive_effort(
         child_arm = child_arm - wp.dot(child_arm, axis) * axis
         if wp.length(parent_arm) <= 1.0e-8 or wp.length(child_arm) <= 1.0e-8:
             return
-        raw_q = wp.atan2(wp.dot(axis, wp.cross(parent_arm, child_arm)), wp.dot(parent_arm, child_arm))
-
-        if use_discrete_velocity != 0:
+        q = wp.atan2(wp.dot(axis, wp.cross(parent_arm, child_arm)), wp.dot(parent_arm, child_arm))
+        # A requested multi-turn target must not redefine the physical angle branch.
+        if angle_initialized[drive] != 0:
+            q = _unwrap_near(q, previous_angles[drive])
+        elif use_previous_pose != 0:
+            # A supplied prior pose can seed the angle branch without replacing
+            # the current physical twist by a finite-difference velocity.
             previous_child_pose = previous_body_q[child]
-            previous_child_origin = wp.transform_point(previous_child_pose, child_origins[drive])
-            previous_child_reference = wp.transform_point(previous_child_pose, child_references[drive])
-            previous_parent_origin = parent_origins[drive]
-            previous_parent_axis_point = parent_axis_points[drive]
-            previous_parent_reference = parent_references[drive]
+            previous_child_arm = wp.transform_vector(
+                previous_child_pose, child_references[drive] - child_origins[drive]
+            )
+            previous_parent_arm = parent_references[drive] - parent_origins[drive]
+            previous_axis = parent_axis_points[drive] - parent_origins[drive]
             if bodies[0] >= 0:
-                previous_parent = affine_body_ids[bodies[0]]
-                previous_parent_pose = previous_body_q[previous_parent]
-                previous_parent_origin = wp.transform_point(previous_parent_pose, parent_origins[drive])
-                previous_parent_axis_point = wp.transform_point(previous_parent_pose, parent_axis_points[drive])
-                previous_parent_reference = wp.transform_point(previous_parent_pose, parent_references[drive])
-            previous_axis_vector = previous_parent_axis_point - previous_parent_origin
-            previous_axis_length = wp.length(previous_axis_vector)
-            if previous_axis_length <= 1.0e-8:
-                return
-            previous_axis = previous_axis_vector / previous_axis_length
-            previous_parent_arm = previous_parent_reference - previous_parent_origin
-            previous_child_arm = previous_child_reference - previous_child_origin
-            previous_parent_arm = previous_parent_arm - wp.dot(previous_parent_arm, previous_axis) * previous_axis
-            previous_child_arm = previous_child_arm - wp.dot(previous_child_arm, previous_axis) * previous_axis
-            if wp.length(previous_parent_arm) <= 1.0e-8 or wp.length(previous_child_arm) <= 1.0e-8:
-                return
-            raw_previous_q = wp.atan2(
+                previous_parent_pose = previous_body_q[affine_body_ids[bodies[0]]]
+                previous_parent_arm = wp.transform_vector(previous_parent_pose, previous_parent_arm)
+                previous_axis = wp.transform_vector(previous_parent_pose, previous_axis)
+            previous_axis = wp.normalize(previous_axis)
+            previous_parent_arm -= wp.dot(previous_parent_arm, previous_axis) * previous_axis
+            previous_child_arm -= wp.dot(previous_child_arm, previous_axis) * previous_axis
+            previous_q = wp.atan2(
                 wp.dot(previous_axis, wp.cross(previous_parent_arm, previous_child_arm)),
                 wp.dot(previous_parent_arm, previous_child_arm),
             )
-            # Preserve the beginning-of-step local branch.  The target is not
-            # allowed to redefine theta^t when it requests multiple turns.
-            previous_q = raw_previous_q
-            if use_persistent_angle_state != 0 and angle_initialized[drive] != 0:
-                if advance_angle_state != 0:
-                    previous_q = previous_angles[drive]
-                    q = _unwrap_near(raw_q, previous_q)
-                else:
-                    # A post-step read sees the branch state after it advanced.
-                    # Recover theta^t by unwrapping the supplied prior pose near
-                    # the cached current coordinate.
-                    q = _unwrap_near(raw_q, previous_angles[drive])
-                    previous_q = _unwrap_near(raw_previous_q, q)
-            elif use_persistent_angle_state != 0:
-                previous_angles[drive] = raw_previous_q
-                angle_initialized[drive] = 1
-                q = _unwrap_near(raw_q, previous_q)
-            else:
-                q = _unwrap_near(raw_q, previous_q)
-            qd = (q - previous_q) * inverse_dt
-            if advance_angle_state != 0:
-                previous_angles[drive] = q
-                angle_initialized[drive] = 1
-        else:
-            # For a direct query without a beginning-of-step pose, choose the
-            # periodic branch nearest the commanded target.
-            q = _unwrap_near(raw_q, target)
-            qd = wp.dot(wp.spatial_bottom(child_twist) - parent_omega, axis)
+            q = _unwrap_near(q, previous_q)
+        if advance_angle_state != 0:
+            previous_angles[drive] = q
+            angle_initialized[drive] = 1
+        qd = wp.dot(wp.spatial_bottom(child_twist) - parent_omega, axis)
 
-    elif use_discrete_velocity != 0:
-        previous_child_pose = previous_body_q[child]
-        previous_child_origin = wp.transform_point(previous_child_pose, child_origins[drive])
-        previous_parent_origin = parent_origins[drive]
-        previous_parent_axis_point = parent_axis_points[drive]
-        if bodies[0] >= 0:
-            previous_parent = affine_body_ids[bodies[0]]
-            previous_parent_pose = previous_body_q[previous_parent]
-            previous_parent_origin = wp.transform_point(previous_parent_pose, parent_origins[drive])
-            previous_parent_axis_point = wp.transform_point(previous_parent_pose, parent_axis_points[drive])
-        previous_axis_vector = previous_parent_axis_point - previous_parent_origin
-        previous_axis_length = wp.length(previous_axis_vector)
-        if previous_axis_length <= 1.0e-8:
-            return
-        previous_axis = previous_axis_vector / previous_axis_length
-        previous_q = wp.dot(previous_child_origin - previous_parent_origin, previous_axis)
-        qd = (q - previous_q) * inverse_dt
-
-    requested = feedforward[dof] + stiffness[dof] * (target - q) + damping[dof] * (target_qd[dof] - qd)
-    # The paper's actuator law reports the raw feedforward-plus-PD effort.
-    # Effort limits belong to the native solve's saturation policy and are not
-    # part of this generalized-force evaluation.
-    wp.atomic_add(effort, dof, requested)
+    mode = target_modes[dof]
+    actuator = wp.float32(0.0)
+    if mode == 1 or mode == 3:
+        actuator = stiffness[dof] * (target_q[target_indices[drive]] - q)
+    if mode == 1:
+        actuator -= damping[dof] * qd
+    elif mode == 2 or mode == 3:
+        actuator += damping[dof] * (target_qd[dof] - qd)
+    # MuJoCo clips the scalar joint's total actuator effort. Applied joint_f
+    # and passive damping are separate forces and do not consume this limit.
+    limit = effort_limits[dof]
+    actuator = wp.clamp(actuator, -limit, limit)
+    wp.atomic_add(effort, dof, feedforward[dof] + actuator)
+    coordinate_velocity[drive] = qd

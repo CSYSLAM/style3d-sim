@@ -1904,7 +1904,7 @@ def test_angular_joint_drive_applies_symmetric_point_force_torque(
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_angular_joint_drive_uses_raw_feedforward_plus_pd() -> None:
+def test_angular_joint_drive_clips_actuator_before_adding_external_force() -> None:
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     inertia = wp.mat33(0.02, 0.0, 0.0, 0.0, 0.04, 0.0, 0.0, 0.0, 0.03)
     bodies = []
@@ -1941,9 +1941,9 @@ def test_angular_joint_drive_uses_raw_feedforward_plus_pd() -> None:
     solver.sync_affine_body_state(state_in)
     solver.sync_affine_body_state(state_out)
     control = model.control()
-    # The paper's actuator law leaves both efforts unclipped:
-    #   first:  +2 + 100*(0.1 - 0) = +12
-    #   second: -9 + 100*(0.1 - 0) =  +1
+    # MuJoCo clamps the actuator contribution before adding external force:
+    #   first:  +2 + clip(100*(0.1 - 0), -1, 1) = +3
+    #   second: -9 + 100*(0.1 - 0) = +1
     wp.copy(control.joint_f, wp.array([2.0, -9.0], dtype=wp.float32, device=model.device))
     wp.copy(control.joint_target_q, model.joint_target_q)
     wp.copy(control.joint_target_qd, model.joint_target_qd)
@@ -1954,14 +1954,14 @@ def test_angular_joint_drive_uses_raw_feedforward_plus_pd() -> None:
     angular_velocity = state_out.body_qd.numpy()[:, 5]
     assert np.allclose(
         angular_velocity[list(bodies[0])],
-        12.0 * angular_velocity[list(bodies[1])],
+        3.0 * angular_velocity[list(bodies[1])],
         rtol=2.0e-3,
         atol=1.0e-7,
     )
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_prismatic_joint_drive_uses_raw_feedforward_plus_pd() -> None:
+def test_prismatic_joint_drive_respects_actuator_effort_limit() -> None:
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     inertia = wp.mat33(0.03, 0.0, 0.0, 0.0, 0.03, 0.0, 0.0, 0.0, 0.03)
     body = builder.add_link(mass=2.0, inertia=inertia, lock_inertia=True)
@@ -1997,7 +1997,7 @@ def test_prismatic_joint_drive_uses_raw_feedforward_plus_pd() -> None:
     solver.step(state_in, state_out, control, None, dt)
     wp.synchronize_device(model.device)
     linear_velocity = state_out.body_qd.numpy()[body, :3]
-    assert np.isclose(linear_velocity[0], 10.0 * dt / 2.0, rtol=2.0e-3)
+    assert np.isclose(linear_velocity[0], 0.5 * dt / 2.0, rtol=2.0e-3)
     assert np.allclose(linear_velocity[1:], 0.0, atol=1.0e-7)
 
 
