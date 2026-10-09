@@ -1,11 +1,12 @@
 # SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
 # SPDX-License-Identifier: Apache-2.0
 
-"""Cut a cohesive granular beef block with a force-driven rigid knife.
+"""Cut a cohesive granular beef block with a manually dragged rigid knife.
 
 Run: uv run python examples/example_granular_beaf.py
+Surface: uv run python examples/example_granular_beaf.py --build-surface
 Headless: uv run python examples/example_granular_beaf.py --viewer null --num-frames 360 --test
-Control: right-drag the knife. Use --no-cut to hold it above the uncut beef.
+Control: right-drag the knife to cut; release to return it above the beef.
 
 The blade separates particles through ordinary rigid contacts; tensile strain
 irreversibly breaks native granular bonds. This is a coarse cohesive material
@@ -24,8 +25,12 @@ import synreal_solver
 
 if __package__:
     from .beef_knife import KNIFE_MASS, add_knife, advance_clock, drive_knife
+    from .beef_material import color_beef_particles
+    from .beef_surface import BeefSurface, connected_components
 else:
     from beef_knife import KNIFE_MASS, add_knife, advance_clock, drive_knife
+    from beef_material import color_beef_particles
+    from beef_surface import BeefSurface, connected_components
 
 FRAME_DT = 1.0 / 60.0
 INITIAL_KNIFE_HEIGHT = 0.45
@@ -56,20 +61,12 @@ def particle_layout(resolution):
     axes = [(np.arange(n) + 0.5 - 0.5 * n) * spacing for n in (nx, ny)]
     z = np.arange(nz) * spacing + 0.43 * spacing + 0.002
     points = np.stack(np.meshgrid(*axes, z, indexing="ij"), axis=-1).reshape(-1, 3)
-    # A rounded footprint keeps the material recognizable while preserving an isotropic bond lattice.
-    footprint = (np.abs(points[:, 0]) / 0.36) ** 4 + (np.abs(points[:, 1]) / 0.24) ** 4
+    # An asymmetric oval reads as a whole steak while preserving the isotropic bond lattice.
+    x, y = points[:, 0], points[:, 1]
+    center_y = 0.006 * np.sin(9.0 * x + 0.4)
+    half_width = 0.138 * (1.0 + 0.07 * np.sin(11.0 * x + 0.6))
+    footprint = (x / 0.36) ** 2 + ((y - center_y) / half_width) ** 2
     return points[footprint < 1.0].astype(np.float32), spacing
-
-
-def beef_colors(points):
-    rng = np.random.default_rng(17)
-    tone = rng.uniform(0.85, 1.1, (len(points), 1))
-    colors = tone * np.array([0.58, 0.075, 0.105])
-    x, y, z = points.T
-    # Curved thin fat streaks continue through the volume and remain visible on the cut faces.
-    streak = np.sin(30.0 * y + 10.0 * x + 1.6 * np.sin(19.0 * z + 9.0 * x))
-    colors[np.abs(streak) < 0.13] = [0.94, 0.76, 0.66]
-    return colors.astype(np.float32)
 
 
 def configure_knife_picking(viewer, model, body):
@@ -90,6 +87,8 @@ def configure_knife_picking(viewer, model, body):
 
 class Example:
     def __init__(self, viewer, args):
+        if args.build_surface and args.viewer == "rtx":
+            raise ValueError("--build-surface requires a viewer with dynamic mesh topology, such as gl or usd")
         if min(args.substeps, args.iterations, args.linear_iterations) < 1:
             raise ValueError("substeps and solver iterations must be positive")
         for name in ("cohesion", "break_strain"):
@@ -161,11 +160,18 @@ class Example:
         # Affine rigid coordinates appended by the adapter are not visible beef particles.
         self.granular_positions = self.state_0.particle_q[: self.granular_count]
         self.granular_velocities = self.state_0.particle_qd[: self.granular_count]
-        self.colors = wp.array(beef_colors(points), dtype=wp.vec3, device=device)
+        rest_positions = wp.array(points, dtype=wp.vec3, device=device)
+        self.colors = wp.empty(len(points), dtype=wp.vec3, device=device)
+        wp.launch(color_beef_particles, dim=len(points), inputs=[rest_positions], outputs=[self.colors], device=device)
         self.clock = wp.zeros(1, dtype=float, device=device)
         self.drive_enabled = wp.array([int(self.auto_cut)], dtype=int, device=device)
         self.bonds = self.model.synreal_granular_bond_indices
         self.broken = wp.zeros(len(self.bonds), dtype=int, device=device)
+        self.surface = (
+            BeefSurface(self.spacing, rest_positions, self.bonds, self.broken)
+            if args.build_surface
+            else None
+        )
         self.collision_pipeline = newton.CollisionPipeline(self.model, soft_contact_max=6 * self.granular_count)
         self.contacts = self.collision_pipeline.contacts()
         viewer.set_model(self.model)
@@ -235,25 +241,19 @@ class Example:
         self.sim_time += self.frame_dt
 
     def render(self):
+        mesh = self.surface.rebuild(self.granular_positions) if self.surface is not None else None
         self.viewer.begin_frame(self.sim_time)
         self.viewer.log_state(self.state_0)
-        self.viewer.log_points("beef", self.granular_positions, self.radius, self.colors)
+        if mesh is not None:
+            self.surface.log_mesh(self.viewer, *mesh)
+        else:
+            self.viewer.log_points("beef", self.granular_positions, self.radius, self.colors)
         self.viewer.end_frame()
 
     def cut_stats(self):
         """Count connected material pieces from observed, irreversible bond fractures."""
         bonds, broken = self.bonds.numpy(), self.broken.numpy().astype(bool)
-        parent = np.arange(self.granular_count)
-
-        def root(i):
-            while parent[i] != i:
-                parent[i] = parent[parent[i]]
-                i = parent[i]
-            return i
-
-        for i, j in bonds[~broken]:
-            parent[root(i)] = root(j)
-        labels = np.array([root(i) for i in range(self.granular_count)])
+        labels = connected_components(self.granular_count, bonds[~broken])
         sizes = np.sort(np.unique(labels, return_counts=True)[1])[::-1]
         cross = self.initial_positions[bonds[:, 0], 0] * self.initial_positions[bonds[:, 1], 0] < 0.0
         points = self.granular_positions.numpy()
@@ -277,17 +277,19 @@ class Example:
     def create_parser():
         parser = newton.examples.create_parser()
         parser.description = __doc__
-        parser.set_defaults(num_frames=360)
+        # Skip the automatic cutting trajectory while retaining mouse forces and the release-to-home controller.
+        parser.set_defaults(num_frames=360, no_cut=True)
         parser.add_argument("--resolution", type=int, default=64, help="Even particle count across 0.72 m; at least 12.")
-        parser.add_argument("--substeps", type=int, default=8)
+        parser.add_argument("--substeps", type=int, default=4)
         parser.add_argument("--iterations", type=int, default=5)
         parser.add_argument("--linear-iterations", type=int, default=40)
-        parser.add_argument("--cohesion", type=float, default=1000.0, help="Initial bond stiffness in N/m.")
+        parser.add_argument("--cohesion", type=float, default=2000.0, help="Initial bond stiffness in N/m.")
         parser.add_argument("--bond-damping", type=float, default=5.0, help="Internal viscous bond damping in N*s/m.")
         parser.add_argument("--break-strain", type=float, default=0.15, help="Irreversible tensile fracture threshold.")
         parser.add_argument("--knife-tilt", type=float, default=2.0, help="Smooth random knife lean in degrees, from 0 to 3.")
         parser.add_argument("--seed", type=int, default=17, help="Random seed for the knife's smooth orientation changes.")
-        parser.add_argument("--no-cut", action="store_true", help="Hold the blade above the beef for an uncut control.")
+        parser.add_argument("--no-cut", action="store_true", help="Skip automatic cutting (default); drag the knife manually.")
+        parser.add_argument("--build-surface", action="store_true", help="Render a closed, reconstructed beef surface mesh.")
         parser.add_argument("--no-capture", action="store_true")
         return parser
 
@@ -296,5 +298,7 @@ if __name__ == "__main__":
     viewer, args = newton.examples.init(Example.create_parser())
     try:
         newton.examples.run(Example(viewer, args), args)
-    finally:
+    except Exception:
+        # The runner closes the viewer on success; USD viewers cannot be closed twice.
         viewer.close()
+        raise
