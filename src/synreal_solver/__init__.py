@@ -60,16 +60,25 @@ __all__ = [
     "NewtonSolver",
     "InertiaMode",
     "NonlinearSolver",
+    "ParticleSurface",
+    "ParticleSurfaceMesh",
     "Solver",
     "Span",
     "State",
     "set_log_callback",
+    "log_surface_mesh",
     "ViewerPolyscope",
 ]
 
 
 def __getattr__(name: str) -> Any:
-    """Load the optional Newton adapter only when its public types are requested."""
+    """Load optional Newton and Warp helpers only when their public types are requested."""
+    if name in ("ParticleSurface", "ParticleSurfaceMesh", "log_surface_mesh"):
+        from . import particle_surface
+
+        value = getattr(particle_surface, name)
+        globals()[name] = value
+        return value
     if name == "configure_granular":
         from .granular import configure_granular
 

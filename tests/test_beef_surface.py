@@ -6,8 +6,8 @@ import pytest
 pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
-from examples.beef_surface import BeefSurface  # noqa: E402
-from examples.example_granular_beaf import Example, particle_layout  # noqa: E402
+from synreal_solver import ParticleSurface  # noqa: E402
+from examples.example_granular_beaf import BeefSurfaceMaterial, Example, particle_layout  # noqa: E402
 
 
 requires_cuda = pytest.mark.skipif(not wp.is_cuda_available(), reason="Beef surface reconstruction requires CUDA")
@@ -73,8 +73,10 @@ def mesh_component_labels(points, faces):
 def test_initial_beef_surface_is_closed_and_outward(resolution):
     points, spacing = particle_layout(resolution)
     positions = wp.array(points, dtype=wp.vec3, device="cuda:0")
-    surface = BeefSurface(spacing, positions)
-    vertices, indices, uvs = surface.rebuild(positions)
+    surface = ParticleSurface(spacing, positions, interpolate_rest_positions=True)
+    mesh = surface.rebuild(positions)
+    vertices, indices, _ = mesh
+    uvs = BeefSurfaceMaterial().build_uvs(mesh)
     mesh_points, _ = assert_closed_mesh(vertices, indices)
     assert len(uvs) == len(mesh_points)
     assert np.isfinite(uvs.numpy()).all()
@@ -86,7 +88,7 @@ def test_initial_beef_surface_is_closed_and_outward(resolution):
 def test_beef_surface_follows_particles_outside_original_domain():
     points, spacing = particle_layout(32)
     positions = wp.array(points, dtype=wp.vec3, device="cuda:0")
-    surface = BeefSurface(spacing, positions)
+    surface = ParticleSurface(spacing, positions)
     first_vertices, first_indices, _ = surface.rebuild(positions)
     first_points, _ = assert_closed_mesh(first_vertices, first_indices)
 
@@ -105,7 +107,7 @@ def test_beef_surface_follows_particles_outside_original_domain():
 def test_separated_beef_halves_have_closed_cut_faces_without_bridging(offset):
     points, spacing = particle_layout(32)
     positions = wp.array(points, dtype=wp.vec3, device="cuda:0")
-    surface = BeefSurface(spacing, positions)
+    surface = ParticleSurface(spacing, positions)
     separated = points.copy()
     separated[:, 0] += np.where(points[:, 0] < 0.0, -offset, offset).astype(np.float32) * spacing
     positions.assign(separated)
@@ -121,7 +123,7 @@ def test_separated_beef_halves_have_closed_cut_faces_without_bridging(offset):
 def test_isolated_beef_grain_retains_a_closed_surface():
     center = np.array([[0.08, -0.02, 0.03]], dtype=np.float32)
     positions = wp.array(center, dtype=wp.vec3, device="cuda:0")
-    surface = BeefSurface(0.01, positions)
+    surface = ParticleSurface(0.01, positions)
     vertices, indices, _ = surface.rebuild(positions)
     mesh_points, _ = assert_closed_mesh(vertices, indices)
     assert np.all(mesh_points.min(axis=0) < center[0])
@@ -139,7 +141,7 @@ def test_broken_beef_cut_stays_closed_and_separate_when_halves_touch_again():
     positions = wp.array(points, dtype=wp.vec3, device="cuda:0")
     bonds = wp.array(pairs, dtype=wp.vec2i, device="cuda:0")
     broken = wp.zeros(len(pairs), dtype=int, device="cuda:0")
-    surface = BeefSurface(spacing, positions, bonds=bonds, broken=broken)
+    surface = ParticleSurface(spacing, positions, bonds=bonds, broken=broken)
 
     vertices, indices, _ = surface.rebuild(positions)
     initial_points, initial_faces = assert_closed_mesh(vertices, indices)
@@ -178,7 +180,7 @@ def test_oblique_broken_beef_cut_remains_separate_after_recontact():
     positions = wp.array(points, dtype=wp.vec3, device="cuda:0")
     bonds = wp.array(pairs, dtype=wp.vec2i, device="cuda:0")
     broken = wp.array(cross.astype(np.int32), dtype=int, device="cuda:0")
-    surface = BeefSurface(spacing, positions, bonds=bonds, broken=broken)
+    surface = ParticleSurface(spacing, positions, bonds=bonds, broken=broken)
 
     azimuth, elevation = np.deg2rad([31.0, 23.0])
     ca, sa, ce, se = np.cos(azimuth), np.sin(azimuth), np.cos(elevation), np.sin(elevation)
@@ -218,7 +220,8 @@ def test_usd_surface_export_tracks_animated_topology_and_uvs(tmp_path):
 
     points, spacing = particle_layout(32)
     positions = wp.array(points, dtype=wp.vec3, device="cuda:0")
-    surface = BeefSurface(spacing, positions)
+    surface = ParticleSurface(spacing, positions, interpolate_rest_positions=True)
+    material = BeefSurfaceMaterial()
     output_path = tmp_path / "beef_surface.usda"
     viewer = ViewerUSD(str(output_path), fps=60, num_frames=2)
     expected = []
@@ -230,9 +233,10 @@ def test_usd_surface_export_tracks_animated_topology_and_uvs(tmp_path):
                 positions.assign(separated)
             mesh = surface.rebuild(positions)
             assert_closed_mesh(*mesh[:2])
-            expected.append(tuple(array.numpy().copy() for array in mesh))
+            uvs = material.build_uvs(mesh)
+            expected.append(tuple(array.numpy().copy() for array in (mesh.vertices, mesh.indices, uvs)))
             viewer.begin_frame(frame / 60.0)
-            surface.log_mesh(viewer, *mesh)
+            material.log_mesh(viewer, mesh, uvs)
             viewer.end_frame()
     finally:
         viewer.close()

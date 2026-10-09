@@ -4,6 +4,7 @@
 """Native particle-fluid dam break with five freely floating textured rubber ducks.
 
 Run: uv run python examples/example_fluid.py
+Surface: uv run python examples/example_fluid.py --build-surface
 Large: uv run python examples/example_fluid.py --resolution 48
 Headless: uv run python examples/example_fluid.py --viewer null --num-frames 180 --test
 Interaction: right-click and drag any duck; release to let it float freely.
@@ -166,6 +167,8 @@ def configure_duck_picking(viewer, model, duck_bodies):
 
 class Example:
     def __init__(self, viewer, args):
+        if args.build_surface and args.viewer == "rtx":
+            raise ValueError("--build-surface requires a viewer with dynamic mesh topology, such as gl or usd")
         if args.iterations < 1 or args.linear_iterations < 1 or (args.substeps is not None and args.substeps < 1):
             raise ValueError("iterations, linear_iterations, and substeps must be positive")
         positions, self.spacing = particle_layout(args.resolution)
@@ -175,7 +178,7 @@ class Example:
         self.viewer = viewer
         self.sim_time = 0.0
         self.frame_dt = FRAME_DT
-        self.sim_substeps = args.substeps if args.substeps is not None else math.ceil(6 * args.resolution / 32)
+        self.sim_substeps = args.substeps if args.substeps is not None else math.ceil(2 * args.resolution / 32)
         self.sim_dt = self.frame_dt / self.sim_substeps
         self.radius = 0.45 * self.spacing
         self.volume = float(rest_volume(self.spacing))
@@ -228,6 +231,11 @@ class Example:
         # The solver appends affine coordinates; only the original particles represent water.
         self.fluid_positions = self.state_0.particle_q[: self.fluid_count]
         self.fluid_velocities = self.state_0.particle_qd[: self.fluid_count]
+        self.surface = (
+            synreal_solver.ParticleSurface(self.spacing, self.fluid_positions, voxel_size=0.5 * self.spacing)
+            if args.build_surface
+            else None
+        )
         self.colors = wp.empty(self.fluid_count, dtype=wp.vec3, device=device)
         self.initial_positions = positions.copy()
         self.stream = wp.get_stream(device)
@@ -275,16 +283,23 @@ class Example:
         self.sim_time += self.frame_dt
 
     def render(self):
-        wp.launch(
-            color_particles,
-            dim=self.fluid_count,
-            inputs=[self.fluid_velocities],
-            outputs=[self.colors],
-            device=self.model.device,
-        )
+        mesh = self.surface.rebuild(self.fluid_positions) if self.surface is not None else None
+        if mesh is None:
+            wp.launch(
+                color_particles,
+                dim=self.fluid_count,
+                inputs=[self.fluid_velocities],
+                outputs=[self.colors],
+                device=self.model.device,
+            )
         self.viewer.begin_frame(self.sim_time)
         self.viewer.log_state(self.state_0)
-        self.viewer.log_points("fluid", self.fluid_positions, self.radius, self.colors)
+        if mesh is not None:
+            synreal_solver.log_surface_mesh(
+                self.viewer, "fluid_surface", mesh, color=(0.025, 0.20, 0.65), roughness=0.18
+            )
+        else:
+            self.viewer.log_points("fluid", self.fluid_positions, self.radius, self.colors)
         self.viewer.log_lines("tank", self.tank_starts, self.tank_ends, (0.45, 0.62, 0.72))
         self.viewer.end_frame()
 
@@ -356,11 +371,12 @@ class Example:
         parser.description = __doc__
         parser.set_defaults(num_frames=600)
         parser.add_argument("--resolution", type=int, default=32, help="Initial block X resolution (>=8).")
-        parser.add_argument("--substeps", type=int, default=None, help="Default: ceil(6 * resolution / 32).")
+        parser.add_argument("--substeps", type=int, default=None, help="Default: ceil(2 * resolution / 32).")
         parser.add_argument("--iterations", type=int, default=5, help="Native Newton iterations per substep.")
         parser.add_argument("--linear-iterations", type=int, default=20, help="PCG iterations per Newton iteration.")
         parser.add_argument("--bulk-modulus", type=float, default=200000.0, help="Fluid bulk modulus in Pa.")
         parser.add_argument("--viscosity", type=float, default=0.1, help="Dynamic viscosity in Pa*s.")
+        parser.add_argument("--build-surface", action="store_true", help="Render a closed, reconstructed fluid surface mesh.")
         parser.add_argument("--no-capture", action="store_true", help="Disable CUDA graph capture for debugging.")
         return parser
 
@@ -370,5 +386,7 @@ if __name__ == "__main__":
     viewer, args = newton.examples.init(parser)
     try:
         newton.examples.run(Example(viewer, args), args)
-    finally:
+    except Exception:
+        # The runner closes the viewer on success; USD viewers cannot be closed twice.
         viewer.close()
+        raise
