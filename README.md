@@ -1,273 +1,335 @@
-# synreal-solver Python 包
+# SynReal Solver
 
-本仓库将 `synreal_solver` Python API 与原生 `_core` 扩展打包在一起。原生扩展支持两种来源：
+SynReal Solver is a CUDA-accelerated implicit physics solver for particle, cloth,
+deformable-body, and affine rigid-body simulation. It provides a Python API and
+a Newton Physics adapter, so a Newton model can use SynReal for contact handling,
+constraints, and nonlinear solves.
 
-- 从 `synreal-solver/` 子模块中的 C++/CUDA 源码编译；
-- 从 `synreal-solver-bin/` 子模块安装预编译文件。
+The repository contains:
 
-## 粒子流体示例
+- Python bindings in `src/synreal_solver/`.
+- A native C++/CUDA solver in the `synreal-solver` submodule.
+- Optional prebuilt native extensions in the `synreal-solver-bin` submodule.
+- Newton-based examples and regression tests in `examples/` and `tests/`.
 
-运行 `uv run python examples/example_fluid.py` 可观察默认 36,864 个粒子的水箱溃坝模拟。
-流体密度、黏性与接触已接入原生统一求解器；运行前需重新构建扩展。
-参数、算法和适用范围见[大规模粒子流体示例](docs/particle_fluid.md)。
+## Features
 
-## 颗粒材料与积雪示例
+- CUDA-native implicit integration and block-PCG linear solves.
+- Particle, tetrahedral, cloth, and affine rigid-body support.
+- Contact, friction, joint, spring, and drive constraints.
+- Newton Physics solver integration through `NewtonSolver`.
+- Optional prebuilt extensions for supported Python and platform ABIs.
+- Python and CMake build workflows.
 
-运行 `uv run python examples/example_snow.py` 可观察雪球沿雪坡滚动，通过接触黏结裹起积雪。
-默认由 280 个种子粒子和 3,520 个雪床粒子组成，支持右键拖拽雪球。
-`granular` 的接触、摩擦及塑性断裂黏结进入统一 Newton/PCG；
-雪是材料参数预设。接口与模型限制见[颗粒材料说明](docs/particle_granular.md)。
+## Requirements
 
-运行 `uv run python examples/example_granular_beaf.py` 可观察刚体刀切开内聚颗粒牛肉块。
-默认 12,720 个颗粒组成厚约 0.06 m 的牛排，内部黏结带黏性阻尼，刀具带平滑的小幅随机倾斜。
-刀具在完整砧板上切到底后，轻轻向右拨开右半块，再抬刀；支持右键拖动刀具。
-加 `--no-cut` 可关闭自动下刀；详见[切牛肉示例](docs/particle_granular.md#刚体刀切牛肉)。
+For normal development and execution:
 
-## Go2/G1 强化学习
+- Windows or Linux.
+- Python 3.11 or newer.
+- NVIDIA GPU, driver, and CUDA runtime compatible with the installed Warp/Newton packages.
+- [`uv`](https://docs.astral.sh/uv/).
 
-Go2/G1 平地速度策略代码位于 `examples/locomotion/`，实现记录见
-[SynReal Go2/G1 训练与部署](docs/synreal_go2_g1_locomotion.md)。安装并验证：
+For a native source build, also install:
+
+- CMake 3.20 or newer.
+- A C++20 compiler.
+- CUDA Toolkit and a compatible host compiler.
+- Visual Studio/MSVC on Windows.
+
+The examples require the optional `examples` dependency group. The locomotion
+examples require the larger `locomotion` dependency group.
+
+## Clone and initialize submodules
+
+Clone the repository with its submodules:
+
+```bash
+git clone --recurse-submodules <repository-url>
+cd pysynreal-solver
+```
+
+If the repository was cloned without submodules, initialize the required one explicitly:
+
+```bash
+# Native source build
+git submodule update --init --recursive synreal-solver
+
+# Prebuilt extension build
+git submodule update --init synreal-solver-bin
+
+# Initialize both
+git submodule update --init --recursive
+```
+
+## Build and install
+
+The recommended workflow uses `uv`. It creates `.venv`, resolves dependencies,
+builds the native extension, and installs the package in editable mode.
+
+### Automatic build selection
+
+With the appropriate submodule initialized, let CMake select the available build mode:
+
+```bash
+uv sync --extra examples
+```
+
+### Use a prebuilt native extension
+
+Use this mode when a matching binary is available in `synreal-solver-bin`:
+
+```bash
+uv sync --extra examples \
+  --reinstall-package synreal-solver \
+  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
+```
+
+On PowerShell, the same command can be written on one line:
+
+```powershell
+uv sync --extra examples --reinstall-package synreal-solver --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
+```
+
+### Build the native solver from source
+
+This mode compiles the C++/CUDA submodule locally:
+
+```bash
+uv sync --extra examples \
+  --reinstall-package synreal-solver \
+  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF"
+```
+
+Use the source mode whenever you change code in `synreal-solver/`. Re-run the
+command after changing native code so the editable installation is rebuilt.
+
+### Build a wheel
+
+Build a distributable wheel into `dist/`:
+
+```bash
+uv build --wheel
+```
+
+To select a build mode explicitly:
+
+```bash
+# Build the native solver from source
+uv build --wheel \
+  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF"
+
+# Package a matching prebuilt extension
+uv build --wheel \
+  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
+```
+
+### Verify the installation
+
+```bash
+uv run python -c "import synreal_solver; print(synreal_solver.__file__)"
+uv run python -c "import synreal_solver._core as core; print(core.__file__)"
+```
+
+The extension filename must match the active Python version, operating system,
+and architecture. For example, a 64-bit CPython 3.12 Windows installation uses
+a file similar to `_core.cp312-win_amd64.pyd`.
+
+## Authentication
+
+SynReal authentication is required before using authenticated native solver
+features. `NewtonSolver` checks the current session when it is created. If the
+session is not authenticated, it reads credentials from the environment or
+prompts in the terminal.
+
+### Environment variables
+
+Set the credentials in the terminal that will run the example.
+
+PowerShell:
+
+```powershell
+$env:SYNREAL_ID = "your-account"
+$env:SYNREAL_PASSWORD = "your-password"
+```
+
+Bash or Zsh:
+
+```bash
+export SYNREAL_ID="your-account"
+export SYNREAL_PASSWORD="your-password"
+```
+
+`SYNRAL_PASSWORD` is also accepted for compatibility with existing environments.
+The variables are process-local; set them again in a new terminal session.
+
+### Interactive login
+
+If either credential is missing, `NewtonSolver` asks for the account and reads the password without echoing it:
+
+```text
+SynReal account: your-account
+Password:
+```
+
+For applications that need to authenticate explicitly, use the public API:
+
+```python
+import getpass
+import synreal_solver
+
+account = input("SynReal account: ").strip()
+password = getpass.getpass("Password: ")
+if not synreal_solver.login(account, password, False):
+    raise RuntimeError("SynReal login failed")
+```
+
+Avoid committing credentials to source files or shell scripts. Prefer a temporary
+terminal environment or an external secret manager.
+
+## Run examples
+
+All commands below run inside the managed environment created by `uv`.
+
+### Basic Newton scene
+
+The basic-shapes example demonstrates the Newton adapter with SynReal:
+
+```bash
+uv run python examples/example_basic_shapes.py --solver synreal
+```
+
+### Particle and material examples
+
+```bash
+uv run python examples/example_particles.py
+uv run python examples/example_fluid.py
+uv run python examples/example_snow.py
+uv run python examples/example_granular_beaf.py
+```
+
+The fluid example supports a headless regression run:
+
+```bash
+uv run python examples/example_fluid.py --viewer null --num-frames 180 --test
+```
+
+### Joint and rigid-body example
+
+```bash
+uv run python examples/example_rrabd_joints.py --login
+```
+
+Use `--viewer null --test` for a non-interactive run:
+
+```bash
+uv run python examples/example_rrabd_joints.py --login --viewer null --test --num-frames 300
+```
+
+### Locomotion examples
+
+Install the optional dependencies first:
 
 ```bash
 uv sync --extra locomotion
 uv run --extra locomotion python -m examples.locomotion.validate --robot all
-uv run --extra locomotion python -m examples.locomotion.train --robot go2
-uv run --extra locomotion python -m examples.locomotion.train --robot g1
 ```
 
-`train` 默认只校验配置；实际训练必须显式增加 `--run`：
+Training commands validate by default. Add `--run` to start training:
 
 ```bash
 uv run --extra locomotion python -m examples.locomotion.train \
   --robot go2 --num-envs 2048 --run
 ```
 
-## 环境要求
+## Python API
 
-运行环境：
-
-- Python 3.11 或更高版本；
-- `uv`；
-- NVIDIA GPU，以及与扩展所用 CUDA 版本兼容的驱动。
-
-从源码编译还需要：
-
-- CMake 3.20 或更高版本；
-- C++20 编译器；
-- CUDA Toolkit；
-- CUDA 支持的 host compiler。Windows 上应使用与 CUDA Toolkit 兼容的 Visual Studio/MSVC。
-
-当前 `synreal-solver-bin` 提供 CPython 3.11 和 3.12 的 Windows/Linux Release 产物。预编译扩展必须与操作系统、CPU 架构和 Python ABI 完全匹配。例如，64 位 Windows 上的 CPython 3.12 需要：
-
-```text
-_core.cp312-win_amd64.pyd
-```
-
-## 构建模式
-
-顶层 CMake 选项 `SYNREAL_SOLVER_USE_PREBUILT` 控制原生扩展的来源：
-
-| 选项值 | 行为 |
-| --- | --- |
-| `OFF` | 从 `synreal-solver/` 编译。 |
-| `ON` | 从 `synreal-solver-bin/` 安装匹配的预编译扩展。 |
-
-未显式指定该选项时，CMake 自动选择：
-
-- 存在 `synreal-solver/CMakeLists.txt`：使用源码模式；
-- 不存在：使用预编译模式。
-
-当两个子模块都已初始化时，可以通过该选项强制选择其中一条路径。
-
-## 初始化子模块
-
-源码模式：
-
-```console
-git submodule update --init --recursive synreal-solver
-```
-
-预编译模式：
-
-```console
-git submodule update --init synreal-solver-bin
-```
-
-同时初始化两个子模块：
-
-```console
-git submodule update --init --recursive
-```
-
-## 开发环境安装
-
-`uv sync` 会创建或更新 `.venv`、同步依赖，并以 editable 模式安装当前项目。editable 安装仍会通过 scikit-build-core 执行 CMake configure、build 和 install。
-
-使用自动选择：
-
-```console
-uv sync
-```
-
-强制从源码构建：
-
-```console
-uv sync --reinstall-package synreal-solver \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF"
-```
-
-强制使用预编译扩展：
-
-```console
-uv sync --reinstall-package synreal-solver \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
-```
-
-PowerShell 可以写成单行：
-
-```powershell
-uv sync --reinstall-package synreal-solver --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
-```
-
-切换构建模式或修改 C++/CUDA 源码后，应使用 `--reinstall-package synreal-solver`，确保 `uv` 重新调用构建后端。修改 `src/synreal_solver/` 中的 Python 文件通常不需要重新安装。
-
-验证安装位置：
-
-```console
-uv run python -c "import synreal_solver; print(synreal_solver.__file__)"
-uv run python -c "import synreal_solver._core as core; print(core.__file__)"
-```
-
-## 非线性求解器
-
-默认配置为现有的 `PD_NEWTON`。如需让隐式欧拉在每次非线性迭代中重新装配约束的
-Gauss-Newton Hessian，并使用 3x3 block PCG 求解，可切换为：
+The Newton adapter uses a Newton model and state while the native SynReal solver owns the numerical solve:
 
 ```python
-solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+import newton
+import synreal_solver
+
+builder = synreal_solver.ModelBuilder(up_axis=newton.Axis.Z)
+builder.add_ground_plane()
+builder.add_particle(
+    pos=(0.0, 0.0, 1.0),
+    vel=(0.0, 0.0, 0.0),
+    mass=1.0,
+    radius=0.05,
+)
+
+model = builder.finalize(device="cuda:0")
+solver = synreal_solver.NewtonSolver(model)
 ```
 
-## 构建 Wheel
+For lower-level native use, the package also exports `Model`, `State`, `Config`,
+`Solver`, and `login`. See the type stubs in `src/synreal_solver/_core.pyi` for
+the complete public native API.
 
-使用自动选择：
+## Tests and checks
 
-```console
-uv build --wheel
+Run the full Python test suite with:
+
+```bash
+uv run pytest -q
 ```
 
-强制构建源码 wheel：
+Many tests require a CUDA-capable device. Run the lightweight collection check on any machine:
 
-```console
-uv build --wheel \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF"
+```bash
+uv run pytest --collect-only -q
 ```
 
-强制使用预编译扩展构建 wheel：
+Run the formatter and linter check with:
 
-```console
-uv build --wheel \
+```bash
+uv run ruff check src tests examples
+```
+
+## Troubleshooting
+
+### The native extension cannot be found
+
+Check that the matching submodule is initialized and rebuild the package:
+
+```bash
+git submodule update --init --recursive
+uv sync --reinstall-package synreal-solver
+```
+
+If you are using prebuilt binaries, force prebuilt mode and verify that the binary matches the active Python ABI:
+
+```bash
+uv sync --reinstall-package synreal-solver \
   --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
 ```
 
-wheel 默认生成到 `dist/`。文件名中的 Python ABI 和平台标签应与扩展一致，例如：
+### CUDA or compiler errors during a source build
+
+Confirm that `nvcc`, CMake, and the host compiler are on `PATH`, and that the
+CUDA Toolkit supports the installed NVIDIA driver. On Windows, use a Visual
+Studio toolchain supported by the installed CUDA version.
+
+### Authentication fails
+
+Confirm the account and password, check that both environment variables are set
+in the current terminal, and retry with an interactive login. A failed `login()`
+call returns `False`; `NewtonSolver` raises `RuntimeError` when automatic
+authentication fails.
+
+## Repository layout
 
 ```text
-synreal_solver-0.1.0-cp312-cp312-win_amd64.whl
+src/synreal_solver/     Python API and Newton adapter
+synreal-solver/         Native C++/CUDA source submodule
+synreal-solver-bin/     Optional prebuilt native extensions
+examples/               Interactive and headless examples
+tests/                  Regression and numerical tests
+assets/                 Example meshes, URDFs, and textures
 ```
 
-wheel 内的包结构如下：
+## License
 
-```text
-synreal_solver/
-|-- __init__.py
-|-- _core.cp312-win_amd64.pyd
-|-- _core.pyi
-|-- newton_model_builder.py
-|-- rigid_body_dynamics.py
-`-- newton_solver.py
-```
-
-Linux 上的原生扩展使用对应 Python ABI 的 `.so` 文件名。
-
-## 手动使用 CMake
-
-通常应通过 `uv` 和 scikit-build-core 构建 Python 包。需要单独调试 CMake 时，可以使用以下流程。
-
-### 源码模式
-
-```console
-cmake -S . -B build -DSYNREAL_SOLVER_USE_PREBUILT=OFF
-cmake --build build --config Release
-cmake --install build --config Release --prefix dist/install
-```
-
-该流程编译 C++/CUDA 库和 Python binding，然后将扩展安装到：
-
-```text
-dist/install/synreal_solver/
-```
-
-### 预编译模式
-
-```console
-cmake -S . -B build -DSYNREAL_SOLVER_USE_PREBUILT=ON
-cmake --install build --config Release --prefix dist/install
-```
-
-预编译模式不会编译 solver。CMake 会读取所选 Python 解释器的 `EXT_SUFFIX`，只选择一个 ABI 匹配的扩展，并安装到 `synreal_solver/`。
-
-预编译文件布局：
-
-```text
-synreal-solver-bin/
-|-- Windows/Release/_core.cp311-win_amd64.pyd
-|-- Windows/Release/_core.cp312-win_amd64.pyd
-|-- Linux/Release/_core.cpython-311-x86_64-linux-gnu.so
-`-- Linux/Release/_core.cpython-312-x86_64-linux-gnu.so
-```
-
-手动指定 Python 解释器：
-
-```console
-cmake -S . -B build \
-  -DSYNREAL_SOLVER_USE_PREBUILT=ON \
-  -DPython_EXECUTABLE=/path/to/python
-```
-
-使用 Ninja 等单配置生成器时，需要在 configure 阶段指定配置：
-
-```console
-cmake -S . -B build \
-  -DSYNREAL_SOLVER_USE_PREBUILT=ON \
-  -DCMAKE_BUILD_TYPE=Release
-cmake --install build --prefix dist/install
-```
-
-当前 bin 仓库只有 `Release` 产物。使用 `--config Debug` 时，必须在 `Windows/Debug` 或 `Linux/Debug` 中提供对应文件。
-
-## 常见问题
-
-### 找不到匹配的扩展
-
-CMake 配置日志会输出实际选择的完整路径。检查：
-
-- 对应子模块是否已初始化；
-- 操作系统目录是否与 `CMAKE_SYSTEM_NAME` 一致；
-- Release/Debug 配置是否存在；
-- 当前 Python 解释器是否有对应 ABI 的产物。
-
-### 已有源码子模块，但希望使用 bin
-
-源码子模块存在时默认走源码模式。显式传入：
-
-```console
---config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
-```
-
-### 修改原生源码后没有重新编译
-
-重新安装 editable 项目：
-
-```console
-uv sync --reinstall-package synreal-solver
-```
+See the repository and submodule license files for the applicable terms.
+Third-party dependencies retain their respective licenses.
