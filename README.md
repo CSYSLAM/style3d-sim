@@ -1,16 +1,34 @@
-# SynReal Solver
+<div align="center">
+  <h1>SynReal Solver</h1>
+  <p>CUDA-accelerated implicit simulation for particles, cloth, deformable bodies, and affine rigid bodies.</p>
+  <p>
+    <a href="#demo-showcase">Demos</a> &middot;
+    <a href="#build-and-install">Build</a> &middot;
+    <a href="#authentication">Login</a> &middot;
+    <a href="#run-examples">Run examples</a> &middot;
+    <a href="#python-api">Use the API</a>
+  </p>
+</div>
 
-SynReal Solver is a CUDA-accelerated implicit physics solver for particle, cloth,
-deformable-body, and affine rigid-body simulation. It provides a Python API and
-a Newton Physics adapter, so a Newton model can use SynReal for contact handling,
-constraints, and nonlinear solves.
+SynReal Solver provides a Python API and a Newton Physics adapter, so a Newton
+model can use SynReal for contact handling, constraints, and nonlinear solves.
 
-The repository contains:
+## Demo Showcase
 
-- Python bindings in `src/synreal_solver/`.
-- A native C++/CUDA solver in the `synreal-solver` submodule.
-- Optional prebuilt native extensions in the `synreal-solver-bin` submodule.
-- Newton-based examples and regression tests in `examples/` and `tests/`.
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/images/g1_jelly_drop_demo.png" alt="G1 humanoid interacting with deformable jelly blocks" width="100%" />
+      <p><strong>G1 Jelly Drop</strong><br />Humanoid interaction with deformable FEM blocks.</p>
+      <p><a href="demos/g1_jelly_drop/demo_g1_jelly_drop.py">View demo code</a></p>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/images/piper_scene_demo.png" alt="Piper robot arm transporting a deformable bag of apples" width="100%" />
+      <p><strong>Piper Bag Transport</strong><br />Robotic manipulation of a deformable bag.</p>
+      <p><a href="demos/piper_bag_transport/demo_piper_bag_transport.py">View demo code</a></p>
+    </td>
+  </tr>
+</table>
 
 ## Features
 
@@ -317,17 +335,6 @@ Confirm the account and password, check that both environment variables are set
 in the current terminal, and retry with an interactive login. A failed `login()`
 call returns `False`; `NewtonSolver` raises `RuntimeError` when automatic
 authentication fails.
-
-## Repository layout
-
-```text
-src/synreal_solver/     Python API and Newton adapter
-synreal-solver/         Native C++/CUDA source submodule
-synreal-solver-bin/     Optional prebuilt native extensions
-examples/               Interactive and headless examples
-tests/                  Regression and numerical tests
-assets/                 Example meshes, URDFs, and textures
-```
 
 ## License
 
