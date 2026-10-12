@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import getpass
 from importlib import import_module
 from itertools import combinations
+import os
 from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 
-from ._core import Config, Contact, Control, Model, Solver, Span, State
+from ._core import Config, Contact, Control, Model, Solver, Span, State, is_logged_in, login
 from .joint_drive_effort import evaluate_joint_drive_effort
 from .rigid_body_dynamics import (
     NONE,
@@ -24,6 +26,22 @@ __all__ = ["ModelBuilder", "NewtonSolver"]
 import warp as wp
 import numpy as np
 import newton as _newton
+
+
+def _ensure_synreal_login() -> None:
+    """Authenticate the native solver using environment variables or terminal input."""
+    if is_logged_in():
+        return
+
+    account = os.getenv("SYNREAL_ID")
+    # Keep the requested variable name and accept the likely corrected spelling too.
+    password = os.getenv("SYNRAL_PASSWORD") or os.getenv("SYNREAL_PASSWORD")
+    if not account or not password:
+        account = input("SynReal account: ").strip()
+        password = getpass.getpass("Password: ")
+
+    if not login(account, password, False):
+        raise RuntimeError("SynReal login failed")
 
 
 def __getattr__(name: str) -> Any:
@@ -372,6 +390,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         Raises:
             ValueError: If the model is not allocated on CUDA or required
                 particle or tetrahedron arrays are invalid.
+            RuntimeError: If SynReal authentication fails.
             NotImplementedError: If generic Newton surface elasticity is
                 enabled without Style3D attributes.
         """
@@ -388,6 +407,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 raise ValueError(f"{name} must be finite and {qualifier}.")
 
         super().__init__(model)
+        _ensure_synreal_login()
         self._wp = import_module("warp")
         self._joint_drive_effort: Any | None = None
         # Feedback records the same pre-integration actuator evaluation as MuJoCo.
