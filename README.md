@@ -2,6 +2,8 @@
   <h1>SynReal Solver</h1>
   <p>CUDA-accelerated implicit simulation for particles, cloth, deformable bodies, and affine rigid bodies.</p>
   <p>
+    <a href="docs/index.en.md">English Docs</a> &middot;
+    <a href="docs/index.md">中文文档</a> &middot;
     <a href="#demo-showcase">Demos</a> &middot;
     <a href="#build-and-install">Build</a> &middot;
     <a href="#authentication">Login</a> &middot;
@@ -12,6 +14,9 @@
 
 SynReal Solver provides a Python API and a Newton Physics adapter, so a Newton
 model can use SynReal for contact handling, constraints, and nonlinear solves.
+
+Read the [English usage documentation](docs/index.en.md) or [中文使用文档](docs/index.md)
+for installation, authentication, simulation tutorials, and API references.
 
 ## Demo Showcase
 
@@ -82,12 +87,11 @@ git submodule update --init --recursive
 
 ## Build and install
 
-The recommended workflow uses `uv`. It creates `.venv`, resolves dependencies,
-builds the native extension, and installs the package in editable mode.
+Use `uv` to create `.venv` and install dependencies, then CMake to install the native extension.
+The current checkout has no Python build-backend declaration, so `uv sync` alone does not build `_core`.
+See the [installation guide](docs/getting-started/installation.md) for complete Windows and Linux instructions.
 
-### Automatic build selection
-
-With the appropriate submodule initialized, let CMake select the available build mode:
+### Install Python dependencies
 
 ```bash
 uv sync --extra examples
@@ -98,15 +102,18 @@ uv sync --extra examples
 Use this mode when a matching binary is available in `synreal-solver-bin`:
 
 ```bash
-uv sync --extra examples \
-  --reinstall-package synreal-solver \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
+cmake -S . -B build/prebuilt -DSYNREAL_SOLVER_USE_PREBUILT=ON -DCMAKE_BUILD_TYPE=Release \
+  -DPython_EXECUTABLE="$PWD/.venv/bin/python"
+cmake --install build/prebuilt --config Release --prefix "$PWD/src"
+export PYTHONPATH="$PWD/src"
 ```
 
-On PowerShell, the same command can be written on one line:
+On PowerShell, select the Windows interpreter and set the source path:
 
 ```powershell
-uv sync --extra examples --reinstall-package synreal-solver --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
+cmake -S . -B build/prebuilt -DSYNREAL_SOLVER_USE_PREBUILT=ON -DPython_EXECUTABLE="$PWD/.venv/Scripts/python.exe"
+cmake --install build/prebuilt --config Release --prefix "$PWD/src"
+$env:PYTHONPATH = "$PWD/src"
 ```
 
 ### Build the native solver from source
@@ -114,33 +121,20 @@ uv sync --extra examples --reinstall-package synreal-solver --config-setting "cm
 This mode compiles the C++/CUDA submodule locally:
 
 ```bash
-uv sync --extra examples \
-  --reinstall-package synreal-solver \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF"
+cmake -S . -B build/native -DSYNREAL_SOLVER_USE_PREBUILT=OFF -DCMAKE_BUILD_TYPE=Release \
+  -DPython_EXECUTABLE="$PWD/.venv/bin/python"
+cmake --build build/native --config Release --parallel
+cmake --install build/native --config Release --prefix "$PWD/src"
+export PYTHONPATH="$PWD/src"
 ```
 
-Use the source mode whenever you change code in `synreal-solver/`. Re-run the
-command after changing native code so the editable installation is rebuilt.
+Use source mode when changing `synreal-solver/`. Re-run the build and install commands after native changes.
+For Windows, use the interpreter and environment variable syntax shown above with `build/native` and prebuilt mode `OFF`.
 
 ### Build a wheel
 
-Build a distributable wheel into `dist/`:
-
-```bash
-uv build --wheel
-```
-
-To select a build mode explicitly:
-
-```bash
-# Build the native solver from source
-uv build --wheel \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF"
-
-# Package a matching prebuilt extension
-uv build --wheel \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
-```
+Wheel builds require a Python build backend in `pyproject.toml` in addition to the existing CMake configuration.
+The current checkout does not declare one; use the CMake workflow above for local development.
 
 ### Verify the installation
 
@@ -313,14 +307,14 @@ Check that the matching submodule is initialized and rebuild the package:
 
 ```bash
 git submodule update --init --recursive
-uv sync --reinstall-package synreal-solver
+cmake --build build/native --config Release --parallel
+cmake --install build/native --config Release --prefix src
 ```
 
 If you are using prebuilt binaries, force prebuilt mode and verify that the binary matches the active Python ABI:
 
 ```bash
-uv sync --reinstall-package synreal-solver \
-  --config-setting "cmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON"
+cmake --install build/prebuilt --config Release --prefix src
 ```
 
 ### CUDA or compiler errors during a source build
