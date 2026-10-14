@@ -9,29 +9,29 @@ call the authentication API yourself.
 === "PowerShell"
 
     ```powershell
-    $env:STYLE3D_ACCOUNT = "your-account"
-    $env:STYLE3D_PASSWORD = "your-password"
+    $env:STYLE3D_SIM_ACCOUNT = "your-account"
+    $env:STYLE3D_SIM_PASSWORD = "your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Bash / Zsh"
 
     ```bash
-    export STYLE3D_ACCOUNT="your-account"
-    export STYLE3D_PASSWORD="your-password"
+    export STYLE3D_SIM_ACCOUNT="your-account"
+    export STYLE3D_SIM_PASSWORD="your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Windows CMD"
 
     ```bat
-    set STYLE3D_ACCOUNT=your-account
-    set STYLE3D_PASSWORD=your-password
+    set STYLE3D_SIM_ACCOUNT=your-account
+    set STYLE3D_SIM_PASSWORD=your-password
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 First set the source path as described in [Installation](installation.en.md).
-Use `STYLE3D_ACCOUNT` and `STYLE3D_PASSWORD` for credentials.
+Use `STYLE3D_SIM_ACCOUNT` and `STYLE3D_SIM_PASSWORD` for credentials.
 
 These variables belong to the current terminal process and processes launched from it.
 Closing the terminal does not remove values already inherited by a running child process,
@@ -41,8 +41,8 @@ Native session authentication and environment variables are separate states.
 To remove temporary credentials in PowerShell:
 
 ```powershell
-Remove-Item Env:STYLE3D_ACCOUNT -ErrorAction SilentlyContinue
-Remove-Item Env:STYLE3D_PASSWORD -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_SIM_ACCOUNT -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_SIM_PASSWORD -ErrorAction SilentlyContinue
 ```
 
 ## Option 2: Interactive Input

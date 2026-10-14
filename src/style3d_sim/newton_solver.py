@@ -33,8 +33,8 @@ def _ensure_style3d_login() -> None:
     if is_logged_in():
         return
 
-    account = os.getenv("STYLE3D_ACCOUNT")
-    password = os.getenv("STYLE3D_PASSWORD")
+    account = os.getenv("STYLE3D_SIM_ACCOUNT")
+    password = os.getenv("STYLE3D_SIM_PASSWORD")
     if not account or not password:
         account = input("Style3D Sim account: ").strip()
         password = getpass.getpass("Password: ")

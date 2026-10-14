@@ -8,29 +8,29 @@
 === "PowerShell"
 
     ```powershell
-    $env:STYLE3D_ACCOUNT = "your-account"
-    $env:STYLE3D_PASSWORD = "your-password"
+    $env:STYLE3D_SIM_ACCOUNT = "your-account"
+    $env:STYLE3D_SIM_PASSWORD = "your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Bash / Zsh"
 
     ```bash
-    export STYLE3D_ACCOUNT="your-account"
-    export STYLE3D_PASSWORD="your-password"
+    export STYLE3D_SIM_ACCOUNT="your-account"
+    export STYLE3D_SIM_PASSWORD="your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Windows CMD"
 
     ```bat
-    set STYLE3D_ACCOUNT=your-account
-    set STYLE3D_PASSWORD=your-password
+    set STYLE3D_SIM_ACCOUNT=your-account
+    set STYLE3D_SIM_PASSWORD=your-password
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 请先完成 [安装](installation.md) 中的源码路径设置。
-使用 `STYLE3D_ACCOUNT` 和 `STYLE3D_PASSWORD` 设置凭据。
+使用 `STYLE3D_SIM_ACCOUNT` 和 `STYLE3D_SIM_PASSWORD` 设置凭据。
 
 变量只作用于当前终端及由它启动的进程。关闭终端不会影响已经启动且继承变量的子进程，
 但新开的独立终端不会自动拥有这些值。原生会话的登录状态与环境变量不是同一件事。
@@ -38,8 +38,8 @@
 清理 PowerShell 中的临时凭据：
 
 ```powershell
-Remove-Item Env:STYLE3D_ACCOUNT -ErrorAction SilentlyContinue
-Remove-Item Env:STYLE3D_PASSWORD -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_SIM_ACCOUNT -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_SIM_PASSWORD -ErrorAction SilentlyContinue
 ```
 
 ## 方法二：交互输入

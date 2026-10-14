@@ -41,7 +41,7 @@ Python wrapper 已更新但 `_core` 仍是旧构建时，也可能出现缺少�
 ## 登录失败或一直等待输入 {#authentication}
 
 1. 检查当前运行进程能够访问认证服务，账号与密码有效。
-2. 确认 `STYLE3D_ACCOUNT` 和 `STYLE3D_PASSWORD` 在启动进程前设置。
+2. 确认 `STYLE3D_SIM_ACCOUNT` 和 `STYLE3D_SIM_PASSWORD` 在启动进程前设置。
 3. 检查变量名是否拼写正确，以及当前进程是否继承了这两个变量。
 4. headless 不等于无交互认证；缺少凭据时仍会请求 stdin。
 5. 用同一进程内的 `is_logged_in()` 检查状态，不要依赖另一个 Python 进程的登录。

@@ -43,7 +43,7 @@ After toolchain changes, configure a new build directory to avoid stale cache en
 ## Login Fails or Waits for Input {#authentication}
 
 1. Check authentication service access and account validity from the running process.
-2. Set `STYLE3D_ACCOUNT` and `STYLE3D_PASSWORD` before launching the process.
+2. Set `STYLE3D_SIM_ACCOUNT` and `STYLE3D_SIM_PASSWORD` before launching the process.
 3. Check the variable names and confirm the running process inherited both values.
 4. Headless runs still request stdin when credentials are missing.
 5. Check `is_logged_in()` in the simulation process; authentication in another Python process does not transfer.

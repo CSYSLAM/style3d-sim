@@ -161,15 +161,15 @@ Set the credentials in the terminal that will run the example.
 PowerShell:
 
 ```powershell
-$env:STYLE3D_ACCOUNT = "your-account"
-$env:STYLE3D_PASSWORD = "your-password"
+$env:STYLE3D_SIM_ACCOUNT = "your-account"
+$env:STYLE3D_SIM_PASSWORD = "your-password"
 ```
 
 Bash or Zsh:
 
 ```bash
-export STYLE3D_ACCOUNT="your-account"
-export STYLE3D_PASSWORD="your-password"
+export STYLE3D_SIM_ACCOUNT="your-account"
+export STYLE3D_SIM_PASSWORD="your-password"
 ```
 
 The variables are process-local; set them again in a new terminal session.
