@@ -1,4 +1,4 @@
-"""Python API for synreal-solver."""
+"""Python API for Style3D Sim."""
 
 from typing import Any, Protocol
 

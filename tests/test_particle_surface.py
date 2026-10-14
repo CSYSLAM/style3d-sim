@@ -5,7 +5,7 @@ import pytest
 
 wp = pytest.importorskip("warp")
 
-from synreal_solver import ParticleSurface, log_surface_mesh  # noqa: E402
+from style3d_sim import ParticleSurface, log_surface_mesh  # noqa: E402
 from examples.example_fluid import Example, particle_layout  # noqa: E402
 
 

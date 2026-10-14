@@ -104,10 +104,10 @@ def load_training_asset(
     """Parse the exact USD and importer options used by UnitreeGo2Env."""
     import newton
 
-    import synreal_solver
+    import style3d_sim as s3d
 
     asset = resolve_asset(spec, asset_override)
-    builder = synreal_solver.ModelBuilder(up_axis=newton.Axis.Z)
+    builder = s3d.ModelBuilder(up_axis=newton.Axis.Z)
     builder.default_joint_cfg = newton.ModelBuilder.JointDofConfig(
         armature=0.01,
         limit_ke=1.0e3,

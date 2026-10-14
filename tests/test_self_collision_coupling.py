@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import numpy as np
 import pytest
 
-import synreal_solver as sr
+import style3d_sim as s3d
 
 wp = pytest.importorskip("warp")
 
@@ -80,13 +80,13 @@ def _expected(case: ContactCase, full_hessian: bool) -> np.ndarray:
     return case.positions + displacement[:, None] * case.direction
 
 
-def _span(array: wp.array) -> sr.Span:
-    return sr.Span(ptr=array.ptr, size=len(array))
+def _span(array: wp.array) -> s3d.Span:
+    return s3d.Span(ptr=array.ptr, size=len(array))
 
 
 class ContactScene:
     def __init__(
-        self, kind: str, full_hessian: bool, method: sr.NonlinearSolver, world_count: int = 1, rotated: bool = False,
+        self, kind: str, full_hessian: bool, method: s3d.NonlinearSolver, world_count: int = 1, rotated: bool = False,
         fixed_indices: tuple[int, ...] = (), fixed_by_flags: bool = False,
     ) -> None:
         self.case = _case(kind)
@@ -107,7 +107,7 @@ class ContactScene:
         self.force_in = array(np.zeros_like(self.initial), wp.vec3)
         self.position_out = array(np.zeros_like(self.initial), wp.vec3)
         self.velocity_out = array(np.zeros_like(self.initial), wp.vec3)
-        self.model = sr.Model()
+        self.model = s3d.Model()
         self.model.world_count = world_count
         self.model.particle_count = len(self.case.masses)
         self.model.particle_state_count = len(self.initial)
@@ -129,13 +129,13 @@ class ContactScene:
             if values:
                 setattr(self.model, f"collision_{name}_count", len(values))
                 setattr(self.model, f"collision_{name}_indices", _span(array(values, dtype)))
-        self.state_in, self.state_out = sr.State(), sr.State()
+        self.state_in, self.state_out = s3d.State(), s3d.State()
         self.state_in.particle_q = _span(self.position_in)
         self.state_in.particle_qd = _span(self.velocity_in)
         self.state_in.particle_f = _span(self.force_in)
         self.state_out.particle_q = _span(self.position_out)
         self.state_out.particle_qd = _span(self.velocity_out)
-        self.solver = sr.Solver()
+        self.solver = s3d.Solver()
         self.solver.initialize(self.model)
         self.solver.config.nonlinear_solver = method
         self.solver.config.nonlinear_iterations = 1
@@ -157,8 +157,8 @@ CONTACT_KINDS = ("particle_pair", "particle_vertex_face", "surface_vertex_face",
 
 @pytest.mark.parametrize("kind", CONTACT_KINDS)
 @pytest.mark.parametrize("full_hessian", (False, True))
-@pytest.mark.parametrize("method", (sr.NonlinearSolver.PD_NEWTON, sr.NonlinearSolver.NEWTON))
-def test_self_contact_step_matches_coupled_normal_system(kind: str, full_hessian: bool, method: sr.NonlinearSolver) -> None:
+@pytest.mark.parametrize("method", (s3d.NonlinearSolver.PD_NEWTON, s3d.NonlinearSolver.NEWTON))
+def test_self_contact_step_matches_coupled_normal_system(kind: str, full_hessian: bool, method: s3d.NonlinearSolver) -> None:
     scene = ContactScene(kind, full_hessian, method)
     scene.step()
     result = scene.position_out.numpy()
@@ -172,7 +172,7 @@ def test_self_contact_step_matches_coupled_normal_system(kind: str, full_hessian
 @pytest.mark.parametrize("kind", CONTACT_KINDS[:-1])
 @pytest.mark.parametrize("iterations", (1, 4))
 def test_moving_contact_converges_without_oscillating_between_newton_iterations(kind: str, iterations: int) -> None:
-    scene = ContactScene(kind, True, sr.NonlinearSolver.NEWTON)
+    scene = ContactScene(kind, True, s3d.NonlinearSolver.NEWTON)
     velocities = 0.3 * (scene.case.weights / scene.case.masses)[:, None] * scene.case.direction
     scene.velocity_in.assign(velocities.astype(np.float32))
     scene.solver.config.nonlinear_iterations = iterations
@@ -204,7 +204,7 @@ def test_self_contact_coupling_preserves_fixed_particles(
     kind: str, fixed_indices: tuple[int, ...], fixed_by_flags: bool,
 ) -> None:
     scene = ContactScene(
-        kind, True, sr.NonlinearSolver.NEWTON, fixed_indices=fixed_indices, fixed_by_flags=fixed_by_flags,
+        kind, True, s3d.NonlinearSolver.NEWTON, fixed_indices=fixed_indices, fixed_by_flags=fixed_by_flags,
     )
     scene.step()
     effective_mass = scene.case.masses.copy()
@@ -224,7 +224,7 @@ def test_self_contact_coupling_preserves_fixed_particles(
 
 @pytest.mark.parametrize("kind", CONTACT_KINDS)
 def test_self_contact_cuda_capture_keeps_replicated_worlds_independent(kind: str) -> None:
-    scene = ContactScene(kind, True, sr.NonlinearSolver.NEWTON, world_count=3, rotated=True)
+    scene = ContactScene(kind, True, s3d.NonlinearSolver.NEWTON, world_count=3, rotated=True)
     with wp.ScopedCapture(device="cuda:0") as capture:
         scene.step()
     wp.capture_launch(capture.graph)

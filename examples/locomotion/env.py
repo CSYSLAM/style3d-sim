@@ -79,11 +79,11 @@ class SynRealLocomotionEnv:
         import newton
         import warp as wp
 
-        import synreal_solver
+        import style3d_sim as s3d
 
         self.newton = newton
         self.wp = wp
-        self.synreal_solver = synreal_solver
+        self.s3d = s3d
         self.spec = load_policy_spec(robot)
         self.num_envs = num_envs
         self.num_actions = self.spec.action_dim
@@ -114,7 +114,7 @@ class SynRealLocomotionEnv:
             self.viewer.set_model(self.model)
             self.viewer.set_world_offsets((2.5, 2.5, 0.0))
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
-        self.solver = synreal_solver.NewtonSolver(self.model)
+        self.solver = s3d.NewtonSolver(self.model)
         self._configure_solver()
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
@@ -207,10 +207,10 @@ class SynRealLocomotionEnv:
             self.capture_simulation_graph()
 
     def _configure_solver(self) -> None:
-        synreal_solver = self.synreal_solver
-        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.CO_ROTATED
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        s3d = self.s3d
+        self.solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.CO_ROTATED
+        self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
         self.solver.config.constraint_alpha = 2e2
         self.solver.config.nonlinear_iterations = self.spec.solver_iterations
         self.solver.config.linear_iterations = self.spec.linear_iterations
@@ -219,7 +219,7 @@ class SynRealLocomotionEnv:
         newton = self.newton
         spec = self.spec
         builder_type = (
-            self.synreal_solver.ModelBuilder
+            self.s3d.ModelBuilder
             if spec.asset_source == "newton"
             else newton.ModelBuilder
         )

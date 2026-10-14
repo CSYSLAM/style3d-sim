@@ -1,6 +1,6 @@
-# SynReal Solver Documentation
+# Style3D Sim Documentation
 
-SynReal Solver is a CUDA implicit physics library with a Python adapter for Newton Physics.
+Style3D Sim is a CUDA implicit physics library with a Python adapter for Newton Physics.
 These guides take you from environment setup, native builds, and authentication to particles,
 rigid bodies, cloth, deformable bodies, and material configuration.
 

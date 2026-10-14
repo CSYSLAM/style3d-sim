@@ -15,7 +15,7 @@ import warp as wp
 
 import newton
 import newton.examples
-import synreal_solver
+import style3d_sim as s3d
 
 
 @wp.func
@@ -45,7 +45,7 @@ class Example:
         self.viewer = viewer
         self.args = args
 
-        builder_type = synreal_solver.ModelBuilder if solver_type == "synreal" else newton.ModelBuilder
+        builder_type = s3d.ModelBuilder if solver_type == "synreal" else newton.ModelBuilder
         builder = builder_type(up_axis=newton.Axis.Z)
 
         static_cfg = newton.ModelBuilder.ShapeConfig()
@@ -211,11 +211,11 @@ class Example:
                 iterations=2,
             )
         elif solver_type == "synreal":
-            self.solver = synreal_solver.NewtonSolver(self.model)
-            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
-            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+            self.solver = s3d.NewtonSolver(self.model)
+            self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+            self.solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
+            self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
             self.solver.config.joint_constraint_primal_iterations = 2
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 10

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Cut a cohesive granular beef block with a manually dragged rigid knife.
@@ -21,8 +21,8 @@ import newton.examples
 import numpy as np
 import warp as wp
 
-import synreal_solver
-from synreal_solver.particle_surface import connected_components
+import style3d_sim as s3d
+from style3d_sim.particle_surface import connected_components
 
 FRAME_DT = 1.0 / 60.0
 INITIAL_KNIFE_HEIGHT = 0.45
@@ -109,7 +109,7 @@ class BeefSurfaceMaterial:
     def log_mesh(self, viewer, mesh, uvs=None):
         if uvs is None:
             uvs = self.build_uvs(mesh)
-        synreal_solver.log_surface_mesh(
+        s3d.log_surface_mesh(
             viewer,
             "beef_surface",
             mesh,
@@ -401,7 +401,7 @@ class Example:
         self.model = builder.finalize(device=device)
         self.model.soft_contact_ke, self.model.soft_contact_kd = cfg.ke, cfg.kd
         self.model.soft_contact_kf, self.model.soft_contact_mu = 15.0, 0.15
-        synreal_solver.configure_granular(
+        s3d.configure_granular(
             self.model,
             np.arange(len(points), dtype=np.int32),
             contact_stiffness=20000.0,
@@ -414,8 +414,8 @@ class Example:
             bond_radius=1.5 * self.spacing,
             adhesion=0.0,
         )
-        self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+        self.solver = s3d.NewtonSolver(self.model)
+        self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
         self.solver.config.nonlinear_iterations = args.iterations
         self.solver.config.linear_iterations = args.linear_iterations
         self.solver.config.enable_collision_hessian_non_diagonal = True
@@ -431,7 +431,7 @@ class Example:
         self.bonds = self.model.synreal_granular_bond_indices
         self.broken = wp.zeros(len(self.bonds), dtype=int, device=device)
         self.surface = (
-            synreal_solver.ParticleSurface(
+            s3d.ParticleSurface(
                 self.spacing,
                 rest_positions,
                 bonds=self.bonds,

@@ -14,7 +14,7 @@ import warp as wp
 
 import newton
 import newton.examples
-import synreal_solver
+import style3d_sim as s3d
 from newton.solvers import style3d
 
 
@@ -181,10 +181,10 @@ class Example:
         self.model.soft_contact_kd = 1.0e-2
         self.model.soft_contact_mu = 0.2
 
-        self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
-        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        self.solver = s3d.NewtonSolver(self.model)
+        self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
+        self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
         self.solver.config.nonlinear_iterations = args.iterations
         self.solver.config.linear_iterations = args.linear_iterations
         # Keep cloth and rigid contact blocks coupled when the bag supports the stacked load.

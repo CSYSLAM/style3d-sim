@@ -2,10 +2,10 @@
 
 ## 无法导入 `_core`
 
-典型错误：`ModuleNotFoundError: No module named 'synreal_solver._core'`。
+典型错误：`ModuleNotFoundError: No module named 'style3d_sim._core'`。
 
 1. 完成 [安装](getting-started/installation.md) 的 CMake 安装，而不只是 `uv sync`。
-2. 确认扩展安装在 `src/synreal_solver/`，与 Python package 在一起。
+2. 确认扩展安装在 `src/style3d_sim/`，与 Python package 在一起。
 3. 检查扩展 Python ABI 是否匹配 `.venv`；不能用 CPython 3.11 的文件运行在 3.12 上。
 4. 当前终端设置 `PYTHONPATH` 指向仓库 `src`。
 
@@ -19,8 +19,8 @@ uv run python -c "import sys, sysconfig; print(sys.executable); print(sysconfig.
 ## 导入了旧版本
 
 ```bash
-uv run python -c "import synreal_solver as sr; print(sr.__file__)"
-uv run python -c "import synreal_solver._core as core; print(core.__file__)"
+uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
+uv run python -c "import style3d_sim._core as core; print(core.__file__)"
 ```
 
 如果指向系统 site-packages，使用 `uv run` 的环境并重新设置源码路径。
@@ -41,8 +41,8 @@ Python wrapper 已更新但 `_core` 仍是旧构建时，也可能出现缺少�
 ## 登录失败或一直等待输入 {#authentication}
 
 1. 检查当前运行进程能够访问认证服务，账号与密码有效。
-2. 确认 `SYNREAL_ID` 和一个密码变量在启动进程前设置。
-3. 同时设置 `SYNRAL_PASSWORD` 与 `SYNREAL_PASSWORD` 时前者优先，清除不用的旧变量。
+2. 确认 `STYLE3D_ACCOUNT` 和 `STYLE3D_PASSWORD` 在启动进程前设置。
+3. 检查变量名是否拼写正确，以及当前进程是否继承了这两个变量。
 4. headless 不等于无交互认证；缺少凭据时仍会请求 stdin。
 5. 用同一进程内的 `is_logged_in()` 检查状态，不要依赖另一个 Python 进程的登录。
 

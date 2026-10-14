@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "src" / "synreal_solver"
+SOURCE = ROOT / "src" / "style3d_sim"
 PYTHON_MODULES = (
     "__init__.py",
     "newton_model_builder.py",

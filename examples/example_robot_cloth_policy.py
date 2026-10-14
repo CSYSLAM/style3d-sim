@@ -29,7 +29,7 @@ from warp_nn.runtime import OnnxRuntime
 import newton
 import newton.examples
 import newton.utils
-import synreal_solver
+import style3d_sim as s3d
 from newton import JointTargetMode
 from newton.examples.robot.onnx_policy_utils import validate_policy_io_shapes
 from newton.solvers import style3d
@@ -326,7 +326,7 @@ class Example:
                 njmax=100,
             )
         else:
-            self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver = s3d.NewtonSolver(self.model)
             self.solver.config.constraint_alpha = 200
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 10

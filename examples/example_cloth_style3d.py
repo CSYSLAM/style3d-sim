@@ -8,7 +8,7 @@ import newton
 import newton.examples
 import newton.usd
 import newton.utils
-import synreal_solver
+import style3d_sim as s3d
 from newton import Mesh, ParticleFlags
 from newton.solvers import style3d
 
@@ -124,7 +124,7 @@ class Example:
         self.model.set_gravity((0.0, 0.0, -9.81))
 
         if self.solver_type == "synreal":
-            self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver = s3d.NewtonSolver(self.model)
             self.solver.config.enable_self_collision = False
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 10

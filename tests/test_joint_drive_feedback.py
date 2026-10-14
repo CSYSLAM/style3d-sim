@@ -6,7 +6,7 @@ import pytest
 newton = pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
-from synreal_solver.newton_solver import NewtonSolver  # noqa: E402
+from style3d_sim.newton_solver import NewtonSolver  # noqa: E402
 
 
 @wp.kernel

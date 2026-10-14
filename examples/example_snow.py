@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Roll a particle snowball down a snowy slope, collecting fresh snow through contact adhesion.
@@ -19,8 +19,8 @@ import newton.examples
 import numpy as np
 import warp as wp
 
-import synreal_solver
-from synreal_solver.granular import _initial_bonds
+import style3d_sim as s3d
+from style3d_sim.granular import _initial_bonds
 
 if __package__:
     from .snow_interaction import SnowballPicking
@@ -114,7 +114,7 @@ class Example:
             np.arange(self.seed_count, dtype=np.int32),
             1.5 * self.spacing,
         )
-        synreal_solver.configure_granular(
+        s3d.configure_granular(
             self.model,
             np.arange(self.granular_count, dtype=np.int32),
             contact_stiffness=20000.0,
@@ -130,8 +130,8 @@ class Example:
             bond_formation_speed=3.0,
             max_dynamic_bonds=12,
         )
-        self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+        self.solver = s3d.NewtonSolver(self.model)
+        self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
         self.solver.config.nonlinear_iterations, self.solver.config.linear_iterations = args.iterations, args.linear_iterations
         self.solver.config.enable_collision_hessian_non_diagonal = True
         self.state_0, self.state_1 = self.model.state(), self.model.state()

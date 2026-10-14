@@ -9,7 +9,7 @@ import pytest
 newton = pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
-from synreal_solver import ModelBuilder, NewtonSolver, NonlinearSolver  # noqa: E402
+from style3d_sim import ModelBuilder, NewtonSolver, NonlinearSolver  # noqa: E402
 
 
 pytestmark = pytest.mark.skipif(not wp.is_cuda_available(), reason="Rolling friction tests require CUDA")

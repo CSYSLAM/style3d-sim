@@ -3,7 +3,7 @@ import pytest
 
 wp = pytest.importorskip("warp")
 
-from synreal_solver.rigid_body_dynamics import (  # noqa: E402
+from style3d_sim.rigid_body_dynamics import (  # noqa: E402
     integrate_rigid_body,
     recover_rigid_body_end_velocity,
 )

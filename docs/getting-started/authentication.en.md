@@ -9,30 +9,29 @@ call the authentication API yourself.
 === "PowerShell"
 
     ```powershell
-    $env:SYNREAL_ID = "your-account"
-    $env:SYNREAL_PASSWORD = "your-password"
+    $env:STYLE3D_ACCOUNT = "your-account"
+    $env:STYLE3D_PASSWORD = "your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Bash / Zsh"
 
     ```bash
-    export SYNREAL_ID="your-account"
-    export SYNREAL_PASSWORD="your-password"
+    export STYLE3D_ACCOUNT="your-account"
+    export STYLE3D_PASSWORD="your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Windows CMD"
 
     ```bat
-    set SYNREAL_ID=your-account
-    set SYNREAL_PASSWORD=your-password
+    set STYLE3D_ACCOUNT=your-account
+    set STYLE3D_PASSWORD=your-password
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 First set the source path as described in [Installation](installation.en.md).
-`SYNRAL_PASSWORD` is also accepted and takes precedence over `SYNREAL_PASSWORD` when both are set.
-Set only one password variable to avoid an old value overriding a new password.
+Use `STYLE3D_ACCOUNT` and `STYLE3D_PASSWORD` for credentials.
 
 These variables belong to the current terminal process and processes launched from it.
 Closing the terminal does not remove values already inherited by a running child process,
@@ -42,9 +41,8 @@ Native session authentication and environment variables are separate states.
 To remove temporary credentials in PowerShell:
 
 ```powershell
-Remove-Item Env:SYNREAL_ID -ErrorAction SilentlyContinue
-Remove-Item Env:SYNREAL_PASSWORD -ErrorAction SilentlyContinue
-Remove-Item Env:SYNRAL_PASSWORD -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_ACCOUNT -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_PASSWORD -ErrorAction SilentlyContinue
 ```
 
 ## Option 2: Interactive Input
@@ -52,7 +50,7 @@ Remove-Item Env:SYNRAL_PASSWORD -ErrorAction SilentlyContinue
 Run a program that uses `NewtonSolver` without setting credential variables:
 
 ```text
-SynReal account: your-account
+Style3D Sim account: your-account
 Password:
 ```
 
@@ -64,13 +62,13 @@ Use the VS Code Terminal. The Debug Console, tasks without stdin, and ordinary C
 
 ```python
 import getpass
-import synreal_solver as sr
+import style3d_sim as s3d
 
-if not sr.is_logged_in():
-    account = input("SynReal account: ").strip()
+if not s3d.is_logged_in():
+    account = input("Style3D Sim account: ").strip()
     password = getpass.getpass("Password: ")
-    if not sr.login(account, password, False):
-        raise RuntimeError("SynReal login failed")
+    if not s3d.login(account, password, False):
+        raise RuntimeError("Style3D Sim login failed")
 ```
 
 The signature is `login(name: str, password: str, force_signin: bool) -> bool`.

@@ -13,7 +13,7 @@ This model initialization can be used with the simulation loop:
 import newton
 from newton.solvers import style3d
 import warp as wp
-import synreal_solver as sr
+import style3d_sim as s3d
 
 builder = newton.ModelBuilder(up_axis=newton.Axis.Z)
 newton.solvers.SolverStyle3D.register_custom_attributes(builder)
@@ -32,7 +32,7 @@ style3d.add_cloth_grid(
     edge_aniso_ke=wp.vec3(2.0e-4, 1.0e-4, 5.0e-5),
 )
 model = builder.finalize(device="cuda:0")
-solver = sr.NewtonSolver(model)
+solver = s3d.NewtonSolver(model)
 ```
 
 Create two states, control, pipeline, and contacts, then follow the [simulation loop](simulation-loop.en.md).

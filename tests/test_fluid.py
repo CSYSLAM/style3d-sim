@@ -5,7 +5,7 @@ import pytest
 
 newton = pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
-import synreal_solver as sr  # noqa: E402
+import style3d_sim as s3d  # noqa: E402
 
 pytestmark = pytest.mark.skipif(not wp.is_cuda_available(), reason="Native fluid requires CUDA")
 
@@ -18,11 +18,11 @@ def make_scene(count, method):
     builder = newton.ModelBuilder(gravity=(0.0, 0.0, 0.0))
     builder.add_particles(pos=points, vel=velocities, mass=masses, radius=np.full(count, 0.001))
     model = builder.finalize(device="cuda:0")
-    sr.configure_fluid(
+    s3d.configure_fluid(
         model, np.arange(count, dtype=np.int32), smoothing_radius=0.1, bulk_modulus=2000.0, viscosity=0.3,
         boundary_positions=[[0.045, 0.0, 0.0]], boundary_volumes=[0.00015],
     )
-    solver = sr.NewtonSolver(model)
+    solver = s3d.NewtonSolver(model)
     solver.config.nonlinear_solver = method
     solver.config.enable_self_collision = False
     solver.config.linear_iterations = 100
@@ -79,7 +79,7 @@ def interval_solution(model, previous, velocity, dt, iterations, interval):
     return reference
 
 
-@pytest.mark.parametrize("method", [sr.NonlinearSolver.NEWTON, sr.NonlinearSolver.PD_NEWTON])
+@pytest.mark.parametrize("method", [s3d.NonlinearSolver.NEWTON, s3d.NonlinearSolver.PD_NEWTON])
 @pytest.mark.parametrize("count", [8, 70])
 @pytest.mark.parametrize("interval", [1, 2, 3, 5, 9])
 def test_fluid_update_interval_matches_reference_and_resets_each_step(method, count, interval):
@@ -97,7 +97,7 @@ def test_fluid_update_interval_matches_reference_and_resets_each_step(method, co
 
 
 def test_first_iteration_and_runtime_interval_changes_match_full_updates():
-    model, solver = make_scene(8, sr.NonlinearSolver.NEWTON)
+    model, solver = make_scene(8, s3d.NonlinearSolver.NEWTON)
     for iterations in (1, 5):
         solver.config.nonlinear_iterations = iterations
         results = []
@@ -113,7 +113,7 @@ def test_first_iteration_and_runtime_interval_changes_match_full_updates():
 
 @pytest.mark.parametrize("interval", [2, 5])
 def test_fluid_graph_replay_refreshes_linearization(interval):
-    model, solver = make_scene(8, sr.NonlinearSolver.NEWTON)
+    model, solver = make_scene(8, s3d.NonlinearSolver.NEWTON)
     solver.config.nonlinear_iterations = 5
     solver.config.fluid_hessian_update_interval = interval
     a, b = model.state(), model.state()
@@ -133,7 +133,7 @@ def test_fluid_graph_replay_refreshes_linearization(interval):
 
 @pytest.mark.parametrize("interval", [0, -1])
 def test_fluid_update_interval_rejects_nonpositive_values(interval):
-    model, solver = make_scene(8, sr.NonlinearSolver.NEWTON)
+    model, solver = make_scene(8, s3d.NonlinearSolver.NEWTON)
     solver.config.fluid_hessian_update_interval = interval
     with pytest.raises(ValueError, match="fluid_hessian_update_interval must be positive"):
         solver.step(model.state(), model.state(), None, None, 0.002)

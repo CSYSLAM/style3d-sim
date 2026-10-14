@@ -2,10 +2,10 @@
 
 ## Cannot Import `_core`
 
-Typical error: `ModuleNotFoundError: No module named 'synreal_solver._core'`.
+Typical error: `ModuleNotFoundError: No module named 'style3d_sim._core'`.
 
 1. Complete the CMake installation in [Installation](getting-started/installation.en.md), including steps after `uv sync`.
-2. Confirm the extension is in `src/synreal_solver/` alongside the Python package.
+2. Confirm the extension is in `src/style3d_sim/` alongside the Python package.
 3. Match the extension's Python ABI to `.venv`; a CPython 3.11 binary cannot run under 3.12.
 4. Set `PYTHONPATH` to the repository's `src` directory in the current terminal.
 
@@ -19,8 +19,8 @@ the driver, and CUDA versions. Python path changes alone may not resolve these e
 ## An Older Version Is Imported
 
 ```bash
-uv run python -c "import synreal_solver as sr; print(sr.__file__)"
-uv run python -c "import synreal_solver._core as core; print(core.__file__)"
+uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
+uv run python -c "import style3d_sim._core as core; print(core.__file__)"
 ```
 
 If these point to system site-packages, use the `uv run` environment and reset the source path.
@@ -43,8 +43,8 @@ After toolchain changes, configure a new build directory to avoid stale cache en
 ## Login Fails or Waits for Input {#authentication}
 
 1. Check authentication service access and account validity from the running process.
-2. Set `SYNREAL_ID` and one password variable before launching the process.
-3. `SYNRAL_PASSWORD` takes precedence over `SYNREAL_PASSWORD`; remove unused old variables.
+2. Set `STYLE3D_ACCOUNT` and `STYLE3D_PASSWORD` before launching the process.
+3. Check the variable names and confirm the running process inherited both values.
 4. Headless runs still request stdin when credentials are missing.
 5. Check `is_logged_in()` in the simulation process; authentication in another Python process does not transfer.
 

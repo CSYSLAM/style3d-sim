@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Train a Unitree G1 policy to jump continuously on a cloth trampoline."""

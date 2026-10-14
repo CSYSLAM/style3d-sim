@@ -8,30 +8,29 @@
 === "PowerShell"
 
     ```powershell
-    $env:SYNREAL_ID = "your-account"
-    $env:SYNREAL_PASSWORD = "your-password"
+    $env:STYLE3D_ACCOUNT = "your-account"
+    $env:STYLE3D_PASSWORD = "your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Bash / Zsh"
 
     ```bash
-    export SYNREAL_ID="your-account"
-    export SYNREAL_PASSWORD="your-password"
+    export STYLE3D_ACCOUNT="your-account"
+    export STYLE3D_PASSWORD="your-password"
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 === "Windows CMD"
 
     ```bat
-    set SYNREAL_ID=your-account
-    set SYNREAL_PASSWORD=your-password
+    set STYLE3D_ACCOUNT=your-account
+    set STYLE3D_PASSWORD=your-password
     uv run python examples/example_basic_shapes.py --solver synreal
     ```
 
 请先完成 [安装](installation.md) 中的源码路径设置。
-`SYNRAL_PASSWORD` 也被接受；同时设置两个密码变量时优先使用 `SYNRAL_PASSWORD`。
-建议只设置一个，避免旧密码覆盖新密码。
+使用 `STYLE3D_ACCOUNT` 和 `STYLE3D_PASSWORD` 设置凭据。
 
 变量只作用于当前终端及由它启动的进程。关闭终端不会影响已经启动且继承变量的子进程，
 但新开的独立终端不会自动拥有这些值。原生会话的登录状态与环境变量不是同一件事。
@@ -39,9 +38,8 @@
 清理 PowerShell 中的临时凭据：
 
 ```powershell
-Remove-Item Env:SYNREAL_ID -ErrorAction SilentlyContinue
-Remove-Item Env:SYNREAL_PASSWORD -ErrorAction SilentlyContinue
-Remove-Item Env:SYNRAL_PASSWORD -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_ACCOUNT -ErrorAction SilentlyContinue
+Remove-Item Env:STYLE3D_PASSWORD -ErrorAction SilentlyContinue
 ```
 
 ## 方法二：交互输入
@@ -49,7 +47,7 @@ Remove-Item Env:SYNRAL_PASSWORD -ErrorAction SilentlyContinue
 不设置环境变量，直接运行使用 `NewtonSolver` 的程序：
 
 ```text
-SynReal account: your-account
+Style3D Sim account: your-account
 Password:
 ```
 
@@ -61,13 +59,13 @@ Password:
 
 ```python
 import getpass
-import synreal_solver as sr
+import style3d_sim as s3d
 
-if not sr.is_logged_in():
-    account = input("SynReal account: ").strip()
+if not s3d.is_logged_in():
+    account = input("Style3D Sim account: ").strip()
     password = getpass.getpass("Password: ")
-    if not sr.login(account, password, False):
-        raise RuntimeError("SynReal login failed")
+    if not s3d.login(account, password, False):
+        raise RuntimeError("Style3D Sim login failed")
 ```
 
 签名为 `login(name: str, password: str, force_signin: bool) -> bool`。

@@ -38,10 +38,10 @@ Exact positions depend on configuration and version; decimal values are not a cr
 | Step | Purpose |
 | --- | --- |
 | `wp.init()` | Initialize Warp and detect devices |
-| `sr.ModelBuilder()` | Prepare scene objects and contact materials |
+| `s3d.ModelBuilder()` | Prepare scene objects and contact materials |
 | `add_particle()` | Set position, velocity, mass, and contact radius |
 | `finalize(device="cuda:0")` | Allocate the model on the GPU |
-| `sr.NewtonSolver(model)` | Authenticate and initialize the adapter |
+| `s3d.NewtonSolver(model)` | Authenticate and initialize the adapter |
 | Two calls to `model.state()` | Create input and output buffers |
 | `CollisionPipeline` | Generate contacts between particles and shapes |
 | `step()` | Advance one substep using those contacts |

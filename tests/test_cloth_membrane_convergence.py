@@ -7,7 +7,7 @@ newton = pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
 from newton.solvers import style3d  # noqa: E402
-from synreal_solver import NewtonSolver, NonlinearSolver  # noqa: E402
+from style3d_sim import NewtonSolver, NonlinearSolver  # noqa: E402
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")

@@ -4,7 +4,7 @@ import numpy as np
 import newton
 import warp as wp
 
-import synreal_solver as sr
+import style3d_sim as s3d
 
 
 def main() -> None:
@@ -12,12 +12,12 @@ def main() -> None:
     if not wp.is_cuda_available():
         raise RuntimeError("This sample requires a CUDA-capable device")
 
-    builder = sr.ModelBuilder(up_axis=newton.Axis.Z)
+    builder = s3d.ModelBuilder(up_axis=newton.Axis.Z)
     builder.add_ground_plane()
     builder.add_particle(pos=(0.0, 0.0, 1.0), vel=(0.0, 0.0, 0.0), mass=1.0, radius=0.05)
     model = builder.finalize(device="cuda:0")
-    solver = sr.NewtonSolver(model)
-    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+    solver = s3d.NewtonSolver(model)
+    solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
     solver.config.nonlinear_iterations = 4
     solver.config.linear_iterations = 50
 

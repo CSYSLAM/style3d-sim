@@ -6,9 +6,9 @@
 ## 常用配置
 
 ```python
-import synreal_solver as sr
+import style3d_sim as s3d
 
-solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
 solver.config.nonlinear_iterations = 4
 solver.config.linear_iterations = 50
 solver.config.enable_collision_hessian_non_diagonal = True

@@ -11,9 +11,9 @@ SynReal 用仿射粒子代理求解刚体，再重建 Newton 的刚体姿态和�
 ```python
 import newton
 import warp as wp
-import synreal_solver as sr
+import style3d_sim as s3d
 
-builder = sr.ModelBuilder(up_axis=newton.Axis.Z)
+builder = s3d.ModelBuilder(up_axis=newton.Axis.Z)
 builder.add_ground_plane()
 body = builder.add_body(
     xform=wp.transform(wp.vec3(0.0, 0.0, 1.0), wp.quat_identity()),
@@ -21,7 +21,7 @@ body = builder.add_body(
 )
 builder.add_shape_box(body, hx=0.1, hy=0.1, hz=0.1)
 model = builder.finalize(device="cuda:0")
-solver = sr.NewtonSolver(model)
+solver = s3d.NewtonSolver(model)
 ```
 
 `hx/hy/hz` 是半尺寸，因此箱子的边长为 0.2 m。
@@ -51,7 +51,7 @@ solver.step(state, following, control, contacts, 1.0 / 240.0)
 | pipeline 的 contact capacity | 接触缓冲区最多能保存的数据量 |
 | `solver.config.enable_self_collision` | 变形体自碰撞路径，不是 shape 碰撞的总开关 |
 
-`sr.ModelBuilder` 提供了与普通 Newton builder 不同的接触预设。
+`s3d.ModelBuilder` 提供了与普通 Newton builder 不同的接触预设。
 当接触不稳定时先减小 dt 和消除初始穿透，再调整刚度、阻尼和迭代预算。
 仅提高刚度可能让线性系统更难收敛。
 

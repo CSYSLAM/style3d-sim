@@ -6,9 +6,9 @@ import pytest
 newton = pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
-import synreal_solver as sr  # noqa: E402
-from synreal_solver.newton_model_builder import ModelBuilder  # noqa: E402
-from synreal_solver.newton_solver import (  # noqa: E402
+import style3d_sim as s3d  # noqa: E402
+from style3d_sim.newton_model_builder import ModelBuilder  # noqa: E402
+from style3d_sim.newton_solver import (  # noqa: E402
     NewtonSolver,
     _scatter_affine_body_forces,
     _sync_affine_body_state,
@@ -17,31 +17,31 @@ from synreal_solver.newton_solver import (  # noqa: E402
 
 
 AFFINE_BODY_RIGIDITY_MODELS = (
-    pytest.param(sr.AffineBodyRigidityModel.CO_ROTATED, id="co-rotated"),
+    pytest.param(s3d.AffineBodyRigidityModel.CO_ROTATED, id="co-rotated"),
     pytest.param(
-        sr.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
+        s3d.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
         id="abd-orthogonality",
     ),
-    pytest.param(sr.AffineBodyRigidityModel.SIX_SPRINGS, id="six-springs"),
+    pytest.param(s3d.AffineBodyRigidityModel.SIX_SPRINGS, id="six-springs"),
     pytest.param(
-        sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN,
+        s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN,
         id="so3-augmented-lagrangian",
     ),
 )
 
 INERTIA_MODES = (
-    pytest.param(sr.InertiaMode.EXPLICIT_EULER, id="explicit-euler"),
-    pytest.param(sr.InertiaMode.IMPLICIT_EULER, id="implicit-euler"),
+    pytest.param(s3d.InertiaMode.EXPLICIT_EULER, id="explicit-euler"),
+    pytest.param(s3d.InertiaMode.IMPLICIT_EULER, id="implicit-euler"),
     pytest.param(
-        sr.InertiaMode.LIE_GROUP_MIDPOINT,
+        s3d.InertiaMode.LIE_GROUP_MIDPOINT,
         id="lie-group-midpoint",
     ),
-    pytest.param(sr.InertiaMode.MIDPOINT_CAYLEY, id="midpoint-cayley"),
+    pytest.param(s3d.InertiaMode.MIDPOINT_CAYLEY, id="midpoint-cayley"),
 )
 
 NONLINEAR_SOLVERS = (
-    pytest.param(sr.NonlinearSolver.NEWTON, id="newton"),
-    pytest.param(sr.NonlinearSolver.PD_NEWTON, id="pd-newton"),
+    pytest.param(s3d.NonlinearSolver.NEWTON, id="newton"),
+    pytest.param(s3d.NonlinearSolver.PD_NEWTON, id="pd-newton"),
 )
 
 
@@ -134,8 +134,8 @@ def _tetrahedron_deformation_error(model: object, positions: np.ndarray) -> floa
 
 
 def test_model_builder_import_paths() -> None:
-    from synreal_solver import ModelBuilder as package_model_builder
-    from synreal_solver.newton_solver import ModelBuilder as legacy_model_builder
+    from style3d_sim import ModelBuilder as package_model_builder
+    from style3d_sim.newton_solver import ModelBuilder as legacy_model_builder
 
     assert ModelBuilder is package_model_builder is legacy_model_builder
 
@@ -176,14 +176,14 @@ def test_native_solver_rejects_partial_particle_force_span() -> None:
     state_out = model.state()
     native_state_in = solver._as_synreal_state(state_in)
     native_state_out = solver._as_synreal_state(state_out)
-    native_state_in.particle_f = sr.Span(ptr=state_in.particle_f.ptr, size=1)
+    native_state_in.particle_f = s3d.Span(ptr=state_in.particle_f.ptr, size=1)
 
     with pytest.raises(ValueError, match="particle_f is smaller"):
-        solver.synreal_solver.step(
+        solver.native_solver.step(
             native_state_in,
             native_state_out,
-            sr.Control(),
-            sr.Contact(),
+            s3d.Control(),
+            s3d.Contact(),
             0.01,
             wp.get_stream(model.device),
         )
@@ -199,10 +199,10 @@ def test_native_solver_rejects_partial_particle_metadata(field: str) -> None:
     wrapped_solver = NewtonSolver(model)
     native_model = wrapped_solver.synreal_model
     source = getattr(model, field)
-    setattr(native_model, field, sr.Span(ptr=source.ptr, size=1))
+    setattr(native_model, field, s3d.Span(ptr=source.ptr, size=1))
 
     with pytest.raises(ValueError, match=f"{field} is smaller"):
-        sr.Solver().initialize(native_model)
+        s3d.Solver().initialize(native_model)
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
@@ -491,7 +491,7 @@ def test_affine_body_pose_reconstruction_uses_proxy_columns() -> None:
             wp.zeros(1, dtype=wp.int32, device="cpu"),
             model.body_com,
             model.synreal_affine_body_inertia,
-            int(sr.InertiaMode.MIDPOINT_CAYLEY.value),
+            int(s3d.InertiaMode.MIDPOINT_CAYLEY.value),
             1.0 / 60.0,
         ],
         outputs=[state.body_q, state.body_qd],
@@ -534,7 +534,7 @@ def test_affine_body_rotation_recovery_resolves_rest_and_tiny_rotations(device, 
         _update_affine_body_poses, dim=1,
         inputs=[state.particle_q, state.particle_qd, model.synreal_affine_body_indices,
                 model.synreal_affine_body_ids, wp.zeros(1, dtype=wp.int32, device=device), model.body_com,
-                model.synreal_affine_body_inertia, int(sr.InertiaMode.MIDPOINT_CAYLEY.value), dt],
+                model.synreal_affine_body_inertia, int(s3d.InertiaMode.MIDPOINT_CAYLEY.value), dt],
         outputs=[state.body_q, state.body_qd], device=device,
     )
 
@@ -576,7 +576,7 @@ def test_affine_body_does_not_gain_spurious_spin_when_inertia_is_small(device, i
         _update_affine_body_poses, dim=1,
         inputs=[state.particle_q, state.particle_qd, model.synreal_affine_body_indices,
                 model.synreal_affine_body_ids, wp.zeros(1, dtype=wp.int32, device=device), model.body_com,
-                model.synreal_affine_body_inertia, int(sr.InertiaMode.MIDPOINT_CAYLEY.value), 1.0 / 480.0],
+                model.synreal_affine_body_inertia, int(s3d.InertiaMode.MIDPOINT_CAYLEY.value), 1.0 / 480.0],
         outputs=[state.body_q, state.body_qd], device=device,
     )
     np.testing.assert_allclose(state.body_q.numpy(), expected_pose, atol=1.0e-6)
@@ -603,8 +603,8 @@ def test_small_body_so3_rigidity_does_not_create_angular_momentum(alpha, spinnin
         builder.body_qd[index] = wp.spatial_vector(0.0, 0.0, 0.0, *omega)
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
-    solver.config.affine_body_rigidity_model = sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
-    solver.config.inertia_mode = sr.InertiaMode.MIDPOINT_CAYLEY
+    solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+    solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
     solver.config.constraint_alpha = alpha
     solver.config.nonlinear_iterations = 5
     solver.config.linear_iterations = 50
@@ -692,7 +692,7 @@ def test_affine_body_velocity_reconstruction_uses_mass_weighted_rigid_fit(
             wp.zeros(1, dtype=wp.int32, device=device),
             model.body_com,
             model.synreal_affine_body_inertia,
-            int(sr.InertiaMode.NONE.value),
+            int(s3d.InertiaMode.NONE.value),
             1.0 / 60.0,
         ],
         outputs=[state.body_q, state.body_qd],
@@ -756,7 +756,7 @@ def test_none_inertia_proxy_velocities_round_trip_through_body_qd() -> None:
     model = builder.finalize(device="cuda:0")
     state_in, state_out = model.state(), model.state()
     solver = NewtonSolver(model)
-    solver.config.inertia_mode = sr.InertiaMode.NONE
+    solver.config.inertia_mode = s3d.InertiaMode.NONE
     solver.config.nonlinear_iterations = 15
     solver.config.linear_iterations = 50
     state_in.clear_forces()
@@ -1356,7 +1356,7 @@ def test_newton_solver_rejects_invalid_joint_constraint_mode_at_step() -> None:
     builder.add_particle(pos=(0.0, 0.0, 0.0), vel=(0.0, 0.0, 0.0), mass=1.0)
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
-    solver.config.joint_constraint_mode = sr.JointConstraintMode(99)
+    solver.config.joint_constraint_mode = s3d.JointConstraintMode(99)
 
     with pytest.raises(ValueError, match="config.joint_constraint_mode is invalid"):
         solver.step(model.state(), model.state(), None, None, 1.0 / 60.0)
@@ -1368,7 +1368,7 @@ def test_newton_solver_rejects_invalid_nonlinear_solver_at_step() -> None:
     builder.add_particle(pos=(0.0, 0.0, 0.0), vel=(0.0, 0.0, 0.0), mass=1.0)
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
-    solver.config.nonlinear_solver = sr.NonlinearSolver(99)
+    solver.config.nonlinear_solver = s3d.NonlinearSolver(99)
 
     with pytest.raises(ValueError, match="config.nonlinear_solver is invalid"):
         solver.step(model.state(), model.state(), None, None, 1.0 / 60.0)
@@ -1435,7 +1435,7 @@ def test_newton_solver_rejects_nonzero_joint_spring_rest_length() -> None:
     with pytest.raises(
         ValueError, match="joint-generated body springs must have zero rest length"
     ):
-        solver._initialize_synreal_solver()
+        solver._initialize_native_solver()
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
@@ -1484,7 +1484,7 @@ def test_joint_augmented_lagrangian_supported_joint_smoke(joint_kind: str) -> No
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
     solver.config.joint_constraint_mode = (
-        sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
     )
     solver.config.nonlinear_iterations = 2
     state_in, state_out = model.state(), model.state()
@@ -1550,26 +1550,26 @@ def test_newton_solver_joint_constraint_modes_reuse_assembled_constraints() -> N
 
     assembled_constraints = assembled_constraint_layout()
 
-    assert solver.config.joint_constraint_mode == sr.JointConstraintMode.PENALTY
+    assert solver.config.joint_constraint_mode == s3d.JointConstraintMode.PENALTY
     assert solver.synreal_model.body_spring_count == 2
     assert solver.synreal_model.joint_body_spring_count == 2
     assert solver.synreal_model.body_point_line_count == 4
     assert solver.synreal_model.joint_body_point_line_count == 4
 
-    solver.config.joint_constraint_mode = sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+    solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
 
     assert (
         solver.config.joint_constraint_mode
-        == sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        == s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
     )
     assert assembled_constraint_layout() == assembled_constraints
 
 
 def _loaded_joint_transverse_displacement(
     joint_kind: str,
-    mode: sr.JointConstraintMode,
+    mode: s3d.JointConstraintMode,
     nonlinear_iterations: int,
-    nonlinear_solver: sr.NonlinearSolver,
+    nonlinear_solver: s3d.NonlinearSolver,
 ) -> float:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_link(
@@ -1623,26 +1623,26 @@ def _loaded_joint_transverse_displacement(
 @pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
 def test_joint_augmented_lagrangian_reduces_loaded_constraint_error(
     joint_kind: str,
-    nonlinear_solver: sr.NonlinearSolver,
+    nonlinear_solver: s3d.NonlinearSolver,
 ) -> None:
     penalty_first = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.PENALTY, 1, nonlinear_solver
+        joint_kind, s3d.JointConstraintMode.PENALTY, 1, nonlinear_solver
     )
     augmented_first = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 1, nonlinear_solver
+        joint_kind, s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN, 1, nonlinear_solver
     )
     penalty_converged = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.PENALTY, 10, nonlinear_solver
+        joint_kind, s3d.JointConstraintMode.PENALTY, 10, nonlinear_solver
     )
     augmented_converged = _loaded_joint_transverse_displacement(
-        joint_kind, sr.JointConstraintMode.AUGMENTED_LAGRANGIAN, 10, nonlinear_solver
+        joint_kind, s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN, 10, nonlinear_solver
     )
 
     # The first AL primal iteration is exactly the legacy penalty solve. Further
     # AL dual updates should remove most of the loaded transverse joint error.
     first_iteration_rtol = (
         5.0e-4
-        if nonlinear_solver == sr.NonlinearSolver.NEWTON
+        if nonlinear_solver == s3d.NonlinearSolver.NEWTON
         else 2.0e-4
     )
     assert np.isclose(
@@ -1693,7 +1693,7 @@ def test_replicated_world_joint_constraints_keep_full_layout() -> None:
     )
 
     solver.config.joint_constraint_mode = (
-        sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
     )
     solver.config.nonlinear_iterations = 2
     state_in, state_out = model.state(), model.state()
@@ -1814,7 +1814,7 @@ def test_angular_joint_drive_balances_force_on_each_body() -> None:
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize(
     "inertia_mode",
-    [sr.InertiaMode.MIDPOINT_CAYLEY, sr.InertiaMode.NONE],
+    [s3d.InertiaMode.MIDPOINT_CAYLEY, s3d.InertiaMode.NONE],
     ids=["rigid-predictor", "native-abd"],
 )
 @pytest.mark.parametrize(
@@ -1823,7 +1823,7 @@ def test_angular_joint_drive_balances_force_on_each_body() -> None:
     ids=["positive-effort", "negative-effort", "zero-limit-ignored"],
 )
 def test_angular_joint_drive_applies_symmetric_point_force_torque(
-    inertia_mode: sr.InertiaMode,
+    inertia_mode: s3d.InertiaMode,
     feedforward: float,
     effort_limit: float,
     expected_effort: float,
@@ -1886,7 +1886,7 @@ def test_angular_joint_drive_applies_symmetric_point_force_torque(
         velocity_gradients.append(gradient)
 
     assert np.allclose(center_velocities, 0.0, atol=1.0e-6)
-    if inertia_mode == sr.InertiaMode.NONE:
+    if inertia_mode == s3d.InertiaMode.NONE:
         # The legacy free-particle recovery projects the affine response back to
         # its rigid velocity field, so the exact inertia response is observable.
         for gradient in velocity_gradients:
@@ -2116,7 +2116,7 @@ def _step_isolated_cloth_triangle(
     state_in, state_out = model.state(), model.state()
     _set_particle_positions(state_in, points.astype(np.float32), model.device)
     solver = NewtonSolver(model)
-    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+    solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
     solver.config.nonlinear_iterations = 4
     solver.config.linear_iterations = 80
     solver.config.enable_self_collision = False
@@ -2184,7 +2184,7 @@ def test_cloth_shear_remains_finite_for_collapsed_deformation(points: np.ndarray
 @pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
 @pytest.mark.parametrize("bending_motion", (True, False), ids=("bending", "translation"))
 def test_cloth_bending_damping_dissipates_only_relative_motion(
-    nonlinear_solver: sr.NonlinearSolver, bending_motion: bool,
+    nonlinear_solver: s3d.NonlinearSolver, bending_motion: bool,
 ) -> None:
     from newton.solvers import style3d
 
@@ -2366,7 +2366,7 @@ def test_newton_solver_particle_self_collision_supports_capture_replay() -> None
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
 def test_affine_body_rigidity_models_are_stationary_at_rest_and_restore_frames(
-    rigidity_model: sr.AffineBodyRigidityModel,
+    rigidity_model: s3d.AffineBodyRigidityModel,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     builder.add_body(
@@ -2411,7 +2411,7 @@ def test_affine_body_rigidity_models_are_stationary_at_rest_and_restore_frames(
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
 def test_affine_body_so3_augmented_lagrangian_reduces_constraint_error(
-    nonlinear_solver: sr.NonlinearSolver,
+    nonlinear_solver: s3d.NonlinearSolver,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     builder.add_body(
@@ -2422,7 +2422,7 @@ def test_affine_body_so3_augmented_lagrangian_reduces_constraint_error(
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
     solver.config.affine_body_rigidity_model = (
-        sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
     )
     solver.config.nonlinear_solver = nonlinear_solver
     solver.config.constraint_alpha = 10.0
@@ -2471,10 +2471,10 @@ def test_affine_body_so3_augmented_lagrangian_preserves_joint_rotation() -> None
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model, joint_damping=0.0, joint_drive_armature=0.0)
     solver.config.affine_body_rigidity_model = (
-        sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
     )
-    solver.config.joint_constraint_mode = sr.JointConstraintMode.AUGMENTED_LAGRANGIAN
-    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+    solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+    solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
     solver.config.nonlinear_iterations = 20
     solver.config.linear_iterations = 10
 
@@ -2530,9 +2530,9 @@ def test_affine_body_rigidity_model_can_switch_between_steps() -> None:
     responses = []
 
     for rigidity_model in (
-        sr.AffineBodyRigidityModel.CO_ROTATED,
-        sr.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
-        sr.AffineBodyRigidityModel.SIX_SPRINGS,
+        s3d.AffineBodyRigidityModel.CO_ROTATED,
+        s3d.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
+        s3d.AffineBodyRigidityModel.SIX_SPRINGS,
     ):
         state_in = model.state()
         state_out = model.state()
@@ -2553,7 +2553,7 @@ def test_affine_body_rigidity_model_can_switch_between_steps() -> None:
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
 def test_affine_body_rigidity_models_are_world_local_when_replicated(
-    rigidity_model: sr.AffineBodyRigidityModel,
+    rigidity_model: s3d.AffineBodyRigidityModel,
 ) -> None:
     world_count = 3
     scene = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
@@ -2605,7 +2605,7 @@ def test_affine_body_rigidity_models_are_world_local_when_replicated(
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
 def test_newton_solver_updates_affine_body_pose_during_capture(
-    rigidity_model: sr.AffineBodyRigidityModel,
+    rigidity_model: s3d.AffineBodyRigidityModel,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_body(
@@ -2680,7 +2680,7 @@ def test_newton_solver_updates_affine_body_pose_during_capture(
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
 def test_affine_body_rigidity_models_restore_frames_during_capture(
-    rigidity_model: sr.AffineBodyRigidityModel,
+    rigidity_model: s3d.AffineBodyRigidityModel,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     builder.add_body(
@@ -2715,7 +2715,7 @@ def test_affine_body_rigidity_models_restore_frames_during_capture(
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("inertia_mode", INERTIA_MODES)
 def test_newton_solver_preserves_free_body_angular_speed(
-    inertia_mode: sr.InertiaMode,
+    inertia_mode: s3d.InertiaMode,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_body(
@@ -2755,8 +2755,8 @@ def test_newton_solver_preserves_asymmetric_free_body_invariants() -> None:
     state_in = model.state()
     state_out = model.state()
     solver = NewtonSolver(model)
-    solver.config.affine_body_rigidity_model = sr.AffineBodyRigidityModel.SIX_SPRINGS
-    solver.config.inertia_mode = sr.InertiaMode.MIDPOINT_CAYLEY
+    solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SIX_SPRINGS
+    solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
 
     def invariants(state: object) -> tuple[np.ndarray, float]:
         pose = state.body_q.numpy()[body]
@@ -2785,7 +2785,7 @@ def test_newton_solver_preserves_asymmetric_free_body_invariants() -> None:
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
 def test_affine_body_rigidity_models_preserve_fixed_body_under_spring_load(
-    rigidity_model: sr.AffineBodyRigidityModel,
+    rigidity_model: s3d.AffineBodyRigidityModel,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     inertia = wp.mat33(2.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 4.0)
@@ -2837,7 +2837,7 @@ def test_affine_body_rigidity_models_preserve_fixed_body_under_spring_load(
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("rigidity_model", AFFINE_BODY_RIGIDITY_MODELS)
 def test_affine_body_rigidity_models_preserve_fixed_body_during_contact(
-    rigidity_model: sr.AffineBodyRigidityModel,
+    rigidity_model: s3d.AffineBodyRigidityModel,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     inertia = wp.mat33(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
@@ -3056,7 +3056,7 @@ def test_sphere_plane_normal_preserves_tangential_velocity(nonlinear_solver):
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
 def test_newton_solver_applies_body_point_spring(
-    nonlinear_solver: sr.NonlinearSolver,
+    nonlinear_solver: s3d.NonlinearSolver,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     inertia = wp.mat33(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)
@@ -3261,7 +3261,7 @@ def test_newton_solver_preserves_distinct_world_distance_anchors() -> None:
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
 @pytest.mark.parametrize("nonlinear_solver", NONLINEAR_SOLVERS)
 def test_newton_solver_applies_world_space_point_line(
-    nonlinear_solver: sr.NonlinearSolver,
+    nonlinear_solver: s3d.NonlinearSolver,
 ) -> None:
     builder = ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
     body = builder.add_body(
@@ -3311,7 +3311,7 @@ def test_newton_solver_shares_replicated_rigid_model_data(world_count: int) -> N
     builder.add_ground_plane()
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
-    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+    solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
     native = solver.synreal_model
 
     assert native.world_count == world_count
@@ -3486,7 +3486,7 @@ def test_newton_solver_shares_replicated_cloth_rigid_model_data(
     builder.replicate(scene, world_count)
     model = builder.finalize(device="cuda:0")
     solver = NewtonSolver(model)
-    solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+    solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
     native = solver.synreal_model
 
     assert native.world_count == world_count

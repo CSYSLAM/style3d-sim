@@ -165,7 +165,7 @@ def prepare_surface_batches(triangles: np.ndarray, groups: dict) -> tuple[np.nda
 
 class Example:
     def __init__(self, viewer, args):
-        import synreal_solver
+        import style3d_sim as s3d
 
         if not wp.get_device().is_cuda:
             raise ValueError("Jelly Drop requires a CUDA device")
@@ -190,7 +190,7 @@ class Example:
         self.reset_requested = False
         self.reset_key_down = False
 
-        builder = synreal_solver.ModelBuilder(
+        builder = s3d.ModelBuilder(
             up_axis=newton.Axis.Z, gravity=wp.vec3(0.0, 0.0, -9.81), affine_body_particle_radius=0.0,
         )
         newton.solvers.SolverStyle3D.register_custom_attributes(builder)
@@ -226,14 +226,14 @@ class Example:
         self.model.soft_contact_kd = args.contact_kd
         self.model.soft_contact_mu = 0.3
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
-        self.solver = synreal_solver.NewtonSolver(self.model)
+        self.solver = s3d.NewtonSolver(self.model)
         cfg = self.solver.config
         cfg.air_density = 0.0
         cfg.wind_velocity = (0.0, 0.0, 0.0)
-        cfg.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
-        cfg.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-        cfg.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-        cfg.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        cfg.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        cfg.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        cfg.nonlinear_solver = s3d.NonlinearSolver.NEWTON
+        cfg.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
         cfg.enable_collision_hessian_non_diagonal = True
         cfg.joint_constraint_primal_iterations = 4
         cfg.nonlinear_iterations = 20

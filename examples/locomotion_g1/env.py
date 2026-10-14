@@ -14,7 +14,7 @@ import torch
 import warp as wp
 from newton import JointTargetMode
 
-import synreal_solver
+import style3d_sim as s3d
 
 from .config import (
     ARM_JOINTS,
@@ -385,18 +385,18 @@ class SynRealG1LocomotionEnv:
         self.model = builder.finalize(device=self.wp_device)
         self.friction_summary = layout["friction_summary"]
         self.model.set_gravity((0.0, 0.0, self.cfg.simulation.gravity))
-        self.solver = synreal_solver.NewtonSolver(
+        self.solver = s3d.NewtonSolver(
             self.model,
             joint_drive_armature=self.cfg.simulation.joint_armature_approximation,
         )
         self.solver.config.joint_constraint_mode = (
-            synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
         )
         self.solver.config.affine_body_rigidity_model = (
-            synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
+            s3d.AffineBodyRigidityModel.SIX_SPRINGS
         )
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
-        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+        self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
+        self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
         self.solver.config.constraint_alpha = self.cfg.simulation.constraint_alpha
         self.solver.config.joint_constraint_primal_iterations = (
             self.cfg.simulation.joint_constraint_primal_iterations

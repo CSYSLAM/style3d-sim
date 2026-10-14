@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Display and verify a two-rod hinge driven by a sinusoidal torque.
@@ -31,7 +31,7 @@ import newton.examples
 import numpy as np
 import warp as wp
 
-import synreal_solver
+import style3d_sim as s3d
 
 
 def _box_inertia(mass: float, length: float, width: float) -> wp.mat33:
@@ -58,7 +58,7 @@ class Example:
         self.force_tolerance = args.force_tolerance
         self.constraint_alpha = args.constraint_alpha
 
-        builder = synreal_solver.ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
+        builder = s3d.ModelBuilder(up_axis=newton.Axis.Z, gravity=0.0)
         length = 1.0
         width = 0.12
         mass = 2.0
@@ -122,7 +122,7 @@ class Example:
         builder.add_articulation([hinge], label="free_two_rod_hinge")
 
         self.model = builder.finalize()
-        self.solver = synreal_solver.NewtonSolver(
+        self.solver = s3d.NewtonSolver(
             self.model,
             joint_damping=0.0,
             joint_drive_armature=0.0,
@@ -131,17 +131,17 @@ class Example:
         self.solver.config.linear_iterations = 50
         self.solver.config.constraint_alpha = self.constraint_alpha
         self.solver.config.joint_constraint_mode = {
-            "penalty": synreal_solver.JointConstraintMode.PENALTY,
+            "penalty": s3d.JointConstraintMode.PENALTY,
             "augmented-lagrangian": (
-                synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
+                s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
             ),
         }[args.joint_mode]
         self.solver.config.affine_body_rigidity_model = {
-            "six-springs": synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS,
+            "six-springs": s3d.AffineBodyRigidityModel.SIX_SPRINGS,
             "abd-orthogonality": (
-                synreal_solver.AffineBodyRigidityModel.ABD_ORTHOGONALITY
+                s3d.AffineBodyRigidityModel.ABD_ORTHOGONALITY
             ),
-            "co-rotated": synreal_solver.AffineBodyRigidityModel.CO_ROTATED,
+            "co-rotated": s3d.AffineBodyRigidityModel.CO_ROTATED,
         }[args.rigidity_model]
 
         self.state_0, self.state_1 = self.model.state(), self.model.state()

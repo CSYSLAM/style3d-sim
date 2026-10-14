@@ -1,10 +1,10 @@
-"""Simulate free Newton particles with Synreal Solver and display them in ViewerGL."""
+"""Simulate free Newton particles with Style3D Sim and display them in ViewerGL."""
 
 import newton
 import warp as wp
 from newton.viewer import ViewerGL
 
-import synreal_solver
+import style3d_sim as s3d
 
 
 PARTICLE_DIMENSIONS = (6, 6, 6)
@@ -14,12 +14,12 @@ PARTICLE_SPACING = 0.18
 FRAME_DT = 1.0 / 60.0
 
 
-def as_span(array: wp.array | None) -> synreal_solver.Span:
+def as_span(array: wp.array | None) -> s3d.Span:
     """Create a non-owning Synreal span for a Warp device array."""
     if array is None:
-        return synreal_solver.Span()
+        return s3d.Span()
 
-    return synreal_solver.Span(ptr=array.ptr, size=array.size)
+    return s3d.Span(ptr=array.ptr, size=array.size)
 
 
 def build_newton_model(device: wp.Device) -> newton.Model:
@@ -47,25 +47,25 @@ def build_newton_model(device: wp.Device) -> newton.Model:
 def build_synreal_model(
     newton_model: newton.Model,
     particle_indices: wp.array,
-) -> synreal_solver.Model:
+) -> s3d.Model:
     """Create a Synreal model that views the Newton model's device arrays."""
-    model = synreal_solver.Model()
+    model = s3d.Model()
     model.particle_count = newton_model.particle_count
     model.particle_indices = as_span(particle_indices)
     model.particle_masses = as_span(newton_model.particle_mass)
     return model
 
 
-def build_synreal_state(newton_state: newton.State) -> synreal_solver.State:
+def build_synreal_state(newton_state: newton.State) -> s3d.State:
     """Create a Synreal state that views a Newton state's device arrays."""
-    state = synreal_solver.State()
+    state = s3d.State()
     state.particle_q = as_span(newton_state.particle_q)
     state.particle_qd = as_span(newton_state.particle_qd)
     return state
 
 
 def main() -> None:
-    """Build the shared models, run Synreal Solver, and display the result."""
+    """Build the shared models, run Style3D Sim, and display the result."""
     if not wp.is_cuda_available():
         raise RuntimeError("This example requires a CUDA-capable device.")
 
@@ -86,7 +86,7 @@ def main() -> None:
     state_0 = build_synreal_state(newton_state_0)
     state_1 = build_synreal_state(newton_state_1)
 
-    solver = synreal_solver.Solver()
+    solver = s3d.Solver()
     solver.initialize(model)
 
     viewer = ViewerGL()

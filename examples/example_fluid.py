@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Native particle-fluid dam break with five freely floating textured rubber ducks.
@@ -24,7 +24,7 @@ import newton.usd
 import numpy as np
 import warp as wp
 
-import synreal_solver
+import style3d_sim as s3d
 
 TANK_LOWER = (0.0, -0.56, 0.0)
 TANK_UPPER = (3.36, 0.56, 2.24)
@@ -212,7 +212,7 @@ class Example:
         self.duck_bodies, self.duck_vertices = add_ducks(builder, positions[:, 2].max() + 0.5 * self.spacing)
         self.model = builder.finalize(device=device)
         boundaries = boundary_samples(self.spacing)
-        synreal_solver.configure_fluid(
+        s3d.configure_fluid(
             self.model,
             np.arange(len(positions), dtype=np.int32),
             smoothing_radius=2.0 * self.spacing,
@@ -221,8 +221,8 @@ class Example:
             boundary_positions=boundaries,
             boundary_volumes=np.full(len(boundaries), self.volume),
         )
-        self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+        self.solver = s3d.NewtonSolver(self.model)
+        self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
         self.solver.config.nonlinear_iterations = args.iterations
         self.solver.config.linear_iterations = args.linear_iterations
         self.solver.config.enable_collision_hessian_non_diagonal = True
@@ -232,7 +232,7 @@ class Example:
         self.fluid_positions = self.state_0.particle_q[: self.fluid_count]
         self.fluid_velocities = self.state_0.particle_qd[: self.fluid_count]
         self.surface = (
-            synreal_solver.ParticleSurface(self.spacing, self.fluid_positions, voxel_size=0.5 * self.spacing)
+            s3d.ParticleSurface(self.spacing, self.fluid_positions, voxel_size=0.5 * self.spacing)
             if args.build_surface
             else None
         )
@@ -295,7 +295,7 @@ class Example:
         self.viewer.begin_frame(self.sim_time)
         self.viewer.log_state(self.state_0)
         if mesh is not None:
-            synreal_solver.log_surface_mesh(
+            s3d.log_surface_mesh(
                 self.viewer, "fluid_surface", mesh, color=(0.025, 0.20, 0.65), roughness=0.18
             )
         else:

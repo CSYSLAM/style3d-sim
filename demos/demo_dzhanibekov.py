@@ -21,7 +21,7 @@ import warp as wp
 import newton
 import newton.examples
 import newton.usd
-import synreal_solver
+import style3d_sim as s3d
 
 class Example:
     def __init__(self, viewer, args):
@@ -35,7 +35,7 @@ class Example:
         self.solver_type = args.solver if hasattr(args, "solver") and args.solver else "vbd"
         self.min_spin_axis_alignment = 1.0
 
-        builder_type = synreal_solver.ModelBuilder if self.solver_type == "synreal" else newton.ModelBuilder
+        builder_type = s3d.ModelBuilder if self.solver_type == "synreal" else newton.ModelBuilder
         builder = builder_type(up_axis=newton.Axis.Z)
 
         initial_orientation = wp.quat_from_axis_angle(wp.vec3(1.0, 0.0, 0.0), wp.pi / 2.0)
@@ -117,11 +117,11 @@ class Example:
             )
             self.contacts = None
         elif self.solver_type == "synreal":
-            self.solver = synreal_solver.NewtonSolver(model=self.model)
-            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.CO_ROTATED
-            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+            self.solver = s3d.NewtonSolver(model=self.model)
+            self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.CO_ROTATED
+            self.solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
+            self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
             self.solver.config.joint_constraint_primal_iterations = 2
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 10

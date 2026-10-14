@@ -16,7 +16,7 @@
 ```python
 import numpy as np
 import newton
-import synreal_solver as sr
+import style3d_sim as s3d
 
 spacing = 0.04
 grid = np.stack(np.meshgrid(np.arange(6), np.arange(6), np.arange(6), indexing="ij"), axis=-1)
@@ -32,7 +32,7 @@ builder.add_particles(
     radius=np.full(count, 0.45 * spacing),
 )
 model = builder.finalize(device="cuda:0")
-sr.configure_fluid(
+s3d.configure_fluid(
     model,
     np.arange(count, dtype=np.int32),
     smoothing_radius=2.0 * spacing,
@@ -40,8 +40,8 @@ sr.configure_fluid(
     bulk_modulus=2.0e5,
     viscosity=0.01,
 )
-solver = sr.NewtonSolver(model)
-solver.config.nonlinear_solver = sr.NonlinearSolver.NEWTON
+solver = s3d.NewtonSolver(model)
+solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
 solver.config.nonlinear_iterations = 4
 solver.config.linear_iterations = 80
 ```
@@ -79,7 +79,7 @@ uv run python examples/example_fluid.py --resolution 16 --viewer null --num-fram
 不要对同一粒子同时配置两种材料：
 
 ```python
-sr.configure_granular(
+s3d.configure_granular(
     model,
     np.arange(count, dtype=np.int32),
     contact_stiffness=2000.0,
@@ -89,7 +89,7 @@ sr.configure_granular(
     yield_strain=0.03,
     break_strain=0.1,
 )
-solver = sr.NewtonSolver(model)
+solver = s3d.NewtonSolver(model)
 ```
 
 | 参数 | 默认值 | 作用 |
@@ -137,7 +137,7 @@ uv run python examples/example_granular_beaf.py --no-cut
 
 ```python
 positions = state.particle_q[:count]
-surface = sr.ParticleSurface(spacing, positions, voxel_size=spacing / 2.0)
+surface = s3d.ParticleSurface(spacing, positions, voxel_size=spacing / 2.0)
 mesh = surface.rebuild(positions)
 ```
 

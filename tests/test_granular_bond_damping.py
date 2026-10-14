@@ -6,12 +6,12 @@ import pytest
 from test_granular import scene, set_positions
 
 wp = pytest.importorskip("warp")
-import synreal_solver as sr  # noqa: E402
+import style3d_sim as s3d  # noqa: E402
 
 pytestmark = pytest.mark.skipif(not wp.is_cuda_available(), reason="Native granular materials require CUDA")
 
 
-@pytest.mark.parametrize("method", [sr.NonlinearSolver.NEWTON, sr.NonlinearSolver.PD_NEWTON])
+@pytest.mark.parametrize("method", [s3d.NonlinearSolver.NEWTON, s3d.NonlinearSolver.PD_NEWTON])
 @pytest.mark.parametrize("contact_created", [False, True])
 def test_bond_damping_matches_implicit_kelvin_voigt_response_and_conserves_momentum(method, contact_created):
     points = np.array([[0.0, 0.0, 0.0], [0.2, 0.0, 0.0]], dtype=np.float32)
@@ -143,8 +143,8 @@ def test_bond_damping_does_not_drag_unbonded_grains():
 def test_bond_damping_rejects_invalid_values_in_python_and_native_model(damping):
     model, _, _, _ = scene([[0, 0, 0]])
     with pytest.raises(ValueError, match="bond_damping"):
-        sr.configure_granular(model, [0], bond_damping=damping)
+        s3d.configure_granular(model, [0], bond_damping=damping)
     # Bypass the authoring helper so native validation is exercised independently.
     model.synreal_granular_bond_damping = damping
     with pytest.raises(ValueError, match="granular parameters"):
-        sr.NewtonSolver(model)
+        s3d.NewtonSolver(model)

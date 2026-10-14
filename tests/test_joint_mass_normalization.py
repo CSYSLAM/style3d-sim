@@ -8,7 +8,7 @@ import pytest
 newton = pytest.importorskip("newton")
 pytest.importorskip("warp")
 
-from synreal_solver.newton_solver import NewtonSolver  # noqa: E402
+from style3d_sim.newton_solver import NewtonSolver  # noqa: E402
 
 
 def _normalize(mass):

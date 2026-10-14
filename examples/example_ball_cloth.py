@@ -10,7 +10,7 @@ import warp as wp
 
 import newton
 import newton.examples
-import synreal_solver
+import style3d_sim as s3d
 from newton.solvers import style3d
 
 if __package__:
@@ -155,7 +155,7 @@ class Example:
             initial_ball_positions[self.ball_tetrahedra]
         )
 
-        self.solver = synreal_solver.NewtonSolver(self.model)
+        self.solver = s3d.NewtonSolver(self.model)
         self.solver.config.nonlinear_iterations = 20
         self.solver.config.linear_iterations = 10
         self.solver.config.enable_self_collision = True

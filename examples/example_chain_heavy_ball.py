@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 ###########################################################################
@@ -19,7 +19,7 @@ import newton.examples
 import numpy as np
 import warp as wp
 
-import synreal_solver
+import style3d_sim as s3d
 
 _DEFAULT_CHAIN_LENGTH = 32.583153
 _DEFAULT_LINK_COUNT = 163
@@ -140,7 +140,7 @@ class Example:
         )
         nodes = nodes + self.upper_endpoint
 
-        builder = synreal_solver.ModelBuilder(
+        builder = s3d.ModelBuilder(
             up_axis=newton.Axis.Z,
             gravity=-9.81,
             affine_body_particle_radius=0.0,
@@ -271,11 +271,11 @@ class Example:
         builder.add_ground_plane()
 
         self.model = builder.finalize()
-        self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
-        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-        self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        self.solver = s3d.NewtonSolver(self.model)
+        self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        self.solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
+        self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
         self.solver.config.joint_constraint_primal_iterations = 2
         self.solver.config.nonlinear_iterations = 30
         self.solver.config.linear_iterations = 20

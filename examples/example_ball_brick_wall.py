@@ -89,12 +89,12 @@ class Example:
 
         self.model = builder.finalize()
         if args.solver == "synreal":
-            import synreal_solver
+            import style3d_sim as s3d
 
-            self.solver = synreal_solver.NewtonSolver(self.model)
-            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
-            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
-            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+            self.solver = s3d.NewtonSolver(self.model)
+            self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+            self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
+            self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
             self.solver.config.nonlinear_iterations = 5
             self.solver.config.linear_iterations = 50
         else:

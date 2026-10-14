@@ -11,9 +11,9 @@ Keep the same state, control, pipeline, and stepping loop afterwards:
 ```python
 import newton
 import warp as wp
-import synreal_solver as sr
+import style3d_sim as s3d
 
-builder = sr.ModelBuilder(up_axis=newton.Axis.Z)
+builder = s3d.ModelBuilder(up_axis=newton.Axis.Z)
 builder.add_ground_plane()
 body = builder.add_body(
     xform=wp.transform(wp.vec3(0.0, 0.0, 1.0), wp.quat_identity()),
@@ -21,7 +21,7 @@ body = builder.add_body(
 )
 builder.add_shape_box(body, hx=0.1, hy=0.1, hz=0.1)
 model = builder.finalize(device="cuda:0")
-solver = sr.NewtonSolver(model)
+solver = s3d.NewtonSolver(model)
 ```
 
 `hx/hy/hz` are half-extents, so this box has 0.2 m sides.
@@ -52,7 +52,7 @@ Updating contacts each substep reduces the risk of missed collisions during fast
 | Pipeline contact capacity | Maximum amount of contact data the buffers can hold |
 | `solver.config.enable_self_collision` | Deformable self-collision path; shape collisions have a separate path |
 
-`sr.ModelBuilder` uses different contact presets from the regular Newton builder.
+`s3d.ModelBuilder` uses different contact presets from the regular Newton builder.
 For unstable contacts, first reduce `dt` and remove initial penetration, then adjust stiffness, damping, and iteration budgets.
 Higher stiffness can make the linear system harder to converge.
 

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Drop a block of self-colliding particles onto a four-corner cloth.
@@ -15,7 +15,7 @@ import numpy as np
 import warp as wp
 from newton.solvers import style3d
 
-import synreal_solver
+import style3d_sim as s3d
 
 
 CLOTH_HEIGHT = 1.25
@@ -154,7 +154,7 @@ class Example:
             initial_positions[self.cloth_center_index, 2]
         )
 
-        self.solver = synreal_solver.NewtonSolver(self.model)
+        self.solver = s3d.NewtonSolver(self.model)
         self.solver.config.nonlinear_iterations = 20
         self.solver.config.linear_iterations = 12
         self.solver.config.enable_self_collision = True

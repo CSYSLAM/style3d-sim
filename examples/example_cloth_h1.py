@@ -185,14 +185,14 @@ class Example:
         # Cloth solver
         # ------------------------------------------------------------------
         if self.solver_type == "synreal":
-            import synreal_solver
+            import style3d_sim as s3d
 
             # SynReal accepts prescribed contacts as world-space static targets. Keep the original
             # shape-to-link mapping for IK, rendering, and collision generation, and share cloth arrays.
             self.cloth_model = copy.copy(self.model)
             self.cloth_model.shape_body = wp.full(self.model.shape_count, -1, dtype=wp.int32, device=self.model.device)
-            self.cloth_solver = synreal_solver.NewtonSolver(self.cloth_model)
-            self.cloth_solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
+            self.cloth_solver = s3d.NewtonSolver(self.cloth_model)
+            self.cloth_solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
             self.cloth_solver.config.nonlinear_iterations = 20
             self.cloth_solver.config.linear_iterations = 5
             self.cloth_solver.config.enable_self_collision = True

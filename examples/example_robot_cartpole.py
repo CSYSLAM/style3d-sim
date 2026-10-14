@@ -16,7 +16,7 @@ import warp as wp
 
 import newton
 import newton.examples
-import synreal_solver
+import style3d_sim as s3d
 
 
 class Example:
@@ -62,7 +62,7 @@ class Example:
         if self.solver_type == "mujoco":
             self.solver = newton.solvers.SolverMuJoCo(self.model)
         else:
-            self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver = s3d.NewtonSolver(self.model)
 
         self.state_0 = self.model.state()
         self.state_1 = self.model.state()

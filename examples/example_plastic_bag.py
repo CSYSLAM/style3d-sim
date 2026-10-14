@@ -1,4 +1,4 @@
-﻿"""Simulate the supplied plastic bag as an indexed Style3D cloth mesh.
+"""Simulate the supplied plastic bag as an indexed Style3D cloth mesh.
 
 Run from the repository root:
     uv run python examples/example_plastic_bag.py
@@ -13,7 +13,7 @@ from pxr import Usd, UsdGeom
 import newton
 import newton.examples
 import newton.usd
-import synreal_solver
+import style3d_sim as s3d
 import warp as wp
 from newton import ParticleFlags
 from newton.solvers import style3d
@@ -111,7 +111,7 @@ class Example:
         self.model.soft_contact_mu = 0.25
         self.model.set_gravity((0.0, 0.0, -9.81))
         if args.solver == "synreal":
-            self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver = s3d.NewtonSolver(self.model)
             self.solver.config.nonlinear_iterations = args.iterations
             self.solver.config.linear_iterations = args.linear_iterations
             self.solver.config.enable_self_collision = True

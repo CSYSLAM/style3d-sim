@@ -7,14 +7,14 @@ and the order for adapting an existing Newton project.
 
 | Object | When to create it | Owned data |
 | --- | --- | --- |
-| `sr.ModelBuilder` or `newton.ModelBuilder` | While defining the scene | Scene definitions before GPU allocation |
+| `s3d.ModelBuilder` or `newton.ModelBuilder` | While defining the scene | Scene definitions before GPU allocation |
 | Newton `model` | After `builder.finalize()` | Masses, topology, shapes, joints, and material arrays |
-| `sr.NewtonSolver` | After final model configuration | Native model views, solver caches, constraints, material history |
+| `s3d.NewtonSolver` | After final model configuration | Native model views, solver caches, constraints, material history |
 | `state` / `following` | After the solver | Mutable positions, velocities, and external forces |
 | `control` | After the solver | Joint position/velocity targets and generalized forces |
 | `CollisionPipeline` / `contacts` | After the solver | Collision detection and current contact data |
 
-`sr.ModelBuilder` extends Newton's builder with rigid body proxies and extra constraints.
+`s3d.ModelBuilder` extends Newton's builder with rigid body proxies and extra constraints.
 A regular `newton.ModelBuilder` also works, but solver initialization may append or reorder rigid body proxy particles.
 Create states, contacts, viewers, and buffers depending on particle counts **after** the solver.
 
@@ -29,7 +29,7 @@ Create states, contacts, viewers, and buffers depending on particle counts **aft
 7. Start stepping. For CUDA Graphs, follow the [performance guide](configuration.en.md#cuda-graph).
 
 Adding objects to the builder after `finalize()` does not update an existing model.
-`sr.ModelBuilder` can only be finalized once; create another builder for another scene.
+`s3d.ModelBuilder` can only be finalized once; create another builder for another scene.
 
 ## Substep Order
 
@@ -110,7 +110,7 @@ Recreate the solver for a full material reset.
 
 ## Migrate an Existing Newton Project
 
-Replace the solver with `sr.NewtonSolver(model)` and retain Newton's state, control, and collision flow.
+Replace the solver with `s3d.NewtonSolver(model)` and retain Newton's state, control, and collision flow.
 Ensure the model is on CUDA. Convert generic triangle elasticity to Style3D as explained in [Cloth](deformables.en.md).
 Set SynReal iteration budgets through `solver.config`; constructor parameters from other solvers do not transfer directly.
 

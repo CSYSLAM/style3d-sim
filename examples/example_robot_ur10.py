@@ -18,7 +18,7 @@ import warp as wp
 import newton
 import newton.examples
 import newton.utils
-import synreal_solver
+import style3d_sim as s3d
 from newton import JointTargetMode
 from newton.selection import ArticulationView
 
@@ -111,14 +111,14 @@ class Example:
                 disable_contacts=True,
             )
         else:
-            self.solver = synreal_solver.NewtonSolver(
+            self.solver = s3d.NewtonSolver(
                 self.model,
                 joint_drive_armature=0.1,
             )
-            self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SIX_SPRINGS
-            self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-            self.solver.config.nonlinear_solver = synreal_solver.NonlinearSolver.NEWTON
-            self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+            self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SIX_SPRINGS
+            self.solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+            self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
+            self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
             self.solver.config.joint_constraint_primal_iterations = 2
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 5

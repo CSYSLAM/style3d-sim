@@ -19,7 +19,7 @@ import warp as wp
 
 import newton
 import newton.examples
-import synreal_solver
+import style3d_sim as s3d
 
 
 class Example:
@@ -38,7 +38,7 @@ class Example:
 
         self.viewer = viewer
 
-        builder_type = synreal_solver.ModelBuilder if self.solver_type == "synreal" else newton.ModelBuilder
+        builder_type = s3d.ModelBuilder if self.solver_type == "synreal" else newton.ModelBuilder
         builder = builder_type(up_axis=newton.Axis.Z)
 
         quadruped = builder_type()
@@ -98,7 +98,7 @@ class Example:
                 iterations=2,
             )
         elif self.solver_type == "synreal":
-            self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver = s3d.NewtonSolver(self.model)
             self.solver.config.nonlinear_iterations = 20
             self.solver.config.linear_iterations = 2
         else:

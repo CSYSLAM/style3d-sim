@@ -1,5 +1,5 @@
 [project]
-name = "synreal-solver"
+name = "style3d-sim"
 version = "0.1.0"
 description = "CUDA implicit solver for particles, cloth, and affine rigid bodies"
 readme = "README.md"
@@ -68,9 +68,9 @@ cache-dir = ".uvcache"
 
 [tool.scikit-build]
 # Package the public Python sources alongside the compiled `_core` extension.
-wheel.packages = ["src/synreal_solver"]
+wheel.packages = ["src/style3d_sim"]
 
 [tool.poe.tasks]
 # Generate `_core.pyi` from the docstrings and signatures of the built module.
 # Run `uv run poe stubs` after building or installing the `_core` extension.
-stubs = "pybind11-stubgen synreal_solver._core -o src"
+stubs = "pybind11-stubgen style3d_sim._core -o src"

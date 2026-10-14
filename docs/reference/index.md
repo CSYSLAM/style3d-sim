@@ -83,12 +83,12 @@ uv run python docs/samples/native_particles.py
 在创建 solver 之前注册应用自己的回调：
 
 ```python
-import synreal_solver as sr
+import style3d_sim as s3d
 
 def log_message(file_name, function_name, line, level, message):
     print(f"[{level}] {function_name}:{line} {message}")
 
-sr.set_log_callback(log_message)
+s3d.set_log_callback(log_message)
 ```
 
 回调会收到文件名、函数名、行号、级别和消息。

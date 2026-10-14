@@ -1,10 +1,10 @@
 import pytest
 
-import synreal_solver as sr
+import style3d_sim as s3d
 
 
 def test_span_exposes_pointer_and_element_count() -> None:
-    span = sr.Span(ptr=0x1234, size=7)
+    span = s3d.Span(ptr=0x1234, size=7)
 
     assert span.ptr == 0x1234
     assert span.size == 7
@@ -14,11 +14,11 @@ def test_span_exposes_pointer_and_element_count() -> None:
 
 def test_span_rejects_nonempty_null_pointer() -> None:
     with pytest.raises(ValueError, match="nonzero device address"):
-        sr.Span(ptr=0, size=1)
+        s3d.Span(ptr=0, size=1)
 
 
 def test_model_count_fields() -> None:
-    model = sr.Model()
+    model = s3d.Model()
     model.particle_count = 2
     model.particle_state_count = 20
     model.spring_count = 3
@@ -53,7 +53,7 @@ def test_model_count_fields() -> None:
 
 
 def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
-    model = sr.Model()
+    model = s3d.Model()
     fields = [
         "particle_indices",
         "particle_masses",
@@ -116,7 +116,7 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
     # These deliberately invalid addresses are safe because the binding must only
     # pass device pointers through, never dereference them on the host.
     for index, field in enumerate(fields):
-        expected = sr.Span(ptr=0x1000 + index * 0x100, size=index + 1)
+        expected = s3d.Span(ptr=0x1000 + index * 0x100, size=index + 1)
         setattr(model, field, expected)
         actual = getattr(model, field)
 
@@ -125,13 +125,13 @@ def test_model_fields_round_trip_raw_spans_without_reading_memory() -> None:
 
 
 def test_config_exposes_runtime_options() -> None:
-    config = sr.Config()
+    config = s3d.Config()
 
     nonlinear_solvers = (
-        sr.NonlinearSolver.NEWTON,
-        sr.NonlinearSolver.PD_NEWTON,
+        s3d.NonlinearSolver.NEWTON,
+        s3d.NonlinearSolver.PD_NEWTON,
     )
-    assert config.nonlinear_solver == sr.NonlinearSolver.PD_NEWTON
+    assert config.nonlinear_solver == s3d.NonlinearSolver.PD_NEWTON
     assert tuple(solver.value for solver in nonlinear_solvers) == (0, 1)
     for solver in nonlinear_solvers:
         config.nonlinear_solver = solver
@@ -170,12 +170,12 @@ def test_config_exposes_runtime_options() -> None:
         assert getattr(config, name) == pytest.approx(expected)
 
     rigidity_models = (
-        sr.AffineBodyRigidityModel.CO_ROTATED,
-        sr.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
-        sr.AffineBodyRigidityModel.SIX_SPRINGS,
-        sr.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN,
+        s3d.AffineBodyRigidityModel.CO_ROTATED,
+        s3d.AffineBodyRigidityModel.ABD_ORTHOGONALITY,
+        s3d.AffineBodyRigidityModel.SIX_SPRINGS,
+        s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN,
     )
-    assert config.affine_body_rigidity_model == sr.AffineBodyRigidityModel.SIX_SPRINGS
+    assert config.affine_body_rigidity_model == s3d.AffineBodyRigidityModel.SIX_SPRINGS
     assert {model.name for model in rigidity_models} == {
         "CO_ROTATED",
         "ABD_ORTHOGONALITY",
@@ -192,13 +192,13 @@ def test_config_exposes_runtime_options() -> None:
     assert config.affine_body_rigidity_primal_iterations == 6
 
     inertia_modes = (
-        sr.InertiaMode.EXPLICIT_EULER,
-        sr.InertiaMode.IMPLICIT_EULER,
-        sr.InertiaMode.LIE_GROUP_MIDPOINT,
-        sr.InertiaMode.MIDPOINT_CAYLEY,
-        sr.InertiaMode.NONE,
+        s3d.InertiaMode.EXPLICIT_EULER,
+        s3d.InertiaMode.IMPLICIT_EULER,
+        s3d.InertiaMode.LIE_GROUP_MIDPOINT,
+        s3d.InertiaMode.MIDPOINT_CAYLEY,
+        s3d.InertiaMode.NONE,
     )
-    assert config.inertia_mode == sr.InertiaMode.MIDPOINT_CAYLEY
+    assert config.inertia_mode == s3d.InertiaMode.MIDPOINT_CAYLEY
     assert {mode.name for mode in inertia_modes} == {
         "EXPLICIT_EULER",
         "IMPLICIT_EULER",
@@ -219,10 +219,10 @@ def test_config_exposes_runtime_options() -> None:
         assert config.inertia_mode == mode
 
     joint_constraint_modes = (
-        sr.JointConstraintMode.PENALTY,
-        sr.JointConstraintMode.AUGMENTED_LAGRANGIAN,
+        s3d.JointConstraintMode.PENALTY,
+        s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN,
     )
-    assert config.joint_constraint_mode == sr.JointConstraintMode.PENALTY
+    assert config.joint_constraint_mode == s3d.JointConstraintMode.PENALTY
     assert {mode.name for mode in joint_constraint_modes} == {
         "PENALTY",
         "AUGMENTED_LAGRANGIAN",
@@ -238,7 +238,7 @@ def test_config_exposes_runtime_options() -> None:
 
 
 def test_model_fields_require_span() -> None:
-    model = sr.Model()
+    model = s3d.Model()
 
     with pytest.raises(TypeError):
         model.particle_masses = [1.0, 2.0]
@@ -254,18 +254,18 @@ def test_model_fields_require_span() -> None:
 def test_solver_rejects_state_count_without_local_count(
     field: str, message: str
 ) -> None:
-    model = sr.Model()
+    model = s3d.Model()
     setattr(model, field, 1)
 
     with pytest.raises(ValueError, match=message):
-        sr.Solver().initialize(model)
+        s3d.Solver().initialize(model)
 
 
 def test_solver_rejects_excess_replicated_shape_count() -> None:
-    model = sr.Model()
+    model = s3d.Model()
     model.shape_count = 1
     model.shape_replicated_count = 2
-    storage = sr.Span(ptr=0x1000, size=1)
+    storage = s3d.Span(ptr=0x1000, size=1)
     model.shape_bodies = storage
     model.shape_types = storage
     model.shape_transforms = storage
@@ -277,12 +277,12 @@ def test_solver_rejects_excess_replicated_shape_count() -> None:
     model.shape_margins = storage
 
     with pytest.raises(ValueError, match="shape_replicated_count exceeds shape_count"):
-        sr.Solver().initialize(model)
+        s3d.Solver().initialize(model)
 
 
 def test_control_tetrahedron_activations_round_trip_raw_span() -> None:
-    control = sr.Control()
-    expected = sr.Span(ptr=0xBEEF, size=3)
+    control = s3d.Control()
+    expected = s3d.Span(ptr=0xBEEF, size=3)
 
     control.tetrahedron_activations = expected
 

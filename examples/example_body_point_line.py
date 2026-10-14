@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 ###########################################################################
@@ -17,7 +17,7 @@ import warp as wp
 
 import newton
 import newton.examples
-import synreal_solver
+import style3d_sim as s3d
 
 
 _LINE_HALF_LENGTH = 1.5
@@ -68,7 +68,7 @@ class Example:
         self.sim_dt = self.frame_dt / self.sim_substeps
         self.viewer = viewer
 
-        builder = synreal_solver.ModelBuilder(
+        builder = s3d.ModelBuilder(
             up_axis=newton.Axis.Z,
             gravity=0.0,
             affine_body_particle_radius=0.0,
@@ -147,7 +147,7 @@ class Example:
             )
 
         self.model = builder.finalize()
-        self.solver = synreal_solver.NewtonSolver(self.model)
+        self.solver = s3d.NewtonSolver(self.model)
         self.solver.config.nonlinear_iterations = 10
         self.solver.config.linear_iterations = 5
 

@@ -87,7 +87,7 @@ git submodule update --init synreal-solver-bin
 The submodule's CMake configuration determines the binary location. Its current layout is:
 
 ```text
-synreal-solver-bin/<system>/<config>/synreal_solver/_core<EXT_SUFFIX>
+synreal-solver-bin/<system>/<config>/style3d_sim/_core<EXT_SUFFIX>
 ```
 
 For example, Windows Release with CPython 3.12 commonly uses `_core.cp312-win_amd64.pyd`.
@@ -121,7 +121,7 @@ git submodule update --init --recursive synreal-solver
     ```
 
 `Python_EXECUTABLE` selects the `.venv` Python ABI; the development dependencies installed by `uv sync` provide pybind11.
-`--prefix .../src` installs the extension into `src/synreal_solver/`, alongside the Python package.
+`--prefix .../src` installs the extension into `src/style3d_sim/`, alongside the Python package.
 Keep build artifacts out of Git.
 
 !!! tip "Use separate CMake caches"
@@ -131,12 +131,12 @@ Keep build artifacts out of Git.
 ## 5. Verify the Loaded Build
 
 ```bash
-uv run python -c "import synreal_solver as sr; print(sr.__file__)"
-uv run python -c "import synreal_solver._core as core; print(core.__file__)"
+uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
+uv run python -c "import style3d_sim._core as core; print(core.__file__)"
 uv run python -c "import warp as wp; wp.init(); print(wp.is_cuda_available())"
 ```
 
-The first two paths should point into this checkout's `src/synreal_solver/`; the CUDA check should print `True`.
+The first two paths should point into this checkout's `src/style3d_sim/`; the CUDA check should print `True`.
 Importing the library does not authenticate the session. Continue with [Authentication](authentication.en.md).
 
 ## 6. Update after Source Changes

@@ -83,7 +83,7 @@ git submodule update --init synreal-solver-bin
 预编译安装路径由子模块 CMake 决定，当前为：
 
 ```text
-synreal-solver-bin/<system>/<config>/synreal_solver/_core<EXT_SUFFIX>
+synreal-solver-bin/<system>/<config>/style3d_sim/_core<EXT_SUFFIX>
 ```
 
 例如 Windows、Release、CPython 3.12 的扩展通常为 `_core.cp312-win_amd64.pyd`。
@@ -117,7 +117,7 @@ git submodule update --init --recursive synreal-solver
     ```
 
 `Python_EXECUTABLE` 保证扩展使用 `.venv` 的 Python ABI；`uv sync` 的 dev 依赖提供 pybind11。
-`--prefix .../src` 使 CMake 将扩展装到 `src/synreal_solver/`，与 Python 包文件放在一起。
+`--prefix .../src` 使 CMake 将扩展装到 `src/style3d_sim/`，与 Python 包文件放在一起。
 这些构建产物不应提交到 Git。
 
 !!! tip "不要复用不同模式的 CMake 缓存"
@@ -127,12 +127,12 @@ git submodule update --init --recursive synreal-solver
 ## 5. 验证加载的是本次构建
 
 ```bash
-uv run python -c "import synreal_solver as sr; print(sr.__file__)"
-uv run python -c "import synreal_solver._core as core; print(core.__file__)"
+uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
+uv run python -c "import style3d_sim._core as core; print(core.__file__)"
 uv run python -c "import warp as wp; wp.init(); print(wp.is_cuda_available())"
 ```
 
-前两个路径应指向当前仓库的 `src/synreal_solver/`，CUDA 检查应打印 `True`。
+前两个路径应指向当前仓库的 `src/style3d_sim/`，CUDA 检查应打印 `True`。
 仅能导入库不代表完成账号认证，下一步是 [登录](authentication.md)。
 
 ## 6. 修改源码后的更新

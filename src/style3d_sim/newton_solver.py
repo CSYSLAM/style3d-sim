@@ -28,20 +28,19 @@ import numpy as np
 import newton as _newton
 
 
-def _ensure_synreal_login() -> None:
+def _ensure_style3d_login() -> None:
     """Authenticate the native solver using environment variables or terminal input."""
     if is_logged_in():
         return
 
-    account = os.getenv("SYNREAL_ID")
-    # Keep the requested variable name and accept the likely corrected spelling too.
-    password = os.getenv("SYNRAL_PASSWORD") or os.getenv("SYNREAL_PASSWORD")
+    account = os.getenv("STYLE3D_ACCOUNT")
+    password = os.getenv("STYLE3D_PASSWORD")
     if not account or not password:
-        account = input("SynReal account: ").strip()
+        account = input("Style3D Sim account: ").strip()
         password = getpass.getpass("Password: ")
 
     if not login(account, password, False):
-        raise RuntimeError("SynReal login failed")
+        raise RuntimeError("Style3D Sim login failed")
 
 
 def __getattr__(name: str) -> Any:
@@ -407,7 +406,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 raise ValueError(f"{name} must be finite and {qualifier}.")
 
         super().__init__(model)
-        _ensure_synreal_login()
+        _ensure_style3d_login()
         self._wp = import_module("warp")
         self._joint_drive_effort: Any | None = None
         # Feedback records the same pre-integration actuator evaluation as MuJoCo.
@@ -573,8 +572,8 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         self._particle_indices: Any | None = None
         self._synreal_model = Model()
-        self._synreal_solver = Solver()
-        self._initialize_synreal_solver()
+        self._native_solver = Solver()
+        self._initialize_native_solver()
         # Keep the Python angle branch in lockstep with native joint-drive
         # state even while public effort telemetry is disabled.  This makes
         # late enable/re-enable observe the same multi-turn coordinate and
@@ -999,14 +998,14 @@ class NewtonSolver(_newton.solvers.SolverBase):
         return self._synreal_model
 
     @property
-    def synreal_solver(self) -> Solver:
+    def native_solver(self) -> Solver:
         """Return the wrapped native solver."""
-        return self._synreal_solver
+        return self._native_solver
 
     @property
     def config(self) -> Config:
         """Return the mutable native configuration used by subsequent steps."""
-        return self._synreal_solver.config
+        return self._native_solver.config
 
     def enable_joint_drive_feedback(self) -> Any:
         """Enable recording of the pre-integration motor effort for each step.
@@ -2407,7 +2406,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
 
         if self.model.body_count and self._affine_body_ids is None:
             raise NotImplementedError(
-                "Newton rigid bodies require synreal_solver.ModelBuilder so affine particle proxies are available."
+                "Newton rigid bodies require style3d_sim.ModelBuilder so affine particle proxies are available."
             )
 
         if self._affine_body_ids is not None:
@@ -2680,7 +2679,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
             return None
         return self._wp.array(infinite_planes.astype(np.int32), dtype=self._wp.int32, device=self.device)
 
-    def _initialize_synreal_solver(self) -> None:
+    def _initialize_native_solver(self) -> None:
         """Rebuild native model views and initialize the wrapped solver."""
         state_particle_count = int(self.model.particle_count)
         particle_count = self._shared_counts.get("particle_count", state_particle_count)
@@ -3222,7 +3221,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         # Native initialization copies Style3D coefficients to the host while
         # building the fixed PD matrix, so all preceding Warp work must finish.
         self._wp.synchronize_device(self.device)
-        self._synreal_solver.initialize(self._synreal_model)
+        self._native_solver.initialize(self._synreal_model)
 
     def _as_synreal_state(self, state: Any) -> State:
         """Wrap a Newton state without taking ownership of its arrays."""
@@ -3292,7 +3291,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._as_span(state.particle_qd, self.model.particle_count, expected_dtype=self._wp.vec3)
 
         stream = self._wp.get_stream(self.device)
-        self._synreal_solver.reset_joint_drive_state(stream)
+        self._native_solver.reset_joint_drive_state(stream)
         self._joint_drive_feedback_state = None
         self._joint_drive_feedback_previous_state = None
         self._joint_drive_feedback_dt = None
@@ -3613,7 +3612,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 device=self.device,
                 stream=stream,
             )
-        self._synreal_solver.step(
+        self._native_solver.step(
             native_state_in,
             native_state_out,
             native_control,
@@ -3677,7 +3676,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         )
         self._validate_model()
         self._configure_shared_world_layout()
-        self._initialize_synreal_solver()
+        self._initialize_native_solver()
         self._joint_drive_feedback_state = None
         self._joint_drive_feedback_previous_state = None
         self._joint_drive_feedback_dt = None

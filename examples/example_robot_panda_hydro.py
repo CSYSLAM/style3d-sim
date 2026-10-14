@@ -25,7 +25,7 @@ import newton.examples
 import newton.ik as ik
 import newton.usd
 import newton.utils
-import synreal_solver
+import style3d_sim as s3d
 from newton.geometry import HydroelasticSDF
 
 
@@ -337,7 +337,7 @@ class Example:
                 impratio=1000.0,
             )
         else:
-            self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver = s3d.NewtonSolver(self.model)
 
         # num_hydroelastic = (self.model.shape_flags.numpy() & newton.ShapeFlags.HYDROELASTIC).astype(bool).sum()
         # print(f"Number of hydroelastic shapes: {num_hydroelastic} / {self.model.shape_count}")

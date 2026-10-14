@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Vectorized Unitree G1 jumping environment on a deformable trampoline."""
@@ -18,7 +18,7 @@ import newton
 import newton.examples
 import newton.utils
 import newton.viewer
-import synreal_solver
+import style3d_sim as s3d
 from newton import JointTargetMode, ParticleFlags
 from newton.solvers import style3d
 
@@ -192,7 +192,7 @@ class TrampolineEnv:
         self.model.soft_contact_mu = soft_contact_friction
 
         newton.eval_fk(self.model, self.model.joint_q, self.model.joint_qd, self.model)
-        self.solver = synreal_solver.NewtonSolver(self.model)
+        self.solver = s3d.NewtonSolver(self.model)
         self.solver.config.constraint_alpha = 200.0
         self.solver.config.nonlinear_iterations = 15
         self.solver.config.linear_iterations = 6

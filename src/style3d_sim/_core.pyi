@@ -1,6 +1,6 @@
 """
 
-Native bindings for Synreal Solver.
+Native bindings for Style3D Sim.
 
 Array fields are represented by non-owning Span objects that refer to CUDA
 device memory. The caller is responsible for keeping every referenced device

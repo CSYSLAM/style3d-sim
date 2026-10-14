@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2026 The Newton Developers
 # SPDX-License-Identifier: Apache-2.0
 
-"""Drop a volumetric elastic ball onto the ground with Synreal Solver."""
+"""Drop a volumetric elastic ball onto the ground with Style3D Sim."""
 
 import math
 
@@ -10,7 +10,7 @@ import warp as wp
 
 import newton
 import newton.examples
-import synreal_solver
+import style3d_sim as s3d
 
 
 BALL_RADIUS = 0.5
@@ -180,7 +180,7 @@ class Example:
         self.model.soft_contact_kf = 1.0e3
         self.model.soft_contact_mu = CONTACT_FRICTION
 
-        self.solver = synreal_solver.NewtonSolver(self.model)
+        self.solver = s3d.NewtonSolver(self.model)
         self.solver.config.nonlinear_iterations = 15
         self.solver.config.linear_iterations = 8
 

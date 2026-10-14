@@ -432,7 +432,7 @@ def main():
                         triangles=example.model.tri_indices.numpy(),
                         time_seconds=np.arange(args.num_frames + 1, dtype=np.float64) / archive.fps)
     sources = [Path(demo.__file__), Path(__file__), demo.APPLE_ASSET]
-    sources.extend(demo.REPO_ROOT / "src/synreal_solver" / filename
+    sources.extend(demo.REPO_ROOT / "src/style3d_sim" / filename
                    for filename in ("newton_solver.py", "joint_drive_effort.py"))
     for filename in ("piper_motion.py", "bag_pattern.py", "bag_bending.py", "film_uv.py", "motor_telemetry.py"):
         dependency = DIRECTORY / filename

@@ -6,7 +6,7 @@ import pytest
 pytest.importorskip("newton")
 wp = pytest.importorskip("warp")
 
-from synreal_solver import ParticleSurface  # noqa: E402
+from style3d_sim import ParticleSurface  # noqa: E402
 from examples.example_granular_beaf import BeefSurfaceMaterial, Example, particle_layout  # noqa: E402
 
 

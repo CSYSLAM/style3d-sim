@@ -702,12 +702,12 @@ class ModelBuilder(_newton.ModelBuilder):
         """Add affine-body proxies and finalize one Newton model.
 
         The returned model carries explicit body-id and particle-index arrays
-        consumed by :class:`synreal_solver.NewtonSolver`. This builder is one-shot because
+        consumed by :class:`style3d_sim.NewtonSolver`. This builder is one-shot because
         appending bodies after proxy indices are fixed would invalidate them.
         """
         if self._synreal_model_finalized:
             raise RuntimeError(
-                "synreal_solver.ModelBuilder can only be finalized once; create a new builder for another model."
+                "style3d_sim.ModelBuilder can only be finalized once; create a new builder for another model."
             )
 
         self._add_affine_body_proxies()

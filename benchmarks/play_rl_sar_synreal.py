@@ -4,12 +4,10 @@
 from __future__ import annotations
 
 import argparse
-import getpass
 import hashlib
 import json
 import math
 import os
-import sys
 import time
 import urllib.request
 from dataclasses import dataclass
@@ -23,7 +21,7 @@ import warp as wp
 from newton import JointTargetMode
 from newton._src.utils.download_assets import MENAGERIE_REF, MENAGERIE_URL, download_git_folder
 
-import synreal_solver
+import style3d_sim as s3d
 
 
 DEVICE = "cuda:0"
@@ -336,7 +334,7 @@ def _sha256(path: Path) -> str:
 
 
 def ensure_checkpoint(profile: PolicyProfile, override: Path | None = None) -> Path:
-    path = override or Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "synreal_solver" / "rl_sar" / f"{profile.name}.pt"
+    path = override or Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "style3d_sim" / "rl_sar" / f"{profile.name}.pt"
     path = path.expanduser().resolve()
     if path.exists() and _sha256(path) == profile.checkpoint_sha256:
         return path
@@ -350,35 +348,6 @@ def ensure_checkpoint(profile: PolicyProfile, override: Path | None = None) -> P
         raise ValueError(f"downloaded checkpoint SHA256 mismatch: {profile.name}")
     temporary.replace(path)
     return path
-
-
-def ensure_synreal_login(force_signin: bool = False) -> None:
-    """Authenticate interactively or from environment variables when required."""
-    if synreal_solver.is_logged_in():
-        return
-
-    login_name = os.environ.get("SYNREAL_LOGIN_NAME", "").strip()
-    password = os.environ.get("SYNREAL_LOGIN_PASSWORD", "")
-    if sys.stdin.isatty():
-        try:
-            if not login_name:
-                login_name = input("SynReal login name: ").strip()
-            if not password:
-                password = getpass.getpass("SynReal password: ")
-        except EOFError:
-            pass
-    if not login_name or not password:
-        raise RuntimeError(
-            "SynReal authentication is required. Run from an interactive terminal "
-            "or set SYNREAL_LOGIN_NAME and SYNREAL_LOGIN_PASSWORD."
-        )
-    if not synreal_solver.login(login_name, password, force_signin):
-        retry = (
-            " Retry with --force-signin only if replacing another active session is intended."
-            if not force_signin
-            else ""
-        )
-        raise RuntimeError(f"SynReal login failed.{retry}")
 
 
 def resolve_asset(profile: PolicyProfile) -> Path:
@@ -514,10 +483,10 @@ class SynRealPolicyPlayer:
         self.command = torch.tensor(command, device=DEVICE, dtype=torch.float32).unsqueeze(0)
         self.asset_path = resolve_asset(profile)
         self.model, q_indices, qd_indices = build_model(profile, self.asset_path)
-        self.solver = synreal_solver.NewtonSolver(self.model)
-        self.solver.config.joint_constraint_mode = synreal_solver.JointConstraintMode.AUGMENTED_LAGRANGIAN
-        self.solver.config.affine_body_rigidity_model = synreal_solver.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
-        self.solver.config.inertia_mode = synreal_solver.InertiaMode.MIDPOINT_CAYLEY
+        self.solver = s3d.NewtonSolver(self.model)
+        self.solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
+        self.solver.config.affine_body_rigidity_model = s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
+        self.solver.config.inertia_mode = s3d.InertiaMode.MIDPOINT_CAYLEY
         self.solver.config.nonlinear_iterations = 5
         self.solver.config.linear_iterations = 50
         self.collision_pipeline = newton.CollisionPipeline(self.model)
@@ -764,7 +733,6 @@ class SynRealPolicyPlayer:
 
 
 def run(args: argparse.Namespace) -> dict:
-    #ensure_synreal_login(args.force_signin)
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is required; CPU fallback is intentionally disabled")
     torch.cuda.set_device(0)
@@ -1036,11 +1004,6 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument("--summary", type=Path)
     parser.add_argument("--trajectory", type=Path, help="write policy-rate state/action trajectory as NPZ")
     parser.add_argument("--replay-actions", type=Path, help="replay the action array from another trajectory")
-    parser.add_argument(
-        "--force-signin",
-        action="store_true",
-        help="replace another active SynReal session when authenticating",
-    )
     parser.add_argument("--width", type=int, default=960)
     parser.add_argument("--height", type=int, default=540)
     mode = parser.add_mutually_exclusive_group()

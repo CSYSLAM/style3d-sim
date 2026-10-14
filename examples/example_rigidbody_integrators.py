@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Compare four free-rigid-body integrators on Dzhanibekov T handles.
@@ -12,8 +12,8 @@ import warp as wp
 import newton
 from newton.viewer import ViewerGL
 
-import synreal_solver
-from synreal_solver.rigid_body_dynamics import integrate_rigid_body
+import style3d_sim as s3d
+from style3d_sim.rigid_body_dynamics import integrate_rigid_body
 
 
 FPS = 60
@@ -32,25 +32,25 @@ BODY_SPACING = 2.8
 MODE_SPECS = (
     (
         "Explicit Euler",
-        synreal_solver.InertiaMode.EXPLICIT_EULER,
+        s3d.InertiaMode.EXPLICIT_EULER,
         wp.vec3(0.82, 0.20, 0.12),
         wp.vec3(1.00, 0.58, 0.12),
     ),
     (
         "Implicit Euler",
-        synreal_solver.InertiaMode.IMPLICIT_EULER,
+        s3d.InertiaMode.IMPLICIT_EULER,
         wp.vec3(0.10, 0.38, 0.78),
         wp.vec3(0.12, 0.72, 0.92),
     ),
     (
         "LIE-group midpoint",
-        synreal_solver.InertiaMode.LIE_GROUP_MIDPOINT,
+        s3d.InertiaMode.LIE_GROUP_MIDPOINT,
         wp.vec3(0.12, 0.58, 0.26),
         wp.vec3(0.58, 0.82, 0.18),
     ),
     (
         "Midpoint Cayley",
-        synreal_solver.InertiaMode.MIDPOINT_CAYLEY,
+        s3d.InertiaMode.MIDPOINT_CAYLEY,
         wp.vec3(0.48, 0.22, 0.68),
         wp.vec3(0.88, 0.38, 0.64),
     ),

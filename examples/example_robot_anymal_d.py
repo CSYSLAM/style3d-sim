@@ -15,7 +15,7 @@ import warp as wp
 import newton
 import newton.examples
 import newton.utils
-import synreal_solver
+import style3d_sim as s3d
 from newton import JointTargetMode
 
 
@@ -85,7 +85,7 @@ class Example:
                 use_mujoco_contacts=use_mujoco_contacts,
             )
         else:
-            self.solver = synreal_solver.NewtonSolver(self.model)
+            self.solver = s3d.NewtonSolver(self.model)
 
         self.state_0 = self.model.state()
         self.state_1 = self.model.state()

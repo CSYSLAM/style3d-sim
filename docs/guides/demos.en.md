@@ -15,7 +15,7 @@ some scripts do not default to SynReal. Run commands from the repository root.
 | Scene | Script | Notes |
 | --- | --- | --- |
 | Basic rigid bodies | `examples/example_basic_shapes.py` | Use `--solver synreal`; some assets download |
-| Native particle API | `examples/example_particles.py` | Uses `sr.Solver`; explicitly authenticate in the same process |
+| Native particle API | `examples/example_particles.py` | Uses `s3d.Solver`; explicitly authenticate in the same process |
 | Fluid | `examples/example_fluid.py` | Resolution controls physical particle count; optional surface reconstruction |
 | Snow / bonded grains | `examples/example_snow.py` | Bonds, contacts, and plasticity |
 | Granular cutting | `examples/example_granular_beaf.py` | Filename retains the repository's `beaf` spelling |

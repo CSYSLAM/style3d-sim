@@ -83,12 +83,12 @@ Beginners can use `NewtonSolver` to handle those mappings.
 Register an application callback before creating the solver:
 
 ```python
-import synreal_solver as sr
+import style3d_sim as s3d
 
 def log_message(file_name, function_name, line, level, message):
     print(f"[{level}] {function_name}:{line} {message}")
 
-sr.set_log_callback(log_message)
+s3d.set_log_callback(log_message)
 ```
 
 Callbacks receive the file name, function name, line number, level, and message.

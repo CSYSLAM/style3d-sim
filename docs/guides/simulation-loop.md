@@ -6,14 +6,14 @@
 
 | 对象 | 创建时机 | 保管的数据 |
 | --- | --- | --- |
-| `sr.ModelBuilder` 或 `newton.ModelBuilder` | 创建场景时 | 尚未分配到 GPU 的场景定义 |
+| `s3d.ModelBuilder` 或 `newton.ModelBuilder` | 创建场景时 | 尚未分配到 GPU 的场景定义 |
 | Newton `model` | `builder.finalize()` 后 | 质量、拓扑、形状、关节、材质等模型数组 |
-| `sr.NewtonSolver` | 模型最终配置完成后 | 原生模型视图、求解器缓存、约束与材质历史 |
+| `s3d.NewtonSolver` | 模型最终配置完成后 | 原生模型视图、求解器缓存、约束与材质历史 |
 | `state` / `following` | 创建 solver 后 | 位置、速度、外力等可变数组 |
 | `control` | 创建 solver 后 | 关节目标、速度目标、广义外力 |
 | `CollisionPipeline` / `contacts` | 创建 solver 后 | 碰撞检测和本次接触数据 |
 
-`sr.ModelBuilder` 继承 Newton builder，增加刚体代理和额外约束。
+`s3d.ModelBuilder` 继承 Newton builder，增加刚体代理和额外约束。
 普通 `newton.ModelBuilder` 也能用于适配器，但 solver 可能在初始化时追加或重排刚体代理粒子。
 因此建议统一在创建 solver **之后**创建状态、接触、viewer 和依赖粒子计数的缓冲区。
 
@@ -28,7 +28,7 @@
 7. 开始推进；需要 CUDA Graph 时先按 [性能教程](configuration.md#cuda-graph) 做准备。
 
 不要在 `finalize()` 之后继续向同一个 builder 加对象，再假定原模型会更新。
-`sr.ModelBuilder` 是一次性的，再次 finalize 会抛出异常；另一个场景需要新的 builder。
+`s3d.ModelBuilder` 是一次性的，再次 finalize 会抛出异常；另一个场景需要新的 builder。
 
 ## 每个子步的顺序
 
@@ -106,7 +106,7 @@ solver.sync_affine_body_state(state)
 
 ## 迁移现有 Newton 项目
 
-先将 solver 替换为 `sr.NewtonSolver(model)`，保留 Newton 的 state、control 与碰撞流程。
+先将 solver 替换为 `s3d.NewtonSolver(model)`，保留 Newton 的 state、control 与碰撞流程。
 检查模型在 CUDA 上；如果场景使用普通三角形弹性，按 [布料教程](deformables.md) 改为 Style3D。
 不要照搬其他 solver 的 iterations 参数到构造函数：SynReal 的迭代数在 `solver.config` 上设置。
 

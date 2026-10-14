@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>SynReal Solver</h1>
+  <h1>Style3D Sim</h1>
   <p>CUDA-accelerated implicit simulation for particles, cloth, deformable bodies, and affine rigid bodies.</p>
   <p>
     <a href="docs/index.en.md">English Docs</a> &middot;
@@ -12,8 +12,8 @@
   </p>
 </div>
 
-SynReal Solver provides a Python API and a Newton Physics adapter, so a Newton
-model can use SynReal for contact handling, constraints, and nonlinear solves.
+Style3D Sim provides a Python API and a Newton Physics adapter, so a Newton
+model can use the SynReal backend for contact handling, constraints, and nonlinear solves.
 
 Read the [English usage documentation](docs/index.en.md) or [中文使用文档](docs/index.md)
 for installation, authentication, simulation tutorials, and API references.
@@ -139,8 +139,8 @@ The current checkout does not declare one; use the CMake workflow above for loca
 ### Verify the installation
 
 ```bash
-uv run python -c "import synreal_solver; print(synreal_solver.__file__)"
-uv run python -c "import synreal_solver._core as core; print(core.__file__)"
+uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
+uv run python -c "import style3d_sim._core as core; print(core.__file__)"
 ```
 
 The extension filename must match the active Python version, operating system,
@@ -149,7 +149,7 @@ a file similar to `_core.cp312-win_amd64.pyd`.
 
 ## Authentication
 
-SynReal authentication is required before using authenticated native solver
+Style3D Sim authentication is required before using authenticated native solver
 features. `NewtonSolver` checks the current session when it is created. If the
 session is not authenticated, it reads credentials from the environment or
 prompts in the terminal.
@@ -161,18 +161,17 @@ Set the credentials in the terminal that will run the example.
 PowerShell:
 
 ```powershell
-$env:SYNREAL_ID = "your-account"
-$env:SYNREAL_PASSWORD = "your-password"
+$env:STYLE3D_ACCOUNT = "your-account"
+$env:STYLE3D_PASSWORD = "your-password"
 ```
 
 Bash or Zsh:
 
 ```bash
-export SYNREAL_ID="your-account"
-export SYNREAL_PASSWORD="your-password"
+export STYLE3D_ACCOUNT="your-account"
+export STYLE3D_PASSWORD="your-password"
 ```
 
-`SYNRAL_PASSWORD` is also accepted for compatibility with existing environments.
 The variables are process-local; set them again in a new terminal session.
 
 ### Interactive login
@@ -180,7 +179,7 @@ The variables are process-local; set them again in a new terminal session.
 If either credential is missing, `NewtonSolver` asks for the account and reads the password without echoing it:
 
 ```text
-SynReal account: your-account
+Style3D Sim account: your-account
 Password:
 ```
 
@@ -188,12 +187,12 @@ For applications that need to authenticate explicitly, use the public API:
 
 ```python
 import getpass
-import synreal_solver
+import style3d_sim as s3d
 
-account = input("SynReal account: ").strip()
+account = input("Style3D Sim account: ").strip()
 password = getpass.getpass("Password: ")
-if not synreal_solver.login(account, password, False):
-    raise RuntimeError("SynReal login failed")
+if not s3d.login(account, password, False):
+    raise RuntimeError("Style3D Sim login failed")
 ```
 
 Avoid committing credentials to source files or shell scripts. Prefer a temporary
@@ -260,9 +259,9 @@ The Newton adapter uses a Newton model and state while the native SynReal solver
 
 ```python
 import newton
-import synreal_solver
+import style3d_sim as s3d
 
-builder = synreal_solver.ModelBuilder(up_axis=newton.Axis.Z)
+builder = s3d.ModelBuilder(up_axis=newton.Axis.Z)
 builder.add_ground_plane()
 builder.add_particle(
     pos=(0.0, 0.0, 1.0),
@@ -272,11 +271,11 @@ builder.add_particle(
 )
 
 model = builder.finalize(device="cuda:0")
-solver = synreal_solver.NewtonSolver(model)
+solver = s3d.NewtonSolver(model)
 ```
 
 For lower-level native use, the package also exports `Model`, `State`, `Config`,
-`Solver`, and `login`. See the type stubs in `src/synreal_solver/_core.pyi` for
+`Solver`, and `login`. See the type stubs in `src/style3d_sim/_core.pyi` for
 the complete public native API.
 
 ## Tests and checks

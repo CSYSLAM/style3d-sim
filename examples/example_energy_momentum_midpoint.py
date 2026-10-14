@@ -14,7 +14,7 @@ from __future__ import annotations
 import numpy as np
 import warp as wp
 
-from synreal_solver.rigid_body_dynamics import (
+from style3d_sim.rigid_body_dynamics import (
     cayley_increment_from_midpoint,
     recover_midpoint_cayley_end_velocity,
     solve_energy_momentum_midpoint,
