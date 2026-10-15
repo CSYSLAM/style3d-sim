@@ -3,6 +3,15 @@ import pytest
 from style3d_sim import newton_solver
 
 
+def test_newton_solver_login_reuses_authenticated_session(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(newton_solver, "is_logged_in", lambda: True)
+    monkeypatch.setattr("builtins.input", lambda prompt: pytest.fail("Unexpected account prompt"))
+    monkeypatch.setattr(newton_solver.getpass, "getpass", lambda prompt: pytest.fail("Unexpected password prompt"))
+    monkeypatch.setattr(newton_solver, "login", lambda *args: pytest.fail("Unexpected login request"))
+
+    newton_solver._ensure_style3d_login()
+
+
 def test_newton_solver_login_uses_style3d_environment(monkeypatch: pytest.MonkeyPatch) -> None:
     credentials = []
     monkeypatch.setattr(newton_solver, "is_logged_in", lambda: False)

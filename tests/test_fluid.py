@@ -1,4 +1,4 @@
-"""Check the frozen fluid solve against an independently assembled quadratic model."""
+"""Check fluid Newton steps against an independently assembled quadratic model."""
 
 import numpy as np
 import pytest
@@ -27,7 +27,6 @@ def make_scene(count, method):
     solver.config.enable_self_collision = False
     solver.config.linear_iterations = 100
     solver.config.fluid_max_step_ratio = 0.0
-    solver.config.fluid_hessian_update_interval = 5
     return model, solver
 
 
@@ -72,50 +71,47 @@ def frozen_solution(model, previous, velocity, dt, iterations, reference=None):
     return reference + (1.0 - 0.5**iterations) * np.linalg.solve(matrix, force.reshape(-1)).reshape(-1, 3)
 
 
-def interval_solution(model, previous, velocity, dt, iterations, interval):
+def newton_solution(model, previous, velocity, dt, iterations):
     reference = None
-    for start in range(0, iterations, interval):
-        reference = frozen_solution(model, previous, velocity, dt, min(interval, iterations - start), reference)
+    # The native solver refreshes its fluid linearization at every Newton iteration.
+    for _ in range(iterations):
+        reference = frozen_solution(model, previous, velocity, dt, 1, reference)
     return reference
 
 
 @pytest.mark.parametrize("method", [s3d.NonlinearSolver.NEWTON, s3d.NonlinearSolver.PD_NEWTON])
 @pytest.mark.parametrize("count", [8, 70])
-@pytest.mark.parametrize("interval", [1, 2, 3, 5, 9])
-def test_fluid_update_interval_matches_reference_and_resets_each_step(method, count, interval):
+@pytest.mark.parametrize("iterations", [1, 2, 3, 5, 9])
+def test_fluid_matches_reference_and_resets_each_step(method, count, iterations):
     # Seventy particles exercise the uncapped fallback beyond the 64-neighbor cache.
     model, solver = make_scene(count, method)
     a, b = model.state(), model.state()
-    solver.config.nonlinear_iterations = 5
-    solver.config.fluid_hessian_update_interval = interval
+    solver.config.nonlinear_iterations = iterations
     for dt in (0.002, 0.001):
         previous, velocity = a.particle_q.numpy(), a.particle_qd.numpy()
-        expected = interval_solution(model, previous, velocity, dt, 5, interval)
+        expected = newton_solution(model, previous, velocity, dt, iterations)
         solver.step(a, b, None, None, dt)
         np.testing.assert_allclose(b.particle_q.numpy(), expected, atol=2.0e-6, rtol=0.0)
         a, b = b, a
 
 
-def test_first_iteration_and_runtime_interval_changes_match_full_updates():
+def test_fluid_runtime_iteration_changes_match_reference():
     model, solver = make_scene(8, s3d.NonlinearSolver.NEWTON)
-    for iterations in (1, 5):
+    results = []
+    for iterations in (1, 5, 1):
         solver.config.nonlinear_iterations = iterations
-        results = []
-        for interval in (1, 2, 1):
-            solver.config.fluid_hessian_update_interval = interval
-            a, b = model.state(), model.state()
-            solver.step(a, b, None, None, 0.002)
-            results.append(b.particle_q.numpy())
-        np.testing.assert_allclose(results[0], results[2], atol=1.0e-7, rtol=0.0)
-        if iterations == 1:
-            np.testing.assert_allclose(results[0], results[1], atol=1.0e-7, rtol=0.0)
+        a, b = model.state(), model.state()
+        expected = newton_solution(model, a.particle_q.numpy(), a.particle_qd.numpy(), 0.002, iterations)
+        solver.step(a, b, None, None, 0.002)
+        results.append(b.particle_q.numpy())
+        np.testing.assert_allclose(results[-1], expected, atol=2.0e-6, rtol=0.0)
+    np.testing.assert_allclose(results[0], results[2], atol=1.0e-7, rtol=0.0)
 
 
-@pytest.mark.parametrize("interval", [2, 5])
-def test_fluid_graph_replay_refreshes_linearization(interval):
+@pytest.mark.parametrize("iterations", [2, 5])
+def test_fluid_graph_replay_refreshes_linearization(iterations):
     model, solver = make_scene(8, s3d.NonlinearSolver.NEWTON)
-    solver.config.nonlinear_iterations = 5
-    solver.config.fluid_hessian_update_interval = interval
+    solver.config.nonlinear_iterations = iterations
     a, b = model.state(), model.state()
     dt = 0.002
     solver.step(a, b, None, None, dt)
@@ -126,14 +122,26 @@ def test_fluid_graph_replay_refreshes_linearization(interval):
         velocity = model.particle_qd.numpy()
         a.particle_q.assign(positions)
         a.particle_qd.assign(velocity)
-        expected = interval_solution(model, positions, velocity, dt, 5, interval)
+        expected = newton_solution(model, positions, velocity, dt, iterations)
         wp.capture_launch(capture.graph)
         np.testing.assert_allclose(b.particle_q.numpy(), expected, atol=2.0e-6, rtol=0.0)
 
 
-@pytest.mark.parametrize("interval", [0, -1])
-def test_fluid_update_interval_rejects_nonpositive_values(interval):
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("fluid_relaxation", 0.0),
+        ("fluid_relaxation", -1.0),
+        ("fluid_relaxation", 1.1),
+        ("fluid_relaxation", float("nan")),
+        ("fluid_relaxation", float("inf")),
+        ("fluid_max_step_ratio", -1.0),
+        ("fluid_max_step_ratio", float("nan")),
+        ("fluid_max_step_ratio", float("inf")),
+    ],
+)
+def test_fluid_rejects_invalid_step_configuration(field, value):
     model, solver = make_scene(8, s3d.NonlinearSolver.NEWTON)
-    solver.config.fluid_hessian_update_interval = interval
-    with pytest.raises(ValueError, match="fluid_hessian_update_interval must be positive"):
+    setattr(solver.config, field, value)
+    with pytest.raises(ValueError, match="fluid relaxation"):
         solver.step(model.state(), model.state(), None, None, 0.002)

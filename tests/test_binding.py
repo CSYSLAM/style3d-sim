@@ -131,7 +131,10 @@ def test_config_exposes_runtime_options() -> None:
         s3d.NonlinearSolver.NEWTON,
         s3d.NonlinearSolver.PD_NEWTON,
     )
-    assert config.nonlinear_solver == s3d.NonlinearSolver.PD_NEWTON
+    assert config.nonlinear_solver == s3d.NonlinearSolver.NEWTON
+    assert config.nonlinear_iterations == 5
+    assert config.linear_iterations == 50
+    assert config.enable_collision_hessian_non_diagonal is True
     assert tuple(solver.value for solver in nonlinear_solvers) == (0, 1)
     for solver in nonlinear_solvers:
         config.nonlinear_solver = solver
@@ -152,7 +155,7 @@ def test_config_exposes_runtime_options() -> None:
 
     assert not hasattr(config, "enable_affine_body_velocity_correction")
     assert not hasattr(config, "rigid_body_integrator")
-    assert not hasattr(sr, "RigidBodyIntegrator")
+    assert not hasattr(s3d, "RigidBodyIntegrator")
 
     assert config.enable_self_collision is False
     config.enable_self_collision = True
@@ -175,7 +178,7 @@ def test_config_exposes_runtime_options() -> None:
         s3d.AffineBodyRigidityModel.SIX_SPRINGS,
         s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN,
     )
-    assert config.affine_body_rigidity_model == s3d.AffineBodyRigidityModel.SIX_SPRINGS
+    assert config.affine_body_rigidity_model == s3d.AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN
     assert {model.name for model in rigidity_models} == {
         "CO_ROTATED",
         "ABD_ORTHOGONALITY",
@@ -187,7 +190,7 @@ def test_config_exposes_runtime_options() -> None:
         config.affine_body_rigidity_model = model
         assert config.affine_body_rigidity_model == model
 
-    assert config.affine_body_rigidity_primal_iterations == 4
+    assert config.affine_body_rigidity_primal_iterations == 1
     config.affine_body_rigidity_primal_iterations = 6
     assert config.affine_body_rigidity_primal_iterations == 6
 
@@ -222,7 +225,7 @@ def test_config_exposes_runtime_options() -> None:
         s3d.JointConstraintMode.PENALTY,
         s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN,
     )
-    assert config.joint_constraint_mode == s3d.JointConstraintMode.PENALTY
+    assert config.joint_constraint_mode == s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
     assert {mode.name for mode in joint_constraint_modes} == {
         "PENALTY",
         "AUGMENTED_LAGRANGIAN",
@@ -232,7 +235,7 @@ def test_config_exposes_runtime_options() -> None:
         config.joint_constraint_mode = mode
         assert config.joint_constraint_mode == mode
 
-    assert config.joint_constraint_primal_iterations == 4
+    assert config.joint_constraint_primal_iterations == 1
     config.joint_constraint_primal_iterations = 7
     assert config.joint_constraint_primal_iterations == 7
 

@@ -1550,19 +1550,16 @@ def test_newton_solver_joint_constraint_modes_reuse_assembled_constraints() -> N
 
     assembled_constraints = assembled_constraint_layout()
 
-    assert solver.config.joint_constraint_mode == s3d.JointConstraintMode.PENALTY
+    assert solver.config.joint_constraint_mode == s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
     assert solver.synreal_model.body_spring_count == 2
     assert solver.synreal_model.joint_body_spring_count == 2
     assert solver.synreal_model.body_point_line_count == 4
     assert solver.synreal_model.joint_body_point_line_count == 4
 
-    solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
-
-    assert (
-        solver.config.joint_constraint_mode
-        == s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
-    )
-    assert assembled_constraint_layout() == assembled_constraints
+    for mode in (s3d.JointConstraintMode.PENALTY, s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN):
+        solver.config.joint_constraint_mode = mode
+        assert solver.config.joint_constraint_mode == mode
+        assert assembled_constraint_layout() == assembled_constraints
 
 
 def _loaded_joint_transverse_displacement(
@@ -2329,7 +2326,8 @@ def test_newton_solver_supports_scoped_capture() -> None:
 
 
 @pytest.mark.skipif(not wp.is_cuda_available(), reason="NewtonSolver requires CUDA")
-def test_newton_solver_particle_self_collision_supports_capture_replay() -> None:
+@pytest.mark.parametrize("full_hessian", (False, True))
+def test_newton_solver_particle_self_collision_supports_capture_replay(full_hessian: bool) -> None:
     builder = newton.ModelBuilder(up_axis=newton.Axis.Z, gravity=wp.vec3(0.0))
     _add_morton_reversed_overlapping_particles(builder)
     model = builder.finalize(device="cuda:0")
@@ -2337,20 +2335,31 @@ def test_newton_solver_particle_self_collision_supports_capture_replay() -> None
     state_out = model.state()
     solver = NewtonSolver(model)
     solver.config.enable_self_collision = True
+    solver.config.enable_collision_hessian_non_diagonal = full_hessian
     solver.config.self_collision_particle_particle_stiffness = 2.0
     stream = wp.get_stream(model.device)
     initial_positions = state_in.particle_q.numpy().copy()
+    initial_velocities = state_in.particle_qd.numpy().copy()
     initial_distance = float(
         np.linalg.norm(initial_positions[0] - initial_positions[1])
     )
     state_in.clear_forces()
 
+    solver.step(state_in, state_out, None, None, 1.0 / 120.0)
+    direct_positions = state_out.particle_q.numpy().copy()
+
     with wp.ScopedCapture(stream=stream) as capture:
         solver.step(state_in, state_out, None, None, 1.0 / 120.0)
 
+    # Native Newton iterations write positions back to the input buffer. Each
+    # comparison must start from the same state, including graph replay.
+    state_in.particle_q.assign(initial_positions)
+    state_in.particle_qd.assign(initial_velocities)
     wp.capture_launch(capture.graph, stream=stream)
     wp.synchronize_stream(stream)
     first_replay_positions = state_out.particle_q.numpy().copy()
+    state_in.particle_q.assign(initial_positions)
+    state_in.particle_qd.assign(initial_velocities)
     wp.capture_launch(capture.graph, stream=stream)
     wp.synchronize_stream(stream)
     second_replay_positions = state_out.particle_q.numpy()
@@ -2360,6 +2369,7 @@ def test_newton_solver_particle_self_collision_supports_capture_replay() -> None
         np.linalg.norm(second_replay_positions[0] - second_replay_positions[1])
         > initial_distance + 1.0e-4
     )
+    assert np.allclose(first_replay_positions, direct_positions, atol=1.0e-6)
     assert np.allclose(second_replay_positions, first_replay_positions, atol=1.0e-6)
 
 
