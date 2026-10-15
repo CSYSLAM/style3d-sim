@@ -202,6 +202,23 @@ terminal environment or an external secret manager.
 
 All commands below run inside the managed environment created by `uv`.
 
+### Example assets
+
+`s3d.get_asset("joints/ball/ball.urdf")` returns a path in the Style3D Sim asset repository.
+The first call clones `https://github.com/Style3D/style3d-sim-assets.git` into
+`~/.cache/style3d_sim/assets`; later calls use that checkout without updating it.
+Git and network access are required. The repository root should contain the
+asset groups directly, such as `joints/` and `piper/`.
+
+For a local checkout, set `STYLE3D_SIM_ASSETS_DIR` to its root. For example, in PowerShell:
+
+```powershell
+$env:STYLE3D_SIM_ASSETS_DIR = "D:\path\to\style3d-sim-assets"
+```
+
+`s3d.get_assets()` returns the asset root. Neither function is called when the
+Python package is imported.
+
 ### Basic Newton scene
 
 The basic-shapes example demonstrates the Newton adapter with SynReal:

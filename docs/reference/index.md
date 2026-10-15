@@ -9,6 +9,7 @@
 | --- | --- | --- |
 | `ModelBuilder` | Newton builder 扩展、刚体代理和额外约束 | [Python API](python.md#modelbuilder) |
 | `NewtonSolver` | 接受 Newton 模型与状态的适配求解器 | [Python API](python.md#newtonsolver) |
+| `get_assets` / `get_asset` | 下载并定位示例资产 | [Python API](python.md#get_assets) |
 | `configure_fluid` | 选择粒子与配置流体材料 | [材料教程](../guides/particles.md) |
 | `configure_granular` | 选择颗粒、黏结、塑性、断裂和 adhesion | [材料教程](../guides/particles.md) |
 | `ParticleSurface` | 从 CUDA 粒子生成动态三角网格 | [Python API](python.md#particlesurface) |

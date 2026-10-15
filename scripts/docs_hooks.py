@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src" / "style3d_sim"
 PYTHON_MODULES = (
     "__init__.py",
+    "assets.py",
     "newton_model_builder.py",
     "newton_solver.py",
     "fluid.py",

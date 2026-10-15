@@ -2,6 +2,7 @@
 
 from typing import Any, Protocol
 
+from .assets import get_asset, get_assets
 from ._core import (
     AffineBodyRigidityModel,
     Config,
@@ -50,6 +51,8 @@ __all__ = [
     "Config",
     "Contact",
     "Control",
+    "get_asset",
+    "get_assets",
     "is_logged_in",
     "JointConstraintMode",
     "LogCallback",

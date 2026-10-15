@@ -16,7 +16,6 @@ See docs/particle_fluid.md for material parameters and static boundary quadratur
 import copy
 import itertools
 import math
-from pathlib import Path
 
 import newton
 import newton.examples
@@ -30,7 +29,7 @@ TANK_LOWER = (0.0, -0.56, 0.0)
 TANK_UPPER = (3.36, 0.56, 2.24)
 REST_DENSITY = 1000.0
 FRAME_DT = 1.0 / 60.0
-DUCK_ASSET = Path(__file__).resolve().parents[1] / "assets" / "simple_xhy" / "simple_xhy.usd"
+DUCK_ASSET = "models/rubber_duck/rubber_duck.usd"
 DUCK_SCALE = 4.8
 DUCK_DENSITY = 300.0
 DUCK_POSITIONS = ((0.22, -0.21), (0.56, -0.21), (0.90, -0.21), (0.39, 0.21), (0.73, 0.21))
@@ -96,10 +95,11 @@ def boundary_samples(spacing):
 
 def add_ducks(builder, water_height):
     """Resolve the textured ducks with several fluid particles across their submerged hulls."""
+    duck_asset = s3d.get_asset(DUCK_ASSET)
     visual = newton.usd.get_mesh(
-        DUCK_ASSET, root_path="/World/simple_xhy/Body/visual", load_normals=True, load_uvs=True, compute_inertia=False
+        duck_asset, root_path="/World/simple_xhy/Body/visual", load_normals=True, load_uvs=True, compute_inertia=False
     )
-    source = newton.usd.get_mesh(DUCK_ASSET, root_path="/World/simple_xhy/Body/collision", compute_inertia=False)
+    source = newton.usd.get_mesh(duck_asset, root_path="/World/simple_xhy/Body/collision", compute_inertia=False)
     source.maxhullvert = 0
     hull = source.compute_convex_hull()
     collision = newton.Mesh(hull.vertices, hull.indices, maxhullvert=0)

@@ -9,6 +9,7 @@ Use native `Solver` when you need to manage CUDA arrays and model views yourself
 | --- | --- | --- |
 | `ModelBuilder` | Newton builder extensions, rigid body proxies, extra constraints | [Python API](python.en.md#modelbuilder) |
 | `NewtonSolver` | Solver adapter for Newton models and states | [Python API](python.en.md#newtonsolver) |
+| `get_assets` / `get_asset` | Fetch and locate example assets | [Python API](python.en.md#get_assets) |
 | `configure_fluid` | Particle selection and fluid materials | [Materials](../guides/particles.en.md) |
 | `configure_granular` | Granular contacts, bonds, plasticity, fracture, adhesion | [Materials](../guides/particles.en.md) |
 | `ParticleSurface` | Dynamic triangle meshes from CUDA particles | [Python API](python.en.md#particlesurface) |
