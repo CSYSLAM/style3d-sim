@@ -20,7 +20,7 @@ option(
 
 # Add subdirectory
 if(SYNREAL_SOLVER_USE_PREBUILT)
-    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/synreal-solver-bin/CMakeLists.txt")
+    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/style3d-sim-bin/CMakeLists.txt")
         message(FATAL_ERROR "SYNREAL_SOLVER_USE_PREBUILT=ON, but synreal-solver-bin is not initialized.")
     endif()
     add_subdirectory(synreal-solver-bin)
