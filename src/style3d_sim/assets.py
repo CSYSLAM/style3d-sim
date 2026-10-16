@@ -62,9 +62,23 @@ def get_assets() -> str:
 
 
 def get_asset(filename: str | os.PathLike[str]) -> str:
-    """Return an asset path, cloning the repository on first use."""
+    """Return an asset path, refreshing a stale default checkout when needed."""
     root = Path(get_assets()).resolve()
     asset = (root / filename).resolve()
     if not asset.is_relative_to(root):
         raise ValueError(f"Asset path escapes the asset root: {filename}")
+    if asset.is_file():
+        return str(asset)
+    if os.environ.get(_ASSETS_DIR_ENV):
+        raise FileNotFoundError(f"Asset does not exist in {_ASSETS_DIR_ENV}: {filename}")
+    # New demos may reference assets added after the cached repository was cloned.
+    print(f"Asset {filename} is missing; updating Style3D Sim assets at {root}...", file=sys.stderr, flush=True)
+    try:
+        subprocess.run(["git", "-C", str(root), "pull", "--ff-only", "--progress"], check=True)
+    except FileNotFoundError as exc:
+        raise RuntimeError("Git is required to update Style3D Sim assets") from exc
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(f"Could not update Style3D Sim assets at {root} (git exit code {exc.returncode})") from exc
+    if not asset.is_file():
+        raise FileNotFoundError(f"Asset does not exist in the Style3D Sim repository: {filename}")
     return str(asset)

@@ -206,7 +206,8 @@ All commands below run inside the managed environment created by `uv`.
 
 `s3d.get_asset("joints/ball/ball.urdf")` returns a path in the Style3D Sim asset repository.
 The first call clones `https://github.com/Style3D/style3d-sim-assets.git` into
-`~/.cache/style3d_sim/assets`; later calls use that checkout without updating it.
+`~/.cache/style3d_sim/assets`; later calls reuse it. If a requested file is missing,
+`get_asset()` attempts one fast-forward update before reporting a missing asset.
 Git and network access are required. The repository root should contain the
 asset groups directly, such as `joints/` and `piper/`.
 
