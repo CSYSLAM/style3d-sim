@@ -66,8 +66,9 @@ FLOOR_CENTER = (0.0, -0.2, -0.02)
 PLATFORM_SIZE = (0.70, 0.58, 0.03)
 PLATFORM_CENTER = (0.0, -0.01, 0.015)
 REPO_ROOT = Path(__file__).resolve().parents[2]
-APPLE_ASSET = REPO_ROOT / "assets" / "apple" / "apple.usd"
-PIPER_ASSET = REPO_ROOT / "assets" / "piper" / "piper_with_texture.xml"
+# Resolve asset-repository paths through the shared cache only when loading the scene.
+APPLE_ASSET = "models/apple/apple.usd"
+PIPER_ASSET = "robots/piper/piper_with_texture.xml"
 # Seat the mounting face below the floor by 0.4 mm to avoid coplanar light leaks at the contact patch.
 PIPER_BASE = (0.0, -0.52, -0.0004)
 PIPER_ARM_KP = 3500.0
@@ -226,7 +227,7 @@ def create_motion_plan(positions=None):
     """Drive only physical arm motors; the bag and apples remain free dynamic objects."""
     from scipy.spatial.transform import Rotation
 
-    arm = PiperKinematics(PIPER_ASSET, PIPER_BASE)
+    arm = PiperKinematics(s3d.get_asset(PIPER_ASSET), PIPER_BASE)
     seed = np.asarray(PIPER_GRASP_Q)
     times, poses = [], []
 
@@ -314,7 +315,7 @@ def add_piper(builder, initial_q=PIPER_GRASP_Q):
     builder.default_shape_cfg.kf = CONTACT_FRICTION_GAIN
     builder.default_shape_cfg.mu = GRIPPER_FRICTION
     builder.add_mjcf(
-        str(PIPER_ASSET),
+        s3d.get_asset(PIPER_ASSET),
         xform=wp.transform(wp.vec3(*PIPER_BASE), wp.quat_from_axis_angle(wp.vec3(0.0, 0.0, 1.0), 0.5 * wp.pi)),
         floating=False,
         enable_self_collisions=False,
@@ -376,10 +377,11 @@ def bag_grip_vertices(points):
 
 def load_apple_meshes():
     """Retain the original textured apple and its complete collision hull."""
+    apple_asset = Path(s3d.get_asset(APPLE_ASSET))
     visual = newton.usd.get_mesh(
-        APPLE_ASSET, root_path="/World/Apple/visual", load_normals=True, load_uvs=True, compute_inertia=False,
+        apple_asset, root_path="/World/Apple/visual", load_normals=True, load_uvs=True, compute_inertia=False,
     )
-    source = newton.usd.get_mesh(APPLE_ASSET, root_path="/World/Apple/collision", compute_inertia=False)
+    source = newton.usd.get_mesh(apple_asset, root_path="/World/Apple/collision", compute_inertia=False)
     # A simplified 64-vertex hull cuts inside this asset by more than its 3 mm contact margin.
     source.maxhullvert = 0
     hull = source.compute_convex_hull()
@@ -597,7 +599,7 @@ class Example:
 
     def update_handle_approach(self, refine_grasp=False):
         """Aim at the settled material crown after loading, without attaching or repositioning the bag."""
-        arm = PiperKinematics(PIPER_ASSET, PIPER_BASE)
+        arm = PiperKinematics(s3d.get_asset(PIPER_ASSET), PIPER_BASE)
         cloth = self.state_0.particle_q.numpy()[:self.bag_particle_count]
         crown = cloth[self.grip_vertices].mean(axis=0)
         rotation = loading_drop_rotation(downward_tilt=0.0)

@@ -20,10 +20,15 @@ An initial geometric fit opens the flat cutting panels with less than 3% strain,
 Panel coordinates are exported as static, face-varying `film_pattern_m` UVs in meters, preserving pattern seams
 and keeping the crease normal map attached to the deforming film.
 
-The apples retain `assets/apple/apple.usd`, scale 0.58, and 200 g mass each. Their original visual mesh,
-color texture, UV coordinates, and normals are exported alongside the actual rigid-body poses.
+The apples use `models/apple/apple.usd` from the Style3D Sim asset repository, at scale 0.58 and 200 g mass each.
+Their original visual mesh, color texture, UV coordinates, and normals are exported alongside the actual rigid-body poses.
 Full convex collision hulls determine film contact and platform support; they are not substituted for the render mesh.
 USD records actual cloth positions and rigid poses, and Blender never substitutes a separately animated trajectory.
+
+The Piper model is downloaded from `robots/piper/piper_with_texture.xml` in the Style3D Sim asset repository.
+The robot importer and pose planner use the same cached MJCF and its relative visual and processed collision meshes.
+Assets are fetched when needed; importing the demo does not download them.
+Set `STYLE3D_SIM_ASSETS_DIR` to an existing asset checkout to use local files.
 
 Physics uses **four nonlinear iterations**, 80 linear iterations, and four substeps at 60 frames per second.
 Material, contact, friction, and motor settings remain in `demo_piper_bag_transport.py`. Rendering settings do not alter them.

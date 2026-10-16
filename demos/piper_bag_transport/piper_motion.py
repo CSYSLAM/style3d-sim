@@ -4,7 +4,6 @@
 """CPU pose planning for the Piper arm; motor targets still use physical joints in the simulation."""
 
 from dataclasses import dataclass
-from pathlib import Path
 import xml.etree.ElementTree as ET
 
 import numpy as np
@@ -12,7 +11,7 @@ from scipy.optimize import least_squares
 from scipy.spatial.transform import Rotation
 
 
-DEFAULT_ASSET = Path(__file__).resolve().parents[2] / "assets" / "piper" / "piper_with_texture.xml"
+DEFAULT_ASSET = "robots/piper/piper_with_texture.xml"
 DEFAULT_BASE = (0.0, -0.52, -0.0004)
 DEFAULT_GRIP_POINT = (0.0, 0.0, 0.105)
 
@@ -63,7 +62,12 @@ class PiperKinematics:
     IK checks the endpoint pose and joint limits; collision-free motion needs separate scene validation.
     """
 
-    def __init__(self, asset_path=DEFAULT_ASSET, base_position=DEFAULT_BASE, base_yaw=np.pi / 2):
+    def __init__(self, asset_path=None, base_position=DEFAULT_BASE, base_yaw=np.pi / 2):
+        if asset_path is None:
+            # Keep asset downloads and simulator imports out of lightweight pose-module imports.
+            from style3d_sim import get_asset
+
+            asset_path = get_asset(DEFAULT_ASSET)
         root = ET.parse(asset_path).getroot()
         compiler = root.find("compiler")
         if compiler is not None and compiler.get("angle", "degree") != "radian":
