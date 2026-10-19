@@ -1,4 +1,4 @@
-# Style3D Sim Documentation
+# Style3D Sim 2.0
 
 Style3D Sim is a CUDA implicit physics library with a Python adapter for Newton Physics.
 These guides take you from environment setup, native builds, and authentication to particles,

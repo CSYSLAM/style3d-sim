@@ -28,5 +28,7 @@ else()
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/synreal-solver/CMakeLists.txt")
         message(FATAL_ERROR "SYNREAL_SOLVER_USE_PREBUILT=OFF, but synreal-solver is not initialized.")
     endif()
+    # Match the package layout used by prebuilt installs and Python imports.
+    set(SYNREAL_SOLVER_PYTHON_INSTALL_DIR style3d_sim)
     add_subdirectory(synreal-solver)
 endif()

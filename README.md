@@ -136,6 +136,7 @@ export PYTHONPATH="$PWD/src"
 ```
 
 Use source mode only when an authorized internal checkout includes `synreal-solver/`.
+Both build modes install `_core` into `src/style3d_sim/` when the install prefix is `src`.
 Re-run the build and install commands after native changes.
 For Windows, use the interpreter and environment variable syntax shown above with `build/native` and prebuilt mode `OFF`.
 

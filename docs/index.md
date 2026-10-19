@@ -1,4 +1,4 @@
-# Style3D Sim 使用文档
+# Style3D Sim 2.0
 
 Style3D Sim 是面向 CUDA 的隐式物理求解库，通过 Python API 接入 Newton Physics。
 这份文档从准备环境、构建扩展和登录账号开始，逐步讲解粒子、刚体、布料、软体和材质的使用。
