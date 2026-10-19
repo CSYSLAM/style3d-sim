@@ -1,7 +1,7 @@
 # Demos and Rendering
 
 Examples demonstrate API usage and scene configuration. Check `--help` for solver, viewer, and device options;
-some scripts do not default to SynReal. Run commands from the repository root.
+some scripts do not default to Style3D Sim. Run commands from the repository root.
 
 ## Before Running
 

@@ -1,4 +1,4 @@
-"""Run a small headless Newton scene through SynReal."""
+"""Run a small headless Newton scene through Style3D Sim."""
 
 import numpy as np
 import newton

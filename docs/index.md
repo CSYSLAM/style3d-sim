@@ -3,6 +3,9 @@
 Style3D Sim 是面向 CUDA 的隐式物理求解库，通过 Python API 接入 Newton Physics。
 这份文档从准备环境、构建扩展和登录账号开始，逐步讲解粒子、刚体、布料、软体和材质的使用。
 
+公开仓库包含 Python 适配器、示例、文档和集成代码。
+原生 `synreal-solver` 后端是闭源的，仅向获授权的内部开发人员开放；外部用户应从 `style3d-sim-bin` 安装匹配的预编译扩展。
+
 ## Demo 展示
 
 <div class="demo-grid" markdown="1">
@@ -39,7 +42,7 @@ Style3D Sim 是面向 CUDA 的隐式物理求解库，通过 Python API 接入 N
 
 **Newton 创建场景。** `ModelBuilder` 负责粒子、刚体、关节和碰撞形状；`model.state()` 创建状态缓冲区。
 
-**SynReal 推进物理。** `NewtonSolver.step()` 接受 Newton 状态、控制和接触数据，执行原生 CUDA 求解。
+**Style3D Sim 推进物理。** `NewtonSolver.step()` 接受 Newton 状态、控制和接触数据，执行原生 CUDA 求解。
 
 **Viewer 展示结果。** viewer 和离线渲染不替代物理求解。无需窗口时使用 headless 模式或独立仿真脚本。
 
@@ -50,6 +53,6 @@ Style3D Sim 是面向 CUDA 的隐式物理求解库，通过 Python API 接入 N
 ## 支持范围
 
 常用入口包括粒子、四面体软体、Style3D 布料、仿射刚体、接触、关节驱动、粒子流体和黏结颗粒。
-这不代表 Newton 的所有求解器特性都能直接映射到 SynReal。
+这不代表 Newton 的所有求解器特性都能直接映射到 Style3D Sim。
 例如普通 Newton 三角形弹性需要改为 Style3D 属性，`requires_grad=True` 也不能当作原生求解器可微的保证。
 遇到适配错误时先阅读对应教程，再查看 [常见问题](troubleshooting.md)。

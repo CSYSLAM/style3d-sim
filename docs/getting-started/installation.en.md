@@ -1,19 +1,20 @@
 # Installation and Build
 
 Run all commands on this page from the repository root. Prepare the Python environment,
-then choose a source for the native extension.
+then install a compatible prebuilt extension. The native `synreal-solver` backend is
+closed source and its source build is restricted to authorized internal developers.
 
 ## 1. Prepare the Tools
 
 | Tool | Purpose | Requirement |
 | --- | --- | --- |
-| Git | Fetch the repository and submodules | Access to the repository and required submodules |
+| Git | Fetch the repository and public binary submodule | Access to the public repository and `style3d-sim-bin` |
 | Python | Run the Python API | 3.11+; `.python-version` currently selects 3.12 |
 | uv | Manage `.venv` and dependencies | [Install uv](https://docs.astral.sh/uv/getting-started/installation/) |
 | NVIDIA driver | Run CUDA | Compatible with the GPU and CUDA versions used by Warp and the extension |
 | CMake | Configure or install the extension | 3.20+ |
-| CUDA Toolkit | Compile native source | Compatible host compiler; prebuilt mode does not require `nvcc` |
-| C++ compiler | Compile native source | C++20; compatible Visual Studio/MSVC on Windows |
+| CUDA Toolkit | Internal source development only | Required only for authorized `synreal-solver` development |
+| C++ compiler | Internal source development only | C++20; required only for authorized native development |
 
 ```bash
 git --version
@@ -22,25 +23,24 @@ cmake --version
 nvidia-smi
 ```
 
-For source builds, also check `nvcc --version`. The CUDA version reported by `nvidia-smi`
+For authorized internal source builds, also check `nvcc --version`. The CUDA version reported by `nvidia-smi`
 is the maximum supported by the driver, rather than the installed Toolkit version.
-On Windows, use Visual Studio **Developer PowerShell**; on Linux, use a CUDA-supported GCC/Clang toolchain.
+Internal Windows builds use Visual Studio **Developer PowerShell**; internal Linux builds use a CUDA-supported GCC/Clang toolchain.
 
 ## 2. Clone the Repository
 
 ```bash
-git clone <repository-url> pysynreal-solver
-cd pysynreal-solver
+git clone <repository-url> style3d-sim
+cd style3d-sim
 ```
 
 Replace `<repository-url>` with the repository's clone URL. Skip this step if you already have a working copy.
 
-!!! note "Native submodule access"
-    The current `.gitmodules` uses private LAN SSH URLs such as `git@192.168.31.9:...`.
-    Initializing these submodules requires the corresponding network and SSH access.
-    Public GitHub runners cannot directly reach these addresses. For external distribution,
-    maintainers must provide accessible submodule URLs or matching binaries.
-    Documentation CI does not initialize submodules.
+!!! note "Public and private components"
+    `style3d-sim-bin` is the public prebuilt-extension repository used by external users.
+    `synreal-solver` is a closed-source native backend and is available only to authorized
+    internal developers. Cloning the public root repository does not grant source access.
+    Documentation CI does not initialize either submodule.
 
 ## 3. Create the Python Environment
 
@@ -58,13 +58,13 @@ Use `uv sync` for the base API only. See [Demos](../guides/demos.en.md) for trai
     The steps below explicitly install it with CMake and load the Python source through `PYTHONPATH`.
     Editable builds through `uv sync` or wheels through `uv build --wheel` require a packaging backend first.
 
-## 4A. Install a Prebuilt Extension
+## 4A. Install a Prebuilt Extension (public workflow)
 
 Choose this route if you do not need to modify native code. The binary must match your operating system,
 CPU architecture, Python ABI, and runtime environment.
 
 ```bash
-git submodule update --init synreal-solver-bin
+git submodule update --init style3d-sim-bin
 ```
 
 === "Windows PowerShell"
@@ -87,15 +87,17 @@ git submodule update --init synreal-solver-bin
 The submodule's CMake configuration determines the binary location. Its current layout is:
 
 ```text
-synreal-solver-bin/<system>/<config>/style3d_sim/_core<EXT_SUFFIX>
+style3d-sim-bin/<system>/<config>/style3d_sim/_core<EXT_SUFFIX>
 ```
 
 For example, Windows Release with CPython 3.12 commonly uses `_core.cp312-win_amd64.pyd`.
-If no matching binary exists, select a Python version provided by the submodule or build from source.
+If no matching binary exists, select a Python version provided by the public submodule or
+contact the internal release owner. External users cannot build `synreal-solver` from source.
 
-## 4B. Build from Source
+## 4B. Build from Source (authorized internal developers only)
 
-This route requires access to the source submodule, the CUDA Toolkit, and a C++20 compiler.
+This route requires authorized access to the closed-source `synreal-solver` submodule,
+the CUDA Toolkit, and a C++20 compiler. It is not available to external contributors.
 
 ```bash
 git submodule update --init --recursive synreal-solver
@@ -142,7 +144,8 @@ Importing the library does not authenticate the session. Continue with [Authenti
 ## 6. Update after Source Changes
 
 - Python changes take effect directly when using the source path above.
-- For C++/CUDA changes, repeat `cmake --build` and `cmake --install`.
+- For public users, native updates arrive through a new `style3d-sim-bin` release.
+- Authorized internal developers can repeat `cmake --build` and `cmake --install` after C++/CUDA changes.
 - For dependency changes, repeat `uv sync --extra examples`.
 - In a new terminal, set `PYTHONPATH` and the required login variables again.
 

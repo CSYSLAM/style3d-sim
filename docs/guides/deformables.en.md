@@ -5,7 +5,7 @@ Choose the model that matches the object's physical structure.
 
 ## Cloth: Register Style3D Attributes First
 
-Generic Newton triangle surface elasticity is not directly supported by the SynReal cloth path.
+Generic Newton triangle surface elasticity is not directly supported by the Style3D Sim cloth path.
 Register Style3D custom attributes before adding cloth, then use its modeling helpers.
 This model initialization can be used with the simulation loop:
 

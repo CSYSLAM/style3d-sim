@@ -1,6 +1,6 @@
 # 刚体、碰撞与关节
 
-SynReal 用仿射粒子代理求解刚体，再重建 Newton 的刚体姿态和速度。
+Style3D Sim 用仿射粒子代理求解刚体，再重建 Newton 的刚体姿态和速度。
 用户创建场景时仍以 Newton body、shape 和 joint 为单位，无需自己构造代理矩阵。
 
 ## 创建一个落地箱子
@@ -67,7 +67,7 @@ uv run python examples/example_robot_g1.py --help
 uv run python examples/example_rrabd_joints.py --help
 ```
 
-先检查各示例的 `--solver` 选项，有的脚本默认不是 SynReal。
+先检查各示例的 `--solver` 选项，有的脚本默认不是 Style3D Sim。
 `example_rrabd_joints.py` 演示多个 joint 自由度的正弦/余弦目标，可直接查看它对目标和速度目标的写入。
 
 驱动来自 Newton `control` 中的目标、目标速度和广义力；驱动类型、增益和力矩限制来自模型。

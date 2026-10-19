@@ -1,6 +1,6 @@
 # Rigid Bodies, Contacts, and Joints
 
-SynReal solves rigid bodies through affine particle proxies and reconstructs Newton body poses and velocities.
+Style3D Sim solves rigid bodies through affine particle proxies and reconstructs Newton body poses and velocities.
 Define scenes with Newton bodies, shapes, and joints; proxy matrices are handled by the adapter.
 
 ## Create a Falling Box
@@ -68,7 +68,7 @@ uv run python examples/example_robot_g1.py --help
 uv run python examples/example_rrabd_joints.py --help
 ```
 
-Check the `--solver` option: some scripts do not default to SynReal.
+Check the `--solver` option: some scripts do not default to Style3D Sim.
 `example_rrabd_joints.py` demonstrates sine/cosine targets across multiple DOFs
 and shows how to write position/velocity targets.
 

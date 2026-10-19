@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Style3D Sim</h1>
+  <h1>Style3D Sim 2.0</h1>
   <p>CUDA-accelerated implicit simulation for particles, cloth, deformable bodies, and affine rigid bodies.</p>
   <p>
     <a href="docs/index.en.md">English Docs</a> &middot;
@@ -13,7 +13,12 @@
 </div>
 
 Style3D Sim provides a Python API and a Newton Physics adapter, so a Newton
-model can use the SynReal backend for contact handling, constraints, and nonlinear solves.
+model can use the native backend for contact handling, constraints, and nonlinear solves.
+The `synreal-solver` native backend is closed source and available only to authorized
+internal developers. This public repository contains the Python adapter, examples,
+documentation, and integration code; it does not contain the native backend source.
+All other components in this repository are distributed as open-source project code
+under their applicable repository or dependency licenses.
 
 Read the [English usage documentation](docs/index.en.md) or [中文使用文档](docs/index.md)
 for installation, authentication, simulation tutorials, and API references.
@@ -41,7 +46,7 @@ for installation, authentication, simulation tutorials, and API references.
 - Particle, tetrahedral, cloth, and affine rigid-body support.
 - Contact, friction, joint, spring, and drive constraints.
 - Newton Physics solver integration through `NewtonSolver`.
-- Optional prebuilt extensions for supported Python and platform ABIs.
+- Optional prebuilt extensions from the public `style3d-sim-bin` repository.
 - Python and CMake build workflows.
 
 ## Requirements
@@ -53,7 +58,11 @@ For normal development and execution:
 - NVIDIA GPU, driver, and CUDA runtime compatible with the installed Warp/Newton packages.
 - [`uv`](https://docs.astral.sh/uv/).
 
-For a native source build, also install:
+For the public prebuilt workflow, install:
+
+- Git, to fetch the public binary submodule.
+
+For native source development by authorized internal developers, also install:
 
 - CMake 3.20 or newer.
 - A C++20 compiler.
@@ -63,27 +72,23 @@ For a native source build, also install:
 The examples require the optional `examples` dependency group. The locomotion
 examples require the larger `locomotion` dependency group.
 
-## Clone and initialize submodules
+## Clone and initialize the public components
 
-Clone the repository with its submodules:
-
-```bash
-git clone --recurse-submodules <repository-url>
-cd pysynreal-solver
-```
-
-If the repository was cloned without submodules, initialize the required one explicitly:
+Clone the public repository without recursively fetching the private native source:
 
 ```bash
-# Native source build
-git submodule update --init --recursive synreal-solver
-
-# Prebuilt extension build
-git submodule update --init synreal-solver-bin
-
-# Initialize both
-git submodule update --init --recursive
+git clone <repository-url> style3d-sim
+cd style3d-sim
 ```
+
+The public prebuilt extension is maintained in `style3d-sim-bin`:
+
+```bash
+git submodule update --init style3d-sim-bin
+```
+
+The `synreal-solver` submodule is closed source and requires internal access. External
+users should not try to initialize it; use a matching prebuilt extension instead.
 
 ## Build and install
 
@@ -99,7 +104,7 @@ uv sync --extra examples
 
 ### Use a prebuilt native extension
 
-Use this mode when a matching binary is available in `synreal-solver-bin`:
+Use this mode when a matching binary is available in `style3d-sim-bin`:
 
 ```bash
 cmake -S . -B build/prebuilt -DSYNREAL_SOLVER_USE_PREBUILT=ON -DCMAKE_BUILD_TYPE=Release \
@@ -116,11 +121,13 @@ cmake --install build/prebuilt --config Release --prefix "$PWD/src"
 $env:PYTHONPATH = "$PWD/src"
 ```
 
-### Build the native solver from source
+### Build the native solver from source (internal developers only)
 
-This mode compiles the C++/CUDA submodule locally:
+This mode compiles the closed-source C++/CUDA `synreal-solver` submodule locally and
+requires authorized internal access. It is unavailable to external contributors:
 
 ```bash
+git submodule update --init --recursive synreal-solver
 cmake -S . -B build/native -DSYNREAL_SOLVER_USE_PREBUILT=OFF -DCMAKE_BUILD_TYPE=Release \
   -DPython_EXECUTABLE="$PWD/.venv/bin/python"
 cmake --build build/native --config Release --parallel
@@ -128,7 +135,8 @@ cmake --install build/native --config Release --prefix "$PWD/src"
 export PYTHONPATH="$PWD/src"
 ```
 
-Use source mode when changing `synreal-solver/`. Re-run the build and install commands after native changes.
+Use source mode only when an authorized internal checkout includes `synreal-solver/`.
+Re-run the build and install commands after native changes.
 For Windows, use the interpreter and environment variable syntax shown above with `build/native` and prebuilt mode `OFF`.
 
 ### Build a wheel
@@ -320,13 +328,17 @@ uv run ruff check src tests examples
 
 ### The native extension cannot be found
 
-Check that the matching submodule is initialized and rebuild the package:
+For public users, check that the matching `style3d-sim-bin` submodule is initialized
+and rebuild the package:
 
 ```bash
-git submodule update --init --recursive
-cmake --build build/native --config Release --parallel
-cmake --install build/native --config Release --prefix src
+git submodule update --init style3d-sim-bin
+cmake --build build/prebuilt --config Release --parallel
+cmake --install build/prebuilt --config Release --prefix src
 ```
+
+Internal developers with source access can initialize `synreal-solver` and use the
+native source workflow above.
 
 If you are using prebuilt binaries, force prebuilt mode and verify that the binary matches the active Python ABI:
 
@@ -349,5 +361,6 @@ authentication fails.
 
 ## License
 
-See the repository and submodule license files for the applicable terms.
+See the repository and submodule license files for the applicable terms. The
+`synreal-solver` native backend is closed source and restricted to internal use.
 Third-party dependencies retain their respective licenses.

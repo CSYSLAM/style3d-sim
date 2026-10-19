@@ -4,6 +4,10 @@ Style3D Sim is a CUDA implicit physics library with a Python adapter for Newton 
 These guides take you from environment setup, native builds, and authentication to particles,
 rigid bodies, cloth, deformable bodies, and material configuration.
 
+The public repository contains the Python adapter, examples, documentation, and integration code.
+The native `synreal-solver` backend is closed source and available only to authorized internal
+developers; external users should install a matching prebuilt extension from `style3d-sim-bin`.
+
 ## Demo Showcase
 
 <div class="demo-grid" markdown="1">
@@ -45,7 +49,7 @@ The images are offline renders; the appearance in a real-time viewer may differ.
 **Newton builds the scene.** `ModelBuilder` defines particles, rigid bodies, joints, and collision shapes;
 `model.state()` creates state buffers.
 
-**SynReal advances physics.** `NewtonSolver.step()` accepts Newton states, controls, and contacts
+**Style3D Sim advances physics.** `NewtonSolver.step()` accepts Newton states, controls, and contacts
 and performs the native CUDA solve.
 
 **Viewers display the result.** Real-time viewers and offline rendering consume the simulation output.

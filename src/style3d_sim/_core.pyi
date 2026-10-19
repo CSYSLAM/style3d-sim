@@ -64,7 +64,7 @@ class AffineBodyRigidityModel:
 class Config:
     """
     
-    Runtime configuration for a Synreal solver.
+    Runtime configuration for a Style3D Sim solver.
     
     Changes made through ``solver.config`` affect subsequent direct step calls.
     Previously captured CUDA graphs must be rebuilt after a configuration change.
@@ -1707,7 +1707,7 @@ class NonlinearSolver:
 class Solver:
     """
     
-    Time-step solver for a Synreal simulation model.
+    Time-step solver for a Style3D Sim simulation model.
     
     Call initialize() once with a configured Model before calling step().
     """
@@ -1840,7 +1840,7 @@ def is_logged_in() -> bool:
     """
 def login(name: str, password: str, force_signin: bool) -> bool:
     """
-    Authenticate the SynReal client.
+    Authenticate the Style3D Sim client.
     """
 def set_log_callback(callback: collections.abc.Callable[[str, str, int, LogLevel, str], None]) -> None:
     """

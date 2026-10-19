@@ -112,7 +112,7 @@ Recreate the solver for a full material reset.
 
 Replace the solver with `s3d.NewtonSolver(model)` and retain Newton's state, control, and collision flow.
 Ensure the model is on CUDA. Convert generic triangle elasticity to Style3D as explained in [Cloth](deformables.en.md).
-Set SynReal iteration budgets through `solver.config`; constructor parameters from other solvers do not transfer directly.
+Set Style3D Sim iteration budgets through `solver.config`; constructor parameters from other solvers do not transfer directly.
 
 For topology changes, material array replacement, or a different shape count, prefer recreating the model and solver.
 `notify_model_changed()` provides an adapter notification entry point,

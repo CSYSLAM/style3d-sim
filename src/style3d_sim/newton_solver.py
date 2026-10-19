@@ -1,4 +1,4 @@
-"""Optional Newton Physics adapter for the native Synreal solver."""
+"""Optional Newton Physics adapter for the native Style3D Sim solver."""
 
 from __future__ import annotations
 
@@ -348,9 +348,9 @@ def _clear_fixed_affine_body_velocities(
 
 
 class NewtonSolver(_newton.solvers.SolverBase):
-    """Expose the native Synreal solver through Newton's solver interface.
+    """Expose the native Style3D Sim solver through Newton's solver interface.
 
-    The adapter passes Newton-owned Warp CUDA arrays to Synreal as non-owning
+    The adapter passes Newton-owned Warp CUDA arrays to Style3D Sim as non-owning
     device-memory spans. Newton continues to own every model and state array.
 
     The native solver supports particles, tetrahedral soft bodies, Style3D
@@ -372,7 +372,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         joint_line_half_length: float = 10.0,
         joint_drive_armature: float = 0.0,
     ) -> None:
-        """Create a Synreal-backed solver for a Newton model.
+        """Create a Style3D Sim-backed solver for a Newton model.
 
         Args:
             model: Particle, tetrahedral soft-body, or Style3D cloth
@@ -389,7 +389,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         Raises:
             ValueError: If the model is not allocated on CUDA or required
                 particle or tetrahedron arrays are invalid.
-            RuntimeError: If SynReal authentication fails.
+            RuntimeError: If Style3D Sim authentication fails.
             NotImplementedError: If generic Newton surface elasticity is
                 enabled without Style3D attributes.
         """
@@ -3477,7 +3477,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         contacts: Any | None,
         dt: float,
     ) -> None:
-        """Advance Newton state arrays through the native Synreal solver.
+        """Advance Newton state arrays through the native Style3D Sim solver.
 
         Args:
             state_in: Newton input state.

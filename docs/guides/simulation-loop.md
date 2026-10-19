@@ -108,7 +108,7 @@ solver.sync_affine_body_state(state)
 
 先将 solver 替换为 `s3d.NewtonSolver(model)`，保留 Newton 的 state、control 与碰撞流程。
 检查模型在 CUDA 上；如果场景使用普通三角形弹性，按 [布料教程](deformables.md) 改为 Style3D。
-不要照搬其他 solver 的 iterations 参数到构造函数：SynReal 的迭代数在 `solver.config` 上设置。
+不要照搬其他 solver 的 iterations 参数到构造函数：Style3D Sim 的迭代数在 `solver.config` 上设置。
 
 对拓扑、材质数组替换或 shape 数目变化，优先重新创建模型与 solver。
 `notify_model_changed()` 是适配层的模型变更通知入口，不代表任意拓扑变化都能安全地就地更新。

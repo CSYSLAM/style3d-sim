@@ -39,7 +39,7 @@ Simulation completed: 120 frames
 | `s3d.ModelBuilder()` | 准备场景对象与碰撞材料 |
 | `add_particle()` | 创建位置、速度、质量和接触半径 |
 | `finalize(device="cuda:0")` | 将模型数据分配到指定 GPU |
-| `s3d.NewtonSolver(model)` | 认证并初始化 SynReal 适配器 |
+| `s3d.NewtonSolver(model)` | 认证并初始化 Style3D Sim 适配器 |
 | 两个 `model.state()` | 分别提供输入与输出缓冲区 |
 | `CollisionPipeline` | 根据当前状态生成粒子与形状的接触 |
 | `step()` | 使用这些接触推进一个子步 |

@@ -28,14 +28,14 @@ Python wrapper 已更新但 `_core` 仍是旧构建时，也可能出现缺少�
 
 ## 子模块初始化失败
 
-当前子模块地址是内网 SSH 仓库，访问它需要相应网络与账号权限。
-先确认能访问主机并拥有 SSH 权限；外部发布需要维护者提供公开地址或二进制渠道。
+公开的 `style3d-sim-bin` 子模块为外部用户提供预编译扩展。
+`synreal-solver` 子模块是闭源原生后端，仅向获授权的内部开发人员开放；克隆公开根仓库不会获得其源码权限。外部用户应初始化 `style3d-sim-bin` 并使用匹配的二进制版本。
 克隆根仓库成功不意味着有原生子模块权限。
 
 ## CMake 找不到 pybind11 / Python / CUDA
 
 `uv sync` 安装 dev 依赖后，将 `Python_EXECUTABLE` 指向 `.venv` 的 Python。
-源码模式确认 `nvcc --version`、host compiler 和 CMake 可用，Windows 使用兼容的开发者终端。
+获授权的内部源码构建需检查 `nvcc --version`、host compiler 和 CMake；Windows 使用兼容的开发者终端。
 更改工具链后用新 build 目录重新 configure，避免旧缓存。
 
 ## 登录失败或一直等待输入 {#authentication}

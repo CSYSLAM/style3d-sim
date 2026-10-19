@@ -28,15 +28,15 @@ A newer wrapper paired with an older `_core` may cause missing attributes or enu
 
 ## Submodule Initialization Fails
 
-The current submodules use private LAN SSH repositories and require appropriate network and account access.
-Check host reachability and SSH permissions.
-External distribution needs accessible URLs or a binary channel supplied by maintainers.
-Cloning the root repository does not grant access to native submodules.
+The public `style3d-sim-bin` submodule provides prebuilt extensions for external users.
+The `synreal-solver` submodule is a closed-source native backend available only to authorized
+internal developers. Cloning the public root repository does not grant access to its source.
+External users should initialize `style3d-sim-bin` and use a matching binary release.
 
 ## CMake Cannot Find pybind11, Python, or CUDA
 
 Install development dependencies with `uv sync` and point `Python_EXECUTABLE` to `.venv`.
-For source builds, check `nvcc --version`, the host compiler, and CMake.
+For authorized internal source builds, check `nvcc --version`, the host compiler, and CMake.
 Use a compatible developer terminal on Windows.
 After toolchain changes, configure a new build directory to avoid stale cache entries.
 

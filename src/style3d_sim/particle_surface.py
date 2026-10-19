@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Synreal Solver Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
 # SPDX-License-Identifier: Apache-2.0
 
 """Closed render meshes reconstructed from CUDA particle positions."""
