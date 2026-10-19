@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Zhejiang Linctex Digital Technology Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
 """Optional Newton Physics adapter for the native Style3D Sim solver."""
 
 from __future__ import annotations

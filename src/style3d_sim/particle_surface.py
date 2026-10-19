@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2026 The Style3D Sim Developers
+# SPDX-FileCopyrightText: Copyright (c) 2026 Zhejiang Linctex Digital Technology Ltd.
 # SPDX-License-Identifier: Apache-2.0
 
 """Closed render meshes reconstructed from CUDA particle positions."""

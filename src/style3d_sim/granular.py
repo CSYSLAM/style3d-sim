@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Zhejiang Linctex Digital Technology Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
 """Configure cohesive granular particles for the native Newton/PCG solver."""
 
 import itertools

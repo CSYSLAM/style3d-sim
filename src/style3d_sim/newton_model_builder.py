@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Zhejiang Linctex Digital Technology Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
 """Optional Newton ModelBuilder with affine-body particle proxies."""
 
 from __future__ import annotations

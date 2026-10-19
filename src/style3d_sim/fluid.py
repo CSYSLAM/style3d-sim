@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Zhejiang Linctex Digital Technology Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
 """Configure the native single-phase fluid material on a finalized Newton model."""
 
 import numpy as np

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Zhejiang Linctex Digital Technology Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
 """Python API for Style3D Sim."""
 
 from typing import Any, Protocol

@@ -17,8 +17,8 @@ model can use the native backend for contact handling, constraints, and nonlinea
 The `synreal-solver` native backend is closed source and available only to authorized
 internal developers. This public repository contains the Python adapter, examples,
 documentation, and integration code; it does not contain the native backend source.
-All other components in this repository are distributed as open-source project code
-under their applicable repository or dependency licenses.
+The Python library and type stubs are open source under the [Apache License 2.0](LICENSE).
+See [License](#license) for the separate terms covering native binaries and third-party components.
 
 Read the [English usage documentation](docs/index.en.md) or [中文使用文档](docs/index.md)
 for installation, authentication, simulation tutorials, and API references.
@@ -362,6 +362,18 @@ authentication fails.
 
 ## License
 
-See the repository and submodule license files for the applicable terms. The
-`synreal-solver` native backend is closed source and restricted to internal use.
-Third-party dependencies retain their respective licenses.
+The Python source files (`.py`) and public type stubs (`.pyi`) under `src/style3d_sim/`
+are licensed under the [Apache License 2.0](LICENSE). Preserve the applicable copyright,
+license, and attribution notices when redistributing these files or modified versions.
+
+The native `synreal-solver` implementation is closed source, and its source is available
+only to authorized internal developers. The Apache-2.0 license for the Python API and
+type stubs does not grant access to or license the native implementation.
+
+Prebuilt native extensions (`.pyd` and `.so`), including copies installed alongside the
+Python package, are governed by the
+[Style3D Sim Binary License Agreement](style3d-sim-bin/LICENSE).
+Their use requires an applicable account entitlement or written agreement;
+redistribution requires prior written permission from the licensor.
+
+Third-party code, dependencies, and assets retain their respective licenses and notices.

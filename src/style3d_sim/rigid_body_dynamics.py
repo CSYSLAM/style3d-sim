@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 Zhejiang Linctex Digital Technology Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
 """Rigid-body inertia integrators used to construct ABD inertia terms.
 
 All quantities are expressed in body coordinates. ``inertia`` is constant,

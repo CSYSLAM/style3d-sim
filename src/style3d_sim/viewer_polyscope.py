@@ -1,6 +1,8 @@
+# SPDX-FileCopyrightText: Copyright (c) 2025-2026 Zhejiang Linctex Digital Technology Ltd.
+# SPDX-License-Identifier: Apache-2.0
+
 ########################################################################################################################
 #   Company:        Zhejiang Linctex Digital Technology Ltd.(Style3D)                                                  #
-#   Copyright:      All rights reserved by Linctex                                                                     #
 #   Description:    Style3D Viewer                                                                                     #
 #   Author:         Wenchao Huang (physhuangwenchao@gmail.com)                                                         #
 #   Date:           2025/06/19                                                                                         #
