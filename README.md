@@ -258,7 +258,6 @@ uv run python examples/example_basic_shapes.py --solver synreal
 ### Particle and material examples
 
 ```bash
-uv run python examples/example_particles.py
 uv run python examples/example_fluid.py
 uv run python examples/example_snow.py
 uv run python examples/example_granular_beaf.py
