@@ -12,6 +12,7 @@ closed source and its source build is restricted to authorized internal develope
 | Python | Run the Python API | CPython 3.11 or 3.12; `.python-version` currently selects 3.12 |
 | uv | Manage `.venv` and dependencies | [Install uv](https://docs.astral.sh/uv/getting-started/installation/) |
 | NVIDIA driver | Run CUDA | Compatible with the GPU and CUDA versions used by Warp and the extension |
+| CUDA runtime | Run prebuilt extensions | CUDA 12; the full CUDA Toolkit is not required |
 | CMake | Configure or install the extension | 3.20+; the build backend installs it automatically when needed |
 | CUDA Toolkit | Internal source development only | Required only for authorized `synreal-solver` development |
 | C++ compiler | Internal source development only | C++20; required only for authorized native development |

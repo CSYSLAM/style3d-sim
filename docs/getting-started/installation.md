@@ -10,6 +10,7 @@
 | Python | 执行 Python API | 支持 CPython 3.11、3.12；`.python-version` 当前选择 3.12 |
 | uv | 管理 `.venv` 和依赖 | [安装说明](https://docs.astral.sh/uv/getting-started/installation/) |
 | NVIDIA 驱动 | 运行 CUDA | 与 GPU、Warp 和扩展使用的 CUDA 版本兼容 |
+| CUDA 运行时 | 运行预编译扩展 | CUDA 12；无需安装完整 CUDA Toolkit |
 | CMake | 配置或安装原生扩展 | 3.20+；构建后端会在需要时自动安装 |
 | CUDA Toolkit | 仅供内部源码开发 | 只有获授权的 `synreal-solver` 开发需要 |
 | C++ 编译器 | 仅供内部源码开发 | 只有获授权的原生开发需要 |

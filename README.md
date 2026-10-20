@@ -55,12 +55,14 @@ For normal development and execution:
 
 - Windows or Linux.
 - CPython 3.11 or 3.12.
-- NVIDIA GPU, driver, and CUDA runtime compatible with the installed Warp/Newton packages.
+- NVIDIA GPU, driver, and CUDA 12 runtime compatible with the installed Warp/Newton packages.
 - [`uv`](https://docs.astral.sh/uv/).
 
 For the public prebuilt workflow, install:
 
 - Git, to fetch the public binary submodule.
+
+Prebuilt extensions need the CUDA 12 runtime; the full CUDA Toolkit is required only for native source builds.
 
 For native source development by authorized internal developers, also install:
 
@@ -340,35 +342,6 @@ Run the formatter and linter check with:
 ```bash
 uv run ruff check src tests examples
 ```
-
-## Troubleshooting
-
-### The native extension cannot be found
-
-For public users, initialize the matching `style3d-sim-bin` submodule and reinstall the package:
-
-```bash
-git submodule update --init style3d-sim-bin
-uv pip install --reinstall -e .
-```
-
-Internal developers with source access can initialize `synreal-solver` and use the
-native source workflow above.
-
-Verify that the binary matches the active Python ABI and that the command uses the intended virtual environment.
-
-### CUDA or compiler errors during a source build
-
-Confirm that `nvcc`, CMake, and the host compiler are on `PATH`, and that the
-CUDA Toolkit supports the installed NVIDIA driver. On Windows, use a Visual
-Studio toolchain supported by the installed CUDA version.
-
-### Authentication fails
-
-Confirm the account and password, check that both environment variables are set
-in the current terminal, and retry with an interactive login. A failed `login()`
-call returns `False`; `NewtonSolver` raises `RuntimeError` when automatic
-authentication fails.
 
 ## License
 
