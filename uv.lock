@@ -3233,11 +3233,12 @@ wheels = [
 [[package]]
 name = "style3d-sim"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "newton" },
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "typing-extensions" },
 ]
 
 [package.optional-dependencies]
@@ -3294,6 +3295,7 @@ requires-dist = [
     { name = "tensorboard", marker = "extra == 'locomotion'", specifier = ">=2.17" },
     { name = "torch", marker = "extra == 'examples'", specifier = ">=2.7", index = "https://download.pytorch.org/whl/cu132" },
     { name = "torch", marker = "extra == 'locomotion'", specifier = ">=2.7", index = "https://download.pytorch.org/whl/cu132" },
+    { name = "typing-extensions", specifier = ">=4.5" },
 ]
 provides-extras = ["examples", "locomotion"]
 

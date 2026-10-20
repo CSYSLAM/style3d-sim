@@ -4,10 +4,10 @@
 
 Typical error: `ModuleNotFoundError: No module named 'style3d_sim._core'`.
 
-1. Complete the CMake installation in [Installation](getting-started/installation.en.md), including steps after `uv sync`.
-2. Confirm the extension is in `src/style3d_sim/` alongside the Python package.
+1. Complete [Installation](getting-started/installation.en.md) with `uv pip install -e .` or `uv sync`.
+2. Confirm the extension is in the current virtual environment's `site-packages/style3d_sim/`.
 3. Match the extension's Python ABI to `.venv`; a CPython 3.11 binary cannot run under 3.12.
-4. Set `PYTHONPATH` to the repository's `src` directory in the current terminal.
+4. Clear any old manual `PYTHONPATH` setting that could load another checkout.
 
 ```bash
 uv run python -c "import sys, sysconfig; print(sys.executable); print(sysconfig.get_config_var('EXT_SUFFIX'))"
@@ -23,7 +23,7 @@ uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
 uv run python -c "import style3d_sim._core as core; print(core.__file__)"
 ```
 
-If these point to system site-packages, use the `uv run` environment and reset the source path.
+If these point to system site-packages, activate the project's `.venv` and reinstall the package.
 A newer wrapper paired with an older `_core` may cause missing attributes or enums; update both to matching versions.
 
 ## Submodule Initialization Fails
@@ -35,7 +35,7 @@ External users should initialize `style3d-sim-bin` and use a matching binary rel
 
 ## CMake Cannot Find pybind11, Python, or CUDA
 
-Install development dependencies with `uv sync` and point `Python_EXECUTABLE` to `.venv`.
+Package installation supplies pybind11 through the build backend and selects Python automatically; no interpreter path is needed.
 For authorized internal source builds, check `nvcc --version`, the host compiler, and CMake.
 Use a compatible developer terminal on Windows.
 After toolchain changes, configure a new build directory to avoid stale cache entries.

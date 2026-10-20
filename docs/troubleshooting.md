@@ -4,10 +4,10 @@
 
 典型错误：`ModuleNotFoundError: No module named 'style3d_sim._core'`。
 
-1. 完成 [安装](getting-started/installation.md) 的 CMake 安装，而不只是 `uv sync`。
-2. 确认扩展安装在 `src/style3d_sim/`，与 Python package 在一起。
+1. 完成 [安装](getting-started/installation.md)，使用 `uv pip install -e .` 或 `uv sync` 安装包。
+2. 确认扩展安装在当前虚拟环境的 `site-packages/style3d_sim/`。
 3. 检查扩展 Python ABI 是否匹配 `.venv`；不能用 CPython 3.11 的文件运行在 3.12 上。
-4. 当前终端设置 `PYTHONPATH` 指向仓库 `src`。
+4. 清除手动设置的旧 `PYTHONPATH`，避免加载其他工作副本。
 
 ```bash
 uv run python -c "import sys, sysconfig; print(sys.executable); print(sysconfig.get_config_var('EXT_SUFFIX'))"
@@ -23,7 +23,7 @@ uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
 uv run python -c "import style3d_sim._core as core; print(core.__file__)"
 ```
 
-如果指向系统 site-packages，使用 `uv run` 的环境并重新设置源码路径。
+如果指向系统 site-packages，激活当前项目的 `.venv` 并重新安装包。
 Python wrapper 已更新但 `_core` 仍是旧构建时，也可能出现缺少属性或枚举的错误；更新两个组件的匹配版本。
 
 ## 子模块初始化失败
@@ -34,7 +34,7 @@ Python wrapper 已更新但 `_core` 仍是旧构建时，也可能出现缺少�
 
 ## CMake 找不到 pybind11 / Python / CUDA
 
-`uv sync` 安装 dev 依赖后，将 `Python_EXECUTABLE` 指向 `.venv` 的 Python。
+使用包安装命令时，构建后端会自动提供 pybind11 并选择 Python，无需手动指定解释器路径。
 获授权的内部源码构建需检查 `nvcc --version`、host compiler 和 CMake；Windows 使用兼容的开发者终端。
 更改工具链后用新 build 目录重新 configure，避免旧缓存。
 

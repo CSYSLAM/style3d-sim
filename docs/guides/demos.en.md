@@ -5,7 +5,7 @@ some scripts do not default to Style3D Sim. Run commands from the repository roo
 
 ## Before Running
 
-1. Complete [Installation](../getting-started/installation.en.md) and set `PYTHONPATH` in the current terminal.
+1. Complete [Installation](../getting-started/installation.en.md) to install the package into `.venv`.
 2. Install viewer, asset, and example dependencies with `uv sync --extra examples`.
 3. Set [credentials](../getting-started/authentication.en.md) to prevent headless programs from waiting for input.
 4. Allow access to asset download URLs when needed. Individual examples manage their own assets.

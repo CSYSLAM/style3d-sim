@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "newton>=1.5.0",
     "numpy>=2.0.0",
+    "typing-extensions>=4.5",
 ]
 
 [project.optional-dependencies]
@@ -46,6 +47,10 @@ dev = [
     "pybind11-stubgen>=2.5",
 ]
 
+[build-system]
+requires = ["scikit-build-core>=0.11", "pybind11>=2.13"]
+build-backend = "scikit_build_core.build"
+
 [tool.ruff]
 line-length = 100
 
@@ -69,6 +74,24 @@ cache-dir = ".uvcache"
 [tool.scikit-build]
 # Package the public Python sources alongside the compiled `_core` extension.
 wheel.packages = ["src/style3d_sim"]
+cmake.build-type = "Release"
+# Keep public installs independent of any private source checkout.
+cmake.define.SYNREAL_SOLVER_USE_PREBUILT = "ON"
+# Include only the files needed to rebuild public wheels, even in an internal checkout.
+sdist.exclude = ["*"]
+sdist.include = [
+    "/pyproject.toml",
+    "/CMakeLists.txt",
+    "/README.md",
+    "/LICENSE",
+    "/src/style3d_sim/*.py",
+    "/src/style3d_sim/*.pyi",
+    "/style3d-sim-bin/CMakeLists.txt",
+    "/style3d-sim-bin/LICENSE",
+    "/style3d-sim-bin/git_commit.txt",
+    "/style3d-sim-bin/Windows/Release/*.pyd",
+    "/style3d-sim-bin/Linux/Release/*.so",
+]
 
 [tool.poe.tasks]
 # Generate `_core.pyi` from the docstrings and signatures of the built module.

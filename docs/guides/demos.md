@@ -5,7 +5,7 @@
 
 ## 运行前检查
 
-1. 完成 [安装](../getting-started/installation.md)，配置当前终端的 `PYTHONPATH`。
+1. 完成 [安装](../getting-started/installation.md)，将包安装到 `.venv`。
 2. `uv sync --extra examples` 安装 viewer、资产与示例依赖。
 3. 完成 [账号设置](../getting-started/authentication.md)，避免 headless 程序等待终端输入。
 4. 如果需要资产下载，允许访问对应外部地址；库的离线 API 不会自动替所有示例下载资产。

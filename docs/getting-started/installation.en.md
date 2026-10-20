@@ -12,7 +12,7 @@ closed source and its source build is restricted to authorized internal develope
 | Python | Run the Python API | 3.11+; `.python-version` currently selects 3.12 |
 | uv | Manage `.venv` and dependencies | [Install uv](https://docs.astral.sh/uv/getting-started/installation/) |
 | NVIDIA driver | Run CUDA | Compatible with the GPU and CUDA versions used by Warp and the extension |
-| CMake | Configure or install the extension | 3.20+ |
+| CMake | Configure or install the extension | 3.20+; the build backend installs it automatically when needed |
 | CUDA Toolkit | Internal source development only | Required only for authorized `synreal-solver` development |
 | C++ compiler | Internal source development only | C++20; required only for authorized native development |
 
@@ -45,18 +45,29 @@ Replace `<repository-url>` with the repository's clone URL. Skip this step if yo
 ## 3. Create the Python Environment
 
 ```bash
-uv sync --extra examples
-uv run python --version
+uv sync --extra examples --no-install-project
 ```
 
 The optional `examples` extra includes viewer and example dependencies.
-Use `uv sync` for the base API only. See [Demos](../guides/demos.en.md) for training dependencies.
+Omit `--extra examples` for the base API only. See [Demos](../guides/demos.en.md) for training dependencies.
+`--no-install-project` prepares dependencies first; the package and native extension are installed together in the next step.
 
-!!! important "Build procedure for the current checkout"
-    `pyproject.toml` currently has no `[build-system]` declaration; uv treats the root as a virtual project.
-    `uv sync` installs dependencies but does not compile or install the root project's `_core` extension.
-    The steps below explicitly install it with CMake and load the Python source through `PYTHONPATH`.
-    Editable builds through `uv sync` or wheels through `uv build --wheel` require a packaging backend first.
+Activate the environment and run the following installation commands in the same terminal:
+
+=== "Windows PowerShell"
+
+    ```powershell
+    .\.venv\Scripts\Activate.ps1
+    ```
+
+=== "Linux Bash"
+
+    ```bash
+    source .venv/bin/activate
+    ```
+
+The `scikit-build-core` backend runs CMake automatically and selects the target environment's Python ABI.
+No manual `Python_EXECUTABLE` or `PYTHONPATH` setting is required.
 
 ## 4A. Install a Prebuilt Extension (public workflow)
 
@@ -65,29 +76,17 @@ CPU architecture, Python ABI, and runtime environment.
 
 ```bash
 git submodule update --init style3d-sim-bin
+uv pip install -e .
 ```
 
-=== "Windows PowerShell"
+`-e` creates an editable install, so Python source changes take effect directly. Use `uv pip install .` for a regular install.
+Both install the matching native extension and its license; no separate CMake installation is needed.
+After initializing the public binary submodule, `uv sync --extra examples` also performs an editable installation.
 
-    ```powershell
-    cmake -S . -B build/prebuilt -DSYNREAL_SOLVER_USE_PREBUILT=ON -DPython_EXECUTABLE="$PWD/.venv/Scripts/python.exe"
-    cmake --install build/prebuilt --config Release --prefix "$PWD/src"
-    $env:PYTHONPATH = "$PWD/src"
-    ```
-
-=== "Linux Bash"
-
-    ```bash
-    cmake -S . -B build/prebuilt -DSYNREAL_SOLVER_USE_PREBUILT=ON -DCMAKE_BUILD_TYPE=Release \
-      -DPython_EXECUTABLE="$PWD/.venv/bin/python"
-    cmake --install build/prebuilt --config Release --prefix "$PWD/src"
-    export PYTHONPATH="$PWD/src"
-    ```
-
-The submodule's CMake configuration determines the binary location. Its current layout is:
+Package builds default to prebuilt mode even when an internal source checkout is present. The binary layout is:
 
 ```text
-style3d-sim-bin/<system>/<config>/style3d_sim/_core<EXT_SUFFIX>
+style3d-sim-bin/<system>/<config>/_core<EXT_SUFFIX>
 ```
 
 For example, Windows Release with CPython 3.12 commonly uses `_core.cp312-win_amd64.pyd`.
@@ -101,52 +100,42 @@ the CUDA Toolkit, and a C++20 compiler. It is not available to external contribu
 
 ```bash
 git submodule update --init --recursive synreal-solver
+uv pip install -e . -C cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF
 ```
 
-=== "Windows PowerShell"
-
-    ```powershell
-    cmake -S . -B build/native -DSYNREAL_SOLVER_USE_PREBUILT=OFF -DPython_EXECUTABLE="$PWD/.venv/Scripts/python.exe"
-    cmake --build build/native --config Release --parallel
-    cmake --install build/native --config Release --prefix "$PWD/src"
-    $env:PYTHONPATH = "$PWD/src"
-    ```
-
-=== "Linux Bash"
-
-    ```bash
-    cmake -S . -B build/native -DSYNREAL_SOLVER_USE_PREBUILT=OFF -DCMAKE_BUILD_TYPE=Release \
-      -DPython_EXECUTABLE="$PWD/.venv/bin/python"
-    cmake --build build/native --config Release --parallel
-    cmake --install build/native --config Release --prefix "$PWD/src"
-    export PYTHONPATH="$PWD/src"
-    ```
-
-`Python_EXECUTABLE` selects the `.venv` Python ABI; the development dependencies installed by `uv sync` provide pybind11.
-`--prefix .../src` installs the extension into `src/style3d_sim/`, alongside the Python package.
-Keep build artifacts out of Git.
-
-!!! tip "Use separate CMake caches"
-    Use `build/prebuilt` and `build/native` for their respective modes.
-    When changing Python versions or compilers, configure a new build directory to avoid stale toolchain settings.
+The backend provides pybind11 in an isolated environment and handles CMake configuration, compilation, and installation.
+The native submodule keeps its standalone install layout; the root repository handles the Python package layout.
+In source mode, sync dependencies with `uv sync --extra examples --no-install-project --inexact` and run with
+`uv run --no-sync` to retain the current installation. Repeat the installation command with `OFF` when rebuilding.
 
 ## 5. Verify the Loaded Build
 
 ```bash
-uv run python -c "import style3d_sim as s3d; print(s3d.__file__)"
-uv run python -c "import style3d_sim._core as core; print(core.__file__)"
-uv run python -c "import warp as wp; wp.init(); print(wp.is_cuda_available())"
+python -c "import style3d_sim as s3d; print(s3d.__file__)"
+python -c "import style3d_sim._core as core; print(core.__file__)"
+python -c "import warp as wp; wp.init(); print(wp.is_cuda_available())"
 ```
 
-The first two paths should point into this checkout's `src/style3d_sim/`; the CUDA check should print `True`.
+With an editable install, Python files point into this checkout's `src/style3d_sim/`, while the extension lives in
+the environment's `site-packages/style3d_sim/`. With a regular install, both live in the environment.
+The CUDA check should print `True`.
 Importing the library does not authenticate the session. Continue with [Authentication](authentication.en.md).
 
 ## 6. Update after Source Changes
 
-- Python changes take effect directly when using the source path above.
+- Python changes take effect directly with an editable installation.
 - For public users, native updates arrive through a new `style3d-sim-bin` release.
-- Authorized internal developers can repeat `cmake --build` and `cmake --install` after C++/CUDA changes.
-- For dependency changes, repeat `uv sync --extra examples`.
-- In a new terminal, set `PYTHONPATH` and the required login variables again.
+- Authorized internal developers repeat the installation command with `OFF` after C++/CUDA changes.
+- In a new terminal, activate `.venv` and set the required login variables again.
 
 After changing Python versions, reinstall a matching extension. A `.pyd` or `.so` built for another ABI cannot be reused.
+
+## 7. Build a Wheel
+
+```bash
+uv build --wheel
+```
+
+The wheel in `dist/` contains Python files, type stubs, the native extension for the current platform and Python ABI,
+and the binary license. Internal source builds use `uv build --wheel -C cmake.define.SYNREAL_SOLVER_USE_PREBUILT=OFF`.
+`uv build` also creates a public source distribution containing the prebuilt binaries and excluding private native source.
