@@ -13,20 +13,20 @@ developers; external users should install a matching prebuilt extension from `st
 <div class="demo-grid" markdown="1">
 <figure markdown="1">
 
-![G1 humanoid on deformable jelly blocks](images/g1_jelly_drop_demo.png)
+![G1 humanoid on deformable jelly blocks](images/g1_jelly_drop_demo.gif)
 
 <figcaption>G1 Jelly Drop · Rigid body contact with tetrahedral soft bodies</figcaption>
 </figure>
 <figure markdown="1">
 
-![Piper arm carrying a deformable bag](images/piper_scene_demo.png)
+![Piper arm carrying a deformable bag](images/piper_scene_demo.gif)
 
 <figcaption>Piper Bag Transport · Robotic manipulation of a cloth bag</figcaption>
 </figure>
 </div>
 
 See [Demos and Rendering](guides/demos.en.md) to run these scenes.
-The images are offline renders; the appearance in a real-time viewer may differ.
+The animations are offline renders; the appearance in a real-time viewer may differ.
 
 ## Where to Start
 

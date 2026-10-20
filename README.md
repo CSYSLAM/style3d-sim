@@ -28,12 +28,12 @@ for installation, authentication, simulation tutorials, and API references.
 <table>
   <tr>
     <td width="50%" align="center" valign="top">
-      <img src="docs/images/g1_jelly_drop_demo.png" alt="G1 humanoid interacting with deformable jelly blocks" width="100%" />
+      <img src="docs/images/g1_jelly_drop_demo.gif" alt="G1 humanoid interacting with deformable jelly blocks" width="100%" />
       <p><strong>G1 Jelly Drop</strong><br />Humanoid interaction with deformable FEM blocks.</p>
       <p><a href="demos/g1_jelly_drop/demo_g1_jelly_drop.py">View demo code</a></p>
     </td>
     <td width="50%" align="center" valign="top">
-      <img src="docs/images/piper_scene_demo.png" alt="Piper robot arm transporting a deformable bag of apples" width="100%" />
+      <img src="docs/images/piper_scene_demo.gif" alt="Piper robot arm transporting a deformable bag of apples" width="100%" />
       <p><strong>Piper Bag Transport</strong><br />Robotic manipulation of a deformable bag.</p>
       <p><a href="demos/piper_bag_transport/demo_piper_bag_transport.py">View demo code</a></p>
     </td>

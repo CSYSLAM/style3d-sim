@@ -11,19 +11,19 @@ Style3D Sim 是面向 CUDA 的隐式物理求解库，通过 Python API 接入 N
 <div class="demo-grid" markdown="1">
 <figure markdown="1">
 
-![G1 humanoid on deformable jelly blocks](images/g1_jelly_drop_demo.png)
+![G1 humanoid on deformable jelly blocks](images/g1_jelly_drop_demo.gif)
 
 <figcaption>G1 Jelly Drop · 刚体与四面体软体接触</figcaption>
 </figure>
 <figure markdown="1">
 
-![Piper arm carrying a deformable bag](images/piper_scene_demo.png)
+![Piper arm carrying a deformable bag](images/piper_scene_demo.gif)
 
 <figcaption>Piper Bag Transport · 机械臂操纵布料袋</figcaption>
 </figure>
 </div>
 
-运行这些 demo 的方法见 [示例与渲染](guides/demos.md)。图片为离线渲染结果，实时 viewer 的外观可能不同。
+运行这些 demo 的方法见 [示例与渲染](guides/demos.md)。动画为离线渲染结果，实时 viewer 的外观可能不同。
 
 ## 从哪里开始
 
