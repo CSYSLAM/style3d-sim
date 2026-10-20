@@ -9,7 +9,7 @@ closed source and its source build is restricted to authorized internal develope
 | Tool | Purpose | Requirement |
 | --- | --- | --- |
 | Git | Fetch the repository and public binary submodule | Access to the public repository and `style3d-sim-bin` |
-| Python | Run the Python API | 3.11+; `.python-version` currently selects 3.12 |
+| Python | Run the Python API | CPython 3.11 or 3.12; `.python-version` currently selects 3.12 |
 | uv | Manage `.venv` and dependencies | [Install uv](https://docs.astral.sh/uv/getting-started/installation/) |
 | NVIDIA driver | Run CUDA | Compatible with the GPU and CUDA versions used by Warp and the extension |
 | CMake | Configure or install the extension | 3.20+; the build backend installs it automatically when needed |

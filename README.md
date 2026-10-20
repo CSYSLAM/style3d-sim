@@ -54,7 +54,7 @@ for installation, authentication, simulation tutorials, and API references.
 For normal development and execution:
 
 - Windows or Linux.
-- Python 3.11 or newer.
+- CPython 3.11 or 3.12.
 - NVIDIA GPU, driver, and CUDA runtime compatible with the installed Warp/Newton packages.
 - [`uv`](https://docs.astral.sh/uv/).
 

@@ -7,7 +7,7 @@
 | 工具 | 用途 | 要求 |
 | --- | --- | --- |
 | Git | 下载公开仓库与二进制子模块 | 能访问公开仓库和 `style3d-sim-bin` |
-| Python | 执行 Python API | 项目要求 3.11+；`.python-version` 当前选择 3.12 |
+| Python | 执行 Python API | 支持 CPython 3.11、3.12；`.python-version` 当前选择 3.12 |
 | uv | 管理 `.venv` 和依赖 | [安装说明](https://docs.astral.sh/uv/getting-started/installation/) |
 | NVIDIA 驱动 | 运行 CUDA | 与 GPU、Warp 和扩展使用的 CUDA 版本兼容 |
 | CMake | 配置或安装原生扩展 | 3.20+；构建后端会在需要时自动安装 |
