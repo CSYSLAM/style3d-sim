@@ -79,7 +79,7 @@ examples require the larger `locomotion` dependency group.
 Clone the public repository without recursively fetching the private native source:
 
 ```bash
-git clone <repository-url> style3d-sim
+git clone https://github.com/Style3D/style3d-sim.git
 cd style3d-sim
 ```
 
