@@ -151,6 +151,7 @@ def _sync_affine_body_state(
     body_com: wp.array(dtype=wp.vec3),
     body_q: wp.array(dtype=wp.transform),
     body_qd: wp.array(dtype=wp.spatial_vector),
+    body_mask: wp.array(dtype=wp.int32),
     particle_q: wp.array(dtype=wp.vec3),
     particle_qd: wp.array(dtype=wp.vec3),
 ):
@@ -158,6 +159,8 @@ def _sync_affine_body_state(
     affine_body = wp.tid()
     indices = affine_body_indices[affine_body]
     body = affine_body_ids[affine_body]
+    if body_mask and body_mask[body] == 0:
+        return
     pose = body_q[body]
     rotation = wp.transform_get_rotation(pose)
     world_com = wp.transform_get_translation(pose) + wp.quat_rotate(
@@ -177,6 +180,24 @@ def _sync_affine_body_state(
     particle_qd[indices[1]] = wp.cross(angular_velocity, x_axis)
     particle_qd[indices[2]] = wp.cross(angular_velocity, y_axis)
     particle_qd[indices[3]] = wp.cross(angular_velocity, z_axis)
+
+
+@wp.kernel
+def _mask_joint_drive_reset(
+    body_mask: wp.array(dtype=wp.int32),
+    affine_body_ids: wp.array(dtype=wp.int32),
+    drive_bodies: wp.array(dtype=wp.vec2i),
+    angle_initialized: wp.array(dtype=wp.int32),
+    drive_mask: wp.array(dtype=wp.int32),
+):
+    drive = wp.tid()
+    bodies = drive_bodies[drive]
+    selected = body_mask[affine_body_ids[bodies[1]]] != 0
+    if bodies[0] >= 0:
+        selected = selected or body_mask[affine_body_ids[bodies[0]]] != 0
+    drive_mask[drive] = int(selected)
+    if selected:
+        angle_initialized[drive] = 0
 
 
 @wp.kernel
@@ -418,6 +439,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._joint_drive_feedback_dt: float | None = None
         self._joint_drive_feedback_previous_angles: Any | None = None
         self._joint_drive_feedback_angle_initialized: Any | None = None
+        self._joint_drive_reset_mask: Any | None = None
         self._joint_drive_feedback_scratch: Any | None = None
         self._joint_drive_start_velocities: Any | None = None
         active_joint_drive_body_ids = self._find_active_joint_drive_body_ids()
@@ -891,6 +913,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
                         self.model.joint_damping,
                         self.model.joint_armature,
                         self.model.joint_effort_limit,
+                        self.model.joint_limit_lower,
+                        self.model.joint_limit_upper,
+                        self.model.joint_limit_ke,
+                        self.model.joint_limit_kd,
                     )
                 )
             ):
@@ -1047,6 +1073,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._joint_drive_feedback_angle_initialized = self._wp.zeros(
             drive_count, dtype=self._wp.int32, device=self.device
         )
+        self._joint_drive_reset_mask = self._wp.empty(drive_count, dtype=self._wp.int32, device=self.device)
         self._joint_drive_feedback_scratch = self._wp.empty(
             dof_count, dtype=self._wp.float32, device=self.device
         )
@@ -2581,10 +2608,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
             if any(len(array) != drive_count for array in joint_drive_arrays):
                 raise ValueError("Joint drive arrays have different lengths.")
 
-        for name in ("joint_armature", "joint_damping"):
+        for name in ("joint_armature", "joint_damping", "joint_limit_ke", "joint_limit_kd"):
             values = np.asarray(getattr(self.model, name).numpy())
             if not np.all(np.isfinite(values)) or np.any(values < 0.0):
                 raise ValueError(f"{name} must contain finite non-negative values.")
+
+        lower = self.model.joint_limit_lower.numpy()
+        upper = self.model.joint_limit_upper.numpy()
+        if np.any(np.isnan(lower)) or np.any(np.isnan(upper)) or np.any(lower > upper):
+            raise ValueError("Joint limits must be ordered and not NaN.")
 
         # The scalar-coordinate mapping cannot represent ball-joint inertia or
         # actuation. Free-root armature is ignored by Newton's MuJoCo adapter too.
@@ -3065,6 +3097,15 @@ class NewtonSolver(_newton.solvers.SolverBase):
             self._synreal_model.joint_armature = self._as_span(
                 self.model.joint_armature, self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
             )
+            for native_name, model_name in (
+                ("joint_limit_lower", "joint_limit_lower"),
+                ("joint_limit_upper", "joint_limit_upper"),
+                ("joint_limit_stiffnesses", "joint_limit_ke"),
+                ("joint_limit_dampings", "joint_limit_kd"),
+            ):
+                setattr(self._synreal_model, native_name, self._as_span(
+                    getattr(self.model, model_name), self._synreal_model.joint_dof_count, expected_dtype=self._wp.float32
+                ))
 
         shape_count = self._shared_counts.get(
             "shape_count", int(self.model.shape_count)
@@ -3268,7 +3309,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._as_span(state.body_q, body_count, expected_dtype=self._wp.transform)
         self._as_span(state.body_qd, body_count, expected_dtype=self._wp.spatial_vector)
 
-    def sync_affine_body_state(self, state: Any) -> None:
+    def sync_affine_body_state(self, state: Any, *, body_mask: Any | None = None) -> None:
         """Update affine proxy positions and velocities from Newton body state.
 
         Call this after ``eval_fk()``, an environment reset, or any direct edit
@@ -3276,6 +3317,10 @@ class NewtonSolver(_newton.solvers.SolverBase):
         and is safe to include in CUDA graph capture. It must not be called
         before every regular step because that would discard the proxy state
         integrated by the native solver.
+
+        ``body_mask`` is an optional int32 CUDA array of shape ``(body_count,)``.
+        Only selected bodies and their joint-angle histories are reset. Mask the
+        preceding FK call too, so surviving environments retain their solver state.
         """
         affine_body_count = (
             0 if self._affine_body_ids is None else len(self._affine_body_ids)
@@ -3294,12 +3339,29 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._as_span(state.particle_qd, self.model.particle_count, expected_dtype=self._wp.vec3)
 
         stream = self._wp.get_stream(self.device)
-        self._native_solver.reset_joint_drive_state(stream)
-        self._joint_drive_feedback_state = None
-        self._joint_drive_feedback_previous_state = None
-        self._joint_drive_feedback_dt = None
-        if self._joint_drive_feedback_angle_initialized is not None:
-            self._joint_drive_feedback_angle_initialized.zero_()
+        if body_mask is None:
+            self._native_solver.reset_joint_drive_state(stream)
+            self._joint_drive_feedback_state = None
+            self._joint_drive_feedback_previous_state = None
+            self._joint_drive_feedback_dt = None
+            if self._joint_drive_feedback_angle_initialized is not None:
+                self._joint_drive_feedback_angle_initialized.zero_()
+        else:
+            self._as_span(body_mask, self.model.body_count, expected_dtype=self._wp.int32)
+            if tuple(body_mask.shape) != (self.model.body_count,):
+                raise ValueError("body_mask must have shape (body_count,)")
+            if self._joint_drive_types is not None and len(self._joint_drive_types):
+                self._ensure_joint_drive_feedback_angle_state()
+                drive_mask = self._joint_drive_reset_mask
+                self._wp.launch(
+                    _mask_joint_drive_reset, dim=len(self._joint_drive_types),
+                    inputs=[body_mask, self._affine_body_ids, self._joint_drive_body_indices,
+                            self._joint_drive_feedback_angle_initialized],
+                    outputs=[drive_mask], device=self.device, stream=stream,
+                )
+                self._native_solver.reset_joint_drive_state(
+                    stream, self._as_span(drive_mask, len(drive_mask), expected_dtype=self._wp.int32)
+                )
         self._wp.launch(
             _sync_affine_body_state,
             dim=affine_body_count,
@@ -3310,6 +3372,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
                 self._affine_body_com,
                 state.body_q,
                 state.body_qd,
+                body_mask,
             ],
             outputs=[state.particle_q, state.particle_qd],
             device=self.device,
@@ -3685,6 +3748,7 @@ class NewtonSolver(_newton.solvers.SolverBase):
         self._joint_drive_feedback_dt = None
         self._joint_drive_feedback_previous_angles = None
         self._joint_drive_feedback_angle_initialized = None
+        self._joint_drive_reset_mask = None
         self._joint_drive_feedback_scratch = None
         self._joint_drive_start_velocities = None
         if self._joint_drive_effort is not None:

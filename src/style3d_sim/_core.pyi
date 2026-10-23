@@ -1261,6 +1261,30 @@ class Model:
     def joint_drive_types(self, arg1: Span) -> None:
         ...
     @property
+    def joint_limit_lower(self) -> Span:
+        ...
+    @joint_limit_lower.setter
+    def joint_limit_lower(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_limit_upper(self) -> Span:
+        ...
+    @joint_limit_upper.setter
+    def joint_limit_upper(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_limit_stiffnesses(self) -> Span:
+        ...
+    @joint_limit_stiffnesses.setter
+    def joint_limit_stiffnesses(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_limit_dampings(self) -> Span:
+        ...
+    @joint_limit_dampings.setter
+    def joint_limit_dampings(self, arg1: Span) -> None:
+        ...
+    @property
     def joint_effort_limits(self) -> Span:
         """
         Device span containing symmetric joint effort magnitude limits.
@@ -1725,7 +1749,7 @@ class Solver:
         The model's device allocations must remain valid while the solver uses them.
         Call this method before the first call to step().
         """
-    def reset_joint_drive_state(self, stream: typing.Any = None) -> None:
+    def reset_joint_drive_state(self, stream: typing.Any = None, mask: Span = ...) -> None:
         """
         Reset persistent joint-coordinate branches after an external state reset.
         """
