@@ -1444,6 +1444,30 @@ class Model:
     def joint_drive_types(self, arg1: Span) -> None:
         ...
     @property
+    def joint_limit_lower(self) -> Span:
+        """Optional per-DOF angular stop parameter."""
+    @joint_limit_lower.setter
+    def joint_limit_lower(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_limit_upper(self) -> Span:
+        """Optional per-DOF angular stop parameter."""
+    @joint_limit_upper.setter
+    def joint_limit_upper(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_limit_stiffnesses(self) -> Span:
+        """Optional per-DOF angular stop parameter."""
+    @joint_limit_stiffnesses.setter
+    def joint_limit_stiffnesses(self, arg1: Span) -> None:
+        ...
+    @property
+    def joint_limit_dampings(self) -> Span:
+        """Optional per-DOF angular stop parameter."""
+    @joint_limit_dampings.setter
+    def joint_limit_dampings(self, arg1: Span) -> None:
+        ...
+    @property
     def joint_effort_limits(self) -> Span:
         """
         Device span containing symmetric joint effort magnitude limits.
@@ -1910,7 +1934,7 @@ class Solver:
         """
     def reserve_rigid_contact_capacity(self, capacity: typing.SupportsInt | typing.SupportsIndex) -> None:
         """Reserve contact state before CUDA graph capture."""
-    def reset_joint_drive_state(self, stream: typing.Any = None) -> None:
+    def reset_joint_drive_state(self, stream: typing.Any = None, mask: Span = ...) -> None:
         """
         Reset persistent joint-coordinate branches after an external state reset.
         """

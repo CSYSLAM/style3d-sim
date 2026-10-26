@@ -730,6 +730,7 @@ def test_affine_body_velocity_reconstruction_uses_mass_weighted_rigid_fit(
             model.body_com,
             state.body_q,
             state.body_qd,
+            None,
         ],
         outputs=[state.particle_q, state.particle_qd],
         device=device,
