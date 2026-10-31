@@ -1,0 +1,69 @@
+{
+  "case": "w1-newton-b0-d0-s0-p0",
+  "worker_exit": 0,
+  "passed": true,
+  "finite": true,
+  "active_surface_contacts": 17,
+  "surface_cloth_rhs_changed": true,
+  "surface_body_rhs_changed": true,
+  "rigid_contacts": 4,
+  "rolling_rhs_changed": true,
+  "states": {
+    "body_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "bitwise": true
+  },
+  "metadata": {
+    "left_launches": 652,
+    "right_launches": 652,
+    "different_launches": 0,
+    "examples": [],
+    "arguments_equal": true,
+    "geometry_and_shared_memory_complete": true,
+    "equal": true
+  },
+  "coverage": true,
+  "buffers": {
+    "dump_15initialize_step_post_arg22.bin": true,
+    "dump_14initialize_rhs_post_arg9.bin": true,
+    "dump_30evaluate_surface_contact_force_post_arg0.bin": true,
+    "dump_30evaluate_surface_contact_force_post_arg1.bin": true,
+    "dump_34add_surface_contact_preconditioner_post_arg1.bin": true,
+    "dump_32multiply_surface_contact_tangent_post_arg2.bin": true,
+    "dump_30evaluate_rolling_contact_force_post_arg0.bin": true,
+    "dump_30evaluate_rolling_contact_force_post_arg1.bin": true,
+    "dump_34add_rolling_contact_preconditioner_post_arg1.bin": true,
+    "dump_32multiply_rolling_contact_tangent_post_arg2.bin": true,
+    "dump_27invert_block_preconditioner_post_arg0.bin": true
+  }
+}

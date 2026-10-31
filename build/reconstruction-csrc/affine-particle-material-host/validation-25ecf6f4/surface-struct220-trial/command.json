@@ -1,0 +1,15 @@
+[
+  "/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/bin/nvcc",
+  "-ptx",
+  "-arch=sm_52",
+  "-Wno-deprecated-gpu-targets",
+  "-diag-suppress=20012",
+  "-std=c++17",
+  "-O3",
+  "-DNDEBUG",
+  "-I",
+  "/home/oem/code/agent/style3d-sim/build/third_party/glm-1.0.1",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-25ecf6f4/surface-struct220-trial/surface_struct220_trial.cu",
+  "-o",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-25ecf6f4/surface-struct220-trial/surface_struct220_trial.ptx"
+]

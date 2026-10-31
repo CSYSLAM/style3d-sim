@@ -1,0 +1,16 @@
+[
+  "/usr/local/cuda-13.2/compute-sanitizer/compute-sanitizer",
+  "--tool",
+  "initcheck",
+  "--error-exitcode",
+  "91",
+  "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+  "-m",
+  "reconstruction.csrc.affine_surface_graph_ab",
+  "--worker",
+  "source",
+  "--frames",
+  "3",
+  "--output",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-25ecf6f4/surface-initcheck3"
+]

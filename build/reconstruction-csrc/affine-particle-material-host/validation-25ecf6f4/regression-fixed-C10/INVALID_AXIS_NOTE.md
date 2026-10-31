@@ -1,0 +1,3 @@
+初版report.json把host_particles_ab中每个独立时间快照的粒子维误当成时间维。
+这些NPZ的实际时间步已经包含在key里，旧报告不可作为当前逐步C结论。
+十次原版和固定源码NPZ全部保留，不重采样；正确结果见report-array-steps.json。

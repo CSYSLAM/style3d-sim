@@ -4970,3 +4970,196 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   三者长度/hash与本地快照全同；远端manifest也与本地完整字节相同，详见transfer/20261031/remote-verification.json。
 - 补充WSL图形客户端依赖安装说明；本次追加只更新交接/发布记录和快照，不改solver/二进制。
 - 当前未解决contact graph首次source0、74回归4项严格失败与未恢复组合，交接文档均明确保留。
+
+## 2026-10-31 — 交接后继续固定contact graph差异
+
+- 起点76facc7，5329冻结文件SHA全部通过，离线固定C8准确重现失败；当前8fb9d2ee/64a0be7f未变。
+- 先补查已有证据而非重选candidate：graph14的215 kernel/30 memset/21 memcpy/265依赖在屏蔽地址后
+  DOT完整文本相同；212个native/kernel节点的完整geometry同。还需比较copy/memset与kernel指针别名关系。
+- 现有memory trace逐word初查：无接触fixture无opaque view；实际contact fixture的9次C view共180个
+  scalar/pointer词均同（按live allocation identity/offset），将整理可重复审计；尚不称整个solver通过。
+- 新增late_cloth_graph_probe，只有wp.array.numpy一处包装；不包装capture/launch，直到目标首次已有q下载后
+  才加载ctypes/driver/图参数查看代码，避免之前probe过早加载driver及额外graph对象生命周期影响。
+  通过worker直接numpy调用计数定位最后fixture第0步；此前不读取f_locals以免保留旧scene。
+- 计划固定1 source+1 original诊断；不把新样本加入原C8，也不替换source0，不改生产数学/阈值/内核。
+
+- contact图内审计整理为cloth_snapshot_audit：266节点、215kernel/21copy/30clear，212 native参数、
+  by-value view字段及copy/clear wiring全同；三个Warp节点参数仍未直接比，pointee/分配offset不冒称覆盖。
+  view_argument_audit对原实际contact ctor的180个C view词含alloc lifetime/offset全同。
+- late probe固定1source+1original完成：last-NL各缓存全同，source仍未复现固定失败source0，C8失败保留。
+- block_pcg_snapshot_replay对实际last-NL rhs、inverse、affine inverse/valid做same-device-buffers三阶段
+  重放（block apply、affine apply、precomputed=true PCG）：actual-runtime/original-PTX/source-PTX各32次，
+  每阶段逐元素全同，三world numerator均[3d1675ce,3d1675ce,3d167448]；不代表解释了固定首差。
+- 继续恢复明确缺少的body+full-surface host，不以以上局部证据把旧失败判过。新增独立affine_surface_scene，
+  不改原C8 fixture：box半边长.025、center z=.479，真实布料两层及Newton full-surface pipeline。
+- actual SDK八组reference全部完成、finite、15/45个surface contact，cloth和body RHS两侧均有真实增量。
+  W1另捕获indices/bary/kind：15接触中8非vertex，kind=[0x8,1,2,2,2]（即8个零、1、2、2、2）。
+  SurfaceView offset240/248/256分别精确匹配model.affine_body_ids/indices/body_centers_of_mass，264=body_count；
+  kind offset104精确匹配initialize_step参数19。原版force顺序为rigid→surface→SO3，而当前source反序。
+- 修正新A/B harness的dump JSON int-key比较为两份实际JSON比较；原reference运行路径不变。
+  8f修改前27源/构建文件已复制并逐SHA校验到body-surface-before-8fb9d2ee；旧完整Git快照和首次失败不动。
+
+- 新host image81468d9b4aa6942d379fdd8cc44a7fcb8bd06a5ca1b70513a466ed436606bc01：只补SurfaceView body字段/
+  body kind、actual rigid→surface force顺序，按已捕获SO3窄组合收紧guard；CUDA176/f0不改。
+- 实际source八组：W1五组状态/ABI/buffer/coverage全严格；W3三组ABI同，但状态及surface相关buffer不同，保留首次失败。
+  W3首个surface force前RHS全同，后有21 scalar不同。
+- 输入探针初版误按3world读取共享shape数组，导致诊断cudaMemcpy invalid argument；原失败目录保留。
+  按actual Model spans与U200/208=1，正确只读一个共享shape模板；original/source重抓成功，不读contact尾。
+- W3 actual 45条接触记录的完整multiset精确相同，但顺序不同：source相对original首15记录循环左移1位；
+  count/材料/质量/kind/body映射/x/previous均同，indices/shape/body_pos因该排列不同。审计contact-input-order-audit.json。
+- 相同GPU缓冲区下45个单接触，actual runtime/original PTX/source PTX逐元素全同；完整归约可不同。
+  初版把单接触normal/friction合并结果作sum witness不充分，已标INVALID_WITNESS_NOTE，不拿108项冒称B通过。
+  新诊断保留每个red.global.add，额外记录每lane真实目标/操作数；将严格比原子操作数再做逐标量F32见证。
+
+- 814 image全部四种surface操作完成actual common-input验证：force/stiffness/preconditioner/tangent，
+  原版runtime/PTX和source PTX的45个单接触输出全同。逐lane真正atomic目标+F32操作数序列全同，
+  分别1440/240/4320/1440次写入；各108/36/324/108个scalar在captured、三个未插桩重放、两个插桩
+  输出中均有真实逐原子操作数的精确F32排列见证。没推断旧生产执行顺序，没替换闭环首次失败。
+- 原版/源码W3 contact packet multiset全同、实际排列不同；常量材料、x/previous、body映射/kind全同。
+  接触追加顺序加上并行atomic归约解释该测试的局部首buffer差异，不把它泛化为所有闭环轨迹已通过。
+- 814中间源码/构建27文件再独立快照校验，保存全部阶段证据；接下来只补scope声明后生成最终image，
+  对同一最终image重跑source八组、四kernel实测、graph60、initcheck和74回归，不挪用814通过率。
+
+### 25ecf6f4 最终串行队列与固定失败复核
+
+- 活动host image为25ecf6f47257a2a10bb32b47782a8ff7a311d3f5a933f0f68bac2947e69fe894；
+  CUDA digest仍f0e0137a，参考64a0be7f不改，solver_api_ready=False。
+- validation-25ecf6f4/status.json已complete：四surface算子同输入逐接触/真实atomic操作数复核均通过；
+  source八组5/8严格；surface graph60为21/32严格；legacy cloth graph60为29/32严格。
+  legacy本次contact严格相同不说明旧8f首次source0失败已解释，旧candidate及15/16报告不替换。
+- initcheck3的16条eager/graph轨迹均0错误；246配置合同同；完整74为70严格通过，失败为
+  particles-seed1/2/3及pd_mixed_cloth-seed3（注意本image是PD，不是旧8f的NN mixed seed3）。
+  七个正式demo各60帧严格通过；不把局部新增分支叫作整个solver完成。
+- 新固定C8采集采用首对worker原始输出作为original0/source0，预先固定再加2source+7original，
+  都保留完整worker环境；surface为11/16，legacy cloth为13/16，均false。未加样本直到通过。
+- regression-fixed-C10采用四项首次source0不重跑，各采9次原版加original0。初版错误把空间粒子轴当
+  timestep轴；原report.json标INVALID_AXIS_NOTE，原始NPZ/输出不删。用完全相同数据重新按key中已有
+  真实step包成单空间快照，report-array-steps.json为正确结果；未扩大样本或替换candidate。
+  正确C10：particles seed1/3与PD mixed seed3通过；particles seed2仍失败，两个key是同一速度状态的
+  step1 out与step2 in。error=1.430511474609375e-05，原版LOO=1.33514404296875e-05，ratio=1.07142857。
+  旧atomic_spread_check的NPZ时间key处理本来正确，不能把这次新脚本错误归咎于旧脚本。
+- 只做隔离layout实验：原版surface四算子的440字节workspace对应两份220字节中间结构；
+  当前正式源码简化为132字节。prepare_surface_layout_trial生成独立CU/PTX，不写正式kernel/bundle。
+  初版与split版均保留；split版使用分别的normal/friction helper。仍非原版PTX逐字同；大部分多余文本
+  来自原版大量mov.u32，尚未证明对生产GPU调度的影响。不得仅凭局部aggregate碰巧相同换正式代码。
+- 新surface_layout_branch_ab以项目64a原版实际PTX、活动源码image与split实验PTX进行同buffer对照；
+  一个实际CUDA thread串行处理接触列表，隔离跨线程atomic顺序。3seed×27边界fixture×4操作=324组，
+  活动source与trial均逐位同原版。含alias indices、特殊normal/bary/material、world/body映射、guard。
+  这不是正式并行轨迹验收；原C8失败保留。结构差异尚无新增数学错误证据，未采用该trial。
+- 接着对particles-seed2的n257_w1_it1_f0做一对actual原版/source逐GPU阶段诊断，输出独立
+  particles-seed2-stage-trace；trace-case只跑该fixture，因此不当作复现完整worker首次失败或C10替代。
+
+- 该诊断102次launch metadata完全相同。首差在000038 precondition_and_reduce的after.numerator，
+  legacy/source为1186284884/1186284886（bits），其输入/逐元素z同；两者各找到相同257个贡献项的
+  精确F32排列。actual-runtime/original-PTX/source-PTX同buffer各32次、旋转顺序，z全同，原版actual
+  覆盖两个目标bits。105个独立PCG逐元素重放0失败，42个atomic aggregate有6严格不同，均保留。
+  traced source完整输出并不等于冻结source0，不能拿新诊断替代失败或声称旧失败已闭合。
+
+### simultaneous full-surface + rolling host（cc09a3c0，验证中）
+
+- affine_surface_rolling_ab使用独立ground/box/cloth fixture，不改变此前surface/cloth fixture。
+  actual64a八组先完成，全部finite；W1真实rigid4/surface17，W3为12/51，rolling force真实改变RHS，
+  surface也改变cloth与body双方RHS；不是只测有launch但没有有效接触的空路径。
+- 捕获发现真实force顺序为rigid→rolling→surface→legacy soft→SO3→stretch/bending。
+  25的surface→rolling在该组合反序。先将25的27个源/构建文件完整复制并逐SHA验证，保存在
+  body-surface-before-rolling-25ecf6f4；旧候选/证据不动。
+- 仅把surface force移至rolling之后，按实际捕获解除这个SO3组合的rolling guard；其它guard保留。
+  CUDA数学、176入口、f0 digest与64a参考库完全不变；新增scope声明后编译host image
+  cc09a3c0070d82a139e2c1e24269899985ca439b5b7652915d702258f3bd9a41。
+- 本image rolling初次八组：五W1状态/定义buffer/owned ABI/coverage全严格；三W3状态有差异，
+  owned ABI/coverage八组都同，首候选保留在surface-rolling-source-first8。不提前把W3判过。
+- 目前对cc09重新串行跑四kernel、旧surface八组、surface/legacy graph60、initcheck3、246config与74回归，
+  新输出validation-cc09a3c0，不继承25的最终通过率。后续还需rolling graph、initcheck与正式cloth_balls。
+
+### cc09 完整结果、正式 demo 与两个实际 host 调度遗漏
+
+- cc09串行队列已complete：四算子A/B通过，source8为5/8严格、surface graph21/32、legacy cloth graph25/32；
+  surface initcheck3零错误、246配置同。完整74为71严格，只有particles seed1/2/3严格失败；
+  25的PD mixed seed3失败不继承到cc，也不删除其原始失败。cc尚未做新的固定粒子C10。
+- rolling graph60为20/32严格（五W1的全部原版/源码/eager/graph比较都严格，W3十二项均不同）；
+  固定3source/8original完整worker C8为11/16，仍false。source0及全部失败保留。
+- rolling原版和source各16条轨迹×3步initcheck均零错误，源输出记录在cc的rolling-initcheck-*3。
+- 新official_cloth_balls_ab直接加载未修改examples/example_cloth_balls.py，默认参数5NL/50CG、2substep，
+  eager每子步记录、真实完整CUDA graph每帧记录。预先固定每模式8原版/3源码，全部22worker跑完60帧，
+  全部finite且通过demo.test_final（袋子/球/固定点约束），source均确认不映射原版库。
+  但两模式固定C都false；没有因graph source0恰好通过全部60帧而选它替代source1/2。
+  eager原版彼此也全部不严格；graph source2在多个状态/soft_count上明显超出固定C范围，保留继续定位。
+- 追加official_first_buffers探针时，初版误把legacy soft arg35（float inv_dt）作为GPU指针抓取，
+  original诊断进程SIGSEGV；失败harness/前序dump/FAILURE.md均保留，正式22次运行不受影响。
+  已按实际demangled ABI修正force=arg36、diagonal=37，并在启动worker前验证所有抓取参数必须为指针
+  或明确的byvalue view首指针，避免再次把标量传给device-copy。新目录correct-abi，不覆盖失败目录。
+- 修正探针后发现真正host差异：5214次owned调用中520次surface geometry不同，SDK为32 block，
+  cc按soft capacity90567用了354 block。原版实际step.asm fb7cf..fb7ea显示block_count后min(...,0x20)，
+  force/preconditioner/stiffness和tangent lambda都复用此值。非凭经验猜测限制。
+- actual64a九个capacity阈值1/255/256/257/8191/8192/8193/16385/90567证实min(ceil(cap/256),32)。
+  每case只保留一个有效接触，所有缓冲区按capacity完整初始化；未读取未定义contact尾。
+  保存cc09的27源/构建文件后，仅新增launch_surface限制grid、不修改View.capacity或接触处理范围，
+  四surface入口统一使用；生成中间host d932eb2f，CUDA176/f0不变。
+- d932上原版runtime/PTX/source同buffer验证8191/8192/8193/16385实际不相交接触，四算子16组全逐位同，
+  每组最后接触真实起作用，输出5个guard粒子不变；证明32block的grid-stride不会截断8192后的记录。
+- 同一capacity probe又找到U208差异：W1 model.shape_replicated_count=0，原版传shape_count=1，source传0。
+  actual step fb621..fb638 /101020证实：仅单世界且未指定tile时回退shape_count；多世界保持0共享语义，
+  显式非零tile保持。该局部变量还给rigid/rolling/hard/legacy soft传参，不能只修surface。
+- 再保存d932的27文件后按上述实际分支增加contact_shapes_per_world，六处联系人shape布局统一使用。
+  当前host ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042；CUDA176/f0、参考64a不变。
+  九capacity原版/source现在351次完整ABI/geometry全同，162组状态全严格。
+- ff34正式demo重验采用cc固定8原版的精确原文件（逐SHA复制，不补采样、不改fixture/harness），
+  每模式新采3源码，六worker全部60帧physical/finite通过，但eager与graph的固定C仍false，全部保留。
+  ff34新first-buffer诊断5214次完整owned ABI/geometry全同；首个定义buffer差异在surface force之后
+  （266 scalar）；之前所有已抓定义数组全同，实际rigid17/surface1380。此诊断不替代冻结source0。
+- 正在独立检查shape fallback的static W1/W2/W3、explicit/shared tile及body soft/hard组合；
+  之后对ff34做最终队列及完整粒子C10。late_cloth_warp_probe已写但尚未运行，不能说三个Warp节点已核对。
+- CPU离线C10 audit已准确复现25的三过一失败；初版比较遇到JSON整数checkpoint键变字符串的问题，
+  改为同JSON schema后逐字段完全吻合，未改统计。operand recorder补静态site覆盖/谓词保护，八模块
+  instrumented PTX bytes与已测版本完全相同；负例最初误改了模块另一entry，已纠正为选定entry后全拒绝。
+  旧版本都留在versions。随后扩展诊断为实际32block/最多8192 lane读取，正式物理源码不受影响。
+
+### ff34 最终检查完成与当前边界
+
+- shape fallback新增独立六static场景（W1/W2/W3×默认0/显式1 tile）及四body场景
+  （Newton/PD×soft/hard，强制单世界shape_replicated_count=0）：108+60状态数组全严格，
+  324+24900次完整owned ABI/geometry全同，body场景都有实际rigid contact；不是空路径通过。
+- ff34正式大demo的initcheck3（6个substep，5NL/50CG）零错误；最终串行队列complete：
+  四45-contact算子A/真实atomic序列同，source8为5/8严格、surface graph21/32、legacy cloth graph30/32，
+  surface initcheck3零错误、246配置同、完整74为71严格。首三个particles seed严格失败，各固定source0
+  对10次actual原版全数组/真实step C10通过，CPU独立重算完全一致；不把新结果当作解释25旧失败。
+- ff34两类graph另外各固定3source/8original，直接采用最终首对worker作source0/original0，不替换，
+  全worker60帧context保留：surface为10/16、legacy cloth为13/16，两者都false。全部数据保存。
+- 新late_cloth_warp_probe实际运行一original+一冻结8f source，不覆盖活动ff so：实际CUDA查询了
+  三个Warp节点参数宽度，全部215kernel（212 native+3 Warp）、21copy、30clear的参数/alias wiring同；
+  26个post-step Warp数组同。不涵盖allocation-relative offsets，不把post值称作prelaunch输入。
+  新probe与旧8f固定source0四状态从首步就不同，whole60也不同；旧失败未复现、未解释、未替换。
+- 正式大demo原版/source新的完整输入抓取都为1380真实接触；完整记录multiset精确同但排列不同，
+  所有只读数组、actual view scalar/geometry和初始RHS均同。actual runtime/original PTX/source在
+  同buffer的1380个isolated-contact输出全同；原版与source PTX逐lane37920个真实red操作数全同。
+- 初次4096随机顺序未找到五个标量（含原版runtime自身）；partial报告保留。CPU证明搜索只排列
+  已抓原子贡献，不修改输入/结果：13个非零贡献的20715个subset状态找到罕见最小结果；较大550操作数
+  用精确F32次序搜索、尾部subset枚举补齐。首次completion仍漏source-captured一scalar，partial-harness
+  与partial结果保留；exact-witness-final现在七类输出各5205/5205，有36435个逐标量精确证书。
+  不推断未插桩真实执行次序，不称整GPU交织已恢复，不据此验收仍失败的整段C。
+- 最终小45-contact force随机证明也漏一个instrumented scalar，CPU exact-witness-completion已补齐；
+  其它三个算子的全部目标原报告已完备。没有为找证书重采GPU或扩充统计cohort。
+- 源码CUDA176/f0和参考64a字节始终没改；唯一活动源码host为ff34，旧8f/814/25/cc/d932各27个源/构建
+  文件完整快照都保留。仍有body+tet/drag/hard-full-surface、更多约束/材料组合保护，整体目标未完成。
+- 当前继续点和命令写入AFFINE_SURFACE_HOST_RECOVERY.md；准备将本轮源码、活动so、原始证据及交接
+  提交到既有reconstruction/windows-handoff-20261031分支，SDK和360个pyc保持同仓库固定字节。
+
+### 本轮检查点整理与Windows迁移补齐
+
+- 五个body-surface检查点各27个文件逐SHA复核通过；当前host/native的全部构建源与产物SHA均吻合，
+  活动host仍ff34，参考64a完全未改。新增27个Python helper均通过AST解析，源码/文档diff无空白错误。
+- 交接入口补齐ff34最终结果、原始失败路径和CPU/GPU复现命令，明确旧25 seed2与8f source0未闭合，
+  不用新image通过结果倒推旧失败已经解决；solver_api_ready仍false。
+- 发现新完整验证runner使用旧机compute-sanitizer绝对路径，迁移后会缺文件。将实际使用的
+  NVIDIA Compute Sanitizer 2026.1.0.0/build37182542全部129个文件复制到项目diagnostics-13.2，
+  与旧机逐文件校验，provenance含版本/哈希；已有同目录EULA保留。编译器仍固定nvcc12.4.131。
+- 原runner先保存到ff34/versions，SHA与full-validation/runner-sha256.txt一致；仅把工具发现改成
+  项目相对路径，环境脚本加入其PATH，不改fixture、计算和比较标准。原完整队列结果仍属于保存的旧runner。
+- 用项目内工具实际重跑source graph initcheck3，退出0、ERROR SUMMARY:0 errors；独立输出及精确命令在
+  ff34/portable-sanitizer-initcheck3*和portable-sanitizer-verification.json。不是跳过内存检查或声称整段C通过。
+- 本轮只纳入明确列出的源码、五个检查点、continuation/25/cc/ff验证、grid/rolling证据和固定工具；
+  没有把整个build或虚拟环境加入Git。整理后索引共14839文件，无gitlink/LFS pointer，最大新增文件约15.1MB。
+  原项目SDK无任何修改，360个现有pyc与上一交接SHA完全相同；新增文本未检出账号值或私钥内容。
+  最终以RECONSTRUCTION_SNAPSHOT.json逐文件锁定本轮交接，推送仍使用既有Windows handoff分支。
+- 快照实际全量校验14838个文件，failures=0；包括当前host/native构建来源和产物校验。
+  当前Python helper AST与源码/文档的git diff --check通过；当前活动image、失败cohort与全部限制如上。

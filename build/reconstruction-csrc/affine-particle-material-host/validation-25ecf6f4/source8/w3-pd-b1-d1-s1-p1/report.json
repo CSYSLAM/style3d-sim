@@ -1,0 +1,64 @@
+{
+  "case": "w3-pd-b1-d1-s1-p1",
+  "worker_exit": 0,
+  "passed": false,
+  "finite": true,
+  "active_surface_contacts": 45,
+  "surface_cloth_rhs_changed": true,
+  "surface_body_rhs_changed": true,
+  "states": {
+    "body_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.02625967562198639,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 10.676213264465332,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.05370768904685974,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 10.705673217773438,
+      "nonfinite": false
+    },
+    "bitwise": false
+  },
+  "metadata": {
+    "left_launches": 679,
+    "right_launches": 679,
+    "different_launches": 0,
+    "examples": [],
+    "arguments_equal": true,
+    "geometry_and_shared_memory_complete": true,
+    "equal": true
+  },
+  "coverage": true,
+  "buffers": {
+    "dump_15initialize_step_post_arg22.bin": true,
+    "dump_14initialize_rhs_post_arg9.bin": true,
+    "dump_30evaluate_surface_contact_force_post_arg0.bin": true,
+    "dump_30evaluate_surface_contact_force_post_arg1.bin": false,
+    "dump_34add_surface_contact_preconditioner_post_arg1.bin": false,
+    "dump_32multiply_surface_contact_tangent_post_arg2.bin": false,
+    "dump_35add_surface_contact_stiffness_scale_post_arg1.bin": false,
+    "dump_27invert_block_preconditioner_post_arg0.bin": false
+  }
+}

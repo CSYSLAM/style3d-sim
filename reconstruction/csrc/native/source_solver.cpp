@@ -160,6 +160,14 @@ class Solver {
         launch_width(key, n, 256, stream, args...);
     }
 
+    template <class... Args> void launch_surface(const std::string& key, std::size_t capacity,
+                                                std::uintptr_t stream, const Args&... args)
+    {
+        // Original step 0xfb7cf..0xfb7ea caps the four grid-stride surface kernels at 32 blocks.
+        // Only launch geometry is capped; SurfaceContactView retains the full contact capacity.
+        launch(key, std::min<std::size_t>(capacity, 32 * 256), stream, args...);
+    }
+
     void copy(std::uint64_t destination, std::uint64_t source, std::size_t bytes, std::uintptr_t stream)
     {
         if (!bytes || destination == source) return;
@@ -1645,6 +1653,13 @@ class Solver {
     };
     static_assert(sizeof(HardView) == 312 && offsetof(HardView, penalty) == 256);
 
+    std::size_t contact_shapes_per_world() const
+    {
+        // Original step fb621..fb638 / 101020 preserves explicit tiles, including shared shapes in multiple worlds.
+        // Only an unspecified tile in a single world falls back to the model's local shape count.
+        return !model_.shape_replicated_count && count_ == per_world_ ? model_.shape_count : model_.shape_replicated_count;
+    }
+
     HardView hard_view(const Contact& contact, const State& state, float inverse_dt) const
     {
         return {contact.count.ptr, contact.max_count, contact.shape0.ptr, contact.shape1.ptr, contact.point0.ptr,
@@ -1652,7 +1667,7 @@ class Solver {
                 contact.margin1.ptr, contact.match_index.ptr, model_.shape_bodies.ptr, model_.shape_types.ptr,
                 model_.shape_transforms.ptr, model_.shape_scales.ptr, model_.shape_contact_stiffnesses.ptr,
                 model_.shape_contact_dampings.ptr, model_.shape_frictions.ptr, model_.shape_count,
-                model_.shape_replicated_count, count_ / per_world_, model_.affine_body_ids.ptr,
+                contact_shapes_per_world(), count_ / per_world_, model_.affine_body_ids.ptr,
                 model_.affine_body_indices.ptr, model_.body_centers_of_mass.ptr, body_count_, per_world_,
                 state.particle_q.ptr, previous_, inverse_dt, config.rigid_contact_alpha, config.rigid_contact_beta,
                 config.rigid_contact_gamma, config.rigid_contact_k_start,
@@ -1669,7 +1684,7 @@ class Solver {
                 contact.margin1.ptr, model_.shape_bodies.ptr, model_.shape_types.ptr, model_.shape_transforms.ptr,
                 model_.shape_scales.ptr, model_.shape_contact_stiffnesses.ptr, model_.shape_contact_dampings.ptr,
                 model_.shape_rolling_frictions.ptr, model_.shape_torsional_frictions.ptr, model_.shape_count,
-                model_.shape_replicated_count, count_ / per_world_, model_.affine_body_ids.ptr,
+                contact_shapes_per_world(), count_ / per_world_, model_.affine_body_ids.ptr,
                 model_.affine_body_indices.ptr, model_.body_centers_of_mass.ptr, model_.body_inertia_tensors.ptr,
                 body_count_, per_world_, state.particle_q.ptr, previous_, inverse_dt,
                 config.rolling_friction_velocity_epsilon};
@@ -1685,7 +1700,7 @@ class Solver {
             model_.shape_types.ptr, model_.shape_transforms.ptr, model_.shape_scales.ptr,
             model_.shape_contact_stiffnesses.ptr, model_.shape_contact_dampings.ptr,
             model_.shape_contact_friction_gains.ptr, model_.shape_frictions.ptr, config.rigid_contact_friction_epsilon,
-            static_cast<std::size_t>(model_.shape_count), static_cast<std::size_t>(model_.shape_replicated_count),
+            static_cast<std::size_t>(model_.shape_count), contact_shapes_per_world(),
             count_ / per_world_, model_.affine_body_ids.ptr, model_.affine_body_indices.ptr,
             model_.body_centers_of_mass.ptr, body_count_);
         std::apply([&](const auto&... head) {
@@ -1712,7 +1727,7 @@ class Solver {
                model_.shape_transforms.ptr, model_.shape_scales.ptr, model_.shape_margins.ptr,
                model_.shape_contact_stiffnesses.ptr, model_.shape_contact_dampings.ptr,
                model_.shape_contact_friction_gains.ptr, model_.shape_frictions.ptr,
-               static_cast<std::size_t>(model_.shape_count), static_cast<std::size_t>(model_.shape_replicated_count),
+               static_cast<std::size_t>(model_.shape_count), contact_shapes_per_world(),
                count_ / per_world_, model_.soft_contact_stiffness, model_.soft_contact_damping,
                model_.soft_contact_friction_gain, model_.soft_contact_friction, body_ids(), body_indices(), body_com(),
                body_count_, state.particle_q.ptr, state.particle_qd.ptr, previous_, inverse_dt, force, scalar,
@@ -1736,7 +1751,7 @@ class Solver {
         v.radius = model_.particle_radii.ptr;
         v.mass = model_.particle_masses.ptr;
         v.flags = model_.particle_flags.size ? model_.particle_flags.ptr : 0;
-        v.kind = particle_kind_;
+        v.kind = body_count_ ? body_kind_ : particle_kind_;
         v.particles_per_world = per_world_;
         v.total_particles = count_;
         v.shape_body = model_.shape_bodies.ptr;
@@ -1749,12 +1764,16 @@ class Solver {
         v.shape_kf = model_.shape_contact_friction_gains.ptr;
         v.shape_mu = model_.shape_frictions.ptr;
         v.local_shape_count = model_.shape_count;
-        v.shapes_per_world = model_.shape_replicated_count;
+        v.shapes_per_world = contact_shapes_per_world();
         v.worlds = count_ / per_world_;
         v.ke = model_.soft_contact_stiffness;
         v.kd = model_.soft_contact_damping;
         v.kf = model_.soft_contact_friction_gain;
         v.mu = model_.soft_contact_friction;
+        v.body_ids = body_ids();
+        v.body_indices = body_indices();
+        v.body_com = body_com();
+        v.body_count = body_count_;
         v.x = state.particle_q.ptr;
         v.previous = previous_;
         v.inv_dt = inverse_dt;
@@ -1866,7 +1885,7 @@ class Solver {
                model_.shape_bodies.ptr, model_.shape_types.ptr, model_.shape_transforms.ptr, model_.shape_scales.ptr,
                model_.particle_masses.ptr, body_count_ ? body_kind_ : particle_kind_, model_.shape_margins.ptr,
                model_.shape_contact_stiffnesses.ptr, model_.shape_contact_dampings.ptr,
-               static_cast<std::size_t>(model_.shape_count), static_cast<std::size_t>(model_.shape_replicated_count),
+               static_cast<std::size_t>(model_.shape_count), contact_shapes_per_world(),
                count_ / per_world_, body_ids(), body_indices(), body_com(), body_count_, state.particle_q.ptr,
                direction_, contact_product_, inverse_dt, per_world_,
                model_.soft_contact_stiffness, model_.soft_contact_damping, count_,
@@ -2182,7 +2201,9 @@ public:
         if (self && bodies && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||
                               cable_count_ || fluid_rows_ || (contact.max_count && config.rigid_contact_hard)))
             throw std::runtime_error("This affine self-collision constraint/rigidity branch has not been captured");
-        if (bodies && surface)
+        if (bodies && surface && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||
+                                  cable_count_ || fluid_rows_ || tetrahedron_count_ || drag_count_ ||
+                                  config.rigid_contact_hard))
             throw std::runtime_error("Requested affine-body scheduling branch has not been implemented");
         if (bodies && !so3 && (spring_count_ || triangle_count_ || edge_count_ || body_spring_total_ ||
                               distance_total_ || point_line_total_ || drive_total_ ||
@@ -2341,19 +2362,20 @@ public:
                 launch("drag_force", drag_count_, stream, in.particle_q.ptr, previous_, drag_indices_, drag_coefficients_,
                        drag_normal_, drag_area_, config.air_density, config.wind_velocity, inverse_dt, rhs_, drag_scalar_,
                        drag_count_, drag_local_count_, per_world_);
-            if (surface) launch("surface_force", contact.soft_max_count, stream, surface_data, rhs_);
             if (hard)
                 launch("hard_evaluate", contact.max_count, stream, hard_view(contact, in, inverse_dt), rhs_, diagonal_,
                        null, null, null, null, null);
             else if (rigid) rigid_contact(contact, in, inverse_dt, stream, true, null, null, null, null);
             if (rolling) launch("rolling_force", contact.max_count, stream, rolling_view(contact, in, inverse_dt), rhs_);
+            // Actual simultaneous captures put rolling resistance before the barycentric reaction.
+            if (surface) launch_surface("surface_force", contact.soft_max_count, stream, surface_data, rhs_);
             if (particle_contact) soft_contact(contact, in, inverse_dt, stream, rhs_, diagonal_, null, null, surface);
             if (self) {
                 // Preserve the base for the next iteration; self penalties use this iteration's contact increment.
                 copy(self_pp_.stiffness, diagonal_, count_ * 4, stream);
                 // Actual full-surface/self calls add to this scale before any self force accumulation.
                 if (surface)
-                    launch("surface_stiffness", contact.soft_max_count, stream, surface_data, self_pp_.stiffness);
+                    launch_surface("surface_stiffness", contact.soft_max_count, stream, surface_data, self_pp_.stiffness);
                 accumulate_self_particle_pairs(in, stream);
             }
             // Force order (captures + spec): plain body springs (the kernel skips joint springs), distance
@@ -2525,7 +2547,8 @@ public:
                     launch_width("granular_12add_diagonal", count_, 128, stream, granular_diagonal_,
                                  preconditioner_blocks_, static_cast<int>(count_));
                 if (surface)
-                    launch("surface_preconditioner", contact.soft_max_count, stream, surface_data, preconditioner_blocks_);
+                    launch_surface("surface_preconditioner", contact.soft_max_count, stream,
+                                   surface_data, preconditioner_blocks_);
                 if (body_block) {
                     if (rolling)
                         launch("rolling_preconditioner", contact.max_count, stream, rolling_view(contact, in, inverse_dt),
@@ -2611,7 +2634,8 @@ public:
                 // Actual affine/self captures accumulate the SO(3) tangent before the self tangent.
                 if (self) multiply_self_particle_pairs(stream);
                 if (surface)
-                    launch("surface_tangent", contact.soft_max_count, stream, surface_data, direction_, contact_product_);
+                    launch_surface("surface_tangent", contact.soft_max_count, stream,
+                                   surface_data, direction_, contact_product_);
                 if (fluid_rows_)
                     launch_width("fluid_13multiply_rows", fluid_rows_, 128, stream, fluid_view(dt), fluid_gradients_,
                                  fluid_weights_, direction_, contact_product_);
@@ -2770,6 +2794,10 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "tetrahedra_newton", "tetrahedra_pd_newton",
                                                      "triangle_drag_newton", "triangle_drag_pd_newton",
                                                      "static_surface_contact_newton", "static_surface_contact_pd_newton",
+                                                     "affine_body_surface_contact_newton",
+                                                     "affine_body_surface_contact_pd_newton",
+                                                     "affine_body_surface_rolling_newton",
+                                                     "affine_body_surface_rolling_pd_newton",
                                                      "free_affine_body_so3_newton", "free_affine_body_so3_pd_newton",
                                                      "affine_body_rigid_contact_newton",
                                                      "affine_body_rigid_contact_pd_newton", "plain_body_springs_newton",

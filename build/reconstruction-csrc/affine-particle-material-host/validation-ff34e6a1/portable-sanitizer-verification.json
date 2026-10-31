@@ -1,0 +1,27 @@
+{
+  "command": [
+    "compute-sanitizer",
+    "--tool",
+    "initcheck",
+    "--error-exitcode",
+    "91",
+    ".venv/bin/python",
+    "-m",
+    "reconstruction.csrc.affine_surface_graph_ab",
+    "--worker",
+    "source",
+    "--frames",
+    "3",
+    "--output",
+    "build/reconstruction-csrc/affine-particle-material-host/validation-ff34e6a1/portable-sanitizer-initcheck3"
+  ],
+  "exit_code": 0,
+  "error_summary": 0,
+  "production_source_sha256": "ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042",
+  "sanitizer_path": "build/toolchains/diagnostics-13.2/compute-sanitizer/compute-sanitizer",
+  "sanitizer_sha256": "dcec87e3437d8127cc58a0b186d4830831ce18a0cd4c5846ac84eac396312172",
+  "original_validation_runner_preserved": "build/reconstruction-csrc/affine-particle-material-host/validation-ff34e6a1/versions/affine_surface_validation-before-portable-sanitizer.py",
+  "original_runner_hash_matches_saved_validation": true,
+  "change": "Tool lookup now uses the project-relative pinned copy; no solver arithmetic or acceptance change",
+  "whole_solver_complete": false
+}

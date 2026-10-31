@@ -1,5 +1,24 @@
 # 新版基准与 C++ host 进度
 
+> **活动ff34e6a1：补齐SO3 body/full-surface/rolling、surface最多32block及单世界默认shape tile。**
+> 按实际64a调用和step反汇编恢复；CUDA176/f0及参考库未改，solver_api_ready=False。
+> 九capacity的351调用/162状态全同；shape布局六static/四body soft-hard组合25224调用/168状态全同。
+> 正式cloth_balls全部60帧物理检查过，5214次完整owned ABI/geometry同；固定eager/graph整段C仍失败。
+> ff最终队列已完成：74为71严格，三个首次粒子失败固定C10全通过；246配置同，initcheck3均零错误。
+> surface/legacy graph为21/32、30/32严格，固定C8为10/16、13/16，均失败；不宣称完整solver通过。
+> 正式1380接触四舍五入首差的37920贡献同，七类输出共36435个scalar有精确F32次序见证，整段C仍失败。
+> 输出validation-ff34e6a1；命令/限制见新增交接与WORK_LOG末尾，不继承cc/25旧结果。
+>
+> **前一cc09a3c0：完整74为71严格，仅三个particles seed严格失败；rolling固定C8仍11/16。**
+> rolling八组五W1全严格、三W3状态不同；rolling graph20/32，source/original initcheck3均零错误。
+>
+> **前一25ecf6f4：新增SO3 body/full-surface host字段与真实force顺序。**
+> CUDA176/f0未改，参考项目64a未改；八组5/8严格，surface graph21/32、legacy cloth graph29/32。
+> 固定C8分别11/16和13/16，均失败保留；旧8f首次source0也不替换。
+> initcheck3为0、246配置同；完整74为70严格，四首次失败的固定C10中particles seed2仍失败。
+> 其余三个C10通过；准确证据/命令见[AFFINE_SURFACE_HOST_RECOVERY.md](AFFINE_SURFACE_HOST_RECOVERY.md)。
+> 以下所有旧image均为历史，不能据其局部通过率声称活动完整solver通过。
+
 > **最新8fb9d2ee：constructor捕获全部对齐；body/cloth首次contact轨迹仍未通过，完整solver未完成。**
 > 4f已恢复真实self tangent lazy prepare/capture mode2；initcheck60为0，但八组7/8、graph27/32，失败保留。
 > 4f typed57/57、uploads28/28、502 owned指针同；96分配与567 owned+library时序发现primitive AABB和4个init反序。

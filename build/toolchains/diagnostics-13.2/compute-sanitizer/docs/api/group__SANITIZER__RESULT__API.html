@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sanitizer Result Codes &#8212; Compute Sanitizer</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=d0aa047a" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d2f8c407"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scrollspy-patch.js?v=edc4054a"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/group__SANITIZER__RESULT__API';</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sanitizer Stream API" href="group__SANITIZER__STREAM__API.html" />
+    <link rel="prev" title="Sanitizer Patching API" href="group__SANITIZER__PATCHING__API.html" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Jan 15, 2026"/>
+
+
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Compute Sanitizer - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Compute Sanitizer - Home"/>
+  
+  
+    <p class="title logo__title">Compute Sanitizer</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <span>v2026.1.0</span>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="Compute Sanitizer - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="Compute Sanitizer - Home"/>
+  
+  
+    <p class="title logo__title">Compute Sanitizer</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div>
+  <ul class="bd-navbar-elements navbar-nav">
+  
+    <li class="nav-item pst-header-nav-item">
+      
+      <span>v2026.1.0</span>
+      
+    </li>
+  
+  </ul>
+</div>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tools</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../ComputeSanitizer/index.html">Compute Sanitizer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Interfaces</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../SanitizerApiGuide/index.html">Compute Sanitizer API Reference Manual</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../SanitizerApi/table-of-contents.html">Sanitizer API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="modules.html">Modules</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="group__SANITIZER__BARRIER__API.html">Sanitizer Barrier API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group__SANITIZER__CALLBACK__API.html">Sanitizer Callback API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group__SANITIZER__MEMORY__API.html">Sanitizer Memory API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group__SANITIZER__PATCHING__API.html">Sanitizer Patching API</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Sanitizer Result Codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="group__SANITIZER__STREAM__API.html">Sanitizer Stream API</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="structs.html">Structs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__BatchMemopData.html">Sanitizer_BatchMemopData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__CallbackData.html">Sanitizer_CallbackData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ErrorLoggingData.html">Sanitizer_ErrorLoggingData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__EventData.html">Sanitizer_EventData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ExternalMemoryData.html">Sanitizer_ExternalMemoryData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__GraphExecData.html">Sanitizer_GraphExecData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__GraphLaunchData.html">Sanitizer_GraphLaunchData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__GraphNodeLaunchData.html">Sanitizer_GraphNodeLaunchData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__LaunchData.html">Sanitizer_LaunchData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__MemcpyData.html">Sanitizer_MemcpyData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__MemsetData.html">Sanitizer_MemsetData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceArrayData.html">Sanitizer_ResourceArrayData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceContextData.html">Sanitizer_ResourceContextData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceFunctionsLazyLoadedData.html">Sanitizer_ResourceFunctionsLazyLoadedData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceMemoryData.html">Sanitizer_ResourceMemoryData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceMempoolData.html">Sanitizer_ResourceMempoolData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceModuleData.html">Sanitizer_ResourceModuleData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceStreamData.html">Sanitizer_ResourceStreamData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__ResourceVirtualRange.html">Sanitizer_ResourceVirtualRange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__SynchronizeData.html">Sanitizer_SynchronizeData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="structSanitizer__UvmData.html">Sanitizer_UvmData</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../SanitizerNvtxGuide/index.html">NVTX API for Compute Sanitizer Reference Manual</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Copyright And Licenses</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../CopyrightAndLicenses/index.html">Copyright and Licenses</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../SanitizerApi/table-of-contents.html" class="nav-link">Sanitizer API</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="modules.html" class="nav-link">Modules</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Sanitizer Result Codes</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="sanitizer-result-codes">
+<h1>Sanitizer Result Codes<a class="headerlink" href="#sanitizer-result-codes" title="Link to this heading">#</a></h1>
+<p id="group__sanitizer__result__api">Error and result codes returned by Sanitizer functions. </p>
+<section id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading">#</a></h2>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><a class="reference internal" href="#group__sanitizer__result__api_1ga8edf13e06b1b4001d7577b07ddd575d8"><span class="std std-ref">SanitizerResult</span></a></dt><dd><p>Sanitizer result codes.</p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<div class="dl-as-table docutils container">
+<dl class="simple">
+<dt><span class="tag-as-table-cell">SanitizerResult</span> <a class="reference internal" href="#group__sanitizer__result__api_1ga2be8c36d2401abdfafe8802f71d68223"><span class="std std-ref">sanitizerGetResultString</span></a>(SanitizerResult result, const char **str)</dt><dd><p>Get the descriptive string for a SanitizerResult.</p>
+</dd>
+</dl>
+</div>
+</section>
+<section id="id1">
+<h2>Enumerations<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv415SanitizerResult">
+<span id="_CPPv315SanitizerResult"></span><span id="_CPPv215SanitizerResult"></span><span class="target" id="group__sanitizer__result__api_1ga8edf13e06b1b4001d7577b07ddd575d8"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SanitizerResult</span></span></span><a class="headerlink" href="#_CPPv415SanitizerResult" title="Link to this definition">#</a><br /></dt>
+<dd><p>Sanitizer result codes. </p>
+<p>Error and result codes returned by Sanitizer functions. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult17SANITIZER_SUCCESSE">
+<span id="_CPPv3N15SanitizerResult17SANITIZER_SUCCESSE"></span><span id="_CPPv2N15SanitizerResult17SANITIZER_SUCCESSE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a0d35805bafd1be61967646e8fd225e6c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_SUCCESS</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult17SANITIZER_SUCCESSE" title="Link to this definition">#</a><br /></dt>
+<dd><p>No error. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_PARAMETERE">
+<span id="_CPPv3N15SanitizerResult33SANITIZER_ERROR_INVALID_PARAMETERE"></span><span id="_CPPv2N15SanitizerResult33SANITIZER_ERROR_INVALID_PARAMETERE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8acd4d5554b11e3a1a7319819984077edb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_INVALID_PARAMETER</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_PARAMETERE" title="Link to this definition">#</a><br /></dt>
+<dd><p>One or more of the parameters is invalid. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult30SANITIZER_ERROR_INVALID_DEVICEE">
+<span id="_CPPv3N15SanitizerResult30SANITIZER_ERROR_INVALID_DEVICEE"></span><span id="_CPPv2N15SanitizerResult30SANITIZER_ERROR_INVALID_DEVICEE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8aba2cb91f407560b1014cd67c4c24502b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_INVALID_DEVICE</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult30SANITIZER_ERROR_INVALID_DEVICEE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The device does not correspond to a valid CUDA device. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult31SANITIZER_ERROR_INVALID_CONTEXTE">
+<span id="_CPPv3N15SanitizerResult31SANITIZER_ERROR_INVALID_CONTEXTE"></span><span id="_CPPv2N15SanitizerResult31SANITIZER_ERROR_INVALID_CONTEXTE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a099362bd6bf2807f3785cc2adeb0738f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_INVALID_CONTEXT</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult31SANITIZER_ERROR_INVALID_CONTEXTE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The context is NULL or not valid. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_DOMAIN_IDE">
+<span id="_CPPv3N15SanitizerResult33SANITIZER_ERROR_INVALID_DOMAIN_IDE"></span><span id="_CPPv2N15SanitizerResult33SANITIZER_ERROR_INVALID_DOMAIN_IDE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a05198bb6cc6d272e8557b8f872fe7519"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_INVALID_DOMAIN_ID</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_DOMAIN_IDE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The domain ID is invalid. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult35SANITIZER_ERROR_INVALID_CALLBACK_IDE">
+<span id="_CPPv3N15SanitizerResult35SANITIZER_ERROR_INVALID_CALLBACK_IDE"></span><span id="_CPPv2N15SanitizerResult35SANITIZER_ERROR_INVALID_CALLBACK_IDE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a8036a4af0fc5e632471bb0dd25376748"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_INVALID_CALLBACK_ID</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult35SANITIZER_ERROR_INVALID_CALLBACK_IDE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The callback ID is invalid. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_OPERATIONE">
+<span id="_CPPv3N15SanitizerResult33SANITIZER_ERROR_INVALID_OPERATIONE"></span><span id="_CPPv2N15SanitizerResult33SANITIZER_ERROR_INVALID_OPERATIONE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a6d773b203970ec61a9d11926e3a430f5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_INVALID_OPERATION</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_OPERATIONE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The current operation cannot be performed due to dependency on other factors. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult29SANITIZER_ERROR_OUT_OF_MEMORYE">
+<span id="_CPPv3N15SanitizerResult29SANITIZER_ERROR_OUT_OF_MEMORYE"></span><span id="_CPPv2N15SanitizerResult29SANITIZER_ERROR_OUT_OF_MEMORYE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a03d40e5d6c13e7f2e076373523d94db9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_OUT_OF_MEMORY</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult29SANITIZER_ERROR_OUT_OF_MEMORYE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Unable to allocate enough memory to perform the requested operation. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult45SANITIZER_ERROR_PARAMETER_SIZE_NOT_SUFFICIENTE">
+<span id="_CPPv3N15SanitizerResult45SANITIZER_ERROR_PARAMETER_SIZE_NOT_SUFFICIENTE"></span><span id="_CPPv2N15SanitizerResult45SANITIZER_ERROR_PARAMETER_SIZE_NOT_SUFFICIENTE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a81fd28c0b2fa0e100db9197e472a9273"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_PARAMETER_SIZE_NOT_SUFFICIENT</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult45SANITIZER_ERROR_PARAMETER_SIZE_NOT_SUFFICIENTE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The output buffer size is not sufficient to return all requested data. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult35SANITIZER_ERROR_API_NOT_IMPLEMENTEDE">
+<span id="_CPPv3N15SanitizerResult35SANITIZER_ERROR_API_NOT_IMPLEMENTEDE"></span><span id="_CPPv2N15SanitizerResult35SANITIZER_ERROR_API_NOT_IMPLEMENTEDE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a6f85fe9b42de6be2a8e252503f4bb610"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_API_NOT_IMPLEMENTED</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult35SANITIZER_ERROR_API_NOT_IMPLEMENTEDE" title="Link to this definition">#</a><br /></dt>
+<dd><p>API is not implemented. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult33SANITIZER_ERROR_MAX_LIMIT_REACHEDE">
+<span id="_CPPv3N15SanitizerResult33SANITIZER_ERROR_MAX_LIMIT_REACHEDE"></span><span id="_CPPv2N15SanitizerResult33SANITIZER_ERROR_MAX_LIMIT_REACHEDE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a9fa172f3d65a626b00de9aba23d2c28f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_MAX_LIMIT_REACHED</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_MAX_LIMIT_REACHEDE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The maximum limit is reached. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult25SANITIZER_ERROR_NOT_READYE">
+<span id="_CPPv3N15SanitizerResult25SANITIZER_ERROR_NOT_READYE"></span><span id="_CPPv2N15SanitizerResult25SANITIZER_ERROR_NOT_READYE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a5fbbbe4e2fb2e3f0c00ea1a295fa8b2a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_NOT_READY</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult25SANITIZER_ERROR_NOT_READYE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The object is not ready to perform the requested operation. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult30SANITIZER_ERROR_NOT_COMPATIBLEE">
+<span id="_CPPv3N15SanitizerResult30SANITIZER_ERROR_NOT_COMPATIBLEE"></span><span id="_CPPv2N15SanitizerResult30SANITIZER_ERROR_NOT_COMPATIBLEE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a1a5d801b3160f678426b169f6810290f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_NOT_COMPATIBLE</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult30SANITIZER_ERROR_NOT_COMPATIBLEE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The current operation is not compatible with the current state of the object. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult31SANITIZER_ERROR_NOT_INITIALIZEDE">
+<span id="_CPPv3N15SanitizerResult31SANITIZER_ERROR_NOT_INITIALIZEDE"></span><span id="_CPPv2N15SanitizerResult31SANITIZER_ERROR_NOT_INITIALIZEDE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a4f2507a514257be5dd447f8c659594c1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_NOT_INITIALIZED</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult31SANITIZER_ERROR_NOT_INITIALIZEDE" title="Link to this definition">#</a><br /></dt>
+<dd><p>Sanitizer is unable to initialize its connection to the CUDA driver. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult29SANITIZER_ERROR_NOT_SUPPORTEDE">
+<span id="_CPPv3N15SanitizerResult29SANITIZER_ERROR_NOT_SUPPORTEDE"></span><span id="_CPPv2N15SanitizerResult29SANITIZER_ERROR_NOT_SUPPORTEDE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8ae5c22c74893c834db40403e82703776e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_NOT_SUPPORTED</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult29SANITIZER_ERROR_NOT_SUPPORTEDE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The attempted operation is not supported on the current system or device. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult44SANITIZER_ERROR_ADDRESS_NOT_IN_DEVICE_MEMORYE">
+<span id="_CPPv3N15SanitizerResult44SANITIZER_ERROR_ADDRESS_NOT_IN_DEVICE_MEMORYE"></span><span id="_CPPv2N15SanitizerResult44SANITIZER_ERROR_ADDRESS_NOT_IN_DEVICE_MEMORYE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a53c91ef50d49c3a7e9432d5a572c461b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_ADDRESS_NOT_IN_DEVICE_MEMORY</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult44SANITIZER_ERROR_ADDRESS_NOT_IN_DEVICE_MEMORYE" title="Link to this definition">#</a><br /></dt>
+<dd><p>The attempted device operation has a parameter not in device memory. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult23SANITIZER_ERROR_UNKNOWNE">
+<span id="_CPPv3N15SanitizerResult23SANITIZER_ERROR_UNKNOWNE"></span><span id="_CPPv2N15SanitizerResult23SANITIZER_ERROR_UNKNOWNE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8adb0b62151593c6aff67023f6719ef6fd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_UNKNOWN</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult23SANITIZER_ERROR_UNKNOWNE" title="Link to this definition">#</a><br /></dt>
+<dd><p>An unknown internal error has occurred. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N15SanitizerResult25SANITIZER_ERROR_FORCE_INTE">
+<span id="_CPPv3N15SanitizerResult25SANITIZER_ERROR_FORCE_INTE"></span><span id="_CPPv2N15SanitizerResult25SANITIZER_ERROR_FORCE_INTE"></span><span class="target" id="group__sanitizer__result__api_1gga8edf13e06b1b4001d7577b07ddd575d8a2c43abc37b2b089d7db321de77aee044"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SANITIZER_ERROR_FORCE_INT</span></span></span><a class="headerlink" href="#_CPPv4N15SanitizerResult25SANITIZER_ERROR_FORCE_INTE" title="Link to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="id2">
+<h2>Functions<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424sanitizerGetResultString15SanitizerResultPPKc">
+<span id="_CPPv324sanitizerGetResultString15SanitizerResultPPKc"></span><span id="_CPPv224sanitizerGetResultString15SanitizerResultPPKc"></span><span id="sanitizerGetResultString__SanitizerResult.cCPP"></span><span class="target" id="group__sanitizer__result__api_1ga2be8c36d2401abdfafe8802f71d68223"></span><a class="reference internal" href="#_CPPv415SanitizerResult" title="SanitizerResult"><span class="n"><span class="pre">SanitizerResult</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sanitizerGetResultString</span></span></span><span class="sig-paren">(</span>
+
+<dl>
+<dd><em class="sig-param"><a class="reference internal" href="#_CPPv415SanitizerResult" title="SanitizerResult"><span class="n"><span class="pre">SanitizerResult</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">result</span></span></em>,</dd>
+<dd><em class="sig-param"><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">str</span></span></em>,</dd>
+</dl>
+
+<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424sanitizerGetResultString15SanitizerResultPPKc" title="Link to this definition">#</a><br /></dt>
+<dd><p>Get the descriptive string for a SanitizerResult. </p>
+<p>Return the descriptive string for a SanitizerResult in <code class="docutils literal notranslate"><span class="pre">*str</span></code>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Thread-safety</strong>: this function is thread-safe.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> – The result to get the string for. </p></li>
+<li><p><strong>str</strong> – Returns the string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return values<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>SANITIZER_SUCCESS</strong> – on success. </p></li>
+<li><p><strong>SANITIZER_ERROR_INVALID_PARAMETER</strong> – if <code class="docutils literal notranslate"><span class="pre">str</span></code> is NULL or <code class="docutils literal notranslate"><span class="pre">result</span></code> is not a valid SanitizerResult. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="group__SANITIZER__PATCHING__API.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sanitizer Patching API</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="group__SANITIZER__STREAM__API.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Sanitizer Stream API</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerations">Enumerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Enumerations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv415SanitizerResult"><code class="docutils literal notranslate"><span class="pre">SanitizerResult</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult17SANITIZER_SUCCESSE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_SUCCESS</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_PARAMETERE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_INVALID_PARAMETER</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult30SANITIZER_ERROR_INVALID_DEVICEE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_INVALID_DEVICE</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult31SANITIZER_ERROR_INVALID_CONTEXTE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_INVALID_CONTEXT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_DOMAIN_IDE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_INVALID_DOMAIN_ID</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult35SANITIZER_ERROR_INVALID_CALLBACK_IDE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_INVALID_CALLBACK_ID</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_INVALID_OPERATIONE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_INVALID_OPERATION</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult29SANITIZER_ERROR_OUT_OF_MEMORYE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_OUT_OF_MEMORY</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult45SANITIZER_ERROR_PARAMETER_SIZE_NOT_SUFFICIENTE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_PARAMETER_SIZE_NOT_SUFFICIENT</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult35SANITIZER_ERROR_API_NOT_IMPLEMENTEDE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_API_NOT_IMPLEMENTED</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult33SANITIZER_ERROR_MAX_LIMIT_REACHEDE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_MAX_LIMIT_REACHED</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult25SANITIZER_ERROR_NOT_READYE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_NOT_READY</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult30SANITIZER_ERROR_NOT_COMPATIBLEE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_NOT_COMPATIBLE</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult31SANITIZER_ERROR_NOT_INITIALIZEDE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_NOT_INITIALIZED</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult29SANITIZER_ERROR_NOT_SUPPORTEDE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_NOT_SUPPORTED</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult44SANITIZER_ERROR_ADDRESS_NOT_IN_DEVICE_MEMORYE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_ADDRESS_NOT_IN_DEVICE_MEMORY</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult23SANITIZER_ERROR_UNKNOWNE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_UNKNOWN</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv4N15SanitizerResult25SANITIZER_ERROR_FORCE_INTE"><code class="docutils literal notranslate"><span class="pre">SANITIZER_ERROR_FORCE_INT</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#_CPPv424sanitizerGetResultString15SanitizerResultPPKc"><code class="docutils literal notranslate"><span class="pre">sanitizerGetResultString()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+<div class="footer-links">
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/">Manage My Privacy</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/preferences/start/">Do Not Sell or Share My Data</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/">Terms of Service</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/accessibility/">Accessibility</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/about-nvidia/company-policies/">Corporate Policies</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/product-security/">Product Security</a>
+   | 
+  
+  
+  
+  <a class="external" href="https://www.nvidia.com/en-us/contact/">Contact</a>
+  
+  
+  
+</div>
+</div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2019-2026, NVIDIA Corporation &amp; Affiliates. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Jan 15, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+该目录的单接触逐元素对照有效，但captured_scalar_exact_sum_witnesses不是合格原子见证：
+单接触输出已把normal/friction两次写入舍入合并。不得据此判B通过。
+后续surface-common-input-atomic-operands使用真实逐标量atomic operand，结果以其report为准。
+原始报告保留供审计，不改写为通过。
