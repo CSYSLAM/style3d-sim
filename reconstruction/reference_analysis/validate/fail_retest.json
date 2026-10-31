@@ -1,0 +1,57 @@
+[
+ [
+  "synreal__granular_kernel__accumulate_bonds",
+  "PASS",
+  "RESULT PASS | \u7f13\u51b2 9 | \u4e0d\u540c\u5b57\u8282 0/18432 | max rel=0.000e+00"
+ ],
+ [
+  "synreal__granular_kernel__build_grid",
+  "FAIL",
+  "(\u65e0\u8f93\u51fa)"
+ ],
+ [
+  "synreal__self_collision_kernel__query_edge_edge",
+  "TIMEOUT",
+  "(\u65e0\u8f93\u51fa)"
+ ],
+ [
+  "synreal__self_collision_kernel__refit_bvh",
+  "OOB",
+  "CUDA error an illegal memory access was encountered (ab.cpp:180)"
+ ],
+ [
+  "synreal__kernel__evaluate_cables",
+  "FAIL",
+  "CUDA error a PTX JIT compilation failed (ab.cpp:66)"
+ ],
+ [
+  "synreal__kernel__initialize_affine_body_so3_state",
+  "FAIL",
+  "RESULT FAIL | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 44/14336 | max rel=1.000e+00"
+ ],
+ [
+  "synreal__kernel__initialize_joint_body_point_line_state",
+  "FAIL",
+  "RESULT FAIL | \u7f13\u51b2 15 | \u4e0d\u540c\u5b57\u8282 44/30720 | max rel=1.000e+00"
+ ],
+ [
+  "synreal__kernel__prepare_cable_tangents",
+  "FAIL",
+  "CUDA error a PTX JIT compilation failed (ab.cpp:66)"
+ ],
+ [
+  "synreal__kernel__update_affine_body_so3_augmented_lagrangian_state",
+  "FAIL",
+  "RESULT FAIL | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 130/14336 | max rel=1.000e+12"
+ ],
+ [
+  "synreal__kernel__update_cable_penalties",
+  "FAIL",
+  "CUDA error a PTX JIT compilation failed (ab.cpp:66)"
+ ],
+ [
+  "synreal__kernel__update_joint_body_point_line_augmented_lagrangian_state",
+  "FAIL",
+  "RESULT FAIL | \u7f13\u51b2 15 | \u4e0d\u540c\u5b57\u8282 44/30720 | max rel=1.000e+00"
+ ]
+]

@@ -1,0 +1,105 @@
+// [granular.cu] kernel 7/24   PTX 98 行   SASS 80 条指令
+// 签名: synreal::granular_kernel::multiply_bonds(glm::vec<2, int, (glm::qualifier)0> const*, int const*, glm::mat<3, 3, float, (glm::qualifier)0> const*, int, glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0>*)
+// 归一化原型: synreal::granular_kernel::multiply_bonds(glm::ivec2 const*, int const*, glm::mat3 const*, int, glm::vec3 const*, glm::vec3*)
+// maxntid: (未指定)   ptxas: REG=28 SHARED=0 LOCAL=0
+// 计数: atomic=6 div=0 sqrt=0 barrier=0 local=0 branch=2
+
+_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_(
+.param .u64 _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_0,
+.param .u64 _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_1,
+.param .u64 _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_2,
+.param .u32 _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_3,
+.param .u64 _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_4,
+.param .u64 _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_5
+)
+{
+.reg .pred %p<3>;
+.reg .f32 %f<37>;
+.reg .b32 %r<9>;
+.reg .b64 %rd<28>;
+
+
+ld.param.u64 %rd2, [_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_0];
+ld.param.u64 %rd3, [_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_1];
+ld.param.u64 %rd4, [_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_2];
+ld.param.u32 %r2, [_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_3];
+ld.param.u64 %rd5, [_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_4];
+ld.param.u64 %rd6, [_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD__param_5];
+mov.u32 %r3, %ntid.x;
+mov.u32 %r4, %ctaid.x;
+mov.u32 %r5, %tid.x;
+mad.lo.s32 %r1, %r4, %r3, %r5;
+setp.ge.s32 %p1, %r1, %r2;
+@%p1 bra $L__BB4_3;
+
+cvta.to.global.u64 %rd7, %rd3;
+cvt.s64.s32 %rd1, %r1;
+mul.wide.s32 %rd8, %r1, 4;
+add.s64 %rd9, %rd7, %rd8;
+ld.global.u32 %r6, [%rd9];
+setp.eq.s32 %p2, %r6, 0;
+@%p2 bra $L__BB4_3;
+
+cvta.to.global.u64 %rd10, %rd6;
+cvta.to.global.u64 %rd11, %rd5;
+cvta.to.global.u64 %rd12, %rd2;
+shl.b64 %rd13, %rd1, 3;
+add.s64 %rd14, %rd12, %rd13;
+ld.global.u32 %r7, [%rd14];
+mul.wide.s32 %rd15, %r7, 12;
+add.s64 %rd16, %rd11, %rd15;
+ld.global.u32 %r8, [%rd14+4];
+mul.wide.s32 %rd17, %r8, 12;
+add.s64 %rd18, %rd11, %rd17;
+ld.global.f32 %f1, [%rd18];
+ld.global.f32 %f2, [%rd16];
+sub.f32 %f3, %f2, %f1;
+ld.global.f32 %f4, [%rd18+4];
+ld.global.f32 %f5, [%rd16+4];
+sub.f32 %f6, %f5, %f4;
+ld.global.f32 %f7, [%rd18+8];
+ld.global.f32 %f8, [%rd16+8];
+sub.f32 %f9, %f8, %f7;
+cvta.to.global.u64 %rd19, %rd4;
+mul.lo.s64 %rd20, %rd1, 36;
+add.s64 %rd21, %rd19, %rd20;
+ld.global.f32 %f10, [%rd21];
+ld.global.f32 %f11, [%rd21+12];
+mul.f32 %f12, %f6, %f11;
+fma.rn.f32 %f13, %f3, %f10, %f12;
+ld.global.f32 %f14, [%rd21+24];
+fma.rn.f32 %f15, %f9, %f14, %f13;
+ld.global.f32 %f16, [%rd21+4];
+ld.global.f32 %f17, [%rd21+16];
+mul.f32 %f18, %f6, %f17;
+fma.rn.f32 %f19, %f3, %f16, %f18;
+ld.global.f32 %f20, [%rd21+28];
+fma.rn.f32 %f21, %f9, %f20, %f19;
+ld.global.f32 %f22, [%rd21+8];
+ld.global.f32 %f23, [%rd21+20];
+mul.f32 %f24, %f6, %f23;
+fma.rn.f32 %f25, %f3, %f22, %f24;
+ld.global.f32 %f26, [%rd21+32];
+fma.rn.f32 %f27, %f9, %f26, %f25;
+add.s64 %rd22, %rd10, %rd15;
+red.global.add.f32 [%rd22], %f15;
+add.s64 %rd23, %rd22, 4;
+red.global.add.f32 [%rd23], %f21;
+add.s64 %rd24, %rd22, 8;
+red.global.add.f32 [%rd24], %f27;
+add.s64 %rd25, %rd10, %rd17;
+neg.f32 %f31, %f15;
+neg.f32 %f32, %f21;
+neg.f32 %f33, %f27;
+red.global.add.f32 [%rd25], %f31;
+add.s64 %rd26, %rd25, 4;
+red.global.add.f32 [%rd26], %f32;
+add.s64 %rd27, %rd25, 8;
+red.global.add.f32 [%rd27], %f33;
+
+$L__BB4_3:
+ret;
+
+}
+//
+

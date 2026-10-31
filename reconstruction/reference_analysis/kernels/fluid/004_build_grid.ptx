@@ -1,0 +1,179 @@
+// [fluid.cu] kernel 4/15   PTX 172 行   SASS 232 条指令
+// 签名: synreal::fluid_kernel::build_grid(synreal::Model, glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0>*, float*, int*, int*, glm::vec<3, int, (glm::qualifier)0>*, int*, int*, int, int)
+// 归一化原型: synreal::fluid_kernel::build_grid(synreal::Model, glm::vec3 const*, glm::vec3*, float*, int*, int*, glm::ivec3*, int*, int*, int, int)
+// maxntid: (未指定)   ptxas: REG=22 SHARED=0 LOCAL=0
+// 计数: atomic=1 div=4 sqrt=0 barrier=0 local=0 branch=6
+
+_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii(
+.param .align 8 .b8 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_0[1864],
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_1,
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_2,
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_3,
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_4,
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_5,
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_6,
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_7,
+.param .u64 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_8,
+.param .u32 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_9,
+.param .u32 _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_10
+)
+{
+.reg .pred %p<6>;
+.reg .f32 %f<15>;
+.reg .b32 %r<51>;
+.reg .b64 %rd<56>;
+
+
+mov.b64 %rd7, _ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_0;
+ld.param.u64 %rd8, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_1];
+ld.param.u64 %rd9, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_2];
+ld.param.u64 %rd10, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_3];
+ld.param.u64 %rd11, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_4];
+ld.param.u64 %rd12, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_5];
+ld.param.u64 %rd13, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_6];
+ld.param.u64 %rd14, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_7];
+ld.param.u64 %rd15, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_8];
+ld.param.u32 %r8, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_9];
+ld.param.u32 %r7, [_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii_param_10];
+mov.u32 %r9, %ntid.x;
+mov.u32 %r10, %ctaid.x;
+mov.u32 %r11, %tid.x;
+mad.lo.s32 %r1, %r10, %r9, %r11;
+setp.ge.s32 %p1, %r1, %r8;
+@%p1 bra $L__BB0_8;
+
+add.s64 %rd1, %rd7, 192;
+ld.param.u32 %r12, [%rd7+232];
+ld.param.u32 %r2, [%rd7+192];
+add.s32 %r13, %r12, %r2;
+div.u32 %r50, %r1, %r13;
+mul.lo.s32 %r14, %r50, %r13;
+sub.s32 %r4, %r1, %r14;
+setp.lt.u32 %p2, %r4, %r2;
+cvta.to.global.u64 %rd17, %rd11;
+mul.wide.s32 %rd18, %r1, 4;
+add.s64 %rd2, %rd17, %rd18;
+cvta.to.global.u64 %rd19, %rd12;
+add.s64 %rd3, %rd19, %rd18;
+cvta.to.global.u64 %rd20, %rd9;
+mul.wide.s32 %rd21, %r1, 12;
+add.s64 %rd4, %rd20, %rd21;
+cvta.to.global.u64 %rd22, %rd10;
+add.s64 %rd5, %rd22, %rd18;
+@%p2 bra $L__BB0_3;
+bra.uni $L__BB0_2;
+
+$L__BB0_3:
+ld.param.u64 %rd31, [%rd1+8];
+cvta.to.global.u64 %rd32, %rd31;
+mul.wide.u32 %rd33, %r4, 4;
+add.s64 %rd34, %rd32, %rd33;
+ld.global.u32 %r25, [%rd34];
+cvt.s64.s32 %rd6, %r25;
+ld.param.v2.u32 {%r26, %r27}, [%rd1+-168];
+mad.lo.s32 %r30, %r26, %r50, %r25;
+st.global.u32 [%rd2], %r30;
+ld.param.u32 %r31, [%rd1+-168];
+setp.gt.u32 %p4, %r27, %r31;
+@%p4 bra $L__BB0_6;
+
+ld.param.u64 %rd35, [%rd1+-64];
+setp.eq.s64 %p5, %rd35, 0;
+mov.u32 %r50, 0;
+@%p5 bra $L__BB0_6;
+
+ld.param.u64 %rd36, [%rd1+-72];
+cvta.to.global.u64 %rd37, %rd36;
+shl.b64 %rd38, %rd6, 2;
+add.s64 %rd39, %rd37, %rd38;
+ld.global.u32 %r33, [%rd39];
+max.s32 %r50, %r33, 0;
+
+$L__BB0_6:
+st.global.u32 [%rd3], %r50;
+ld.global.u32 %r34, [%rd2];
+cvta.to.global.u64 %rd40, %rd8;
+mul.wide.s32 %rd41, %r34, 12;
+add.s64 %rd42, %rd40, %rd41;
+ld.global.u32 %r35, [%rd42];
+ld.global.u32 %r36, [%rd42+4];
+ld.global.u32 %r37, [%rd42+8];
+st.global.u32 [%rd4], %r35;
+st.global.u32 [%rd4+4], %r36;
+st.global.u32 [%rd4+8], %r37;
+cvt.u32.u64 %r38, %rd6;
+ld.param.u64 %rd43, [%rd1+-144];
+cvta.to.global.u64 %rd44, %rd43;
+mul.wide.s32 %rd45, %r38, 4;
+add.s64 %rd46, %rd44, %rd45;
+ld.param.f32 %f2, [%rd1+24];
+ld.global.f32 %f3, [%rd46];
+div.rn.f32 %f4, %f3, %f2;
+st.global.f32 [%rd5], %f4;
+bra.uni $L__BB0_7;
+
+$L__BB0_2:
+sub.s32 %r15, %r4, %r2;
+mov.u32 %r16, -1;
+st.global.u32 [%rd2], %r16;
+ld.param.v2.u32 {%r17, %r18}, [%rd1+-168];
+setp.gt.u32 %p3, %r18, %r17;
+selp.b32 %r21, %r50, -1, %p3;
+st.global.u32 [%rd3], %r21;
+ld.param.u64 %rd23, [%rd1+48];
+cvta.to.global.u64 %rd24, %rd23;
+mul.wide.u32 %rd25, %r15, 12;
+add.s64 %rd26, %rd24, %rd25;
+ld.global.u32 %r22, [%rd26];
+ld.global.u32 %r23, [%rd26+4];
+ld.global.u32 %r24, [%rd26+8];
+st.global.u32 [%rd4], %r22;
+st.global.u32 [%rd4+4], %r23;
+st.global.u32 [%rd4+8], %r24;
+ld.param.u64 %rd27, [%rd1+64];
+cvta.to.global.u64 %rd28, %rd27;
+mul.wide.u32 %rd29, %r15, 4;
+add.s64 %rd30, %rd28, %rd29;
+ld.global.f32 %f1, [%rd30];
+st.global.f32 [%rd5], %f1;
+
+$L__BB0_7:
+ld.param.f32 %f5, [%rd1+28];
+ld.global.f32 %f6, [%rd4];
+div.rn.f32 %f7, %f6, %f5;
+cvt.rmi.f32.f32 %f8, %f7;
+cvt.rzi.s32.f32 %r39, %f8;
+ld.global.f32 %f9, [%rd4+4];
+div.rn.f32 %f10, %f9, %f5;
+cvt.rmi.f32.f32 %f11, %f10;
+cvt.rzi.s32.f32 %r40, %f11;
+ld.global.f32 %f12, [%rd4+8];
+div.rn.f32 %f13, %f12, %f5;
+cvt.rmi.f32.f32 %f14, %f13;
+cvt.rzi.s32.f32 %r41, %f14;
+cvta.to.global.u64 %rd47, %rd13;
+add.s64 %rd49, %rd47, %rd21;
+st.global.u32 [%rd49], %r39;
+st.global.u32 [%rd49+4], %r40;
+st.global.u32 [%rd49+8], %r41;
+mul.lo.s32 %r42, %r39, 73856093;
+mul.lo.s32 %r43, %r40, 19349663;
+xor.b32 %r44, %r43, %r42;
+mul.lo.s32 %r45, %r41, 83492791;
+xor.b32 %r46, %r44, %r45;
+add.s32 %r47, %r7, -1;
+and.b32 %r48, %r46, %r47;
+cvta.to.global.u64 %rd50, %rd14;
+mul.wide.s32 %rd51, %r48, 4;
+add.s64 %rd52, %rd50, %rd51;
+atom.global.exch.b32 %r49, [%rd52], %r1;
+cvta.to.global.u64 %rd53, %rd15;
+add.s64 %rd55, %rd53, %rd18;
+st.global.u32 [%rd55], %r49;
+
+$L__BB0_8:
+ret;
+
+}
+//
+

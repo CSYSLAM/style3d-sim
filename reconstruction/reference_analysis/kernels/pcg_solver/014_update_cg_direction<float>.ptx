@@ -1,0 +1,93 @@
+// [pcg_solver.cu] kernel 14/20   PTX 86 行   SASS 116 条指令
+// 签名: void synreal::kernel::update_cg_direction<float>(int, float const*, glm::vec<3, float, (glm::qualifier)0> const*, float const*, glm::vec<3, float, (glm::qualifier)0>*, unsigned long)
+// 归一化原型: void synreal::kernel::update_cg_direction<float>(int, float const*, glm::vec3 const*, float const*, glm::vec3*, size_t)
+// maxntid: (未指定)   ptxas: REG=16 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=1 sqrt=0 barrier=0 local=0 branch=5
+
+_ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m(
+.param .u32 _ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_0,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_1,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_2,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_3,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_4,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_5
+)
+{
+.reg .pred %p<7>;
+.reg .f32 %f<30>;
+.reg .b32 %r<5>;
+.reg .b64 %rd<20>;
+
+
+ld.param.u32 %r1, [_ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_0];
+ld.param.u64 %rd3, [_ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_1];
+ld.param.u64 %rd4, [_ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_2];
+ld.param.u64 %rd5, [_ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_3];
+ld.param.u64 %rd6, [_ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_4];
+ld.param.u64 %rd7, [_ZN7synreal6kernel19update_cg_directionIfEEviPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPKfPS8_m_param_5];
+mov.u32 %r2, %ctaid.x;
+mov.u32 %r3, %ntid.x;
+mul.wide.u32 %rd8, %r2, %r3;
+mov.u32 %r4, %tid.x;
+cvt.u64.u32 %rd9, %r4;
+add.s64 %rd1, %rd8, %rd9;
+setp.ge.u64 %p1, %rd1, %rd7;
+@%p1 bra $L__BB3_7;
+
+cvta.to.global.u64 %rd10, %rd3;
+shl.b64 %rd11, %rd1, 2;
+add.s64 %rd12, %rd10, %rd11;
+cvta.to.global.u64 %rd13, %rd4;
+mul.lo.s64 %rd14, %rd1, 12;
+add.s64 %rd15, %rd13, %rd14;
+ld.global.f32 %f14, [%rd15];
+ld.global.f32 %f15, [%rd12];
+mul.f32 %f27, %f15, %f14;
+ld.global.f32 %f16, [%rd15+4];
+mul.f32 %f28, %f15, %f16;
+ld.global.f32 %f17, [%rd15+8];
+mul.f32 %f29, %f15, %f17;
+cvta.to.global.u64 %rd16, %rd6;
+add.s64 %rd2, %rd16, %rd14;
+setp.gt.s32 %p2, %r1, 0;
+mov.f32 %f26, 0f00000000;
+@%p2 bra $L__BB3_2;
+bra.uni $L__BB3_6;
+
+$L__BB3_2:
+cvta.to.global.u64 %rd17, %rd5;
+mul.wide.s32 %rd18, %r1, 4;
+add.s64 %rd19, %rd17, %rd18;
+ld.global.f32 %f4, [%rd19];
+ld.global.f32 %f5, [%rd19+-4];
+abs.f32 %f19, %f5;
+setp.leu.f32 %p3, %f19, 0f0DA24260;
+setp.gtu.f32 %p4, %f19, 0f7F800000;
+or.pred %p5, %p3, %p4;
+@%p5 bra $L__BB3_5;
+
+abs.f32 %f21, %f4;
+setp.gtu.f32 %p6, %f21, 0f7F800000;
+@%p6 bra $L__BB3_5;
+
+div.rn.f32 %f26, %f4, %f5;
+
+$L__BB3_5:
+ld.global.f32 %f22, [%rd2];
+ld.global.f32 %f23, [%rd2+4];
+ld.global.f32 %f24, [%rd2+8];
+fma.rn.f32 %f27, %f26, %f22, %f27;
+fma.rn.f32 %f28, %f26, %f23, %f28;
+fma.rn.f32 %f29, %f26, %f24, %f29;
+
+$L__BB3_6:
+st.global.f32 [%rd2], %f27;
+st.global.f32 [%rd2+4], %f28;
+st.global.f32 [%rd2+8], %f29;
+
+$L__BB3_7:
+ret;
+
+}
+//
+

@@ -4,13 +4,17 @@
 """Drop a volumetric elastic ball onto the ground with Style3D Sim."""
 
 import math
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import numpy as np
 import warp as wp
 
 import newton
 import newton.examples
-import style3d_sim as s3d
+
 
 
 BALL_RADIUS = 0.5
@@ -140,6 +144,7 @@ def create_tetrahedral_ball(
 
 class Example:
     def __init__(self, viewer, args):
+        self.args = args
         self.viewer = viewer
         self.sim_time = 0.0
         self.fps = 60
@@ -180,13 +185,27 @@ class Example:
         self.model.soft_contact_kf = 1.0e3
         self.model.soft_contact_mu = CONTACT_FRICTION
 
-        self.solver = s3d.NewtonSolver(self.model)
+        if args.solver == 'reconstructed':
+            from reconstruction.solver import ReconstructedSolver
+            self.solver = ReconstructedSolver(self.model)
+        else:
+            import style3d_sim as s3d
+            self.solver = s3d.NewtonSolver(self.model)
         self.solver.config.nonlinear_iterations = 15
         self.solver.config.linear_iterations = 8
 
         self.state_0 = self.model.state()
         self.state_1 = self.model.state()
         self.control = self.model.control()
+        if args.initial_stretch != 1.0:
+            positions = self.state_0.particle_q.numpy()
+            positions[:, 0] *= args.initial_stretch
+            self.state_0.particle_q.assign(positions)
+        if args.initial_vx != 0.0:
+            # A horizontal launch velocity makes the ground contact slide, exercising the friction limit.
+            velocities = self.state_0.particle_qd.numpy()
+            velocities[:, 0] += args.initial_vx
+            self.state_0.particle_qd.assign(velocities)
 
         self.collision_pipeline = newton.CollisionPipeline(self.model)
         self.contacts = self.collision_pipeline.contacts()
@@ -203,7 +222,8 @@ class Example:
         self.capture()
 
     def capture(self):
-        if wp.get_device().is_cuda:
+        if (wp.get_device().is_cuda and self.args.solver != 'reconstructed'
+                and not self.args.no_capture):
             with wp.ScopedCapture() as capture:
                 self.simulate()
             self.graph = capture.graph
@@ -248,7 +268,14 @@ class Example:
 
     @staticmethod
     def create_parser():
-        return newton.examples.create_parser()
+        parser = newton.examples.create_parser()
+        parser.add_argument('--solver', choices=['synreal', 'reconstructed'], default='synreal')
+        parser.add_argument('--no-capture', action='store_true')
+        parser.add_argument('--initial-stretch', type=float, default=1.0,
+                            help='Stretch initial x coordinates to exercise tetrahedral elasticity.')
+        parser.add_argument('--initial-vx', type=float, default=0.0,
+                            help='Initial horizontal velocity [m/s] so ground contact slides.')
+        return parser
 
 
 if __name__ == "__main__":

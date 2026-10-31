@@ -1,0 +1,1226 @@
+// [pcg_solver.cu] kernel 5/20   PTX 1219 行   SASS 704 条指令
+// 签名: void cub::CUB_200302_520_NS::DeviceReduceSingleTileKernel<cub::CUB_200302_520_NS::DeviceReducePolicy<float, unsigned int, cuda::std::__4::plus<void> >::Policy600, float*, float*, int, cuda::std::__4::plus<void>, float, float>(float*, float*, int, cuda::std::__4::plus<void>, float)
+// 归一化原型: void cub::CUB_200302_520_NS::DeviceReduceSingleTileKernel<cub::CUB_200302_520_NS::DeviceReducePolicy<float, unsigned int, cuda::std::__4::plus<void> >::Policy600, float*, float*, int, cuda::std::__4::plus<void>, float, float>(float*, float*, int, cuda::std::__4::plus<void>, float)
+// maxntid: 256, 1, 1   ptxas: REG=30 SHARED=44 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=6 local=0 branch=62
+
+_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_(
+.param .u64 _ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_0,
+.param .u64 _ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_1,
+.param .u32 _ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_2,
+.param .align 1 .b8 _ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_3[1],
+.param .f32 _ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_4
+)
+.maxntid 256, 1, 1
+.minnctapersm 1
+{
+.reg .pred %p<67>;
+.reg .f32 %f<431>;
+.reg .b32 %r<411>;
+.reg .b64 %rd<195>;
+//
+.shared .align 4 .b8 _ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage[44];
+
+ld.param.u64 %rd62, [_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_0];
+ld.param.u64 %rd63, [_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_1];
+ld.param.u32 %r75, [_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_2];
+ld.param.f32 %f40, [_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4__param_4];
+setp.eq.s32 %p1, %r75, 0;
+@%p1 bra $L__BB19_76;
+
+and.b64 %rd64, %rd62, 15;
+setp.eq.s64 %p2, %rd64, 0;
+mov.u32 %r410, %tid.x;
+@%p2 bra $L__BB19_38;
+
+setp.lt.s32 %p3, %r75, 5120;
+@%p3 bra $L__BB19_19;
+bra.uni $L__BB19_3;
+
+$L__BB19_19:
+setp.ge.s32 %p15, %r410, %r75;
+mov.u32 %r392, 0;
+mov.u32 %r387, %r410;
+@%p15 bra $L__BB19_21;
+
+mul.wide.s32 %rd120, %r410, 4;
+add.s64 %rd119, %rd62, %rd120;
+//
+ld.global.nc.u32 %r392, [%rd119];
+//
+add.s32 %r387, %r410, 256;
+
+$L__BB19_21:
+setp.ge.s32 %p16, %r387, %r75;
+@%p16 bra $L__BB19_28;
+
+not.b32 %r165, %r387;
+add.s32 %r22, %r165, %r75;
+shr.u32 %r166, %r22, 8;
+add.s32 %r167, %r166, 1;
+and.b32 %r386, %r167, 3;
+setp.eq.s32 %p17, %r386, 0;
+@%p17 bra $L__BB19_25;
+
+mul.wide.s32 %rd121, %r387, 4;
+add.s64 %rd186, %rd62, %rd121;
+
+$L__BB19_24:
+.pragma "nounroll";
+//
+ld.global.nc.u32 %r168, [%rd186];
+//
+mov.b32 %f155, %r168;
+mov.b32 %f156, %r392;
+add.f32 %f157, %f156, %f155;
+mov.b32 %r392, %f157;
+add.s32 %r387, %r387, 256;
+add.s64 %rd186, %rd186, 1024;
+add.s32 %r386, %r386, -1;
+setp.ne.s32 %p18, %r386, 0;
+@%p18 bra $L__BB19_24;
+
+$L__BB19_25:
+setp.lt.u32 %p19, %r22, 768;
+@%p19 bra $L__BB19_28;
+
+mul.wide.s32 %rd123, %r387, 4;
+add.s64 %rd187, %rd62, %rd123;
+
+$L__BB19_27:
+//
+ld.global.nc.u32 %r169, [%rd187];
+//
+mov.b32 %f158, %r169;
+mov.b32 %f159, %r392;
+add.f32 %f160, %f159, %f158;
+add.s64 %rd125, %rd187, 1024;
+//
+ld.global.nc.u32 %r170, [%rd125];
+//
+mov.b32 %f161, %r170;
+add.f32 %f162, %f160, %f161;
+add.s64 %rd126, %rd187, 2048;
+//
+ld.global.nc.u32 %r171, [%rd126];
+//
+mov.b32 %f163, %r171;
+add.f32 %f164, %f162, %f163;
+add.s64 %rd127, %rd187, 3072;
+//
+ld.global.nc.u32 %r172, [%rd127];
+//
+mov.b32 %f165, %r172;
+add.f32 %f166, %f164, %f165;
+mov.b32 %r392, %f166;
+add.s64 %rd187, %rd187, 4096;
+add.s32 %r387, %r387, 1024;
+setp.lt.s32 %p20, %r387, %r75;
+@%p20 bra $L__BB19_27;
+
+$L__BB19_28:
+mov.b32 %f14, %r392;
+setp.gt.s32 %p21, %r75, 255;
+@%p21 bra $L__BB19_34;
+bra.uni $L__BB19_29;
+
+$L__BB19_34:
+//
+mov.u32 %r202, %laneid;
+//
+mov.u32 %r204, 1;
+mov.u32 %r217, 31;
+mov.u32 %r218, -1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f14, %r204, %r217, %r218; @p add.f32 r0, r0, %f14; mov.f32 %f200, r0;}
+//
+mov.u32 %r207, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f200, %r207, %r217, %r218; @p add.f32 r0, r0, %f200; mov.f32 %f203, r0;}
+//
+mov.u32 %r210, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f203, %r210, %r217, %r218; @p add.f32 r0, r0, %f203; mov.f32 %f206, r0;}
+//
+mov.u32 %r213, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f206, %r213, %r217, %r218; @p add.f32 r0, r0, %f206; mov.f32 %f209, r0;}
+//
+mov.u32 %r216, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f209, %r216, %r217, %r218; @p add.f32 r0, r0, %f209; mov.f32 %f430, r0;}
+//
+setp.ne.s32 %p32, %r202, 0;
+@%p32 bra $L__BB19_36;
+
+shr.s32 %r219, %r410, 31;
+shr.u32 %r220, %r219, 27;
+add.s32 %r221, %r410, %r220;
+shr.s32 %r222, %r221, 5;
+shl.b32 %r223, %r222, 2;
+mov.u32 %r224, _ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage;
+add.s32 %r225, %r224, %r223;
+st.shared.f32 [%r225+8], %f430;
+
+$L__BB19_36:
+bar.sync 0;
+setp.ne.s32 %p33, %r410, 0;
+@%p33 bra $L__BB19_74;
+
+mov.u32 %r410, 0;
+ld.shared.f32 %f215, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+12];
+add.f32 %f216, %f430, %f215;
+ld.shared.f32 %f217, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+16];
+add.f32 %f218, %f216, %f217;
+ld.shared.f32 %f219, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+20];
+add.f32 %f220, %f218, %f219;
+ld.shared.f32 %f221, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+24];
+add.f32 %f222, %f220, %f221;
+ld.shared.f32 %f223, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+28];
+add.f32 %f224, %f222, %f223;
+ld.shared.f32 %f225, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+32];
+add.f32 %f226, %f224, %f225;
+ld.shared.f32 %f227, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+36];
+add.f32 %f430, %f226, %f227;
+bra.uni $L__BB19_74;
+
+$L__BB19_76:
+mov.u32 %r375, %tid.x;
+setp.ne.s32 %p66, %r375, 0;
+@%p66 bra $L__BB19_78;
+
+cvta.to.global.u64 %rd180, %rd63;
+st.global.f32 [%rd180], %f40;
+bra.uni $L__BB19_78;
+
+$L__BB19_38:
+setp.lt.s32 %p34, %r75, 5120;
+@%p34 bra $L__BB19_55;
+bra.uni $L__BB19_39;
+
+$L__BB19_55:
+setp.ge.s32 %p46, %r410, %r75;
+mov.u32 %r409, 0;
+mov.u32 %r404, %r410;
+@%p46 bra $L__BB19_57;
+
+mul.wide.s32 %rd171, %r410, 4;
+add.s64 %rd170, %rd62, %rd171;
+//
+ld.global.nc.u32 %r409, [%rd170];
+//
+add.s32 %r404, %r410, 256;
+
+$L__BB19_57:
+setp.ge.s32 %p47, %r404, %r75;
+@%p47 bra $L__BB19_64;
+
+not.b32 %r313, %r404;
+add.s32 %r57, %r313, %r75;
+shr.u32 %r314, %r57, 8;
+add.s32 %r315, %r314, 1;
+and.b32 %r403, %r315, 3;
+setp.eq.s32 %p48, %r403, 0;
+@%p48 bra $L__BB19_61;
+
+mul.wide.s32 %rd172, %r404, 4;
+add.s64 %rd193, %rd62, %rd172;
+
+$L__BB19_60:
+.pragma "nounroll";
+//
+ld.global.nc.u32 %r316, [%rd193];
+//
+mov.b32 %f342, %r316;
+mov.b32 %f343, %r409;
+add.f32 %f344, %f343, %f342;
+mov.b32 %r409, %f344;
+add.s32 %r404, %r404, 256;
+add.s64 %rd193, %rd193, 1024;
+add.s32 %r403, %r403, -1;
+setp.ne.s32 %p49, %r403, 0;
+@%p49 bra $L__BB19_60;
+
+$L__BB19_61:
+setp.lt.u32 %p50, %r57, 768;
+@%p50 bra $L__BB19_64;
+
+mul.wide.s32 %rd174, %r404, 4;
+add.s64 %rd194, %rd62, %rd174;
+
+$L__BB19_63:
+//
+ld.global.nc.u32 %r317, [%rd194];
+//
+mov.b32 %f345, %r317;
+mov.b32 %f346, %r409;
+add.f32 %f347, %f346, %f345;
+add.s64 %rd176, %rd194, 1024;
+//
+ld.global.nc.u32 %r318, [%rd176];
+//
+mov.b32 %f348, %r318;
+add.f32 %f349, %f347, %f348;
+add.s64 %rd177, %rd194, 2048;
+//
+ld.global.nc.u32 %r319, [%rd177];
+//
+mov.b32 %f350, %r319;
+add.f32 %f351, %f349, %f350;
+add.s64 %rd178, %rd194, 3072;
+//
+ld.global.nc.u32 %r320, [%rd178];
+//
+mov.b32 %f352, %r320;
+add.f32 %f353, %f351, %f352;
+mov.b32 %r409, %f353;
+add.s64 %rd194, %rd194, 4096;
+add.s32 %r404, %r404, 1024;
+setp.lt.s32 %p51, %r404, %r75;
+@%p51 bra $L__BB19_63;
+
+$L__BB19_64:
+mov.b32 %f33, %r409;
+setp.gt.s32 %p52, %r75, 255;
+@%p52 bra $L__BB19_70;
+bra.uni $L__BB19_65;
+
+$L__BB19_70:
+//
+mov.u32 %r350, %laneid;
+//
+mov.u32 %r352, 1;
+mov.u32 %r365, 31;
+mov.u32 %r366, -1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f33, %r352, %r365, %r366; @p add.f32 r0, r0, %f33; mov.f32 %f387, r0;}
+//
+mov.u32 %r355, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f387, %r355, %r365, %r366; @p add.f32 r0, r0, %f387; mov.f32 %f390, r0;}
+//
+mov.u32 %r358, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f390, %r358, %r365, %r366; @p add.f32 r0, r0, %f390; mov.f32 %f393, r0;}
+//
+mov.u32 %r361, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f393, %r361, %r365, %r366; @p add.f32 r0, r0, %f393; mov.f32 %f396, r0;}
+//
+mov.u32 %r364, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f396, %r364, %r365, %r366; @p add.f32 r0, r0, %f396; mov.f32 %f430, r0;}
+//
+setp.ne.s32 %p63, %r350, 0;
+@%p63 bra $L__BB19_72;
+
+shr.s32 %r367, %r410, 31;
+shr.u32 %r368, %r367, 27;
+add.s32 %r369, %r410, %r368;
+shr.s32 %r370, %r369, 5;
+shl.b32 %r371, %r370, 2;
+mov.u32 %r372, _ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage;
+add.s32 %r373, %r372, %r371;
+st.shared.f32 [%r373+8], %f430;
+
+$L__BB19_72:
+bar.sync 0;
+setp.ne.s32 %p64, %r410, 0;
+@%p64 bra $L__BB19_74;
+
+mov.u32 %r410, 0;
+ld.shared.f32 %f402, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+12];
+add.f32 %f403, %f430, %f402;
+ld.shared.f32 %f404, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+16];
+add.f32 %f405, %f403, %f404;
+ld.shared.f32 %f406, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+20];
+add.f32 %f407, %f405, %f406;
+ld.shared.f32 %f408, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+24];
+add.f32 %f409, %f407, %f408;
+ld.shared.f32 %f410, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+28];
+add.f32 %f411, %f409, %f410;
+ld.shared.f32 %f412, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+32];
+add.f32 %f413, %f411, %f412;
+ld.shared.f32 %f414, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+36];
+add.f32 %f430, %f413, %f414;
+bra.uni $L__BB19_74;
+
+$L__BB19_3:
+mul.wide.s32 %rd85, %r410, 4;
+add.s64 %rd65, %rd62, %rd85;
+//
+ld.global.nc.u32 %r76, [%rd65];
+//
+add.s64 %rd66, %rd65, 1024;
+//
+ld.global.nc.u32 %r77, [%rd66];
+//
+add.s64 %rd67, %rd65, 2048;
+//
+ld.global.nc.u32 %r78, [%rd67];
+//
+add.s64 %rd68, %rd65, 3072;
+//
+ld.global.nc.u32 %r79, [%rd68];
+//
+add.s64 %rd69, %rd65, 4096;
+//
+ld.global.nc.u32 %r80, [%rd69];
+//
+add.s64 %rd70, %rd65, 5120;
+//
+ld.global.nc.u32 %r81, [%rd70];
+//
+add.s64 %rd71, %rd65, 6144;
+//
+ld.global.nc.u32 %r82, [%rd71];
+//
+add.s64 %rd72, %rd65, 7168;
+//
+ld.global.nc.u32 %r83, [%rd72];
+//
+add.s64 %rd73, %rd65, 8192;
+//
+ld.global.nc.u32 %r84, [%rd73];
+//
+add.s64 %rd74, %rd65, 9216;
+//
+ld.global.nc.u32 %r85, [%rd74];
+//
+add.s64 %rd75, %rd65, 10240;
+//
+ld.global.nc.u32 %r86, [%rd75];
+//
+add.s64 %rd76, %rd65, 11264;
+//
+ld.global.nc.u32 %r87, [%rd76];
+//
+add.s64 %rd77, %rd65, 12288;
+//
+ld.global.nc.u32 %r88, [%rd77];
+//
+add.s64 %rd78, %rd65, 13312;
+//
+ld.global.nc.u32 %r89, [%rd78];
+//
+add.s64 %rd79, %rd65, 14336;
+//
+ld.global.nc.u32 %r90, [%rd79];
+//
+add.s64 %rd80, %rd65, 15360;
+//
+ld.global.nc.u32 %r91, [%rd80];
+//
+add.s64 %rd81, %rd65, 16384;
+//
+ld.global.nc.u32 %r92, [%rd81];
+//
+add.s64 %rd82, %rd65, 17408;
+//
+ld.global.nc.u32 %r93, [%rd82];
+//
+add.s64 %rd83, %rd65, 18432;
+//
+ld.global.nc.u32 %r94, [%rd83];
+//
+add.s64 %rd84, %rd65, 19456;
+//
+ld.global.nc.u32 %r95, [%rd84];
+//
+mov.b32 %f41, %r76;
+mov.b32 %f42, %r77;
+add.f32 %f43, %f41, %f42;
+mov.b32 %f44, %r78;
+add.f32 %f45, %f43, %f44;
+mov.b32 %f46, %r79;
+add.f32 %f47, %f45, %f46;
+mov.b32 %f48, %r80;
+add.f32 %f49, %f47, %f48;
+mov.b32 %f50, %r81;
+add.f32 %f51, %f49, %f50;
+mov.b32 %f52, %r82;
+add.f32 %f53, %f51, %f52;
+mov.b32 %f54, %r83;
+add.f32 %f55, %f53, %f54;
+mov.b32 %f56, %r84;
+add.f32 %f57, %f55, %f56;
+mov.b32 %f58, %r85;
+add.f32 %f59, %f57, %f58;
+mov.b32 %f60, %r86;
+add.f32 %f61, %f59, %f60;
+mov.b32 %f62, %r87;
+add.f32 %f63, %f61, %f62;
+mov.b32 %f64, %r88;
+add.f32 %f65, %f63, %f64;
+mov.b32 %f66, %r89;
+add.f32 %f67, %f65, %f66;
+mov.b32 %f68, %r90;
+add.f32 %f69, %f67, %f68;
+mov.b32 %f70, %r91;
+add.f32 %f71, %f69, %f70;
+mov.b32 %f72, %r92;
+add.f32 %f73, %f71, %f72;
+mov.b32 %f74, %r93;
+add.f32 %f75, %f73, %f74;
+mov.b32 %f76, %r94;
+add.f32 %f77, %f75, %f76;
+mov.b32 %f78, %r95;
+add.f32 %f422, %f77, %f78;
+setp.lt.s32 %p4, %r75, 10240;
+mov.u32 %r377, 5120;
+@%p4 bra $L__BB19_7;
+
+mov.u32 %r377, 5120;
+
+$L__BB19_5:
+mov.u32 %r118, %tid.x;
+mul.wide.s32 %rd106, %r118, 4;
+add.s64 %rd107, %rd62, %rd106;
+mul.wide.s32 %rd108, %r377, 4;
+add.s64 %rd86, %rd107, %rd108;
+//
+ld.global.nc.u32 %r98, [%rd86];
+//
+add.s64 %rd87, %rd66, %rd108;
+//
+ld.global.nc.u32 %r99, [%rd87];
+//
+add.s64 %rd88, %rd86, 2048;
+//
+ld.global.nc.u32 %r100, [%rd88];
+//
+add.s64 %rd89, %rd68, %rd108;
+//
+ld.global.nc.u32 %r101, [%rd89];
+//
+add.s64 %rd90, %rd69, %rd108;
+//
+ld.global.nc.u32 %r102, [%rd90];
+//
+add.s64 %rd91, %rd70, %rd108;
+//
+ld.global.nc.u32 %r103, [%rd91];
+//
+add.s64 %rd92, %rd71, %rd108;
+//
+ld.global.nc.u32 %r104, [%rd92];
+//
+add.s64 %rd93, %rd72, %rd108;
+//
+ld.global.nc.u32 %r105, [%rd93];
+//
+add.s64 %rd94, %rd73, %rd108;
+//
+ld.global.nc.u32 %r106, [%rd94];
+//
+add.s64 %rd95, %rd74, %rd108;
+//
+ld.global.nc.u32 %r107, [%rd95];
+//
+add.s64 %rd96, %rd75, %rd108;
+//
+ld.global.nc.u32 %r108, [%rd96];
+//
+add.s64 %rd97, %rd76, %rd108;
+//
+ld.global.nc.u32 %r109, [%rd97];
+//
+add.s64 %rd98, %rd77, %rd108;
+//
+ld.global.nc.u32 %r110, [%rd98];
+//
+add.s64 %rd99, %rd78, %rd108;
+//
+ld.global.nc.u32 %r111, [%rd99];
+//
+add.s64 %rd100, %rd79, %rd108;
+//
+ld.global.nc.u32 %r112, [%rd100];
+//
+add.s64 %rd101, %rd80, %rd108;
+//
+ld.global.nc.u32 %r113, [%rd101];
+//
+add.s64 %rd102, %rd81, %rd108;
+//
+ld.global.nc.u32 %r114, [%rd102];
+//
+add.s64 %rd103, %rd82, %rd108;
+//
+ld.global.nc.u32 %r115, [%rd103];
+//
+add.s64 %rd104, %rd83, %rd108;
+//
+ld.global.nc.u32 %r116, [%rd104];
+//
+add.s64 %rd105, %rd84, %rd108;
+//
+ld.global.nc.u32 %r117, [%rd105];
+//
+mov.b32 %f79, %r98;
+add.f32 %f80, %f422, %f79;
+mov.b32 %f81, %r99;
+add.f32 %f82, %f80, %f81;
+mov.b32 %f83, %r100;
+add.f32 %f84, %f82, %f83;
+mov.b32 %f85, %r101;
+add.f32 %f86, %f84, %f85;
+mov.b32 %f87, %r102;
+add.f32 %f88, %f86, %f87;
+mov.b32 %f89, %r103;
+add.f32 %f90, %f88, %f89;
+mov.b32 %f91, %r104;
+add.f32 %f92, %f90, %f91;
+mov.b32 %f93, %r105;
+add.f32 %f94, %f92, %f93;
+mov.b32 %f95, %r106;
+add.f32 %f96, %f94, %f95;
+mov.b32 %f97, %r107;
+add.f32 %f98, %f96, %f97;
+mov.b32 %f99, %r108;
+add.f32 %f100, %f98, %f99;
+mov.b32 %f101, %r109;
+add.f32 %f102, %f100, %f101;
+mov.b32 %f103, %r110;
+add.f32 %f104, %f102, %f103;
+mov.b32 %f105, %r111;
+add.f32 %f106, %f104, %f105;
+mov.b32 %f107, %r112;
+add.f32 %f108, %f106, %f107;
+mov.b32 %f109, %r113;
+add.f32 %f110, %f108, %f109;
+mov.b32 %f111, %r114;
+add.f32 %f112, %f110, %f111;
+mov.b32 %f113, %r115;
+add.f32 %f114, %f112, %f113;
+mov.b32 %f115, %r116;
+add.f32 %f116, %f114, %f115;
+mov.b32 %f117, %r117;
+add.f32 %f422, %f116, %f117;
+sub.s32 %r119, %r75, %r377;
+setp.lt.s32 %p5, %r119, 5120;
+@%p5 bra $L__BB19_15;
+
+add.s32 %r377, %r377, 5120;
+add.s32 %r120, %r75, -5120;
+setp.le.s32 %p6, %r377, %r120;
+@%p6 bra $L__BB19_5;
+
+$L__BB19_7:
+setp.ge.s32 %p7, %r377, %r75;
+@%p7 bra $L__BB19_15;
+
+sub.s32 %r5, %r75, %r377;
+mov.u32 %r380, %tid.x;
+setp.ge.s32 %p8, %r380, %r5;
+@%p8 bra $L__BB19_15;
+
+not.b32 %r122, %r380;
+add.s32 %r123, %r122, %r75;
+sub.s32 %r7, %r123, %r377;
+shr.u32 %r124, %r7, 8;
+add.s32 %r125, %r124, 1;
+and.b32 %r379, %r125, 3;
+setp.eq.s32 %p9, %r379, 0;
+@%p9 bra $L__BB19_12;
+
+mov.u32 %r380, %tid.x;
+add.s32 %r126, %r380, %r377;
+mul.wide.s32 %rd109, %r126, 4;
+add.s64 %rd181, %rd62, %rd109;
+
+$L__BB19_11:
+.pragma "nounroll";
+//
+ld.global.nc.u32 %r127, [%rd181];
+//
+mov.b32 %f119, %r127;
+add.f32 %f422, %f422, %f119;
+add.s32 %r380, %r380, 256;
+add.s64 %rd181, %rd181, 1024;
+add.s32 %r379, %r379, -1;
+setp.ne.s32 %p10, %r379, 0;
+@%p10 bra $L__BB19_11;
+
+$L__BB19_12:
+setp.lt.u32 %p11, %r7, 768;
+@%p11 bra $L__BB19_15;
+
+add.s32 %r128, %r380, %r377;
+add.s32 %r129, %r128, 768;
+mul.wide.s32 %rd111, %r129, 4;
+add.s64 %rd185, %rd62, %rd111;
+add.s32 %r130, %r128, 512;
+mul.wide.s32 %rd112, %r130, 4;
+add.s64 %rd184, %rd62, %rd112;
+add.s32 %r131, %r128, 256;
+mul.wide.s32 %rd113, %r131, 4;
+add.s64 %rd183, %rd62, %rd113;
+mul.wide.s32 %rd114, %r128, 4;
+add.s64 %rd182, %rd62, %rd114;
+
+$L__BB19_14:
+//
+ld.global.nc.u32 %r132, [%rd182];
+//
+mov.b32 %f120, %r132;
+add.f32 %f121, %f422, %f120;
+//
+ld.global.nc.u32 %r133, [%rd183];
+//
+mov.b32 %f122, %r133;
+add.f32 %f123, %f121, %f122;
+//
+ld.global.nc.u32 %r134, [%rd184];
+//
+mov.b32 %f124, %r134;
+add.f32 %f125, %f123, %f124;
+//
+ld.global.nc.u32 %r135, [%rd185];
+//
+mov.b32 %f126, %r135;
+add.f32 %f422, %f125, %f126;
+add.s64 %rd185, %rd185, 4096;
+add.s64 %rd184, %rd184, 4096;
+add.s64 %rd183, %rd183, 4096;
+add.s64 %rd182, %rd182, 4096;
+add.s32 %r380, %r380, 1024;
+setp.lt.s32 %p12, %r380, %r5;
+@%p12 bra $L__BB19_14;
+
+$L__BB19_15:
+//
+mov.u32 %r136, %laneid;
+//
+mov.u32 %r138, 1;
+mov.u32 %r151, 31;
+mov.u32 %r152, -1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f422, %r138, %r151, %r152; @p add.f32 r0, r0, %f422; mov.f32 %f127, r0;}
+//
+mov.u32 %r141, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f127, %r141, %r151, %r152; @p add.f32 r0, r0, %f127; mov.f32 %f130, r0;}
+//
+mov.u32 %r144, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f130, %r144, %r151, %r152; @p add.f32 r0, r0, %f130; mov.f32 %f133, r0;}
+//
+mov.u32 %r147, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f133, %r147, %r151, %r152; @p add.f32 r0, r0, %f133; mov.f32 %f136, r0;}
+//
+mov.u32 %r150, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f136, %r150, %r151, %r152; @p add.f32 r0, r0, %f136; mov.f32 %f430, r0;}
+//
+setp.ne.s32 %p13, %r136, 0;
+@%p13 bra $L__BB19_17;
+
+mov.u32 %r153, %tid.x;
+shr.s32 %r154, %r153, 31;
+shr.u32 %r155, %r154, 27;
+add.s32 %r156, %r153, %r155;
+shr.s32 %r157, %r156, 5;
+shl.b32 %r158, %r157, 2;
+mov.u32 %r159, _ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage;
+add.s32 %r160, %r159, %r158;
+st.shared.f32 [%r160+8], %f430;
+
+$L__BB19_17:
+bar.sync 0;
+mov.u32 %r410, %tid.x;
+setp.ne.s32 %p14, %r410, 0;
+@%p14 bra $L__BB19_74;
+
+mov.u32 %r410, 0;
+ld.shared.f32 %f142, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+12];
+add.f32 %f143, %f430, %f142;
+ld.shared.f32 %f144, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+16];
+add.f32 %f145, %f143, %f144;
+ld.shared.f32 %f146, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+20];
+add.f32 %f147, %f145, %f146;
+ld.shared.f32 %f148, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+24];
+add.f32 %f149, %f147, %f148;
+ld.shared.f32 %f150, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+28];
+add.f32 %f151, %f149, %f150;
+ld.shared.f32 %f152, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+32];
+add.f32 %f153, %f151, %f152;
+ld.shared.f32 %f154, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+36];
+add.f32 %f430, %f153, %f154;
+bra.uni $L__BB19_74;
+
+$L__BB19_39:
+shl.b32 %r228, %r410, 2;
+mul.wide.u32 %rd143, %r228, 4;
+add.s64 %rd130, %rd62, %rd143;
+//
+ld.global.nc.v2.u64 {%rd128, %rd129}, [%rd130];
+//
+mov.b64 {%r229, %r230}, %rd129;
+mov.b64 {%r231, %r232}, %rd128;
+add.s64 %rd133, %rd130, 4096;
+//
+ld.global.nc.v2.u64 {%rd131, %rd132}, [%rd133];
+//
+mov.b64 {%r233, %r234}, %rd132;
+mov.b64 {%r235, %r236}, %rd131;
+add.s64 %rd136, %rd130, 8192;
+//
+ld.global.nc.v2.u64 {%rd134, %rd135}, [%rd136];
+//
+mov.b64 {%r237, %r238}, %rd135;
+mov.b64 {%r239, %r240}, %rd134;
+add.s64 %rd139, %rd130, 12288;
+//
+ld.global.nc.v2.u64 {%rd137, %rd138}, [%rd139];
+//
+mov.b64 {%r241, %r242}, %rd138;
+mov.b64 {%r243, %r244}, %rd137;
+add.s64 %rd142, %rd130, 16384;
+//
+ld.global.nc.v2.u64 {%rd140, %rd141}, [%rd142];
+//
+mov.b64 {%r245, %r246}, %rd141;
+mov.b64 {%r247, %r248}, %rd140;
+mov.b32 %f228, %r231;
+mov.b32 %f229, %r232;
+mov.b32 %f230, %r229;
+mov.b32 %f231, %r230;
+mov.b32 %f232, %r235;
+mov.b32 %f233, %r236;
+mov.b32 %f234, %r233;
+mov.b32 %f235, %r234;
+mov.b32 %f236, %r239;
+mov.b32 %f237, %r240;
+mov.b32 %f238, %r237;
+mov.b32 %f239, %r238;
+mov.b32 %f240, %r243;
+mov.b32 %f241, %r244;
+mov.b32 %f242, %r241;
+mov.b32 %f243, %r242;
+mov.b32 %f244, %r247;
+mov.b32 %f245, %r248;
+mov.b32 %f246, %r245;
+mov.b32 %f247, %r246;
+add.f32 %f248, %f228, %f229;
+add.f32 %f249, %f248, %f230;
+add.f32 %f250, %f249, %f231;
+add.f32 %f251, %f250, %f232;
+add.f32 %f252, %f251, %f233;
+add.f32 %f253, %f252, %f234;
+add.f32 %f254, %f253, %f235;
+add.f32 %f255, %f254, %f236;
+add.f32 %f256, %f255, %f237;
+add.f32 %f257, %f256, %f238;
+add.f32 %f258, %f257, %f239;
+add.f32 %f259, %f258, %f240;
+add.f32 %f260, %f259, %f241;
+add.f32 %f261, %f260, %f242;
+add.f32 %f262, %f261, %f243;
+add.f32 %f263, %f262, %f244;
+add.f32 %f264, %f263, %f245;
+add.f32 %f265, %f264, %f246;
+add.f32 %f429, %f265, %f247;
+setp.lt.s32 %p35, %r75, 10240;
+mov.u32 %r394, 5120;
+@%p35 bra $L__BB19_43;
+
+add.s32 %r39, %r75, -5120;
+mov.u32 %r394, 5120;
+
+$L__BB19_41:
+mul.wide.s32 %rd159, %r394, 4;
+add.s64 %rd146, %rd130, %rd159;
+//
+ld.global.nc.v2.u64 {%rd144, %rd145}, [%rd146];
+//
+mov.b64 {%r250, %r251}, %rd145;
+mov.b64 {%r252, %r253}, %rd144;
+add.s64 %rd149, %rd146, 4096;
+//
+ld.global.nc.v2.u64 {%rd147, %rd148}, [%rd149];
+//
+mov.b64 {%r254, %r255}, %rd148;
+mov.b64 {%r256, %r257}, %rd147;
+add.s64 %rd152, %rd146, 8192;
+//
+ld.global.nc.v2.u64 {%rd150, %rd151}, [%rd152];
+//
+mov.b64 {%r258, %r259}, %rd151;
+mov.b64 {%r260, %r261}, %rd150;
+add.s64 %rd155, %rd146, 12288;
+//
+ld.global.nc.v2.u64 {%rd153, %rd154}, [%rd155];
+//
+mov.b64 {%r262, %r263}, %rd154;
+mov.b64 {%r264, %r265}, %rd153;
+add.s64 %rd158, %rd146, 16384;
+//
+ld.global.nc.v2.u64 {%rd156, %rd157}, [%rd158];
+//
+mov.b64 {%r266, %r267}, %rd157;
+mov.b64 {%r268, %r269}, %rd156;
+mov.b32 %f266, %r252;
+mov.b32 %f267, %r253;
+mov.b32 %f268, %r250;
+mov.b32 %f269, %r251;
+mov.b32 %f270, %r256;
+mov.b32 %f271, %r257;
+mov.b32 %f272, %r254;
+mov.b32 %f273, %r255;
+mov.b32 %f274, %r260;
+mov.b32 %f275, %r261;
+mov.b32 %f276, %r258;
+mov.b32 %f277, %r259;
+mov.b32 %f278, %r264;
+mov.b32 %f279, %r265;
+mov.b32 %f280, %r262;
+mov.b32 %f281, %r263;
+mov.b32 %f282, %r268;
+mov.b32 %f283, %r269;
+mov.b32 %f284, %r266;
+mov.b32 %f285, %r267;
+add.f32 %f286, %f429, %f266;
+add.f32 %f287, %f286, %f267;
+add.f32 %f288, %f287, %f268;
+add.f32 %f289, %f288, %f269;
+add.f32 %f290, %f289, %f270;
+add.f32 %f291, %f290, %f271;
+add.f32 %f292, %f291, %f272;
+add.f32 %f293, %f292, %f273;
+add.f32 %f294, %f293, %f274;
+add.f32 %f295, %f294, %f275;
+add.f32 %f296, %f295, %f276;
+add.f32 %f297, %f296, %f277;
+add.f32 %f298, %f297, %f278;
+add.f32 %f299, %f298, %f279;
+add.f32 %f300, %f299, %f280;
+add.f32 %f301, %f300, %f281;
+add.f32 %f302, %f301, %f282;
+add.f32 %f303, %f302, %f283;
+add.f32 %f304, %f303, %f284;
+add.f32 %f429, %f304, %f285;
+sub.s32 %r270, %r75, %r394;
+setp.lt.s32 %p36, %r270, 5120;
+@%p36 bra $L__BB19_51;
+
+add.s32 %r394, %r394, 5120;
+setp.le.s32 %p37, %r394, %r39;
+@%p37 bra $L__BB19_41;
+
+$L__BB19_43:
+setp.ge.s32 %p38, %r394, %r75;
+@%p38 bra $L__BB19_51;
+
+sub.s32 %r43, %r75, %r394;
+setp.ge.s32 %p39, %r410, %r43;
+@%p39 bra $L__BB19_51;
+
+not.b32 %r271, %r410;
+add.s32 %r272, %r271, %r75;
+sub.s32 %r44, %r272, %r394;
+shr.u32 %r273, %r44, 8;
+add.s32 %r274, %r273, 1;
+and.b32 %r396, %r274, 3;
+setp.eq.s32 %p40, %r396, 0;
+mov.u32 %r397, %r410;
+@%p40 bra $L__BB19_48;
+
+add.s32 %r275, %r410, %r394;
+mul.wide.s32 %rd160, %r275, 4;
+add.s64 %rd188, %rd62, %rd160;
+mov.u32 %r397, %r410;
+
+$L__BB19_47:
+.pragma "nounroll";
+//
+ld.global.nc.u32 %r276, [%rd188];
+//
+mov.b32 %f306, %r276;
+add.f32 %f429, %f429, %f306;
+add.s32 %r397, %r397, 256;
+add.s64 %rd188, %rd188, 1024;
+add.s32 %r396, %r396, -1;
+setp.ne.s32 %p41, %r396, 0;
+@%p41 bra $L__BB19_47;
+
+$L__BB19_48:
+setp.lt.u32 %p42, %r44, 768;
+@%p42 bra $L__BB19_51;
+
+add.s32 %r277, %r397, %r394;
+add.s32 %r278, %r277, 768;
+mul.wide.s32 %rd162, %r278, 4;
+add.s64 %rd192, %rd62, %rd162;
+add.s32 %r279, %r277, 512;
+mul.wide.s32 %rd163, %r279, 4;
+add.s64 %rd191, %rd62, %rd163;
+add.s32 %r280, %r277, 256;
+mul.wide.s32 %rd164, %r280, 4;
+add.s64 %rd190, %rd62, %rd164;
+mul.wide.s32 %rd165, %r277, 4;
+add.s64 %rd189, %rd62, %rd165;
+
+$L__BB19_50:
+//
+ld.global.nc.u32 %r281, [%rd189];
+//
+mov.b32 %f307, %r281;
+add.f32 %f308, %f429, %f307;
+//
+ld.global.nc.u32 %r282, [%rd190];
+//
+mov.b32 %f309, %r282;
+add.f32 %f310, %f308, %f309;
+//
+ld.global.nc.u32 %r283, [%rd191];
+//
+mov.b32 %f311, %r283;
+add.f32 %f312, %f310, %f311;
+//
+ld.global.nc.u32 %r284, [%rd192];
+//
+mov.b32 %f313, %r284;
+add.f32 %f429, %f312, %f313;
+add.s64 %rd192, %rd192, 4096;
+add.s64 %rd191, %rd191, 4096;
+add.s64 %rd190, %rd190, 4096;
+add.s64 %rd189, %rd189, 4096;
+add.s32 %r397, %r397, 1024;
+setp.lt.s32 %p43, %r397, %r43;
+@%p43 bra $L__BB19_50;
+
+$L__BB19_51:
+//
+mov.u32 %r285, %laneid;
+//
+mov.u32 %r287, 1;
+mov.u32 %r300, 31;
+mov.u32 %r301, -1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f429, %r287, %r300, %r301; @p add.f32 r0, r0, %f429; mov.f32 %f314, r0;}
+//
+mov.u32 %r290, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f314, %r290, %r300, %r301; @p add.f32 r0, r0, %f314; mov.f32 %f317, r0;}
+//
+mov.u32 %r293, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f317, %r293, %r300, %r301; @p add.f32 r0, r0, %f317; mov.f32 %f320, r0;}
+//
+mov.u32 %r296, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f320, %r296, %r300, %r301; @p add.f32 r0, r0, %f320; mov.f32 %f323, r0;}
+//
+mov.u32 %r299, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f323, %r299, %r300, %r301; @p add.f32 r0, r0, %f323; mov.f32 %f430, r0;}
+//
+setp.ne.s32 %p44, %r285, 0;
+@%p44 bra $L__BB19_53;
+
+shr.s32 %r302, %r410, 31;
+shr.u32 %r303, %r302, 27;
+add.s32 %r304, %r410, %r303;
+shr.s32 %r305, %r304, 5;
+shl.b32 %r306, %r305, 2;
+mov.u32 %r307, _ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage;
+add.s32 %r308, %r307, %r306;
+st.shared.f32 [%r308+8], %f430;
+
+$L__BB19_53:
+bar.sync 0;
+setp.ne.s32 %p45, %r410, 0;
+@%p45 bra $L__BB19_74;
+
+mov.u32 %r410, 0;
+ld.shared.f32 %f329, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+12];
+add.f32 %f330, %f430, %f329;
+ld.shared.f32 %f331, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+16];
+add.f32 %f332, %f330, %f331;
+ld.shared.f32 %f333, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+20];
+add.f32 %f334, %f332, %f333;
+ld.shared.f32 %f335, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+24];
+add.f32 %f336, %f334, %f335;
+ld.shared.f32 %f337, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+28];
+add.f32 %f338, %f336, %f337;
+ld.shared.f32 %f339, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+32];
+add.f32 %f340, %f338, %f339;
+ld.shared.f32 %f341, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+36];
+add.f32 %f430, %f340, %f341;
+bra.uni $L__BB19_74;
+
+$L__BB19_29:
+shr.s32 %r190, %r410, 31;
+shr.u32 %r191, %r190, 27;
+add.s32 %r192, %r410, %r191;
+shr.s32 %r38, %r192, 5;
+//
+mov.u32 %r173, %laneid;
+//
+and.b32 %r193, %r192, -32;
+add.s32 %r194, %r193, 32;
+setp.gt.s32 %p22, %r194, %r75;
+not.b32 %r195, %r193;
+mov.u32 %r189, -1;
+add.s32 %r196, %r195, %r75;
+selp.b32 %r188, %r196, 31, %p22;
+mov.u32 %r175, 1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f14, %r175, %r188, %r189; @p add.f32 r0, r0, %f14; mov.f32 %f167, r0;}
+//
+mov.u32 %r178, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f167, %r178, %r188, %r189; @p add.f32 r0, r0, %f167; mov.f32 %f170, r0;}
+//
+mov.u32 %r181, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f170, %r181, %r188, %r189; @p add.f32 r0, r0, %f170; mov.f32 %f173, r0;}
+//
+mov.u32 %r184, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f173, %r184, %r188, %r189; @p add.f32 r0, r0, %f173; mov.f32 %f176, r0;}
+//
+mov.u32 %r187, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f176, %r187, %r188, %r189; @p add.f32 r0, r0, %f176; mov.f32 %f430, r0;}
+//
+setp.ne.s32 %p23, %r173, 0;
+@%p23 bra $L__BB19_31;
+
+shl.b32 %r197, %r38, 2;
+mov.u32 %r198, _ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage;
+add.s32 %r199, %r198, %r197;
+st.shared.f32 [%r199+8], %f430;
+
+$L__BB19_31:
+bar.sync 0;
+setp.ne.s32 %p24, %r410, 0;
+@%p24 bra $L__BB19_74;
+
+setp.gt.s32 %p25, %r75, 32;
+mov.u32 %r410, 0;
+ld.shared.f32 %f182, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+12];
+add.f32 %f183, %f430, %f182;
+selp.f32 %f184, %f183, %f430, %p25;
+ld.shared.f32 %f185, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+16];
+add.f32 %f186, %f184, %f185;
+setp.gt.s32 %p26, %r75, 64;
+selp.f32 %f187, %f186, %f184, %p26;
+ld.shared.f32 %f188, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+20];
+add.f32 %f189, %f187, %f188;
+setp.gt.s32 %p27, %r75, 96;
+selp.f32 %f190, %f189, %f187, %p27;
+ld.shared.f32 %f191, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+24];
+add.f32 %f192, %f190, %f191;
+setp.gt.s32 %p28, %r75, 128;
+selp.f32 %f193, %f192, %f190, %p28;
+ld.shared.f32 %f194, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+28];
+add.f32 %f195, %f193, %f194;
+setp.gt.s32 %p29, %r75, 160;
+selp.f32 %f196, %f195, %f193, %p29;
+ld.shared.f32 %f197, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+32];
+add.f32 %f198, %f196, %f197;
+setp.gt.s32 %p30, %r75, 192;
+selp.f32 %f430, %f198, %f196, %p30;
+setp.lt.s32 %p31, %r75, 225;
+@%p31 bra $L__BB19_74;
+
+ld.shared.f32 %f199, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+36];
+add.f32 %f430, %f430, %f199;
+bra.uni $L__BB19_74;
+
+$L__BB19_65:
+shr.s32 %r338, %r410, 31;
+shr.u32 %r339, %r338, 27;
+add.s32 %r340, %r410, %r339;
+shr.s32 %r73, %r340, 5;
+//
+mov.u32 %r321, %laneid;
+//
+and.b32 %r341, %r340, -32;
+add.s32 %r342, %r341, 32;
+setp.gt.s32 %p53, %r342, %r75;
+not.b32 %r343, %r341;
+mov.u32 %r337, -1;
+add.s32 %r344, %r343, %r75;
+selp.b32 %r336, %r344, 31, %p53;
+mov.u32 %r323, 1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f33, %r323, %r336, %r337; @p add.f32 r0, r0, %f33; mov.f32 %f354, r0;}
+//
+mov.u32 %r326, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f354, %r326, %r336, %r337; @p add.f32 r0, r0, %f354; mov.f32 %f357, r0;}
+//
+mov.u32 %r329, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f357, %r329, %r336, %r337; @p add.f32 r0, r0, %f357; mov.f32 %f360, r0;}
+//
+mov.u32 %r332, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f360, %r332, %r336, %r337; @p add.f32 r0, r0, %f360; mov.f32 %f363, r0;}
+//
+mov.u32 %r335, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f363, %r335, %r336, %r337; @p add.f32 r0, r0, %f363; mov.f32 %f430, r0;}
+//
+setp.ne.s32 %p54, %r321, 0;
+@%p54 bra $L__BB19_67;
+
+shl.b32 %r345, %r73, 2;
+mov.u32 %r346, _ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage;
+add.s32 %r347, %r346, %r345;
+st.shared.f32 [%r347+8], %f430;
+
+$L__BB19_67:
+bar.sync 0;
+setp.ne.s32 %p55, %r410, 0;
+@%p55 bra $L__BB19_74;
+
+setp.gt.s32 %p56, %r75, 32;
+mov.u32 %r410, 0;
+ld.shared.f32 %f369, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+12];
+add.f32 %f370, %f430, %f369;
+selp.f32 %f371, %f370, %f430, %p56;
+ld.shared.f32 %f372, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+16];
+add.f32 %f373, %f371, %f372;
+setp.gt.s32 %p57, %r75, 64;
+selp.f32 %f374, %f373, %f371, %p57;
+ld.shared.f32 %f375, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+20];
+add.f32 %f376, %f374, %f375;
+setp.gt.s32 %p58, %r75, 96;
+selp.f32 %f377, %f376, %f374, %p58;
+ld.shared.f32 %f378, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+24];
+add.f32 %f379, %f377, %f378;
+setp.gt.s32 %p59, %r75, 128;
+selp.f32 %f380, %f379, %f377, %p59;
+ld.shared.f32 %f381, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+28];
+add.f32 %f382, %f380, %f381;
+setp.gt.s32 %p60, %r75, 160;
+selp.f32 %f383, %f382, %f380, %p60;
+ld.shared.f32 %f384, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+32];
+add.f32 %f385, %f383, %f384;
+setp.gt.s32 %p61, %r75, 192;
+selp.f32 %f430, %f385, %f383, %p61;
+setp.lt.s32 %p62, %r75, 225;
+@%p62 bra $L__BB19_74;
+
+ld.shared.f32 %f386, [_ZZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIfjN4cuda3std3__44plusIvEEE9Policy600EPfSA_iS7_ffEEvT0_T1_T2_T3_T4_E12temp_storage+36];
+add.f32 %f430, %f430, %f386;
+
+$L__BB19_74:
+setp.ne.s32 %p65, %r410, 0;
+@%p65 bra $L__BB19_78;
+
+add.f32 %f415, %f430, %f40;
+cvta.to.global.u64 %rd179, %rd63;
+st.global.f32 [%rd179], %f415;
+
+$L__BB19_78:
+ret;
+
+}
+//
+

@@ -3,6 +3,13 @@ import pytest
 from style3d_sim import newton_solver
 
 
+@pytest.fixture(autouse=True)
+def isolate_saved_credentials(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path))
+    monkeypatch.delenv("STYLE3D_SIM_ACCOUNT", raising=False)
+    monkeypatch.delenv("STYLE3D_SIM_PASSWORD", raising=False)
+
+
 def test_newton_solver_login_reuses_authenticated_session(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(newton_solver, "is_logged_in", lambda: True)
     monkeypatch.setattr("builtins.input", lambda prompt: pytest.fail("Unexpected account prompt"))

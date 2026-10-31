@@ -1,0 +1,13 @@
+label initialize_zero_solution_and_reduce
+ptx initialize_zero_solution_and_reduce.ptx
+cubin cubins/initialize_zero_solution_and_reduce.cubin
+name_ptx _ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm
+name_cubin _Z35initialize_zero_solution_and_reducePK4Vec3PK4Mat3PS_S5_Pfm
+grid 1 1 1
+block 256 1 1
+ptr randf 3072
+ptr randf 9216
+ptr zero 3072
+ptr zero 3072
+ptr zero 1024
+u64 256

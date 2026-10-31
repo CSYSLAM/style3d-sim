@@ -1,0 +1,166 @@
+// [solver_newton.cu] kernel 67/97   PTX 159 行   SASS 200 条指令
+// 签名: synreal::kernel::prepare_cable_penalties(glm::vec<4, float, (glm::qualifier)0> const*, glm::vec<4, float, (glm::qualifier)0>*, int*, unsigned long, unsigned long, float, float, float, float, float, bool, bool, int const*)
+// 归一化原型: synreal::kernel::prepare_cable_penalties(glm::vec4 const*, glm::vec4*, int*, size_t, size_t, float, float, float, float, float, bool, bool, int const*)
+// maxntid: (未指定)   ptxas: REG=20 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=12
+
+_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi(
+.param .u64 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_0,
+.param .u64 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_1,
+.param .u64 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_2,
+.param .u64 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_3,
+.param .u64 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_4,
+.param .f32 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_5,
+.param .f32 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_6,
+.param .f32 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_7,
+.param .f32 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_8,
+.param .f32 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_9,
+.param .u8 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_10,
+.param .u8 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_11,
+.param .u64 _ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_12
+)
+{
+.reg .pred %p<12>;
+.reg .b16 %rs<3>;
+.reg .f32 %f<47>;
+.reg .b32 %r<10>;
+.reg .b64 %rd<28>;
+
+
+ld.param.s8 %rs2, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_11];
+ld.param.s8 %rs1, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_10];
+ld.param.u64 %rd7, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_0];
+ld.param.u64 %rd8, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_1];
+ld.param.u64 %rd9, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_2];
+ld.param.u64 %rd10, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_3];
+ld.param.u64 %rd12, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_4];
+ld.param.f32 %f21, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_5];
+ld.param.f32 %f22, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_6];
+ld.param.f32 %f23, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_7];
+ld.param.f32 %f24, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_8];
+ld.param.f32 %f25, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_9];
+ld.param.u64 %rd11, [_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi_param_12];
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mul.wide.u32 %rd13, %r1, %r2;
+mov.u32 %r3, %tid.x;
+cvt.u64.u32 %rd14, %r3;
+add.s64 %rd1, %rd13, %rd14;
+setp.ge.u64 %p1, %rd1, %rd12;
+@%p1 bra $L__BB71_18;
+
+setp.eq.s64 %p2, %rd11, 0;
+@%p2 bra $L__BB71_3;
+
+cvta.to.global.u64 %rd15, %rd11;
+shl.b64 %rd16, %rd1, 2;
+add.s64 %rd17, %rd15, %rd16;
+ld.global.u32 %r4, [%rd17];
+setp.eq.s32 %p3, %r4, 0;
+@%p3 bra $L__BB71_18;
+
+$L__BB71_3:
+or.b64 %rd18, %rd1, %rd10;
+and.b64 %rd19, %rd18, -4294967296;
+setp.eq.s64 %p4, %rd19, 0;
+@%p4 bra $L__BB71_5;
+
+rem.u64 %rd27, %rd1, %rd10;
+bra.uni $L__BB71_6;
+
+$L__BB71_5:
+cvt.u32.u64 %r5, %rd10;
+cvt.u32.u64 %r6, %rd1;
+rem.u32 %r7, %r6, %r5;
+cvt.u64.u32 %rd27, %r7;
+
+$L__BB71_6:
+cvta.to.global.u64 %rd20, %rd7;
+shl.b64 %rd21, %rd27, 4;
+add.s64 %rd22, %rd20, %rd21;
+ld.global.f32 %f1, [%rd22];
+ld.global.f32 %f2, [%rd22+4];
+ld.global.f32 %f3, [%rd22+8];
+ld.global.f32 %f4, [%rd22+12];
+setp.leu.f32 %p5, %f21, 0f00000000;
+mov.f32 %f39, %f1;
+@%p5 bra $L__BB71_8;
+
+min.f32 %f39, %f24, %f1;
+
+$L__BB71_8:
+mov.f32 %f40, %f2;
+@%p5 bra $L__BB71_10;
+
+min.f32 %f40, %f24, %f2;
+
+$L__BB71_10:
+setp.leu.f32 %p7, %f22, 0f00000000;
+mov.f32 %f41, %f3;
+@%p7 bra $L__BB71_12;
+
+min.f32 %f41, %f25, %f3;
+
+$L__BB71_12:
+mov.f32 %f42, %f4;
+@%p7 bra $L__BB71_14;
+
+min.f32 %f42, %f25, %f4;
+
+$L__BB71_14:
+cvta.to.global.u64 %rd23, %rd9;
+shl.b64 %rd24, %rd1, 2;
+add.s64 %rd5, %rd23, %rd24;
+cvta.to.global.u64 %rd25, %rd8;
+shl.b64 %rd26, %rd1, 4;
+add.s64 %rd6, %rd25, %rd26;
+setp.eq.s16 %p9, %rs1, 0;
+mov.f32 %f43, %f39;
+mov.f32 %f44, %f40;
+mov.f32 %f45, %f41;
+mov.f32 %f46, %f42;
+@%p9 bra $L__BB71_15;
+bra.uni $L__BB71_17;
+
+$L__BB71_15:
+ld.global.u32 %r8, [%rd5];
+setp.eq.s32 %p10, %r8, 0;
+mov.f32 %f43, %f39;
+mov.f32 %f44, %f40;
+mov.f32 %f45, %f41;
+mov.f32 %f46, %f42;
+@%p10 bra $L__BB71_17;
+
+ld.global.f32 %f43, [%rd6];
+ld.global.f32 %f44, [%rd6+4];
+ld.global.f32 %f45, [%rd6+8];
+ld.global.f32 %f46, [%rd6+12];
+
+$L__BB71_17:
+setp.eq.s16 %p11, %rs2, 0;
+selp.f32 %f26, 0f3F800000, %f23, %p11;
+mul.f32 %f27, %f26, %f43;
+max.f32 %f28, %f39, %f27;
+min.f32 %f29, %f1, %f28;
+mul.f32 %f30, %f26, %f44;
+max.f32 %f31, %f40, %f30;
+min.f32 %f32, %f2, %f31;
+mul.f32 %f33, %f26, %f45;
+max.f32 %f34, %f41, %f33;
+min.f32 %f35, %f3, %f34;
+mul.f32 %f36, %f26, %f46;
+max.f32 %f37, %f42, %f36;
+min.f32 %f38, %f4, %f37;
+st.global.f32 [%rd6], %f29;
+st.global.f32 [%rd6+4], %f32;
+st.global.f32 [%rd6+8], %f35;
+st.global.f32 [%rd6+12], %f38;
+mov.u32 %r9, 1;
+st.global.u32 [%rd5], %r9;
+
+$L__BB71_18:
+ret;
+
+}
+//
+

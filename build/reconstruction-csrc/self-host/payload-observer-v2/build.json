@@ -1,0 +1,19 @@
+{
+  "command": [
+    "g++",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "-std=c++17",
+    "-I/usr/local/cuda-13.2/include",
+    "reconstruction/csrc/native/payload_trace.cpp",
+    "-ldl",
+    "-o",
+    "build/reconstruction-csrc/self-host/payload-observer-v2/payload_trace.so"
+  ],
+  "sha256": {
+    "reconstruction/csrc/native/payload_trace.cpp": "c4154a29aaf908ebee37a3ede425a10a0627cb3e56cab6261285cffc0be59921",
+    "build/reconstruction-csrc/self-host/payload-observer-v2/payload_trace.so": "e9f37a223637f8ace06148dd95c0e785689420dbc25257c66307ee844955ba56"
+  },
+  "diagnostic_only": true
+}

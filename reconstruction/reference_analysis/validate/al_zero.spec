@@ -1,0 +1,15 @@
+label al_zero
+ptx _al.ptx
+cubin auto_cubins/synreal__kernel__update_affine_body_so3_augmented_lagrangian_state.cubin
+name_ptx _ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm
+name_cubin synreal__kernel__update_affine_body_so3_augmented_lagrangian_state
+grid 1 1 1
+block 64 1 1
+ptr zero 768
+ptr idx 1024 64
+ptr zero 2304
+ptr zero 2304
+u8 1
+u64 64
+u64 64
+u64 64

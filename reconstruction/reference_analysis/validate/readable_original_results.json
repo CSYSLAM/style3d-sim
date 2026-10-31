@@ -1,0 +1,1083 @@
+{
+  "mode": "original",
+  "entries": {
+    "fluid/initialize_scale": {
+      "ptx_file": "kernels/fluid/006_initialize_scale.ptx",
+      "entry_sha256": "a65e6104b858a97b0d79b1868544593c565f28ae35505b09a1e45c5f77323193",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/update_velocity": {
+      "ptx_file": "kernels/solver_newton/081_update_velocity.ptx",
+      "entry_sha256": "742ca34c876a2b09d362eef3de47d9f4163c155d05390c43f5e44ead7a45f17f",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/apply_nonlinear_step": {
+      "ptx_file": "kernels/solver_newton/020_apply_nonlinear_step.ptx",
+      "entry_sha256": "a440904f733fb4523f0b856c71e462bada1bce49d26b0890be69f0fdf286b87a",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "fluid/add_diagonal": {
+      "ptx_file": "kernels/fluid/002_add_diagonal.ptx",
+      "entry_sha256": "ba1ebc0dceea7d8e26e2bda1528d16b0d395b2f85c0848366f4232d89efeda11",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "self_collision/add_hessian_diagonal": {
+      "ptx_file": "kernels/self_collision/005_add_hessian_diagonal.ptx",
+      "entry_sha256": "191668b8635dfbf12416ee19cbaafba04a062ec08f51a82125b70627b51b0ea1",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "self_collision/multiply_hessian_diagonal": {
+      "ptx_file": "kernels/self_collision/010_multiply_hessian_diagonal.ptx",
+      "entry_sha256": "bb7bcfd21ec0d0425ed2c533ea7b04fd8624910342385b63307e7592004d0cbf",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/apply_block_diagonal_preconditioner": {
+      "ptx_file": "kernels/solver_newton/019_apply_block_diagonal_preconditioner.ptx",
+      "entry_sha256": "ecc311ebe350c0b548d07fd79710160fe5ed3b9834e9baf9d262d94c31b249e7",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/initialize_joint_body_spring_state": {
+      "ptx_file": "kernels/solver_newton/051_initialize_joint_body_spring_state.ptx",
+      "entry_sha256": "72ed272dfb072cacf3ed5b1f5d6774d9d4935c3101b9a71e5028b4afd3c65070",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/reset_selected_joint_drive_state": {
+      "ptx_file": "kernels/solver_newton/072_reset_selected_joint_drive_state.ptx",
+      "entry_sha256": "a791926dd95dc31f8027da9045674c2a27f73c5b51b55358194162f9dc1e06d2",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "lbvh_builder/build_primitive_leaf_nodes": {
+      "ptx_file": "kernels/lbvh_builder/002_build_primitive_leaf_nodes.ptx",
+      "entry_sha256": "bbd780b9d483afa82408e2381464c2a7a655c9feaaddf300889e4738f42b3753",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/refresh_inertial_cache_diagonals": {
+      "ptx_file": "kernels/solver_newton/070_refresh_inertial_cache_diagonals.ptx",
+      "entry_sha256": "29c08c1eec98d807321cec667336e4c841538b618b46d1d3bbf54f6827a19202",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/refresh_inertial_cache_nonzeros": {
+      "ptx_file": "kernels/solver_newton/071_refresh_inertial_cache_nonzeros.ptx",
+      "entry_sha256": "deb8463164567fc652720ed29aece5ea7e60337d2a3bb07943896f62ddf1f9d4",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/combine_system_non_diagonal": {
+      "ptx_file": "kernels/solver_newton/021_combine_system_non_diagonal.ptx",
+      "entry_sha256": "3796e38ecabe44dfbf3271d39a4a21261055123495c13390de328c94a18aaed8",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/initialize_block_diagonal": {
+      "ptx_file": "kernels/solver_newton/046_initialize_block_diagonal.ptx",
+      "entry_sha256": "53220208da4ef9e2ad68fc7edfd1ec42bf31c8b83686c2c8b6b005042e5186bf",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/prepare_inverse_preconditioner": {
+      "ptx_file": "kernels/solver_newton/069_prepare_inverse_preconditioner.ptx",
+      "entry_sha256": "fe06e65f74f8d6b7e96bfc842d0b4962aa3080351c31e8a8d0c376998cc0f009",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "self_collision/build_particle_aabbs": {
+      "ptx_file": "kernels/self_collision/007_build_particle_aabbs.ptx",
+      "entry_sha256": "207ccebc015a9069a70572ba1ac6dc432679b69b3e226a147e602f43668f9d4d",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "self_collision/build_edge_aabbs": {
+      "ptx_file": "kernels/self_collision/006_build_edge_aabbs.ptx",
+      "entry_sha256": "80c90417c54aa6947f694512554e6bec821d68bf3924db1c5e4befb8884a409d",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "lbvh_builder/build_escape_nodes": {
+      "ptx_file": "kernels/lbvh_builder/001_build_escape_nodes.ptx",
+      "entry_sha256": "8a0dd6d18cb007ff09bebf9760db83906816cbc93a40647cd01385c5b20ecb70",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/add_triangle_drag_preconditioner": {
+      "ptx_file": "kernels/solver_newton/016_add_triangle_drag_preconditioner.ptx",
+      "entry_sha256": "2a2a56de6e3a2f588990a748a7b79d5d1b845f1f223896a4dd4d20d4d4cdc8db",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "granular/multiply_bonds": {
+      "ptx_file": "kernels/granular/007_multiply_bonds.ptx",
+      "entry_sha256": "f138afcf0d22dc67ef440c103cc843ee30e9f211fd844d18f54723de1a7eb39c",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/initialize_block_non_diagonal": {
+      "ptx_file": "kernels/solver_newton/047_initialize_block_non_diagonal.ptx",
+      "entry_sha256": "ec3d3695eceda7a52128af376ff2c82771149e6b710711d38c2c57444d8abf39",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "pcg_solver/multiply_matrix<NonZeroEntry, float>": {
+      "ptx_file": "kernels/pcg_solver/011_multiply_matrix<NonZeroEntry__float>.ptx",
+      "entry_sha256": "758861d737f86a60814aea90d0e698bf440d1ddddc22585216263a41466f32ad",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "pcg_solver/evaluate_residual<NonZeroEntry, float>": {
+      "ptx_file": "kernels/pcg_solver/008_evaluate_residual<NonZeroEntry__float>.ptx",
+      "entry_sha256": "c7e0bbc91217e57e48e6ce6a06166595e05e2a16204e1f3ce0160d75865daf18",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >": {
+      "ptx_file": "kernels/pcg_solver/013_multiply_matrix_and_reduce<256u__BlockNonZeroEntry__glm::mat<3__3__float___glm::qualifier_0>_>.ptx",
+      "entry_sha256": "28c8c23fce0dcad3da628dd619d46c81a119a915a21dc0ded677c0361e2a35d1",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >": {
+      "ptx_file": "kernels/pcg_solver/010_initialize_zero_solution_and_reduce<256u__glm::mat<3__3__float___glm::qualifier_0>_>.ptx",
+      "entry_sha256": "c84e8ddc3afc1d3aff6ddf428177da18992c097f395fa7ec63664ea42a869ca3",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/initialize_rhs": {
+      "ptx_file": "kernels/solver_newton/053_initialize_rhs.ptx",
+      "entry_sha256": "cf9a1f5300fe0ded00a9385147d3f86316b4193358f2d2a56cc803a1adf87efd",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "fluid/scale_step": {
+      "ptx_file": "kernels/fluid/008_scale_step.ptx",
+      "entry_sha256": "194f031860246a802b2968f69c1ab2ebdd1f07f5112ffd211b22bd71cbe62bf1",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    }
+  },
+  "checks": [
+    {
+      "case": "scale/0",
+      "kernel": "fluid/initialize_scale",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "velocity/0",
+      "kernel": "solver_newton/update_velocity",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step/0",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step_clear/0",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_diagonal_mat3/0",
+      "kernel": "fluid/add_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_hessian_diagonal/0",
+      "kernel": "self_collision/add_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "multiply_hessian_diagonal/0",
+      "kernel": "self_collision/multiply_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "apply_block_diagonal_preconditioner/0",
+      "kernel": "solver_newton/apply_block_diagonal_preconditioner",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "joint_zero/0",
+      "kernel": "solver_newton/initialize_joint_body_spring_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "joint_mask/0",
+      "kernel": "solver_newton/reset_selected_joint_drive_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "leaf/0",
+      "kernel": "lbvh_builder/build_primitive_leaf_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_diag/0",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_sum/0",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_a/0/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_a/0/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_b/0/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_b/0/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "combine/0/col",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "combine/0/val",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "case": "init_diag/0",
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "inv_scalar/0",
+      "kernel": "solver_newton/prepare_inverse_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "particle_box/0",
+      "kernel": "self_collision/build_particle_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "edge_box/0",
+      "kernel": "self_collision/build_edge_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "escape/0",
+      "kernel": "lbvh_builder/build_escape_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "drag_diag/0",
+      "kernel": "solver_newton/add_triangle_drag_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "bond_product/0",
+      "kernel": "granular/multiply_bonds",
+      "pass_": true,
+      "max_abs_error": 5.960464477539063e-08
+    },
+    {
+      "case": "scale/1",
+      "kernel": "fluid/initialize_scale",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "velocity/1",
+      "kernel": "solver_newton/update_velocity",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step/1",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step_clear/1",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_diagonal_mat3/1",
+      "kernel": "fluid/add_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_hessian_diagonal/1",
+      "kernel": "self_collision/add_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "multiply_hessian_diagonal/1",
+      "kernel": "self_collision/multiply_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "apply_block_diagonal_preconditioner/1",
+      "kernel": "solver_newton/apply_block_diagonal_preconditioner",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "joint_zero/1",
+      "kernel": "solver_newton/initialize_joint_body_spring_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "joint_mask/1",
+      "kernel": "solver_newton/reset_selected_joint_drive_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "leaf/1",
+      "kernel": "lbvh_builder/build_primitive_leaf_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_diag/1",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 5.960464477539063e-08
+    },
+    {
+      "case": "csr_sum/1",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 1.4901161193847656e-08
+    },
+    {
+      "case": "csr_nonzero_a/1/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_a/1/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 1.4901161193847656e-08
+    },
+    {
+      "case": "csr_nonzero_b/1/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_b/1/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 2.9802322387695312e-08
+    },
+    {
+      "case": "combine/1/col",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "combine/1/val",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 5.960464477539063e-08
+    },
+    {
+      "case": "init_diag/1",
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_diag_copy/1",
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "inv_scalar/1",
+      "kernel": "solver_newton/prepare_inverse_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "particle_box/1",
+      "kernel": "self_collision/build_particle_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "edge_box/1",
+      "kernel": "self_collision/build_edge_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "escape/1",
+      "kernel": "lbvh_builder/build_escape_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "drag_diag/1",
+      "kernel": "solver_newton/add_triangle_drag_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "bond_product/1",
+      "kernel": "granular/multiply_bonds",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "scale/2",
+      "kernel": "fluid/initialize_scale",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "velocity/2",
+      "kernel": "solver_newton/update_velocity",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step/2",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step_clear/2",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_diagonal_mat3/2",
+      "kernel": "fluid/add_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_hessian_diagonal/2",
+      "kernel": "self_collision/add_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "multiply_hessian_diagonal/2",
+      "kernel": "self_collision/multiply_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "apply_block_diagonal_preconditioner/2",
+      "kernel": "solver_newton/apply_block_diagonal_preconditioner",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "joint_zero/2",
+      "kernel": "solver_newton/initialize_joint_body_spring_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "joint_mask/2",
+      "kernel": "solver_newton/reset_selected_joint_drive_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "leaf/2",
+      "kernel": "lbvh_builder/build_primitive_leaf_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_diag/2",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "case": "csr_sum/2",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 5.960464477539063e-08
+    },
+    {
+      "case": "csr_nonzero_a/2/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_a/2/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 5.960464477539063e-08
+    },
+    {
+      "case": "csr_nonzero_b/2/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_b/2/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "case": "combine/2/col",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "combine/2/val",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "init_diag/2",
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "inv_scalar/2",
+      "kernel": "solver_newton/prepare_inverse_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "particle_box/2",
+      "kernel": "self_collision/build_particle_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "edge_box/2",
+      "kernel": "self_collision/build_edge_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "escape/2",
+      "kernel": "lbvh_builder/build_escape_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "drag_diag/2",
+      "kernel": "solver_newton/add_triangle_drag_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "bond_product/2",
+      "kernel": "granular/multiply_bonds",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "scale/3",
+      "kernel": "fluid/initialize_scale",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "velocity/3",
+      "kernel": "solver_newton/update_velocity",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step/3",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "step_clear/3",
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_diagonal_mat3/3",
+      "kernel": "fluid/add_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "add_hessian_diagonal/3",
+      "kernel": "self_collision/add_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "multiply_hessian_diagonal/3",
+      "kernel": "self_collision/multiply_hessian_diagonal",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "apply_block_diagonal_preconditioner/3",
+      "kernel": "solver_newton/apply_block_diagonal_preconditioner",
+      "pass_": true,
+      "max_abs_error": 2.384185791015625e-07
+    },
+    {
+      "case": "joint_zero/3",
+      "kernel": "solver_newton/initialize_joint_body_spring_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "joint_mask/3",
+      "kernel": "solver_newton/reset_selected_joint_drive_state",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "leaf/3",
+      "kernel": "lbvh_builder/build_primitive_leaf_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_diag/3",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 1.9073486328125e-06
+    },
+    {
+      "case": "csr_sum/3",
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "csr_nonzero_a/3/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_a/3/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "csr_nonzero_b/3/col",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "csr_nonzero_b/3/val",
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "combine/3/col",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "combine/3/val",
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "case": "init_diag/3",
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_diag_copy/3",
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "inv_scalar/3",
+      "kernel": "solver_newton/prepare_inverse_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "particle_box/3",
+      "kernel": "self_collision/build_particle_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "edge_box/3",
+      "kernel": "self_collision/build_edge_aabbs",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "escape/3",
+      "kernel": "lbvh_builder/build_escape_nodes",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "drag_diag/3",
+      "kernel": "solver_newton/add_triangle_drag_preconditioner",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "bond_product/3",
+      "kernel": "granular/multiply_bonds",
+      "pass_": true,
+      "max_abs_error": 8.940696716308594e-08
+    },
+    {
+      "case": "ell_expand/col",
+      "kernel": "solver_newton/initialize_block_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "ell_expand/matrix",
+      "kernel": "solver_newton/initialize_block_non_diagonal",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "ell_product/0",
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "ell_residual/0",
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_fused/0",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "ell_reduce/0",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 1.52587890625e-05
+    },
+    {
+      "case": "init_cg_copy/0",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_zero/0",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_reduce/0",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 4.89410012960434e-06
+    },
+    {
+      "case": "rhs/0",
+      "kernel": "solver_newton/initialize_rhs",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "ell_product/1",
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_residual/1",
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "ell_fused/1",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_reduce/1",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 1.9073486328125e-06
+    },
+    {
+      "case": "init_cg_copy/1",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_zero/1",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_reduce/1",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 8.931383490562439e-06
+    },
+    {
+      "case": "rhs/1",
+      "kernel": "solver_newton/initialize_rhs",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "ell_product/2",
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "ell_residual/2",
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_fused/2",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_reduce/2",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 5.7220458984375e-06
+    },
+    {
+      "case": "init_cg_copy/2",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_zero/2",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_reduce/2",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 8.73045064508915e-06
+    },
+    {
+      "case": "rhs/2",
+      "kernel": "solver_newton/initialize_rhs",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "ell_product/3",
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_residual/3",
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_fused/3",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "case": "ell_reduce/3",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 1.52587890625e-05
+    },
+    {
+      "case": "init_cg_copy/3",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_zero/3",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "init_cg_reduce/3",
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 5.8002769947052e-06
+    },
+    {
+      "case": "rhs/3",
+      "kernel": "solver_newton/initialize_rhs",
+      "pass_": true,
+      "max_abs_error": 4.76837158203125e-07
+    },
+    {
+      "case": "empty_product/zero_capacity",
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "empty_residual/zero_capacity",
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "empty_fused/zero_capacity",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "empty_reduce/zero_capacity",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 3.814697265625e-06
+    },
+    {
+      "case": "empty_product/zero_tile",
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "empty_residual/zero_tile",
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "empty_fused/zero_tile",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "empty_reduce/zero_tile",
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "pass_": true,
+      "max_abs_error": 3.814697265625e-06
+    },
+    {
+      "case": "rhs_without_sparse",
+      "kernel": "solver_newton/initialize_rhs",
+      "pass_": true,
+      "max_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "case": "world_scale/replicated",
+      "kernel": "fluid/scale_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "world_scale/world_map",
+      "kernel": "fluid/scale_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "world_scale/default",
+      "kernel": "fluid/scale_step",
+      "pass_": true,
+      "max_abs_error": 0.0
+    }
+  ],
+  "passed": 152,
+  "failed": 0
+}

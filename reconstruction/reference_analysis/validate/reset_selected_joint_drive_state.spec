@@ -1,0 +1,10 @@
+label reset_selected_joint_drive_state
+ptx reset_selected_joint_drive_state.ptx
+cubin cubins/reset_selected_joint_drive_state.cubin
+name_ptx _ZN7synreal6kernel32reset_selected_joint_drive_stateEPKiPim
+name_cubin _Z32reset_selected_joint_drive_statePKiPim
+grid 1 1 1
+block 256 1 1
+ptr idx 1024 2
+ptr randf 1024
+u64 256

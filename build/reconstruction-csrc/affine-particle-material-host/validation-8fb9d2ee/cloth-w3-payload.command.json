@@ -1,0 +1,19 @@
+[
+  "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+  "-m",
+  "reconstruction.csrc.demo_memory_ab",
+  "--memory-observer",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/self-host/memory-observer/../payload-observer-v2/payload_trace.so",
+  "--example",
+  "reconstruction/csrc/affine_cloth_scene.py",
+  "--frames",
+  "3",
+  "--output",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8fb9d2ee/cloth-w3-payload",
+  "--",
+  "--worlds",
+  "3",
+  "--mode",
+  "newton",
+  "--self"
+]

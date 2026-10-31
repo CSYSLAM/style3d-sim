@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/local/cuda-12.8/bin/compute-sanitizer",
+    "--tool",
+    "initcheck",
+    "--error-exitcode",
+    "9",
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "-m",
+    "reconstruction.csrc.affine_cloth_graph_ab",
+    "--worker",
+    "source",
+    "--frames",
+    "3",
+    "--output",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8fb9d2ee/graph-initcheck-source3"
+  ],
+  "PYTHONPATH": "/home/oem/code/agent/style3d-sim"
+}

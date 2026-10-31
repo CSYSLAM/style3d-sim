@@ -1,0 +1,70 @@
+[PASS] initialize_scale: RESULT PASS | 缓冲 1 | 不同字节 0/4096 | max rel=0.000e+00
+[PASS] update_velocity: RESULT PASS | 缓冲 3 | 不同字节 0/9216 | max rel=0.000e+00
+[PASS] apply_nonlinear_step: RESULT PASS | 缓冲 3 | 不同字节 0/9216 | max rel=0.000e+00
+[PASS] add_diagonal_mat3: RESULT PASS | 缓冲 2 | 不同字节 0/18432 | max rel=0.000e+00
+[PASS] add_hessian_diagonal: RESULT PASS | 缓冲 2 | 不同字节 0/18432 | max rel=0.000e+00
+[PASS] multiply_hessian_diagonal: RESULT PASS | 缓冲 3 | 不同字节 0/15360 | max rel=0.000e+00
+[PASS] initialize_joint_body_spring_state: RESULT PASS | 缓冲 1 | 不同字节 0/3072 | max rel=0.000e+00
+[PASS] reset_selected_joint_drive_state: RESULT PASS | 缓冲 2 | 不同字节 0/2048 | max rel=0.000e+00
+[PASS] build_primitive_leaf_nodes: RESULT PASS | 缓冲 2 | 不同字节 0/2048 | max rel=0.000e+00
+[PASS] update_preconditioned_cg_direction: RESULT PASS | 缓冲 3 | 不同字节 0/7168 | max rel=0.000e+00
+[PASS_TOL] add_triangle_drag_preconditioner: RESULT PASS_TOL | 缓冲 4 | 不同字节 801/16384 | max rel=1.917e-05
+[PASS] evaluate_spring_force: RESULT PASS | 缓冲 5 | 不同字节 0/8192 | max rel=0.000e+00
+[PASS] combine_system_non_diagonal: RESULT PASS | 缓冲 8 | 不同字节 0/16384 | max rel=0.000e+00
+[PASS_TOL] initialize_block_diagonal: RESULT PASS_TOL | 缓冲 3 | 不同字节 1416/19456 | max rel=0.000e+00
+[PASS] prepare_inverse_preconditioner: RESULT PASS | 缓冲 4 | 不同字节 0/4096 | max rel=0.000e+00
+[PASS] multiply_bonds: RESULT PASS | 缓冲 5 | 不同字节 0/18432 | max rel=0.000e+00
+[PASS] update_solution_and_residual: RESULT PASS | 缓冲 6 | 不同字节 0/14336 | max rel=0.000e+00
+[PASS_TOL] initialize_zero_solution_and_reduce: RESULT PASS_TOL | 缓冲 5 | 不同字节 1/19456 | max rel=9.576e-07
+[PASS] build_particle_aabbs: RESULT PASS | 缓冲 4 | 不同字节 0/11264 | max rel=0.000e+00
+[PASS] refresh_inertial_cache_diagonals: RESULT PASS | 缓冲 5 | 不同字节 0/10240 | max rel=0.000e+00
+[PASS] update_cg_direction_blockjacobi: RESULT PASS | 缓冲 4 | 不同字节 0/16384 | max rel=0.000e+00
+[PASS_TOL] update_solution_residual_and_reduce: RESULT PASS_TOL | 缓冲 8 | 不同字节 1/24576 | max rel=1.028e-07
+[PASS] refresh_inertial_cache_nonzeros: RESULT PASS | 缓冲 8 | 不同字节 0/20480 | max rel=0.000e+00
+[PASS] scale_step: RESULT PASS | 缓冲 2 | 不同字节 0/4096 | max rel=0.000e+00
+[PASS_TOL] commit_bonds: RESULT PASS_TOL | 缓冲 5 | 不同字节 5/8192 | max rel=1.401e-33
+[PASS] build_escape_nodes: RESULT PASS | 缓冲 3 | 不同字节 0/4096 | max rel=0.000e+00
+[PASS_TOL] multiply_matrix: RESULT PASS_TOL | 缓冲 6 | 不同字节 46/4352 | max rel=2.332e-05
+[PASS_TOL] evaluate_residual: RESULT PASS_TOL | 缓冲 7 | 不同字节 30/5120 | max rel=9.950e-07
+[FAIL] multiply_matrix_and_reduce: RESULT FAIL | 缓冲 7 | 不同字节 735/11072 | max rel=1.005e+02
+[PASS_TOL] initialize_block_non_diagonal: RESULT PASS_TOL | 缓冲 3 | 不同字节 48/3328 | max rel=0.000e+00
+[PASS] build_edge_aabbs: RESULT PASS | 缓冲 3 | 不同字节 0/13312 | max rel=0.000e+00
+[PASS_TOL] initialize_rhs: RESULT PASS_TOL | 缓冲 8 | 不同字节 6/13824 | max rel=1.226e-06
+[PASS_TOL] invert_block_preconditioner: RESULT PASS_TOL | 缓冲 4 | 不同字节 127/20480 | max rel=7.111e-06
+[PASS] apply_block_diagonal_preconditioner: RESULT PASS | 缓冲 3 | 不同字节 0/15360 | max rel=0.000e+00
+
+==== 汇总 ====
+  PASS         initialize_scale
+  PASS         update_velocity
+  PASS         apply_nonlinear_step
+  PASS         add_diagonal_mat3
+  PASS         add_hessian_diagonal
+  PASS         multiply_hessian_diagonal
+  PASS         initialize_joint_body_spring_state
+  PASS         reset_selected_joint_drive_state
+  PASS         build_primitive_leaf_nodes
+  PASS         update_preconditioned_cg_direction
+  PASS_TOL     add_triangle_drag_preconditioner
+  PASS         evaluate_spring_force
+  PASS         combine_system_non_diagonal
+  PASS_TOL     initialize_block_diagonal
+  PASS         prepare_inverse_preconditioner
+  PASS         multiply_bonds
+  PASS         update_solution_and_residual
+  PASS_TOL     initialize_zero_solution_and_reduce
+  PASS         build_particle_aabbs
+  PASS         refresh_inertial_cache_diagonals
+  PASS         update_cg_direction_blockjacobi
+  PASS_TOL     update_solution_residual_and_reduce
+  PASS         refresh_inertial_cache_nonzeros
+  PASS         scale_step
+  PASS_TOL     commit_bonds
+  PASS         build_escape_nodes
+  PASS_TOL     multiply_matrix
+  PASS_TOL     evaluate_residual
+  FAIL         multiply_matrix_and_reduce
+  PASS_TOL     initialize_block_non_diagonal
+  PASS         build_edge_aabbs
+  PASS_TOL     initialize_rhs
+  PASS_TOL     invert_block_preconditioner
+  PASS         apply_block_diagonal_preconditioner

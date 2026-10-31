@@ -1,0 +1,71 @@
+// [solver_newton.cu] kernel 19/97   PTX 64 行   SASS 48 条指令
+// 签名: synreal::kernel::apply_block_diagonal_preconditioner(glm::mat<3, 3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0>*, unsigned long)
+// 归一化原型: synreal::kernel::apply_block_diagonal_preconditioner(glm::mat3 const*, glm::vec3 const*, glm::vec3*, size_t)
+// maxntid: (未指定)   ptxas: REG=19 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=1
+
+_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m(
+.param .u64 _ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_0,
+.param .u64 _ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_1,
+.param .u64 _ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_2,
+.param .u64 _ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_3
+)
+{
+.reg .pred %p<2>;
+.reg .f32 %f<22>;
+.reg .b32 %r<4>;
+.reg .b64 %rd<16>;
+
+
+ld.param.u64 %rd2, [_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_0];
+ld.param.u64 %rd3, [_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_1];
+ld.param.u64 %rd4, [_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_2];
+ld.param.u64 %rd5, [_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m_param_3];
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mul.wide.u32 %rd6, %r1, %r2;
+mov.u32 %r3, %tid.x;
+cvt.u64.u32 %rd7, %r3;
+add.s64 %rd1, %rd6, %rd7;
+setp.ge.u64 %p1, %rd1, %rd5;
+@%p1 bra $L__BB75_2;
+
+cvta.to.global.u64 %rd8, %rd3;
+mul.lo.s64 %rd9, %rd1, 12;
+add.s64 %rd10, %rd8, %rd9;
+cvta.to.global.u64 %rd11, %rd2;
+mul.lo.s64 %rd12, %rd1, 36;
+add.s64 %rd13, %rd11, %rd12;
+ld.global.f32 %f1, [%rd10];
+ld.global.f32 %f2, [%rd13];
+ld.global.f32 %f3, [%rd10+4];
+ld.global.f32 %f4, [%rd13+12];
+mul.f32 %f5, %f4, %f3;
+fma.rn.f32 %f6, %f2, %f1, %f5;
+ld.global.f32 %f7, [%rd10+8];
+ld.global.f32 %f8, [%rd13+24];
+fma.rn.f32 %f9, %f8, %f7, %f6;
+ld.global.f32 %f10, [%rd13+4];
+ld.global.f32 %f11, [%rd13+16];
+mul.f32 %f12, %f11, %f3;
+fma.rn.f32 %f13, %f10, %f1, %f12;
+ld.global.f32 %f14, [%rd13+28];
+fma.rn.f32 %f15, %f14, %f7, %f13;
+ld.global.f32 %f16, [%rd13+8];
+ld.global.f32 %f17, [%rd13+20];
+mul.f32 %f18, %f17, %f3;
+fma.rn.f32 %f19, %f16, %f1, %f18;
+ld.global.f32 %f20, [%rd13+32];
+fma.rn.f32 %f21, %f20, %f7, %f19;
+cvta.to.global.u64 %rd14, %rd4;
+add.s64 %rd15, %rd14, %rd9;
+st.global.f32 [%rd15], %f9;
+st.global.f32 [%rd15+4], %f15;
+st.global.f32 [%rd15+8], %f21;
+
+$L__BB75_2:
+ret;
+
+}
+//
+

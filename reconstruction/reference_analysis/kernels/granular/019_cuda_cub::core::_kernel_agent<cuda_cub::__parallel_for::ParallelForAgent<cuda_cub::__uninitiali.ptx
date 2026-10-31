@@ -1,0 +1,95 @@
+// [granular.cu] kernel 19/24   PTX 88 行   SASS 72 条指令
+// 签名: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<glm::mat<3, 3, float, (glm::qualifier)0> >, glm::mat<3, 3, float, (glm::qualifier)0> >, unsigned long>, thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<glm::mat<3, 3, float, (glm::qualifier)0> >, glm::mat<3, 3, float, (glm::qualifier)0> >, unsigned long>(thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<glm::mat<3, 3, float, (glm::qualifier)0> >, glm::mat<3, 3, float, (glm::qualifier)0> >, unsigned long)
+// 归一化原型: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<glm::mat<3, 3, float, (glm::qualifier)0> >, glm::mat<3, 3, float, (glm::qualifier)0> >, unsigned long>, thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<glm::mat<3, 3, float, (glm::qualifier)0> >, glm::mat<3, 3, float, (glm::qualifier)0> >, unsigned long>(thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<glm::mat3 >, glm::mat3 >, size_t)
+// maxntid: 256, 1, 1   ptxas: REG=13 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=5
+
+_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_(
+.param .align 8 .b8 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_0[48],
+.param .u64 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_1
+)
+.maxntid 256, 1, 1
+{
+.reg .pred %p<4>;
+.reg .b32 %r<23>;
+.reg .b64 %rd<13>;
+
+
+ld.param.v2.u32 {%r10, %r11}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_0+32];
+ld.param.v2.u32 {%r12, %r13}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_0+24];
+ld.param.v2.u32 {%r14, %r15}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_0+16];
+ld.param.v2.u32 {%r16, %r17}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_0+8];
+ld.param.u64 %rd4, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_1];
+mov.u32 %r18, %ctaid.x;
+mul.wide.u32 %rd5, %r18, 512;
+sub.s64 %rd1, %rd4, %rd5;
+setp.gt.u64 %p1, %rd1, 511;
+ld.param.u64 %rd6, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_0];
+cvta.to.global.u64 %rd7, %rd6;
+ld.param.u32 %r9, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1__param_0+40];
+mov.u32 %r19, %tid.x;
+cvt.u64.u32 %rd8, %r19;
+add.s64 %rd9, %rd5, %rd8;
+mul.lo.s64 %rd10, %rd9, 36;
+add.s64 %rd2, %rd7, %rd10;
+@%p1 bra $L__BB17_5;
+bra.uni $L__BB17_1;
+
+$L__BB17_5:
+st.global.u32 [%rd2], %r16;
+st.global.u32 [%rd2+4], %r17;
+st.global.u32 [%rd2+8], %r14;
+st.global.u32 [%rd2+12], %r15;
+st.global.u32 [%rd2+16], %r12;
+st.global.u32 [%rd2+20], %r13;
+st.global.u32 [%rd2+24], %r10;
+st.global.u32 [%rd2+28], %r11;
+st.global.u32 [%rd2+32], %r9;
+st.global.u32 [%rd2+9216], %r16;
+st.global.u32 [%rd2+9220], %r17;
+st.global.u32 [%rd2+9224], %r14;
+st.global.u32 [%rd2+9228], %r15;
+st.global.u32 [%rd2+9232], %r12;
+st.global.u32 [%rd2+9236], %r13;
+st.global.u32 [%rd2+9240], %r10;
+st.global.u32 [%rd2+9244], %r11;
+st.global.u32 [%rd2+9248], %r9;
+bra.uni $L__BB17_6;
+
+$L__BB17_1:
+cvt.s64.s32 %rd3, %rd1;
+setp.le.u64 %p2, %rd3, %rd8;
+@%p2 bra $L__BB17_3;
+
+st.global.u32 [%rd2], %r16;
+st.global.u32 [%rd2+4], %r17;
+st.global.u32 [%rd2+8], %r14;
+st.global.u32 [%rd2+12], %r15;
+st.global.u32 [%rd2+16], %r12;
+st.global.u32 [%rd2+20], %r13;
+st.global.u32 [%rd2+24], %r10;
+st.global.u32 [%rd2+28], %r11;
+st.global.u32 [%rd2+32], %r9;
+
+$L__BB17_3:
+add.s32 %r22, %r19, 256;
+cvt.u64.u32 %rd12, %r22;
+setp.le.u64 %p3, %rd3, %rd12;
+@%p3 bra $L__BB17_6;
+
+st.global.u32 [%rd2+9216], %r16;
+st.global.u32 [%rd2+9220], %r17;
+st.global.u32 [%rd2+9224], %r14;
+st.global.u32 [%rd2+9228], %r15;
+st.global.u32 [%rd2+9232], %r12;
+st.global.u32 [%rd2+9236], %r13;
+st.global.u32 [%rd2+9240], %r10;
+st.global.u32 [%rd2+9244], %r11;
+st.global.u32 [%rd2+9248], %r9;
+
+$L__BB17_6:
+ret;
+
+}
+//
+

@@ -1,0 +1,11 @@
+label multiply_hessian_diagonal
+ptx multiply_hessian_diagonal.ptx
+cubin cubins/multiply_hessian_diagonal.cubin
+name_ptx _ZN7synreal21self_collision_kernel25multiply_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m
+name_cubin _Z25multiply_hessian_diagonalPK4Mat3PK4Vec3PS2_m
+grid 1 1 1
+block 256 1 1
+ptr randf 9216
+ptr randf 3072
+ptr zero 3072
+u64 256

@@ -1,0 +1,58 @@
+Style3D Sim 本地部署（精简环境）
+
+目录：/home/oem/code/agent/style3d-sim
+源码版本：e654fb9；公开原生扩展：ce8d7ba
+Python：项目内 .venv（Python 3.12.13）
+已安装：官方原生扩展、Newton 1.5.0、Warp 1.16.0、基础演示依赖。
+未安装：完整 examples / locomotion 依赖组、PyTorch、cuDNN、Open3D。
+按用户要求停止大包下载；中断前 cuBLAS 和 Open3D 已完成下载，仅保留在缓存。
+
+直接启动基础图形演示（默认 XPBD，无需账号）：
+  cd /home/oem/code/agent/style3d-sim
+  ./run-demo.sh
+
+无窗口运行（无需账号）：
+  ./run-demo.sh --viewer null --num-frames 30
+
+有有效 Style3D 账号后，使用 SynReal 求解器：
+  ./run-demo.sh --solver synreal
+如果尚未配置本地凭据或环境变量，程序会提示输入账号和密码。
+登录与仿真须处于同一 Python 进程；不要单独执行登录命令。
+不要把账号密码写入源码或提交到 Git。
+本助手尚未使用真实账号验证 SynReal 仿真。
+
+其他示例可使用 .venv/bin/python examples/<脚本名>.py。
+精简环境不保证所有示例依赖齐全，遇到缺失依赖时再按需安装。
+部分示例首次运行会自动下载资产，需要网络连接。
+若使用 uv run，请加 --no-sync，以保留当前精简环境。
+
+重建精简环境：
+  git submodule update --init style3d-sim-bin
+  uv sync --frozen --no-install-project
+  uv pip install --python .venv/bin/python --no-deps -e .
+  uv pip install --python .venv/bin/python -r requirements-demo-light.txt
+
+上游锁文件把项目记为 virtual，当前 uv 的 --locked 校验要求更新。
+本次保留原锁文件，以 --frozen 安装核心依赖，再单独安装项目。
+本次从已有缓存离线安装演示组件，本地 wheel 保存在 .uvcache/local-wheels。
+不要初始化 synreal-solver 私有子模块；公开部署使用 style3d-sim-bin。
+
+已通过检查：
+  Python API 与原生 _core 扩展导入。
+  RTX 5090 D v2 GPU 内存分配、读取与数据校验。
+  tests/test_binding.py 中不创建求解器的 7 项测试。
+
+自动读取本地账号密码：
+  cd /home/oem/code/agent/style3d-sim
+  .venv/bin/python -m style3d_sim.local_credentials
+
+在终端输入账号、密码并确认密码。密码输入不回显。
+凭据以明文保存到 ~/.config/style3d-sim/credentials.json（Linux 权限 0600）。
+如果设置了 XDG_CONFIG_HOME，则保存在该目录下的 style3d-sim/credentials.json。
+此文件位于仓库之外，不会随项目提交到 Git。配置命令本身不验证账号。
+所有使用此安装中 NewtonSolver 的 demo 会自动读取凭据并正常登录。
+完整的 STYLE3D_SIM_ACCOUNT 和 STYLE3D_SIM_PASSWORD 环境变量优先于本地文件。
+账号或密码变更后重新运行配置命令；认证失败仍会报错，不会自动强制踢出其他设备。
+例如：
+  ./run-demo.sh --solver synreal
+  .venv/bin/python examples/example_body_spring.py

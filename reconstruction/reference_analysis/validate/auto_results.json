@@ -1,0 +1,657 @@
+[
+ {
+  "kernel": "synreal__fluid_kernel__accumulate_rows",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/5120 | max rel=0.000e+00 | \u5199\u5165 0/5120"
+ },
+ {
+  "kernel": "synreal__fluid_kernel__add_diagonal",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/4608 | max rel=0.000e+00 | \u5199\u5165 576/4608"
+ },
+ {
+  "kernel": "synreal__fluid_kernel__bound_scale",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/1024 | max rel=0.000e+00 | \u5199\u5165 0/1024"
+ },
+ {
+  "kernel": "synreal__fluid_kernel__build_grid",
+  "status": "OOB",
+  "detail": "zero:CUDA error an illegal memory access was encountered (ab.cpp:238)"
+ },
+ {
+  "kernel": "synreal__fluid_kernel__evaluate_rows",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/2816 | max rel=0.000e+00 | \u5199\u5165 0/2816"
+ },
+ {
+  "kernel": "synreal__fluid_kernel__initialize_scale",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/256 | max rel=0.000e+00 | \u5199\u5165 64/256"
+ },
+ {
+  "kernel": "synreal__fluid_kernel__multiply_rows",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/2560 | max rel=0.000e+00 | \u5199\u5165 0/2560"
+ },
+ {
+  "kernel": "synreal__fluid_kernel__scale_step",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/1024 | max rel=0.000e+00 | \u5199\u5165 384/1024"
+ },
+ {
+  "kernel": "synreal__granular_kernel__accumulate_bonds",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 9 | \u4e0d\u540c\u5b57\u8282 0/7936 | max rel=0.000e+00 | \u5199\u5165 4575/7936"
+ },
+ {
+  "kernel": "synreal__granular_kernel__accumulate_contacts",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/4608 | max rel=0.000e+00 | \u5199\u5165 0/4608"
+ },
+ {
+  "kernel": "synreal__granular_kernel__add_diagonal",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/4608 | max rel=0.000e+00 | \u5199\u5165 576/4608"
+ },
+ {
+  "kernel": "synreal__granular_kernel__build_grid",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 10 | \u4e0d\u540c\u5b57\u8282 0/5120 | max rel=0.000e+00 | \u5199\u5165 0/5120"
+ },
+ {
+  "kernel": "synreal__granular_kernel__commit_bonds",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/1792 | max rel=0.000e+00 | \u5199\u5165 0/1792"
+ },
+ {
+  "kernel": "synreal__granular_kernel__form_bonds",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/1792 | max rel=0.000e+00 | \u5199\u5165 0/1792"
+ },
+ {
+  "kernel": "synreal__granular_kernel__multiply_bonds",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/4352 | max rel=0.000e+00 | \u5199\u5165 604/4352"
+ },
+ {
+  "kernel": "synreal__granular_kernel__multiply_contacts",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/1536 | max rel=0.000e+00 | \u5199\u5165 0/1536"
+ },
+ {
+  "kernel": "synreal__kernel__build_escape_nodes",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/768 | max rel=0.000e+00 | \u5199\u5165 64/768"
+ },
+ {
+  "kernel": "synreal__kernel__build_primitive_leaf_nodes",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/512 | max rel=0.000e+00 | \u5199\u5165 1/512"
+ },
+ {
+  "kernel": "synreal__kernel__build_radix_tree",
+  "status": "TIMEOUT",
+  "detail": "zero:timeout"
+ },
+ {
+  "kernel": "synreal__kernel__generate_morton_codes",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/512 | max rel=0.000e+00 | \u5199\u5165 64/512"
+ },
+ {
+  "kernel": "synreal__kernel__refit_aabbs",
+  "status": "TIMEOUT",
+  "detail": "zero:timeout"
+ },
+ {
+  "kernel": "ernel__multiply_matrix_and_reduce_256u__synreal__BlockNonZeroEntry__glm__mat_3__3__float__",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 4/168960 | max rel=0.000e+00 | \u5199\u5165 574/168960"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_residual_synreal__BlockNonZeroEntry__glm__mat_3__3__float__",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/169472 | max rel=0.000e+00 | \u5199\u5165 764/169472"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_residual_synreal__NonZeroEntry__float_",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/36352 | max rel=0.000e+00 | \u5199\u5165 744/36352"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_residual_synreal__NonZeroEntry__glm__mat_3__3__float__",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/38400 | max rel=0.000e+00 | \u5199\u5165 764/38400"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_zero_solution_and_reduce_256u__glm__mat_3__3__float__",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 4/4864 | max rel=0.000e+00 | \u5199\u5165 736/4864"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_matrix_synreal__NonZeroEntry__float_",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/35584 | max rel=0.000e+00 | \u5199\u5165 568/35584"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_matrix_synreal__NonZeroEntry__glm__mat_3__3__float__",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/37632 | max rel=0.000e+00 | \u5199\u5165 570/37632"
+ },
+ {
+  "kernel": "synreal__kernel__update_cg_direction_float_",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/2048 | max rel=0.000e+00 | \u5199\u5165 744/2048"
+ },
+ {
+  "kernel": "synreal__kernel__update_cg_direction_glm__mat_3__3__float__",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/4096 | max rel=0.000e+00 | \u5199\u5165 572/4096"
+ },
+ {
+  "kernel": "synreal__kernel__update_preconditioned_cg_direction",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/1792 | max rel=0.000e+00 | \u5199\u5165 0/1792"
+ },
+ {
+  "kernel": "synreal__kernel__update_solution_and_residual",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/3584 | max rel=0.000e+00 | \u5199\u5165 0/3584"
+ },
+ {
+  "kernel": "synreal__kernel__update_solution_residual_and_reduce_256u__glm__mat_3__3__float__",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 4/6144 | max rel=0.000e+00 | \u5199\u5165 4/6144"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__accumulate_edge_edge",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 11 | \u4e0d\u540c\u5b57\u8282 0/6656 | max rel=0.000e+00 | \u5199\u5165 0/6656"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__accumulate_edge_face",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 12 | \u4e0d\u540c\u5b57\u8282 0/7424 | max rel=0.000e+00 | \u5199\u5165 0/7424"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__accumulate_particle_pairs",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 10 | \u4e0d\u540c\u5b57\u8282 0/5632 | max rel=0.000e+00 | \u5199\u5165 0/5632"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__accumulate_vertex_face",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 11 | \u4e0d\u540c\u5b57\u8282 0/6400 | max rel=0.000e+00 | \u5199\u5165 0/6400"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__add_hessian_diagonal",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/4608 | max rel=0.000e+00 | \u5199\u5165 576/4608"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__build_edge_aabbs",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/2048 | max rel=0.000e+00 | \u5199\u5165 64/2048"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__build_particle_aabbs",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/1536 | max rel=0.000e+00 | \u5199\u5165 247/1536"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__build_triangle_aabbs",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/1792 | max rel=0.000e+00 | \u5199\u5165 64/1792"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__multiply_contact_tangents",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/2048 | max rel=0.000e+00 | \u5199\u5165 0/2048"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__multiply_hessian_diagonal",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/3840 | max rel=0.000e+00 | \u5199\u5165 570/3840"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__query_edge_edge",
+  "status": "TIMEOUT",
+  "detail": "zero:timeout"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__query_edge_face",
+  "status": "TIMEOUT",
+  "detail": "zero:timeout"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__query_particle_pairs",
+  "status": "TIMEOUT",
+  "detail": "zero:timeout"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__query_vertex_face",
+  "status": "TIMEOUT",
+  "detail": "zero:timeout"
+ },
+ {
+  "kernel": "synreal__self_collision_kernel__refit_bvh",
+  "status": "TIMEOUT",
+  "detail": "zero:timeout"
+ },
+ {
+  "kernel": "synreal__kernel__add_affine_body_constitutive_preconditioner",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 43/4352 | max rel=1.275e-07 | \u5199\u5165 463/4352"
+ },
+ {
+  "kernel": "synreal__kernel__add_affine_body_so3_augmented_lagrangian_preconditioner",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/5888 | max rel=0.000e+00 | \u5199\u5165 1291/5888"
+ },
+ {
+  "kernel": "synreal__kernel__add_affine_body_spring_gauss_newton_hessian",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 87/168448 | max rel=4.036e-07 | \u5199\u5165 1526/168448"
+ },
+ {
+  "kernel": "synreal__kernel__add_bending_damping_preconditioner",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/5632 | max rel=0.000e+00 | \u5199\u5165 1989/5632"
+ },
+ {
+  "kernel": "synreal__kernel__add_body_point_line_gauss_newton_hessian",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 12 | \u4e0d\u540c\u5b57\u8282 0/173312 | max rel=0.000e+00 | \u5199\u5165 62/173312"
+ },
+ {
+  "kernel": "synreal__kernel__add_body_spring_gauss_newton_hessian",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 12 | \u4e0d\u540c\u5b57\u8282 0/172544 | max rel=0.000e+00 | \u5199\u5165 2247/172544"
+ },
+ {
+  "kernel": "synreal__kernel__add_cloth_membrane_gauss_newton_hessian",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/169216 | max rel=0.000e+00 | \u5199\u5165 2079/169216"
+ },
+ {
+  "kernel": "synreal__kernel__add_joint_body_point_line_augmented_lagrangian_preconditioner",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 9 | \u4e0d\u540c\u5b57\u8282 0/9472 | max rel=0.000e+00 | \u5199\u5165 1762/9472"
+ },
+ {
+  "kernel": "synreal__kernel__add_joint_body_point_line_gauss_newton_hessian",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 11 | \u4e0d\u540c\u5b57\u8282 0/173568 | max rel=0.000e+00 | \u5199\u5165 1976/173568"
+ },
+ {
+  "kernel": "synreal__kernel__add_joint_drive_preconditioner",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 17 | \u4e0d\u540c\u5b57\u8282 0/13056 | max rel=0.000e+00 | \u5199\u5165 0/13056"
+ },
+ {
+  "kernel": "synreal__kernel__add_rolling_contact_preconditioner",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/2304 | max rel=0.000e+00 | \u5199\u5165 0/2304"
+ },
+ {
+  "kernel": "synreal__kernel__add_spring_gauss_newton_hessian",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/167936 | max rel=0.000e+00 | \u5199\u5165 1982/167936"
+ },
+ {
+  "kernel": "synreal__kernel__add_surface_contact_preconditioner",
+  "status": "OOB",
+  "detail": "zero:CUDA error an illegal memory access was encountered (ab.cpp:238)"
+ },
+ {
+  "kernel": "synreal__kernel__add_surface_contact_stiffness_scale",
+  "status": "OOB",
+  "detail": "zero:CUDA error an illegal memory access was encountered (ab.cpp:238)"
+ },
+ {
+  "kernel": "synreal__kernel__add_tetrahedron_preconditioner",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 133/7424 | max rel=1.968e-07 | \u5199\u5165 1860/7424"
+ },
+ {
+  "kernel": "synreal__kernel__add_triangle_drag_preconditioner",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/4096 | max rel=0.000e+00 | \u5199\u5165 1726/4096"
+ },
+ {
+  "kernel": "synreal__kernel__apply_affine_body_preconditioner",
+  "status": "PASS_TOL",
+  "detail": "idx4:RESULT PASS_TOL | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 5/3072 | max rel=1.682e-32 | \u5199\u5165 45/3072"
+ },
+ {
+  "kernel": "synreal__kernel__apply_affine_body_torques",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/5632 | max rel=0.000e+00 | \u5199\u5165 561/5632"
+ },
+ {
+  "kernel": "synreal__kernel__apply_block_diagonal_preconditioner",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/3840 | max rel=0.000e+00 | \u5199\u5165 572/3840"
+ },
+ {
+  "kernel": "synreal__kernel__apply_nonlinear_step",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/2304 | max rel=0.000e+00 | \u5199\u5165 924/2304"
+ },
+ {
+  "kernel": "synreal__kernel__build_affine_body_preconditioner_synreal__BlockNonZeroEntry_",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 14 | \u4e0d\u540c\u5b57\u8282 0/172296 | max rel=0.000e+00 | \u5199\u5165 0/172296"
+ },
+ {
+  "kernel": "synreal__kernel__build_affine_body_preconditioner_synreal__NonZeroEntry_",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 14 | \u4e0d\u540c\u5b57\u8282 0/41224 | max rel=0.000e+00 | \u5199\u5165 0/41224"
+ },
+ {
+  "kernel": "synreal__kernel__combine_system_non_diagonal",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/262144 | max rel=0.000e+00 | \u5199\u5165 64/262144"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_affine_body_constitutive_force",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 19/2816 | max rel=8.809e-08 | \u5199\u5165 575/2816"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_affine_body_so3_augmented_lagrangian_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/7424 | max rel=0.000e+00 | \u5199\u5165 575/7424"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_affine_body_spring_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/2816 | max rel=0.000e+00 | \u5199\u5165 530/2816"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_angular_limits",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/5888 | max rel=0.000e+00 | \u5199\u5165 0/5888"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_bending_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/4864 | max rel=0.000e+00 | \u5199\u5165 685/4864"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_body_distance_constraint_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 11 | \u4e0d\u540c\u5b57\u8282 0/8192 | max rel=0.000e+00 | \u5199\u5165 592/8192"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_body_point_line_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 12 | \u4e0d\u540c\u5b57\u8282 0/8704 | max rel=0.000e+00 | \u5199\u5165 592/8704"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_body_spring_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 10 | \u4e0d\u540c\u5b57\u8282 0/6912 | max rel=0.000e+00 | \u5199\u5165 650/6912"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_cables",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/5376 | max rel=0.000e+00 | \u5199\u5165 0/5376"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_contact_force",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 26 | \u4e0d\u540c\u5b57\u8282 0/13056 | max rel=0.000e+00 | \u5199\u5165 0/13056"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_contact_tangent",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 27 | \u4e0d\u540c\u5b57\u8282 0/17408 | max rel=0.000e+00 | \u5199\u5165 0/17408"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_hard_contacts",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/7424 | max rel=0.000e+00 | \u5199\u5165 0/7424"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_joint_armature",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/5888 | max rel=0.000e+00 | \u5199\u5165 0/5888"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_joint_body_point_line_augmented_lagrangian_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 13 | \u4e0d\u540c\u5b57\u8282 0/11008 | max rel=0.000e+00 | \u5199\u5165 672/11008"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_joint_body_spring_augmented_lagrangian_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 10 | \u4e0d\u540c\u5b57\u8282 0/7424 | max rel=0.000e+00 | \u5199\u5165 669/7424"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_joint_drive_load",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 27 | \u4e0d\u540c\u5b57\u8282 0/14592 | max rel=0.000e+00 | \u5199\u5165 0/14592"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_rolling_contact_force",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/768 | max rel=0.000e+00 | \u5199\u5165 0/768"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_soft_contact_force",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 29 | \u4e0d\u540c\u5b57\u8282 0/16896 | max rel=0.000e+00 | \u5199\u5165 0/16896"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_spring_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/2304 | max rel=0.000e+00 | \u5199\u5165 664/2304"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_stretch_force",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/3584 | max rel=0.000e+00 | \u5199\u5165 0/3584"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_surface_contact_force",
+  "status": "OOB",
+  "detail": "zero:CUDA error an illegal memory access was encountered (ab.cpp:238)"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_tetrahedron_force",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/6912 | max rel=0.000e+00 | \u5199\u5165 661/6912"
+ },
+ {
+  "kernel": "synreal__kernel__evaluate_triangle_drag",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/4608 | max rel=0.000e+00 | \u5199\u5165 244/4608"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_affine_body_so3_state",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/6400 | max rel=0.000e+00 | \u5199\u5165 384/6400"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_block_diagonal",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/4864 | max rel=0.000e+00 | \u5199\u5165 4026/4864"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_block_non_diagonal",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/196864 | max rel=0.000e+00 | \u5199\u5165 600/196864"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_body_distance_constraint_state",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 10 | \u4e0d\u540c\u5b57\u8282 0/7424 | max rel=0.000e+00 | \u5199\u5165 1444/7424"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_hard_contacts",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 0 | \u4e0d\u540c\u5b57\u8282 0/0 | max rel=0.000e+00 | \u5199\u5165 0/0"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_joint_body_point_line_state",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 11 | \u4e0d\u540c\u5b57\u8282 0/9984 | max rel=0.000e+00 | \u5199\u5165 384/9984"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_joint_body_spring_state",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/768 | max rel=0.000e+00 | \u5199\u5165 732/768"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_joint_coordinate_velocities",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/1792 | max rel=0.000e+00 | \u5199\u5165 0/1792"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_rhs",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/36608 | max rel=0.000e+00 | \u5199\u5165 366/36608"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_step",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 16 | \u4e0d\u540c\u5b57\u8282 0/6656 | max rel=0.000e+00 | \u5199\u5165 984/6656"
+ },
+ {
+  "kernel": "synreal__kernel__initialize_triangle_drag",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/2560 | max rel=0.000e+00 | \u5199\u5165 959/2560"
+ },
+ {
+  "kernel": "synreal__kernel__invert_block_preconditioner",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/5120 | max rel=0.000e+00 | \u5199\u5165 0/5120"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_affine_body_constitutive_tangent",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/3584 | max rel=0.000e+00 | \u5199\u5165 508/3584"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_affine_body_so3_augmented_lagrangian_tangent",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/5120 | max rel=0.000e+00 | \u5199\u5165 574/5120"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_bending_damping_tangent",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 0/4864 | max rel=0.000e+00 | \u5199\u5165 670/4864"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_joint_body_point_line_augmented_lagrangian",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 10 | \u4e0d\u540c\u5b57\u8282 0/8704 | max rel=0.000e+00 | \u5199\u5165 618/8704"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_joint_drive_tangent",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 18 | \u4e0d\u540c\u5b57\u8282 0/12288 | max rel=0.000e+00 | \u5199\u5165 0/12288"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_rolling_contact_tangent",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/1536 | max rel=0.000e+00 | \u5199\u5165 0/1536"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_soft_contact_hessian_off_diagonal",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 26 | \u4e0d\u540c\u5b57\u8282 0/12032 | max rel=0.000e+00 | \u5199\u5165 0/12032"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_surface_contact_tangent",
+  "status": "OOB",
+  "detail": "zero:CUDA error an illegal memory access was encountered (ab.cpp:238)"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_tetrahedron_tangent",
+  "status": "PASS_TOL",
+  "detail": "idx:RESULT PASS_TOL | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 64/6656 | max rel=4.050e-07 | \u5199\u5165 657/6656"
+ },
+ {
+  "kernel": "synreal__kernel__multiply_triangle_drag_tangent",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/3328 | max rel=0.000e+00 | \u5199\u5165 768/3328"
+ },
+ {
+  "kernel": "synreal__kernel__prepare_cable_penalties",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/2560 | max rel=0.000e+00 | \u5199\u5165 773/2560"
+ },
+ {
+  "kernel": "synreal__kernel__prepare_cable_tangents",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/768 | max rel=0.000e+00 | \u5199\u5165 0/768"
+ },
+ {
+  "kernel": "synreal__kernel__prepare_inverse_preconditioner",
+  "status": "PASS_EMPTY",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/1024 | max rel=0.000e+00 | \u5199\u5165 0/1024"
+ },
+ {
+  "kernel": "synreal__kernel__refresh_inertial_cache_diagonals",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/1544 | max rel=0.000e+00 | \u5199\u5165 189/1544"
+ },
+ {
+  "kernel": "synreal__kernel__refresh_inertial_cache_nonzeros",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/67600 | max rel=0.000e+00 | \u5199\u5165 490/67600"
+ },
+ {
+  "kernel": "synreal__kernel__reset_selected_joint_drive_state",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/512 | max rel=0.000e+00 | \u5199\u5165 63/512"
+ },
+ {
+  "kernel": "synreal__kernel__snapshot_hard_contacts",
+  "status": "OOB",
+  "detail": "zero:CUDA error an illegal memory access was encountered (ab.cpp:238)"
+ },
+ {
+  "kernel": "synreal__kernel__update_affine_body_so3_augmented_lagrangian_state",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/6400 | max rel=0.000e+00 | \u5199\u5165 768/6400"
+ },
+ {
+  "kernel": "synreal__kernel__update_body_distance_constraint_state",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 10 | \u4e0d\u540c\u5b57\u8282 0/7424 | max rel=0.000e+00 | \u5199\u5165 1532/7424"
+ },
+ {
+  "kernel": "synreal__kernel__update_cable_penalties",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/768 | max rel=0.000e+00 | \u5199\u5165 0/768"
+ },
+ {
+  "kernel": "synreal__kernel__update_hard_contact_duals",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 0 | \u4e0d\u540c\u5b57\u8282 0/0 | max rel=0.000e+00 | \u5199\u5165 0/0"
+ },
+ {
+  "kernel": "synreal__kernel__update_joint_body_point_line_augmented_lagrangian_state",
+  "status": "PASS",
+  "detail": "zero:RESULT PASS | \u7f13\u51b2 11 | \u4e0d\u540c\u5b57\u8282 0/9984 | max rel=0.000e+00 | \u5199\u5165 384/9984"
+ },
+ {
+  "kernel": "synreal__kernel__update_joint_body_spring_augmented_lagrangian_state",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/6400 | max rel=0.000e+00 | \u5199\u5165 341/6400"
+ },
+ {
+  "kernel": "synreal__kernel__update_joint_drive_angle_state",
+  "status": "PASS_EMPTY",
+  "detail": "idx4:RESULT PASS | \u7f13\u51b2 14 | \u4e0d\u540c\u5b57\u8282 0/10240 | max rel=0.000e+00 | \u5199\u5165 0/10240"
+ },
+ {
+  "kernel": "synreal__kernel__update_velocity",
+  "status": "PASS",
+  "detail": "idx:RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/2304 | max rel=0.000e+00 | \u5199\u5165 732/2304"
+ }
+]

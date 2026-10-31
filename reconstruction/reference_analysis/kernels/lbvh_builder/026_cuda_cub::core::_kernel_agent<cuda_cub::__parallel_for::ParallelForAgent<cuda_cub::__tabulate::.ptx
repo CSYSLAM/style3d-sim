@@ -1,0 +1,71 @@
+// [lbvh_builder.cu] kernel 26/29   PTX 64 行   SASS 36 条指令
+// 签名: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__tabulate::functor<thrust::THRUST_200302_520_NS::device_ptr<int>, thrust::THRUST_200302_520_NS::system::detail::generic::detail::compute_sequence_value<int, void>, long>, long>, thrust::THRUST_200302_520_NS::cuda_cub::__tabulate::functor<thrust::THRUST_200302_520_NS::device_ptr<int>, thrust::THRUST_200302_520_NS::system::detail::generic::detail::compute_sequence_value<int, void>, long>, long>(thrust::THRUST_200302_520_NS::cuda_cub::__tabulate::functor<thrust::THRUST_200302_520_NS::device_ptr<int>, thrust::THRUST_200302_520_NS::system::detail::generic::detail::compute_sequence_value<int, void>, long>, long)
+// 归一化原型: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__tabulate::functor<thrust::THRUST_200302_520_NS::device_ptr<int>, thrust::THRUST_200302_520_NS::system::detail::generic::detail::compute_sequence_value<int, void>, long>, long>, thrust::THRUST_200302_520_NS::cuda_cub::__tabulate::functor<thrust::THRUST_200302_520_NS::device_ptr<int>, thrust::THRUST_200302_520_NS::system::detail::generic::detail::compute_sequence_value<int, void>, long>, long>(thrust::THRUST_200302_520_NS::cuda_cub::__tabulate::functor<thrust::THRUST_200302_520_NS::device_ptr<int>, thrust::THRUST_200302_520_NS::system::detail::generic::detail::compute_sequence_value<int, void>, long>, long)
+// maxntid: 256, 1, 1   ptxas: REG=11 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=5
+
+_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1_(
+.param .align 8 .b8 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1__param_0[16],
+.param .u64 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1__param_1
+)
+.maxntid 256, 1, 1
+{
+.reg .pred %p<4>;
+.reg .b32 %r<21>;
+.reg .b64 %rd<18>;
+
+
+ld.param.v2.u32 {%r3, %r4}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1__param_0+8];
+ld.param.u64 %rd7, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1__param_1];
+mov.u32 %r5, %ctaid.x;
+mul.wide.u32 %rd1, %r5, 512;
+sub.s64 %rd2, %rd7, %rd1;
+setp.gt.s64 %p1, %rd2, 511;
+ld.param.u64 %rd8, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1__param_0];
+cvta.to.global.u64 %rd9, %rd8;
+mov.u32 %r6, %tid.x;
+cvt.u64.u32 %rd10, %r6;
+add.s64 %rd3, %rd1, %rd10;
+shl.b64 %rd11, %rd3, 2;
+add.s64 %rd4, %rd9, %rd11;
+@%p1 bra $L__BB8_5;
+bra.uni $L__BB8_1;
+
+$L__BB8_5:
+cvt.u32.u64 %r15, %rd3;
+mad.lo.s32 %r16, %r4, %r15, %r3;
+st.global.u32 [%rd4], %r16;
+add.s32 %r18, %r6, 256;
+cvt.u64.u32 %rd16, %r18;
+add.s64 %rd17, %rd1, %rd16;
+cvt.u32.u64 %r19, %rd17;
+mad.lo.s32 %r20, %r4, %r19, %r3;
+st.global.u32 [%rd4+1024], %r20;
+bra.uni $L__BB8_6;
+
+$L__BB8_1:
+cvt.s64.s32 %rd5, %rd2;
+setp.le.s64 %p2, %rd5, %rd10;
+@%p2 bra $L__BB8_3;
+
+cvt.u32.u64 %r9, %rd3;
+mad.lo.s32 %r10, %r4, %r9, %r3;
+st.global.u32 [%rd4], %r10;
+
+$L__BB8_3:
+add.s32 %r12, %r6, 256;
+cvt.u64.u32 %rd6, %r12;
+setp.le.s64 %p3, %rd5, %rd6;
+@%p3 bra $L__BB8_6;
+
+add.s64 %rd15, %rd1, %rd6;
+cvt.u32.u64 %r13, %rd15;
+mad.lo.s32 %r14, %r4, %r13, %r3;
+st.global.u32 [%rd4+1024], %r14;
+
+$L__BB8_6:
+ret;
+
+}
+//
+

@@ -11,13 +11,16 @@
 #
 ###########################################################################
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 import warp as wp
 
 import newton
 import newton.examples
 from newton.solvers import style3d
-from style3d_sim.newton_solver import NewtonSolver
-import style3d_sim as s3d
 
 class Example:
     def __init__(self, viewer, args):
@@ -35,7 +38,7 @@ class Example:
 
         if self.solver_type == "semi_implicit":
             self.sim_substeps = 32
-        elif self.solver_type in ("style3d", "synreal"):
+        elif self.solver_type in ("style3d", "synreal", "reconstructed"):
             self.sim_substeps = 2
         else:
             self.sim_substeps = 10
@@ -45,7 +48,7 @@ class Example:
 
         self.viewer = viewer
 
-        if self.solver_type in ("style3d", "synreal"):
+        if self.solver_type in ("style3d", "synreal", "reconstructed"):
             builder = newton.ModelBuilder()
             newton.solvers.SolverStyle3D.register_custom_attributes(builder)
         else:
@@ -83,7 +86,7 @@ class Example:
                 "tri_kd": 1.0e1,
             }
 
-        elif self.solver_type in ("style3d", "synreal"):
+        elif self.solver_type in ("style3d", "synreal", "reconstructed"):
             common_params.pop("edge_ke")
             solver_params = {
                 "tri_aniso_ke": wp.vec3(1.0e4, 1.0e4, 1.0e3),
@@ -104,7 +107,7 @@ class Example:
                 "tri_kd": 1.0e2,
             }
 
-        if self.solver_type in ("style3d", "synreal"):
+        if self.solver_type in ("style3d", "synreal", "reconstructed"):
             style3d.add_cloth_grid(builder, **common_params, **solver_params)
         else:
             builder.add_cloth_grid(**common_params, **solver_params)
@@ -119,8 +122,14 @@ class Example:
 
         if self.solver_type == "semi_implicit":
             self.solver = newton.solvers.SolverSemiImplicit(model=self.model)
+        elif self.solver_type == "reconstructed":
+            from reconstruction.solver import ReconstructedSolver
+
+            self.solver = ReconstructedSolver(self.model)
         elif self.solver_type == "synreal":
-            self.solver = NewtonSolver(self.model)
+            import style3d_sim as s3d
+
+            self.solver = s3d.NewtonSolver(self.model)
             self.solver.config.joint_constraint_mode = s3d.JointConstraintMode.AUGMENTED_LAGRANGIAN
             self.solver.config.nonlinear_solver = s3d.NonlinearSolver.NEWTON
             self.solver.config.joint_constraint_primal_iterations = 1
@@ -145,6 +154,11 @@ class Example:
                 particle_self_contact_margin=0.03,
             )
 
+        if self.solver_type in ("synreal", "reconstructed") and getattr(args, "self_collision", False):
+            # Folding on the ground brings layers together, which exercises the self-collision module.
+            self.solver.config.enable_self_collision = True
+            self.solver.config.self_collision_radius = args.self_collision_radius
+
         self.state_0 = self.model.state()
         self.state_1 = self.model.state()
         self.control = self.model.control()
@@ -157,7 +171,8 @@ class Example:
         self.capture()
 
     def capture(self):
-        if wp.get_device().is_cuda:
+        if (wp.get_device().is_cuda and self.solver_type != "reconstructed"
+                and not getattr(self.args, "no_capture", False)):
             with wp.ScopedCapture() as capture:
                 self.simulate()
             self.graph = capture.graph
@@ -186,7 +201,7 @@ class Example:
         self.sim_time += self.frame_dt
 
     def test_final(self):
-        if self.solver_type not in ("style3d", "synreal"):
+        if self.solver_type not in ("style3d", "synreal", "reconstructed"):
             newton.examples.test_particle_state(
                 self.state_0,
                 "particles are above the ground",
@@ -215,9 +230,13 @@ class Example:
             "--solver",
             help="Type of solver",
             type=str,
-            choices=["semi_implicit", "style3d", "xpbd", "vbd", "synreal"],
+            choices=["semi_implicit", "style3d", "xpbd", "vbd", "synreal", "reconstructed"],
             default="synreal",
         )
+        parser.add_argument("--no-capture", action="store_true", help="Run direct steps for numerical comparisons.")
+        parser.add_argument("--self-collision", action="store_true", help="Enable native cloth self-collision.")
+        parser.add_argument("--self-collision-radius", type=float, default=0.01,
+                            help="Self-collision radius [m] when --self-collision is set.")
         parser.add_argument("--width", type=int, default=64, help="Cloth resolution in x.")
         parser.add_argument("--height", type=int, default=32, help="Cloth resolution in y.")
         return parser

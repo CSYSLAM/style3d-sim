@@ -1,0 +1,21 @@
+{
+  "command": [
+    "g++",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "-std=c++17",
+    "-I/usr/local/cuda-13.2/include",
+    "reconstruction/csrc/native/host_trace.cpp",
+    "-l:libcuda.so.1",
+    "-ldl",
+    "-o",
+    "build/reconstruction-csrc/self-host/template-observer-v2/host_trace.so"
+  ],
+  "sha256": {
+    "reconstruction/csrc/native/host_trace.cpp": "82f7899ef748a2de1dcaf4fd78331ca4008c1b1a85fc49e1cf519efb21943f4d",
+    "build/reconstruction-csrc/self-host/template-observer-v2/host_trace.so": "461ee9cadecb05054a000fbb44592cfb810a0b35cd6885bcb53923f1d4e2e5cb"
+  },
+  "diagnostic_only": true,
+  "changes_default_observer": false
+}

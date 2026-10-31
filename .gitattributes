@@ -1,0 +1,10 @@
+# Preserve exact source and proof bytes across Linux and Windows checkouts.
+* -text
+*.so -filter -diff -merge -text
+*.pyd -filter -diff -merge -text
+*.pyc -filter -diff -merge -text
+*.npz -filter -diff -merge -text
+*.o -filter -diff -merge -text
+*.bin -filter -diff -merge -text
+*.xz -filter -diff -merge -text
+*.gz -filter -diff -merge -text

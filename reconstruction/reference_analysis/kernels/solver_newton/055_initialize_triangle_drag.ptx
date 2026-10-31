@@ -1,0 +1,136 @@
+// [solver_newton.cu] kernel 55/97   PTX 129 行   SASS 356 条指令
+// 签名: synreal::kernel::initialize_triangle_drag(glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, int, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0>*, float*, unsigned long, unsigned long, unsigned long)
+// 归一化原型: synreal::kernel::initialize_triangle_drag(glm::vec3 const*, glm::ivec3 const*, glm::vec3*, float*, size_t, size_t, size_t)
+// maxntid: (未指定)   ptxas: REG=20 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=3 sqrt=1 barrier=0 local=0 branch=4
+
+_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm(
+.param .u64 _ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_0,
+.param .u64 _ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_1,
+.param .u64 _ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_2,
+.param .u64 _ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_3,
+.param .u64 _ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_4,
+.param .u64 _ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_5,
+.param .u64 _ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_6
+)
+{
+.reg .pred %p<4>;
+.reg .f32 %f<33>;
+.reg .b32 %r<28>;
+.reg .b64 %rd<39>;
+
+
+ld.param.u64 %rd8, [_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_0];
+ld.param.u64 %rd9, [_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_1];
+ld.param.u64 %rd10, [_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_2];
+ld.param.u64 %rd11, [_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_3];
+ld.param.u64 %rd14, [_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_4];
+ld.param.u64 %rd12, [_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_5];
+ld.param.u64 %rd13, [_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm_param_6];
+mov.u32 %r7, %ctaid.x;
+mov.u32 %r8, %ntid.x;
+mul.wide.u32 %rd15, %r7, %r8;
+mov.u32 %r9, %tid.x;
+cvt.u64.u32 %rd16, %r9;
+add.s64 %rd1, %rd15, %rd16;
+setp.ge.u64 %p1, %rd1, %rd14;
+@%p1 bra $L__BB39_7;
+
+or.b64 %rd17, %rd1, %rd12;
+and.b64 %rd18, %rd17, -4294967296;
+setp.eq.s64 %p2, %rd18, 0;
+@%p2 bra $L__BB39_3;
+
+div.u64 %rd37, %rd1, %rd12;
+mul.lo.s64 %rd19, %rd37, %rd12;
+sub.s64 %rd38, %rd1, %rd19;
+bra.uni $L__BB39_4;
+
+$L__BB39_3:
+cvt.u32.u64 %r10, %rd12;
+cvt.u32.u64 %r11, %rd1;
+div.u32 %r12, %r11, %r10;
+mul.lo.s32 %r13, %r12, %r10;
+sub.s32 %r14, %r11, %r13;
+cvt.u64.u32 %rd37, %r12;
+cvt.u64.u32 %rd38, %r14;
+
+$L__BB39_4:
+cvta.to.global.u64 %rd20, %rd8;
+cvta.to.global.u64 %rd21, %rd9;
+mul.lo.s64 %rd22, %rd38, 12;
+add.s64 %rd23, %rd21, %rd22;
+mul.lo.s64 %rd24, %rd37, %rd13;
+cvt.u32.u64 %r18, %rd24;
+ld.global.u32 %r19, [%rd23];
+add.s32 %r20, %r19, %r18;
+ld.global.u32 %r21, [%rd23+4];
+add.s32 %r22, %r21, %r18;
+ld.global.u32 %r23, [%rd23+8];
+add.s32 %r24, %r23, %r18;
+mul.wide.s32 %rd25, %r22, 12;
+add.s64 %rd26, %rd20, %rd25;
+mul.wide.s32 %rd27, %r20, 12;
+add.s64 %rd28, %rd20, %rd27;
+ld.global.f32 %f5, [%rd28];
+ld.global.f32 %f6, [%rd26];
+sub.f32 %f7, %f6, %f5;
+ld.global.f32 %f8, [%rd28+4];
+ld.global.f32 %f9, [%rd26+4];
+sub.f32 %f10, %f9, %f8;
+ld.global.f32 %f11, [%rd28+8];
+ld.global.f32 %f12, [%rd26+8];
+sub.f32 %f13, %f12, %f11;
+mul.wide.s32 %rd29, %r24, 12;
+add.s64 %rd30, %rd20, %rd29;
+ld.global.f32 %f14, [%rd30];
+sub.f32 %f15, %f14, %f5;
+ld.global.f32 %f16, [%rd30+4];
+sub.f32 %f17, %f16, %f8;
+ld.global.f32 %f18, [%rd30+8];
+sub.f32 %f19, %f18, %f11;
+mul.f32 %f20, %f10, %f19;
+mul.f32 %f21, %f13, %f17;
+sub.f32 %f1, %f20, %f21;
+mul.f32 %f22, %f13, %f15;
+mul.f32 %f23, %f7, %f19;
+sub.f32 %f2, %f22, %f23;
+mul.f32 %f24, %f7, %f17;
+mul.f32 %f25, %f10, %f15;
+sub.f32 %f3, %f24, %f25;
+mul.f32 %f26, %f2, %f2;
+fma.rn.f32 %f27, %f1, %f1, %f26;
+fma.rn.f32 %f28, %f3, %f3, %f27;
+sqrt.rn.f32 %f4, %f28;
+mul.f32 %f29, %f4, 0f3F000000;
+cvta.to.global.u64 %rd31, %rd11;
+shl.b64 %rd32, %rd1, 2;
+add.s64 %rd33, %rd31, %rd32;
+st.global.f32 [%rd33], %f29;
+setp.leu.f32 %p3, %f4, 0f2B8CBCCC;
+mov.u32 %r25, 0;
+mov.u32 %r26, %r25;
+mov.u32 %r27, %r25;
+@%p3 bra $L__BB39_6;
+
+div.rn.f32 %f30, %f1, %f4;
+div.rn.f32 %f31, %f2, %f4;
+div.rn.f32 %f32, %f3, %f4;
+mov.b32 %r27, %f32;
+mov.b32 %r26, %f31;
+mov.b32 %r25, %f30;
+
+$L__BB39_6:
+cvta.to.global.u64 %rd34, %rd10;
+mul.lo.s64 %rd35, %rd1, 12;
+add.s64 %rd36, %rd34, %rd35;
+st.global.u32 [%rd36], %r25;
+st.global.u32 [%rd36+4], %r26;
+st.global.u32 [%rd36+8], %r27;
+
+$L__BB39_7:
+ret;
+
+}
+//
+

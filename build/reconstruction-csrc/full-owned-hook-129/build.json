@@ -1,0 +1,18 @@
+{
+  "unique_owned_entries": 129,
+  "hook_sha256": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518",
+  "source_sha256": "af2f585d8154c970a61395a48c7fa573ca6ef81b86e27465619d52c2e8fd61f6",
+  "command": [
+    "cc",
+    "-shared",
+    "-fPIC",
+    "-O2",
+    "-Ibuild/toolchains/cuda-12.4/include",
+    "reconstruction/diagnostics/cudahook.c",
+    "-o",
+    "build/reconstruction-csrc/full-owned-hook-129/cudahook.so",
+    "-ldl"
+  ],
+  "older_granular_hook_unchanged": true,
+  "library_runtime_launches_completely_observed": false
+}

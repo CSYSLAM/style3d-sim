@@ -1,0 +1,14 @@
+label add_triangle_drag_preconditioner
+ptx add_triangle_drag_preconditioner.ptx
+cubin cubins/add_triangle_drag_preconditioner.cubin
+name_ptx _ZN7synreal6kernel32add_triangle_drag_preconditionerEPKN3glm3vecILi3EiLNS1_9qualifierE0EEEPKNS2_ILi3EfLS3_0EEEPKfPNS1_3matILi3ELi3EfLS3_0EEEmmm
+name_cubin _Z32add_triangle_drag_preconditionerPK5IVec3PK4Vec3PKfP4Mat3mmm
+grid 1 1 1
+block 256 1 1
+ptr idx 3072 255
+ptr randf 3072
+ptr small 1024
+ptr randf 9216
+u64 256
+u64 256
+u64 256

@@ -1,0 +1,15 @@
+label update_solution_and_residual
+ptx update_solution_and_residual.ptx
+cubin cubins/update_solution_and_residual.cubin
+name_ptx _ZN7synreal6kernel28update_solution_and_residualEiPKfS2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PS6_S9_m
+name_cubin _Z28update_solution_and_residualiPKfS0_PK4Vec3S3_PS1_S4_m
+grid 1 1 1
+block 256 1 1
+u32 1
+ptr randf 1024
+ptr randf 1024
+ptr randf 3072
+ptr randf 3072
+ptr randf 3072
+ptr randf 3072
+u64 256

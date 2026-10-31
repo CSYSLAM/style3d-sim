@@ -1,0 +1,39 @@
+// [fluid.cu] kernel 6/15   PTX 32 行   SASS 16 条指令
+// 签名: synreal::fluid_kernel::initialize_scale(float*, float, int)
+// 归一化原型: synreal::fluid_kernel::initialize_scale(float*, float, int)
+// maxntid: (未指定)   ptxas: REG=4 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=1
+
+_ZN7synreal12fluid_kernel16initialize_scaleEPffi(
+.param .u64 _ZN7synreal12fluid_kernel16initialize_scaleEPffi_param_0,
+.param .f32 _ZN7synreal12fluid_kernel16initialize_scaleEPffi_param_1,
+.param .u32 _ZN7synreal12fluid_kernel16initialize_scaleEPffi_param_2
+)
+{
+.reg .pred %p<2>;
+.reg .f32 %f<2>;
+.reg .b32 %r<6>;
+.reg .b64 %rd<5>;
+
+
+ld.param.u64 %rd1, [_ZN7synreal12fluid_kernel16initialize_scaleEPffi_param_0];
+ld.param.f32 %f1, [_ZN7synreal12fluid_kernel16initialize_scaleEPffi_param_1];
+ld.param.u32 %r2, [_ZN7synreal12fluid_kernel16initialize_scaleEPffi_param_2];
+mov.u32 %r3, %ctaid.x;
+mov.u32 %r4, %ntid.x;
+mov.u32 %r5, %tid.x;
+mad.lo.s32 %r1, %r3, %r4, %r5;
+setp.ge.s32 %p1, %r1, %r2;
+@%p1 bra $L__BB5_2;
+
+cvta.to.global.u64 %rd2, %rd1;
+mul.wide.s32 %rd3, %r1, 4;
+add.s64 %rd4, %rd2, %rd3;
+st.global.f32 [%rd4], %f1;
+
+$L__BB5_2:
+ret;
+
+}
+//
+

@@ -1,0 +1,29 @@
+{
+  "seed": 1,
+  "smoke": {
+    "kernel_functions_resolved": 188,
+    "memory_roundtrip": true,
+    "range_error": true,
+    "argument_count_error": true,
+    "argument_size_error": true,
+    "zero_grid_error": true,
+    "empty_kernel": true
+  },
+  "groups": {
+    "hard_state_branches": {
+      "checks": 144,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel24initialize_hard_contactsENS0_15HardContactViewE",
+        "_ZN7synreal6kernel25update_hard_contact_dualsENS0_15HardContactViewE"
+      ]
+    },
+    "hard_evaluate_branches": {
+      "checks": 444,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel22evaluate_hard_contactsENS0_15HardContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPfPKS5_S6_PNS2_3matILi3ELi3EfLS4_0EEESC_S7_"
+      ]
+    }
+  }
+}

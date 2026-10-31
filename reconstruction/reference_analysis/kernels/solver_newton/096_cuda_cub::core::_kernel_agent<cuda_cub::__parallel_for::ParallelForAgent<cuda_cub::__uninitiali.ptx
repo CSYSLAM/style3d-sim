@@ -1,0 +1,99 @@
+// [solver_newton.cu] kernel 96/97   PTX 92 行   SASS 76 条指令
+// 签名: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<synreal::BlockNonZeroEntry>, synreal::BlockNonZeroEntry>, unsigned long>, thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<synreal::BlockNonZeroEntry>, synreal::BlockNonZeroEntry>, unsigned long>(thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<synreal::BlockNonZeroEntry>, synreal::BlockNonZeroEntry>, unsigned long)
+// 归一化原型: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<synreal::BlockNonZeroEntry>, synreal::BlockNonZeroEntry>, unsigned long>, thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<synreal::BlockNonZeroEntry>, synreal::BlockNonZeroEntry>, unsigned long>(thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<synreal::BlockNonZeroEntry>, synreal::BlockNonZeroEntry>, size_t)
+// maxntid: 256, 1, 1   ptxas: REG=13 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=5
+
+_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1_(
+.param .align 8 .b8 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_0[48],
+.param .u64 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_1
+)
+.maxntid 256, 1, 1
+{
+.reg .pred %p<4>;
+.reg .b32 %r<26>;
+.reg .b64 %rd<13>;
+
+
+ld.param.v2.u32 {%r11, %r12}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_0+40];
+ld.param.v2.u32 {%r13, %r14}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_0+32];
+ld.param.v2.u32 {%r15, %r16}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_0+24];
+ld.param.v2.u32 {%r17, %r18}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_0+16];
+ld.param.v2.u32 {%r19, %r20}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_0+8];
+ld.param.u64 %rd4, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_1];
+mov.u32 %r21, %ctaid.x;
+mul.wide.u32 %rd5, %r21, 512;
+sub.s64 %rd1, %rd4, %rd5;
+setp.gt.u64 %p1, %rd1, 511;
+ld.param.u64 %rd6, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1__param_0];
+cvta.to.global.u64 %rd7, %rd6;
+mov.u32 %r22, %tid.x;
+cvt.u64.u32 %rd8, %r22;
+add.s64 %rd9, %rd5, %rd8;
+mul.lo.s64 %rd10, %rd9, 40;
+add.s64 %rd2, %rd7, %rd10;
+@%p1 bra $L__BB95_5;
+bra.uni $L__BB95_1;
+
+$L__BB95_5:
+st.global.u32 [%rd2], %r19;
+st.global.u32 [%rd2+4], %r20;
+st.global.u32 [%rd2+8], %r17;
+st.global.u32 [%rd2+12], %r18;
+st.global.u32 [%rd2+16], %r15;
+st.global.u32 [%rd2+20], %r16;
+st.global.u32 [%rd2+24], %r13;
+st.global.u32 [%rd2+28], %r14;
+st.global.u32 [%rd2+32], %r11;
+st.global.u32 [%rd2+36], %r12;
+st.global.u32 [%rd2+10240], %r19;
+st.global.u32 [%rd2+10244], %r20;
+st.global.u32 [%rd2+10248], %r17;
+st.global.u32 [%rd2+10252], %r18;
+st.global.u32 [%rd2+10256], %r15;
+st.global.u32 [%rd2+10260], %r16;
+st.global.u32 [%rd2+10264], %r13;
+st.global.u32 [%rd2+10268], %r14;
+st.global.u32 [%rd2+10272], %r11;
+st.global.u32 [%rd2+10276], %r12;
+bra.uni $L__BB95_6;
+
+$L__BB95_1:
+cvt.s64.s32 %rd3, %rd1;
+setp.le.u64 %p2, %rd3, %rd8;
+@%p2 bra $L__BB95_3;
+
+st.global.u32 [%rd2], %r19;
+st.global.u32 [%rd2+4], %r20;
+st.global.u32 [%rd2+8], %r17;
+st.global.u32 [%rd2+12], %r18;
+st.global.u32 [%rd2+16], %r15;
+st.global.u32 [%rd2+20], %r16;
+st.global.u32 [%rd2+24], %r13;
+st.global.u32 [%rd2+28], %r14;
+st.global.u32 [%rd2+32], %r11;
+st.global.u32 [%rd2+36], %r12;
+
+$L__BB95_3:
+add.s32 %r25, %r22, 256;
+cvt.u64.u32 %rd12, %r25;
+setp.le.u64 %p3, %rd3, %rd12;
+@%p3 bra $L__BB95_6;
+
+st.global.u32 [%rd2+10240], %r19;
+st.global.u32 [%rd2+10244], %r20;
+st.global.u32 [%rd2+10248], %r17;
+st.global.u32 [%rd2+10252], %r18;
+st.global.u32 [%rd2+10256], %r15;
+st.global.u32 [%rd2+10260], %r16;
+st.global.u32 [%rd2+10264], %r13;
+st.global.u32 [%rd2+10268], %r14;
+st.global.u32 [%rd2+10272], %r11;
+st.global.u32 [%rd2+10276], %r12;
+
+$L__BB95_6:
+ret;
+
+}
+//
+

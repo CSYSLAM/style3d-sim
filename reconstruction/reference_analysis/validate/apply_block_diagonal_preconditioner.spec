@@ -1,0 +1,11 @@
+label apply_block_diagonal_preconditioner
+ptx apply_block_diagonal_preconditioner.ptx
+cubin cubins/apply_block_diagonal_preconditioner.cubin
+name_ptx _ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m
+name_cubin _Z35apply_block_diagonal_preconditionerPK4Mat3PK4Vec3PS2_m
+grid 1 1 1
+block 256 1 1
+ptr randf 9216
+ptr randf 3072
+ptr zero 3072
+u64 256

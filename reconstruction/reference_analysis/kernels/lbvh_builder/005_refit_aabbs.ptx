@@ -1,0 +1,127 @@
+// [lbvh_builder.cu] kernel 5/29   PTX 120 行   SASS 92 条指令
+// 签名: synreal::kernel::refit_aabbs(synreal::Aabb*, synreal::Aabb const*, int const*, int const*, glm::vec<2, int, (glm::qualifier)0> const*, unsigned int*, unsigned int)
+// 归一化原型: synreal::kernel::refit_aabbs(synreal::Aabb*, synreal::Aabb const*, int const*, int const*, glm::ivec2 const*, unsigned int*, unsigned int)
+// maxntid: (未指定)   ptxas: REG=24 SHARED=0 LOCAL=0
+// 计数: atomic=1 div=0 sqrt=0 barrier=0 local=0 branch=4
+
+_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj(
+.param .u64 _ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_0,
+.param .u64 _ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_1,
+.param .u64 _ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_2,
+.param .u64 _ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_3,
+.param .u64 _ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_4,
+.param .u64 _ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_5,
+.param .u32 _ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_6
+)
+{
+.reg .pred %p<5>;
+.reg .f32 %f<19>;
+.reg .b32 %r<22>;
+.reg .b64 %rd<34>;
+
+
+ld.param.u64 %rd10, [_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_0];
+ld.param.u64 %rd6, [_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_1];
+ld.param.u64 %rd7, [_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_2];
+ld.param.u64 %rd11, [_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_3];
+ld.param.u64 %rd8, [_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_4];
+ld.param.u64 %rd9, [_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_5];
+ld.param.u32 %r5, [_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj_param_6];
+cvta.to.global.u64 %rd1, %rd11;
+cvta.to.global.u64 %rd2, %rd10;
+mov.u32 %r6, %ntid.x;
+mov.u32 %r7, %ctaid.x;
+mov.u32 %r8, %tid.x;
+mad.lo.s32 %r1, %r7, %r6, %r8;
+setp.ge.u32 %p1, %r1, %r5;
+@%p1 bra $L__BB4_5;
+
+cvta.to.global.u64 %rd12, %rd7;
+add.s32 %r9, %r1, %r5;
+add.s32 %r10, %r9, -1;
+mul.wide.u32 %rd13, %r1, 4;
+add.s64 %rd14, %rd12, %rd13;
+ld.global.u32 %r11, [%rd14];
+cvta.to.global.u64 %rd15, %rd6;
+mul.wide.s32 %rd16, %r11, 24;
+add.s64 %rd17, %rd15, %rd16;
+ld.global.u32 %r12, [%rd17];
+ld.global.u32 %r13, [%rd17+4];
+ld.global.u32 %r14, [%rd17+8];
+ld.global.u32 %r15, [%rd17+12];
+ld.global.u32 %r16, [%rd17+16];
+ld.global.u32 %r17, [%rd17+20];
+mul.wide.s32 %rd18, %r10, 24;
+add.s64 %rd19, %rd2, %rd18;
+st.global.u32 [%rd19], %r12;
+st.global.u32 [%rd19+4], %r13;
+st.global.u32 [%rd19+8], %r14;
+st.global.u32 [%rd19+12], %r15;
+st.global.u32 [%rd19+16], %r16;
+st.global.u32 [%rd19+20], %r17;
+membar.gl;
+mul.wide.s32 %rd20, %r10, 4;
+add.s64 %rd21, %rd1, %rd20;
+ld.global.u32 %r21, [%rd21];
+setp.lt.s32 %p2, %r21, 0;
+@%p2 bra $L__BB4_5;
+
+cvta.to.global.u64 %rd3, %rd8;
+cvta.to.global.u64 %rd4, %rd9;
+
+$L__BB4_3:
+cvt.s64.s32 %rd5, %r21;
+mul.wide.s32 %rd22, %r21, 4;
+add.s64 %rd23, %rd4, %rd22;
+atom.global.add.u32 %r18, [%rd23], 1;
+setp.eq.s32 %p3, %r18, 0;
+@%p3 bra $L__BB4_5;
+
+membar.gl;
+shl.b64 %rd24, %rd5, 3;
+add.s64 %rd25, %rd3, %rd24;
+ld.global.u32 %r19, [%rd25];
+mul.wide.s32 %rd26, %r19, 24;
+add.s64 %rd27, %rd2, %rd26;
+ld.global.u32 %r20, [%rd25+4];
+mul.wide.s32 %rd28, %r20, 24;
+add.s64 %rd29, %rd2, %rd28;
+ld.global.f32 %f1, [%rd29];
+ld.global.f32 %f2, [%rd27];
+min.f32 %f3, %f2, %f1;
+ld.global.f32 %f4, [%rd29+4];
+ld.global.f32 %f5, [%rd27+4];
+min.f32 %f6, %f5, %f4;
+ld.global.f32 %f7, [%rd29+8];
+ld.global.f32 %f8, [%rd27+8];
+min.f32 %f9, %f8, %f7;
+ld.global.f32 %f10, [%rd29+12];
+ld.global.f32 %f11, [%rd27+12];
+max.f32 %f12, %f11, %f10;
+ld.global.f32 %f13, [%rd29+16];
+ld.global.f32 %f14, [%rd27+16];
+max.f32 %f15, %f14, %f13;
+ld.global.f32 %f16, [%rd29+20];
+ld.global.f32 %f17, [%rd27+20];
+max.f32 %f18, %f17, %f16;
+mul.lo.s64 %rd30, %rd5, 24;
+add.s64 %rd31, %rd2, %rd30;
+st.global.f32 [%rd31], %f3;
+st.global.f32 [%rd31+4], %f6;
+st.global.f32 [%rd31+8], %f9;
+st.global.f32 [%rd31+12], %f12;
+st.global.f32 [%rd31+16], %f15;
+st.global.f32 [%rd31+20], %f18;
+membar.gl;
+shl.b64 %rd32, %rd5, 2;
+add.s64 %rd33, %rd1, %rd32;
+ld.global.u32 %r21, [%rd33];
+setp.gt.s32 %p4, %r21, -1;
+@%p4 bra $L__BB4_3;
+
+$L__BB4_5:
+ret;
+
+}
+//
+

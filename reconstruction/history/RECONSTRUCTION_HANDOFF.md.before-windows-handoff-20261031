@@ -1,0 +1,667 @@
+# 源码 Solver 还原交接
+
+> **2026-10-29最新：188/188个唯一内核入口均已执行并通过当前A/B，missing为空。**
+> SynReal131/131、CUB34/34、Thrust23/23；从旧so重新抽取PTX并与cubin入口清单核对一致。
+> 最新证据：build/reconstruction-debug/coverage-20261029-all-entries-final/及inventory-20261029-all-entries-final/。
+> CUB细节、修正与边界见reconstruction/CUB_VALIDATION.md；全部工作记录见WORK_LOG最后一节。
+> 这不是整个求解器完全一致的结论。本轮未登录跑原版demo；部分新功能待接入宿主，完整轨迹仍有超差。
+> 下一阶段：宿主接入，并按账号跑原版demo vs 源码demo验收；不可直接把188/188当作demo通过。
+> 下面各段保留为历史记录。
+
+> 接续工作日志见 [reconstruction/WORK_LOG.md](reconstruction/WORK_LOG.md)。最新诊断、命令、证据与未解决事项逐轮追加在那里；下文部分历史待办可能已过时。
+
+> 最新补充：`reconstruction/contact_replay.py` 已完成 cloth_on_box 的 26 个原生调用边界单步重放，
+> 全部在原有容差内，源码进程未加载官方库；step 58 的速度差达到容差约 45%，应优先继续定位。
+> 原生捕获完成后退出 139，完整自由轨迹仍未判通过。命令与输入证据见上述日志末尾。
+>
+> 第 58 步后续定位：首次表面力累加前一致、之后出现差异；原版同输入该阶段也不逐位稳定。
+> 170 条真实接触逐条对比原版 PTX，力/预条件器/切线共 510 项逐位一致（145 条有实际贡献）。
+> 当前优先查多接触累加与后续迭代误差放大；尚未证明全部差异根因。工具、限制及失败退出均记入工作日志。
+>
+> 后续五轮检查已完成：250 次同输入 PCG 解/残差更新、245 次实际归约、5 次缓冲保留、5 次求逆均逐位一致。
+> 已确认原版每轮最后一次关闭归约，修复验证器读取旧缓冲为新范数的问题；源码仍多算一次未使用的归约。
+> 下一步针对后续迭代接触装配/矩阵乘法抓完整输入，不能只替换位置而遗漏 SO(3) 状态。详见工作日志最新章节。
+>
+> 最新补查：250 次方向更新、块稀疏矩阵乘法及归约全部同输入逐位一致；五轮表面接触
+> force/preconditioner 共 1700 项逐条原版 PTX 对比全部逐位一致。整体多接触累加仍有差异。
+> 下一步补查后续轮次的实际 tangent 输入；matvec 通过不代表其 extra 向量的装配已经验证。
+>
+> tangent 补查完成：250 次完整输入整体比较保留累加差异；各轮首尾及各轮最大差调用共11个调用、
+> 1870条不同接触的逐条 PTX 对比全部逐位一致。不是全部42500条逐条验证，也没有判定完整轨迹通过。
+> 后续宜转向其他尚未覆盖的装配/未实现路径，避免反复测试已通过的同一输入。命令与证据见工作日志末尾。
+>
+> 最新实现：PD_NEWTON 布料分支已补齐（PD不加膜面GN矩阵修正）；默认3个单步与非零弯曲阻尼变体
+> 在原容差内，既有Newton/PD刚体回归通过。30帧源码已能运行，但完整轨迹仍超差，不能标为完全一致。
+> 阻尼变体必须在原版初始化前设置；仅改GPU数组会漏掉其缓存的阻尼调度。下一步定位PD首次超差state37。
+
+
+> PD state37后续定位：同输入step34..38重放通过原容差；接触再生成将前一步微小位置差放大。
+> 固定接触行序，只换法线即可产生0.001924速度响应，三角形(8,9,15)为主要敏感接触。
+> 完整轨迹仍失败，step35最初1ULP位置差来源尚未定位。最新命令、退出状态、证据见WORK_LOG末尾。
+
+> 2026-10-29接续：复核12项测试及仿射体A/B，新增线缆prepare_cable_penalties和硬接触snapshot_hard_contacts。
+> 最终全套A/B通过，按成功启动且全套通过统计117/124；这不是完整demo覆盖率。
+> 覆盖工具已入库为reconstruction/diagnostics/kernel_coverage.py；剩余7个内核与命令见WORK_LOG最新章节。
+
+更新时间：2026-10-28（接触对齐与逐步重放之后）。项目目录：`/home/oem/code/agent/style3d-sim`。
+
+## 1. 用户要什么
+
+根据现有逆向资料，把官方二进制求解器逐步还原成源码 solver，让相关 demo 最终不再依赖官方 `_core.so`。
+
+还原范围是以下六个模块，以及算法文档中的对应功能和主机调度：
+
+- `solver_newton`
+- `pcg_solver`
+- `self_collision`
+- `lbvh_builder`
+- `fluid`
+- `granular`
+
+原始资料目录：
+
+```text
+/home/oem/code/agent/style3d-sim-bin/Linux/Release/_re_analysis
+/home/oem/code/agent/style3d-sim-bin/Linux/Release/_re_analysis/ALGORITHM_ANALYSIS_ZH.md
+```
+
+**用户明确要求：快速还原、快速验证，有问题直接修，没问题继续下一个模块。不要花大量时间再建设外围框架。已验证的源码要整理到当前仓库。只对比逆向资料对应的旧版 so，不再比较新版。**
+
+目前没有完整复现六个模块，也没有完整的原生 CUDA 主机 solver。不要把内核源码存在、能够编译、局部公式通过或某个 demo 通过，称为完整还原。
+
+## 2. 固定参考版本与环境
+
+唯一参考旧库：
+
+```text
+/home/oem/code/agent/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so
+SHA256: 4c223854a5a554140ed6cf0e99d5687aa5846bbe49465a85a5819079f3db34e6
+```
+
+注意上面的路径在项目的**同级目录**，不是项目内部的二进制子模块。
+
+当前项目 HEAD 为 `e74e1361150c15d0e303c0337a45680250840883`。旧库对应公开版本 `e654fb9` / 二进制子模块 `ce8d7ba`。这两个公开版本之间的 `src/style3d_sim/newton_solver.py` 上游内容没有差异；本地另有自动登录改动。
+
+项目内部 `style3d-sim-bin/Linux/Release/` 及 `.venv` 安装的是新版 `3fded722...`，不要误用为旧版基准。现有验证器会在独立子进程中显式装载指定旧库，不需要替换安装目录的文件。
+
+- Python：项目 `.venv/bin/python`，3.12。
+- Warp：1.16.0；Newton：1.5.0。
+- GPU：RTX 5090 D v2，CUDA 架构 sm_120。
+- 现有环境已安装 NumPy、SciPy、pytest、CUDA 工具链，不必重新 `uv sync`。
+- 当前无本任务遗留运行进程；最后一组接触测试已结束。
+- 遵循根目录 `AGENTS.md`：行宽 128，非显然实现意图用英文注释。
+
+## 3. 已有实现在哪里
+
+| 路径 | 内容 |
+|---|---|
+| `reconstruction/solver.py` | `ReconstructedSolver`，接收 Newton model/state，独立源码实现时间步 |
+| `reconstruction/numerics.py` | 弹簧、膜内、弯曲、四面体力/切线，稀疏装配、块 Jacobi PCG |
+| `reconstruction/validate.py` | 已有原版/源码进程隔离对照工具，支持 cloth_hanging 和 ball |
+| `reconstruction/tests/test_numerics.py` | 8 个数值测试，最近一次全部通过 |
+| `reconstruction/recovered/` | 80 份已有验证证据的 CUDA 实现及原始报告、支持头文件 |
+| `reconstruction/verify_recovered.py` | 归档源码哈希检查、独立 nvcc 编译 |
+| `examples/example_cloth_hanging.py` | 新增 `--solver reconstructed` 与 `--no-capture` |
+| `examples/example_ball.py` | 新增 `--solver reconstructed`、`--no-capture`、`--initial-stretch` |
+
+当前 demo 源码后端是 **Python/NumPy/SciPy 的 CPU 稀疏装配与 PCG**，通过 Warp 数组交换状态。它不导入官方 `style3d_sim._core`，也不回退到 XPBD 或官方 solver。CUDA 归档尚未全部接入这个时间步实现。最终还需要逐步完善源代码主机调度与 GPU 路径；不要把当前 CPU 实现描述成完整原生替代品。
+
+源码版禁用 CUDA graph capture。两个 demo 的原版默认行为仍保留；对照时两边都用 `--no-capture`，保证对齐实际子步。
+
+### 已实现的数值路径
+
+- 粒子预测、活动粒子/固定粒子处理、位置差恢复速度。
+- 弹簧力、稳定化切线（单元测试通过，尚无独立完整弹簧 demo 的端到端通过记录）。
+- Style3D 各向异性膜内力与切线。
+- 四点余切弯曲和方向阻尼。
+- 四面体多项式体积应力、体积激活、应变阻尼、GN 切线。
+- Newton 外循环、float32 稀疏矩阵、块 Jacobi PCG。
+- **刚加入的静态平面粒子接触原型**：法向罚力、质量相关阻尼上限、切向摩擦和局部切线。当前完整对照未通过，见第 5 节。
+
+未完成：一般形状接触、动态刚体接触、完整摩擦/表面接触/硬接触历史、刚体与关节、刚体接触、线缆、多世界等。当前对部分不支持路径显式抛 `NotImplementedError`；扩展前也应检查是否有未覆盖的输入条件。
+
+## 4. 已验证结果与重要修正
+
+所有下列路径均相对项目根目录。
+
+| 场景 | 结果目录 | 数值结论 |
+|---|---|---|
+| 悬挂布料 4×4，120 帧，240 子步 | `build/reconstruction-validation/cloth4-old-120/` | 通过；位置最大差 1.76914e-5 m，速度最大差 2.86102e-4 m/s |
+| 软体球初始 X 拉伸 1.1，20 帧，160 子步，未触地 | `build/reconstruction-validation/ball-stretch-old-20/` | 修正后通过；位置最大差 1.19209e-5 m，速度最大差 3.43323e-4 m/s |
+| 默认软体球落地，50 帧，400 子步 | `build/reconstruction-validation/ball-contact-old-50/` | 自由轨迹：位置通过，速度未通过（比值 3.24）；**逐步重放通过**（见第 5 节） |
+| 软体球水平初速 2 m/s 滑动落地，70 帧，560 子步 | `build/reconstruction-validation/ball-slide-vx2-old-70/` | 自由轨迹：位置比值 1.12、速度比值 2.84 未通过；**逐步重放通过**；原版退出 SIGSEGV（-11，轨迹已保存） |
+| 原版自身重复运行，球落地 50 帧 | `build/reconstruction-validation/ball-contact-native-repeat-50/` | 原版对原版：非逐位一致，速度比值 1.48，同样在撞击时超差 |
+
+速度最大绝对差不是唯一判据：实际使用绝对容差加相对容差，不能仅用 max_abs 与 atol 比大小。
+
+软体球首次预拉伸测试略超速度容差。定位后将四面体变形梯度从绝对坐标加权和，改成 `(x[1:]-x[0])` 的相对边向量计算，与原内核的算术组织更接近。**没有放宽容差**，用原来保存的官方轨迹重跑源码后通过。
+
+另做过 6 组随机输入，逐组对照旧库提取的 `evaluate_tetrahedron_force` 和 `multiply_tetrahedron_tangent` 设备入口，力和矩阵向量乘均通过。那次是终端临时检查，不是已保存的完整回归脚本。端到端 demo 参考运行仍正常使用账号登录。
+
+### CUDA 源码归档
+
+`reconstruction/recovered/manifest.json` 记录来源、逐文件 SHA256 和验证报告：
+
+- 46 份机械 CUDA 实现，保留标量内联 PTX 以保留指令语义。
+- 34 份可读 CUDA 实现（32 份 human + 2 份 reconstructed）。
+- 合计 80 份实现存在功能重叠，**不等于 80 个不同内核全部端到端验证**。
+- 导入时所有源文件哈希与对应数值报告完全相符。
+- 当前仓库重新编译 80/80 通过；报告在 `build/reconstruction-kernels/report.json`。
+- `recovered/validate/` 是导入的历史数值证据，不能称为本轮重新运行所得。
+- 不包含官方 so 或编译产物。完整原始逆向目录另有 131 个机械内核；没有全部纳入“已数值验证”归档。
+
+## 5. 静态平面粒子接触：已按 PTX 对齐，逐步重放通过
+
+`ReconstructedSolver._plane_contacts()` 已按 `039_evaluate_soft_contact_force.ptx` 的非嵌入分支重写，算术顺序与 PTX 对齐（float32 fma 模拟）：
+
+```text
+n    = normalize(soft_contact_normal)                     # 零长度法向跳过
+pen  = (shape_margins[s] + particle_radius[p]) - dot(x - body_pos, n)   # P16 = shape_margins，pen<=0 跳过
+v    = (x - x_prev) * (1/dt) - soft_contact_body_vel      # P35 = 1/dt，乘倒数而非除法
+ke   = min(model_ke, shape_ke);  kd = min(model_kd, shape_kd, s+s), s = sqrt(ke*mass)
+fn   = max(pen*ke - dot(v,n)*kd, 0)
+gain = (mu*fn > 0) ? min(model_kf, shape_kf, mu*fn / max(|v_t|, 1e-8)) : 0
+f    = fn*n - gain*v_t
+切线：标量对角 max(K, G)（P37）+ 块修正（P40/P41），K = kd/dt + ke，G = gain/dt；
+      两者之和 = a*nn^T + G*(I - nn^T)，a = (fn>0 ? K : 0)
+```
+
+PTX 中 shape_type == 3（SPHERE）分支用 shape transform 位置重算法向；P29（ivec4）分支是四面体嵌入接触。两者都**未实现**，代码仍对非 PLANE 或有 body 的 shape 抛 `NotImplementedError`。
+
+### 关键结论：接触逐步一致；四面体力已按 PTX 顺序重写，自由轨迹接近原版自身离散
+
+- 原版同输入共跑 5 次（`ball-contact-native-repeat-50*/`，矩阵见 `ball-contact-native-repeat-50/native-repeat-matrix.json`）：
+  互相都不逐位一致；10 对中速度比值中位数 0.85、最大 1.48，3/10 对超差。滑动场景原版重复一次：q 1.04、qd 1.14，也超差
+  （`ball-slide-vx2-native-repeat-70/native-vs-native.json`）。原版重复运行多次在退出时 SIGSEGV/abort（139/134），均发生在轨迹保存后。
+- 定位过程：速度公式逐位核对（`(x-prev)*(1/h)` 100% 复现原版）；预测 `fma(h², g, fma(v, h, x))` 与 PTX 一致；
+  牛顿/PCG 已收敛（50/300 次迭代结果不变），最终位置是 float32 根的舍入，因此**力的算术顺序决定落在哪个相邻浮点数**。
+- 修正：`numerics.tetrahedron_force_ptx()` 按 `043_evaluate_tetrahedron_force.ptx` 逐条复刻 F 列、余子式、应力、
+  应变率阻尼（非对角项 `fma(d, 1/h, d/h)`）和每顶点梯度的运算顺序；RHS 按 `initialize_rhs` 写成 `fma(m·(x̂-x), 1/(h·h), f_ext)`。
+  体积公式（LU/余子式/float64）实测不影响结果，保持原实现。
+- 效果：从相同输入走第 1 步，源码与原版最大差 1.7e-16（原版对原版 7.2e-17；修正前 9.3e-10）；
+  逐步重放 0–59 步只有 1 步出现 2 个分量 1 ULP 差。剩余差异主要是近零坐标上的累加顺序（CPU 顺序 vs GPU 原子）。
+
+| 场景（`*-tetptx/`，复用原参考轨迹） | 自由轨迹 q / qd 比值 | 原版自身离散 qd | 逐步重放 q / qd |
+|---|---|---|---|
+| ball-contact 50 帧 | 0.40 / 1.98（修正前 0.54 / 3.24） | 0.28–1.48 | 0.004 / 0.093 |
+| ball-slide vx=2，70 帧 | 1.13 / 2.17（修正前 1.12 / 2.84） | 1.14 | 0.006 / 0.215 |
+| ball-stretch 20 帧 | 0.24 / 0.72，**通过** | — | 0.006 / 0.293 |
+| cloth 4×4，120 帧 | 0.67 / 0.57，**通过** | — | 0.009 / 0.156 |
+
+- 判据（用户同意）：完整 A/B 自由轨迹如实报告 + 逐步重放必须通过；自由轨迹不过时须跑原版自重复对照并说明差距。
+  撞击类场景源码 qd 仍约为原版自身离散的 1.5–2 倍，未宣称自由轨迹通过。
+- 进一步缩小差距需要逐项复刻 PCG 归约顺序与 GPU 原子累加顺序，收益递减，暂停在此。
+- `validate.py` 设置比对兼容旧 metadata（缺 `initial_vx`/`initial_stretch` 取默认值，`demo` 归一化为名称）。
+
+### 单 kernel 逐位 A/B（`reconstruction/kernel_ab.py`）
+
+验证分三层，后一层不能替代前一层：**单 kernel 逐位 A/B → 整步逐步重放 → demo 自由轨迹 A/B**。
+
+- 原版来源：用 `cuobjdump -xptx` 从旧 so（SHA 校验）抽出 PTX，放在 `build/reconstruction-ptx/`，不入库。旧 so 只含 sm_52
+  PTX/cubin，5090 上本来就是驱动 JIT 这份 PTX；ctypes 直接调 driver API 加载，不经过主机 solver，也不登录。
+- 已确认：驱动 JIT 结果与 `ptxas 12.8 -arch=sm_120` 编出的 cubin 逐位一致，所以可以用这份 cubin 的 SASS
+  （`cuobjdump -sass -fun <名字>`）核对实际执行的指令。
+- 输入是随机生成的，并有意覆盖各个分支；每个接触/单元写不同粒子，避免原子累加顺序的影响。判据：所有输出逐位相等，且有非零写入。
+- **重要规律（逆向时容易漏）**：PTX 里不带 `.rn` 的 `mul`+`add/sub` 会被 ptxas 收缩成 FFMA。
+  照抄 PTX 写出的 `a*b - c*d` 实际执行的是 `FFMA(a, b, -(c*d))`（被减数的乘积参与融合）。
+  另外 `red.global.add.f32` 编译为 `REDG...FTZ`，非规格化数在累加前被冲成 0。
+  这两条已经做成 `numerics.fms()` 和 `numerics.atomic_add_at()`；新转写的 kernel 必须对照 SASS 判断哪些位置被收缩。
+
+本轮发现并修正的错误（都由 A/B 暴露，再对照 PTX/SASS 修正）：
+
+| kernel | 错误 | 修正后 |
+|---|---|---|
+| `evaluate_tetrahedron_force` | 9 个余子式分量 `a*b-c*d`，以及 `elastic - w*total` 被收缩，源码未模拟 | 3 个种子 × 60 万个分量逐位一致 |
+| `evaluate_soft_contact_force` | `pen*ke - vn*kd` 和 `r - vn2*n` 被收缩，源码未模拟 | 3 个种子 × 5 万次接触，力/标量/块逐位一致 |
+
+软接触现由 `reconstruction/contact.py:soft_contact_kernel` 实现，支持任意静态形状（含 SPHERE 分支），求解器已切换到它；
+`shape_body >= 0`（嵌入/仿射体）仍抛 `NotImplementedError`。
+注意：原版对 `shape_body >= 0` 且不在嵌入列表中的形状会**直接跳过**，不是报错。
+
+改用逐位一致的 kernel 后：
+
+| 场景 | 逐步重放 q / qd | 自由轨迹 q / qd |
+|---|---|---|
+| ball-contact | 0.0023 / 0.069 | 0.59 / 3.95（对 5 次原版 3.1–3.95） |
+| ball-slide | 0.0057 / 0.271 | 0.54 / 1.11（原版自身 1.14） |
+| ball-stretch | 0.0013 / 0.046 | 通过 |
+| cloth 4×4 | 0.0085 / 0.156 | 通过 |
+
+自由下落阶段，源码与原版的差异现在和原版重跑之间相同（第 150 步都是 1.8e-10，之前是 4.3e-6）。
+撞击处的放大仍大于原版自身离散，剩余来源是还没做逐位对齐的四面体切线乘法、预条件和 PCG 归约。
+
+### 原版结构的牛顿步（`reconstruction/native_step.py` + `reconstruction/pcg.py`）
+
+- 用 nsys 跟踪原版一帧（账号仅通过环境变量 `STYLE3D_SIM_ACCOUNT/PASSWORD` 传给该进程），得到真实的 kernel 与
+  memset/memcpy 序列；流水线写在 `native_step.py` 文件头。要点：力和接触力原子累加进 rhs；系统对角只有惯性项与接触项；
+  四面体刚度只进预条件矩阵，PCG 每次迭代矩阵自由地乘 `multiply_tetrahedron_tangent`；内积为块内 warp 归约 + cub 单 tile 归约。
+- 新增并逐位 A/B 通过的 kernel：`multiply_tetrahedron_tangent`、`add_tetrahedron_preconditioner`、`initialize_rhs`、
+  `initialize_block_diagonal`、`invert_block_preconditioner`、`initialize_zero_solution_and_reduce`、`update_cg_direction<mat3>`、
+  `multiply_matrix_and_reduce`（无 ELL 项）、`update_solution_residual_and_reduce`、cub `DeviceReduceSingleTileKernel<float>`
+  （< 4096 个部分和）。`kernel_ab.py` 现覆盖 13 项，多个种子全部通过。
+- 求解器：只有四面体（可带软接触）的模型自动走此路径（`ReconstructedSolver.native_structure`）；布料仍走旧的稀疏路径。
+- `multiply_soft_contact_hessian_off_diagonal` 未转写；非嵌入场景下单步重放与原版一致，说明在该场景下它不写入。
+
+**原子累加顺序**：原版共享顶点的 `red.add` 不可复现（同一输入跑 10 次得到 10 个不同结果）。单步重放中的剩余差异全部是
+近零分量或 ±1 ULP。`numerics.element_atomic_add` 采用“warp 内按顶点槽位、lane 升序；warp 间降序”，这是实测最接近 GPU 的顺序。
+用升序时源码质心在 300 步自由落体中系统偏低 5.4e-6（原版离散 4.4e-7）；改为降序后为 -1.2e-7，落入原版离散。
+
+本轮自由轨迹（`*-native-pipeline/`，复用原参考轨迹）：
+
+| 场景 | 源码对原版 qd 比值 | 原版之间 qd 比值 | 单步重放 q / qd |
+|---|---|---|---|
+| ball-contact 50 帧 | 对 5 次原版：1.64 / 0.37 / 0.29 / 0.85 / 0.92 | 0.28–1.48（中位 0.85） | 0.0023 / 0.069 |
+| ball-slide vx=2 | 对 2 次原版：1.01 / 1.11 | 1.14 | 0.0057 / 0.271 |
+| ball-stretch | 通过（0.61） | — | 0.0013 / 0.046 |
+| cloth 4×4 | 通过（旧路径，未变） | — | 0.0085 / 0.156 |
+
+结论：球体场景源码已与原版重复运行统计上不可区分；唯一超 1 的是对第 0 次原版，而原版之间超差的 3 对也都包含这一次。
+
+注意：分析脚本里时间步要用 `example.sim_dt`（球体是 1/480），不要写死 1/400。
+
+### 布料路径（Style3D 膜 + cot 弯曲）按原版结构重写
+
+- 原版的 kernel 序列见 `native_step.py` 文件头。布料特有的是：主机预计算常数矩阵（膜的各向同性部分 + 弯曲），
+  每个子步用 `initialize_block_non_diagonal` 展成块 ELL；每次牛顿迭代复制 ELL 模板，再用
+  `add_cloth_membrane_gauss_newton_hessian` 把 GN 修正加进对角块和 ELL（GN 块里会减掉常数矩阵已含的各向同性项）。
+- **主机端预计算**（`reconstruction/precompute.py`）：反汇编旧 so 的 `SolverNewton::precompute_matrices`
+  （`0x104470`，纯 SSE 单精度，不用 FMA）。用 `LD_PRELOAD` 钩子（拦截 `cudaMemcpy`/`cudaLaunchKernel`，见下）抓到原版上传的
+  缓冲作为真值：4×4 布料的对角 25/25、非对角 192/192 逐位一致。四面体体积也按原版主机公式（第一行展开的行列式，`1/(det·6)`）。
+- 新增并逐位 A/B 通过的 kernel：`evaluate_stretch_force`、`evaluate_bending_force`、`add_cloth_membrane_gauss_newton_hessian`
+  （含 ELL 二分查找、行数截断、缺列丢弃）、带 ELL 的 `multiply_matrix_and_reduce`。`kernel_ab.py` 现共 17 项，多种子通过。
+- 求解器：有 Style3D 属性、无弹簧、弯曲阻尼全 0 的布料走新路径；弹簧和弯曲阻尼（其切线/预条件 kernel 未还原）仍走旧稀疏路径。
+- 结果：
+
+| 场景 | 单步重放 | 自由轨迹 |
+|---|---|---|
+| cloth 4×4，120 帧（1 个 warp） | 240 步中 237 步逐位一致，其余 1–2 ULP | 通过（q 0.28 / qd 0.30），前 95 步逐位一致 |
+| cloth 16×16，60 帧（新 A/B，2 个块、16 个 warp） | 每步 12–16 个近零分量（|值| ≤ 1.3e-6）有差，其余逐位一致 | 通过（q 0.13 / qd 0.19），两边退出码 0 |
+
+| cloth 64×32 默认尺寸，60 帧，落地接触最多 788 个（`cloth64x32-old-60/`） | 通过（q 0.010 / qd 0.187），12 个接触步输入全一致 | 通过（q 0.18 / qd 0.38）；原版退出 134（拆卸） |
+
+**主机缓冲抓取工具**（scratchpad 里的 `cudahook.c`，不入库）：`LD_PRELOAD` 拦截 `cudaMemcpy/Async`（按目标地址和大小存文件）
+和 `cudaLaunchKernel`（按 PTX 形参布局记录实参）。旧 so 动态链接 `libcudart.so.12`，所以可以直接拦截。
+注意：nsys 报告会存下进程环境变量（含密码），导出需要的数据后必须删除报告文件。
+
+**`src/style3d_sim` 的分层**：`_core.pyi` 是 so 的 Python 绑定 `style3d_sim._core` 的类型存根，是 so 对外接口的权威描述
+（Config/Model/State/Control/Contact/Solver/Span/login 等，字段对应 C++ 结构体成员）；`newton_solver.py` 等是 Python 端的
+适配和工具层（Newton → `_core` 的数据映射），不在 so 内。
+
+### 新旧版本混用的教训
+
+直接运行 `examples/*.py` 导入的是 `.venv` 里的**新版** so（例如新版 PCG 用 `precondition_and_reduce`，旧版里根本没有）。
+任何 trace、钩子、对照都必须先 `validate.install_reference(validate.LEGACY)` 再导入 demo，并断言
+`style3d_sim._core.__file__` 是旧版路径（验证器的 native worker 已经这样做）。塑料袋旧版 trace 的 kernel 序列见下一步。
+
+### 自碰撞与 LBVH（已完成：逐位 A/B + 重放 + 自由轨迹在原版自身离散内）
+
+- 对照场景：`example_cloth_hanging.py --self-collision [--self-collision-radius 0.01]`（布料落地后堆叠）；
+  验证器已支持 `--self-collision`，并记入 metadata 与设置比对。
+- 旧版 trace（16×16，开启自碰撞）：
+  - 初始化：三角形、边各一棵 LBVH，`build_*_aabbs`（初始位置，thickness 0）→ 质心包围盒（cub 归约
+    `PrimitiveCentroidAabb`）→ `generate_morton_codes` → cub 稳定基数排序 → `build_radix_tree` → `build_escape_nodes`
+    → `build_primitive_leaf_nodes`。**拓扑只建一次，之后不重建**。
+  - 每子步：`build_*_aabbs`（当前位置，thickness = 自碰撞半径）→ memset 标志 → `refit_bvh`；
+    然后 `query_vertex_face → query_edge_edge → query_edge_face`。
+  - 每次牛顿迭代：第一次接触 kernel 后 memset（每粒子 mat3 缓冲 + 计数器）→ `accumulate_vertex_face/edge_edge/edge_face`
+    （在膜力、弯曲力之前写 rhs）→ … → 求逆前 `add_hessian_diagonal`；PCG 每次迭代 `multiply_contact_tangents`。
+  - 实参：半径 0.01；点-面/边-边/边-面刚度 0.5/0.1/1.0（配置默认值）；边-边、边-面用 2×半径；另有主机上传的邻接 CSR。
+- 已逐位 A/B 通过（`reconstruction/lbvh.py`）：`build_triangle_aabbs`、`build_edge_aabbs`（端点取 ivec4 的 .z/.w）、
+  `generate_morton_codes`（x/y/z 位交织掩码不同，照 PTX）、`build_radix_tree`（含重复键）、`build_escape_nodes`、
+  `build_primitive_leaf_nodes`、`refit_bvh`。排序用 numpy 稳定 argsort 代替 cub 稳定基数排序（语义等价，未单独 A/B）。
+- 三种 query 已逐位 A/B 通过（`reconstruction/selfcollision.py`，在折叠布料上测试，含分组过滤和槽位打满）：
+  无栈遍历（靠父指针判断来向）；每个查询线程有固定的 `max_slots`（31）个输出槽，**候选列表是确定的，没有原子竞争**。
+  - `query_vertex_face`：查询盒 = 顶点 ± r；阈值 ((r+extra)·1.5)²；可跳过含该顶点的三角形；点-三角形距离按 Ericson 分区，
+    退化三角形（|n|² < 1e-20）改为到三条边的最小距离；叉积与 va/vb/vc 均为被减数乘积融合。
+  - `query_edge_edge`：只取编号更大且不共享端点的边；阈值 (3r)²；线段距离按 Ericson，分母与分子用显式 fma 的 Kahan 乘积差。
+  - `query_edge_face`：查询盒 = 端点包围盒 ± 2r，只做共享顶点和分组过滤，**不做距离判断**。
+  - 分组过滤：`groups[u] == groups[w]` 或任一为负；P4 是 Newton 的某个每粒子 int 数组（集成时确认，疑为 particle_world）。
+- `accumulate_vertex_face` 已读一半：刚度 = stiffness·m_v·m_f/(m_v+m_f)（m_f 为三角形三顶点质量平均，带防溢出分支）；
+  力 = sign(d)·(r+extra−|d|)·k 沿法向；切线写入全局接触列表（**原子计数器追加，顺序不确定**，只影响后续原子累加顺序）。
+- `accumulate_vertex_face`、`accumulate_edge_edge` 已逐位 A/B 通过（力、对角块、接触列表三项；测试几何让每个地址只收一次原子贡献）：
+  - 接触记录 `SelfCollisionContactTangent` 60 字节：`ids[4]`、`w[6]`（`0, w0..w3, 0`）、`n[3]`、`k`、`count=4`；
+    列表由原子计数器追加，顺序不确定，比较时按 ids 排序。
+  - 点-面：k = stiffness·调和平均(m_v, 三角形平均质量)，任一为 0 时 (m_v+m_f)·stiffness；力 = sign(d)(r+extra−|d|)k·n；
+    三角形顶点立即原子累加（权重 −u,−v,−w），查询顶点在循环后累加一次（无接触也加 0）。收缩：叉积、`p−d·n`、重心分母与分子。
+  - 边-边：只接受 0<s,t<1；阈值 thickness，若两边相邻（`opposite` CSR：每条边的对角顶点升序，见上传数据）则
+    min(thickness, 平均边长/4)；距离 ≤ 1e-6 跳过；查询边端点用 fma 在线程内累加（1−s, s），候选边端点原子累加。
+- 布料 demo 修复：之前插入的 `--self-collision` 代码打断了 solver 的 if/elif 链，导致 `reconstructed` 被 VBD 覆盖；
+  已移到链之后。期间没有跑过受影响的原版或源码轨迹，布料重放复核通过。
+- `accumulate_edge_face` 已逐位 A/B 通过：边穿透三角形（端点在平面两侧、交点重心坐标都 ≥ 0.01、边长 ≥ 5e-4）；
+  该 kernel 的三角形法向是 (b−a)×(c−b)；修正方向 = Σ 相邻面贡献 g（fn=(w−z)×(o−z)，g=tn×fn，按
+  (dir×(o−P))·(dir×g) 的符号翻转（NaN 不翻），|tn·dir|>1e-6 时 g −= 2tn(dir·g)/(tn·dir)，其中 dir·g 的 fma 顺序为 x→y→z）；
+  力为常数 2·thickness·k；接触记录 5 点。
+- `multiply_contact_tangents`（完整乘积，含对角项，进 PCG 的 T 缓冲）、`add_hessian_diagonal`（对角块只进预条件 B）已逐位通过。
+  接触记录结构确认为 `int ids[5]; float w[5]; float n[3]; float k; int count`（4 点记录第 5 位补 0）。
+- 运行时参数（两次钩子抓取，半径 0.01 / 0.015 对照）：AABB 扩展 r；点-面 r 与 extra 都是 r；边-边、边-面 thickness = r+r；
+  刚度 0.5/0.1/1.0；槽位 31。query 在 `initialize_step` 之前用子步起始位置；accumulate 用当前迭代位置，力直接加进 rhs。
+- 已接入求解器（`SelfCollision` 类、`native_step`），顺序：第一次接触 kernel 后 accumulate（膜/弯曲力之前）；
+  第二次接触 kernel、弯曲阻尼预条件之后 `add_hessian_diagonal`；PCG 中弯曲阻尼切线之后 `multiply_contact_tangents`。
+- 对照场景：默认 64×32 落地场景里自碰撞几乎不起作用（与不开自碰撞的原版只差 ~1e-6），不能作证据；
+  改用 16×16、半径 0.04（平整布料内部即有点-面接触），原版开/不开自碰撞的差异达 3e-3 m（`cloth16-sc04-old-60/`）。
+- 集成修正（用钩子 dump 原版 accumulate 的输入输出逐位对上后确认）：accumulate 的“质量”实参 P6 不是粒子质量，
+  而是 **系统对角的拷贝**（主机刚度对角 + m/h² + 第一次接触 kernel 的标量）；`initialize_step` 对非活动粒子
+  （质量 ≤ 0 或清掉 ACTIVE 标志）把对角写 0，所以 `base_diagonal[~active] = 0`。修正前自碰撞力小 ~1e4 倍。
+- 结果（`cloth16-sc04-old-60/`，16×16、半径 0.04、60 帧 120 子步）：
+  - 单步重放 120 步全过：q 0.037、qd 0.48（容差比）；
+  - 自由轨迹：源码对原版 q 0.236、qd 1.573；**原版自己跑两次** q 0.221、qd 1.928（`cloth16-sc04-native-repeat/`）。
+    qd 超容差是原版自身的不确定性（原子累加顺序），源码落在原版自身离散之内。修正前是 q 107、qd 122。
+
+### 流体（fluid_kernel，已完成：8 个 kernel 逐位 A/B + 重放；自由轨迹在原版自身离散内）
+
+- 场景：`reconstruction/scenes.py` 的 `FluidTank`＝`examples/example_fluid.py` 去掉橡皮鸭（刚体尚未还原），同样的
+  晶格、Poly6 体积标定、6 个平面和两层边界采样。验证器 `--demo fluid --width <分辨率>`（8 → 576 粒子 + 3648 边界点，1 子步）。
+  源码端按路径加载 `src/style3d_sim/fluid.py`（导入 `style3d_sim` 包会加载原生 `_core`）。
+- 旧版 trace（每次牛顿迭代，128 线程/块）：`initialize_rhs` → memset(head=-1, D=0) → `build_grid`(当前迭代位置) →
+  `evaluate_rows` → `accumulate_rows`(y = 子步起始位置) → 接触力 → `initialize_block_diagonal` → A→B → 接触块 →
+  `add_diagonal`(D 只进 B) → 求逆；PCG 每次：memset T → `multiply_rows` → 接触非对角 → `multiply_matrix_and_reduce`；
+  PCG 后 `initialize_scale(1)` → `bound_scale(relaxation 0.5, 0.25·h_f)` → `scale_step(solution)` → `apply_nonlinear_step`。
+- 网格：网格点＝流体粒子在前、边界采样在后（每世界步幅 P）；格号 floor(x/h_f)（div.rn → rmi → rzi）；
+  哈希 (73856093, 19349663, 83492791) & (S−1)，S = 2·next_pow2(网格点数)（`Fluid::initialize` 0x121c1a）；
+  链表用 atom.exch 头插。**插入顺序在原版不可复现**：warp 内 lane 升序，warp 之间随机（实测 214:107 / 422:539），
+  所以邻居求和顺序每次运行都不同；源码按网格编号升序插入。
+- `evaluate_rows`：27 个格子按 k=0..26（dx=k%3, dy=k/3%3, dz=k/9），候选须同格号且世界相同或为 −1；
+  密度含自身与边界；中心梯度；64 槽缓存只收动态邻居且 r² < h²；黏性系数只在 j > q 且 μ > 0 时非零，
+  分母被 ptxas 收缩成 fma(0.01h, h, r²)（SASS 确认）。计数超过 64 继续累加。
+- `accumulate_rows`/`multiply_rows`：计数 ≤ 64 走缓存，否则重新遍历（无半径判断）；`multiply_rows` 缓存路径把中心项
+  在线程内累加、最后一次原子加，邻居项为 FFMA(k·s, c, −(ν·Δp))；回退路径的点积减法为 fma(dot, −V_j, s)。
+- A/B（`kernel_ab.py` 的 `fluid` 组，20 项全部逐位一致）：随机置换的流体子集（N > F）、负 particle_world、
+  边界层、压缩团簇（109 行走 >64 回退路径）、μ>0、非单位 dt。`accumulate_rows`/`multiply_rows` 每次只激活一行
+  （其他行 weight=0、count=0，对非零数据只加 ±0），使原子顺序确定；每行改动 30–1000 个值，全部含黏性项。
+- `multiply_soft_contact_hessian_off_diagonal`：静态形状时不改 T（钩子 dump：1728 个非零值，0 个变化），
+  所以至今未实现它是精确的；刚体耦合时才需要。
+- 结果（`fluid8-30/`，30 帧）：单步重放 30 步全过 q 0.004、qd 0.024；自由轨迹源码对原版 q 3.55、qd 3.77，
+  **原版自己两次** q 2.80、qd 4.02（`fluid8-30-native-repeat/`），逐帧最大位置差同量级（第 30 帧 6.9e-5 vs 8.0e-5）。
+  原版本身就过不了轨迹容差，源码在其离散之内。
+
+### 颗粒（granular_kernel，已完成：8 个 kernel 逐位 A/B + 重放 + 自由轨迹通过）
+
+- 场景：`reconstruction/scenes.py` 的 `GranularPile`（6³ 颗粒块侧向抛到地面，接触+摩擦、初始键+阻尼、塑性、
+  低断裂应变、adhesion）。`--demo granular`（有初始键：94 断裂、717 塑性）和 `--demo granular_adhesion`
+  （cohesion=0，只靠 adhesion 形成 ~378 个动态键，36 个再断裂），`--width` 为边长颗粒数。
+- 旧版每子步：每次牛顿迭代 `initialize_rhs` → memset(head, D) → `build_grid`(当前迭代位置, 子步起始位置) →
+  `accumulate_contacts` → `accumulate_bonds`(初始键, cohesion) → `accumulate_bonds`(动态键, adhesion) → 接触 … →
+  `add_diagonal`(D 进 B)；PCG：memset T → `multiply_contacts` → `multiply_bonds` ×2；最后一次迭代后
+  `commit_bonds` ×2(结果位置) → `build_grid`(结果) → `form_bonds` → `update_velocity`。
+- 主机（`Granular::initialize` 反汇编）：格子 = 2·max(半径) + gap（仅 adhesion>0 时加 gap），槽数同流体；
+  初始键邻接 CSR 在网格编号空间，每条键只记在较小编号的行，列升序；动态槽 = max_dynamic_bonds × 颗粒数（adhesion>0）。
+  Model 字段：+312 键阻尼、+316 yield、+320 压实、+324 断裂、+328 adhesion、+332 gap、+336 速度、+340 槽数。
+- 接触（行独占、无原子）：重叠 r² < (rᵢ+rⱼ)²；法向 d/|d|，|d| ≤ 1e-8 时用相对位移（`rsqrt.approx`，**未逐位仿真**，
+  只在两颗粒距离 ≤ 1e-8 且有相对运动时出现）或按 (min+max)%3 的轴；切向 t = fma(−dn, n, rel)；
+  η = min(c_d/dt, μ k pen / max(|t|, 1e-8))；力 fma(k·pen, n, −(η t))；块 ηI + (k−η)nnᵀ；32 槽缓存（槽优先布局），
+  超过 32 时乘法重新遍历。键：L_eff = max(L₀(1−c), min(L_h, fma(L₀, y, l)))，阻尼项 fma(l−l_ref, −d/dt, f)。
+- A/B（`kernel_ab.py` 的 `granular` 组，25 项逐位一致）：54 个颗粒走 >32 回退、232 条断键、49 条塑性提交、
+  407 个新键 / 25 个释放；带原子的键核每次只激活一条键。
+- 结果：`granular6-30/` 重放 120 步 q 0.002、qd 0.036，自由轨迹**直接通过**（q 0.017、qd 0.036；原版两次 0.019/0.036）；
+  `granular-adhesion6-30/` 重放 q 0.0007、qd 0.009，自由轨迹通过（q 0.030、qd 0.036；原版两次 0.028/0.036）。
+
+### 自碰撞粒子对（已完成：逐位 A/B + 重放 + 自由轨迹在原版离散内）
+
+- 自由粒子（不属于弹簧/三角形/边/四面体/刚体、ACTIVE、非 PROXY、质量与半径为正有限）在开启自碰撞时走粒子对路径。
+  场景 `ParticlePile`（`--demo particles`，125 个粒子落地互撞）。
+- 旧版调度（钩子）：初始化时 `build_particle_aabbs`（初始位置 ± 模型粒子半径，不是 0 厚度）→ 建树；每子步
+  `build_particle_aabbs`（子步起始位置）→ `refit_bvh` → `query_particle_pairs`；每次牛顿迭代 `initialize_rhs` 后
+  `accumulate_particle_pairs`（权重 = 系统对角拷贝，刚度 `self_collision_particle_particle_stiffness` = 1.0），
+  再 `add_hessian_diagonal`、PCG 中 `multiply_contact_tangents`。阈值 rᵢ+rⱼ 用模型粒子半径，**不用** self_collision_radius。
+- query 从叶子往上爬、遍历兄弟子树（escape 先序），只保留 j > i；实参顺序 nodes、parent、children、order、escape、leaf。
+- 原子顺序：该场景原版在前 ~27 步运行间可复现，于是逐一试了累加顺序：accumulate 按 warp 降序 → 槽位 → 指令 → lane 升序，
+  `multiply_contact_tangents` 也改成 SIMT 顺序后，单步重放前 24 步**逐位一致**（之前第 1 步就差 1 ULP）。
+- 结果（`particles5-30/`）：重放 q 0.0002、qd 0.003；自由轨迹源码对原版 q 10.4、qd 4.9，**原版两次** q 56.5、qd 48.5
+  （粒子堆是混沌系统，原版自身就远超容差；源码比原版第二次更接近原版第一次）。
+
+### 弹簧（已完成：2 个 kernel 逐位 A/B + 主机常量矩阵逐位 + 重放 + 自由轨迹通过）
+
+- `evaluate_spring_force`：f = k·fma(−L, n, d)（ptxas 融合），d = x_b − x_a，a 加 f、b 减 f。
+- `add_spring_gauss_newton_hessian`：H = nnᵀ + max(0, 1−L/l)(I−nnᵀ)（l ≤ 1e-8 时 H = I），对两端对角加 k(H−I)，
+  ELL 的 (a,b)/(b,a) 加 −k(H−I)（二分查找）；k ≤ 0 或 L ≤ 0 跳过。
+- 主机（上传缓冲逐位比对）：对角按弹簧顺序累加 k；每行 map 对 (a,b)、(b,a) 加 +k，ELL 模板存 (列, −值)。
+  弹簧在 precompute 中位于弯曲之前；**弹簧与三角形混合时同一 ELL 槽的合并方式未验证**，这种模型仍走稀疏路径。
+- 旧版顺序：接触力 → `evaluate_spring_force` → `initialize_block_diagonal` → 拷贝 ELL 模板 → Hessian → A→B。
+- 场景 `SpringNet`（`--demo springs`，8×8 质点弹簧网，结构/剪切/弯曲弹簧，两角固定）：原版自身从第 1 步起就不可复现；
+  重放 q 0.0013、qd 0.022；自由轨迹**直接通过**（q 0.029、qd 0.029；原版两次 0.013/0.035）。
+
+### 三角形空气阻力（已完成：4 个 kernel 逐位 A/B + 重放）
+
+- 只保留 Cd > 0 的面（模型顺序）。每子步 `initialize_step` 后 `initialize_triangle_drag`（子步起始位置的单位法向与面积，
+  |叉积| ≤ 1e-12 时法向为 0）；每次迭代 `initialize_rhs` 后 `evaluate_triangle_drag`：v = Σ位移·(1/h)/3，
+  rel = fma(Σ, (1/h)/3, −wind)，vn = n·rel，q = (ρ/2)·Cd·面积，每顶点力 −(q·vn·|vn|)/3·n，切线标量 2q|vn|(1/h)/9；
+  接触块之后 `add_triangle_drag_preconditioner`（c nnᵀ 进 B）；PCG 中 `multiply_triangle_drag_tangent`。
+  配置 `air_density` 1.225、`wind_velocity`。场景 `ClothDrag`（`--demo cloth_drag`，挂布 + 风 (3,1,0)）：重放 q 0.002、qd 0.024。
+
+### 纯 Python 的 `_core` 替身（`reconstruction/core.py`，demo 不再依赖 `_core.so` 的路线）
+
+- `core.install()` 把重建实现注册为 `style3d_sim._core`：Span/Model/State/Contact/Control/Config/Solver、
+  枚举（数值与默认值从原版模块导出）、login/is_logged_in/set_log_callback。**未改动的包装层**
+  （`style3d_sim.NewtonSolver`，含刚体/关节预处理）和所有 demo 直接跑在重建实现上。
+- Span 是 (设备指针, 元素数)；替身用 Warp 的指针视图读写同一 CUDA 上下文的内存，在主机上同步执行（不能进 CUDA graph）。
+  未重建的物理一律抛 `NotImplementedError`。
+- 验证器 `--worker shim`（等价于 `--solver synreal` + 替身），`--compare-only --candidate shim` 写 `report-shim.json`。
+  已跑场景：ball、cloth4、cloth16-sc04、fluid、granular×2、particles、clothdrag、springs 全部与直接源码路径一致
+  （有最新源码轨迹的场景逐位相同）；cloth4 与原版前 95 步逐位一致。
+
+### 仿射刚体（ABD，SO(3) 增广拉格朗日，进行中）
+
+- 包装层把每个刚体变成 4 个状态“粒子”：平移 + 仿射矩阵 A 的三列（`affine_body_indices`）。质量对角：平移 m、
+  列为二阶矩对角；非对角二阶矩进 `particle_mass_non_diagonal`（ELL，每行 2 槽，列升序）。
+- 已逐位 A/B（`kernel_ab.py` 的 `affine` 组）：`initialize_affine_body_so3_state`（‖A‖ 归一后最多 8 次牛顿极分解
+  X←(X+cof X/det X)/2、|det| ≤ 1e-10 提前停、Gram–Schmidt + 手性修正）、`evaluate/multiply/add_..._so3_augmented_
+  lagrangian_force/tangent/preconditioner`（Y = sym(Rᵀ G)，列 j 受 −w·α·(R Y)_j，预条件 = 切线算子的对角块，
+  编译器保留了所有 ×0 运算）、`update_..._state`（B = A+Λ，R = 极分解(B)，标志为真时 Λ = R·sym(Rᵀ(B−R))）。
+- 主机规则（`SolverNewton::step` 反汇编）：第 c 次（从 1 数）牛顿迭代后若 c == affine_body_rigidity_primal_iterations
+  且 c < nonlinear_iterations 则更新乘子，否则只更新 R；α 实参为 constraint_alpha·(1/h²)，权重为 body_masses。
+- `initialize_step`：粒子类型数组（1 平移、2 列）——列不加重力；对角 = host + (m + Σ cₖ·cacheₖ)/h²；
+  非活动刚体粒子 prev = x − h·v。`initialize_rhs`：惯性项加上非对角质量 ELL 的 fma 累加。
+  软接触 kernel 的 P9 实为粒子类型：仿射坐标粒子的接触直接跳过。
+- 结果：`box1-30/`（单个自由旋转盒子）与 `box3-30/`（3 个，其中一个惯性非主轴、6 个非零耦合项）经替身运行，
+  **与原版 120 步全部逐位一致**。
+- 刚体罚接触（`reconstruction/rigid_contact.py`，已完成）：`evaluate_contact_force`、`evaluate_contact_tangent`
+  （块模式写 A 和 B、乘积模式）全部逐位 A/B（偏移有/无、平滑摩擦 ε>0、速度数组路径）。要点：形状属于仿射刚体时
+  局部点 p 映射为 x_t + Σ(p−com)_k a_k，力按 (F, F·r_k) 分到平移与三列；球形状点 = 中心 + A⁻¹(r n)（|det| ≤ 1e-10 时
+  用极分解 Rᵀ）；ke/kd/kf/μ 取两形状最大值（ε>0 时平均、μ=√(μ₀μ₁)）；fn = max(fma(−vn, kd, d·ke), 0)；
+  vt = fma(−(dv·n), n, dv)；两处速度点积 x 先累加、球对球法向长度也 x 先累加；切线乘积只加非同粒子耦合项，
+  块 = c·w²·nnᵀ + (η/h)w_f²(I−nnᵀ) − s_iso I（各向同性部分已由力核写进对角标量）。
+  原子顺序必须按 SIMT（warp 降序、指令、lane 升序）：按接触逐个累加会在多个接触共享刚体时差 1 ULP。
+- 结果：`dropnr1-30/`（旋转盒子 + 球体刚体落地静止，滚动/扭转摩擦关闭）经替身运行**与原版 121 个状态全部逐位一致**
+  （原版两次运行也逐位相同）。
+- 滚动/扭转摩擦（`reconstruction/rolling_contact.py`，已完成）：三个 kernel 都按值传 248 B 的 `RollingContactView`
+  （字段偏移见模块文档：+136 滚动摩擦、+144 扭转摩擦、+200 刚体系惯性张量 `body_inertia_tensors`、+244
+  rolling_friction_velocity_epsilon）。几何与普通接触相同，但：两刚体同槽或跨世界直接跳过；静态球的接触点用
+  fma(r, n, p)；球对球法向长度 y 先累加；法向速度点积 y 先累加；fn = max(fms(d, ke, vn, kd), 0)。
+  有效半径 r = min_body |A(p − com)|；τ_r = r·(μ_r·fn)、τ_t = r·(μ_t·fn)。切向基 t1 = normalize(n × a)
+  （|n_x| < 0.9 时 a = e_x，否则 e_y），t2 = n × t1。每个刚体：J = tr(I)/2·1 − I，B_k = Σ_j a_j J[k,j]，W = Σ a_k B_kᵀ，
+  I_w = tr(W)·1 − W，按余子式求逆（det ≤ 1e-30 跳过），u_d = ±I_w⁻¹ d（刚体 1 取负），列粒子 k 的雅可比行
+  g_dk = u_d × B_k；ω_d = Σ g_dk·(a_k − a_k_prev)/h。c_r = τ_r / max(ε, |(ω1, ω2)|)、c_t = τ_t / max(ε, |ω3|)。
+  力 = −Jᵀ diag(c_r, c_r, c_t) J v；预条件块 = Σ_d (c_d/h) g_d g_dᵀ；切线乘积 = Jᵀ (c/h) J p。
+  `kernel_ab.py` 的 `rolling_contact` 组 16 项全部逐位（偏移有/无、极小 ε、单 warp 内共享刚体）。原子顺序：雅可比项
+  循环按 4 展开，先展开部分、再余数循环（lane 汇合后一起执行），lane 升序；跨 warp 共享刚体时 GPU 自身不确定（实测）。
+  启动顺序（hook 实测）：contact_force → rolling_force → so3_force；so3_preconditioner → rolling_preconditioner；
+  PCG 内 so3_tangent → contact_tangent → rolling_tangent。
+- 结果：`drop1-30/`（同一场景，Newton 默认滚动/扭转摩擦，滚动 kernel 在 15 万次接触评估中约 9.8 万次生效）经替身运行
+  **与原版 121 个状态全部逐位一致**。
+- 软接触对刚体形状（`reconstruction/contact.py` 的 `_body_path` 与 `multiply_soft_contact_hessian_off_diagonal`，
+  已完成）：`evaluate_soft_contact_force` 的 P28–P30 = 仿射槽 ids / indices / com，P33 = 粒子速度（prev 为空时），
+  P38 = `Contact.soft_particle_only_shapes`（逐形状标志，仅全表面接触时由包装层设置）。body_pos、body_vel 都是刚体局部量：
+  接触点 → x_t + Σ(p−com)_k a_k，速度 → A·bv。反力分两次散射：法向部分用 d = p − com，摩擦部分用 e = 球面点 − com；
+  刚体标量 = s 加到平移、d_k·(s·d_k) 加到列，球形状另加摩擦项；3×3 块的雅可比项为 (粒子, 1, 1)、(平移, −1, −1)、
+  (列 j, −d_j, −e_j)。非对角乘积 kernel 每次 PCG 迭代运行（顺序：so3 切线 → 接触切线 → 本 kernel → 滚动切线）：
+  对每个项 a 加 w_a·K·Σ_{b≠a, 粒子号不同} w_b·p_b，K_n = s'·nnᵀ（fn > 0 时 s' = kd/h + ke），K_f = (η/h)(I − nnᵀ)。
+  ptxas 在此 kernel 中把 1 − n_k² 收缩成 fma(−n_k, n_k, 1)，并把粒子速度并入相对速度：fma(x − x_prev, 1/h, −v_body)；
+  摩擦投影的点积在此 kernel 为 y 先累加（力 kernel 为 x 先）。这些都靠在 PTX 中把 red 改成 st 输出中间量逐个定位。
+  `kernel_ab.py` 的 `soft_body_contact`（并入 `rolling_contact` 组）力/标量/块/双拷贝/非对角共 14 项逐位；
+  刚体只在一个 warp 内共享（跨 warp 时 GPU 自身两个块拷贝都不一致，实测）。
+- 结果：`pbody4-30/`（64 个自由粒子落在盒子刚体与球刚体上，刚体在地面上，默认滚动摩擦）经替身运行：前 23 步逐位，
+  之后 q 最大差 2.06e-6、qd 1.2e-4；原版自重复（`pbody4-30-native-repeat/`）第 25 步起分叉，q 2.03e-6、qd 1.07e-4，
+  属于原版自身离散。
+- 关节弹簧（`reconstruction/joints.py`，已完成）：包装层把 Newton 关节变成追加在 body spring 数组末尾的 joint spring
+  （转动关节 = 锚点 + 轴上一点两根，球关节一根；刚度由包装层按质量归一化给出）。端点 p = fma(w3,a2,fma(w2,a1,fma(w0,t,w1·a0)))，
+  主机权重 w = (1, p_local − com)，世界端直接用存储点。AL 力 f = k·(α/h²)·((p1 − p0) + λ)，刚体 0 加 w0_k·f、刚体 1 加
+  w1_k·(−f)，原子按 SIMT；λ 每步清零，除最后一次外每次牛顿迭代后 λ = (p1 + λ) − p0。`evaluate_body_spring_force` 的
+  P11 = false 时跳过 joint spring（普通 body spring 尚未接入，替身遇到会报错）。
+  主机常量模板（hook 导出逐位核对）：`combine_system_non_diagonal` 的 7 个 NonZeroEntry 模板为槽优先 ELL
+  （entry[slot·n + row]），out = fma(fma-链(L1 质量, L2..L6 × c1..c5), 1/h², L0)，joint spring 模板是 L4（权重 c3 =
+  constraint_alpha）；`initialize_step` 对角 = host + fma-链(m, D1..D5 × 同样系数)/(h·h)，D3 = Σ k·w_i²。
+  模板值 = 按弹簧顺序 float32 累加 F(F(k·w_i)·w_j)（带号权重），模式为质量与弹簧耦合的并集、列升序。
+  `kernel_ab.py` 的 `joint_springs`（并入 `rolling_contact` 组）力/更新逐位。
+- 结果：`pend2-30/`（两节转动关节摆，第一节连世界）与 `pendball2-30/`（球关节）经替身运行**与原版 121 个状态全部逐位一致**。
+- 转动关节驱动（`joints.py` 的 `Drives`，已完成角度型）：`evaluate_joint_drive_load`、`add_joint_drive_preconditioner`、
+  `multiply_joint_drive_tangent`、`update_joint_drive_angle_state` 逐位 A/B（`joint_drives` 组：各目标模式、力矩限幅、
+  已存角度分支、无模式数组）。角度：u = 轴，p̂/ĉ = 父/子参考点到轴的垂足方向，θ = atan2f(u·(p̂×ĉ), p̂·ĉ)（CUDA 内联有理
+  多项式照抄）；起步角 θ0 由上一步末状态（P3/P4）给出，首次用前一位置算；θ 按 round-half-away((θ0−θ)/2π) 展开（add.rz +
+  截断）。τ = joint_f + clamp(ke(q*−θ0) + kd(v*−qd0)) − c·qd0 − (kd + c)((θ−θ0)/h − qd0)，qd0 = 主机在 initialize_step 后
+  从 `Control.joint_drive_velocities` 拷入的逐驱动速度；ke/kd/限幅/模式/阻尼按 dof，joint_f 与目标速度按全局 dof，
+  目标位置按 target。预条件 s·g gᵀ、切线 Jᵀ(s·J p)，s = (kd + c)/h。ptxas 收缩细节：x − a·b → fma(−a,b,x)；p̂×ĉ 的
+  x 分量融合减数积；轴项 fma(−sc, u×ĉ, sp·(u×p̂))。顺序：力在 joint spring 之后、so3 之前；预条件在 so3 之后；PCG 中在
+  软接触非对角之后、滚动切线之前；角度状态更新在 update_velocity 之后。
+- 结果：`penddrive2-30/`（两节摆，位置驱动 ke=2、kd=0.2、阻尼 0.01）经替身运行**与原版 121 个状态全部逐位一致**。
+- 角度限位（`joints.evaluate_angular_limits`，已完成）：按值传 JointCoordinateView（120 B：indices、types、pairs、
+  po/pa/pr、5 组权重、dof、count、每世界数、步长）与 AngularLimitView（32 B：lower/upper/ke/kd，按 dof）。仅 type 1，
+  ke = kd = 0 跳过；q < lower 时 τ = max(0, fms(ke, lower−q, kd, w))，q > upper 时 min(0, …)，w = (q−θ0)/h；
+  s = fma(kd, 1/h, ke)。三种模式：力（τJ）、预条件（s g gᵀ，子/父按槽交错）、切线（J p 子/父按槽交错累加）。
+  与驱动 kernel 唯一的舍入差别：轴项融合被减数积。A/B 三模式逐位；`pendlim2-30/`（驱动 + 限位 [−0.4, 0.3]，
+  ke=50、kd=1）经替身运行**与原版 121 个状态全部逐位一致**。
+- 移动关节（已完成）：驱动 type 0 分支（坐标 = 子原点沿父轴的位移，父刚体还受轴转动项 e = 垂直分量/|轴|；
+  load/preconditioner/tangent 逐位）。warp 内分支发散的原子顺序：角度型 lane 先执行，然后无父刚体的移动型 lane（切线
+  kernel 中是单独代码块），最后有父刚体的移动型 lane。点线约束（`joints.PointLines`）：`initialize_joint_body_point_line_
+  state`（线段参数 s 截到 ±½、λ = 0、内部点时冻结投影 P = I − d dᵀ/|d|²，x 先累加的点积）、`evaluate_joint_body_point_
+  line_augmented_lagrangian_force`（F = k·α/h²·P((mid + s·d − p) + λ)，点刚体 +w_pt·F、线刚体 −w_q·F，w_q = fma(w_e0 + w_e1,
+  ½, s·(w_e1 − w_e0))）、`add_joint_body_point_line_gauss_newton_hessian`（8 个雅可比项两两 c·P 块：同粒子进对角，否则在
+  该行升序列中二分查找后加到 ELL，(a,b) 与 (b,a) 同块）、`update_joint_body_point_line_augmented_lagrangian_state`
+  （每次迭代都跑；用 p − λ 重算 s 与 P，标志 = 不是最后一次迭代时 λ = P((λ + q) − p) 再重算一次）。全部逐位 A/B
+  （`point_lines` 组）。顺序：初始化在 joint spring 初始化之后；力在 joint spring 力之后；Hessian 在 ELL 模板拷贝之后、
+  对角拷贝到预条件之前；更新在 so3 与 joint spring 更新之后。ELL 模式 = 质量、joint spring 与点线所涉两刚体全部粒子对的并集。
+- 结果：`pendprism2-30/`（转动 + 带驱动的移动关节）经替身运行**与原版 121 个状态全部逐位一致**。`kernel_ab.py` 全套
+  198 项逐位通过。
+- 关节电枢（`joints.evaluate_joint_armature`，已完成）：s = armature/h²；力 = s·(qd0·h − (q − q_prev))·J（角度差按 2π
+  就近折回），q 为当前/步初的 atan2 角或轴向位移；预条件与切线同角度限位（子/父按槽交错）。两种关节共用散射代码，
+  所以没有分支发散的顺序问题；雅可比与限位 kernel 相同（轴项融合被减数积，移动型父行融合被减数积）。三模式逐位 A/B；
+  启动顺序在驱动与限位之间（三个阶段都是）。`pendarm2-30/`（驱动 + 限位 + 电枢 0.01）**与原版 121 个状态逐位一致**。
+- PD_NEWTON + inertia_mode NONE（目标 demo 的设置，已完成刚体/关节场景）：线性求解改为 `multiply_matrix<NonZeroEntry,
+  mat3>`（Ap = D p + Σ fma(v, p_col, acc) 直接用 combine 输出的标量 ELL，不展开成块）+ thrust `transform_reduce`
+  （Vec3InnerProduct 与 PreconditionedResidualInnerProduct，经 cub DeviceReduceSingleTileKernel，与已有 cub_sum 同序）+
+  `update_solution_and_residual`（α 守卫同前，r = fma(−α, Ap, r)，x = fma(α, p, x)）；PCG 前 r = rhs（设备拷贝）、x = 0，
+  不调用 initialize_block_non_diagonal / initialize_zero_solution_and_reduce。inertia NONE 只改变包装层
+  （`_scatter_affine_body_forces`），原生求解器不变。`pendpd2-30/`（驱动摆，PD_NEWTON + NONE）**与原版 121 个状态
+  逐位一致**。后续已补PD布料路径，但完整轨迹尚未通过（见最新工作日志）。仍未覆盖：PD弹簧/点线 Hessian、
+  ≥ 4096 粒子时 cub 多 block 归约（DeviceReduceKernel）。
+- 回归：`pend2/pendball2/penddrive2/pendlim2/pendprism2/drop1` 在加入驱动/点线/电枢后重跑，仍全部逐位一致。
+- 目标 demo（`demos/piper_bag_transport`）还需要：PD_NEWTON 下的布料与自碰撞、cub 多 block 归约、全表面软接触
+  （`enable_rigid_soft_full_surface_contact` → `evaluate_surface_contact_force` 等）。
+- 待做：普通 body spring / 点线 / 距离约束、hard/surface contact（全表面软接触 `soft_indices` 走 `evaluate_surface_contact_force`）、关节、刚体弹簧/距离/点线约束、固定/锁定刚体、其他惯性/刚性模型。
+
+### 下一步
+
+- 弯曲阻尼已完成：`add_bending_damping_preconditioner`、`multiply_bending_damping_tangent` 逐位 A/B 通过并接入流水线
+  （位置按旧版 trace：第二次接触 kernel 之后、求逆之前；PCG 每次迭代写入 T 缓冲）。
+- `examples/example_plastic_bag.py` 的 `assets/plastic_bag.usd` 是本地脚本生成的替代资产，不作为基准。
+  用户指定的综合目标场景是 `demos/piper_bag_transport/demo_piper_bag_transport.py`：机械臂（仿射体 + SO(3) 增广拉格朗日、
+  增广拉格朗日关节、位置/速度驱动）、刚体苹果（凸包、滚动/扭转摩擦）、6007 粒子布袋带自碰撞。先用旧版 so 做 trace，
+  再按模块推进。
+- 塑料袋（旧版 trace）：在已还原的布料流水线之外，还需要弯曲阻尼（`add_bending_damping_preconditioner`、
+  `multiply_bending_damping_tangent`）、自碰撞（`query_*`、`accumulate_*`、`add_hessian_diagonal`、`multiply_contact_tangents`）、
+  LBVH（`build_*_aabbs`、`refit_bvh`、初始化建树）。PCG 变体与球体/布料相同。
+0. 布料剩余：弹簧（`add_spring_gauss_newton_hessian`/`evaluate_spring_force`）、弯曲阻尼（`add_bending_damping_preconditioner`）、
+   cub 归约超过 4096 个部分和时的整 tile 路径。
+1. 接触剩余分支：SPHERE（type 3）、动态 body（body_vel 非零、shape_body >= 0）、四面体嵌入（P29）；以及 `multiply_soft_contact_hessian_off_diagonal`（仅嵌入/刚体耦合时用到）。
+2. 已完成：自碰撞（含粒子对）、fluid、granular、弹簧、三角形阻力。剩余：关节与驱动、刚体接触（hard/surface）、线缆、多世界 PCG、弹簧+三角形混合矩阵。
+3. 每个模块都用「完整 A/B + `--replay`」双重验证；自由轨迹不过时，先跑原版自重复确认是否属于原版自身的不确定性。
+
+## 6. 怎么验证与运行命令
+
+先进入项目：
+
+```bash
+cd /home/oem/code/agent/style3d-sim
+```
+
+### 快速重跑源码，复用现有原版参考
+
+下面不登录、不重跑官方库，只覆盖该目录的源码侧结果；需要保留旧候选结果时先复制该目录。
+
+```bash
+.venv/bin/python -m reconstruction.validate --worker source --demo ball --frames 50 --output build/reconstruction-validation/ball-contact-old-50
+.venv/bin/python -m reconstruction.validate --compare-only --output build/reconstruction-validation/ball-contact-old-50
+```
+
+`--compare-only` 只重新计算数值报告，会将 `clean_execution` 置为 null，并覆盖 `report.json`。它不能重新测量已有进程退出码。若需保留历史退出码，先保留原报告，不要把 null 填成未经测量的成功。
+
+### 逐步重放（不登录、不运行官方库，只读已保存的原版轨迹）
+
+```bash
+.venv/bin/python -m reconstruction.validate --replay --output build/reconstruction-validation/ball-contact-old-50
+```
+
+场景参数从 `native-metadata.json` 读取；结果写 `replay.json`，不改 `report.json`。
+
+### 新的一次完整 A/B
+
+```bash
+.venv/bin/python -m reconstruction.validate --demo ball --frames 50
+.venv/bin/python -m reconstruction.validate --demo ball --initial-stretch 1.1 --frames 20
+.venv/bin/python -m reconstruction.validate --frames 120 --width 4 --height 4
+.venv/bin/python -m reconstruction.validate --demo ball --initial-vx 2 --frames 70
+```
+
+默认生成新的时间戳输出目录。默认 reference 已是正确旧库，不需传新版路径。用 `--output` 指定目录时应使用新目录；工具拒绝覆盖已有轨迹的完整 A/B 运行。
+
+### 单独运行源码 demo
+
+```bash
+.venv/bin/python examples/example_ball.py --solver reconstructed --viewer null --num-frames 50 --test
+.venv/bin/python examples/example_ball.py --solver reconstructed --initial-stretch 1.1 --viewer null --num-frames 20 --test
+.venv/bin/python examples/example_cloth_hanging.py --solver reconstructed --width 4 --height 4 --viewer null --num-frames 120 --test
+```
+
+去掉 `--viewer null` 可尝试 GUI。不要直接运行默认大布料长时间触地后，凭视觉就宣布所有布料路径通过。
+
+### 本地检查
+
+```bash
+.venv/bin/python -m pytest reconstruction/tests -q
+.venv/bin/python -m reconstruction.verify_recovered
+.venv/bin/python -m reconstruction.verify_recovered --compile
+.venv/bin/python -m reconstruction.kernel_ab --seed 1 --count 50000   # 单 kernel 逐位 A/B
+git diff --check
+```
+
+### 判据
+
+每个子步都保存位置 `q`、速度 `qd`，包含初始帧；还保存 model、外力、接触数量、元数据。
+
+```text
+abs(source-reference) <= atol + rtol*abs(reference)
+q:  atol=2e-5 m,   rtol=1e-5
+qd: atol=3e-4 m/s, rtol=1e-4
+```
+
+同时要求有限值、相同初态/模型/相关设置、相同输入、源码进程未导入或映射官方库。场景必须确实激活目标模块，例如自由落体不能证明接触正确，静止无应力单元不能充分证明弹性正确。
+
+验证器退出码：0 为数值通过且进程正常；1 为数值失败或运行未完成；2 为数值通过但退出异常/状态未知。以 `report.json` 分别判断数值和进程状态。
+
+注意：目前输入一致检查把接触数量也要求完全相同；长轨迹中几何误差可能导致候选数量差异，应定位原因，不要草率删除这个检查。当前未保存所有接触数组；必要时只补首个失败子步的诊断数据。
+
+## 7. 登录与现有故障
+
+官方参考需要有效账号。现有自动登录读取用户本地凭据文件，位于仓库外：
+
+```text
+~/.config/style3d-sim/credentials.json
+```
+
+不要打印、复制入仓库或在日志中记录凭据。无需用户再次提供密码。环境变量 `STYLE3D_SIM_ACCOUNT` / `STYLE3D_SIM_PASSWORD` 完整存在时优先于文件。
+
+原库曾正常登录并完成仿真后，在退出时发生认证心跳线程 SIGABRT / SIGSEGV。曾通过 gdb 定位到 `s3dnet::Client::stopHeartbeat/logout` 与 Auth 析构相关路径。也出现过登录直接返回 False，具体服务端原因未知。
+
+- 一次参考轨迹完成但退出异常，可以保存数值证据，必须如实记录退出状态。
+- 不用 `os._exit()` 隐藏错误，不强制抢登，不修改认证检查。
+- 不同时启动多个官方参考进程。
+- 本轮 50 帧落地对照两边退出均正常，不要把历史退出故障写成每次必现。
+
+## 8. 工作区保护与交接边界
+
+本次源码工作没有提交 git commit，也没有推送远端。`reconstruction/` 当前为未跟踪目录，但文件已实际写入项目；下一位按用户要求决定是否提交。
+
+工作区已有其他任务改动：`uv.lock`、`example_plastic_bag.py`、自动登录代码和测试、部署脚本、二进制子模块中的其他文件等。不要 `git reset --hard`、清理未跟踪文件或回滚这些改动。
+
+接触已有 2 个专项单元测试，10 个测试全部通过；落地/滑动自由 A/B 仍记为未通过，逐步重放通过（见第 5 节）。`reconstruction/README.txt` 是较早的简版状态，接触阶段以本交接和最新报告为准。
+
+从第 5 节的失败点继续即可，不要重做已经通过的部署、登录方案或 80 个归档文件的整理。

@@ -1,0 +1,1226 @@
+// [lbvh_builder.cu] kernel 16/29   PTX 1219 行   SASS 552 条指令
+// 签名: void cub::CUB_200302_520_NS::DeviceRadixSortSingleTileKernel<cub::CUB_200302_520_NS::DeviceRadixSortPolicy<unsigned int, int, unsigned int>::Policy900, false, unsigned int, int, unsigned int, cub::CUB_200302_520_NS::detail::identity_decomposer_t>(unsigned int const*, unsigned int*, int const*, int*, unsigned int, int, int, cub::CUB_200302_520_NS::detail::identity_decomposer_t)
+// 归一化原型: void cub::CUB_200302_520_NS::DeviceRadixSortSingleTileKernel<cub::CUB_200302_520_NS::DeviceRadixSortPolicy<unsigned int, int, unsigned int>::Policy900, false, unsigned int, int, unsigned int, cub::CUB_200302_520_NS::detail::identity_decomposer_t>(unsigned int const*, unsigned int*, int const*, int*, unsigned int, int, int, cub::CUB_200302_520_NS::detail::identity_decomposer_t)
+// maxntid: 256, 1, 1   ptxas: REG=128 SHARED=33856 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=14 local=0 branch=63
+
+_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_(
+.param .u64 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_0,
+.param .u64 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_1,
+.param .u64 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_2,
+.param .u64 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_3,
+.param .u32 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_4,
+.param .u32 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_5,
+.param .u32 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_6,
+.param .align 1 .b8 _ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_7[1]
+)
+.maxntid 256, 1, 1
+.minnctapersm 1
+{
+.reg .pred %p<70>;
+.reg .b16 %rs<39>;
+.reg .b32 %r<862>;
+.reg .b64 %rd<18>;
+//
+.shared .align 16 .b8 _ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage[33856];
+
+ld.param.u64 %rd8, [_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_0];
+ld.param.u64 %rd6, [_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_2];
+ld.param.u32 %r293, [_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_4];
+ld.param.u32 %r859, [_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_5];
+ld.param.u32 %r295, [_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_6];
+cvta.to.global.u64 %rd9, %rd8;
+mov.u32 %r297, %tid.x;
+mul.lo.s32 %r1, %r297, 19;
+setp.ge.s32 %p1, %r1, %r293;
+mul.wide.s32 %rd10, %r1, 4;
+add.s64 %rd1, %rd9, %rd10;
+mov.u32 %r838, -1;
+mov.u32 %r839, %r838;
+@%p1 bra $L__BB17_2;
+
+ld.global.u32 %r839, [%rd1];
+
+$L__BB17_2:
+add.s32 %r4, %r1, 1;
+setp.ge.s32 %p2, %r4, %r293;
+@%p2 bra $L__BB17_4;
+
+ld.global.u32 %r838, [%rd1+4];
+
+$L__BB17_4:
+add.s32 %r7, %r1, 2;
+setp.ge.s32 %p3, %r7, %r293;
+mov.u32 %r836, -1;
+mov.u32 %r837, %r836;
+@%p3 bra $L__BB17_6;
+
+ld.global.u32 %r837, [%rd1+8];
+
+$L__BB17_6:
+add.s32 %r10, %r1, 3;
+setp.ge.s32 %p4, %r10, %r293;
+@%p4 bra $L__BB17_8;
+
+ld.global.u32 %r836, [%rd1+12];
+
+$L__BB17_8:
+add.s32 %r13, %r1, 4;
+setp.ge.s32 %p5, %r13, %r293;
+mov.u32 %r834, -1;
+mov.u32 %r835, %r834;
+@%p5 bra $L__BB17_10;
+
+ld.global.u32 %r835, [%rd1+16];
+
+$L__BB17_10:
+add.s32 %r16, %r1, 5;
+setp.ge.s32 %p6, %r16, %r293;
+@%p6 bra $L__BB17_12;
+
+ld.global.u32 %r834, [%rd1+20];
+
+$L__BB17_12:
+add.s32 %r19, %r1, 6;
+setp.ge.s32 %p7, %r19, %r293;
+mov.u32 %r832, -1;
+mov.u32 %r833, %r832;
+@%p7 bra $L__BB17_14;
+
+ld.global.u32 %r833, [%rd1+24];
+
+$L__BB17_14:
+add.s32 %r22, %r1, 7;
+setp.ge.s32 %p8, %r22, %r293;
+@%p8 bra $L__BB17_16;
+
+ld.global.u32 %r832, [%rd1+28];
+
+$L__BB17_16:
+add.s32 %r25, %r1, 8;
+setp.ge.s32 %p9, %r25, %r293;
+mov.u32 %r830, -1;
+mov.u32 %r831, %r830;
+@%p9 bra $L__BB17_18;
+
+ld.global.u32 %r831, [%rd1+32];
+
+$L__BB17_18:
+add.s32 %r28, %r1, 9;
+setp.ge.s32 %p10, %r28, %r293;
+@%p10 bra $L__BB17_20;
+
+ld.global.u32 %r830, [%rd1+36];
+
+$L__BB17_20:
+add.s32 %r31, %r1, 10;
+setp.ge.s32 %p11, %r31, %r293;
+mov.u32 %r828, -1;
+mov.u32 %r829, %r828;
+@%p11 bra $L__BB17_22;
+
+ld.global.u32 %r829, [%rd1+40];
+
+$L__BB17_22:
+add.s32 %r34, %r1, 11;
+setp.ge.s32 %p12, %r34, %r293;
+@%p12 bra $L__BB17_24;
+
+ld.global.u32 %r828, [%rd1+44];
+
+$L__BB17_24:
+add.s32 %r37, %r1, 12;
+setp.ge.s32 %p13, %r37, %r293;
+mov.u32 %r826, -1;
+mov.u32 %r827, %r826;
+@%p13 bra $L__BB17_26;
+
+ld.global.u32 %r827, [%rd1+48];
+
+$L__BB17_26:
+add.s32 %r40, %r1, 13;
+setp.ge.s32 %p14, %r40, %r293;
+@%p14 bra $L__BB17_28;
+
+ld.global.u32 %r826, [%rd1+52];
+
+$L__BB17_28:
+add.s32 %r43, %r1, 14;
+setp.ge.s32 %p15, %r43, %r293;
+mov.u32 %r824, -1;
+mov.u32 %r825, %r824;
+@%p15 bra $L__BB17_30;
+
+ld.global.u32 %r825, [%rd1+56];
+
+$L__BB17_30:
+add.s32 %r46, %r1, 15;
+setp.ge.s32 %p16, %r46, %r293;
+@%p16 bra $L__BB17_32;
+
+ld.global.u32 %r824, [%rd1+60];
+
+$L__BB17_32:
+add.s32 %r49, %r1, 16;
+setp.ge.s32 %p17, %r49, %r293;
+mov.u32 %r822, -1;
+mov.u32 %r823, %r822;
+@%p17 bra $L__BB17_34;
+
+ld.global.u32 %r823, [%rd1+64];
+
+$L__BB17_34:
+add.s32 %r52, %r1, 17;
+setp.ge.s32 %p18, %r52, %r293;
+@%p18 bra $L__BB17_36;
+
+ld.global.u32 %r822, [%rd1+68];
+
+$L__BB17_36:
+add.s32 %r55, %r1, 18;
+setp.ge.s32 %p19, %r55, %r293;
+mov.u32 %r315, -1;
+mov.u32 %r821, %r315;
+@%p19 bra $L__BB17_38;
+
+ld.global.u32 %r821, [%rd1+72];
+
+$L__BB17_38:
+bar.sync 0;
+mov.u32 %r318, 0;
+mov.u32 %r319, 31;
+//
+shfl.sync.idx.b32 %r316, %r293, %r318, %r319, %r315;
+//
+setp.ge.s32 %p20, %r1, %r316;
+cvta.to.global.u64 %rd11, %rd6;
+add.s64 %rd2, %rd11, %rd10;
+@%p20 bra $L__BB17_40;
+
+ld.global.u32 %r858, [%rd2];
+
+$L__BB17_40:
+setp.ge.s32 %p21, %r4, %r316;
+@%p21 bra $L__BB17_42;
+
+ld.global.u32 %r857, [%rd2+4];
+
+$L__BB17_42:
+setp.ge.s32 %p22, %r7, %r316;
+@%p22 bra $L__BB17_44;
+
+ld.global.u32 %r856, [%rd2+8];
+
+$L__BB17_44:
+setp.ge.s32 %p23, %r10, %r316;
+@%p23 bra $L__BB17_46;
+
+ld.global.u32 %r855, [%rd2+12];
+
+$L__BB17_46:
+setp.ge.s32 %p24, %r13, %r316;
+@%p24 bra $L__BB17_48;
+
+ld.global.u32 %r854, [%rd2+16];
+
+$L__BB17_48:
+setp.ge.s32 %p25, %r16, %r316;
+@%p25 bra $L__BB17_50;
+
+ld.global.u32 %r853, [%rd2+20];
+
+$L__BB17_50:
+setp.ge.s32 %p26, %r19, %r316;
+@%p26 bra $L__BB17_52;
+
+ld.global.u32 %r852, [%rd2+24];
+
+$L__BB17_52:
+setp.ge.s32 %p27, %r22, %r316;
+@%p27 bra $L__BB17_54;
+
+ld.global.u32 %r851, [%rd2+28];
+
+$L__BB17_54:
+setp.ge.s32 %p28, %r25, %r316;
+@%p28 bra $L__BB17_56;
+
+ld.global.u32 %r850, [%rd2+32];
+
+$L__BB17_56:
+setp.ge.s32 %p29, %r28, %r316;
+@%p29 bra $L__BB17_58;
+
+ld.global.u32 %r849, [%rd2+36];
+
+$L__BB17_58:
+setp.ge.s32 %p30, %r31, %r316;
+@%p30 bra $L__BB17_60;
+
+ld.global.u32 %r848, [%rd2+40];
+
+$L__BB17_60:
+setp.ge.s32 %p31, %r34, %r316;
+@%p31 bra $L__BB17_62;
+
+ld.global.u32 %r847, [%rd2+44];
+
+$L__BB17_62:
+setp.ge.s32 %p32, %r37, %r316;
+@%p32 bra $L__BB17_64;
+
+ld.global.u32 %r846, [%rd2+48];
+
+$L__BB17_64:
+setp.ge.s32 %p33, %r40, %r316;
+@%p33 bra $L__BB17_66;
+
+ld.global.u32 %r845, [%rd2+52];
+
+$L__BB17_66:
+setp.ge.s32 %p34, %r43, %r316;
+@%p34 bra $L__BB17_68;
+
+ld.global.u32 %r844, [%rd2+56];
+
+$L__BB17_68:
+setp.ge.s32 %p35, %r46, %r316;
+@%p35 bra $L__BB17_70;
+
+ld.global.u32 %r843, [%rd2+60];
+
+$L__BB17_70:
+setp.ge.s32 %p36, %r49, %r316;
+@%p36 bra $L__BB17_72;
+
+ld.global.u32 %r842, [%rd2+64];
+
+$L__BB17_72:
+setp.ge.s32 %p37, %r52, %r316;
+@%p37 bra $L__BB17_74;
+
+ld.global.u32 %r841, [%rd2+68];
+
+$L__BB17_74:
+setp.ge.s32 %p38, %r55, %r316;
+@%p38 bra $L__BB17_76;
+
+ld.global.u32 %r840, [%rd2+72];
+
+$L__BB17_76:
+bar.sync 0;
+shl.b32 %r451, %r297, 2;
+mov.u32 %r452, _ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage;
+//
+mov.u32 %r416, %laneid;
+//
+bra.uni $L__BB17_77;
+
+$L__BB17_124:
+bar.sync 0;
+mad.lo.s32 %r779, %r297, 76, %r452;
+ld.shared.u32 %r839, [%r779];
+ld.shared.u32 %r838, [%r779+4];
+ld.shared.u32 %r837, [%r779+8];
+ld.shared.u32 %r836, [%r779+12];
+ld.shared.u32 %r835, [%r779+16];
+ld.shared.u32 %r834, [%r779+20];
+ld.shared.u32 %r833, [%r779+24];
+ld.shared.u32 %r832, [%r779+28];
+ld.shared.u32 %r831, [%r779+32];
+ld.shared.u32 %r830, [%r779+36];
+ld.shared.u32 %r829, [%r779+40];
+ld.shared.u32 %r828, [%r779+44];
+ld.shared.u32 %r827, [%r779+48];
+ld.shared.u32 %r826, [%r779+52];
+ld.shared.u32 %r825, [%r779+56];
+ld.shared.u32 %r824, [%r779+60];
+ld.shared.u32 %r823, [%r779+64];
+ld.shared.u32 %r822, [%r779+68];
+ld.shared.u32 %r821, [%r779+72];
+bar.sync 0;
+st.shared.u32 [%r198], %r858;
+st.shared.u32 [%r199], %r857;
+st.shared.u32 [%r200], %r856;
+st.shared.u32 [%r201], %r855;
+st.shared.u32 [%r202], %r854;
+st.shared.u32 [%r203], %r853;
+st.shared.u32 [%r204], %r852;
+st.shared.u32 [%r205], %r851;
+st.shared.u32 [%r206], %r850;
+st.shared.u32 [%r207], %r849;
+st.shared.u32 [%r208], %r848;
+st.shared.u32 [%r209], %r847;
+st.shared.u32 [%r210], %r846;
+st.shared.u32 [%r211], %r845;
+st.shared.u32 [%r212], %r844;
+st.shared.u32 [%r213], %r843;
+st.shared.u32 [%r214], %r842;
+st.shared.u32 [%r215], %r841;
+st.shared.u32 [%r216], %r840;
+bar.sync 0;
+ld.shared.u32 %r858, [%r779];
+ld.shared.u32 %r857, [%r779+4];
+ld.shared.u32 %r856, [%r779+8];
+ld.shared.u32 %r855, [%r779+12];
+ld.shared.u32 %r854, [%r779+16];
+ld.shared.u32 %r853, [%r779+20];
+ld.shared.u32 %r852, [%r779+24];
+ld.shared.u32 %r851, [%r779+28];
+ld.shared.u32 %r850, [%r779+32];
+ld.shared.u32 %r849, [%r779+36];
+ld.shared.u32 %r848, [%r779+40];
+ld.shared.u32 %r847, [%r779+44];
+ld.shared.u32 %r846, [%r779+48];
+ld.shared.u32 %r845, [%r779+52];
+ld.shared.u32 %r844, [%r779+56];
+ld.shared.u32 %r843, [%r779+60];
+ld.shared.u32 %r842, [%r779+64];
+ld.shared.u32 %r841, [%r779+68];
+ld.shared.u32 %r840, [%r779+72];
+bar.sync 0;
+
+$L__BB17_77:
+sub.s32 %r449, %r295, %r859;
+add.s32 %r453, %r452, %r451;
+mov.u32 %r427, 2;
+mov.u32 %r446, 0;
+st.shared.u32 [%r453], %r446;
+st.shared.u32 [%r453+1024], %r446;
+st.shared.u32 [%r453+2048], %r446;
+st.shared.u32 [%r453+3072], %r446;
+st.shared.u32 [%r453+4096], %r446;
+st.shared.u32 [%r453+5120], %r446;
+st.shared.u32 [%r453+6144], %r446;
+st.shared.u32 [%r453+7168], %r446;
+st.shared.u32 [%r453+8192], %r446;
+st.shared.u32 [%r453+9216], %r446;
+st.shared.u32 [%r453+10240], %r446;
+st.shared.u32 [%r453+11264], %r446;
+st.shared.u32 [%r453+12288], %r446;
+st.shared.u32 [%r453+13312], %r446;
+st.shared.u32 [%r453+14336], %r446;
+st.shared.u32 [%r453+15360], %r446;
+st.shared.u32 [%r453+16384], %r446;
+st.shared.u32 [%r453+17408], %r446;
+st.shared.u32 [%r453+18432], %r446;
+st.shared.u32 [%r453+19456], %r446;
+st.shared.u32 [%r453+20480], %r446;
+st.shared.u32 [%r453+21504], %r446;
+st.shared.u32 [%r453+22528], %r446;
+st.shared.u32 [%r453+23552], %r446;
+st.shared.u32 [%r453+24576], %r446;
+st.shared.u32 [%r453+25600], %r446;
+st.shared.u32 [%r453+26624], %r446;
+st.shared.u32 [%r453+27648], %r446;
+st.shared.u32 [%r453+28672], %r446;
+st.shared.u32 [%r453+29696], %r446;
+st.shared.u32 [%r453+30720], %r446;
+st.shared.u32 [%r453+31744], %r446;
+st.shared.u32 [%r453+32768], %r446;
+min.s32 %r415, %r449, 6;
+//
+bfe.u32 %r340, %r839, %r859, %r415;
+//
+shl.b32 %r454, %r340, 10;
+and.b32 %r455, %r454, 31744;
+add.s32 %r456, %r452, %r455;
+add.s32 %r457, %r456, %r451;
+shr.u32 %r458, %r340, 4;
+and.b32 %r459, %r458, 268435454;
+add.s32 %r136, %r457, %r459;
+mov.u32 %r421, 1;
+ld.shared.u16 %rs1, [%r136];
+add.s16 %rs20, %rs1, 1;
+st.shared.u16 [%r136], %rs20;
+//
+bfe.u32 %r344, %r838, %r859, %r415;
+//
+shl.b32 %r460, %r344, 10;
+and.b32 %r461, %r460, 31744;
+add.s32 %r462, %r452, %r461;
+add.s32 %r463, %r462, %r451;
+shr.u32 %r464, %r344, 4;
+and.b32 %r465, %r464, 268435454;
+add.s32 %r137, %r463, %r465;
+ld.shared.u16 %rs2, [%r137];
+add.s16 %rs21, %rs2, 1;
+st.shared.u16 [%r137], %rs21;
+//
+bfe.u32 %r348, %r837, %r859, %r415;
+//
+shl.b32 %r466, %r348, 10;
+and.b32 %r467, %r466, 31744;
+add.s32 %r468, %r452, %r467;
+add.s32 %r469, %r468, %r451;
+shr.u32 %r470, %r348, 4;
+and.b32 %r471, %r470, 268435454;
+add.s32 %r138, %r469, %r471;
+ld.shared.u16 %rs3, [%r138];
+add.s16 %rs22, %rs3, 1;
+st.shared.u16 [%r138], %rs22;
+//
+bfe.u32 %r352, %r836, %r859, %r415;
+//
+shl.b32 %r472, %r352, 10;
+and.b32 %r473, %r472, 31744;
+add.s32 %r474, %r452, %r473;
+add.s32 %r475, %r474, %r451;
+shr.u32 %r476, %r352, 4;
+and.b32 %r477, %r476, 268435454;
+add.s32 %r139, %r475, %r477;
+ld.shared.u16 %rs4, [%r139];
+add.s16 %rs23, %rs4, 1;
+st.shared.u16 [%r139], %rs23;
+//
+bfe.u32 %r356, %r835, %r859, %r415;
+//
+shl.b32 %r478, %r356, 10;
+and.b32 %r479, %r478, 31744;
+add.s32 %r480, %r452, %r479;
+add.s32 %r481, %r480, %r451;
+shr.u32 %r482, %r356, 4;
+and.b32 %r483, %r482, 268435454;
+add.s32 %r140, %r481, %r483;
+ld.shared.u16 %rs5, [%r140];
+add.s16 %rs24, %rs5, 1;
+st.shared.u16 [%r140], %rs24;
+//
+bfe.u32 %r360, %r834, %r859, %r415;
+//
+shl.b32 %r484, %r360, 10;
+and.b32 %r485, %r484, 31744;
+add.s32 %r486, %r452, %r485;
+add.s32 %r487, %r486, %r451;
+shr.u32 %r488, %r360, 4;
+and.b32 %r489, %r488, 268435454;
+add.s32 %r141, %r487, %r489;
+ld.shared.u16 %rs6, [%r141];
+add.s16 %rs25, %rs6, 1;
+st.shared.u16 [%r141], %rs25;
+//
+bfe.u32 %r364, %r833, %r859, %r415;
+//
+shl.b32 %r490, %r364, 10;
+and.b32 %r491, %r490, 31744;
+add.s32 %r492, %r452, %r491;
+add.s32 %r493, %r492, %r451;
+shr.u32 %r494, %r364, 4;
+and.b32 %r495, %r494, 268435454;
+add.s32 %r142, %r493, %r495;
+ld.shared.u16 %rs7, [%r142];
+add.s16 %rs26, %rs7, 1;
+st.shared.u16 [%r142], %rs26;
+//
+bfe.u32 %r368, %r832, %r859, %r415;
+//
+shl.b32 %r496, %r368, 10;
+and.b32 %r497, %r496, 31744;
+add.s32 %r498, %r452, %r497;
+add.s32 %r499, %r498, %r451;
+shr.u32 %r500, %r368, 4;
+and.b32 %r501, %r500, 268435454;
+add.s32 %r143, %r499, %r501;
+ld.shared.u16 %rs8, [%r143];
+add.s16 %rs27, %rs8, 1;
+st.shared.u16 [%r143], %rs27;
+//
+bfe.u32 %r372, %r831, %r859, %r415;
+//
+shl.b32 %r502, %r372, 10;
+and.b32 %r503, %r502, 31744;
+add.s32 %r504, %r452, %r503;
+add.s32 %r505, %r504, %r451;
+shr.u32 %r506, %r372, 4;
+and.b32 %r507, %r506, 268435454;
+add.s32 %r144, %r505, %r507;
+ld.shared.u16 %rs9, [%r144];
+add.s16 %rs28, %rs9, 1;
+st.shared.u16 [%r144], %rs28;
+//
+bfe.u32 %r376, %r830, %r859, %r415;
+//
+shl.b32 %r508, %r376, 10;
+and.b32 %r509, %r508, 31744;
+add.s32 %r510, %r452, %r509;
+add.s32 %r511, %r510, %r451;
+shr.u32 %r512, %r376, 4;
+and.b32 %r513, %r512, 268435454;
+add.s32 %r145, %r511, %r513;
+ld.shared.u16 %rs10, [%r145];
+add.s16 %rs29, %rs10, 1;
+st.shared.u16 [%r145], %rs29;
+//
+bfe.u32 %r380, %r829, %r859, %r415;
+//
+shl.b32 %r514, %r380, 10;
+and.b32 %r515, %r514, 31744;
+add.s32 %r516, %r452, %r515;
+add.s32 %r517, %r516, %r451;
+shr.u32 %r518, %r380, 4;
+and.b32 %r519, %r518, 268435454;
+add.s32 %r146, %r517, %r519;
+ld.shared.u16 %rs11, [%r146];
+add.s16 %rs30, %rs11, 1;
+st.shared.u16 [%r146], %rs30;
+//
+bfe.u32 %r384, %r828, %r859, %r415;
+//
+shl.b32 %r520, %r384, 10;
+and.b32 %r521, %r520, 31744;
+add.s32 %r522, %r452, %r521;
+add.s32 %r523, %r522, %r451;
+shr.u32 %r524, %r384, 4;
+and.b32 %r525, %r524, 268435454;
+add.s32 %r147, %r523, %r525;
+ld.shared.u16 %rs12, [%r147];
+add.s16 %rs31, %rs12, 1;
+st.shared.u16 [%r147], %rs31;
+//
+bfe.u32 %r388, %r827, %r859, %r415;
+//
+shl.b32 %r526, %r388, 10;
+and.b32 %r527, %r526, 31744;
+add.s32 %r528, %r452, %r527;
+add.s32 %r529, %r528, %r451;
+shr.u32 %r530, %r388, 4;
+and.b32 %r531, %r530, 268435454;
+add.s32 %r148, %r529, %r531;
+ld.shared.u16 %rs13, [%r148];
+add.s16 %rs32, %rs13, 1;
+st.shared.u16 [%r148], %rs32;
+//
+bfe.u32 %r392, %r826, %r859, %r415;
+//
+shl.b32 %r532, %r392, 10;
+and.b32 %r533, %r532, 31744;
+add.s32 %r534, %r452, %r533;
+add.s32 %r535, %r534, %r451;
+shr.u32 %r536, %r392, 4;
+and.b32 %r537, %r536, 268435454;
+add.s32 %r149, %r535, %r537;
+ld.shared.u16 %rs14, [%r149];
+add.s16 %rs33, %rs14, 1;
+st.shared.u16 [%r149], %rs33;
+//
+bfe.u32 %r396, %r825, %r859, %r415;
+//
+shl.b32 %r538, %r396, 10;
+and.b32 %r539, %r538, 31744;
+add.s32 %r540, %r452, %r539;
+add.s32 %r541, %r540, %r451;
+shr.u32 %r542, %r396, 4;
+and.b32 %r543, %r542, 268435454;
+add.s32 %r150, %r541, %r543;
+ld.shared.u16 %rs15, [%r150];
+add.s16 %rs34, %rs15, 1;
+st.shared.u16 [%r150], %rs34;
+//
+bfe.u32 %r400, %r824, %r859, %r415;
+//
+shl.b32 %r544, %r400, 10;
+and.b32 %r545, %r544, 31744;
+add.s32 %r546, %r452, %r545;
+add.s32 %r547, %r546, %r451;
+shr.u32 %r548, %r400, 4;
+and.b32 %r549, %r548, 268435454;
+add.s32 %r151, %r547, %r549;
+ld.shared.u16 %rs16, [%r151];
+add.s16 %rs35, %rs16, 1;
+st.shared.u16 [%r151], %rs35;
+//
+bfe.u32 %r404, %r823, %r859, %r415;
+//
+shl.b32 %r550, %r404, 10;
+and.b32 %r551, %r550, 31744;
+add.s32 %r552, %r452, %r551;
+add.s32 %r553, %r552, %r451;
+shr.u32 %r554, %r404, 4;
+and.b32 %r555, %r554, 268435454;
+add.s32 %r152, %r553, %r555;
+ld.shared.u16 %rs17, [%r152];
+add.s16 %rs36, %rs17, 1;
+st.shared.u16 [%r152], %rs36;
+//
+bfe.u32 %r408, %r822, %r859, %r415;
+//
+shl.b32 %r556, %r408, 10;
+and.b32 %r557, %r556, 31744;
+add.s32 %r558, %r452, %r557;
+add.s32 %r559, %r558, %r451;
+shr.u32 %r560, %r408, 4;
+and.b32 %r561, %r560, 268435454;
+add.s32 %r153, %r559, %r561;
+ld.shared.u16 %rs18, [%r153];
+add.s16 %rs37, %rs18, 1;
+st.shared.u16 [%r153], %rs37;
+//
+bfe.u32 %r412, %r821, %r859, %r415;
+//
+shl.b32 %r562, %r412, 10;
+and.b32 %r563, %r562, 31744;
+add.s32 %r564, %r452, %r563;
+add.s32 %r565, %r564, %r451;
+shr.u32 %r566, %r412, 4;
+and.b32 %r567, %r566, 268435454;
+add.s32 %r154, %r565, %r567;
+ld.shared.u16 %rs19, [%r154];
+add.s16 %rs38, %rs19, 1;
+st.shared.u16 [%r154], %rs38;
+bar.sync 0;
+mad.lo.s32 %r568, %r297, 132, %r452;
+mov.u32 %r433, 4;
+mov.u32 %r439, 8;
+mov.u32 %r445, 16;
+ld.shared.u32 %r155, [%r568+4];
+ld.shared.u32 %r156, [%r568];
+add.s32 %r569, %r155, %r156;
+ld.shared.u32 %r157, [%r568+8];
+add.s32 %r570, %r157, %r569;
+ld.shared.u32 %r158, [%r568+12];
+add.s32 %r571, %r158, %r570;
+ld.shared.u32 %r159, [%r568+16];
+add.s32 %r572, %r159, %r571;
+ld.shared.u32 %r160, [%r568+20];
+add.s32 %r573, %r160, %r572;
+ld.shared.u32 %r161, [%r568+24];
+add.s32 %r574, %r161, %r573;
+ld.shared.u32 %r162, [%r568+28];
+add.s32 %r575, %r162, %r574;
+ld.shared.u32 %r163, [%r568+32];
+add.s32 %r576, %r163, %r575;
+ld.shared.u32 %r164, [%r568+36];
+add.s32 %r577, %r164, %r576;
+ld.shared.u32 %r165, [%r568+40];
+add.s32 %r578, %r165, %r577;
+ld.shared.u32 %r166, [%r568+44];
+add.s32 %r579, %r166, %r578;
+ld.shared.u32 %r167, [%r568+48];
+add.s32 %r580, %r167, %r579;
+ld.shared.u32 %r168, [%r568+52];
+add.s32 %r581, %r168, %r580;
+ld.shared.u32 %r169, [%r568+56];
+add.s32 %r582, %r169, %r581;
+ld.shared.u32 %r170, [%r568+60];
+add.s32 %r583, %r170, %r582;
+ld.shared.u32 %r171, [%r568+64];
+add.s32 %r584, %r171, %r583;
+ld.shared.u32 %r172, [%r568+68];
+add.s32 %r585, %r172, %r584;
+ld.shared.u32 %r173, [%r568+72];
+add.s32 %r586, %r173, %r585;
+ld.shared.u32 %r174, [%r568+76];
+add.s32 %r587, %r174, %r586;
+ld.shared.u32 %r175, [%r568+80];
+add.s32 %r588, %r175, %r587;
+ld.shared.u32 %r176, [%r568+84];
+add.s32 %r589, %r176, %r588;
+ld.shared.u32 %r177, [%r568+88];
+add.s32 %r590, %r177, %r589;
+ld.shared.u32 %r178, [%r568+92];
+add.s32 %r591, %r178, %r590;
+ld.shared.u32 %r179, [%r568+96];
+add.s32 %r592, %r179, %r591;
+ld.shared.u32 %r180, [%r568+100];
+add.s32 %r593, %r180, %r592;
+ld.shared.u32 %r181, [%r568+104];
+add.s32 %r594, %r181, %r593;
+ld.shared.u32 %r182, [%r568+108];
+add.s32 %r595, %r182, %r594;
+ld.shared.u32 %r183, [%r568+112];
+add.s32 %r596, %r183, %r595;
+ld.shared.u32 %r184, [%r568+116];
+add.s32 %r597, %r184, %r596;
+ld.shared.u32 %r185, [%r568+120];
+add.s32 %r598, %r185, %r597;
+ld.shared.u32 %r186, [%r568+124];
+add.s32 %r599, %r186, %r598;
+ld.shared.u32 %r600, [%r568+128];
+add.s32 %r423, %r600, %r599;
+mov.u32 %r448, -1;
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r423, %r421, %r446, %r448; @p add.u32 r0, r0, %r423; mov.u32 %r419, r0;}
+//
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r419, %r427, %r446, %r448; @p add.u32 r0, r0, %r419; mov.u32 %r425, r0;}
+//
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r425, %r433, %r446, %r448; @p add.u32 r0, r0, %r425; mov.u32 %r431, r0;}
+//
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r431, %r439, %r446, %r448; @p add.u32 r0, r0, %r431; mov.u32 %r437, r0;}
+//
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r437, %r445, %r446, %r448; @p add.u32 r0, r0, %r437; mov.u32 %r443, r0;}
+//
+sub.s32 %r189, %r443, %r423;
+setp.ne.s32 %p39, %r416, 31;
+@%p39 bra $L__BB17_79;
+
+shr.u32 %r602, %r297, 3;
+and.b32 %r603, %r602, 536870908;
+add.s32 %r605, %r452, %r603;
+st.shared.u32 [%r605+33792], %r443;
+
+$L__BB17_79:
+shr.u32 %r607, %r297, 5;
+setp.ne.s32 %p40, %r607, 0;
+setp.eq.s32 %p41, %r607, 7;
+setp.eq.s32 %p42, %r607, 6;
+setp.eq.s32 %p43, %r607, 5;
+setp.eq.s32 %p44, %r607, 4;
+setp.eq.s32 %p45, %r607, 3;
+setp.eq.s32 %p46, %r607, 2;
+bar.sync 0;
+.pragma "used_bytes_mask 61695";
+ld.shared.v4.u32 {%r608, %r609, %r610, %r611}, [_ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage+33792];
+add.s32 %r615, %r609, %r608;
+selp.b32 %r616, %r615, %r608, %p46;
+ld.shared.u32 %r617, [_ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage+33800];
+add.s32 %r618, %r615, %r617;
+selp.b32 %r619, %r618, %r616, %p45;
+add.s32 %r620, %r618, %r611;
+selp.b32 %r621, %r620, %r619, %p44;
+ld.shared.u32 %r622, [_ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage+33808];
+add.s32 %r623, %r620, %r622;
+selp.b32 %r624, %r623, %r621, %p43;
+.pragma "used_bytes_mask 65520";
+ld.shared.v4.u32 {%r625, %r626, %r627, %r628}, [_ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage+33808];
+add.s32 %r632, %r623, %r626;
+selp.b32 %r633, %r632, %r624, %p42;
+add.s32 %r634, %r632, %r627;
+selp.b32 %r635, %r634, %r633, %p41;
+add.s32 %r190, %r634, %r628;
+setp.eq.s32 %p47, %r416, 0;
+selp.b32 %r636, 0, %r189, %p47;
+add.s32 %r860, %r635, %r636;
+@%p40 bra $L__BB17_82;
+
+setp.ne.s32 %p48, %r416, 0;
+shl.b32 %r192, %r190, 16;
+mov.u32 %r860, %r189;
+@%p48 bra $L__BB17_82;
+
+st.shared.u32 [_ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage+33832], %r192;
+mov.u32 %r860, %r192;
+
+$L__BB17_82:
+setp.eq.s32 %p49, %r297, 0;
+bar.sync 0;
+@%p49 bra $L__BB17_84;
+
+ld.shared.u32 %r637, [_ZZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_E12temp_storage+33832];
+add.s32 %r860, %r637, %r860;
+
+$L__BB17_84:
+mad.lo.s32 %r782, %r297, 132, %r452;
+add.s32 %r639, %r156, %r860;
+add.s32 %r640, %r155, %r639;
+add.s32 %r641, %r157, %r640;
+add.s32 %r642, %r158, %r641;
+add.s32 %r643, %r159, %r642;
+add.s32 %r644, %r160, %r643;
+add.s32 %r645, %r161, %r644;
+add.s32 %r646, %r162, %r645;
+add.s32 %r647, %r163, %r646;
+add.s32 %r648, %r164, %r647;
+add.s32 %r649, %r165, %r648;
+add.s32 %r650, %r166, %r649;
+add.s32 %r651, %r167, %r650;
+add.s32 %r652, %r168, %r651;
+add.s32 %r653, %r169, %r652;
+add.s32 %r654, %r170, %r653;
+add.s32 %r655, %r171, %r654;
+add.s32 %r656, %r172, %r655;
+add.s32 %r657, %r173, %r656;
+add.s32 %r658, %r174, %r657;
+add.s32 %r659, %r175, %r658;
+add.s32 %r660, %r176, %r659;
+add.s32 %r661, %r177, %r660;
+add.s32 %r662, %r178, %r661;
+add.s32 %r663, %r179, %r662;
+add.s32 %r664, %r180, %r663;
+add.s32 %r665, %r181, %r664;
+add.s32 %r666, %r182, %r665;
+add.s32 %r667, %r183, %r666;
+add.s32 %r668, %r184, %r667;
+add.s32 %r669, %r185, %r668;
+add.s32 %r670, %r186, %r669;
+st.shared.u32 [%r782], %r860;
+st.shared.u32 [%r782+4], %r639;
+st.shared.u32 [%r782+8], %r640;
+st.shared.u32 [%r782+12], %r641;
+st.shared.u32 [%r782+16], %r642;
+st.shared.u32 [%r782+20], %r643;
+st.shared.u32 [%r782+24], %r644;
+st.shared.u32 [%r782+28], %r645;
+st.shared.u32 [%r782+32], %r646;
+st.shared.u32 [%r782+36], %r647;
+st.shared.u32 [%r782+40], %r648;
+st.shared.u32 [%r782+44], %r649;
+st.shared.u32 [%r782+48], %r650;
+st.shared.u32 [%r782+52], %r651;
+st.shared.u32 [%r782+56], %r652;
+st.shared.u32 [%r782+60], %r653;
+st.shared.u32 [%r782+64], %r654;
+st.shared.u32 [%r782+68], %r655;
+st.shared.u32 [%r782+72], %r656;
+st.shared.u32 [%r782+76], %r657;
+st.shared.u32 [%r782+80], %r658;
+st.shared.u32 [%r782+84], %r659;
+st.shared.u32 [%r782+88], %r660;
+st.shared.u32 [%r782+92], %r661;
+st.shared.u32 [%r782+96], %r662;
+st.shared.u32 [%r782+100], %r663;
+st.shared.u32 [%r782+104], %r664;
+st.shared.u32 [%r782+108], %r665;
+st.shared.u32 [%r782+112], %r666;
+st.shared.u32 [%r782+116], %r667;
+st.shared.u32 [%r782+120], %r668;
+st.shared.u32 [%r782+124], %r669;
+st.shared.u32 [%r782+128], %r670;
+bar.sync 0;
+ld.shared.u16 %r673, [%r136];
+cvt.u32.u16 %r674, %rs1;
+add.s32 %r675, %r673, %r674;
+ld.shared.u16 %r676, [%r137];
+cvt.u32.u16 %r677, %rs2;
+add.s32 %r678, %r676, %r677;
+ld.shared.u16 %r679, [%r138];
+cvt.u32.u16 %r680, %rs3;
+add.s32 %r681, %r679, %r680;
+ld.shared.u16 %r682, [%r139];
+cvt.u32.u16 %r683, %rs4;
+add.s32 %r684, %r682, %r683;
+ld.shared.u16 %r685, [%r140];
+cvt.u32.u16 %r686, %rs5;
+add.s32 %r687, %r685, %r686;
+ld.shared.u16 %r688, [%r141];
+cvt.u32.u16 %r689, %rs6;
+add.s32 %r690, %r688, %r689;
+ld.shared.u16 %r691, [%r142];
+cvt.u32.u16 %r692, %rs7;
+add.s32 %r693, %r691, %r692;
+ld.shared.u16 %r694, [%r143];
+cvt.u32.u16 %r695, %rs8;
+add.s32 %r696, %r694, %r695;
+ld.shared.u16 %r697, [%r144];
+cvt.u32.u16 %r698, %rs9;
+add.s32 %r699, %r697, %r698;
+ld.shared.u16 %r700, [%r145];
+cvt.u32.u16 %r701, %rs10;
+add.s32 %r702, %r700, %r701;
+ld.shared.u16 %r703, [%r146];
+cvt.u32.u16 %r704, %rs11;
+add.s32 %r705, %r703, %r704;
+ld.shared.u16 %r706, [%r147];
+cvt.u32.u16 %r707, %rs12;
+add.s32 %r708, %r706, %r707;
+ld.shared.u16 %r709, [%r148];
+cvt.u32.u16 %r710, %rs13;
+add.s32 %r711, %r709, %r710;
+ld.shared.u16 %r712, [%r149];
+cvt.u32.u16 %r713, %rs14;
+add.s32 %r714, %r712, %r713;
+ld.shared.u16 %r715, [%r150];
+cvt.u32.u16 %r716, %rs15;
+add.s32 %r717, %r715, %r716;
+ld.shared.u16 %r718, [%r151];
+cvt.u32.u16 %r719, %rs16;
+add.s32 %r720, %r718, %r719;
+ld.shared.u16 %r721, [%r152];
+cvt.u32.u16 %r722, %rs17;
+add.s32 %r723, %r721, %r722;
+ld.shared.u16 %r724, [%r153];
+cvt.u32.u16 %r725, %rs18;
+add.s32 %r726, %r724, %r725;
+ld.shared.u16 %r727, [%r154];
+cvt.u32.u16 %r728, %rs19;
+add.s32 %r729, %r727, %r728;
+bar.sync 0;
+add.s32 %r859, %r859, 6;
+setp.lt.s32 %p50, %r859, %r295;
+shl.b32 %r730, %r675, 2;
+add.s32 %r198, %r452, %r730;
+st.shared.u32 [%r198], %r839;
+shl.b32 %r731, %r678, 2;
+add.s32 %r199, %r452, %r731;
+st.shared.u32 [%r199], %r838;
+shl.b32 %r732, %r681, 2;
+add.s32 %r200, %r452, %r732;
+st.shared.u32 [%r200], %r837;
+shl.b32 %r733, %r684, 2;
+add.s32 %r201, %r452, %r733;
+st.shared.u32 [%r201], %r836;
+shl.b32 %r734, %r687, 2;
+add.s32 %r202, %r452, %r734;
+st.shared.u32 [%r202], %r835;
+shl.b32 %r735, %r690, 2;
+add.s32 %r203, %r452, %r735;
+st.shared.u32 [%r203], %r834;
+shl.b32 %r736, %r693, 2;
+add.s32 %r204, %r452, %r736;
+st.shared.u32 [%r204], %r833;
+shl.b32 %r737, %r696, 2;
+add.s32 %r205, %r452, %r737;
+st.shared.u32 [%r205], %r832;
+shl.b32 %r738, %r699, 2;
+add.s32 %r206, %r452, %r738;
+st.shared.u32 [%r206], %r831;
+shl.b32 %r739, %r702, 2;
+add.s32 %r207, %r452, %r739;
+st.shared.u32 [%r207], %r830;
+shl.b32 %r740, %r705, 2;
+add.s32 %r208, %r452, %r740;
+st.shared.u32 [%r208], %r829;
+shl.b32 %r741, %r708, 2;
+add.s32 %r209, %r452, %r741;
+st.shared.u32 [%r209], %r828;
+shl.b32 %r742, %r711, 2;
+add.s32 %r210, %r452, %r742;
+st.shared.u32 [%r210], %r827;
+shl.b32 %r743, %r714, 2;
+add.s32 %r211, %r452, %r743;
+st.shared.u32 [%r211], %r826;
+shl.b32 %r744, %r717, 2;
+add.s32 %r212, %r452, %r744;
+st.shared.u32 [%r212], %r825;
+shl.b32 %r745, %r720, 2;
+add.s32 %r213, %r452, %r745;
+st.shared.u32 [%r213], %r824;
+shl.b32 %r746, %r723, 2;
+add.s32 %r214, %r452, %r746;
+st.shared.u32 [%r214], %r823;
+shl.b32 %r747, %r726, 2;
+add.s32 %r215, %r452, %r747;
+st.shared.u32 [%r215], %r822;
+shl.b32 %r748, %r729, 2;
+add.s32 %r216, %r452, %r748;
+st.shared.u32 [%r216], %r821;
+@%p50 bra $L__BB17_124;
+
+ld.param.u64 %rd17, [_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_3];
+ld.param.u64 %rd16, [_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4__param_1];
+add.s32 %r780, %r452, %r451;
+bar.sync 0;
+ld.shared.u32 %r217, [%r780];
+add.s32 %r218, %r297, 256;
+ld.shared.u32 %r219, [%r780+1024];
+ld.shared.u32 %r220, [%r780+2048];
+ld.shared.u32 %r221, [%r780+3072];
+ld.shared.u32 %r222, [%r780+4096];
+ld.shared.u32 %r223, [%r780+5120];
+ld.shared.u32 %r224, [%r780+6144];
+ld.shared.u32 %r225, [%r780+7168];
+ld.shared.u32 %r226, [%r780+8192];
+ld.shared.u32 %r227, [%r780+9216];
+ld.shared.u32 %r228, [%r780+10240];
+ld.shared.u32 %r229, [%r780+11264];
+ld.shared.u32 %r230, [%r780+12288];
+ld.shared.u32 %r231, [%r780+13312];
+ld.shared.u32 %r232, [%r780+14336];
+ld.shared.u32 %r233, [%r780+15360];
+ld.shared.u32 %r234, [%r780+16384];
+ld.shared.u32 %r235, [%r780+17408];
+ld.shared.u32 %r236, [%r780+18432];
+bar.sync 0;
+st.shared.u32 [%r198], %r858;
+st.shared.u32 [%r199], %r857;
+st.shared.u32 [%r200], %r856;
+st.shared.u32 [%r201], %r855;
+st.shared.u32 [%r202], %r854;
+st.shared.u32 [%r203], %r853;
+st.shared.u32 [%r204], %r852;
+st.shared.u32 [%r205], %r851;
+st.shared.u32 [%r206], %r850;
+st.shared.u32 [%r207], %r849;
+st.shared.u32 [%r208], %r848;
+st.shared.u32 [%r209], %r847;
+st.shared.u32 [%r210], %r846;
+st.shared.u32 [%r211], %r845;
+st.shared.u32 [%r212], %r844;
+st.shared.u32 [%r213], %r843;
+st.shared.u32 [%r214], %r842;
+st.shared.u32 [%r215], %r841;
+st.shared.u32 [%r216], %r840;
+bar.sync 0;
+ld.shared.u32 %r237, [%r780+1024];
+ld.shared.u32 %r238, [%r780+2048];
+ld.shared.u32 %r239, [%r780+3072];
+ld.shared.u32 %r240, [%r780+4096];
+ld.shared.u32 %r241, [%r780+5120];
+ld.shared.u32 %r242, [%r780+6144];
+ld.shared.u32 %r243, [%r780+7168];
+ld.shared.u32 %r244, [%r780+8192];
+ld.shared.u32 %r245, [%r780+9216];
+ld.shared.u32 %r246, [%r780+10240];
+ld.shared.u32 %r247, [%r780+11264];
+ld.shared.u32 %r248, [%r780+12288];
+ld.shared.u32 %r249, [%r780+13312];
+ld.shared.u32 %r250, [%r780+14336];
+ld.shared.u32 %r251, [%r780+15360];
+ld.shared.u32 %r252, [%r780+16384];
+ld.shared.u32 %r253, [%r780+17408];
+ld.shared.u32 %r254, [%r780+18432];
+setp.ge.u32 %p51, %r297, %r316;
+cvta.to.global.u64 %rd13, %rd16;
+mul.wide.s32 %rd14, %r297, 4;
+add.s64 %rd3, %rd13, %rd14;
+cvta.to.global.u64 %rd15, %rd17;
+add.s64 %rd4, %rd15, %rd14;
+@%p51 bra $L__BB17_87;
+
+add.s32 %r781, %r452, %r451;
+ld.shared.u32 %r758, [%r781];
+st.global.u32 [%rd3], %r217;
+st.global.u32 [%rd4], %r758;
+
+$L__BB17_87:
+setp.ge.u32 %p52, %r218, %r316;
+@%p52 bra $L__BB17_89;
+
+st.global.u32 [%rd3+1024], %r219;
+st.global.u32 [%rd4+1024], %r237;
+
+$L__BB17_89:
+add.s32 %r759, %r218, 256;
+setp.ge.u32 %p53, %r759, %r316;
+@%p53 bra $L__BB17_91;
+
+st.global.u32 [%rd3+2048], %r220;
+st.global.u32 [%rd4+2048], %r238;
+
+$L__BB17_91:
+add.s32 %r760, %r218, 512;
+setp.ge.u32 %p54, %r760, %r316;
+@%p54 bra $L__BB17_93;
+
+st.global.u32 [%rd3+3072], %r221;
+st.global.u32 [%rd4+3072], %r239;
+
+$L__BB17_93:
+add.s32 %r761, %r218, 768;
+setp.ge.u32 %p55, %r761, %r316;
+@%p55 bra $L__BB17_95;
+
+st.global.u32 [%rd3+4096], %r222;
+st.global.u32 [%rd4+4096], %r240;
+
+$L__BB17_95:
+add.s32 %r762, %r218, 1024;
+setp.ge.u32 %p56, %r762, %r316;
+@%p56 bra $L__BB17_97;
+
+st.global.u32 [%rd3+5120], %r223;
+st.global.u32 [%rd4+5120], %r241;
+
+$L__BB17_97:
+add.s32 %r763, %r218, 1280;
+setp.ge.u32 %p57, %r763, %r316;
+@%p57 bra $L__BB17_99;
+
+st.global.u32 [%rd3+6144], %r224;
+st.global.u32 [%rd4+6144], %r242;
+
+$L__BB17_99:
+add.s32 %r764, %r218, 1536;
+setp.ge.u32 %p58, %r764, %r316;
+@%p58 bra $L__BB17_101;
+
+st.global.u32 [%rd3+7168], %r225;
+st.global.u32 [%rd4+7168], %r243;
+
+$L__BB17_101:
+add.s32 %r765, %r218, 1792;
+setp.ge.u32 %p59, %r765, %r316;
+@%p59 bra $L__BB17_103;
+
+st.global.u32 [%rd3+8192], %r226;
+st.global.u32 [%rd4+8192], %r244;
+
+$L__BB17_103:
+add.s32 %r766, %r218, 2048;
+setp.ge.u32 %p60, %r766, %r316;
+@%p60 bra $L__BB17_105;
+
+st.global.u32 [%rd3+9216], %r227;
+st.global.u32 [%rd4+9216], %r245;
+
+$L__BB17_105:
+add.s32 %r767, %r218, 2304;
+setp.ge.u32 %p61, %r767, %r316;
+@%p61 bra $L__BB17_107;
+
+st.global.u32 [%rd3+10240], %r228;
+st.global.u32 [%rd4+10240], %r246;
+
+$L__BB17_107:
+add.s32 %r768, %r218, 2560;
+setp.ge.u32 %p62, %r768, %r316;
+@%p62 bra $L__BB17_109;
+
+st.global.u32 [%rd3+11264], %r229;
+st.global.u32 [%rd4+11264], %r247;
+
+$L__BB17_109:
+add.s32 %r769, %r218, 2816;
+setp.ge.u32 %p63, %r769, %r316;
+@%p63 bra $L__BB17_111;
+
+st.global.u32 [%rd3+12288], %r230;
+st.global.u32 [%rd4+12288], %r248;
+
+$L__BB17_111:
+add.s32 %r770, %r218, 3072;
+setp.ge.u32 %p64, %r770, %r316;
+@%p64 bra $L__BB17_113;
+
+st.global.u32 [%rd3+13312], %r231;
+st.global.u32 [%rd4+13312], %r249;
+
+$L__BB17_113:
+add.s32 %r771, %r218, 3328;
+setp.ge.u32 %p65, %r771, %r316;
+@%p65 bra $L__BB17_115;
+
+st.global.u32 [%rd3+14336], %r232;
+st.global.u32 [%rd4+14336], %r250;
+
+$L__BB17_115:
+add.s32 %r772, %r218, 3584;
+setp.ge.u32 %p66, %r772, %r316;
+@%p66 bra $L__BB17_117;
+
+st.global.u32 [%rd3+15360], %r233;
+st.global.u32 [%rd4+15360], %r251;
+
+$L__BB17_117:
+add.s32 %r773, %r218, 3840;
+setp.ge.u32 %p67, %r773, %r316;
+@%p67 bra $L__BB17_119;
+
+st.global.u32 [%rd3+16384], %r234;
+st.global.u32 [%rd4+16384], %r252;
+
+$L__BB17_119:
+add.s32 %r774, %r218, 4096;
+setp.ge.u32 %p68, %r774, %r316;
+@%p68 bra $L__BB17_121;
+
+st.global.u32 [%rd3+17408], %r235;
+st.global.u32 [%rd4+17408], %r253;
+
+$L__BB17_121:
+add.s32 %r775, %r218, 4352;
+setp.ge.u32 %p69, %r775, %r316;
+@%p69 bra $L__BB17_123;
+
+st.global.u32 [%rd3+18432], %r236;
+st.global.u32 [%rd4+18432], %r254;
+
+$L__BB17_123:
+ret;
+
+}
+//
+

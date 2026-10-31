@@ -1,0 +1,12 @@
+label update_preconditioned_cg_direction
+ptx update_preconditioned_cg_direction.ptx
+cubin cubins/update_preconditioned_cg_direction.cubin
+name_ptx _ZN7synreal6kernel34update_preconditioned_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPS4_m
+name_cubin _Z34update_preconditioned_cg_directioniPK4Vec3PKfPS_m
+grid 1 1 1
+block 256 1 1
+u32 1
+ptr randf 3072
+ptr randf 1024
+ptr randf 3072
+u64 256

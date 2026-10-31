@@ -1,0 +1,27 @@
+000000000010caf0 T synreal::SolverNewton::initialize(synreal::Model const&)
+0000000000078e08 t synreal::SolverNewton::initialize(synreal::Model const&) [clone .cold]
+0000000000104470 T synreal::SolverNewton::precompute_matrices()
+0000000000077502 t synreal::SolverNewton::precompute_matrices() [clone .cold]
+00000000000f1740 T synreal::SolverNewton::solve_newton_system(synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, unsigned long, std::function<void (synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, synreal::Span<glm::vec<3, float, (glm::qualifier)0> >)> const&, CUstream_st*)
+00000000000763f2 t synreal::SolverNewton::solve_newton_system(synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, unsigned long, std::function<void (synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, synreal::Span<glm::vec<3, float, (glm::qualifier)0> >)> const&, CUstream_st*) [clone .cold]
+00000000000faeb0 T synreal::SolverNewton::copy_cable_penalties(synreal::Span<glm::vec<4, float, (glm::qualifier)0> >, CUstream_st*)
+00000000000765f8 t synreal::SolverNewton::copy_cable_penalties(synreal::Span<glm::vec<4, float, (glm::qualifier)0> >, CUstream_st*) [clone .cold]
+00000000000f1550 T synreal::SolverNewton::solve_pd_newton_system(synreal::SparseMatrixELL const&, synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, unsigned long, bool, std::function<void (synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, synreal::Span<glm::vec<3, float, (glm::qualifier)0> >)> const&, CUstream_st*)
+00000000000763a0 t synreal::SolverNewton::solve_pd_newton_system(synreal::SparseMatrixELL const&, synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, unsigned long, bool, std::function<void (synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, synreal::Span<glm::vec<3, float, (glm::qualifier)0> >)> const&, CUstream_st*) [clone .cold]
+00000000000fabf0 T synreal::SolverNewton::reset_joint_drive_state(CUstream_st*, synreal::Span<int const>)
+0000000000076564 t synreal::SolverNewton::reset_joint_drive_state(CUstream_st*, synreal::Span<int const>) [clone .cold]
+00000000000fad30 T synreal::SolverNewton::reset_cable_penalty_state(CUstream_st*, synreal::Span<int const>)
+00000000000765ae t synreal::SolverNewton::reset_cable_penalty_state(CUstream_st*, synreal::Span<int const>) [clone .cold]
+00000000000f14e0 T synreal::SolverNewton::affine_body_preconditioner(CUstream_st*)
+000000000010f090 T synreal::SolverNewton::reserve_rigid_contact_capacity(unsigned long)
+00000000000fb160 T synreal::SolverNewton::step(synreal::State const&, synreal::State const&, synreal::Control const&, synreal::Contact const&, float, CUstream_st*)
+0000000000076642 t synreal::SolverNewton::step(synreal::State const&, synreal::State const&, synreal::Control const&, synreal::Contact const&, float, CUstream_st*) [clone .cold]
+00000000000e8740 T synreal::SolverNewton::SolverNewton()
+00000000000e8740 T synreal::SolverNewton::SolverNewton()
+00000000000e8720 T synreal::SolverNewton::~SolverNewton()
+00000000000e6af0 T synreal::SolverNewton::~SolverNewton()
+00000000000e6af0 T synreal::SolverNewton::~SolverNewton()
+0000000000074662 t synreal::SolverNewton::~SolverNewton() [clone .cold]
+0000000000103f60 t synreal::SolverNewton::precompute_matrices()::{lambda(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, thrust::THRUST_200302_520_NS::device_vector<unsigned long, thrust::THRUST_200302_520_NS::device_allocator<unsigned long> >&, thrust::THRUST_200302_520_NS::device_vector<int, thrust::THRUST_200302_520_NS::device_allocator<int> >&)#11}::operator()(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, thrust::THRUST_200302_520_NS::device_vector<unsigned long, thrust::THRUST_200302_520_NS::device_allocator<unsigned long> >&, thrust::THRUST_200302_520_NS::device_vector<int, thrust::THRUST_200302_520_NS::device_allocator<int> >&) const [clone .constprop.0]
+0000000000077308 t synreal::SolverNewton::precompute_matrices()::{lambda(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, thrust::THRUST_200302_520_NS::device_vector<unsigned long, thrust::THRUST_200302_520_NS::device_allocator<unsigned long> >&, thrust::THRUST_200302_520_NS::device_vector<int, thrust::THRUST_200302_520_NS::device_allocator<int> >&)#11}::operator()(std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > const&, thrust::THRUST_200302_520_NS::device_vector<unsigned long, thrust::THRUST_200302_520_NS::device_allocator<unsigned long> >&, thrust::THRUST_200302_520_NS::device_vector<int, thrust::THRUST_200302_520_NS::device_allocator<int> >&) const [clone .constprop.0] [clone .cold]
+0000000000102a90 t synreal::SolverNewton::step(synreal::State const&, synreal::State const&, synreal::Control const&, synreal::Contact const&, float, CUstream_st*)::{lambda(synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, synreal::Span<glm::vec<3, float, (glm::qualifier)0> >)#11}::operator()(synreal::Span<glm::vec<3, float, (glm::qualifier)0> const>, synreal::Span<glm::vec<3, float, (glm::qualifier)0> >) const [clone .isra.0]

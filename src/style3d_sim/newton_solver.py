@@ -13,6 +13,7 @@ from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 
 from ._core import Config, Contact, Control, Model, Solver, Span, State, is_logged_in, login
+from .local_credentials import load_saved_credentials
 from .joint_drive_effort import evaluate_joint_drive_effort
 from .rigid_body_dynamics import (
     NONE,
@@ -41,18 +42,34 @@ from .cable_material import (
 
 
 def _ensure_style3d_login() -> None:
-    """Authenticate the native solver using environment variables or terminal input."""
+    """Authenticate using environment variables, private saved credentials, or terminal input."""
     if is_logged_in():
         return
 
     account = os.getenv("STYLE3D_SIM_ACCOUNT")
     password = os.getenv("STYLE3D_SIM_PASSWORD")
+    credential_source = "environment variables"
     if not account or not password:
-        account = input("Style3D Sim account: ").strip()
-        password = getpass.getpass("Password: ")
+        saved = load_saved_credentials()
+        if saved is not None:
+            account, password = saved
+            credential_source = "the saved local credential file"
+        else:
+            account = input("Style3D Sim account: ").strip()
+            password = getpass.getpass("Password: ")
+            credential_source = "terminal input"
 
     if not login(account, password, False):
-        raise RuntimeError("Style3D Sim login failed")
+        hint = (
+            "Unset STYLE3D_SIM_ACCOUNT and STYLE3D_SIM_PASSWORD to use the saved local credentials."
+            if credential_source == "environment variables"
+            else "To update saved credentials, run: python -m style3d_sim.local_credentials."
+        )
+        raise RuntimeError(
+            f"Style3D Sim login failed using {credential_source}. "
+            f"The native login returned False without a detailed reason. {hint} "
+            "If the credentials are correct, check authentication service connectivity and account access."
+        )
 
 
 def __getattr__(name: str) -> Any:

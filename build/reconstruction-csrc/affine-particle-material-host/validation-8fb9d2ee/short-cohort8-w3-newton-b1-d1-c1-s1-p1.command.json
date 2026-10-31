@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "-m",
+    "reconstruction.csrc.granular_dense_distribution",
+    "--candidate",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8fb9d2ee/body-cloth8/w3-newton-b1-d1-c1-s1-p1",
+    "--initial-original",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-0853c9ac/body-cloth-reference8/w3-newton-b1-d1-c1-s1-p1",
+    "--original-runs",
+    "8",
+    "--launch-hook",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/full-owned-hook-129/cudahook.so",
+    "--dump-spec",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8fb9d2ee/body-cloth8/w3-newton-b1-d1-c1-s1-p1/dump.json",
+    "--output",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8fb9d2ee/short-cohort8/w3-newton-b1-d1-c1-s1-p1"
+  ],
+  "PYTHONPATH": "/home/oem/code/agent/style3d-sim"
+}

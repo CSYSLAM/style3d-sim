@@ -33,7 +33,11 @@ class Example:
         self.graph = None
 
         if not ASSET.is_file():
-            raise FileNotFoundError(f"Plastic bag asset is missing: {ASSET}")
+            raise FileNotFoundError(
+                f"Plastic bag asset is missing: {ASSET}. "
+                "To create a local replacement from the bundled bag-mesh generator, run: "
+                ".venv/bin/python scripts/generate_plastic_bag_asset.py"
+            )
         stage = Usd.Stage.Open(str(ASSET))
         prim = stage.GetPrimAtPath(PRIM_PATH)
         if not prim or not prim.IsA(UsdGeom.Mesh):

@@ -1,3 +1,5 @@
+> 本分支的源码重建进度、固定so/pyc及Windows接续步骤见 [RECONSTRUCTION_HANDOFF.md](RECONSTRUCTION_HANDOFF.md)。
+
 <div align="center">
   <h1>Style3D Sim 2.0</h1>
   <p>CUDA-accelerated implicit simulation for particles, cloth, deformable bodies, and affine rigid bodies.</p>

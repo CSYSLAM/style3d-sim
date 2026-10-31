@@ -1,0 +1,1 @@
+<p><span>Fluid::limit_step</span> 在 <span>0x120fa4</span> 直接计算 <latex>d_{max}=\texttt{fluid\char95 max\char95 step\char95 ratio}\cdot h_f</latex>，随后调用 <span>bound_scale</span>。默认 relaxation=0.5、max-step-ratio=0.25。后者为零表示关闭额外位移上界；有流体参与的世界仍会合并 relaxation 限制。</p>

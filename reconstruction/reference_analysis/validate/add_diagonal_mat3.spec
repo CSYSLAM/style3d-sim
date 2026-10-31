@@ -1,0 +1,10 @@
+label add_diagonal_mat3
+ptx add_diagonal_mat3.ptx
+cubin cubins/add_diagonal_mat3.cubin
+name_ptx _ZN7synreal12fluid_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i
+name_cubin _Z17add_diagonal_mat3PK4Mat3PS_i
+grid 1 1 1
+block 256 1 1
+ptr randf 9216
+ptr randf 9216
+u32 256

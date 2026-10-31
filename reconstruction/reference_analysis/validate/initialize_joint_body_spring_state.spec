@@ -1,0 +1,9 @@
+label initialize_joint_body_spring_state
+ptx initialize_joint_body_spring_state.ptx
+cubin cubins/initialize_joint_body_spring_state.cubin
+name_ptx _ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm
+name_cubin _Z34initialize_joint_body_spring_stateP4Vec3m
+grid 1 1 1
+block 256 1 1
+ptr randf 3072
+u64 256

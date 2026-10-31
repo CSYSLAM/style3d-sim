@@ -1,0 +1,13 @@
+label invert_block_preconditioner
+ptx invert_block_preconditioner.ptx
+cubin cubins/invert_block_preconditioner.cubin
+name_ptx _ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm
+name_cubin _Z27invert_block_preconditionerPK4Mat3PKfPKiPS_mm
+grid 1 1 1
+block 256 1 1
+ptr randf 9216
+ptr small 1024
+ptr idx 1024 2
+ptr zero 9216
+u64 256
+u64 256

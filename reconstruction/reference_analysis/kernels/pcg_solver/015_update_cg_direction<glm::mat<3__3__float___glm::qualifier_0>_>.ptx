@@ -1,0 +1,107 @@
+// [pcg_solver.cu] kernel 15/20   PTX 100 行   SASS 136 条指令
+// 签名: void synreal::kernel::update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >(int, glm::mat<3, 3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0> const*, float const*, glm::vec<3, float, (glm::qualifier)0>*, unsigned long)
+// 归一化原型: void synreal::kernel::update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >(int, glm::mat3 const*, glm::vec3 const*, float const*, glm::vec3*, size_t)
+// maxntid: (未指定)   ptxas: REG=19 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=1 sqrt=0 barrier=0 local=0 branch=5
+
+_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m(
+.param .u32 _ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_0,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_1,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_2,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_3,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_4,
+.param .u64 _ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_5
+)
+{
+.reg .pred %p<7>;
+.reg .f32 %f<44>;
+.reg .b32 %r<5>;
+.reg .b64 %rd<20>;
+
+
+ld.param.u32 %r1, [_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_0];
+ld.param.u64 %rd3, [_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_1];
+ld.param.u64 %rd4, [_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_2];
+ld.param.u64 %rd5, [_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_3];
+ld.param.u64 %rd6, [_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_4];
+ld.param.u64 %rd7, [_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m_param_5];
+mov.u32 %r2, %ctaid.x;
+mov.u32 %r3, %ntid.x;
+mul.wide.u32 %rd8, %r2, %r3;
+mov.u32 %r4, %tid.x;
+cvt.u64.u32 %rd9, %r4;
+add.s64 %rd1, %rd8, %rd9;
+setp.ge.u64 %p1, %rd1, %rd7;
+@%p1 bra $L__BB7_7;
+
+cvta.to.global.u64 %rd10, %rd4;
+mul.lo.s64 %rd11, %rd1, 12;
+add.s64 %rd12, %rd10, %rd11;
+cvta.to.global.u64 %rd13, %rd3;
+mul.lo.s64 %rd14, %rd1, 36;
+add.s64 %rd15, %rd13, %rd14;
+ld.global.f32 %f14, [%rd12];
+ld.global.f32 %f15, [%rd15];
+ld.global.f32 %f16, [%rd12+4];
+ld.global.f32 %f17, [%rd15+12];
+mul.f32 %f18, %f17, %f16;
+fma.rn.f32 %f19, %f15, %f14, %f18;
+ld.global.f32 %f20, [%rd12+8];
+ld.global.f32 %f21, [%rd15+24];
+fma.rn.f32 %f41, %f21, %f20, %f19;
+ld.global.f32 %f22, [%rd15+4];
+ld.global.f32 %f23, [%rd15+16];
+mul.f32 %f24, %f23, %f16;
+fma.rn.f32 %f25, %f22, %f14, %f24;
+ld.global.f32 %f26, [%rd15+28];
+fma.rn.f32 %f42, %f26, %f20, %f25;
+ld.global.f32 %f27, [%rd15+8];
+ld.global.f32 %f28, [%rd15+20];
+mul.f32 %f29, %f28, %f16;
+fma.rn.f32 %f30, %f27, %f14, %f29;
+ld.global.f32 %f31, [%rd15+32];
+fma.rn.f32 %f43, %f31, %f20, %f30;
+cvta.to.global.u64 %rd16, %rd6;
+add.s64 %rd2, %rd16, %rd11;
+setp.gt.s32 %p2, %r1, 0;
+mov.f32 %f40, 0f00000000;
+@%p2 bra $L__BB7_2;
+bra.uni $L__BB7_6;
+
+$L__BB7_2:
+cvta.to.global.u64 %rd17, %rd5;
+mul.wide.s32 %rd18, %r1, 4;
+add.s64 %rd19, %rd17, %rd18;
+ld.global.f32 %f4, [%rd19];
+ld.global.f32 %f5, [%rd19+-4];
+abs.f32 %f33, %f5;
+setp.leu.f32 %p3, %f33, 0f0DA24260;
+setp.gtu.f32 %p4, %f33, 0f7F800000;
+or.pred %p5, %p3, %p4;
+@%p5 bra $L__BB7_5;
+
+abs.f32 %f35, %f4;
+setp.gtu.f32 %p6, %f35, 0f7F800000;
+@%p6 bra $L__BB7_5;
+
+div.rn.f32 %f40, %f4, %f5;
+
+$L__BB7_5:
+ld.global.f32 %f36, [%rd2];
+ld.global.f32 %f37, [%rd2+4];
+ld.global.f32 %f38, [%rd2+8];
+fma.rn.f32 %f41, %f40, %f36, %f41;
+fma.rn.f32 %f42, %f40, %f37, %f42;
+fma.rn.f32 %f43, %f40, %f38, %f43;
+
+$L__BB7_6:
+st.global.f32 [%rd2], %f41;
+st.global.f32 [%rd2+4], %f42;
+st.global.f32 [%rd2+8], %f43;
+
+$L__BB7_7:
+ret;
+
+}
+//
+

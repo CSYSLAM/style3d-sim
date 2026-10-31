@@ -1,0 +1,79 @@
+// [fluid.cu] kernel 3/15   PTX 72 行   SASS 160 条指令
+// 签名: synreal::fluid_kernel::bound_scale(synreal::fluid_kernel::View, glm::vec<3, float, (glm::qualifier)0> const*, float, float, float*)
+// 归一化原型: synreal::fluid_kernel::bound_scale(synreal::fluid_kernel::View, glm::vec3 const*, float, float, float*)
+// maxntid: (未指定)   ptxas: REG=12 SHARED=0 LOCAL=0
+// 计数: atomic=1 div=1 sqrt=1 barrier=0 local=0 branch=2
+
+_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf(
+.param .align 8 .b8 _ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_0[112],
+.param .u64 _ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_1,
+.param .f32 _ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_2,
+.param .f32 _ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_3,
+.param .u64 _ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_4
+)
+{
+.reg .pred %p<5>;
+.reg .f32 %f<22>;
+.reg .b32 %r<21>;
+.reg .b64 %rd<26>;
+
+
+ld.param.v2.u32 {%r6, %r7}, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_0+80];
+ld.param.v2.u32 {%r8, %r9}, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_0+88];
+ld.param.u64 %rd12, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_1];
+ld.param.f32 %f21, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_2];
+ld.param.f32 %f9, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_3];
+ld.param.u64 %rd13, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_4];
+ld.param.u64 %rd5, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_0+24];
+ld.param.u64 %rd4, [_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf_param_0+16];
+mov.u32 %r10, %ntid.x;
+mov.u32 %r11, %ctaid.x;
+mov.u32 %r12, %tid.x;
+mad.lo.s32 %r1, %r11, %r10, %r12;
+setp.ge.s32 %p1, %r1, %r9;
+@%p1 bra $L__BB6_4;
+
+cvta.to.global.u64 %rd14, %rd4;
+div.s32 %r13, %r1, %r8;
+mul.lo.s32 %r14, %r13, %r8;
+sub.s32 %r15, %r1, %r14;
+mad.lo.s32 %r16, %r13, %r7, %r15;
+cvt.s64.s32 %rd1, %r16;
+mul.wide.s32 %rd15, %r16, 4;
+add.s64 %rd16, %rd14, %rd15;
+ld.global.u32 %r17, [%rd16];
+cvta.to.global.u64 %rd17, %rd12;
+mul.wide.s32 %rd18, %r17, 12;
+add.s64 %rd19, %rd17, %rd18;
+ld.global.f32 %f14, [%rd19];
+ld.global.f32 %f15, [%rd19+4];
+mul.f32 %f16, %f15, %f15;
+ld.global.f32 %f17, [%rd19+8];
+fma.rn.f32 %f18, %f14, %f14, %f16;
+fma.rn.f32 %f19, %f17, %f17, %f18;
+sqrt.rn.f32 %f1, %f19;
+setp.leu.f32 %p2, %f1, %f9;
+setp.leu.f32 %p3, %f9, 0f00000000;
+or.pred %p4, %p3, %p2;
+@%p4 bra $L__BB6_3;
+
+div.rn.f32 %f20, %f9, %f1;
+min.f32 %f21, %f21, %f20;
+
+$L__BB6_3:
+cvta.to.global.u64 %rd20, %rd5;
+shl.b64 %rd21, %rd1, 2;
+add.s64 %rd22, %rd20, %rd21;
+ld.global.u32 %r18, [%rd22];
+cvta.to.global.u64 %rd23, %rd13;
+mul.wide.s32 %rd24, %r18, 4;
+add.s64 %rd25, %rd23, %rd24;
+mov.b32 %r19, %f21;
+red.global.min.s32 [%rd25], %r19;
+
+$L__BB6_4:
+ret;
+
+}
+//
+

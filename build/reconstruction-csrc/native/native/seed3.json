@@ -1,0 +1,85 @@
+{
+  "seed": 3,
+  "smoke": {
+    "kernel_functions_resolved": 188,
+    "memory_roundtrip": true,
+    "range_error": true,
+    "argument_count_error": true,
+    "argument_size_error": true,
+    "zero_grid_error": true,
+    "empty_kernel": true
+  },
+  "groups": {
+    "step": {
+      "checks": 24,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+        "_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m",
+        "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+        "_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m",
+        "_ZN7synreal6kernel28update_solution_and_residualEiPKfS2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PS6_S9_m",
+        "_ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm",
+        "_ZN7synreal6kernel31refresh_inertial_cache_nonzerosEPKfPKmPKiS2_S4_S6_PNS_12NonZeroEntryES8_m",
+        "_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m",
+        "_ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm"
+      ]
+    },
+    "pcg": {
+      "checks": 26,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+        "_ZN7synreal6kernel15multiply_matrixINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_mm",
+        "_ZN7synreal6kernel15multiply_matrixINS_12NonZeroEntryEfEEvPKiPKT_mPKT0_PKN3glm3vecILi3EfLNSB_9qualifierE0EEESG_PSE_mm",
+        "_ZN7synreal6kernel17evaluate_residualINS_12NonZeroEntryEfEEvPKiPKT_mPKT0_PKN3glm3vecILi3EfLNSB_9qualifierE0EEESG_SG_PSE_mm",
+        "_ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m",
+        "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+        "_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm",
+        "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+        "_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm",
+        "_ZN7synreal6kernel34update_preconditioned_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPS4_m",
+        "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+        "_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm",
+        "_ZN7synreal6kernel35update_solution_residual_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKfS7_PKNS2_3vecILi3EfLS4_0EEESB_PKT0_PS9_SF_Pfbm"
+      ]
+    },
+    "cable_update": {
+      "checks": 1693,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel22update_cable_penaltiesENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEff"
+      ]
+    },
+    "cable_prepare": {
+      "checks": 1266,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel22prepare_cable_tangentsENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEE"
+      ]
+    },
+    "cable_evaluate": {
+      "checks": 12944,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel15evaluate_cablesENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fS7_PS5_PNS2_3matILi3ELi3EfLS4_0EEE",
+        "_ZN7synreal6kernel22prepare_cable_tangentsENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEE"
+      ]
+    },
+    "hard_state_branches": {
+      "checks": 144,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel24initialize_hard_contactsENS0_15HardContactViewE",
+        "_ZN7synreal6kernel25update_hard_contact_dualsENS0_15HardContactViewE"
+      ]
+    },
+    "hard_evaluate_branches": {
+      "checks": 444,
+      "failures": {},
+      "cpp_source_entries": [
+        "_ZN7synreal6kernel22evaluate_hard_contactsENS0_15HardContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPfPKS5_S6_PNS2_3matILi3ELi3EfLS4_0EEESC_S7_"
+      ]
+    }
+  }
+}
