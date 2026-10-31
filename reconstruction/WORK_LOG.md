@@ -5163,3 +5163,7 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   最终以RECONSTRUCTION_SNAPSHOT.json逐文件锁定本轮交接，推送仍使用既有Windows handoff分支。
 - 快照实际全量校验14838个文件，failures=0；包括当前host/native构建来源和产物校验。
   当前Python helper AST与源码/文档的git diff --check通过；当前活动image、失败cohort与全部限制如上。
+- 发布核对：源码/证据提交88d1335ad43380b4e79204ec585403d456436ea9已推送到CSYSLAM/style3d-sim的
+  reconstruction/windows-handoff-20261031，ls-remote与本机提交完全相同，发布时工作区干净。
+  从GitHub raw按提交下载实际参考so、活动源码so和当次manifest，三者均与本机逐字节一致：
+  参考仍64a0be7f，源码仍ff34e6a1，不是LFS pointer或另一个子仓库。接手拉分支最新HEAD后先校验快照。
