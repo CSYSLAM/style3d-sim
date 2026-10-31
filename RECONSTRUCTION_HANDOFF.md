@@ -66,7 +66,8 @@ wsl -l -v
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y git build-essential python3 curl ca-certificates pkg-config
+sudo apt-get install -y git build-essential python3 curl ca-certificates pkg-config \
+  libgl1 libegl1 libxrandr2 libxinerama1 libxcursor1 libxi6
 mkdir -p ~/code/agent
 cd ~/code/agent
 git clone --branch reconstruction/windows-handoff-20261031 --single-branch \
@@ -246,6 +247,7 @@ mkdir -p build/windows-check/probe-source
 | --- | --- |
 | `.so` 只有100多字节/LFS指针 | 拉错分支或旧子模块；本分支是真实Git文件，先校验，不重新下上游库 |
 | Windows Python加载失败 | 进入WSL Linux Python3.12；Windows `.pyd` 不是本轮对照替代物 |
+| GL/GLX/X11库缺失 | 安装上面列出的libgl1/libegl1及X11客户端库；图形窗口还需可用的WSLg，先用null viewer检查 |
 | `libcuda.so.1` / nvidia-smi不可用 | 检查Windows驱动、WSL2、wsl update、`/usr/lib/wsl/lib`，不装Linux驱动 |
 | `libcudart.so.12` / `libcupti.so.13` 缺失 | 恢复toolchain、source环境脚本；查打包lib目录，不改so内容 |
 | nvcc/CUB头缺失 | 运行恢复脚本，必须nvcc12.4.131和对应CCCL，不换系统CUDA13 |

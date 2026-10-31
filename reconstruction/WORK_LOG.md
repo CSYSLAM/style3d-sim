@@ -4960,3 +4960,13 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   全部逐位同。传输测试保存于reconstruction/transfer/20261031/，含原始数组、日志、manifest与重编译so。
 - 本次是Linux路径迁移测试，未声称Windows/WSL已跑；根交接列明WSL步骤、剩余差异和排查顺序。
 - 原始账号文件未包含；候选文件扫描无保存凭据、token/private-key匹配，所有SDK是真实Git blob，无gitlink/LFS指针。
+
+### 发布验收
+
+- 提交37dc0081714e4f2bd2376871c1b4ad5a027ca6a0已成功push到CSYSLAM/style3d-sim的新分支
+  reconstruction/windows-handoff-20261031，并已用ls-remote确认远端HEAD一致。
+- 最终已提交Git tree再次导出校验，5328文件全部SHA通过；360个pyc、17个so，无gitlink/LFS指针。
+- 从GitHub raw按提交SHA实际下载处理版_core.so、当前源码_source_solver.so、项目__init__.pyc，
+  三者长度/hash与本地快照全同；远端manifest也与本地完整字节相同，详见transfer/20261031/remote-verification.json。
+- 补充WSL图形客户端依赖安装说明；本次追加只更新交接/发布记录和快照，不改solver/二进制。
+- 当前未解决contact graph首次source0、74回归4项严格失败与未恢复组合，交接文档均明确保留。
