@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **当前距离完整替代：已能编译独立源码Core，完整一致性尚未验收。** 176个CUDA入口已重建；
+> host38/Core7eb可不加载原版独立运行已支持demo，最新完整74项为71项严格同，这不是总体完成率。
+> G1、复杂布料等长程固定失败和未捕获host组合仍需解决；默认包未切换，ready=False，原生Windows未完成。
+> 最新G1刚体接触切线向量路径：120份真实输入的600个完整输出全部严格同，11904实际原子操作数及完整after经CPU重核。
+> 下一步接触力RHS/对角及尚未覆盖的矩阵分支；见[刚体接触切线](reconstruction/csrc/G1_RIGID_TANGENT_RECOVERY.md)。
+
 > **新增G1晚期drive tangent真实图内快照及SDK逐drive隔离。** 两端120份真实before/after；
 > 30960次SDK/PTX/source隔离含正负零全严格，247680实际原子操作数的每线程序列同。
 > 63370份真实初值GPU标量证书、123860条历史、完整after buffer全部CPU独立重核同；生产host38/Core7eb不改。

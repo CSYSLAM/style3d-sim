@@ -1,0 +1,84 @@
+{
+  "capture": {
+    "exec_session_id": 54085,
+    "exit_code": 0,
+    "closed_status": {
+      "complete": true,
+      "running": null,
+      "completed": [
+        {
+          "backend": "original",
+          "exit": 0
+        },
+        {
+          "backend": "source",
+          "exit": 0
+        }
+      ],
+      "fixed_C8_report_sha256": "32b6e2a7337aaa80442fa3fd6232896410eb8163e875d35d845d4a8ae82d4e42",
+      "whole_solver_complete": false
+    },
+    "commands": [
+      [
+        "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+        "-m",
+        "reconstruction.csrc.g1_rigid_tangent_capture",
+        "--backend",
+        "original",
+        "--abi",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+        "--frames",
+        "60",
+        "--output",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rigid-tangent/original"
+      ],
+      [
+        "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+        "-m",
+        "reconstruction.csrc.g1_rigid_tangent_capture",
+        "--backend",
+        "source",
+        "--abi",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+        "--frames",
+        "60",
+        "--output",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rigid-tangent/source"
+      ]
+    ]
+  },
+  "replay": {
+    "exec_session_id": 51654,
+    "exit_code": 0,
+    "closed_status": {
+      "exit": 0,
+      "complete": true,
+      "whole_solver_complete": false
+    },
+    "command": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_rigid_tangent_replay",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rigid-tangent",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rigid-tangent/replay"
+    ]
+  },
+  "independent_cpu": {
+    "exec_session_id": 93048,
+    "exit_code": 0,
+    "command": [
+      ".venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rigid-tangent/independent-cpu-audit.py"
+    ],
+    "report": "independent-cpu-audit.json"
+  },
+  "all_gpu_jobs_closed": true,
+  "production_hashes_rechecked": {
+    "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+    "build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so": "38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49",
+    "build/reconstruction-csrc/source-core/a318a3ce42f6a731/_core.cpython-312-x86_64-linux-gnu.so": "7eb6e847ad6f100b51f2bc89db0a88744f93878077c318c91288d2f595116b53"
+  },
+  "whole_solver_complete": false
+}

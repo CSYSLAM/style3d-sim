@@ -6165,3 +6165,31 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   下一步向前核rigid contact tangent的真实before/after与完整输入，不再重复闭合的最后矩阵/drive，也不由q_out减dx猜回输入。
   全部任务已经实际结束，完整替代仍未通过，readyFalse，原始严格差异/整段失败均保留。
   最后仅拆分CPU审计一条129字符断言；成功执行源码保留为as-run并核报告SHA、AST相同，不重跑GPU或覆盖原结果。
+
+### 2026-11-01：G1刚体接触切线向量路径600份完整输出严格通过及当前替代范围核对
+
+- 接已发布293af194的drive核对，选择rank17451的evaluate_contact_tangent，固定SDK64a/host38/Core7eb/CUDA176f0不改。
+  新g1_rigid_tangent_capture/replay.py以旧drive工具固定SHA生成带锚点/次数断言的as-run源码，旧工具字节未改。
+- 两端各一次60帧正常公共Core真实graph/test，capture session54085实际退出0；源码无bridge/原版映射。
+  每帧25个非空指针before及输出30 after共94692字节；原图加一个buffer和26 D2D，变为17493节点/17494边。
+  独立CPU核全部快照范围、唯一拓扑、before/after严格依赖；诊断可改变调度，不冒充旧轨迹复现。
+- 120份packet真实计数前缀2017 contact线程，1769提前退出，248各24次atomic；53次实际改变输出。
+  system/preconditioner参数33/34均NULL，仅验收本次向量路径，不外推矩阵分支。
+- replay session51654实际退出0：实际SDK runtime/原版PTX/源码PTX/双探针共600个完整向量均与实际after逐位同。
+  两端11904真实原子操作数的逐线程/逐目标以及跨目标整个序列同；保留同线程同目标正常/摩擦两次顺序。
+  原版/源码各75个静态atomic site，规范化PTX和83/93寄存器、128/96 local仍不同，未擅改生产数学或资源。
+- independent CPU session93048实际退出0，直接重核600输出、54280800非输出after字节、11904真实原子操作数及图依赖。
+  原计划18153逐contact隔离和63360标量目标保留；由于完整输出已全部达到严格门槛，两任务均未启动。
+  原计划和未执行注解分别保存，没有删失败或放宽标准。首次CPU生成器替换次数3/2断言错误及旧源也保存，GPU前修正。
+- 新轨迹固定C8 within原版51/52/51/52、源码60/59/59/59，整段仍失败；最大速度偏差1.45927/1.12518。
+  没有逐位复现旧11轨迹，也未复现或解释23.8513尖峰；固定报告SHA32b6e2a7…、八原版/三源码和阈值均不变。
+- 下一步实际graph参数已核：第六子步首次NL contact_force rank14576，两个非空输出RHS32/对角33；
+  同NL contact_tangent rank14587，方向/乘积NULL而矩阵33/34非空。仅保存只读检查，尚未GPU捕获/回放。
+  先确认两输出完整尺寸、alias和before/after依赖，禁止猜原F32输入；严格通过继续下一项，有差异再做实际SDK隔离和原子证据。
+- 用户询问距离最终源码替代还差多少：已核当前独立Core/host及最新74项71严格，明确该比率不是整体完成率。
+  G1/复杂布料长程失败、未捕获host组合和最终默认入口切换仍未完成；Windows目前仍WSL2，不能声称原生Windows可替代。
+  原始输入、完整输出、日志、错误、命令、状态和独立审计在continuation-20261101-38b70dcd-g1-rigid-tangent；
+  接续方法见csrc/G1_RIGID_TANGENT_RECOVERY.md。生产未改，无故重复74项的测试没有启动，readyFalse保持。
+- 交接静态检查首次误把继承的精确worker-as-run源码纳入128列格式检查而退出，未启动GPU。
+  改为所有Python核语法、维护代码核128列，as-run原字节保留；handoff-preflight.json保存原因和通过范围。
+  新增命令/真实终态汇总及逐文件manifest，固定SDK/当前host/Core SHA再次核对不变。

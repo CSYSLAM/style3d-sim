@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **最新刚体接触切线向量路径严格通过，完整替代仍未通过。** SDK64a/host38/Core7eb/CUDA176f0不改；
+> 120份真实before/after、五后端600份完整输出全部逐位同，53次有效，11904实际原子操作数和54280800非输出字节CPU重核同。
+> system/preconditioner为NULL，不能外推矩阵分支；旧G1 C8失败和23.85尖峰未解释，ready=False。
+> 下一步rank14576接触力RHS/对角、rank14587矩阵输出；见[G1刚体接触切线](G1_RIGID_TANGENT_RECOVERY.md)。
+
 > **G1晚期drive tangent已新增实证。** 120份真实图内before/after、30960次SDK/PTX/source逐drive隔离含正负零全严格。
 > 247680实际操作数每线程序列同；63370份真实初值GPU标量证书及完整after byte均CPU独立同。
 > 整向量严格差异、整段C失败及旧23.85不改，生产仍host38/Core7eb/readyFalse；下一项rigid contact tangent。
