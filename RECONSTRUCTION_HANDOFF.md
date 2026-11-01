@@ -1,6 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **当前活动源码image86916989：普通spring/point-line/distance的PD/body-block。**
+> **活动源码6a7061d7：无drive固定/球关节的PD/body-block。**
+> 16组状态/6096调用/首force buffer严格，四种构造五项同，graph64/64及双端initcheck全过；ready=False。
+> 见[UNDRIVEN_JOINT_HOST_RECOVERY.md](reconstruction/csrc/UNDRIVEN_JOINT_HOST_RECOVERY.md)。
+
+> **前一86916989：普通spring/point-line/distance的PD/body-block。**
 > 24组固定原版状态/8952调用/首force buffer严格，6种构造五项同，graph96/96严格，双端initcheck零错误。
 > 当前74为70严格，固定C10仅1/4过；三项继续定位，ready=False。见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](reconstruction/csrc/PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
 > SDK64a、CUDA176/f0与360个pyc固定字节不变，Windows继续使用WSL2。
@@ -57,7 +61,7 @@
 当前176个CUDA入口已重建并纳入版本清单，host组合场景和正式demo仍需继续验收。
 Git 76facc7的交接只迁移冻结基线；后续25/cc/ff新增host字段和按原版恢复调度，CUDA数学和比较标准未改。
 
-**当前86916989检查点**：三类普通约束24组状态/首buffer/8952次完整调用全严格；
+**前一86916989检查点**：三类普通约束24组状态/首buffer/8952次完整调用全严格；
 六种constructor五项同，graph96/96、双端initcheck3均通过。完整74为70严格，固定C10仅1/4过，另三份source0保持失败。
 
 **前一5bd9722e检查点**：joint/body-block八组已严格、四种构造五项同，graph128/128与双端initcheck已通过；
@@ -101,7 +105,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `8691698973a5ef5109a5300a72d319c918d9a159c20a9b0b76a0ddb1563c2eea`；当前源码host image；5bd/c189/d845等历史检查点保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `6a7061d769946498b59c3d10b6ede7f843ff73b973e9d2ebe0cbb669725803f4`；当前源码host image；869/5bd/c189等历史检查点保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |

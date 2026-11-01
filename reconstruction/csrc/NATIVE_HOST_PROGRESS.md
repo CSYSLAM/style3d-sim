@@ -1,6 +1,10 @@
 # 新版基准与 C++ host 进度
 
-> **活动image86916989：普通约束PD/body-block。** 24组状态/8952调用/首force buffer严格；
+> **活动6a7061d7：无drive固定/球关节PD/body-block。** 16组状态/6096调用/首buffer严格；
+> 四种构造五项同，graph64/64、双端initcheck均通过。当前74未收集，ready=False。
+> 见[UNDRIVEN_JOINT_HOST_RECOVERY.md](UNDRIVEN_JOINT_HOST_RECOVERY.md)，以下image为历史。
+
+> **历史86916989：普通约束PD/body-block。** 24组状态/8952调用/首force buffer严格；
 > 6种构造五项同、graph96/96及双端initcheck通过，当前74为70严格、固定C10仅1/4过，三项继续定位。见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
 > 以下5bd/c189等为历史检查点，CUDA176/f0、SDK64a不改，ready=False。
 

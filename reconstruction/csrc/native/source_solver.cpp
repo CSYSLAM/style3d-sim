@@ -2270,7 +2270,11 @@ public:
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
             !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
             !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
-        if (body_block && !isolated_plain &&
+        const bool isolated_undriven_joint = joint_spring_total_ && !plain_spring_count_ && !point_line_total_ &&
+            !distance_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ && !granular_points_ && !self &&
+            !drag_count_ && !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&
+            !contact.max_count && !contact.soft_max_count;
+        if (body_block && !isolated_plain && !isolated_undriven_joint &&
             (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             (plain_spring_count_ || plain_line_count_ || distance_total_ || !drive_total_ || cable_count_ ||
              fluid_rows_ || contact.max_count || contact.soft_max_count))
@@ -2282,7 +2286,8 @@ public:
         if (hard && config.rigid_contact_history && !contact.match_index.size)
             throw py::value_error("hard-contact history requires collision match indices");
         // Captured PD routes omit plain Gauss-Newton blocks; mixed and undriven joint routes remain guarded.
-        if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) && !isolated_plain &&
+        if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
+            !isolated_plain && !isolated_undriven_joint &&
             pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
             throw std::runtime_error("Plain or undriven body constraints with PD_NEWTON have not been captured");
         if ((plain_spring_count_ || plain_line_count_ || distance_total_) && (rigid || contact.soft_max_count))
@@ -2885,6 +2890,9 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "plain_body_point_lines_newton",
                                                      "isolated_plain_constraints_pd_newton",
                                                      "isolated_plain_constraints_body_blocks",
+                                                     "undriven_joint_constraints_pd_newton",
+                                                     "undriven_joint_body_blocks_newton",
+                                                     "undriven_joint_body_blocks_pd_newton",
                                                      "joint_springs_and_drives_newton", "joint_point_lines_newton",
                                                      "joint_armature_newton", "driven_joint_constraints_pd_newton",
                                                      "driven_joint_body_blocks_newton",

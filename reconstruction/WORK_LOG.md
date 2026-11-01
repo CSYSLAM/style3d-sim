@@ -5597,3 +5597,25 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 本轮全部队列已关闭后统一入库；首次逐文件pathspec列表触发Git高CPU匹配，SIGINT取消该add（尚未写index），
   改按已核对的四个明确目录前缀及维护文件加入，数秒完成。未扩大到整个build，未停止其它用户进程。
   当前正在生成869完整证据快照，SDK及既有360pyc逐SHA不变；下一guard变更尚未实施。
+- b524a669727a100706136ea35e2e2b776d36f4b0已推csy，ls-remote核对同；快照127582文件0失败。
+  该提交包含869全部固定失败/独立SDK见证/804路径证明与未开放的undriven基线；SDK/360pyc仍固定。
+- 按实际16份原版和四份已有严格基线，仅窄化孤立AL spring joint的PD/body-block guard：无plain/line/
+  distance/drive、无其它材料/cable/contact。新增三项scope标签，不改CUDA或任何CPU浮点模板/调度。
+  编译新image6a7061d769946498b59c3d10b6ede7f843ff73b973e9d2ebe0cbb669725803f4，176/f0同。
+  当前逐个对固定16份原版验状态/首force buffer/完整参数；尚未提前验收，不继承869的74或C10结论。
+- 6a对固定16份原版全部状态/首force buffer/6096次完整owned参数与geometry严格同；四种W3构造五项同。
+  16组合graph60队列退出0，双端initcheck继续，未提前写最终通过。维护新UNDRIVEN文档与根交接。
+- 下一PENALTY scene为独立wrapper组合原driven/undriven fixture，只设置native joint_constraint_mode=0，
+  固定/球/转动/移动×W1/W3×Newton/PD×body-block计划32组；原有fixture及生产mode guard均保持。
+  尚未开始该GPU采集，不根据代码猜测其实际调度。
+- 6a局部队列complete且全退出0：四种W3构造各56分配/28上传/28typed，Newton/PD owned432/429；
+  16组合eager/真实graph60共64/64严格，双端各32轨迹×3步initcheck0错误。当前image未采完整74，不继承869。
+  开始历史869 checkpoint下732 point packet回放（活动6a保持不变）→PENALTY原版32组串行队列。
+- 历史869 checkpoint在活动6a不变时独立加载，732公共packet/2196三端调用全部严格，验证归档loader可接续。
+- PENALTY32份实际SDK全部finite/body移动，每组9次general force确实改变RHS。SDK实际表明：
+  不调用joint AL init/force/update；general spring/line force的include_joint=true，force alpha仍5759999。
+  start的D4与combine的L5权重均为100（即config.alpha），所有kind均如此，包括该channel为零者。
+  prismatic Newton调用general point-line GN Hessian9次，PD没有；没有AL line preconditioner/tangent。
+  pure joint spring Newton没有general spring GN Hessian，不能凭推测补一个调用。
+- 保留actual-penalty-host-schedule.json全参数及32份原版；修改前6a检查点27文件与226份原版文件SHA已保存。
+  生产尚未改变为Penalty支持，下一步仅按上述实际host证据恢复切换。
