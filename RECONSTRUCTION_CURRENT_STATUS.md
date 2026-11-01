@@ -15,11 +15,11 @@
   三项粒子严格失败的固定十原版对照中seed1/3通过、seed2未通过；71/74不是总体完成率。
 - 最近颗粒＋SO3刚体的隔离候选完成四短程、构造五项、60步eager/graph16项、双端initcheck及六扩展布局验证。
   六布局状态全部逐位一致；两块中间buffer差异由真实SDK复现并定位为链表输入顺序，旧严格失败保留。
-  已合入新host dec858e5，其四短程、六布局及16项60步graph本次全严格；完整74和当前constructor仍待完成。
+  已合入新host dec858e5，其四短程、六布局及16项60步graph本次全严格；当前74已完成71严格，三个粒子固定C10全过，constructor五项全同。
 
 ## 仍需完成
 
-1. 完成当前host dec858e5的完整74回归、固定失败对照及构造审计；新公开Core47的三个正常入口已过。
+1. 当前host dec858e5完整74为71严格，三粒子固定C10及constructor五项均过；接续合入已验证的bonds/刚体源码候选。
 2. 继续解决G1及复杂布料的长程固定对照失败；G1旧速度误差约23.85的尖峰尚未完整解释。
    已有大量同输入核对及归约顺序证据，不能据此把完整轨迹失败改判为通过。
 3. 解决粒子seed2的固定对照失败，补齐SDK实际支持、源码仍拒绝或尚未验证的host组合。
@@ -38,8 +38,11 @@
 独立CPU确认与已测候选的数学文本相同，176入口清单不变、helper26匹配；这不能代替当前镜像GPU验收。
 新公开Core SHA前缀`47ae9720`，路径`build/reconstruction-csrc/source-core/95f700673f9a3e0b/`，与host dec匹配。
 Dzhanibekov60、plastic bag3、G1 graph60正常入口全0，未映射原版；不能代替G1独立长程对照。
-验证session91260在等待外部GPU2832657执行74；constructor follower92644在其后，旧Core7eb仅对应旧host38。
-下一组合发现72496排在其后：六组带authored/dynamic/mixed bonds的颗粒＋刚体，尚无实际支持结论。
+验证session91260实际结束：74为71严格，particles seed1/2/3严格失败，但三个原首候选均通过固定C10、独立CPU复核同。
+当前constructor92644五项全同、真实终态0；旧Core7eb仅对应旧host38，没有继承旧38通过项。
+六组带authored/dynamic/mixed bonds的颗粒＋刚体已实测：SDK六组正常，当前生产均被guard拒绝。
+据so恢复的隔离候选EFE已通过六短程全buffer/状态/ABI、三类constructor五项、24项60步eager/graph及双端共六initcheck。
+这是实际GPU结果；生产dec/Core47仍未合入此候选，接下来需合入、编译匹配Core并做新image回归。
 
 ```bash
 source scripts/reconstruction_env.sh

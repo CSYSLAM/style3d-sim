@@ -1,0 +1,82 @@
+{
+  "candidate_sources_exact_after_reversing_listed_deltas": true,
+  "only_guard_and_constructor_deltas": true,
+  "SDK_mat3_append_zero_value_bytes_both_branches": 36,
+  "SDK_matrix_default_stores_and_calls": [
+    {
+      "zero": 1161448,
+      "stores": {
+        "1161464": [
+          -136,
+          16
+        ],
+        "1161478": [
+          -152,
+          16
+        ],
+        "1161493": [
+          -120,
+          4
+        ]
+      },
+      "call": 1161570
+    },
+    {
+      "zero": 1161792,
+      "stores": {
+        "1161800": [
+          -136,
+          16
+        ],
+        "1161819": [
+          -152,
+          16
+        ],
+        "1161834": [
+          -120,
+          4
+        ]
+      },
+      "call": 1161911
+    }
+  ],
+  "candidate_images": [
+    {
+      "candidate": "guard-only",
+      "image_sha256": "b95f7e4c53863adaf5b0272deb9cd10656736913a31fb8d759225c97e082352d",
+      "dynamic_dependencies": [
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libcuda.so.1]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libcudart.so.12]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libstdc++.so.6]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libgcc_s.so.1]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libc.so.6]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[ld-linux-x86-64.so.2]"
+      ],
+      "original_SDK_dependency_present": false
+    },
+    {
+      "candidate": "static-cache",
+      "image_sha256": "efe066f23a02cbde6fa026307e507a644e4042c9b99d3fd2ce2636f0fcbfea00",
+      "dynamic_dependencies": [
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libcuda.so.1]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libcudart.so.12]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libstdc++.so.6]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libgcc_s.so.1]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[libc.so.6]",
+        " 0x0000000000000001 (NEEDED)             \u5171\u4eab\u5e93\uff1a[ld-linux-x86-64.so.2]"
+      ],
+      "original_SDK_dependency_present": false
+    }
+  ],
+  "production_changed": false,
+  "GPU_runtime_validation_claimed": false,
+  "whole_solver_complete": false,
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-dec858e5-granular-affine-bonds/audit-isolated-bond-candidates.py": "13d8e9e9250afec5f55cff69512fdeaaf03d2a802f2b85b4f06e21f730af4982",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-dec858e5-granular-affine-bonds/build-isolated-bond-candidates.py": "6bb1e7a18488919b64163dbdd07b4c91020e997181bde280a7e5a70f25bfb743",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp": "dd4d5898d2e9f3d851e7a8d175faeef116972269880370e07f65479603f16331",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-dec858e5-granular-affine-bonds/host-bond-argument-binding/mat3-append.asm": "f8a47b48244dd593f492c7208b441266b365017f88e8e02e5ef8eae1b24e6e6d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-dec858e5-granular-affine-bonds/candidate-guard-only/source_solver.cpp": "68bf7b1115e03dd5db67d11c69e4b472dbb5d4992901ea0662775dc443808d4e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-dec858e5-granular-affine-bonds/candidate-static-cache/source_solver.cpp": "bd31f849b2385921b8e2fb39fc24a09517dea06f6e8b9b8b94b77c6cf20acb45"
+  }
+}

@@ -6680,3 +6680,53 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   动态段对象+9c8 int=-1，+9e8 ivec2零，+a08/+a28 float零，+a48 int零，+a68 mat3全零。
   两次int range_assign在负一/零fill之前；与当前prepare_bonds上传和tangent裸分配存在构造方式/顺序差别。
   尚未runtime绑定字段语义，不根据静态推测直接改生产。新反汇编、地址表及下一步门禁见bonds phase静态记录。
+
+
+### 2026-11-01：bonds构造源码隔离恢复、整数helper及七处原版host参数绑定
+
+- 上轮eef43079375a71532932b2542794bed09ab33594发布完成，起始clean；上一轮属于新Core实测及诊断源码恢复进展。
+  本轮同句柄91260/92644/72496均仍实际运行，未因等待超时重启，外部2832657/worldparticle仍在GPU进程表。
+- 等待中编译隔离cache-value-prototype，新增source_cache_initialize_integer(data,count,value)直接复用已验收int Thrust入口，
+  支持原版静态观察到的1/-1值，不改原零值API、生产helper、CUDA176或求解器数学。
+  builder96085实际0，26个设备入口全部与既有接受清单同；独立CPU核完整源码delta、原四API保留且仅新增一API。
+  没有GPU执行，不将编译/CPU证据写成整数API运行时通过。
+- 从固定SDK64a重新导出Granular::accumulate(1269c0/69b)、commit(127060/6a2)、multiply(127710/33e)，
+  SHA/命令完整保存。七个真实call点、50条精确load静态核准：
+  authored count754/pairs910/rest930/history950/active970/tangent8f0；
+  dynamic count758/pairs9f0/resta10/historya30/activea50/tangenta70；
+  formation CSR offsets990/columns9b0/partner9d0，shared diagonal8d0。
+  以上是静态参数绑定，不冒称CUPTI运行时指针绑定已过。
+- 继续追原版mat3 resize(11bfa0/a5)到append(11b7f0/7ae)，新分配/已有容量两条append路径均明确写满36个value零字节后调用
+  mat3 __uninitialized_fill，已独立核准两条36字节覆盖，不依赖GLM默认构造的猜测。
+- 编译两个隔离候选，生产dec/Core47保持：guard-only SHA b95f7e4c53863adaf5b0272deb9cd10656736913a31fb8d759225c97e082352d；
+  static-cache SHA efe066f23a02cbde6fa026307e507a644e4042c9b99d3fd2ce2636f0fcbfea00。两编译子任务及driver32100均实际0。
+  后者据原版恢复authored active=1/tangent零、动态CSR先上传，再partner=-1、pairs/rest/history/active/tangent typed零。
+  独立CPU反向撤销所有delta后源码完整相等，迭代force/PCG/state数学未改；两image导出正确且无SDK ELF依赖。
+  这是待验收的源码候选，不放开生产guard，不声称SDK已经支持六组合或状态一致。
+- 新candidate worker与12组串行采集runner已准备，67275按实际discover进程PID/starttime等待。
+  必须先有六SDK正常＋六当前source guard的实际发现，再运行guard-only/static-cache各六组；所有严格首差保留，不按失败扩cohort。
+- 外部2832657释放后91260继续执行当前74，已完整终态：71严格、三个particles seed1/2/3严格失败；没有新增cloth/mixed失败。
+  固定C10尚未执行，不能继承38旧通过项。现在外部2866417/worldparticle占用，继续等待。
+  注意仅记录到74前一瞬GPU为空，74结束时另一个训练context已存在，不能把本批写为全程GPU独占。
+- 因外部训练连续占用，异步询问用户是否允许共享GPU算力（原版/源码仍严格串行、原协议/阈值不变、记录占用）。
+  答复尚待；未把预选项或等待时间当作授权，现有等待策略保持。源码恢复与CPU证据仍继续，不停止外部训练。
+
+- 新候选CPU审计事后格式检查发现v1第78行129列；保留已经执行的v1脚本和原report不改，另写v2折行及独立输出。
+  v2 CPU实际0，除记录本身的源码provenance外全部结果字段与v1完全相同；未重采GPU或改候选源码/镜像。
+  检查新维护脚本时使用v2，v1仅作为真实as-run证据保留。
+- 外部2866417释放后，原句柄91260已经自行继续到固定C10，未重启主验证；其新实际worker PID2905893。
+  GPU共享偏好尚无答复，未根据预选项改变等待策略。
+
+- 原验证91260已实际0：当前74为71严格；三个首失败particles seed1/2/3的固定C10均通过，独立CPU复核0。
+  只接受当前dec的实际结果，旧38/其它image的固定失败仍保留。原版/源码仍按原等待策略串行，没有用用户未答复的共享选项改变策略。
+- 当前constructor92644实际0：3source观测+独立CPU全部0，五项全同（allocation85/85、upload26/26、typed55/55、485owned、544/544时序）。
+- 六组bonds支持发现72496实际0，12worker终态：SDK六组全0、当前源码六组全1且明确bonded/body guard。
+  真实selection/bond remap及初始restlength/span count均核准，确证该范围为当前生产实际支持缺口。
+- 候选采集67275实际0：guard-only/static-cache各六worker全部0，两候选各6/6完整状态、全部采集before/after、owned ABI/coverage严格。
+  即使本批观测的零初值也相同，仅短程仍不能证明constructor一致，所以继续实际构造采集。
+- 真实bonds constructor77424实际0，三类authored/dynamic/mixed，18GPUworker+3独立CPU全0，三类五项均全同。
+  使用固定SDK真实原版采集及当前static-cache image EFE；不是靠静态表推断或继承无bonds结果。
+- 真实长程/内存检查44095实际0：两个graph worker全部0，六组60步eager/graph共24比较全部逐位同。
+  原版/source各authored/dynamic/mixed三initcheck共6任务全0，日志均ERROR SUMMARY:0 errors；完整状态与实际命令保留。
+  当前隔离bonds源码候选已通过以上门禁，下一步保存dec/Core47构建检查点，合入对应源码及准入，再编新host/Core并验证新image。
+  G1/复杂布料旧长程失败、trampoline缺asset等整体缺口不据此改判；原版64a/360pyc与生产数学不变。

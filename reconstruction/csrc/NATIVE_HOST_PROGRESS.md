@@ -1,5 +1,13 @@
 # 新版基准与 C++ host 进度
 
+> **dec当前验收已终态：74为71严格，三粒子固定C10全过、constructor五项同。** bonds/刚体SDK六组支持已实证。
+> 隔离EFE六短程全严格、三类构造五项全同、60步graph24/24及双端六initcheck零错误；待生产合入及新image回归。
+> 旧G1/复杂布料失败不改、readyFalse；[当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先于历史。
+
+> **当前dec/Core47：完整74已结束，71严格；三粒子首失败C10仍待GPU。** 当前constructor及bonds支持发现依次排队。
+> bonds隔离源码已据固定so构造/七处参数调用恢复并编译，26helper同；尚无本组合GPU结论，生产与readyFalse保持。
+> [当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先于下方历史记录，不继承旧image的C10通过项。
+
 > **当前host dec858e5/Core47ae9720已完成三正常入口。** 四短程、六扩展布局和60步graph16项本次全严格，原版未映射。
 > 74/fixedC与当前constructor继续排队，readyFalse；通用初始化decoder已以原始两批数据核准，不改旧失败。
 > 下一步带bonds颗粒/刚体实际支持发现；[当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先，下方为历史记录。
