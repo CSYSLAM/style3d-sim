@@ -5317,3 +5317,8 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 发布前索引25442文件，本轮3888路径约277.2MB未压缩证据，最大新文件7.74MB。
   固定SDK无改动，360个pyc与上一快照逐SHA相同，无gitlink/LFS pointer/凭据模式命中。
   当前host/native构建来源与产物SHA均一致，新增Python AST及128列检查、源码/文档diff检查通过。
+- 快照实际校验25441个文件，failures=0；实现/原始证据提交89064f72c1c34bb8e4f975cafabb08f1fe586328
+  已推送既有reconstruction/windows-handoff-20261031分支，ls-remote与本机同，推送后工作区干净。
+  按该提交从GitHub raw下载参考so、源码so及快照，三者均与本机逐字节同，参考64a、源码8f4127f0。
+  published-89064f7-verification.json保存发布核对，也明确71/74、C10两过一失败和ready=False。
+  随后只补发布记录/下一步和快照，不修改生产代码、候选、数学或比较结果。

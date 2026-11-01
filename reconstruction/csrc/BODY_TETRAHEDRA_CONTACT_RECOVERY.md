@@ -116,5 +116,7 @@ LD_PRELOAD="$PWD/build/reconstruction-csrc/host-particles/host_trace.so" .venv/b
   -m reconstruction.csrc.particle_full_worker_trace --backend source --output "$recon_root/NEW-pcg/source"
 ```
 
-下一步先捕获body+tet的legacy particle contact或实际self接触，核对初始化/完整调用/中间输出后再开放guard。
+seed1的固定C10仍须保留为失败。继续沿它排查时，先用已复现的102个packet检查后续传播，
+对三个文本不同入口补实际同输入回放；不能为贴合某次原子顺序而改数学或扩大cohort。
+接着捕获body+tet的legacy particle contact或实际self接触，核对初始化/完整调用/中间输出后再开放guard。
 必须有真实接触和实际双方作用，不能用空路径验收；旧surface固定差异仍需独立继续定位。
