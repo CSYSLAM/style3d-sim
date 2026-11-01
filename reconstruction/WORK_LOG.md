@@ -6912,3 +6912,25 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 新PD_CONTACT_RHS_CG_RECOVERY写明真实输入范围、首版采集失败、v2修复、CG分组、受控隔离限制及后续步骤。
   根状态/Windows交接及csrc三个入口同步更新；write-next-step/close-phase实际0，封存413个原始数据与脚本文件。
   旧固定source0/frame32、原版八份cohort及候选未合入状态保持；接续完整CG extra/tangent及后期接触输入。
+
+### 2026-11-01：接续完整PD接触/tangent输入（采集队列）
+
+- 上轮为progress：21600真实阶段、72次首CG/F32证书及36次向量传播实测，267379文件快照0失败，
+  66781412e5c09713abc22268911a49468ad3a293已push0并核远端精确HEAD；本轮起始tracked clean。
+- 新phase continuation-20261101-4f638b4b-pd-tangent-full。主host0dab/Core715、候选4f、SDK64a及旧cohort不改。
+  根据真实PTX签名、已验证G1结构及本场景实际参数补全rigid/soft/rolling force、matrix、tangent及预条件器跨度。
+  新pd_contact_tangent_schema保留全部90基础阶段，扩到每帧213阶段，所有非空flat指针和W/R内部指针均有实际大小。
+  原生3刚体/36粒子/6形状，rigid capacity1000、soft72，CG每组12；不套G1的44/176/105长度。
+- 八份真实graph模板的CPU ABI/符号DAG预检全部0：每graph新增4047216字节staging、2823只读复制，
+  新3099节点/3524边，原276节点/275边保留。每次完整保留容量字节，不排序实际输入；比较时排除未使用槽位语义。
+  同输入回放预先固定frames0/31/32/59，不随观测结果换帧；新增或补全132个阶段实例/每帧、四worker，共2112 packet/6336调用计划。
+- run-tangent/session12388已启动，driver Python PID3118261；起始及后续核实外部GPU进程3104143仍真实运行，
+  按原空闲等待策略等待，未终止或共享该GPU任务。当前没有新GPU采集结论，status和实际PID需继续核查。
+- static-proof/session16014实际CPU0：23种kernel、46原版/source PTX入口的写指针均在实际nullable模式输出并集中。
+  已准备完整CPU审计、extra/方向/私有cache衔接检查，以及固定四帧完整输入回放；运行结果需等实际终态，不提前写通过。
+- atomic-access-proof/session78697实际CPU0：20份新原子原版/source入口只以F32 red写输出，输出未被global load，且无barrier。
+  这是静态输入独立性证据，不是索引范围或GPU一致性结论。接触容量还按本机Newton contacts分配代码核查，未改依赖。
+- capture-driver-receipt真实核PID3118261的命令、boot_id/start_ticks后保存；新run-pipeline/session81124已启动，
+  自动等待原driver终态后做实际graph、完整CPU数据流审计、6336次同输入GPU及独立CPU复核，不替换或重启采集。
+  原子差异将保留为需定位项，不以流水线结束当验收。当前GPU外部PID3104143仍在运行，未杀任何外部任务。
+  PD_CONTACT_FULL_TANGENT_QUEUE写明已有CPU证据、未开始的GPU结论、实际进程与新机器迁移步骤。

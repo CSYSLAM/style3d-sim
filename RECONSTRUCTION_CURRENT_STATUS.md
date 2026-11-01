@@ -4,6 +4,10 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+当前新增完整PD tangent队列：213阶段/帧的ABI与八份符号DAG检查已过，23类/46 PTX写指针与20份原子入口读写证明已核。
+GPU验证仍在等待外部任务释放设备，未有本批一致性结论；现有采集及后续流水线均已启动，勿重复运行旧输出目录。
+进程核查、预定四帧/6336调用及WSL接续见[完整tangent队列](reconstruction/csrc/PD_CONTACT_FULL_TANGENT_QUEUE.md)。
+
 当前构建已推进到host `0dabbaa7` / Core `7151054e`（`source-core/5037032b98b9d614`）。
 已合入验证后的bonds/刚体构造及准入；16短程、24项graph、三个正常Core入口及103/57/246合同已过。
 完整74已结束：69项严格一致，particles seed1/2/3、mixed_cloth seed3、pd_mixed_cloth seed3共五项严格失败。
@@ -57,7 +61,7 @@ W3/subset/mixed/PD的eager/graph仍未通过全部长程门禁，候选未合入
 当前生产合入证据目录：
 `build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-bonds-production/`。
 `validation-0dabbaa7-v2/status.json`记录主验证，`constructors-0dabbaa7/status.json`记录三类构造；
-两个driver分别是session68428与29879，均已真实结束0；没有活动验证队列，勿重跑已封闭输出目录。
+两个生产验证driver分别是session68428与29879，均已真实结束0；该生产队列已结束，新诊断队列见顶部。
 固定原版为项目内SDK64a，源码独立运行且无原版映射；原版及360份冻结pyc保持。
 当前74严格失败五项，固定source0未替换。Newton mixed固定C10仍false，不宣布整体验收。
 
