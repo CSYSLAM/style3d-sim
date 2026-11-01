@@ -1,0 +1,64 @@
+[
+  {
+    "capture": "constructors",
+    "pid": 2828532,
+    "actual_exit": 1,
+    "previous_audit_identical_in_full": true,
+    "new_types_calls": {
+      "original": {
+        "ivec3": 1,
+        "vec4": 1
+      },
+      "source": {
+        "ivec3": 0,
+        "vec4": 0
+      }
+    },
+    "allocation_counts": [
+      85,
+      83
+    ],
+    "typed_counts": [
+      55,
+      41
+    ],
+    "checks": {
+      "allocation_release_bytes_identity_phase_and_preceding_owned_launch": false,
+      "upload_bytes_and_order": true,
+      "typed_initializer_fields_uses_and_order": false,
+      "flat_owned_pointer_allocation_identity_and_offset": false,
+      "owned_and_library_kernel_name_order": false
+    }
+  },
+  {
+    "capture": "constructors2",
+    "pid": 2828693,
+    "actual_exit": 0,
+    "previous_audit_identical_in_full": true,
+    "new_types_calls": {
+      "original": {
+        "ivec3": 1,
+        "vec4": 1
+      },
+      "source": {
+        "ivec3": 1,
+        "vec4": 1
+      }
+    },
+    "allocation_counts": [
+      85,
+      85
+    ],
+    "typed_counts": [
+      55,
+      55
+    ],
+    "checks": {
+      "allocation_release_bytes_identity_phase_and_preceding_owned_launch": true,
+      "upload_bytes_and_order": true,
+      "typed_initializer_fields_uses_and_order": true,
+      "flat_owned_pointer_allocation_identity_and_offset": true,
+      "owned_and_library_kernel_name_order": true
+    }
+  }
+]

@@ -6649,3 +6649,34 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 验证91260当前无source worker启动，正在等待真实外部GPU PID2817572/worldparticle，未终止外部作业、未重复启动。
   本阶段immutable-checkpoint.json只固定终态/静态文件，排除活跃validation-dec858e5及run-validation-v2.log。
   新snapshot明确public_core_matches_current_host=False，公开Core7eb仍为旧host38产物，不能误用作新host验收。
+
+
+### 2026-11-01：生产颗粒刚体新版完成短程/布局/graph及匹配公开Core入口，继续当前回归
+
+- 上轮2e00f53315e77bf8f9dcbaf6972ba325b2c625f9已精确推送；起始工作区clean。
+  同句柄91260实际存活，外部2817572/worldparticle占用，未中断/重开旧验证。此前一轮属于实际源码合入及构建进展。
+- GPU释放后当前host dec858e5的四短程worker全0、四完整状态/全部采集buffer/owned ABI/coverage严格。
+  六扩展布局worker全0，六完整状态与全部采集buffer/metadata/coverage本次也全严格；不修改旧候选两块buffer的历史失败。
+  当前60步eager/真实graph source worker0，对固定SDK参考的16项比较全部逐位同。
+- 新公开Core编译0，SHA 47ae97200081256af5f5530d180bca1f664fd31214474db4efc0216a52aec2e7，
+  与当前host dec858e5匹配；Dzhanibekov60、plastic bag3、G1真实graph60三个正常入口实际0，source_only/public_core_abi为真、
+  SDK映射为假。G1原速度测试问题和独立固定C8失败不据此改判。
+- 74回归启动前又遇实际外部2832657/worldparticle；91260继续同一任务等待，未重复启动或终止外部任务。
+- 初始化审计TYPES补入真实SDK已观察的ivec3(12字节)/vec4(16字节)，仅诊断源码，不修改生产构建输入或数学。
+  保存原解析器及SHA；CPU对两批原始constructor数据重新运行，首候选报告完整相等且仍exit1（85/83、55/41，四项失败），
+  第二候选完整报告相等且exit0（85/85、55/55，五项全同）。新解析类型两端各1，首候选source缺失仍如实保留。
+  CPU driver实际0；无GPU重采，不替换历史报告。数据在continuation-20261101-constructor-decoder-integration。
+- 新check-current-constructors.py准备当前host的三类constructor观测，只复用冻结SDK原始数据、重新采当前source。
+  串行follower92644按已确认live driver2817850/starttime142079516等待91260终态，再执行3source+独立CPU五项审计。
+  这不是已通过的当前constructor；全部实际状态在constructors-dec858e5/status.json。
+- 为推进真实demo范围，检查example_granular_beaf：原例使用颗粒初始bonds、刚体刀具及外部接触；当前新增支持尚未涵盖其全部组合。
+  新granular_affine_bonds_scene.py先隔离bonds/刚体，固定authored/dynamic/mixed、Newton/PD、1/3世界、1/2 body、subset/body-block六组。
+  actual-layout同时保存wrapper remap后的真实bonds/indices/restlength/span count，不仅检查运行退出码。
+- 六组SDK/当前guard发现驱动72496已启动，按live constructor driver2831137/starttime142111192等待；不并发启动solver。
+  目前只是准备与排队，尚无SDK支持结论。原版必须64a，不登录，生产dec/Core47/176f0/360pyc保持，readyFalse。
+
+- GPU等待中进一步直接核当前SDK64a的Granular::initialize，重新objdump实际8493字节范围，反汇编SHA与冻结45f0f9f0完全同。
+  静态记录八处typed构造调用：0x129e0b对象+968 int=1、0x129e1a对象+8e8 mat3 resize；
+  动态段对象+9c8 int=-1，+9e8 ivec2零，+a08/+a28 float零，+a48 int零，+a68 mat3全零。
+  两次int range_assign在负一/零fill之前；与当前prepare_bonds上传和tangent裸分配存在构造方式/顺序差别。
+  尚未runtime绑定字段语义，不根据静态推测直接改生产。新反汇编、地址表及下一步门禁见bonds phase静态记录。

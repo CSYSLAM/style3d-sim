@@ -1,0 +1,64 @@
+{
+  "case": "current-pd-b1",
+  "states": {
+    "body_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "bitwise": true
+  },
+  "metadata": {
+    "left_launches": 482,
+    "right_launches": 482,
+    "different_launches": 0,
+    "examples": [],
+    "arguments_equal": true,
+    "geometry_and_shared_memory_complete": true,
+    "equal": true
+  },
+  "buffers": {
+    "dump_32initialize_affine_body_so3_state_pre_arg1.bin": true,
+    "dump_32initialize_affine_body_so3_state_post_arg1.bin": true,
+    "dump_14initialize_rhs_pre_arg9.bin": true,
+    "dump_14initialize_rhs_post_arg9.bin": true,
+    "dump_15granular_kernel10build_grid_pre_arg7.bin": true,
+    "dump_15granular_kernel10build_grid_post_arg7.bin": true,
+    "dump_15granular_kernel10build_grid_pre_arg8.bin": true,
+    "dump_15granular_kernel10build_grid_post_arg8.bin": true,
+    "dump_15granular_kernel19accumulate_contacts_pre_arg1.bin": true,
+    "dump_15granular_kernel19accumulate_contacts_post_arg1.bin": true,
+    "dump_15granular_kernel19accumulate_contacts_pre_arg2.bin": true,
+    "dump_15granular_kernel19accumulate_contacts_post_arg2.bin": true
+  },
+  "complete_owned_coverage": true,
+  "model_layout_identical": true,
+  "strict_passed": true
+}

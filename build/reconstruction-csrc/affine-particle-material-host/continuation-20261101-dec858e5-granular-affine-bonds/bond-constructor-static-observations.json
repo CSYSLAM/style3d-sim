@@ -1,0 +1,70 @@
+{
+  "SDK_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "current_disassembly_sha256": "45f0f9f06fe143be52a29fc76af24bc517a3d0b6433b8103c4771e1a82b1e451",
+  "exactly_equal_to_previous_fixed_SDK_disassembly": true,
+  "command": [
+    "objdump",
+    "-d",
+    "-C",
+    "--no-show-raw-insn",
+    "--start-address=1212320",
+    "--stop-address=1220813",
+    "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+  ],
+  "observed_calls": [
+    {
+      "address": "0x129e0b",
+      "object_offset": "0x968",
+      "operation": "int fill_assign",
+      "value": 1
+    },
+    {
+      "address": "0x129e1a",
+      "object_offset": "0x8e8",
+      "operation": "mat3 resize",
+      "initializer_value_runtime_not_yet_checked": true
+    },
+    {
+      "address": "0x129419",
+      "object_offset": "0x9c8",
+      "operation": "int fill_assign",
+      "value": -1
+    },
+    {
+      "address": "0x129437",
+      "object_offset": "0x9e8",
+      "operation": "ivec2 fill_assign",
+      "value": [
+        0,
+        0
+      ]
+    },
+    {
+      "address": "0x129454",
+      "object_offset": "0xa08",
+      "operation": "float fill_assign",
+      "value": 0
+    },
+    {
+      "address": "0x129471",
+      "object_offset": "0xa28",
+      "operation": "float fill_assign",
+      "value": 0
+    },
+    {
+      "address": "0x12948e",
+      "object_offset": "0xa48",
+      "operation": "int fill_assign",
+      "value": 0
+    },
+    {
+      "address": "0x1294c7",
+      "object_offset": "0xa68",
+      "operation": "mat3 fill_assign",
+      "value": "36 zero bytes"
+    }
+  ],
+  "object_semantic_names_not_runtime_bound_yet": true,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

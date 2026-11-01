@@ -1,5 +1,9 @@
 # 颗粒与SO3刚体组合：实际支持与独立候选核对
 
+> **当前host dec858e5/Core47ae9720已完成三正常入口。** 四短程、六扩展布局和60步graph16项本次全严格，原版未映射。
+> 74/fixedC与当前constructor继续排队，readyFalse；通用初始化decoder已以原始两批数据核准，不改旧失败。
+> 下一步带bonds颗粒/刚体实际支持发现；[当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先，下方为历史记录。
+
 > **生产合入进行中，尚未验收。** 新host dec858e5恢复颗粒/SO3缓存及准入，CUDA176/f0保持。
 > 首guard误拒绝自由DOF已据真实字段修复；新版串行验证session91260等待外部GPU，不能继承host38的71/74。
 > 匹配新版Core尚待构建，默认后端不切换、readyFalse；[当前整体状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先于下方历史记录。
@@ -146,3 +150,26 @@ first-force driver session72933真实0，六采集worker、replay2802969和独�
 本阶段自有GPU任务均已结束；原始失败、版本、所有输入输出与命令共同归档。
 下一步保存生产38/Core7eb及27输入检查点，将已验证构造恢复和颗粒/无约束SO3刚体准入整理进生产源，
 再编译公共Core并运行当前版本回归。其它contacts/self/bonds/rigidity组合不借本批结果宣布通过，完整目标继续活动。
+
+
+## 生产dec858e5及当前公开Core的实际接续
+
+当前host SHA：`dec858e551f015374453713edc46910028cae95a210b33acd6c9e9006a1c0282`。
+公开Core SHA：`47ae97200081256af5f5530d180bca1f664fd31214474db4efc0216a52aec2e7`，
+位置`build/reconstruction-csrc/source-core/95f700673f9a3e0b/`，27输入与当前host匹配。
+新production的四短程、六扩展布局、本次全部before/after buffer及状态/owned ABI/coverage严格，
+60步eager/graph对固定SDK的16项也全部逐位同；不将旧候选两buffer的历史失败删除或改判。
+公开Core正常Dzhanibekov60、plastic bag3、G1 graph60实际0，source_only/public_core_abi真，无原版映射；
+G1独立固定C8和旧23.85尖峰不据此改判。完整74/fixedC10及当前constructor仍待终态。
+
+源production与已测candidate2的求解数学已逐文本核同，26helper设备入口与176/f0清单保持；
+只增加准确准入保护与元数据。首guard误将自由body的6 DOF/6 target计为约束的失败完整保留，
+实际native fields证实约束/drive/bond全0后仅修此检查。
+
+当前constructor以冻结SDK三个原始capture为左端，仅新增当前source的allocation/payload/CUPTI采集。
+通用initializer decoder新增ivec3/vec4，CPU重算两批原始完整审计与历史报告完全相同；旧55/41失败保持，55/55通过保持。
+这只是诊断能力恢复，不替代当前constructor的实际GPU结果。
+
+具体活跃句柄91260（74队列）和92644（constructor follower）及实际状态，见生产phase目录。
+下一组合72496按constructor实际PID/starttime等待，先做六组bonds/刚体原版支持与当前guard发现；
+未修改生产bonds/contact范围，也未把静态保护当作已经证明的缺陷。Windows继续WSL2。

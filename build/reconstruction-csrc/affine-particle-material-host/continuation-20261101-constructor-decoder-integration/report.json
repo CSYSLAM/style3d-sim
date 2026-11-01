@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "capture": "constructors",
+      "pid": 2828532,
+      "actual_exit": 1,
+      "previous_audit_identical_in_full": true,
+      "new_types_calls": {
+        "original": {
+          "ivec3": 1,
+          "vec4": 1
+        },
+        "source": {
+          "ivec3": 0,
+          "vec4": 0
+        }
+      },
+      "allocation_counts": [
+        85,
+        83
+      ],
+      "typed_counts": [
+        55,
+        41
+      ],
+      "checks": {
+        "allocation_release_bytes_identity_phase_and_preceding_owned_launch": false,
+        "upload_bytes_and_order": true,
+        "typed_initializer_fields_uses_and_order": false,
+        "flat_owned_pointer_allocation_identity_and_offset": false,
+        "owned_and_library_kernel_name_order": false
+      }
+    },
+    {
+      "capture": "constructors2",
+      "pid": 2828693,
+      "actual_exit": 0,
+      "previous_audit_identical_in_full": true,
+      "new_types_calls": {
+        "original": {
+          "ivec3": 1,
+          "vec4": 1
+        },
+        "source": {
+          "ivec3": 1,
+          "vec4": 1
+        }
+      },
+      "allocation_counts": [
+        85,
+        85
+      ],
+      "typed_counts": [
+        55,
+        55
+      ],
+      "checks": {
+        "allocation_release_bytes_identity_phase_and_preceding_owned_launch": true,
+        "upload_bytes_and_order": true,
+        "typed_initializer_fields_uses_and_order": true,
+        "flat_owned_pointer_allocation_identity_and_offset": true,
+        "owned_and_library_kernel_name_order": true
+      }
+    }
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors/granular-affine-w1-initializers/original/launches.txt": "de50c107ddcd2f9683fbf0c3c6b650696cd2142ca619563f90dd1f9554dbd72d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors/granular-affine-w1-initializers/original/memory.jsonl": "6ada28d4e0ecd0fb69cd92a15b4670cf39a6eb21ac2697977ed6e2b4fd87d211",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors/granular-affine-w1-initializers/source/launches.txt": "c02a7619a647374bb16c78aa8ec25e5e2b5c51be392a233f2d8023a56cb8b349",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors/granular-affine-w1-initializers/source/memory.jsonl": "b0dd43e7aba82125d218465e4c10a50f74e81c98e7d263aa0536e4afc165b180",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors2/granular-affine-w1-initializers/original/launches.txt": "2cec05e8a66c72013be72e874419b61c884ceb99028135c5e4209f10a2bbc981",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors2/granular-affine-w1-initializers/original/memory.jsonl": "b5ebee8288646e44a989884a1b8c05b8c19409a3315b85b3418a96a58bb04bab",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors2/granular-affine-w1-initializers/source/launches.txt": "acb393db405239cee5a6564542cdf8e7328fbd779104c96a206132eff91314be",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors2/granular-affine-w1-initializers/source/memory.jsonl": "d543bf821ba20fe0d2bae0d64fdfd7073ebe96e32f57be7d1ad75933db2c4a81",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-constructor-decoder-integration/recheck.py": "04be195c3660961affc79af211a667c128fff9b15851bc7f6e40f1c646db69b9",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/initialization_trace_audit.py": "087582977b188f512b13c6fafd25c5808501878024928d9845f56f3691b0093a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-constructor-decoder-integration/initialization_trace_audit.before.py": "cf6cab59372df2f031f827e59c31dfba4e2a50375e4c5bfb9178aefdb52d5634"
+  },
+  "GPU_executed": false,
+  "previous_failure_preserved": true,
+  "whole_solver_complete": false
+}

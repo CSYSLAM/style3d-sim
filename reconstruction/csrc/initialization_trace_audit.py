@@ -9,7 +9,9 @@ from pathlib import Path
 TYPES = (
     ('device_ptrIN3glm3matILi3ELi3Ef', 'mat3', 36),
     ('device_ptrIN3glm3vecILi2Ei', 'ivec2', 8),
+    ('device_ptrIN3glm3vecILi3Ei', 'ivec3', 12),
     ('device_ptrIN3glm3vecILi3Ef', 'vec3', 12),
+    ('device_ptrIN3glm3vecILi4Ef', 'vec4', 16),
     ('device_ptrIN7synreal17BlockNonZeroEntry', 'block-entry', 40),
     ('device_ptrIN7synreal12NonZeroEntry', 'scalar-entry', 8),
     ('device_ptrIN7synreal4Aabb', 'aabb', 24),

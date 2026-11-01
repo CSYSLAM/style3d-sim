@@ -1,5 +1,9 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> **当前host dec858e5/Core47ae9720已完成三正常入口。** 四短程、六扩展布局和60步graph16项本次全严格，原版未映射。
+> 74/fixedC与当前constructor继续排队，readyFalse；通用初始化decoder已以原始两批数据核准，不改旧失败。
+> 下一步带bonds颗粒/刚体实际支持发现；[当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先，下方为历史记录。
+
 > **生产合入进行中，尚未验收。** 新host dec858e5恢复颗粒/SO3缓存及准入，CUDA176/f0保持。
 > 首guard误拒绝自由DOF已据真实字段修复；新版串行验证session91260等待外部GPU，不能继承host38的71/74。
 > 匹配新版Core尚待构建，默认后端不切换、readyFalse；[当前整体状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先于下方历史记录。
