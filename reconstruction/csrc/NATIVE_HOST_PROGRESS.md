@@ -1,7 +1,13 @@
 # 新版基准与 C++ host 进度
 
-> **活动aa52ee61：joint PENALTY host。** 32组状态/14868调用/首buffer严格，八种构造五项同；
-> graph128/128与双端initcheck全部通过，当前74未采。见[JOINT_PENALTY_HOST_RECOVERY.md](JOINT_PENALTY_HOST_RECOVERY.md)。
+> **活动3d1b1b88：混合普通约束。** 固定32组状态/12576次完整owned调用/各primitive首buffer严格；
+> 八种构造五项均同，graph128/128严格，双端initcheck全过，当前完整74尚未收集，ready=False。
+> 修复实际distance/line权重分配顺序；见[混合约束恢复](PLAIN_BODY_MIXED_CONSTRAINT_HOST_RECOVERY.md)。
+> aa52正式布料首force证据见[OFFICIAL_CLOTH_FIRST_STEP_AA52.md](OFFICIAL_CLOTH_FIRST_STEP_AA52.md)，整段C仍失败。
+
+> **历史aa52ee61：joint PENALTY host。** 32组状态/14868调用/首buffer严格，八种构造五项同；
+> graph128/128与双端initcheck全部通过；当前74为71严格，固定C10为seed1过、seed2/3失败，CPU重算同。见[JOINT_PENALTY_HOST_RECOVERY.md](JOINT_PENALTY_HOST_RECOVERY.md)。
+> 正式cloth_balls六份source物理/finite均过，两mode固定C仍失败；正定位eager source0首子步particle1381.y。
 > CUDA176/f0、SDK64a不变，ready=False。下列为历史image结果。
 
 > **历史6a7061d7：无drive固定/球关节PD/body-block。** 16组状态/6096调用/首buffer严格；

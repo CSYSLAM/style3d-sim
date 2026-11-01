@@ -1,0 +1,42 @@
+--- inherited
++++ observer
+@@ -1,5 +1,5 @@
+ // Test-only LD_PRELOAD observer: snapshot real no-topology Newton/PCG launches in both original and source workers.
+-// Synchronization is intentional for diagnosis; this observer is never linked into the delivered solver.
++// Device snapshots use same-stream copies; host downloads occur only at the end of the observed substep.
+ #include <cuda.h>
+ #include <cuda_runtime_api.h>
+ #include <dlfcn.h>
+@@ -20,7 +20,7 @@
+ static std::size_t sequence = 0;
+ static thread_local bool observing = false;
+ 
+-// Diagnostic staging preserves each stream's order and postpones host copies until all three steps finish.
++// Diagnostic staging preserves stream order; the driver ends observation after the first native substep.
+ struct DeferredFile {
+     std::string name;
+     std::vector<char> host;
+@@ -30,7 +30,7 @@
+ static std::vector<DeferredFile> deferred_files;
+ static CUdeviceptr staging = 0;
+ static std::size_t staging_used = 0;
+-static const std::size_t staging_capacity = 64 * 1024 * 1024;
++static const std::size_t staging_capacity = 1024 * 1024 * 1024;
+ 
+ 
+ template <class T> static T argument(void** args, int index)
+@@ -258,10 +258,10 @@
+                 auto buffer = [&](const char* label, CUdeviceptr pointer, std::size_t n, std::size_t stride) {
+                     address(at + label, pointer, n, stride);
+                 };
+-                buffer("count", v.count, 1, 4); buffer("indices", v.indices, v.capacity, 12);
+-                buffer("barycentric", v.barycentric, v.capacity, 12); buffer("shape", v.shape, v.capacity, 4);
+-                buffer("body_pos", v.body_pos, v.capacity, 12); buffer("body_vel", v.body_vel, v.capacity, 12);
+-                buffer("normal", v.normal, v.capacity, 12);
++                buffer("count", v.count, 1, 4); buffer("indices", v.indices, std::min<std::size_t>(v.capacity, 1380), 12);
++                buffer("barycentric", v.barycentric, std::min<std::size_t>(v.capacity, 1380), 12); buffer("shape", v.shape, std::min<std::size_t>(v.capacity, 1380), 4);
++                buffer("body_pos", v.body_pos, std::min<std::size_t>(v.capacity, 1380), 12); buffer("body_vel", v.body_vel, std::min<std::size_t>(v.capacity, 1380), 12);
++                buffer("normal", v.normal, std::min<std::size_t>(v.capacity, 1380), 12);
+                 buffer("particle_only", v.particle_only, v.particle_only_count, 4);
+                 buffer("radius", v.radius, v.particles_per_world, 4); buffer("mass", v.mass, v.particles_per_world, 4);
+                 buffer("flags", v.flags, v.particles_per_world, 4); buffer("kind", v.kind, v.particles_per_world, 4);

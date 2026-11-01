@@ -5634,3 +5634,61 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - aa52局部队列已complete，全阶段退出0，双端各64轨迹×3步initcheck0错误，graph128/128严格。
   此时先发布当前源码/so和已结束局部证据，之后才开始完整74及正式cloth重查，避免把运行中输出纳入快照。
   mixed plain的独立fixture/graph与每种primitive单独RHS证明的参考32脚本已准备，尚未GPU运行或改guard。
+- d28fd38751d0eff8921fd6ff475e811bbe88b1b0已推csy且远端SHA同，快照130441文件0失败，SDK/360pyc固定。
+  当前开始aa52自己的完整74/固定C10/CPU→standalone两例→正式cloth_balls固定original8两种mode各3 source。
+  生产/fixture/harness保持immutable，运行中输出暂不入快照；mixed plain参考尚未GPU开始。
+- aa52自己的完整74最终complete：71严格，particles seed1/2/3三份首候选严格false；
+  本image mixed_cloth seed3严格通过（不重判869旧false）。当前固定C10运行，尚未计为统计通过。
+- aa52固定C10最终seed1过、seed2/3失败；CPU审计退出0。两个独立源码官方入口真实graph/自身test过，无SDK映射。
+- 仅CPU查已存同SDK64a的60份C10轨迹，未增加接受样本：seed2失败目标全部15数组三步有实际SDK逐字节见证；
+  seed3两失败目标各18数组三步有见证，869 original6同时重现两目标。完整查找表/SHA保留，当前C10 false不重判。
+- aa52正式cloth_balls沿用固定原版8，两mode各3 source全部finite/物理检查通过，固定C两mode均false。
+  逐步CPU复算保存official-cloth-exact-first-outside.json：eager source0首子步particle1381.y的q/qd即超界，
+  graph source1各数组均C内，但仍按全3候选计算模式结论，不挑选通过轨迹。
+- 新增official_cloth_failure_trace独立诊断，复用未改官方worker，保持60帧和全部原始物理输入，首子步启动/结束观察。
+  从已验证deferred observer派生1GiB暂存版本，surface只复制已知首步1380接触前缀，actual capacity参数不改，
+  driver必须逐个验证count=1380。预先固定1原版+3源码，全部保留并与各冻结首子步核对，不替换cohort。
+  当前生产aa52/CUDA176/f0/SDK64a保持不变，mixed plain尚未GPU开始。
+- 首子步deferred四诊断全部退出0，每份34202文件/521948852 device bytes，均未完整复现固定首子步；不采新接受样本。
+  actual surface六字段1380条完整字节multiset四端相同、顺序不同，raw首差是surface force；未把未分类raw尾部当验证。
+- 新增official_cloth_contact_replay：捕获实际首native state/control及17 rigid/1380 soft有效前缀；后续双端强制核对
+  state/control位相同、字段/size/null/scalar相同，再上传同份contact有效前缀，无生产路径改动或尾部替换。
+  common pair的全部已捕获before数组同，首force仍243个F32词差；这两份实际诊断也都保留。
+- 对同实际SDK接触包用actual runtime/原PTX/source PTX回放1380逐条force输出，三端逐位全同；
+  37920个atomic操作数序列原/源码全同。初始随机排列仅5204的三个目标已用CPU确定性exact completion补齐：
+  captured/runtime/PTX/source与两instrumented输出六类各5205/5205精确见证，无未解释标量，未推断真实调度序。
+- 完整cloth固定C仍false，不能把首force证明升级为完整120步；当前开始mixed plain SDK32首次参考采集，
+  每种启用约束均需9次真实force与RHS变化，生产aa52保持不动，guard未开放。
+- 补采实际源码完整surface view：与common SDK capture的全部只读字段（含body ids/indices/COM）、
+  contact顺序及初始RHS逐字节相同。七类目标（新增actual source capture）各5205/5205精确累加见证，未解释0。
+  新OFFICIAL_CLOTH_FIRST_STEP_AA52记录范围与命令，整段C仍false。
+- 为保持原始追踪可迁移，完整197/196MB launch文本lossless gzip roundtrip核验后压缩；读取器兼容gzip，执行版保留。
+  直打tar/gzip原始native超过95MiB；改逐文件SHA内容去重bundle。首次随机seek验证慢，仅中断本agent打包进程，
+  原始trace未改、生成的完整archive复用；旧生成器/失败说明保留，验证改顺序读取，解包器采用streaming。
+- mixed plain SDK32全部有效；aa52四个Newton/no-block基线中spring-distance/line-distance状态/完整ABI严格，
+  spring-line/all被constructor guard拒绝，失败保存。修改前保存27源/build/so与306个SDK参考文件SHA。
+- 只调整isolated plain混合范围guard，保留joint/cable/fluid及其它未捕获混合的限制，新增三个scope标签；
+  不改CPU模板、调度、CUDA176/f0。新image6a514e4639c8d3051d86c7d89d49a4716d19ead4a63ca392c9017cb407c0fb28。
+- 6a514e46对固定32份SDK全部状态/各primitive首force pre/post字节严格，12576次完整owned参数/geometry全同。
+  当前串行八种constructor→32组合graph60→双端initcheck3，生产/fixture冻结，尚未收集新image完整74。
+- 八种6a514e46 constructor全部采完：spring-line与spring-distance四种五项全同；line-distance/all四种上传顺序及
+  owned allocation identity不同，allocation/typed/核时序仍同；graph尚未开始，原停止和remaining状态均保留。
+  按实际owned指针用途唯一确认SDK权重分配顺序spring0/1→distance0/1→line point/end0/end1；不用重复payload猜角色。
+  actual-weight-allocation-order-resolved保存八组双端角色映射。
+- 修改前保存6a514e46的27文件及1188份验证文件SHA。仅plain distance+line、无joint/drive/cable/fluid范围
+  重排pending upload rank，不改任何权重值/CPU矩阵/调度/CUDA；正在重编译并重验固定32份SDK。
+  constructor新增可选--original-capture，逐文件SHA复制八组既有实际SDK原版，只跑新source，不重新采样原版。
+- 六份raw trace bundle已完成全部字节roundtrip：每份34203文件（34202条记录加receipt），raw522374097字节，
+  去重54581949字节，Git archive约38MB；原始raw目录仍在本机，index改存bundle。解包器实际fresh解包并再次
+  验证34203文件SHA全部通过，临时目录自动清理；配套记录unpack-roundtrip.json已保留。
+- weight顺序修复image为3d1b1b883a620f0028f2c4b16c2d2e490b96407a9e16e4dc75034d10baef6be1，176/f0同。
+  同固定32组再次全状态/各force pre/post/12576完整owned严格。八种constructor都在逐SHA采用的旧SDK数据下五项全同，
+  原4个false保留；spring-line58/31/27，spring-distance59/30/29，line-distance60/31/29，all62/33/29。
+- 32组合graph60共128/128严格；original64轨迹×3步initcheck0错误，source initcheck仍在运行，暂不记complete。
+  新PLAIN_BODY_MIXED文档和根交接记录实际顺序、检查点、已完成和待办。
+- 下一independent undriven_axis fixture/graph/capture脚本已准备，无GPU运行：保留revolute/prismatic几何，
+  在fixture构造期间显式省略native drive descriptors，finally恢复adapter方法；不是修改官方demo或生产solver。
+  计划先实际SDK32，确认zero-drive AL/PENALTY调度与有效force，再决定guard；当前guard未开放。
+- 3d1b1b88局部完整结束：八种constructor五项全同，graph128/128严格，双端各64轨迹×3步initcheck均0错误。
+  当前先发布这批闭合源码/so/原版与完整失败/修复证据，完整74与新axis SDK32尚未开始，不入本次局部快照。
+  同仓库参考SDK64a与既有360pyc逐SHA未变；新增维护Python语法/128列与维护diff检查通过。

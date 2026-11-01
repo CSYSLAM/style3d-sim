@@ -1,0 +1,6 @@
+{
+  "reason": "Random member lookup in gzip validation repeatedly decompressed the stream; interrupted only this agent-owned packaging process",
+  "raw_data_changed": false,
+  "completed_first_archive_reused": true,
+  "fix": "Validate blobs in their sorted archive order; unpacker uses streaming mode"
+}

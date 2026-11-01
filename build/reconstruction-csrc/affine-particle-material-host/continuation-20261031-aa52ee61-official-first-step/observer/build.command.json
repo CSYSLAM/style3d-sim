@@ -1,0 +1,18 @@
+[
+  "c++",
+  "-std=c++17",
+  "-O2",
+  "-shared",
+  "-fPIC",
+  "-I",
+  "build/toolchains/cuda-12.4/include",
+  "-I",
+  "reconstruction/csrc/native",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-aa52ee61-official-first-step/observer/observer.cpp",
+  "-L",
+  "build/toolchains/cuda-12.4/lib/stubs",
+  "-lcuda",
+  "-ldl",
+  "-o",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-aa52ee61-official-first-step/observer/observer.so"
+]

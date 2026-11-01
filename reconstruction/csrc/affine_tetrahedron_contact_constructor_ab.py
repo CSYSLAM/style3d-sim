@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
@@ -16,6 +17,7 @@ def main():
     parser.add_argument('--contact-kind', choices=('surface', 'legacy'), default='surface')
     parser.add_argument('--fixture', type=Path, help='Explicit self/material fixture, keeping the same constructor audit')
     parser.add_argument('--prefix', default='body-tet-contact-w3')
+    parser.add_argument('--original-capture', type=Path, help='Adopt the exact earlier SDK captures; run source only')
     parser.add_argument('--fixture-args', nargs=argparse.REMAINDER,
                         help='Explicit example arguments; otherwise use the historical body/tet constructor case')
     args = parser.parse_args()
@@ -24,6 +26,9 @@ def main():
     build = ROOT / 'build/reconstruction-csrc/host-particles/build.json'
     saved = build.read_bytes()
     metadata = json.loads(saved)
+    if args.original_capture:
+        previous = json.loads((args.original_capture / 'build.json').read_text())
+        assert previous['kernels'] == metadata['kernels']
     (args.output / 'build.json').write_bytes(saved)
     layout = args.output / 'kernel-layout.tsv'
     layout.write_text(''.join(name + '\t' + ','.join(map(str, spec['parameters'])) + '\n'
@@ -37,6 +42,7 @@ def main():
         'payload': ROOT / 'build/reconstruction-csrc/self-host/payload-observer-v2/payload_trace.so',
         'initializers': ROOT / 'build/reconstruction-csrc/self-host/memory-observer/cupti_param_trace.so',
     }
+    adopted = []
     for name, observer in observers.items():
         group = args.output / (args.prefix + '-' + name)
         group.mkdir()
@@ -48,6 +54,22 @@ def main():
             assert build.read_bytes() == saved
             assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest() == sha for p, sha in hashes.items())
             folder = group / backend
+            if backend == 'original' and args.original_capture:
+                source = args.original_capture / group.name / backend
+                runtime = json.loads((source / 'capture.runtime.json').read_text())
+                assert runtime['example_sha256'] == hashes[str(fixture)]
+                assert runtime['extra'] == fixture_args and runtime['frames'] == 3
+                shutil.copytree(source, folder)
+                for old in sorted(source.rglob('*')):
+                    if not old.is_file():
+                        continue
+                    new = folder / old.relative_to(source)
+                    sha = hashlib.sha256(old.read_bytes()).hexdigest()
+                    assert hashlib.sha256(new.read_bytes()).hexdigest() == sha
+                    adopted.append({'from': str(old), 'to': str(new), 'sha256': sha})
+                (args.output / 'adopted-originals.json').write_text(json.dumps(adopted, indent=2) + '\n')
+                print(name, backend, 'adopted unchanged', flush=True)
+                continue
             (folder / 'uploads').mkdir(parents=True)
             command = [sys.executable, '-m', 'reconstruction.csrc.demo_source_ab', '--worker', backend,
                        '--tag', 'capture', '--example', str(fixture), '--frames', '3', '--output', str(folder),

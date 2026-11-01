@@ -1,6 +1,7 @@
 """Replay actual surface contacts on identical buffers, isolating every contact before testing aggregate atomics."""
 import argparse
 import ctypes as ct
+import gzip
 import hashlib
 import itertools
 import json
@@ -33,7 +34,10 @@ def main():
         'preconditioner': ('34add_surface_contact_preconditioner', 9, 1),
         'tangent': ('32multiply_surface_contact_tangent', 3, 2),
     }[args.operation]
-    line = next(row for row in (args.capture / 'launches.txt').read_text().splitlines() if operation + ' ' in row)
+    launch_path = args.capture / 'launches.txt'
+    launch_text = launch_path.read_text() if launch_path.exists() else \
+        gzip.decompress(launch_path.with_suffix('.txt.gz').read_bytes()).decode()
+    line = next(row for row in launch_text.splitlines() if operation + ' ' in row)
     name = line.split(' symbol:', 1)[1].split()[0]
     words = {int(off): int(value, 16) for off, value in
              re.findall(r'(\d+):([0-9a-f]+)\([^)]*\)', line.split()[5])}

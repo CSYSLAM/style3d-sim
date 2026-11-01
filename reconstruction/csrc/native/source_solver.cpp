@@ -672,7 +672,15 @@ class Solver {
             joint_diagonal(per_world_, 0.0f), joint_line_diagonal(per_world_, 0.0f);
         struct PendingWeightUpload { std::uint64_t* target; std::vector<char> bytes; };
         std::map<int, PendingWeightUpload> pending_weights;
+        const bool plain_distance_before_line = model_.body_distance_constraint_count &&
+            model_.body_point_line_count && !model_.joint_body_spring_count && !model_.joint_body_point_line_count &&
+            !model_.joint_drive_count && !model_.cable_count && !model_.fluid_particle_count;
         auto upload_weight = [&](std::uint64_t& target, const auto& values, int order) {
+            // Actual plain-mixture allocation identities put distance weights before point-line weights.
+            if (plain_distance_before_line) {
+                if (order >= 2 && order <= 4) order += 2;
+                else if (order == 10 || order == 11) order -= 8;
+            }
             // Actual body-constraint constructors upload weights after scalar ELL initialization.
             const auto begin = reinterpret_cast<const char*>(values.data());
             pending_weights.emplace(order, PendingWeightUpload{
@@ -869,8 +877,10 @@ class Solver {
             if (model_.joint_body_point_line_count > n)
                 throw py::value_error("joint_body_point_line_count exceeds body_point_line_count");
             plain_line_count_ = n - model_.joint_body_point_line_count;
-            if (plain_spring_count_ && plain_line_count_)
-                throw std::runtime_error("Mixed plain body springs and point-lines have not been captured");
+            if (plain_spring_count_ && plain_line_count_ && (model_.joint_body_spring_count ||
+                    model_.joint_body_point_line_count || model_.joint_drive_count || model_.cable_count ||
+                    model_.fluid_particle_count))
+                throw std::runtime_error("Mixed plain constraints with joints/cables/fluid have not been captured");
             for (auto field : {std::make_pair(model_.body_point_line_indices, "body_point_line_indices"),
                     std::make_pair(model_.body_point_line_points, "body_point_line_points"),
                     std::make_pair(model_.body_point_line_endpoints0, "body_point_line_endpoints0"),
@@ -2267,7 +2277,7 @@ public:
         // The original ignores the body-block option when PD selects the scalar matrix branch.
         const bool body_block = bodies && block && config.affine_body_block_preconditioner;
         const bool isolated_plain =
-            ((plain_spring_count_ > 0) + (plain_line_count_ > 0) + (distance_total_ > 0) == 1) &&
+            (plain_spring_count_ || plain_line_count_ || distance_total_) &&
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
             !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
             !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
@@ -2286,7 +2296,7 @@ public:
         const bool contact_block = hard && body_block && config.affine_body_contact_block_preconditioner;
         if (hard && config.rigid_contact_history && !contact.match_index.size)
             throw py::value_error("hard-contact history requires collision match indices");
-        // Captured PD routes omit plain Gauss-Newton blocks; mixed and undriven-line routes remain guarded.
+        // Captured isolated plain PD routes omit Gauss-Newton blocks; undriven-line joint routes remain guarded.
         if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             !isolated_plain && !isolated_undriven_joint &&
             pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
@@ -2899,6 +2909,9 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "plain_body_point_lines_newton",
                                                      "isolated_plain_constraints_pd_newton",
                                                      "isolated_plain_constraints_body_blocks",
+                                                     "isolated_mixed_plain_constraints_newton",
+                                                     "isolated_mixed_plain_constraints_pd_newton",
+                                                     "isolated_mixed_plain_constraints_body_blocks",
                                                      "undriven_joint_constraints_pd_newton",
                                                      "undriven_joint_body_blocks_newton",
                                                      "undriven_joint_body_blocks_pd_newton",

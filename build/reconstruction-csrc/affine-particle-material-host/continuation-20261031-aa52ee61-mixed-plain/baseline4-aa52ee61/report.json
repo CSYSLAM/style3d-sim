@@ -1,0 +1,119 @@
+{
+  "source_sha256": "aa52ee61a8fe9bad2032859095f8ec591e3cd80141f76af3fd521f67c3f6419a",
+  "cases": [
+    {
+      "case": "spring-line-w1-newton-b0",
+      "exit": 1,
+      "passed": false
+    },
+    {
+      "case": "spring-distance-w1-newton-b0",
+      "exit": 0,
+      "passed": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "finite": true,
+      "metadata": {
+        "left_launches": 348,
+        "right_launches": 348,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true
+    },
+    {
+      "case": "line-distance-w1-newton-b0",
+      "exit": 0,
+      "passed": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "finite": true,
+      "metadata": {
+        "left_launches": 348,
+        "right_launches": 348,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true
+    },
+    {
+      "case": "all-w1-newton-b0",
+      "exit": 1,
+      "passed": false
+    }
+  ],
+  "whole_solver_complete": false,
+  "runner_sha256": "6d8d40ce9b5fd3b1106cdf02a5e84c80a2006bedc0cb493261ae30f10fbd9780"
+}
