@@ -1,0 +1,102 @@
+{
+  "modules": [
+    {
+      "phase": "literal-module-before:_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+      "file": "module-21.cubin",
+      "sha256": "c4edafa0cae589df01ae47c2c0eb051ecb7a689c86426f822cdbf05aa9af9c0f",
+      "bytes": 3605304,
+      "elf_flags": 100694018,
+      "whole_module_equal_actual_runtime": true,
+      "compared_kernel_texts": 97,
+      "identical_kernel_texts": 97,
+      "different_kernel_texts": []
+    },
+    {
+      "phase": "source-module-before:_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+      "file": "module-22.cubin",
+      "sha256": "444b2394d6e989a0310131222195800778abaa004f36b6ba1f9c99d1a2bf7f6d",
+      "bytes": 89728,
+      "elf_flags": 100694018,
+      "whole_module_equal_actual_runtime": false,
+      "compared_kernel_texts": 5,
+      "identical_kernel_texts": 5,
+      "different_kernel_texts": []
+    },
+    {
+      "phase": "literal-module-before:_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+      "file": "module-23.cubin",
+      "sha256": "c4edafa0cae589df01ae47c2c0eb051ecb7a689c86426f822cdbf05aa9af9c0f",
+      "bytes": 3605304,
+      "elf_flags": 100694018,
+      "whole_module_equal_actual_runtime": true,
+      "compared_kernel_texts": 97,
+      "identical_kernel_texts": 97,
+      "different_kernel_texts": []
+    },
+    {
+      "phase": "source-module-before:_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+      "file": "module-24.cubin",
+      "sha256": "44540895505420f3941ea05e0b61fac6efec20b55141e9296659c34e33f6fb40",
+      "bytes": 220784,
+      "elf_flags": 100694018,
+      "whole_module_equal_actual_runtime": false,
+      "compared_kernel_texts": 11,
+      "identical_kernel_texts": 0,
+      "different_kernel_texts": [
+        ".text._ZN7synreal6kernel25apply_affine_body_torquesEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PS4_mmm",
+        ".text._ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+        ".text._ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm",
+        ".text._ZN7synreal6kernel39evaluate_affine_body_constitutive_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPS4_mmm",
+        ".text._ZN7synreal6kernel41multiply_affine_body_constitutive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPS4_mmm",
+        ".text._ZN7synreal6kernel43add_affine_body_constitutive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+        ".text._ZN7synreal6kernel43add_affine_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+        ".text._ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+        ".text._ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+        ".text._ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+        ".text._ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm"
+      ]
+    },
+    {
+      "phase": "literal-module-before:_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+      "file": "module-25.cubin",
+      "sha256": "c4edafa0cae589df01ae47c2c0eb051ecb7a689c86426f822cdbf05aa9af9c0f",
+      "bytes": 3605304,
+      "elf_flags": 100694018,
+      "whole_module_equal_actual_runtime": true,
+      "compared_kernel_texts": 97,
+      "identical_kernel_texts": 97,
+      "different_kernel_texts": []
+    },
+    {
+      "phase": "source-module-before:_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+      "file": "module-26.cubin",
+      "sha256": "590a03b091f57eb415959b0ac0a7f4104946d095db24ab9b114ee786d7dee27f",
+      "bytes": 227944,
+      "elf_flags": 100694018,
+      "whole_module_equal_actual_runtime": false,
+      "compared_kernel_texts": 2,
+      "identical_kernel_texts": 0,
+      "different_kernel_texts": [
+        ".text._ZN7synreal6kernel32build_affine_body_preconditionerINS_12NonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+        ".text._ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm"
+      ]
+    },
+    {
+      "phase": "launch-before:original-runtime:_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+      "file": "module-27.cubin",
+      "sha256": "c4edafa0cae589df01ae47c2c0eb051ecb7a689c86426f822cdbf05aa9af9c0f",
+      "bytes": 3605304,
+      "elf_flags": 100694018,
+      "whole_module_equal_actual_runtime": true,
+      "compared_kernel_texts": 97,
+      "identical_kernel_texts": 97,
+      "different_kernel_texts": []
+    }
+  ],
+  "all_literal_ptx_images_equal_actual_sdk_image": true,
+  "actual_sdk_text_entries": 97,
+  "trajectory_cause_proven": false,
+  "frozen_candidates_replaced": false,
+  "whole_solver_complete": false,
+  "harness_sha256": "ab20d1b209b3fa19394603aa426ffb5d1dab0f7a3be92b71aba0fecb4ad33b0e"
+}

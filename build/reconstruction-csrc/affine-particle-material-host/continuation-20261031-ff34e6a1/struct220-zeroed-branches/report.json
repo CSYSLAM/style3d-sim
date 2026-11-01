@@ -1,0 +1,6847 @@
+{
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "source_sha256": "ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042",
+  "trial_sha256": "0f73e30f7a1e53202ab9b8674844070f14c37f4af54b6b4d1f6f3de82e52eb58",
+  "modules": {
+    "30evaluate_surface_contact_force": {
+      "symbol": "_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE",
+      "original_ptx": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx",
+      "original_ptx_sha256": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14"
+    },
+    "34add_surface_contact_preconditioner": {
+      "symbol": "_ZN7synreal6kernel34add_surface_contact_preconditionerENS0_18SurfaceContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE",
+      "original_ptx": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx",
+      "original_ptx_sha256": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14"
+    },
+    "32multiply_surface_contact_tangent": {
+      "symbol": "_ZN7synreal6kernel32multiply_surface_contact_tangentENS0_18SurfaceContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+      "original_ptx": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx",
+      "original_ptx_sha256": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14"
+    },
+    "35add_surface_contact_stiffness_scale": {
+      "symbol": "_ZN7synreal6kernel35add_surface_contact_stiffness_scaleENS0_18SurfaceContactViewEPf",
+      "original_ptx": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx",
+      "original_ptx_sha256": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14"
+    }
+  },
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "serialized_one_thread": true,
+  "production_changed": false,
+  "cases": [
+    {
+      "seed": 1,
+      "fixture": "baseline",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "baseline",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "baseline",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "baseline",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "negative_count",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "negative_count",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "negative_count",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "negative_count",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_capacity",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_capacity",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_capacity",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_capacity",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "partial_capacity",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "partial_capacity",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "partial_capacity",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "partial_capacity",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_null",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_null",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_null",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_null",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_null",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_null",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_null",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_null",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_zero",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_zero",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_zero",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "flags_zero",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "mass_zero",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "mass_zero",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "mass_zero",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "mass_zero",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_skip",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_skip",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_skip",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "kind_skip",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter_short",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter_short",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter_short",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "filter_short",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "normal_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "normal_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "normal_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "normal_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "bary_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "bary_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "bary_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "bary_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "invalid_indices",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "invalid_indices",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "invalid_indices",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "invalid_indices",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_weights",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_weights",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_weights",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_weights",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "cross_world_vertex",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "cross_world_vertex",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 4032,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 4032
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 4032,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 4032
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "cross_world_vertex",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "cross_world_vertex",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 448,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 448
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 448,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 448
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "worlds",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "worlds",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 6048,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 6048
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 6048,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 6048
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "worlds",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "worlds",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_static",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_static",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_static",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_static",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_body",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_body",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_body",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "shared_body",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "reordered_bodies",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "reordered_bodies",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "reordered_bodies",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "reordered_bodies",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "empty_bodies",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "empty_bodies",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "empty_bodies",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "empty_bodies",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "material_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "material_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "material_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "material_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "point_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "point_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "point_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "point_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "velocity_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "velocity_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "velocity_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "velocity_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "alias_indices",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "alias_indices",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "alias_indices",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "alias_indices",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "grid_stride",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "grid_stride",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "grid_stride",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "grid_stride",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_tile",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_tile",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_tile",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "fixture": "zero_tile",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "baseline",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "baseline",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "baseline",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "baseline",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "negative_count",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "negative_count",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "negative_count",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "negative_count",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_capacity",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_capacity",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_capacity",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_capacity",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "partial_capacity",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "partial_capacity",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "partial_capacity",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "partial_capacity",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_null",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_null",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_null",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_null",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_null",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_null",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_null",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_null",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_zero",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_zero",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_zero",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "flags_zero",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "mass_zero",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "mass_zero",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "mass_zero",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "mass_zero",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_skip",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_skip",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_skip",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "kind_skip",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter_short",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter_short",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter_short",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "filter_short",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "normal_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "normal_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "normal_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "normal_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "bary_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "bary_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "bary_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "bary_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "invalid_indices",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "invalid_indices",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "invalid_indices",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "invalid_indices",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_weights",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_weights",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_weights",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_weights",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "cross_world_vertex",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "cross_world_vertex",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 4032,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 4032
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 4032,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 4032
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "cross_world_vertex",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "cross_world_vertex",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 448,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 448
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 448,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 448
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "worlds",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "worlds",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 6048,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 6048
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 6048,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 6048
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "worlds",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "worlds",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_static",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_static",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_static",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_static",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_body",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_body",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_body",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "shared_body",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "reordered_bodies",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "reordered_bodies",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "reordered_bodies",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "reordered_bodies",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "empty_bodies",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "empty_bodies",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "empty_bodies",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "empty_bodies",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "material_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "material_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "material_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "material_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "point_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "point_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "point_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "point_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "velocity_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "velocity_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "velocity_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "velocity_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "alias_indices",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "alias_indices",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "alias_indices",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "alias_indices",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "grid_stride",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "grid_stride",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "grid_stride",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "grid_stride",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_tile",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_tile",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_tile",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "fixture": "zero_tile",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "baseline",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "baseline",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "baseline",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "baseline",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "negative_count",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "negative_count",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "negative_count",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "negative_count",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_capacity",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_capacity",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_capacity",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_capacity",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "partial_capacity",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "partial_capacity",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "partial_capacity",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "partial_capacity",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_null",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_null",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_null",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_null",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_null",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_null",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_null",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_null",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_zero",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_zero",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_zero",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "flags_zero",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "mass_zero",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "mass_zero",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "mass_zero",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "mass_zero",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_skip",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_skip",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_skip",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "kind_skip",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter_short",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter_short",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter_short",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "filter_short",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "normal_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "normal_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "normal_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "normal_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "bary_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "bary_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "bary_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "bary_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "invalid_indices",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "invalid_indices",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "invalid_indices",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "invalid_indices",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_weights",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_weights",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_weights",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_weights",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "cross_world_vertex",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "cross_world_vertex",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 4032,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 4032
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 4032,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 4032
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "cross_world_vertex",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 1344,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 1344
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "cross_world_vertex",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 448,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 448
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 448,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 448
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "worlds",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "worlds",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 6048,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 6048
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 6048,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 6048
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "worlds",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "worlds",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_static",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_static",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_static",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_static",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_body",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_body",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_body",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "shared_body",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "reordered_bodies",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "reordered_bodies",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "reordered_bodies",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "reordered_bodies",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "empty_bodies",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "empty_bodies",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "empty_bodies",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "empty_bodies",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "material_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "material_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "material_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "material_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "point_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "point_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "point_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "point_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "velocity_special",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "velocity_special",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "velocity_special",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "velocity_special",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "alias_indices",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "alias_indices",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "alias_indices",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "alias_indices",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "grid_stride",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "grid_stride",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "grid_stride",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "grid_stride",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_tile",
+      "operation": "30evaluate_surface_contact_force",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_tile",
+      "operation": "34add_surface_contact_preconditioner",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 2016,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 2016
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_tile",
+      "operation": "32multiply_surface_contact_tangent",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 672,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 672
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "fixture": "zero_tile",
+      "operation": "35add_surface_contact_stiffness_scale",
+      "checks": {
+        "source": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        },
+        "trial": {
+          "bitwise_equal": true,
+          "mismatches": 0,
+          "elements": 224,
+          "max_abs_diff": 0.0,
+          "nonzero_outputs": 224
+        }
+      }
+    }
+  ],
+  "original_solver_mapped": false,
+  "passed": true,
+  "harness_sha256": {
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/surface_layout_branch_ab.py": "f0894c8d3b376ba7910ddef1f926ddafdac7fb17c39e7b20acaeae392d0c986d",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/surface_contact_cases.py": "119c2dd46f3bf1e5f804e3b5f3684a0b50f796b43ecdd28b75745264d43b4409",
+    "/home/oem/code/agent/style3d-sim/reconstruction/kernel_ab.py": "8ff0febbae94ff2ca21643cf61aef7d6ba8d964a00d35226cc54a971d244c3fb"
+  }
+}

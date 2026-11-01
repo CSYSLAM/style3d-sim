@@ -1,0 +1,515 @@
+{
+  "source_sha256": "b94560319d3a1c8aa7c898ce49b37748ae254ec30de28533deae292b4970a278",
+  "cases": [
+    {
+      "case": "w1-newton-b0",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 409,
+        "right_launches": 409,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    },
+    {
+      "case": "w1-newton-b1",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 508,
+        "right_launches": 508,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    },
+    {
+      "case": "w1-pd-b0",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 397,
+        "right_launches": 397,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    },
+    {
+      "case": "w1-pd-b1",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 496,
+        "right_launches": 496,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    },
+    {
+      "case": "w3-newton-b0",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 409,
+        "right_launches": 409,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    },
+    {
+      "case": "w3-newton-b1",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 508,
+        "right_launches": 508,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    },
+    {
+      "case": "w3-pd-b0",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 397,
+        "right_launches": 397,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    },
+    {
+      "case": "w3-pd-b1",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "metadata": {
+        "left_launches": 496,
+        "right_launches": 496,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true,
+      "buffers": {
+        "dump_15initialize_step_post_arg22.bin": true,
+        "dump_51evaluate_affine_body_so3_augmented_lagrangian_force_post_arg6.bin": true,
+        "dump_14initialize_rhs_post_arg9.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg6.bin": true,
+        "dump_27invert_block_preconditioner_post_arg3.bin": true,
+        "dump_28multiply_tetrahedron_tangent_post_arg7.bin": true,
+        "dump_15initialize_step_post_arg19.bin": true,
+        "dump_30add_tetrahedron_preconditioner_post_arg4.bin": true,
+        "dump_26evaluate_tetrahedron_force_post_arg8.bin": true
+      }
+    }
+  ],
+  "whole_solver_complete": false,
+  "harness_sha256": {
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_tetrahedron_ab.py": "61c6e398f49335f34c31d2cb052c28764fd4ccb84900f21271be6a97b4c7653a",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_tetrahedron_scene.py": "382dbf97d81340341773307df9136d1a04d40196b91b0f4f1bd1a553febefe7b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/full-owned-hook-129/cudahook.so": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518"
+  }
+}

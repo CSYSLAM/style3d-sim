@@ -121,11 +121,12 @@ class Solver {
                                             model.edge_count || model.tetrahedron_count || model.fluid_particle_count))
             throw std::runtime_error("Granular combined with other materials or bodies has not been captured");
         const bool bodies = model.body_count || model.body_state_count;
-        const bool particle_materials = model.spring_count || model.triangle_count || model.edge_count;
+        const bool particle_materials = model.spring_count || model.triangle_count || model.edge_count ||
+                                        model.tetrahedron_count;
         // Free joints contribute DOFs/targets but no kernels without drives (captured free-body schedule).
         if ((model.particle_mass_non_diagonal_count || model.joint_dof_count || model.joint_target_count) && !bodies)
             throw std::runtime_error("Requested source model topology has not been implemented");
-        if (bodies && (model.tetrahedron_count || (model.collision_triangle_count && !model.triangle_count)))
+        if (bodies && model.collision_triangle_count && !model.triangle_count && !model.tetrahedron_count)
             throw std::runtime_error("Affine bodies combined with other elements have not been implemented");
         if (bodies && particle_materials && (model.body_spring_count || model.body_distance_constraint_count ||
                 model.body_point_line_count || model.joint_drive_count || model.joint_body_spring_count ||
@@ -1047,6 +1048,8 @@ class Solver {
         retained_particle_templates_[2] = upload(pattern);
         distance_l6_ = retained_particle_templates_[3] = upload(l6);
         scalar_template_ = initialized_cache(entries, 8, SourceCacheType::ScalarEntry);
+        // Actual body/tetrahedron constructors upload volumes after the scalar ELL cache, immediately before kind.
+        precompute_tetrahedra();
         body_kind_ = upload(kind);
         // Original body caches use typed zero initialization before any valid-slot-only ELL writes or full copies.
         block_template_ = initialized_cache(max_entries_ * count_, 40, SourceCacheType::BlockEntry);
@@ -2205,6 +2208,9 @@ public:
                                   cable_count_ || fluid_rows_ || tetrahedron_count_ || drag_count_ ||
                                   config.rigid_contact_hard))
             throw std::runtime_error("Requested affine-body scheduling branch has not been implemented");
+        if (bodies && tetrahedron_count_ && (!so3 || self || contact.max_count || contact.soft_max_count ||
+                                             drag_count_ || fluid_rows_))
+            throw std::runtime_error("This affine tetrahedron/contact/material combination has not been captured");
         if (bodies && !so3 && (spring_count_ || triangle_count_ || edge_count_ || body_spring_total_ ||
                               distance_total_ || point_line_total_ || drive_total_ ||
                               cable_count_ || contact.max_count || contact.soft_max_count || fluid_rows_))
@@ -2611,11 +2617,6 @@ public:
                 launch("direction", count_, stream, k, z_, coefficient_world_, per_world, numerator,
                        previous_numerator, direction_, count_);
                 if (extra_product) clear(contact_product_, count_ * 12, stream);
-                if (tetrahedron_count_)
-                    launch("tetrahedron_tangent", tetrahedron_count_, stream, in.particle_q.ptr, direction_,
-                           model_.tetrahedron_indices.ptr, model_.tetrahedron_inverse_dms.ptr, model_.tetrahedron_materials.ptr,
-                           tetrahedron_volumes_, inverse_dt, contact_product_, tetrahedron_count_,
-                           static_cast<std::size_t>(model_.tetrahedron_count), per_world_);
                 // Captured joint/contact order: SO(3), rigid tangent, soft off-diagonal, drive/limits, rolling.
                 if (so3 && so3_alpha > 0.0f)
                     launch("so3_tangent", body_state_count_, stream, direction_, model_.affine_body_indices.ptr,
@@ -2625,6 +2626,12 @@ public:
                     launch("constitutive_tangent", body_state_count_, stream, in.particle_q.ptr, direction_,
                            model_.affine_body_indices.ptr, model_.body_masses.ptr, so3_alpha, rigidity, contact_product_,
                            body_state_count_, body_count_, per_world_);
+                // Actual simultaneous captures accumulate SO(3) before the tetrahedron tangent.
+                if (tetrahedron_count_)
+                    launch("tetrahedron_tangent", tetrahedron_count_, stream, in.particle_q.ptr, direction_,
+                           model_.tetrahedron_indices.ptr, model_.tetrahedron_inverse_dms.ptr, model_.tetrahedron_materials.ptr,
+                           tetrahedron_volumes_, inverse_dt, contact_product_, tetrahedron_count_,
+                           static_cast<std::size_t>(model_.tetrahedron_count), per_world_);
                 // Actual body/cloth calls add SO(3) before the bending contribution.
                 if (bending_damping_)
                     launch("bending_tangent", edge_count_, stream, in.particle_q.ptr, direction_,
@@ -2792,6 +2799,7 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "cotangent_bending_newton", "cotangent_bending_pd_newton",
                                                      "spring_cloth_newton", "spring_cloth_pd_newton",
                                                      "tetrahedra_newton", "tetrahedra_pd_newton",
+                                                     "affine_body_tetrahedra_newton", "affine_body_tetrahedra_pd_newton",
                                                      "triangle_drag_newton", "triangle_drag_pd_newton",
                                                      "static_surface_contact_newton", "static_surface_contact_pd_newton",
                                                      "affine_body_surface_contact_newton",

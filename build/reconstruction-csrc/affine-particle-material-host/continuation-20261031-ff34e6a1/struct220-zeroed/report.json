@@ -1,0 +1,94 @@
+{
+  "experimental_only": true,
+  "production_changed": false,
+  "original_preconditioner_red_sites": 126,
+  "zero_contact_data": true,
+  "kernel_shapes": {
+    "_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE": {
+      "original": {
+        "mov_u32": 1094,
+        "static_red": 42,
+        "local_declarations": [
+          ".local .align 4 .b8 __local_depot4[440];"
+        ]
+      },
+      "trial": {
+        "mov_u32": 73,
+        "static_red": 42,
+        "local_declarations": [
+          "\t.local .align 4 .b8 \t__local_depot0[440];"
+        ]
+      }
+    },
+    "_ZN7synreal6kernel35add_surface_contact_stiffness_scaleENS0_18SurfaceContactViewEPf": {
+      "original": {
+        "mov_u32": 1092,
+        "static_red": 7,
+        "local_declarations": [
+          ".local .align 4 .b8 __local_depot7[440];"
+        ]
+      },
+      "trial": {
+        "mov_u32": 71,
+        "static_red": 7,
+        "local_declarations": [
+          "\t.local .align 4 .b8 \t__local_depot1[440];"
+        ]
+      }
+    },
+    "_ZN7synreal6kernel34add_surface_contact_preconditionerENS0_18SurfaceContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE": {
+      "original": {
+        "mov_u32": 1128,
+        "static_red": 126,
+        "local_declarations": [
+          ".local .align 4 .b8 __local_depot6[440];"
+        ]
+      },
+      "trial": {
+        "mov_u32": 434,
+        "static_red": 126,
+        "local_declarations": [
+          "\t.local .align 4 .b8 \t__local_depot2[220];"
+        ]
+      }
+    },
+    "_ZN7synreal6kernel32multiply_surface_contact_tangentENS0_18SurfaceContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_": {
+      "original": {
+        "mov_u32": 1132,
+        "static_red": 42,
+        "local_declarations": [
+          ".local .align 4 .b8 __local_depot5[440];"
+        ]
+      },
+      "trial": {
+        "mov_u32": 77,
+        "static_red": 42,
+        "local_declarations": [
+          "\t.local .align 4 .b8 \t__local_depot3[440];"
+        ]
+      }
+    }
+  },
+  "trial_preconditioner_red_sites": 126,
+  "static_site_counts_match": true,
+  "source_sha256": "f692bde7bad94a51200476732caab17f1a0edb9480036c7fb44fef156984c79e",
+  "ptx_sha256": "0f73e30f7a1e53202ab9b8674844070f14c37f4af54b6b4d1f6f3de82e52eb58",
+  "command": [
+    "/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/bin/nvcc",
+    "-ptx",
+    "-arch=sm_52",
+    "-Wno-deprecated-gpu-targets",
+    "-diag-suppress=20012",
+    "-std=c++17",
+    "-O3",
+    "-DNDEBUG",
+    "-I",
+    "/home/oem/code/agent/style3d-sim/build/third_party/glm-1.0.1",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-ff34e6a1/struct220-zeroed/surface_struct220_unrolled.cu",
+    "-o",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-ff34e6a1/struct220-zeroed/surface_struct220_unrolled.ptx"
+  ],
+  "generator_sha256": "d17758d8ae3e840579128199da406116640953211f3116ef48750c0f24dc0cbb",
+  "base_generator_sha256": "81da4b389e91d7f0311bb23232f733e0ea62fc2e075796553cd48c242c255087",
+  "whole_solver_complete": false
+}

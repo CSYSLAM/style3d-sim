@@ -1,0 +1,15 @@
+[
+  "c++",
+  "-std=c++17",
+  "-shared",
+  "-fPIC",
+  "-O2",
+  "-I/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include",
+  "-I/home/oem/code/agent/style3d-sim/build/toolchains/diagnostics-13.2/include",
+  "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/cupti_trace.cpp",
+  "-L/home/oem/code/agent/style3d-sim/build/toolchains/diagnostics-13.2/lib",
+  "-l:libcupti.so.13",
+  "-Wl,-rpath,/home/oem/code/agent/style3d-sim/build/toolchains/diagnostics-13.2/lib",
+  "-o",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-ff34e6a1/jit-observer/cupti_jit_probe.so"
+]

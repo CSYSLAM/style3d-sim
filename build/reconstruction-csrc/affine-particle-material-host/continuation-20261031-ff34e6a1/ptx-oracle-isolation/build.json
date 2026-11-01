@@ -1,0 +1,2741 @@
+{
+  "source_only": true,
+  "solver_api_ready": false,
+  "supported_physics": [
+    "free_particles_newton",
+    "particle_springs_newton",
+    "free_particles_pd_newton",
+    "particle_springs_pd_newton",
+    "static_particle_soft_contact_newton",
+    "static_particle_soft_contact_pd_newton",
+    "anisotropic_membrane_newton",
+    "anisotropic_membrane_pd_newton",
+    "cotangent_bending_newton",
+    "cotangent_bending_pd_newton",
+    "spring_cloth_newton",
+    "spring_cloth_pd_newton",
+    "tetrahedra_newton",
+    "tetrahedra_pd_newton",
+    "triangle_drag_newton",
+    "triangle_drag_pd_newton",
+    "static_surface_contact_newton",
+    "static_surface_contact_pd_newton",
+    "affine_body_surface_contact_newton",
+    "affine_body_surface_contact_pd_newton",
+    "affine_body_surface_rolling_newton",
+    "affine_body_surface_rolling_pd_newton",
+    "free_affine_body_so3_newton",
+    "free_affine_body_so3_pd_newton",
+    "affine_body_rigid_contact_newton",
+    "affine_body_rigid_contact_pd_newton",
+    "plain_body_springs_newton",
+    "body_distance_constraints_newton",
+    "plain_body_point_lines_newton",
+    "joint_springs_and_drives_newton",
+    "joint_point_lines_newton",
+    "joint_armature_newton",
+    "cables_newton",
+    "cables_pd_newton",
+    "affine_body_hard_contact_newton",
+    "affine_body_hard_contact_pd_newton",
+    "affine_body_block_preconditioner_newton",
+    "affine_body_block_preconditioner_pd_newton",
+    "cable_contacts_newton",
+    "cable_contacts_pd_newton",
+    "particle_fluid_newton",
+    "particle_fluid_pd_newton",
+    "free_affine_body_six_springs_newton",
+    "free_affine_body_six_springs_pd_newton",
+    "free_affine_body_corotated_newton",
+    "free_affine_body_corotated_pd_newton",
+    "free_affine_body_abd_newton",
+    "free_affine_body_abd_pd_newton",
+    "particle_granular_newton",
+    "particle_granular_pd_newton",
+    "free_particle_self_collision_newton",
+    "free_particle_self_collision_pd_newton",
+    "mesh_self_collision_without_material_forces_newton",
+    "mesh_self_collision_without_material_forces_pd_newton",
+    "cloth_self_collision_newton",
+    "cloth_self_collision_pd_newton",
+    "spring_self_collision_newton",
+    "spring_self_collision_pd_newton",
+    "tetrahedron_self_collision_newton",
+    "tetrahedron_self_collision_pd_newton",
+    "aerodynamic_self_collision_newton",
+    "aerodynamic_self_collision_pd_newton",
+    "collision_bvh_initialization"
+  ],
+  "cuda_source_digest": "f0e0137a1eef9e603495dd9fe04f89f285d0723380099d7ce16951c8a267c79a",
+  "kernel_count": 176,
+  "kernels": {
+    "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm": {
+      "module": 0,
+      "digest": "d70c3e16a8c1a03feb0f600a9c4e87f9ca22dffabe7cc42ab154e4abb8a6abeb",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm": {
+      "module": 0,
+      "digest": "787a918de920339a12bf6306a53e897b72f55e252b3e83cbcbf5bf227c23b741",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm": {
+      "module": 0,
+      "digest": "14ed481e3234a7e2db0a9b2ca4fdc40c43e9c0af09615eb4e007424520bc485d",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm": {
+      "module": 0,
+      "digest": "3c518bb7feff23eae57f447e3bd502429e0314fd8bb01e7249b36eb1c2df4b22",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        1,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm": {
+      "module": 0,
+      "digest": "e402456acc1eb0602c85be1e280371bce437091e902f4b354042650fbcfed062",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel25apply_affine_body_torquesEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PS4_mmm": {
+      "module": 0,
+      "digest": "cb36a838c3032a27dc3d8f47394fb8b701c0215336312c892624b020ce5e7178",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm": {
+      "module": 0,
+      "digest": "ce32ce40ff1d84862159e283cbd5de2389539a5572142ff1b1f00f114fddd922",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel43add_affine_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm": {
+      "module": 0,
+      "digest": "d138091dcdab557c4aef0f97a7a74b8fb3c1dad0d2fd8247d49eeb9ca2de2874",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel39evaluate_affine_body_constitutive_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPS4_mmm": {
+      "module": 0,
+      "digest": "8a76e48da6fdc21447e0eb4584d9b6033cbd359e42bbec220e2c4c22690df43b",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel41multiply_affine_body_constitutive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPS4_mmm": {
+      "module": 0,
+      "digest": "08ef715829ccb47edabfdca12ac4c6cb2388a017d749a807b15fa5a154bb7ae1",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel43add_affine_body_constitutive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPNS1_3matILi3ELi3EfLS3_0EEEmmm": {
+      "module": 0,
+      "digest": "3d782549f4d8fc2eae8ad82bae12f0314bccd0c84a58ada0c025e8199c4340a6",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32build_affine_body_preconditionerINS_12NonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm": {
+      "module": 1,
+      "digest": "163eb6459b010a830a2c52a5b310a71428ec9cae9defc404566186109fe3d34c",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        160,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm": {
+      "module": 1,
+      "digest": "733cecf423906b29096bd7086e21308028555b8cf0d22cc1c1886f02979aefd3",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        160,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel15evaluate_cablesENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fS7_PS5_PNS2_3matILi3ELi3EfLS4_0EEE": {
+      "module": 2,
+      "digest": "ebb7f0c6af9aa22971d157f937a90aaf150eb462f5e46b7277f1833c48dd2c58",
+      "parameters": [
+        160,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel22prepare_cable_tangentsENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEE": {
+      "module": 3,
+      "digest": "b6374443d301c5e2b947b224ad5183b7c09669e98319d8b07e93c31df319a414",
+      "parameters": [
+        160,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi": {
+      "module": 4,
+      "digest": "92e32ba2732ca7f16b281b1319567f9f9b95f9aec43c4519a00f82c91176b3da",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        4,
+        4,
+        1,
+        1,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel22update_cable_penaltiesENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEff": {
+      "module": 4,
+      "digest": "e6ef95a6e3cfbaafad19864aca129392d7a9589ad7a07592076c25d98dcab259",
+      "parameters": [
+        160,
+        8,
+        4,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm": {
+      "module": 5,
+      "digest": "9dc4197cdd495aacbd2be60fbe3c635d899b80e5e64bd646ca9737da5f178c15",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm": {
+      "module": 5,
+      "digest": "b916e4fd3233be973806b9d28a669ea9ed0996720d6d2d6d1c46de3d91b0e942",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel34add_bending_damping_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPNS1_3matILi3ELi3EfLS3_0EEEmmm": {
+      "module": 5,
+      "digest": "4eeaccacf03bbe20b279ef33ddedb021d9dfb48e15297a2bd6943ac0da79ee22",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32multiply_bending_damping_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm": {
+      "module": 5,
+      "digest": "797f3f49d5cca25a061ddca589cefa4f61ad6610a9652a5073f8eea4c676b545",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm": {
+      "module": 5,
+      "digest": "d97364376aa0d31d3eb92643307ac71787a7af988693d4fe0119198b44c98cf8",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm": {
+      "module": 6,
+      "digest": "5476352b9eba0869fb61dfc548601ba8854826fb271a2dff08b69d7cbc99a515",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel30multiply_triangle_drag_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEES6_PKfPS4_mmm": {
+      "module": 6,
+      "digest": "235b0d45c0f28a6666e274fac47d6c039b21e1949f7cbeced6cc69bfda8f8dba",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel22evaluate_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi3EiLS3_0EEEPKfS6_SB_fS4_fPS4_Pfmmm": {
+      "module": 6,
+      "digest": "84237ea2915917e4057d47fd48706475df83bf560ddc6b8c71da3aad11cf09a2",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        12,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32add_triangle_drag_preconditionerEPKN3glm3vecILi3EiLNS1_9qualifierE0EEEPKNS2_ILi3EfLS3_0EEEPKfPNS1_3matILi3ELi3EfLS3_0EEEmmm": {
+      "module": 6,
+      "digest": "0cefeae0c609f1db17cb0e55ec8852a18ff9d9c57f302d0e098986fa348325cf",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal12fluid_kernel16initialize_scaleEPffi": {
+      "module": 7,
+      "digest": "771c114ff8028a90f50796e7731ef8873c4eef09688d7b6f68a8ff6c1c2a4004",
+      "parameters": [
+        8,
+        4,
+        4
+      ]
+    },
+    "_ZN7synreal12fluid_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i": {
+      "module": 7,
+      "digest": "8e5cc6bdf0491902291728af075560cb3b11f88f255df8eca5bc79328683603e",
+      "parameters": [
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf": {
+      "module": 7,
+      "digest": "403ab2cf5bbdac2aa209c80f60a0a1940c130f1e42e8432db7129a1db47f68d1",
+      "parameters": [
+        112,
+        8,
+        4,
+        4,
+        8
+      ]
+    },
+    "_ZN7synreal12fluid_kernel10scale_stepENS_5ModelEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPKfi": {
+      "module": 7,
+      "digest": "73bd434fe6be10d239c7e0214910c6b0ae583690ef40cd714493a79ca62d5dff",
+      "parameters": [
+        1864,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii": {
+      "module": 7,
+      "digest": "c0284d58cd8766699f5d2ccbaf3a5e44510450fc5a70a245c9adde3cb55c0653",
+      "parameters": [
+        1864,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4
+      ]
+    },
+    "_ZN7synreal12fluid_kernel13evaluate_rowsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPfS7_PiS8_PNS3_ILi4EfLS4_0EEE": {
+      "module": 7,
+      "digest": "f389296961f07ef6430b409785a0a4b7e2b71eb9b156ded70f2615283188b5ba",
+      "parameters": [
+        112,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal12fluid_kernel15accumulate_rowsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKfS9_S7_PS5_PNS2_3matILi3ELi3EfLS4_0EEE": {
+      "module": 7,
+      "digest": "3f9da14215a599ed30670eabd959c20a5f18e707acf3b1cbb6b83e27a915307b",
+      "parameters": [
+        112,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal12fluid_kernel13multiply_rowsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKfS7_PS5_": {
+      "module": 7,
+      "digest": "246bea442d7c7a639b87ac65bc9aa1d5098734a693f959217f67e0fe26a99c6e",
+      "parameters": [
+        112,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i": {
+      "module": 8,
+      "digest": "72f395fd44f8b189b96a09f5c3d5b8fc06758ce5ca34e23c80a86a74ba0bbe78",
+      "parameters": [
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_": {
+      "module": 8,
+      "digest": "f021dd1badec9958f1065c91de0e330515b9078c31600760567deeea42e4572e",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal15granular_kernel12commit_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKNS3_ILi2EiLS4_0EEEPKfPfPii": {
+      "module": 8,
+      "digest": "2312bd13234e013ae05d8925b8a9e6330f4fca9e9ab6250ada8605dca716fe6d",
+      "parameters": [
+        1864,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_": {
+      "module": 8,
+      "digest": "16e76e3a615524716a28d9d7f84c6e47c042439edec0a6ca0e1361743924cfcf",
+      "parameters": [
+        1864,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE": {
+      "module": 8,
+      "digest": "9e40eacfafb4a58a3f5362ebce36347373e8a4e5cf65a8e81991891cd01d7d41",
+      "parameters": [
+        120,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_": {
+      "module": 8,
+      "digest": "3946f544ae6f3a367d9c75cfc07f6a59bded15b7819909693eb0189d942cebe9",
+      "parameters": [
+        120,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal15granular_kernel10form_bondsENS_5ModelENS0_4ViewEPKiS4_PiPN3glm3vecILi2EiLNS6_9qualifierE0EEEPfSB_S5_": {
+      "module": 8,
+      "digest": "a4366c0000c16bee725bb0f9f12811b718d3d557a6441302717a9c6f06776820",
+      "parameters": [
+        1864,
+        120,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel22snapshot_hard_contactsENS0_15HardContactViewE": {
+      "module": 9,
+      "digest": "d233862720be52e760ad5b6995966ace6ccc098bcd2d5f147485be390d282d8b",
+      "parameters": [
+        312
+      ]
+    },
+    "_ZN7synreal6kernel24initialize_hard_contactsENS0_15HardContactViewE": {
+      "module": 9,
+      "digest": "92a171de0ae3f0a367b2ff1c63756ab466451e650cbf160269f81110e44c9326",
+      "parameters": [
+        312
+      ]
+    },
+    "_ZN7synreal6kernel25update_hard_contact_dualsENS0_15HardContactViewE": {
+      "module": 9,
+      "digest": "4ea737d128a9b223b5bd85bd0003b1b00f28e375c06199fce553cf6610936527",
+      "parameters": [
+        312
+      ]
+    },
+    "_ZN7synreal6kernel22evaluate_hard_contactsENS0_15HardContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPfPKS5_S6_PNS2_3matILi3ELi3EfLS4_0EEESC_S7_": {
+      "module": 10,
+      "digest": "00021bd17c3f477f641838d4f8910553d4ce22dcb907b5598f2279120cf2417d",
+      "parameters": [
+        312,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm": {
+      "module": 11,
+      "digest": "829129784ce11f93ced5c4597a51986e806e24095e1caefe0be466946f68a800",
+      "parameters": [
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32reset_selected_joint_drive_stateEPKiPim": {
+      "module": 11,
+      "digest": "80479412da1e39908142f0305b159fff3f60caf0d6f6d03b282320a525010768",
+      "parameters": [
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel51update_joint_body_spring_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PS4_mmmm": {
+      "module": 11,
+      "digest": "26dd1131532a38d63d583b8599a8ac201dd26a9448df4447f367c67689dbf58a",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm": {
+      "module": 11,
+      "digest": "58c061c2b8a2acf5051fbc0e39843409ac0786b3b8b060676c1a823432b58c1a",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel41initialize_body_distance_constraint_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfPS4_SI_mmm": {
+      "module": 11,
+      "digest": "fda15796e0ae1f5a3f477f7b0615478bf14943f38012e3f5ac261de5111572f3",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel39evaluate_body_distance_constraint_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_S6_fPS4_mmm": {
+      "module": 11,
+      "digest": "091e41933af0889295b62f2b6569acdb723175ed3afa024961aae786f06c68cf",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel37update_body_distance_constraint_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfPS4_SI_mmm": {
+      "module": 11,
+      "digest": "717cd8c0ffd668b61392a842dc2297be576c431cf24cda19f3659eaef0453bdc",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm": {
+      "module": 11,
+      "digest": "3561e7fcdd7e40746ae67293d11173e0ea7fe19a9c7530bcc8070c0c5f8c8e53",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        1,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel30evaluate_body_point_line_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_fmbPS4_mmm": {
+      "module": 11,
+      "digest": "eea0e07f5f13d2ced1ac3a72d5a9469166d8291a1d451eee8e998ce73054d53f",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        1,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel38initialize_joint_body_point_line_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEmmmm": {
+      "module": 11,
+      "digest": "037249139bfa6a1878ae17104e2870cb81a58f13c2f66ea6678923ae97250dd0",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_S6_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm": {
+      "module": 11,
+      "digest": "4709bde91f9a15f5c8047b6fd646e338c16a2801834f0c9f2186f241f644a0f4",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel55update_joint_body_point_line_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEbmmmm": {
+      "module": 11,
+      "digest": "d1445640ec955b9f0c5cbf515da8b62ddc189b1b6963b73329cbc90f621732fd",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        1,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm": {
+      "module": 11,
+      "digest": "d370455f8c77c65d6178d7fb78380a7a73e062fbde0f5b7f652483b1e010bd08",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm": {
+      "module": 11,
+      "digest": "185e1ad080dd83bb21fc799e429991b88363428568939ae5e8433c6750f611f5",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel36add_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm": {
+      "module": 11,
+      "digest": "9a113647d4bd225b2158f93c3f6618c64749bda9e4e80bde8325a93f7c247bd1",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel46add_joint_body_point_line_gauss_newton_hessianEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_PKiPNS_17BlockNonZeroEntryEmmmmmm": {
+      "module": 11,
+      "digest": "9b3bbef441cd143bdb38f5d0b57c95e9dd179c90e2509ee4fb9609034ba5c355",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel40add_body_point_line_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKffmbPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm": {
+      "module": 11,
+      "digest": "fc3293cb9a3177f60222da4fc4028665c773e3b9822d3756d34d636cd1240cc7",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel30update_joint_drive_angle_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESJ_SJ_SJ_SJ_mmm": {
+      "module": 11,
+      "digest": "42d3bc7b5c44081d85d90e61cbb9accb02a9eefaa00661c6151c3dc571c5051a",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf": {
+      "module": 11,
+      "digest": "47ee68a1ef0c29e5cd964c75580e2c2aef9ecd582b54d274c55dad2c11fb63b2",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm": {
+      "module": 11,
+      "digest": "84b8f51f1e723f3ce82ab619638123fa325911c7f0951762f05795f99e4072b6",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm": {
+      "module": 11,
+      "digest": "c05c038cc0794eaa28295f7bbc9c6f015e9b01c58e634c03c830fc5ffbca5e82",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel38initialize_joint_coordinate_velocitiesENS0_19JointCoordinateViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_Pf": {
+      "module": 11,
+      "digest": "7fb4feb9c1e15523a9323c3f176745e3762d6e62abfea46c6292968205d18bcd",
+      "parameters": [
+        120,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE": {
+      "module": 11,
+      "digest": "9f1d9edbe5a76327166e06ea3fe945ced9e14625fd9bed816db78c8c47b9d14d",
+      "parameters": [
+        120,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE": {
+      "module": 11,
+      "digest": "ca2e5add9c31418094ff97470a555e7724b55659999e640af9783dde76afe5af",
+      "parameters": [
+        120,
+        32,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel21generate_morton_codesEPjPKNS_4AabbES2_j": {
+      "module": 12,
+      "digest": "0134ffebb607024b07418fcfb02692e22f9917eefa4021b4de0bce06784683f7",
+      "parameters": [
+        8,
+        8,
+        24,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj": {
+      "module": 12,
+      "digest": "dee9c8f7b98929286e2a0a940c3007023eda41b6548d4b5fcaa108f60498caeb",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj": {
+      "module": 12,
+      "digest": "e6584833a64d1095a41b880d463e034075d7a37de7e04f156723f62577488a14",
+      "parameters": [
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel26build_primitive_leaf_nodesEPiPKij": {
+      "module": 12,
+      "digest": "5e2a133fae14e7b3d13e5e97f3a04ce2c304023b146609dfa7b42d1fa241685b",
+      "parameters": [
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj": {
+      "module": 12,
+      "digest": "ffe455c67c35f7ff76d7e1abca17835ea9e623a11530dfb305119394e3911b08",
+      "parameters": [
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm": {
+      "module": 13,
+      "digest": "52fc6d6bbc7eb8a7c53ef0a5a51372395749546fca0405948ba6d22457d30f4c",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m": {
+      "module": 13,
+      "digest": "dcbf9e2754e080612d8c34a1633dfe76112c6be1b4f8b8dd7eaf4b90dd863be2",
+      "parameters": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm": {
+      "module": 13,
+      "digest": "30848e4f8a94d03799449a1aa11f9d4b55b658616b7562018b5c1a703d95ec36",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm": {
+      "module": 13,
+      "digest": "e601da64add4758837d0b47c6c6e7a6948aee6090cb86ab7b6d728da44313b22",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm": {
+      "module": 13,
+      "digest": "dd63f8ca65cb4411d91661499304c8722c07927f5d57462a12a702af3ba5a051",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel17evaluate_residualINS_12NonZeroEntryEfEEvPKiPKT_mPKT0_PKN3glm3vecILi3EfLNSB_9qualifierE0EEESG_SG_PSE_mm": {
+      "module": 13,
+      "digest": "e07bba9138753b5c77c3668d1eb5d47d789bbf01fcdd55faf6989668bf92d604",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel17evaluate_residualINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_SI_PSG_mm": {
+      "module": 13,
+      "digest": "0933312053da195867eb2192835769d26c11ae6206855a2492717de0791de2bd",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel17evaluate_residualINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_SI_PSG_mm": {
+      "module": 13,
+      "digest": "031e0c8a37c465abe6f52e8fbf3850f06df156bb46c84a0f22e735162a2b302b",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel22evaluate_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mmS8_S8_S8_fPS6_Pf": {
+      "module": 14,
+      "digest": "4a78c855ccd26189175210aa539960d979def6507c8f182d8551bf367a5dd88e",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_": {
+      "module": 14,
+      "digest": "246945afc04902de5bdaa5231989a732a6f12311d0e8273e2b900699a66f188a",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel30evaluate_rolling_contact_forceENS0_18RollingContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE": {
+      "module": 15,
+      "digest": "e0092c1459600c8a792e9f1fecc6738e035bb13b5ed4e58d69deeb6f42c085da",
+      "parameters": [
+        248,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel34add_rolling_contact_preconditionerENS0_18RollingContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE": {
+      "module": 15,
+      "digest": "7ca8e21e4d4917cbc59f96fe11eb483fa5afa1ba3632c1e776553a5720eec2a7",
+      "parameters": [
+        248,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_": {
+      "module": 15,
+      "digest": "2dd931d795f593d2291ed521157386da631a9109cb1ccad0698e853b6933cdc4",
+      "parameters": [
+        248,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel20build_particle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPNS_4AabbEmmm": {
+      "module": 16,
+      "digest": "67791aa642605828278bdd0aa7e839d6062399fad4583273ec596eaa55b8e71a",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel16build_edge_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS_4AabbEfmmm": {
+      "module": 16,
+      "digest": "f1699a188c9d9088a8205ae48495f4db4d48539bf44214740bc4f48e6edd1340",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm": {
+      "module": 16,
+      "digest": "29697dbbd5edb63cec6617ff7df294c51ab4b1df8ba430a35522b7ce16bceb34",
+      "parameters": [
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel9refit_bvhEPKNS_4AabbEPKiS5_PKN3glm3vecILi2EiLNS6_9qualifierE0EEEPjPS1_mm": {
+      "module": 16,
+      "digest": "53b7cff7e979ccf35b9661c3a5f0a4b2d94c8c85fcadce6243578cdb91672999",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel20add_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_m": {
+      "module": 16,
+      "digest": "ffc9ba60a0f9c03ec873d48a20073d59a774b355fe86ebf0bceed9f2bde5415d",
+      "parameters": [
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel25multiply_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m": {
+      "module": 16,
+      "digest": "b4806cc260beae2873fb614bc09d2524f4c97cc40ac230f6008ad77c22dc9b3f",
+      "parameters": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel20query_particle_pairsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfS8_S8_PKNS_4AabbES8_PKNS2_ILi2EiLS3_0EEES8_S8_S8_PiSH_mmmi": {
+      "module": 16,
+      "digest": "54679a1aee86cf550831fe549c1700214ecf3ca8e21e7c59385d27aff6557062",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel15query_edge_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi3EiLS3_0EEEPKiPKNS_4AabbESE_PKNS2_ILi2EiLS3_0EEESE_fPiSL_mmmmi": {
+      "module": 16,
+      "digest": "bcdfd5564e898ffd28c406f538c1c1ebc176d5e140cb1632a24744d8892e33c8",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel15query_edge_edgeEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS_4AabbESB_PKNS2_ILi2EiLS3_0EEESB_fPiSI_mmmi": {
+      "module": 16,
+      "digest": "99f80e50861fdad66424dc9126fcfa9326e27f546836ceaa2b31bda32af3c94e",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel17query_vertex_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPKNS2_ILi3EiLS3_0EEES8_PKNS_4AabbES8_PKNS2_ILi2EiLS3_0EEES8_ffbPiSK_mmmmi": {
+      "module": 16,
+      "digest": "b1d5f7ae08c27179e6b31616d9a816f0a949895be2c50b4bfc7d3dfb2e0b6cff",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel22accumulate_vertex_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPKNS2_ILi3EiLS3_0EEES8_S8_SA_ffbfPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi": {
+      "module": 16,
+      "digest": "0d08f6c63fcd95581f2c657740e5a6b66525d4807cc89de3052a74faf45202f5",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        1,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel25accumulate_particle_pairsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfS8_S8_SA_fPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi": {
+      "module": 16,
+      "digest": "386a6ecf04319909585ed64a300d21799827ab07f37ba512a0f19216a0b66bc3",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel25multiply_contact_tangentsEPKNS_27SelfCollisionContactTangentEPKjPKN3glm3vecILi3EfLNS6_9qualifierE0EEEPS9_": {
+      "module": 16,
+      "digest": "0bed282356f25ae6de7ee6386e19d6a95897d4ecaa49ceacd3a7173a6a93b960",
+      "parameters": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel20accumulate_edge_edgeEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_SB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi": {
+      "module": 16,
+      "digest": "15cefbf73b324d2ecb876a250d9936774895c57635f0538924341e102ff0c6be",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal21self_collision_kernel20accumulate_edge_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_PKNS2_ILi3EiLS3_0EEESB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi": {
+      "module": 16,
+      "digest": "061024f7175b3bc17869f3d5341a4008b896deadbec6689e0cc6b42301841069",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4
+      ]
+    },
+    "_ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_": {
+      "module": 17,
+      "digest": "ffc716cbc1ecad41ae3770db55c1783aca9c8fc311e93106de7c0058056a0255",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_": {
+      "module": 17,
+      "digest": "68a9fc6ad7ee12184915674b63b2f83477860a356454206c7f7c1d74a0a6be91",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel21evaluate_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PS4_mmm": {
+      "module": 18,
+      "digest": "f0f9b5eeb4105c2691d336c92baed7294343092084d0b886233b89004c440adf",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm": {
+      "module": 18,
+      "digest": "377280c2340ba21a4f4c7dd45fc469fdef07abae21bb540853688d1884d50cc4",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m": {
+      "module": 19,
+      "digest": "3f9846b193665d0eef28bc35ba060a406f65fb2b0903c76ef32fe5d209d8f3a6",
+      "parameters": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m": {
+      "module": 19,
+      "digest": "85ade14606a475ccaf8d8b35e501bafd67cc1d73a0a523b4715f9136c37ad846",
+      "parameters": [
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m": {
+      "module": 19,
+      "digest": "89a2fcc7ce3c2388b7a30e87df5bde6a3ee6eac2dae0f993d6aa15839c33d862",
+      "parameters": [
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m": {
+      "module": 19,
+      "digest": "be38c0cb4a86e85547ee3bd189b4613be380e16f1266406c4ab1a3418d095609",
+      "parameters": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel31refresh_inertial_cache_nonzerosEPKfPKmPKiS2_S4_S6_PNS_12NonZeroEntryES8_m": {
+      "module": 19,
+      "digest": "00155e87353d8e30a8598fa887a146d0d4e4630c44cf2eb8435eb04f81870eca",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m": {
+      "module": 19,
+      "digest": "ff32887487aa467c8f21952cae9efbf80a6fe5d6666feba0e64581fdab07eb5a",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm": {
+      "module": 19,
+      "digest": "6a9c043495d21ac98b13f41f8189e15ed342d2ecc6976367423fb2955946db07",
+      "parameters": [
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        4,
+        8,
+        4,
+        8,
+        4,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm": {
+      "module": 19,
+      "digest": "3b2477d6784e963a260d730eb1e2d73386288d912b4ab6250655f70df963f8eb",
+      "parameters": [
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE": {
+      "module": 20,
+      "digest": "e517a22bbcf85c314ed44450402cade96b8c67dc6468090713956a1c757250ac",
+      "parameters": [
+        296,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel35add_surface_contact_stiffness_scaleENS0_18SurfaceContactViewEPf": {
+      "module": 20,
+      "digest": "c9eb56d9c7a8a03234c072032ec9d9fd4c85a3f998af2bb4e1a78fcef6731486",
+      "parameters": [
+        296,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel34add_surface_contact_preconditionerENS0_18SurfaceContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE": {
+      "module": 20,
+      "digest": "696379aa52c94f4fbc04f8d68ab0f5cf97ca309c266c4301613b7e1f09b0d38e",
+      "parameters": [
+        296,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel32multiply_surface_contact_tangentENS0_18SurfaceContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_": {
+      "module": 20,
+      "digest": "eb9bc8db91a4fe946c8f91e940cf6124d45d62e1e953aa416682776fb6a45813",
+      "parameters": [
+        296,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm": {
+      "module": 21,
+      "digest": "778f155983a5440d7045b0295222336d10612db1e04dd52b0ff61951ca5e5d89",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel30add_tetrahedron_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPSB_mmm": {
+      "module": 21,
+      "digest": "5a246781476b10449f291db77f41193a72c5bfe1fe08351d6e5b0850c75867f1",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS11EmptyKernelIvEEvv": {
+      "module": 22,
+      "digest": "eb2b44076a3491067751599cf0c6a1a1fb38996681d3811784826a0b1dab826f",
+      "parameters": []
+    },
+    "_ZN3cub17CUB_200302_520_NS18DeviceReduceKernelINS0_18DeviceReducePolicyIN7synreal4AabbEjN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EN6thrust20THRUST_200302_520_NS8cuda_cub26transform_input_iterator_tIS4_NSA_10device_ptrIKS4_EENS5_21PrimitiveCentroidAabbEEEjS6_S4_EEvT0_PT3_T1_NS0_13GridEvenShareISL_EET2_": {
+      "module": 22,
+      "digest": "9d50590fc88c78c30c4f88235729c6bfa67fc7c092a24a35d1bf7b644f0c6aa8",
+      "parameters": [
+        16,
+        8,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIN7synreal4AabbEjN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EN6thrust20THRUST_200302_520_NS8cuda_cub26transform_input_iterator_tIS4_NSA_10device_ptrIKS4_EENS5_21PrimitiveCentroidAabbEEEPS4_jS6_S4_S4_EEvT0_T1_T2_T3_T4_": {
+      "module": 22,
+      "digest": "6f184f0b35f2567f8caf635cb91f80970d06b006067aaf65450e515eea2f7745",
+      "parameters": [
+        16,
+        8,
+        4,
+        1,
+        24
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIN7synreal4AabbEjN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EPS4_S9_iS6_S4_S4_EEvT0_T1_T2_T3_T4_": {
+      "module": 22,
+      "digest": "d381510e6dfc453995190212beff50fd9b68a971500aa96b59b12e08555fd054",
+      "parameters": [
+        8,
+        8,
+        4,
+        1,
+        24
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS18DeviceReduceKernelINS0_18DeviceReducePolicyIN7synreal4AabbEyN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EN6thrust20THRUST_200302_520_NS8cuda_cub26transform_input_iterator_tIS4_NSA_10device_ptrIKS4_EENS5_21PrimitiveCentroidAabbEEEyS6_S4_EEvT0_PT3_T1_NS0_13GridEvenShareISL_EET2_": {
+      "module": 22,
+      "digest": "641d7d7f90b02ac0bd143f23248cd569512c11fb6bbc70720910265fb419296f",
+      "parameters": [
+        16,
+        8,
+        8,
+        72,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIN7synreal4AabbEyN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EN6thrust20THRUST_200302_520_NS8cuda_cub26transform_input_iterator_tIS4_NSA_10device_ptrIKS4_EENS5_21PrimitiveCentroidAabbEEEPS4_yS6_S4_S4_EEvT0_T1_T2_T3_T4_": {
+      "module": 22,
+      "digest": "7794102a1e7a4bd7426b7994f8a1b321f87cecd96a41b08e49c2b10dd6ee8dbb",
+      "parameters": [
+        16,
+        8,
+        8,
+        1,
+        24
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIN7synreal4AabbEyN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EPS4_S9_iS6_S4_S4_EEvT0_T1_T2_T3_T4_": {
+      "module": 22,
+      "digest": "e5663359848a52207d43510526dce49ac05d34952d9977205efe0cc2426a13f7",
+      "parameters": [
+        8,
+        8,
+        4,
+        1,
+        24
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceRadixSortUpsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0ELb0EjjNS0_6detail21identity_decomposer_tEEEvPKT2_PT3_SA_iiNS0_13GridEvenShareISA_EET4_": {
+      "module": 23,
+      "digest": "d8d9e2ba64a4d7551d494a9a04fae829e254160fe4d6f38f2bb08a9f0d6364f5",
+      "parameters": [
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortDownsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT2_PS7_PKT3_PSB_PT4_SF_iiNS0_13GridEvenShareISF_EET5_": {
+      "module": 23,
+      "digest": "cbc5210557a3a3be488f3abf4ff14ee182182fc3b393a6030168b6ef74d31994",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceRadixSortUpsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb1ELb0EjjNS0_6detail21identity_decomposer_tEEEvPKT2_PT3_SA_iiNS0_13GridEvenShareISA_EET4_": {
+      "module": 23,
+      "digest": "f04986ccb35d3f485fb2f3bf6e29011ddfa37f7e1ba7f154a9b562cbac01f505",
+      "parameters": [
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortDownsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb1ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT2_PS7_PKT3_PSB_PT4_SF_iiNS0_13GridEvenShareISF_EET5_": {
+      "module": 23,
+      "digest": "3a466dc09eade6bed1880365febb2d921032288647ec5fcd03659eae82cb4aa9",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS23RadixSortScanBinsKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900EjEEvPT0_i": {
+      "module": 23,
+      "digest": "ae06bbfff58c0b4bb7e49c1de2f4a52c1455c1847b972af0c0deec4af627e4e3",
+      "parameters": [
+        8,
+        4
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900EjEEvPT0_": {
+      "module": 23,
+      "digest": "2290531d0373a73b20468cec720e5a9da65b72df21c448db975550f16b903767",
+      "parameters": [
+        8
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_": {
+      "module": 23,
+      "digest": "59e8c98c053a3ffafb9258e518229ecf766c1917edc1a68714fb32f9589e1a90",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortHistogramKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjjNS0_6detail21identity_decomposer_tEEEvPT2_PKT1_S7_iiT3_": {
+      "module": 23,
+      "digest": "d1123eb129e13020b281fbb8141f34ac23c70d7ec391f62e88f9cbaeeeca3eee",
+      "parameters": [
+        8,
+        8,
+        4,
+        4,
+        4,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS29DeviceRadixSortOnesweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijiiNS0_6detail21identity_decomposer_tEEEvPT5_S8_PT3_PKS9_PT1_PKSD_PT2_PKSH_T4_iiT6_": {
+      "module": 23,
+      "digest": "9ff2ee948b6f8beefe8488c2e00a8d192c940f03e918f1a6aa53f324e0fae4bb",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceRadixSortUpsweepKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900ELb0ELb0EjjNS0_6detail21identity_decomposer_tEEEvPKT2_PT3_SA_iiNS0_13GridEvenShareISA_EET4_": {
+      "module": 23,
+      "digest": "e9f26e288748e0836090312bc10df215526d80051b7319ab7b326d0d9beae22f",
+      "parameters": [
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortDownsweepKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900ELb0ELb0EjjjNS0_6detail21identity_decomposer_tEEEvPKT2_PS7_PKT3_PSB_PT4_SF_iiNS0_13GridEvenShareISF_EET5_": {
+      "module": 23,
+      "digest": "6692302cdf32fb5fc49fae822473e7435323d0e98c4b0439a70de207a62fe255",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS28DeviceRadixSortUpsweepKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900ELb1ELb0EjjNS0_6detail21identity_decomposer_tEEEvPKT2_PT3_SA_iiNS0_13GridEvenShareISA_EET4_": {
+      "module": 23,
+      "digest": "342269734abea510d074a0f0a75ae6582b841e111394ff06d097453d80b4ad11",
+      "parameters": [
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortDownsweepKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900ELb1ELb0EjjjNS0_6detail21identity_decomposer_tEEEvPKT2_PS7_PKT3_PSB_PT4_SF_iiNS0_13GridEvenShareISF_EET5_": {
+      "module": 23,
+      "digest": "8576ae953c724791fbacf8a0860d913fb7396774a39af5e3c456d8c1f0541362",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        40,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS23RadixSortScanBinsKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900EjEEvPT0_i": {
+      "module": 23,
+      "digest": "1950ba644ed92dddc40001a250afe529524016e766529999aef4feeb716aa0f9",
+      "parameters": [
+        8,
+        4
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900EjEEvPT0_": {
+      "module": 23,
+      "digest": "f539e6fd87c3706da474a0ccc3fc7927ed84e0ec6172a42efb587bf4d3734dba",
+      "parameters": [
+        8
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900ELb0EjjjNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_": {
+      "module": 23,
+      "digest": "848463dbbe0c5e49aa3c980e425d829dbbca323d75e0ccc36e763392a3815ba6",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortHistogramKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900ELb0EjjNS0_6detail21identity_decomposer_tEEEvPT2_PKT1_S7_iiT3_": {
+      "module": 23,
+      "digest": "7e107bc67c35bc52b94c0c1dd5f9dee40db25e7e33d8b513f636954a9019d0d2",
+      "parameters": [
+        8,
+        8,
+        4,
+        4,
+        4,
+        1
+      ]
+    },
+    "_ZN3cub17CUB_200302_520_NS29DeviceRadixSortOnesweepKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900ELb0EjjjiiNS0_6detail21identity_decomposer_tEEEvPT5_S8_PT3_PKS9_PT1_PKSD_PT2_PKSH_T4_iiT6_": {
+      "module": 23,
+      "digest": "a9b32fb3b100c0848307b1401983cd3c29cac06257248700be5f530e1d633567",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        4,
+        4,
+        1
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "321600a6bc77f688be66f8152fc3f838aeff0f1d8a4e90b9529267a62480496e",
+      "parameters": [
+        48,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3vecILi2EiLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "678436e520244cca39088beb42824a1ddee596d2b5cf65db9437558fecf324a4",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3vecILi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "fd62192e527d2f936919b34541f362b58d3118439e3796c51bfb819f2dbeb899",
+      "parameters": [
+        24,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3vecILi3EiLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "3d7d22ade72e6e530d51267cb020facaf833061e6098c26547550c734d1b30a6",
+      "parameters": [
+        24,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3vecILi4EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "85d68facd9b84efaee6e5c3c307f2d8349c91cb554ecac1b592b5be067f35e3f",
+      "parameters": [
+        24,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal12NonZeroEntryEEESA_EEmEESC_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "393e15f75f24ffeb9469212a9b27074aed970764ff2596619b3f7df7f58fafd5",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "25e459d529e08f4792bffda3bd243589331f23aa81c29064c1cc1b444854e8e9",
+      "parameters": [
+        48,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal4AabbEEESA_EEmEESC_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "3fec936714ba5785dc74c5f8498f032700fa043c1807121e7e5e0ec46a7bb637",
+      "parameters": [
+        32,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIfEEfEEmEESA_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "8d9947a059e09aef2c009aad0ffb102ea523742e19084a98ded043e677a7c63e",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIiEEiEEmEESA_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "432eae7080cd356aafbc4467c42d4665e1710cd61aa1259a04f152db14fb870d",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIjEEjEEmEESA_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "cfd718c7782a65011a8fc47dc063e98f2dee34fbdd13e44761db0560f15c993d",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIN3glm3matILi3ELi3EfLNSB_9qualifierE0EEEEEEESE_EElEESH_lEEvT0_T1_": {
+      "module": 24,
+      "digest": "b8c3f79b15e8e897ea4959196e2c2ea9e1523c537550c0081323e1c54b7b558b",
+      "parameters": [
+        48,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIN3glm3matILi3ELi3EfLNSB_9qualifierE0EEEEEEESE_EEmEESH_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "01b9e7054aa493f2f4bf852c31c8797b3ac7329169df8e8871c7641afe417994",
+      "parameters": [
+        48,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIN3glm3vecILi2EiLNSB_9qualifierE0EEEEEEESE_EElEESH_lEEvT0_T1_": {
+      "module": 24,
+      "digest": "1d6a70eba2ba12453d790ce16fc161c09e913b1ed27aec7cd1e6c7b7dfdcf8bc",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIN3glm3vecILi2EiLNSB_9qualifierE0EEEEEEESE_EEmEESH_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "6f08842e5623e222d3818c58c2549af2da569d1ecd346dcfbd1f547793a790aa",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIN3glm3vecILi3EfLNSB_9qualifierE0EEEEEEESE_EElEESH_lEEvT0_T1_": {
+      "module": 24,
+      "digest": "22fa0959f627f614c603c227015be1856954eeadc0d7495e57ada181ad04ef47",
+      "parameters": [
+        24,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIN3glm3vecILi3EfLNSB_9qualifierE0EEEEEEESE_EEmEESH_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "f531e0c2a1b4d43b85ca9027ab0f58d0cef4da994a60e93fc7e0fb6164878ef9",
+      "parameters": [
+        24,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIfEEEEfEElEESD_lEEvT0_T1_": {
+      "module": 24,
+      "digest": "050bc5c923ef2554fc2f985bf4e19a589e7db0ba6ddacc0b7a018b9ba82544d0",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIfEEEEfEEmEESD_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "3a9b19533ce3184ea5442cd12f092eabbafc0c5b6dfc56fc304fcb6afb3482ca",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIiEEEEiEElEESD_lEEvT0_T1_": {
+      "module": 24,
+      "digest": "2a55c2396cf5fe19b1bd000fbe242b041efac74a4bc1b3bb112ffd81da0835d9",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIiEEEEiEEmEESD_mEEvT0_T1_": {
+      "module": 24,
+      "digest": "b322e2ec4479b320cee74682262e9688fee065fb158fc943e2f8b9dc0b5ecde4",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1_": {
+      "module": 24,
+      "digest": "1194b7f3d4730bbb633168827e81ed0502557791b653a6843a3f360495bc33db",
+      "parameters": [
+        16,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m": {
+      "module": 25,
+      "digest": "c506ffa034f5983ae337de026eb9adc0039c1e6c7276c1012fdba9a8f6b819a6",
+      "parameters": [
+        4,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m": {
+      "module": 25,
+      "digest": "5e023e1e2f492d4e7cdc505cbfe4fd24d6b789fcb994d45c4e4c59ec6e5f6e99",
+      "parameters": [
+        8,
+        4,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel23precondition_and_reduceIfEEvPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPS8_bPKijPfm": {
+      "module": 25,
+      "digest": "bd1084d7d3854ad58b8516fc25e01d12fb758e7ea6c2073ccf62b23c96853920",
+      "parameters": [
+        8,
+        8,
+        8,
+        1,
+        8,
+        4,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm": {
+      "module": 25,
+      "digest": "99d970dc5a4a27a8ead5b73c491df2ddf49bd2378294aed02a2b8df2be1311ac",
+      "parameters": [
+        8,
+        8,
+        8,
+        1,
+        8,
+        4,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEfEEvPKiPKT_mPKT0_PKN3glm3vecILi3EfLNSB_9qualifierE0EEESG_PSE_S4_jPfmm": {
+      "module": 25,
+      "digest": "9aa7ab67f174c8d354575d09a82cdbb782fe1bcc0e6cf766e89eafdb7a9439f9",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm": {
+      "module": 25,
+      "digest": "5c24788851ebb85d590bbbb979da5a67abaabf48a8936eba40b9763a1adb2871",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm": {
+      "module": 25,
+      "digest": "0585be77d509c43c356fd8688efdb3702618a31e0c765cfc1c61364d50603563",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal6kernel26evaluate_tetrahedron_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKfSF_fPS4_mmm": {
+      "module": 26,
+      "digest": "cfe9c4a8939356c4bc80b9c1746287721b3798cf6ef56a095c0d11ece95e661c",
+      "parameters": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        4,
+        8,
+        8,
+        8,
+        8
+      ]
+    },
+    "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_": {
+      "module": 27,
+      "digest": "c083adef42601affdae302a6ad6cdd4bd5608ef4a305f0c8dfbd11ceb52f3f0c",
+      "parameters": [
+        1864,
+        8,
+        8,
+        120,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ]
+    }
+  },
+  "pcg_revision": "23fb797",
+  "build_command": [
+    "c++",
+    "-std=c++17",
+    "-O2",
+    "-DNDEBUG",
+    "-shared",
+    "-fPIC",
+    "-I/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/pybind11/include",
+    "-I/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/include/python3.12",
+    "-I/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include",
+    "-I/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles",
+    "-I/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/native",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.o",
+    "-l:libcuda.so.1",
+    "-L/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib",
+    "-l:libcudart.so.12",
+    "-Wl,-rpath,/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib",
+    "-o",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so"
+  ],
+  "bvh_library": {
+    "object": "build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.o",
+    "accepted_device_entries": 24,
+    "library_runtime_launches_completely_observed": false
+  },
+  "source_overrides": {
+    "evaluate_tetrahedron_force": "reconstruction/csrc/revisions/tetrahedra_23fb797.cu",
+    "granular_build_grid": "reconstruction/csrc/revisions/granular_grid_23fb797.cu"
+  },
+  "sources": {
+    "reconstruction/csrc/native/source_cuda.cpp": "f2fbd0aa2e2eb1f8f75f46c2ff5c2cd9177ebd84f610920ba685582346cc23df",
+    "reconstruction/csrc/native/api_schema.json": "cc08b835369ffdb423ad6f14493a38918235593020955a8af84d883dc862ed69",
+    "reconstruction/csrc/revisions/pcg_23fb797.cu": "108f76405da5745b60e8de0f45420a24be8df35f3df4a49158807059dfceb5cc",
+    "reconstruction/csrc/revisions/tetrahedra_23fb797.cu": "828dab3153417b5bd7ca95aa600a1f1567ac06642b668afa5be77e1c58de6c76",
+    "reconstruction/csrc/revisions/granular_grid_23fb797.cu": "3599cc4bf461d03dc29a011ffd8ded30541805cc92ccbd1f4b03537e0eb5aee9",
+    "reconstruction/csrc/native/kernel_symbols_23fb797.json": "aaf97925badaa2a0df180fca6dbf105e9185212244bcf398b6db831e3a1c7222",
+    "reconstruction/csrc/native/source_solver.cpp": "ab9bfced6f1aaf3500ecf0cb717ea47a4c17527998416cd8b866d9f738ed86f5",
+    "reconstruction/csrc/build_host.py": "cd2f5325e97a26ad4d7c09a6602c6a159a5499abc802101021eefd375dc9a48c",
+    "build/reconstruction-csrc/native/source_ptx_bundle.h": "88934c91d4abc3df5e212c9e699fef8c308daf1a1241ff89c8f4891097768231",
+    "build/reconstruction-csrc/host-particles/source_api.h": "a9060e26a5c3feaac242cd142fc371e50ac5165342a817b626bae9fcf4b84f64",
+    "build/reconstruction-csrc/host-particles/source_driver.h": "54aa8bc2816a8b08e1a32308f13e4dac9b20433ac056ecd412e0bddd04e1542c",
+    "build/reconstruction-csrc/host-particles/source_ptx_bundle.h": "0b99741035a1bb95da92ed30456219fff9faf642e0e36a4d114356e45233293c",
+    "build/reconstruction-csrc/pcg_23fb797.ptx": "06f1350d5f728ee07b57d0af9a15b2bf1aa766d71824eca46cb032082dcd7d70",
+    "build/reconstruction-csrc/tetrahedra_23fb797.ptx": "8eaf3d9effba9e0e95f8a1335652c32744e6ca3deab7d8bedccfa612c45e018f",
+    "build/reconstruction-csrc/granular_grid_23fb797.ptx": "fd036938b1785fa14bdf6baa1b8122d17876421f91712f377480d56c90952c1a",
+    "reconstruction/csrc/native/surface_view.h": "959e66fe05c29e0522b7920d703f86e268e407b6d4c94bf024b05759499aa6f9",
+    "reconstruction/csrc/native/bvh_library.cu": "b06a3d65b5c66cd79ea17635cad4d02cd3955359d513244828ada83e73a0f8ac",
+    "reconstruction/csrc/native/bvh_library.h": "88c438e7ac478acc40af228f9c5a8a6cc7ce2bc6604b0274c69d1811e0ac448d",
+    "reconstruction/csrc/library/reduction_functors.cuh": "4b42c15b8f478bfc9d5d9e05c81b0e7e0316fdda496ba9a6847471d1a23149c8",
+    "reconstruction/csrc/kernels/types.cuh": "2dee46a31ed8f226d3fa549cac7c0afe519e0aa8e23bd96d76bb00ea00bd3d99",
+    "reconstruction/csrc/kernels/common.cuh": "68895790cfd8cffdb96e3cdd95438d134a50a9e1527488be43d24632dbf0c2bb",
+    "reconstruction/csrc/build_bvh_library.py": "15768ff7f9b5510686c1a16c4c0374b298b10abbd577e0d484328e8b71bebf60",
+    "build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.o": "1dda18586d99b03bb7108642b78a3b1c12b250ee2497581edb4455d9f5d6eb2c",
+    "build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/build.json": "54d30bb36a87ba18068d649068c9c1071d7517d7a902bbc2e77de008fea9841d",
+    "build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.ptx": "dae914d68f33de2b7706e3c0f8b9387ee5598d836f5a32d31ab20171fafa1a2f"
+  },
+  "extension_sha256": "ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042"
+}

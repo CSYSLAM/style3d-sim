@@ -1,8 +1,13 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **继续开发更新：活动源码 image 为ff34e6a1，已恢复 SO3 body/full-surface/rolling 的额外 host 调度。**
-> 最新实现、实际原版证据、局部原子写入验证和未完成项见
+> **继续开发更新：活动源码image为b9456031，新增按原版恢复的SO3 body/tetrahedra组合。**
+> 八组状态/buffer/ABI全严格，32项60步eager/graph比较全同，原版/源码initcheck3均零错误；
+> 构造五项审计全同，74项为70严格、4份固定首次差异C10通过，CPU复核吻合。见
+> [BODY_TETRAHEDRA_HOST_RECOVERY.md](reconstruction/csrc/BODY_TETRAHEDRA_HOST_RECOVERY.md)。
+> 上一ff34的实现、原版证据和局部验证见
 > [AFFINE_SURFACE_HOST_RECOVERY.md](reconstruction/csrc/AFFINE_SURFACE_HOST_RECOVERY.md)。
+> 续接阶段检查、源码形态实验、独立原版holdout见
+> [SURFACE_STAGE_ISOLATION.md](reconstruction/csrc/SURFACE_STAGE_ISOLATION.md)。
 > 下文8fb9d2ee的结果是Git 76facc7时的冻结基线，不能算作当前image全部通过；原固定失败仍保留。
 
 本文件是当前交接入口，优先于旧交接中的阶段性说明。
@@ -19,11 +24,19 @@
 当前176个CUDA入口已重建并纳入版本清单，host组合场景和正式demo仍需继续验收。
 Git 76facc7的交接只迁移冻结基线；后续25/cc/ff新增host字段和按原版恢复调度，CUDA数学和比较标准未改。
 
-当前主线：旧W3固定失败保留；新增body/full-surface/rolling、32block上限、单世界默认shape tile均按
+**当前b945检查点**：body+tet新增八组状态/buffer/ABI严格相同，eager/graph60步32项全同，
+完整构造五项审计全同；完整74项70严格，另四份固定首次输出的C10通过且CPU重算同。
+surface/legacy cloth graph仍有严格差异，未收集b945自己的surface/cloth C8或正式大demo 3/8 cohort。
+不得继承ff34的统计结论，也不能用新结果销账旧固定失败。
+接续优先捕获真正有交互的body/tet+self或contact原版，再按证据开放对应guard；
+当前仅SO3无contact/self/fluid/drag/body constraints的body+tet范围已核对。
+详细命令与当前结果以顶部链接的BODY_TETRAHEDRA_HOST_RECOVERY.md为准；下文第4至7节保留8f历史过程。
+
+此前ff34：旧W3固定失败保留；新增body/full-surface/rolling、32block上限、单世界默认shape tile均按
 实际原版调用/反汇编恢复。正式cloth_balls可完成60帧物理检查、5214次调用参数与geometry同，
 但固定整段C仍失败；ff最终队列与剩余差异见新增交接，不能宣称完整替代。
 
-当前ff检查点：74项回归为71项逐位一致，另外三个粒子首候选固定C10通过；246配置检查相同，
+此前ff检查点：74项回归为71项逐位一致，另外三个粒子首候选固定C10通过；246配置检查相同，
 surface与正式大demo的initcheck3均零错误。surface/旧cloth固定C8分别10/16、13/16，仍未通过。
 正式大demo原版8次样本保持不变；两种模式的新源码各3次物理检查通过，固定整段C仍失败。
 原始NPZ、失败报告、实际调用抓取和源码构建检查点均已纳入本分支，不需从另一台电脑找临时目录。
@@ -37,7 +50,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042`；当前源码host image；8f/814/25/cc/d932源与构建检查点均保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `b94560319d3a1c8aa7c898ce49b37748ae254ec30de28533deae292b4970a278`；当前源码host image；8f/814/25/cc/d932/ff源与构建检查点均保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |
@@ -280,7 +293,7 @@ mkdir -p build/windows-check/probe-source
 - 内核源码在 `csrc/kernels/`、`library/`、`revisions/`。新版tet/granular/PCG以build manifest和revision为准。
 - 当前主线文档在 `reconstruction/csrc/`：`AFFINE_PARTICLE_MATERIAL_RECOVERY.md`、
   `CACHE_INITIALIZATION_RECOVERY.md`、`SELF_COLLISION_HOST_RECOVERY.md`、`AFFINE_SURFACE_HOST_RECOVERY.md`、
-  `NATIVE_HOST_PROGRESS.md`。
+  `SURFACE_STAGE_ISOLATION.md`、`BODY_TETRAHEDRA_HOST_RECOVERY.md`、`NATIVE_HOST_PROGRESS.md`。
 - `reconstruction/WORK_LOG.md` 是过程总账，从末尾读；`csrc/HANDOFF.md` 下部包含过时阶段。
 - 原始 `_re_analysis` 已搬入 `reconstruction/reference_analysis/`，含ALGORITHM_ANALYSIS_ZH、host/cuda反汇编、
   恢复草稿及测试；对应历史原版，不能代替当前176入口对照。`reconstruction/recovered/` 保留之前整理材料。

@@ -1,0 +1,63 @@
+{
+  "source_sha256": "b94560319d3a1c8aa7c898ce49b37748ae254ec30de28533deae292b4970a278",
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "cuda_source_digest": "f0e0137a1eef9e603495dd9fe04f89f285d0723380099d7ce16951c8a267c79a",
+  "kernel_count": 176,
+  "body_tetrahedron_source8": {
+    "strict": 8,
+    "owned_calls": 3620,
+    "defined_buffers": 72,
+    "report": "build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-ff34e6a1/body-tetrahedron-source-first8/report.json"
+  },
+  "body_tetrahedron_graph60": {
+    "strict": 32,
+    "comparisons": 32
+  },
+  "constructor_checks": {
+    "allocation_release_bytes_identity_phase_and_preceding_owned_launch": true,
+    "upload_bytes_and_order": true,
+    "typed_initializer_fields_uses_and_order": true,
+    "flat_owned_pointer_allocation_identity_and_offset": true,
+    "owned_and_library_kernel_name_order": true
+  },
+  "constructor_allocation_release_events": [
+    96,
+    96
+  ],
+  "constructor_uploads": [
+    29,
+    29
+  ],
+  "constructor_typed_initializers": [
+    57,
+    57
+  ],
+  "constructor_owned_calls": 508,
+  "constructor_kernel_name_timeline": [
+    573,
+    573
+  ],
+  "regression74": {
+    "strict": 70,
+    "strict_failures": [
+      "particles-seed1",
+      "particles-seed2",
+      "particles-seed3",
+      "pd_mixed_cloth-seed3"
+    ]
+  },
+  "fixed_C10": {
+    "first_source_replaced": false,
+    "originals_per_case": 10,
+    "all_four_passed": true,
+    "cpu_report_reproduced": true
+  },
+  "new_surface_C8_collected": false,
+  "new_cloth_C8_collected": false,
+  "new_official_cloth_balls_cohort_collected": false,
+  "old_failures_preserved": true,
+  "experimental_layout_adopted": false,
+  "source_only": true,
+  "solver_api_ready": false,
+  "whole_solver_complete": false
+}

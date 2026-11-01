@@ -1,0 +1,59 @@
+{
+  "source_sha256": "ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042",
+  "cases": [
+    {
+      "case": "w1-newton-b0",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true
+    },
+    {
+      "case": "w1-newton-b1",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true
+    },
+    {
+      "case": "w1-pd-b0",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true
+    },
+    {
+      "case": "w1-pd-b1",
+      "exit": 0,
+      "passed": true,
+      "finite": true,
+      "tetrahedron_changes_rhs": true
+    },
+    {
+      "case": "w3-newton-b0",
+      "exit": 1,
+      "passed": false
+    },
+    {
+      "case": "w3-newton-b1",
+      "exit": 1,
+      "passed": false
+    },
+    {
+      "case": "w3-pd-b0",
+      "exit": 1,
+      "passed": false
+    },
+    {
+      "case": "w3-pd-b1",
+      "exit": 1,
+      "passed": false
+    }
+  ],
+  "whole_solver_complete": false,
+  "harness_sha256": {
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_tetrahedron_ab.py": "61c6e398f49335f34c31d2cb052c28764fd4ccb84900f21271be6a97b4c7653a",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_tetrahedron_scene.py": "d023db2a6d3d29548d6b63b5e51b65fa9f9083fd10080e668c4e7efe29a94e7c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/full-owned-hook-129/cudahook.so": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518"
+  }
+}

@@ -5167,3 +5167,89 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   reconstruction/windows-handoff-20261031，ls-remote与本机提交完全相同，发布时工作区干净。
   从GitHub raw按提交下载实际参考so、活动源码so和当次manifest，三者均与本机逐字节一致：
   参考仍64a0be7f，源码仍ff34e6a1，不是LFS pointer或另一个子仓库。接手拉分支最新HEAD后先校验快照。
+
+### 继续定位ff34固定失败（2026-10-31）
+
+- 从已发布的固定C8直接读取：surface W3 Newton block/self/spring eager的8原版首步四状态完全同，
+  三源码均从首步超出C，source0粒子位置最大差4.155933856964111e-5、速度0.009974479675292969；
+  普通W3无self/block首步只在前两个世界body平移分量差1ulp。先查稳定的首步差异，不扩大原版cohort。
+- 新surface_worker_stage_probe保持原worker完整8场景×eager/graph×60帧，按scene配置只对目标第一个
+  eager步开启既有full-owned-hook的逐kernel pre/post dump；不保留scene/bound-method引用延长生命周期。
+  预检全部dump参数实际ABI都是指针。原worker/fixture/生产so/算术均未改；同步观察器可能改变原子次序，
+  必须另与冻结source0比较，不把新probe当作原固定失败。输出continuation-20261031-ff34e6a1。
+- 首版probe把SO3 tangent arg1局部ivec4索引误当全粒子vec3，诊断original进程CUDA invalid argument；
+  失败harness/部分dump/log/FAILURE均保留。修正为arg0，并在每个全粒子向量dump前核对实际pointee为vec3。
+- correct-vector阶段完整worker对照成功：目标230次owned调用参数/geometry同，首个所抓定义输出差异是
+  surface force（14词，最大4.76837158203125e-7）。两诊断轨迹均未复现冻结首候选，绝不替换旧source0。
+- all-body-inputs另抓完整预条件器build/apply与SO3 tangent的真实输入，原/源码各33个packet（3NL build，
+  15apply，15tangent）。同一分配上旋转actual SDK runtime/original PTX/source PTX，8次/后端，
+  1584次核调用的1728个输出buffer比较全部逐位一致，且全部与实际抓取输出一致。
+  零cable CSR验证[0,0]，保留byvalue payload，
+  指针别名也保持。不是只拿不同输入的输出做近似比较。
+- 新CPU audit直接重算已发布surface固定C8的48个source/case统计，全部与保存报告完全同；C仍false。
+  精确首个超C坐标、各原版/source位模式与固定NPZ SHA已保存，没有添加原版样本。
+- PTX oracle只用于隔离，不是源码候选：源码host不变，分别替换4 surface或全部129 owned（实调用52）。
+  每种一个完整worker。原版literal PTX得到严格12/16，两模式C分别12/16、15/16；旧固定失败仍保留。
+- 再用SDK实际kernel stub oracle：surface严格11/16、C12/16；owned严格13/16、C14/16。
+  owned模式原稳定W3 Newton block/self/spring eager与冻结原版60帧逐位同，但其它两轨迹C仍失败。
+  该adapter明确允许原库映射，输出oracle-*并写非source/non-original-sample标记，不生成source-only证明。
+  不能把oracle输出纳入源码验收，也不能从单次改善推断PTX文本就是因果。
+- 为查SDK runtime与literal PTX差异，CUPTI实际抓取JIT模块。初次编译observer混用CUDA12.4/CUPTI13头失败，
+  重用仓库已有支持module资源的cupti_param_trace.so；前次失败日志保留。新198项回放全部严格。
+  三个literal加载得到的整个3605304字节ELF与SDK实际加载ELF逐字节相同（97个text entry均同）。
+  所以不能再把两oracle轨迹差异归因于其机器码不同；模块装载/指针布局/原子调度等仍待隔离。
+  源码apply的5个text同，affine/SO3与body build text仍不同但上述实际输入输出全严格，不擅改数学。
+- 原版surface preconditioner逐点展开7个normal和7个friction Jacobian block，共126个静态red site。
+  新隔离220-byte struct试验恢复这个展开（原先trial只有18），324个串行分支对照全严格。
+  预先固定3个source-only完整worker对原8份NPZ，C仍10/16；未采用这个试验替换正式f0。
+- 再排除模块组织因素：按原版6个PTX模块分组链接不改entry的源码PTX，逐entry digest仍与正式版相同。
+  第一次6组均链接成功，末尾误假定总entry实例数=176而断言失败，失败脚本/产物保留；已改为明确区分
+  176唯一符号、205实例（13个辅助符号跨模块重复，共29个额外实例），129 owned都只有一个归属。
+  修正组装后的3个source-only worker对固定原8份仍C10/16，不据此修改正式模块分配或数学。
+- 按实际PTX零种子和loop活跃值继续探查220-byte返回记录形态，均为隔离源码试验：零初始化、持久record、
+  rejected-contact返回零record三种各324项串行分支全严格。前两种未解释大量mov差异；结构返回将force
+  mov.u32从71/73接近到870（原版1094），但仍不相同。preconditioner已126 red，但local仍220而原版440。
+  接口形态目前只是由PTX指导的假设，不称已恢复原C++源码；正在用预先固定3worker评估struct-return。
+- struct-return的3worker已完成，C11/16仍false，未采纳到正式版。原固定候选、门槛和f0 CUDA均未修改。
+- 新增3个未改原版完整worker作为独立holdout；与冻结8原版比较有12/48条超C，原8份NPZ前后SHA未变，
+  不把holdout加入基线或重判源码。W3 Newton block/self/spring eager的3个新原版都超C，
+  第一份首步粒子速度最大差0.010344505310058594，旧基线该步spread=0；不是源码独有的现象。
+  运行fixture/worker哈希相同，日志GPU/driver相同、10个Warp GPU module签名集合完全相同。
+  未宣称冻结时所有CPU依赖或环境变量已完整哈希；holdout也没有逐轨迹复现旧source0，限制均保留。
+- CPU float64 SVD检查实际抓取的float32 12×12 body inverse，cond2范围约19132.94..69495.40，
+  输入SHA/逐world结果在body-block-conditioning.json；这只是数值条件记录，不当作整段差异因果证明。
+
+### 按原版补SO3 body + tetrahedra host
+
+- 不用固定C8数字代替原生等输入验证；保留此前失败，同时继续补确实缺失的body/tet组合。
+  新fixture使用实际deformed/damped tetrahedron与SO3 box，W1/W3×Newton/PD×body block开关共8组。
+- 初版明确禁用surface edges，W1四组原版通，W3在Python共享模板适配器取不存在edge_rest_area时失败，
+  尚未到native initialize。保存旧fixture/日志，改用官方add_soft_mesh默认surface edges后重新捕获全部8组。
+  默认fixture的8组原版均finite，tet force真实改变RHS。旧4组不挪用到新fixture的验收。
+- 原版W3 constructor实测：scalar ELL typed cache之后分配/上传4B tet volume，再分配/上传32B body kind；
+  step实测force为SO3→stretch→tet→bending，tangent为SO3→tet，非先tet后SO3。
+- 生产修改前，将ff34源码/构建27文件完整复制并逐SHA核验到body-tetrahedra-before-ff34e6a1。
+  仅按捕获补body矩阵路径precompute_tetrahedra、恢复SO3→tet tangent，解除SO3无contact/self/fluid/drag/
+  body constraints窄组合guard；其他组合仍拒绝。CUDA176/f0、参考64a不变，solver_api_ready仍false。
+  新host已编译，正对新原版8组核对完整owned ABI、状态与缓冲区；未提前宣布该scope验收。
+- 新活动host为b94560319d3a1c8aa7c898ce49b37748ae254ec30de28533deae292b4970a278：
+  八组source均与对应原版全部状态、所抓buffer、owned ABI/geometry/coverage严格同。
+  新affine_tetrahedron_graph_ab的32项完整60步比较全部逐位同，原版/source各16条×3步initcheck均零错误。
+  新image的surface/cloth/四kernel/246config/完整74串行回归在validation-b9456031独立跑，不继承ff通过率。
+- b945独立完整队列与followup均complete：74项70严格，严格差异为particles seed1/2/3和
+  pd_mixed_cloth seed3；各冻结本次首次source0，对预先固定10原版逐数组/真实step C10全过，CPU重算吻合。
+  没有把原8/25失败拿新image结果销账。surface source8为5/8，surface/legacy graph21/32、28/32；
+  246配置同，surface initcheck3零错误。四surface算子的等输入输出/真实atomic操作数全同，
+  force初次随机见证漏1个source-probe scalar，CPU补齐6目标×108scalar；其它三算子原报告已全完备。
+- 新body/tet W3构造用memory/payload/CUPTI分别在真实original/source执行：五项全同，96分配/释放事件、
+  29 HtoD payload及顺序、57 typed initializer字段/用途/时序、508 owned调用的allocation identity/offset、
+  573 owned+library kernel名称时序。原observer不重编译，audit仅增加可选folder prefix，旧版源已保存。
+  不声称所有CUDA API名、opaque view字段、library几何或所有device copy/clear语义均同。
+- b945未另采surface/cloth C8或正式cloth_balls 3/8 cohort，不能继承ff的C结果；旧失败全部保留。
+  下一步从真正交互的body/tet+self或contact组合捕获原版开始，guard仍在，完整solver依旧未完成。
+- 当前checkpoint-summary.json按已完成status与followup报告生成并断言核对，所有本轮GPU worker已退出。
+  nvidia-smi仍有另一个worldparticle项目的Python进程，本轮不终止它；没有并行运行新的GPU验收。
+  发布准备仅重新整理已完成证据、当前源码/so与同仓库固定SDK/pyc，先逐文件校验再提交。
+- 发布前索引21560文件，本轮6729路径约580.4MB未压缩证据；最大单文件48.51MB，无超100MiB文件。
+  固定SDK无差异，360个pyc逐SHA与上一快照相同；无gitlink、LFS pointer、虚拟环境、凭据模式命中。
+  host/native的当前构建来源及产物SHA、Python AST与源码/文档diff检查均通过。

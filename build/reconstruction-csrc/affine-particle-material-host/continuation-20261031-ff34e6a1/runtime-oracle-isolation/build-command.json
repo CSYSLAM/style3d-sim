@@ -1,0 +1,13 @@
+[
+  "c++",
+  "-std=c++17",
+  "-shared",
+  "-fPIC",
+  "-O2",
+  "-I/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include",
+  "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/ptx_oracle_probe.cpp",
+  "-l:libcuda.so.1",
+  "-ldl",
+  "-o",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-ff34e6a1/runtime-oracle-isolation/ptx_oracle_probe.so"
+]

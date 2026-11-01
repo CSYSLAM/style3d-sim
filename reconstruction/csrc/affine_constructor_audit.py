@@ -14,6 +14,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--capture', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--prefix', default='cloth-w3', help='Capture folder prefix for the same constructor audit')
     args = parser.parse_args()
     assert not args.output.exists(), 'Keep the earlier audit immutable'
     root = args.capture.resolve(strict=True)
@@ -26,7 +27,7 @@ def main():
 
     def allocation_sequence(side):
         result, live, identity, owned, phase = [], {}, 0, -1, 'initialize'
-        for line in read(root/'cloth-w3-full-memory'/side/'memory.jsonl').splitlines():
+        for line in read(root/(args.prefix+'-full-memory')/side/'memory.jsonl').splitlines():
             row = json.loads(line)
             assert row.get('status', 0) == 0
             if row.get('event') == 'end_initialize':
@@ -42,7 +43,7 @@ def main():
         return result
 
     def payloads(side):
-        folder = root/'cloth-w3-payload'/side
+        folder = root/(args.prefix+'-payload')/side
         result = []
         for line in read(folder/'memory.jsonl').splitlines():
             row = json.loads(line)
@@ -55,7 +56,7 @@ def main():
         return result
 
     build = json.loads(read(root/'build.json'))
-    for observer in ('cloth-w3-initializers', 'cloth-w3-full-memory', 'cloth-w3-payload'):
+    for observer in (args.prefix+'-initializers', args.prefix+'-full-memory', args.prefix+'-payload'):
         read(root/observer/'provenance.json')
         runtimes = [json.loads(read(root/observer/side/'capture.runtime.json')) for side in ('original', 'source')]
         assert runtimes[0]['image_sha256'] == REFERENCE_SHA
@@ -65,7 +66,7 @@ def main():
 
     def kernel_timeline(side):
         result, unrecognized = [], set()
-        for line in read(root/'cloth-w3-initializers'/side/'memory.jsonl').splitlines():
+        for line in read(root/(args.prefix+'-initializers')/side/'memory.jsonl').splitlines():
             row = json.loads(line)
             name = row.get('symbol', '')
             domain = 1 if side == 'source' and name.startswith('_ZN7synreal') else 2
@@ -81,11 +82,11 @@ def main():
 
     allocations = [allocation_sequence(side) for side in ('original', 'source')]
     uploads = [payloads(side) for side in ('original', 'source')]
-    typed = [initializers.capture(root/'cloth-w3-initializers'/side, 2) for side in ('original', 'source')]
-    flat = [pointers.capture(root/'cloth-w3-full-memory'/side, schema) for side in ('original', 'source')]
+    typed = [initializers.capture(root/(args.prefix+'-initializers')/side, 2) for side in ('original', 'source')]
+    flat = [pointers.capture(root/(args.prefix+'-full-memory')/side, schema) for side in ('original', 'source')]
     timelines = [kernel_timeline(side) for side in ('original', 'source')]
     assert len(flat[0]) == len(flat[1]), 'Owned launch coverage differs'
-    for observer in ('cloth-w3-initializers', 'cloth-w3-full-memory'):
+    for observer in (args.prefix+'-initializers', args.prefix+'-full-memory'):
         for side in ('original', 'source'):
             for name in ('launches.txt', 'memory.jsonl', 'capture.runtime.json'):
                 read(root/observer/side/name)

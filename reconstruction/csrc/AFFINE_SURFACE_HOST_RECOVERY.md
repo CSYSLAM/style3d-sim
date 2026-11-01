@@ -1,8 +1,13 @@
 # SO3 body / full-surface host recovery
 
+This document records the completed ff34 surface checkpoint. The current host is b9456031; see
+[BODY_TETRAHEDRA_HOST_RECOVERY.md](BODY_TETRAHEDRA_HOST_RECOVERY.md).
+Later ff34 stage isolation and independent reference holdouts are in
+[SURFACE_STAGE_ISOLATION.md](SURFACE_STAGE_ISOLATION.md). Old failed candidates remain archived.
+
 ## Current image and scope
 
-Active image: `ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042`.
+Surface checkpoint image: `ff34e6a18e2a7d62ac9203c1c532c2ffc8c9c698f2eb2dc799f2d3d7a261f042`.
 Previous images: `cc09a3c0` (rolling), `25ecf6f4` (surface), and `8fb9d2ee` (published handoff baseline).
 Reference: the fixed project-internal processed `_core.so`, SHA256 `64a0be7f…`.
 CUDA entry count remains 176; CUDA digest remains `f0e0137a…`. No CUDA arithmetic or tolerance changed.

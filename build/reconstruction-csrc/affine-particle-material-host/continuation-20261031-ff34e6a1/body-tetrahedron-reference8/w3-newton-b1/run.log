@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py", line 186, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py", line 156, in main
+    return worker(args)
+           ^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py", line 89, in worker
+    example = module.Example(viewer, demo_args)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_tetrahedron_scene.py", line 38, in __init__
+    self.solver = s3d.NewtonSolver(self.model)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py", line 862, in __init__
+    self._configure_shared_world_layout()
+  File "/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py", line 1057, in _configure_shared_world_layout
+    None if self._style3d is None else self._style3d.edge_rest_area,
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/sim/model.py", line 715, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'AttributeNamespace' object has no attribute 'edge_rest_area'
+Warp 1.16.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 5090 D v2" (23 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     /home/oem/code/agent/style3d-sim/build/reconstruction-warp/1.16.0
+Module newton._src.utils.mesh 3a50b9a load on device 'cpu' took 1.10 ms  (cached)
+Module validate_and_correct_inertia_kernel_5e18b3cd 5e18b3c load on device 'cuda:0' took 0.86 ms  (cached)
+Module newton._src.geometry.bvh cca3a6c load on device 'cuda:0' took 0.71 ms  (cached)

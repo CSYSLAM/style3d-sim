@@ -1,6 +1,15 @@
 # 新版基准与 C++ host 进度
 
-> **活动ff34e6a1：补齐SO3 body/full-surface/rolling、surface最多32block及单世界默认shape tile。**
+> **活动b9456031：新增SO3 body + tetrahedra（Newton/PD、W1/W3、body block开关）。**
+> 按原版恢复body路径的体积上传位置及SO3→tet tangent，八组状态/buffer/ABI/coverage全部严格同，
+> 32项60步eager/真实graph比较全同；原版和source各16条×3步initcheck均零错误。
+> 构造五项全同：96分配/释放、29上传、57 typed、508 owned指针、573核名称时序。
+> 完整74为70严格，三个particles seed与PD mixed seed3的固定首次候选C10全过、CPU复核同。
+> surface/legacy graph为21/32、28/32严格，旧固定失败仍保留；CUDA176/f0与参考64a不改，ready=False。
+> 限制与命令见BODY_TETRAHEDRA_HOST_RECOVERY.md；旧ff失败与oracle/holdout见SURFACE_STAGE_ISOLATION.md。
+> 以下ff及更早结果都是各自image的历史，不能直接继承到b945。
+
+> **前一ff34e6a1：补齐SO3 body/full-surface/rolling、surface最多32block及单世界默认shape tile。**
 > 按实际64a调用和step反汇编恢复；CUDA176/f0及参考库未改，solver_api_ready=False。
 > 九capacity的351调用/162状态全同；shape布局六static/四body soft-hard组合25224调用/168状态全同。
 > 正式cloth_balls全部60帧物理检查过，5214次完整owned ABI/geometry同；固定eager/graph整段C仍失败。

@@ -1,0 +1,27 @@
+{
+  "experimental_only": true,
+  "production_changed": false,
+  "original_preconditioner_red_sites": 126,
+  "trial_preconditioner_red_sites": 126,
+  "static_site_counts_match": true,
+  "source_sha256": "7147f1df83e0dd491bc8675b84cb17c8b07f5e8b2443c8efd798e9d66f0eec8d",
+  "ptx_sha256": "bc6d7108002117ae0096edb8ca1eafb46e89c977dc83decf88ac168b8062f22c",
+  "command": [
+    "/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/bin/nvcc",
+    "-ptx",
+    "-arch=sm_52",
+    "-Wno-deprecated-gpu-targets",
+    "-diag-suppress=20012",
+    "-std=c++17",
+    "-O3",
+    "-DNDEBUG",
+    "-I",
+    "/home/oem/code/agent/style3d-sim/build/third_party/glm-1.0.1",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-ff34e6a1/struct220-unrolled/surface_struct220_unrolled.cu",
+    "-o",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-ff34e6a1/struct220-unrolled/surface_struct220_unrolled.ptx"
+  ],
+  "generator_sha256": "4b50f766848ef9289cc7531c4cfd8244d97b7260d225fa4a560a97d1a0d8b3bb",
+  "base_generator_sha256": "81da4b389e91d7f0311bb23232f733e0ea62fc2e075796553cd48c242c255087",
+  "whole_solver_complete": false
+}
