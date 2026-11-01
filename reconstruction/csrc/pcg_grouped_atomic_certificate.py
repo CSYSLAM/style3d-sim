@@ -34,27 +34,41 @@ def main():
     for side in ('original', 'source'):
         folder = args.capture / side / 'native'
         metadata = json.loads(read(folder / (prefix + 'json')))
-        assert '23precondition_and_reduceIN3glm' in metadata['name']
-        payload = {label: read(folder / (prefix + label + '.bin')) for label in (
-            'before.r', 'before.precomputed', 'before.per_group', 'before.numerator', 'after.z')}
-        assert payload['before.precomputed'] in (b'\0', b'\1')
-        precomputed = payload['before.precomputed'] == b'\1'
-        input_label = 'before.z' if precomputed else 'before.inverse'
-        payload[input_label] = read(folder / (prefix + input_label + '.bin'))
+        precondition = '23precondition_and_reduceIN3glm' in metadata['name']
+        assert precondition or '26multiply_matrix_and_reduce' in metadata['name']
+        aggregate, pointwise = ('numerator', 'z') if precondition else ('denominator', 'ap')
+        labels = ['before.per_group', 'before.' + aggregate, 'after.' + pointwise]
+        if precondition:
+            labels += ['before.r', 'before.precomputed']
+        else:
+            labels += ['before.blocks', 'before.p', 'before.max_count', 'before.rows']
+        payload = {label: read(folder / (prefix + label + '.bin')) for label in labels}
+        if precondition:
+            assert payload['before.precomputed'] in (b'\0', b'\1')
+            precomputed = payload['before.precomputed'] == b'\1'
+            input_label = 'before.z' if precomputed else 'before.inverse'
+            payload[input_label] = read(folder / (prefix + input_label + '.bin'))
+            if precomputed:
+                assert payload['before.z'] == payload['after.z']
+        else:
+            if int.from_bytes(payload['before.max_count'], 'little'):
+                for label in ('before.row_count', 'before.entries'):
+                    payload[label] = read(folder / (prefix + label + '.bin'))
+            extra = folder / (prefix + 'before.extra.bin')
+            if extra.exists():
+                payload['before.extra'] = read(extra)
         assert not (folder / (prefix + 'before.world.bin')).exists()
-        if precomputed:
-            assert payload['before.z'] == payload['after.z']
-        targets[side] = read(folder / (prefix + 'after.numerator.bin'))
+        targets[side] = read(folder / (prefix + 'after.' + aggregate + '.bin'))
         payloads[side] = metadata, payload
     assert payloads['original'] == payloads['source'], 'The first-divergence inputs are not identical'
     metadata, payload = payloads['original']
     name = metadata['name']
-    precomputed = payload['before.precomputed'] == b'\1'
-    n = len(payload['after.z']) // 12
+    precomputed = precondition and payload['before.precomputed'] == b'\1'
+    n = len(payload['after.' + pointwise]) // 12
     groups = len(targets['original']) // 4
     per_group = int.from_bytes(payload['before.per_group'], 'little')
-    assert n > 0 and n == groups * per_group and len(payload['before.numerator']) == groups * 4
-    assert not any(payload['before.numerator'])
+    assert n > 0 and n == groups * per_group and len(payload['before.' + aggregate]) == groups * 4
+    assert not any(payload['before.' + aggregate])
     build_path = ROOT / 'build/reconstruction-csrc/host-particles/build.json'
     build = json.loads(read(build_path))
     header = read(build_path.parent / 'source_ptx_bundle.h').decode()
@@ -86,13 +100,24 @@ def main():
         z_initial = (np.frombuffer(payload['before.z'], dtype='u1').copy() if precomputed else
                      np.zeros(n * 12, dtype='u1'))
         z = driver.upload(z_initial)
-        r = driver.upload(np.frombuffer(payload['before.r'], dtype='u1'))
-        inverse_initial = (np.zeros((n, 9), dtype='f4') if precomputed else
-                           np.frombuffer(payload['before.inverse'], dtype='f4').reshape(n, 9))
-        inverse = driver.upload(inverse_initial)
         initial = np.zeros(groups, dtype='f4')
         counter = driver.upload(initial)
-        parameters = [inverse, r, z, ct.c_bool(precomputed), ct.c_void_p(), ct.c_uint(per_group), counter, k.u64(n)]
+
+        def upload(label):
+            return driver.upload(np.frombuffer(payload[label], dtype='u1'))
+
+        if precondition:
+            inverse = (driver.upload(np.zeros((n, 9), dtype='f4')) if precomputed else upload('before.inverse'))
+            parameters = [inverse, upload('before.r'), z, ct.c_bool(precomputed), ct.c_void_p(),
+                          ct.c_uint(per_group), counter, k.u64(n)]
+        else:
+            maximum = int.from_bytes(payload['before.max_count'], 'little')
+            rows = int.from_bytes(payload['before.rows'], 'little')
+            parameters = [upload('before.row_count') if maximum else ct.c_void_p(),
+                          upload('before.entries') if maximum else ct.c_void_p(), k.u64(maximum),
+                          upload('before.blocks'), upload('before.p'),
+                          upload('before.extra') if 'before.extra' in payload else ct.c_void_p(), z,
+                          ct.c_void_p(), ct.c_uint(per_group), counter, k.u64(n), k.u64(rows)]
         operands = []
         for side, module in modules.items():
             changed, sites = instrument(module, name)
@@ -109,7 +134,7 @@ def main():
             expected_addresses = counter.value + (np.arange(n, dtype='u8') // per_group) * 4
             assert np.all(sizes[:n] == 1) and not sizes[n:].any()
             assert np.array_equal(addresses, expected_addresses) and np.isfinite(values).all()
-            assert driver.download(z, z_initial).tobytes() == payload['after.z']
+            assert driver.download(z, z_initial).tobytes() == payload['after.' + pointwise]
             arrays[side + '-lane-operands'] = values.copy()
             operands.append(values)
         assert operands[0].tobytes() == operands[1].tobytes()
@@ -154,7 +179,8 @@ def main():
                 arrays[tag + '-order'], arrays[tag + '-hardware-history'] = order, actual_history
                 row.update(passed=True, actual_production_order_inferred=False, hardware_atomic_order_verified=True)
         report = {'source_sha256': build['extension_sha256'], 'kernel': name, 'particles': n, 'groups': groups,
-                  'per_group': per_group, 'precomputed': precomputed,
+                  'per_group': per_group, 'precomputed': precomputed, 'pointwise_output': pointwise,
+                  'atomic_output': aggregate,
                   'real_lane_operands_equal': True, 'certificates': certificates,
                   'all_passed': all(row['passed'] for row in certificates), 'input_sha256': inputs,
                   'frozen_candidate_replaced': False, 'cohort_expanded': False, 'whole_solver_complete': False,

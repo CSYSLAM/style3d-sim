@@ -2259,18 +2259,21 @@ public:
         const bool so3 = bodies && rigidity == AffineBodyRigidityModel::SO3_AUGMENTED_LAGRANGIAN;
         const bool six_springs = bodies && rigidity == AffineBodyRigidityModel::SIX_SPRINGS;
         const bool constitutive = bodies && !so3 && !six_springs;
-        // Active drag, contacts, self-collision and other joint/material combinations remain outside this capture.
+        // Active drag, hard contacts, self-collision and other joint/material combinations remain outside this capture.
         const bool driven_cloth = bodies && (so3 || six_springs) && joint_al && triangle_count_ && drive_total_ &&
             joint_spring_total_ && body_spring_total_ == joint_spring_total_ && !point_line_total_ &&
             !distance_total_ && !cable_count_ && !fluid_rows_ && !granular_points_ && !self && !drag_count_ &&
-            !tetrahedron_count_ && !spring_count_ && !contact.max_count && !contact.soft_max_count;
+            !tetrahedron_count_ && !spring_count_ &&
+            ((!contact.max_count && !contact.soft_max_count) ||
+             (contact.soft_max_count && !config.rigid_contact_hard));
         if (bodies && (triangle_count_ || edge_count_) &&
             (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) && !driven_cloth)
             throw std::runtime_error("This constrained cloth/body combination has not been captured");
         if (self && bodies && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||
                               cable_count_ || fluid_rows_ || (contact.max_count && config.rigid_contact_hard)))
             throw std::runtime_error("This affine self-collision constraint/rigidity branch has not been captured");
-        if (bodies && surface && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||
+        if (bodies && surface && !driven_cloth &&
+            (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||
                                   cable_count_ || fluid_rows_ || drag_count_ ||
                                   config.rigid_contact_hard))
             throw std::runtime_error("Requested affine-body scheduling branch has not been implemented");
@@ -2286,7 +2289,10 @@ public:
         const float alpha = config.constraint_alpha;
         const bool rigid = bodies && contact.max_count && contact.count.size;
         const bool body_tangent = (bodies && alpha > 0.0f && !six_springs) || rigid || cable_count_ || drive_total_;
-        const bool block = !pd || self || surface || contact_product || bending_damping_ || tetrahedron_count_ || drag ||
+        // The SDK selects sparse block entries independently of PD when SIX_SPRINGS has rigid/surface input.
+        const bool block_matrix = !pd || (six_springs && alpha > 0.0f && (rigid || surface));
+        const bool block = block_matrix || self || surface || contact_product || bending_damping_ ||
+                           tetrahedron_count_ || drag ||
                            body_tangent || fluid_rows_ || granular_points_;
         // The original ignores the body-block option when PD selects the scalar matrix branch.
         const bool body_block = bodies && block && config.affine_body_block_preconditioner;
@@ -2300,7 +2306,7 @@ public:
             !cable_count_ && !fluid_rows_ && !granular_points_ && !self &&
             !drag_count_ && !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&
             !contact.max_count && !contact.soft_max_count;
-        if (body_block && !isolated_plain && !isolated_undriven_joint &&
+        if (body_block && !driven_cloth && !isolated_plain && !isolated_undriven_joint &&
             (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             (plain_spring_count_ || plain_line_count_ || distance_total_ || !drive_total_ || cable_count_ ||
              fluid_rows_ || contact.max_count || contact.soft_max_count))
@@ -2439,7 +2445,7 @@ public:
             launch("drag_start", drag_count_, stream, previous_, drag_indices_, drag_normal_, drag_area_,
                    drag_count_, drag_local_count_, per_world_);
         // Actual launches initialize drag before rebuilding Newton's block template, even without self contacts.
-        if (!pd && max_entries_)
+        if (block_matrix && max_entries_)
             launch("block_entries", max_entries_ * count_, stream, scalar_template_, template_row_counts(), per_world_,
                    max_entries_, block_template_, count_);
         for (int iteration = 0; iteration < config.nonlinear_iterations; ++iteration) {
@@ -2565,8 +2571,8 @@ public:
                 // The original contact-free PD path keeps the constant scalar spring matrix and uses 1 / D.
                 launch("scalar_inverse", count_, stream, diagonal_, mass, flags, scalar_inverse_, count_, per_world_);
             } else {
-                launch("blocks", count_, stream, diagonal_, blocks_, pd ? preconditioner_blocks_ : null, count_);
-                if (!pd && max_entries_)
+                launch("blocks", count_, stream, diagonal_, blocks_, block_matrix ? null : preconditioner_blocks_, count_);
+                if (block_matrix && max_entries_)
                     copy(block_entries_, block_template_, max_entries_ * count_ * 40, stream);
                 if (!pd && triangle_count_)
                     launch("membrane_hessian", triangle_count_, stream, in.particle_q.ptr, model_.triangle_indices.ptr,
@@ -2577,7 +2583,7 @@ public:
                     launch("spring_hessian", spring_count_, stream, in.particle_q.ptr, model_.spring_indices.ptr,
                            model_.spring_stiffnesses.ptr, model_.spring_rest_lengths.ptr, blocks_, row_count_, block_entries_,
                            max_entries_, spring_count_, static_cast<std::size_t>(model_.spring_count), per_world_, count_);
-                if (!pd && six_springs && so3_alpha > 0.0f)
+                if (block_matrix && six_springs && so3_alpha > 0.0f)
                     launch("rigidity_spring_hessian", body_state_count_, stream, in.particle_q.ptr,
                            model_.affine_body_indices.ptr, model_.body_masses.ptr, so3_alpha, blocks_, row_count_,
                            block_entries_, max_entries_, body_state_count_, body_count_, per_world_, count_);
@@ -2604,7 +2610,7 @@ public:
                            static_cast<std::size_t>(model_.body_point_line_count),
                            static_cast<std::size_t>(model_.joint_body_point_line_count), per_world_, count_);
                 // The original retains A and inverts its separate cache in place, even without corrections.
-                if (!pd) copy(preconditioner_blocks_, blocks_, count_ * 36, stream);
+                if (block_matrix) copy(preconditioner_blocks_, blocks_, count_ * 36, stream);
                 if (contact_block) clear(affine_blocks_, body_state_count_ * 144 * 4, stream);
                 if (hard)
                     launch("hard_evaluate", contact.max_count, stream, hard_view(contact, in, inverse_dt),
@@ -2671,10 +2677,11 @@ public:
                         launch("rolling_preconditioner", contact.max_count, stream, rolling_view(contact, in, inverse_dt),
                                preconditioner_blocks_);
                     // The body assembly adds SO(3) and cable terms itself, before the per-particle copies do.
-                    launch(pd ? "affine_build_scalar" : "affine_build", body_state_count_, stream,
+                    launch(block_matrix ? "affine_build" : "affine_build_scalar", body_state_count_, stream,
                            model_.affine_body_indices.ptr, model_.body_masses.ptr, mass, flags, preconditioner_blocks_,
-                           pd ? template_row_counts() : row_count_, pd ? scalar_template_ : block_entries_, max_entries_,
-                           pd ? per_world_ : count_,
+                           block_matrix ? row_count_ : template_row_counts(),
+                           block_matrix ? block_entries_ : scalar_template_, max_entries_,
+                           block_matrix ? count_ : per_world_,
                            body_rotation_, body_so3_alpha, cable_view(), affine_cable_offsets_, affine_cable_ids_, inverse_dt,
                            affine_enabled_, contact_block ? affine_blocks_ : null, affine_blocks_, affine_valid_,
                            body_state_count_, body_count_, per_world_);
@@ -2782,12 +2789,12 @@ public:
                            contact_product_, drag_count_, drag_local_count_, per_world_);
                 // The current original passes nullptr when there is no matrix-free material/contact tangent.
                 // Adding a zero buffer instead would introduce an observable signed-zero operation.
-                launch(pd ? (block ? "scalar_block_multiply" : "scalar_multiply") : "multiply",
-                       count_, stream, pd ? template_row_counts() : row_count_,
-                       pd ? scalar_template_ : block_entries_, max_entries_,
+                launch(block_matrix ? "multiply" : (block ? "scalar_block_multiply" : "scalar_multiply"),
+                       count_, stream, block_matrix ? row_count_ : template_row_counts(),
+                       block_matrix ? block_entries_ : scalar_template_, max_entries_,
                        block ? blocks_ : diagonal_, direction_, extra_product ? contact_product_ : null,
                        product_, coefficient_world_, per_world, denominator, count_,
-                       pd ? per_world_ : count_);
+                       block_matrix ? count_ : per_world_);
                 launch("update", count_, stream, coefficient_world_, per_world, numerator, denominator, direction_,
                        product_, solution_, residual_, count_);
             }
@@ -2946,6 +2953,11 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "driven_cloth_six_springs_newton",
                                                      "driven_cloth_six_springs_pd_newton",
                                                      "driven_cloth_body_blocks",
+                                                     "driven_cloth_soft_contacts_newton",
+                                                     "driven_cloth_soft_contacts_pd_newton",
+                                                     "driven_cloth_rigid_soft_contacts_newton",
+                                                     "driven_cloth_rigid_soft_contacts_pd_newton",
+                                                     "driven_cloth_rolling_contacts_body_blocks",
                                                      "cables_newton", "cables_pd_newton",
                                                      "affine_body_hard_contact_newton",
                                                      "affine_body_hard_contact_pd_newton",

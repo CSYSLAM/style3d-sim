@@ -1,0 +1,31 @@
+{
+  "before_sha256": "7527e6feb66043472a3ca058733c1d5b49fe45862565beed8260a7dd71d87e7a",
+  "after_sha256": "0a88915b3f7b7191d53a2fc015382cdfe18951c7a00445be5db53ed93ab58263",
+  "checkpoint": "/home/oem/code/agent/style3d-sim/build/reconstruction-checkpoints/driven-cloth-mixed-contact-before-688f9633/checkpoint.json",
+  "changes": [
+    [
+      "// Active drag, contacts, self-collision and other joint/material combinations remain outside this capture.",
+      "// Active drag, hard contacts, self-collision and other joint/material combinations remain outside this capture."
+    ],
+    [
+      "!tetrahedron_count_ && !spring_count_ && !contact.max_count && !contact.soft_max_count;\n        if (bodies && (triangle_count_ || edge_count_)",
+      "!tetrahedron_count_ && !spring_count_ &&\n            ((!contact.max_count && !contact.soft_max_count) ||\n             (contact.soft_max_count && !config.rigid_contact_hard));\n        if (bodies && (triangle_count_ || edge_count_)"
+    ],
+    [
+      "if (bodies && surface && (!so3 || body_spring_total_",
+      "if (bodies && surface && !driven_cloth &&\n            (!so3 || body_spring_total_"
+    ],
+    [
+      "if (body_block && !isolated_plain && !isolated_undriven_joint &&",
+      "if (body_block && !driven_cloth && !isolated_plain && !isolated_undriven_joint &&"
+    ],
+    [
+      "\"driven_cloth_body_blocks\",",
+      "\"driven_cloth_body_blocks\",\n                                                     \"driven_cloth_soft_contacts_newton\",\n                                                     \"driven_cloth_soft_contacts_pd_newton\",\n                                                     \"driven_cloth_rigid_soft_contacts_newton\",\n                                                     \"driven_cloth_rigid_soft_contacts_pd_newton\",\n                                                     \"driven_cloth_rolling_contacts_body_blocks\","
+    ]
+  ],
+  "mathematics_changed": false,
+  "kernel_schedule_changed": false,
+  "CUDA_changed": false,
+  "hard_self_other_material_combinations_still_guarded": true
+}

@@ -1,0 +1,22 @@
+{
+  "backend": "source",
+  "image": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so",
+  "image_sha256": "1d0cc8367d500c9f8928620dc681c79f3fd8b25625a89e021300eea8848f51c5",
+  "example": "/home/oem/code/agent/style3d-sim/reconstruction/csrc/driven_cloth_contact_scene.py",
+  "example_sha256": "b9908ee185c9bca7c32b23f31a08614102a3026ea620aa070ce7e38395d3642a",
+  "frames": 3,
+  "extra": [
+    "--rigidity",
+    "so3",
+    "--worlds",
+    "1",
+    "--seed",
+    "1",
+    "--mode",
+    "newton",
+    "--contact-kind",
+    "legacy",
+    "--body-block"
+  ],
+  "launch_hook_sha256": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518"
+}

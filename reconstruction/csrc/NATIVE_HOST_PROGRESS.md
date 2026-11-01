@@ -1,6 +1,11 @@
 # 新版基准与 C++ host 进度
 
-> **活动688f9633：驱动关节＋布料（SO3/SIX）。** 16组9052次完整owned调用/geometry均同；12组状态和全部九轮force严格。
+> **活动23012dc5：AL驱动关节＋布料＋soft/rigid/rolling接触。** 固定SDK64的49504次完整owned参数/geometry/coverage均同；
+> 38/64严格，全部32个W1严格，26个W3首差保持未验收。16种constructor五项全同；graph为71/128和74/128，四组initcheck均0。
+> 源码已编译真正的_core入口；两个示例graph/test独立通过且未加载原版。当前74未采，默认包未切换，ready=False。
+> 修复原版独立block-matrix选择，保留PD的其它行为；见[接触组合恢复](DRIVEN_CLOTH_CONTACT_HOST_RECOVERY.md)。下列image均为历史证据。
+
+> **历史688f9633：驱动关节＋布料（SO3/SIX）。** 16组9052次完整owned调用/geometry均同；12组状态和全部九轮force严格。
 > 四份首失败固定C8全过；四种constructor五项同，双端initcheck零错误。graph为42/64严格，长程固定C8为18/32，14组仍失败。
 > 两种PCG实际三端逐粒子同、12个标量目标GPU原子证书全同；不能升级为整段通过。当前完整74为70严格，四份固定C10全过且CPU同，独立source入口graph/test过，ready=False。
 > 见[驱动布料恢复](DRIVEN_CLOTH_HOST_RECOVERY.md)。Windows继续WSL2，固定SDK64a和360个pyc不变。

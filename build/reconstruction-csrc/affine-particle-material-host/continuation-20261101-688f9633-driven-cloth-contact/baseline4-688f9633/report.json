@@ -1,0 +1,66 @@
+{
+  "source_sha256": "688f9633e740b7c6de174676f404f1559107281b8f3d68cdfd4a4ee58a15ffd6",
+  "cases": [
+    {
+      "case": "surface-so3-w1-newton-b0",
+      "exit": 1,
+      "numerical_comparison_performed": false,
+      "log_tail": [
+        "    self.solver.step(self.state_0, self.state_1, self.control, self.contacts, 1 / 240)",
+        "  File \"/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py\", line 104, in recorded",
+        "    step(state_in, state_out, *rest, **kw)",
+        "  File \"/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py\", line 4417, in step",
+        "    self._native_solver.step(",
+        "RuntimeError: This constrained cloth/body combination has not been captured",
+        "Module style3d_sim.joint_drive_effort 0d968fe load on device 'cuda:0' took 0.70 ms  (cached)",
+        "Module style3d_sim.newton_solver 6521420 load on device 'cuda:0' took 8.19 ms  (cached)"
+      ]
+    },
+    {
+      "case": "surface-six-springs-w1-newton-b0",
+      "exit": 1,
+      "numerical_comparison_performed": false,
+      "log_tail": [
+        "    self.solver.step(self.state_0, self.state_1, self.control, self.contacts, 1 / 240)",
+        "  File \"/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py\", line 104, in recorded",
+        "    step(state_in, state_out, *rest, **kw)",
+        "  File \"/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py\", line 4417, in step",
+        "    self._native_solver.step(",
+        "RuntimeError: This constrained cloth/body combination has not been captured",
+        "Module style3d_sim.joint_drive_effort 0d968fe load on device 'cuda:0' took 0.73 ms  (cached)",
+        "Module style3d_sim.newton_solver 6521420 load on device 'cuda:0' took 7.71 ms  (cached)"
+      ]
+    },
+    {
+      "case": "legacy-so3-w1-newton-b0",
+      "exit": 1,
+      "numerical_comparison_performed": false,
+      "log_tail": [
+        "    self.solver.step(self.state_0, self.state_1, self.control, self.contacts, 1 / 240)",
+        "  File \"/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py\", line 104, in recorded",
+        "    step(state_in, state_out, *rest, **kw)",
+        "  File \"/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py\", line 4417, in step",
+        "    self._native_solver.step(",
+        "RuntimeError: This constrained cloth/body combination has not been captured",
+        "Module style3d_sim.joint_drive_effort 0d968fe load on device 'cuda:0' took 0.66 ms  (cached)",
+        "Module style3d_sim.newton_solver 6521420 load on device 'cuda:0' took 6.23 ms  (cached)"
+      ]
+    },
+    {
+      "case": "legacy-six-springs-w1-newton-b0",
+      "exit": 1,
+      "numerical_comparison_performed": false,
+      "log_tail": [
+        "    self.solver.step(self.state_0, self.state_1, self.control, self.contacts, 1 / 240)",
+        "  File \"/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py\", line 104, in recorded",
+        "    step(state_in, state_out, *rest, **kw)",
+        "  File \"/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py\", line 4417, in step",
+        "    self._native_solver.step(",
+        "RuntimeError: This constrained cloth/body combination has not been captured",
+        "Module style3d_sim.joint_drive_effort 0d968fe load on device 'cuda:0' took 0.66 ms  (cached)",
+        "Module style3d_sim.newton_solver 6521420 load on device 'cuda:0' took 6.75 ms  (cached)"
+      ]
+    }
+  ],
+  "whole_solver_complete": false
+}

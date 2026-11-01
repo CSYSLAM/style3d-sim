@@ -1,0 +1,135 @@
+{
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "static_only": true,
+  "bounds_from_nm_symbol_sizes": true,
+  "ranges": [
+    {
+      "name": "solver-step",
+      "symbol": "synreal::SolverNewton::step(synreal::State const&, synreal::State const&, synreal::Control const&, synreal::Contact const&, float, CUstream_st*)",
+      "start": "0xfb060",
+      "size": "0x792b",
+      "stop": "0x10298b",
+      "sha256": "29e26dc337f28446e40c9c1222b5f6565683f47e676e01d1e543c3f3cc874c49",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1028192",
+        "--stop-address=1059211",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    },
+    {
+      "name": "accumulate",
+      "symbol": "synreal::SelfCollision::accumulate(glm::vec<3, float, (glm::qualifier)0> const*, float const*, float, float, float, float, float, glm::vec<3, float, (glm::qualifier)0>*, bool, CUstream_st*)",
+      "start": "0x135bc0",
+      "size": "0x64b",
+      "stop": "0x13620b",
+      "sha256": "c2696291ae197ec91b2d1de2aa96717db69b8260105267cbab80b2aad167a818",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1268672",
+        "--stop-address=1270283",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    },
+    {
+      "name": "build-bvhs",
+      "symbol": "synreal::SelfCollision::build_bvhs(glm::vec<3, float, (glm::qualifier)0> const*)",
+      "start": "0x137640",
+      "size": "0x875",
+      "stop": "0x137eb5",
+      "sha256": "048551d0813bbe8285c04dcfb461b7d062708cc12fd2c9e400e8e879805562cb",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1275456",
+        "--stop-address=1277621",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    },
+    {
+      "name": "initialize",
+      "symbol": "synreal::SelfCollision::initialize(synreal::Model const&)",
+      "start": "0x137ec0",
+      "size": "0x106e",
+      "stop": "0x138f2e",
+      "sha256": "d54957769c8c66af28dcd4da42589b959df1bc12094af29a10c37e0bc9c3fecb",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1277632",
+        "--stop-address=1281838",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    },
+    {
+      "name": "begin-frame",
+      "symbol": "synreal::SelfCollision::begin_frame(glm::vec<3, float, (glm::qualifier)0> const*, float, CUstream_st*)",
+      "start": "0x136450",
+      "size": "0xad1",
+      "stop": "0x136f21",
+      "sha256": "54afea5fbd4ff739534b17ffde71b9ada4c53df2f984239aabed7ec334a3044d",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1270864",
+        "--stop-address=1273633",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    },
+    {
+      "name": "cache",
+      "symbol": "synreal::SelfCollision::prepare_contact_tangent_cache()",
+      "start": "0x135ac0",
+      "size": "0xf8",
+      "stop": "0x135bb8",
+      "sha256": "33eb061e1b08587b1d884fcbf36b06420c8ceff40ec609a0c29ea710149f1bd6",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1268416",
+        "--stop-address=1268664",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    },
+    {
+      "name": "preconditioner",
+      "symbol": "synreal::SelfCollision::add_preconditioner(glm::mat<3, 3, float, (glm::qualifier)0>*, CUstream_st*) const",
+      "start": "0x136210",
+      "size": "0xb8",
+      "stop": "0x1362c8",
+      "sha256": "9fd33884c0e78f4c51512a7a91245483c524f17036d4755a03f918fd61abf550",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1270288",
+        "--stop-address=1270472",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    },
+    {
+      "name": "multiply",
+      "symbol": "synreal::SelfCollision::multiply(glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0>*, bool, CUstream_st*) const",
+      "start": "0x1362d0",
+      "size": "0x17e",
+      "stop": "0x13644e",
+      "sha256": "7623060ea23d00c2fa1de818fec7f40d697aa4b4d779343d37bb53d132215056",
+      "command": [
+        "objdump",
+        "-C",
+        "-d",
+        "--start-address=1270480",
+        "--stop-address=1270862",
+        "style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ]
+    }
+  ]
+}

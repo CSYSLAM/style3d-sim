@@ -1,0 +1,64 @@
+{
+  "before_sha256": "0a88915b3f7b7191d53a2fc015382cdfe18951c7a00445be5db53ed93ab58263",
+  "after_sha256": "a0ff89cbeb28c8dc9353d3ee85ecf90ac3882b18f7100ff1291c4a5d1e237d46",
+  "checkpoint": "/home/oem/code/agent/style3d-sim/build/reconstruction-checkpoints/driven-cloth-contact-matrix-before-1d0cc836/checkpoint.json",
+  "changes": [
+    [
+      "const bool block = !pd || self || surface || contact_product || bending_damping_ || tetrahedron_count_ || drag ||",
+      "// The SDK selects sparse block entries independently of PD when SIX_SPRINGS has rigid/surface input.\n        const bool block_matrix = !pd || (six_springs && alpha > 0.0f && (rigid || surface));\n        const bool block = block_matrix || self || surface || contact_product || bending_damping_ ||\n                           tetrahedron_count_ || drag ||"
+    ],
+    [
+      "if (!pd && max_entries_)",
+      "if (block_matrix && max_entries_)"
+    ],
+    [
+      "pd ? preconditioner_blocks_ : null",
+      "block_matrix ? null : preconditioner_blocks_"
+    ],
+    [
+      "if (!pd && six_springs && so3_alpha > 0.0f)",
+      "if (block_matrix && six_springs && so3_alpha > 0.0f)"
+    ],
+    [
+      "if (!pd) copy(preconditioner_blocks_, blocks_, count_ * 36, stream);",
+      "if (block_matrix) copy(preconditioner_blocks_, blocks_, count_ * 36, stream);"
+    ],
+    [
+      "launch(pd ? \"affine_build_scalar\" : \"affine_build\", body_state_count_, stream,",
+      "launch(block_matrix ? \"affine_build\" : \"affine_build_scalar\", body_state_count_, stream,"
+    ],
+    [
+      "pd ? template_row_counts() : row_count_, pd ? scalar_template_ : block_entries_, max_entries_,",
+      "block_matrix ? row_count_ : template_row_counts(),\n                           block_matrix ? block_entries_ : scalar_template_, max_entries_,"
+    ],
+    [
+      "pd ? per_world_ : count_,",
+      "block_matrix ? count_ : per_world_,"
+    ],
+    [
+      "launch(pd ? (block ? \"scalar_block_multiply\" : \"scalar_multiply\") : \"multiply\",\n                       count_, stream, pd ? template_row_counts() : row_count_,\n                       pd ? scalar_template_ : block_entries_, max_entries_,",
+      "launch(block_matrix ? \"multiply\" : (block ? \"scalar_block_multiply\" : \"scalar_multiply\"),\n                       count_, stream, block_matrix ? row_count_ : template_row_counts(),\n                       block_matrix ? block_entries_ : scalar_template_, max_entries_,"
+    ],
+    [
+      "pd ? per_world_ : count_);",
+      "block_matrix ? count_ : per_world_);"
+    ]
+  ],
+  "actual_sdk_probe_cases": {
+    "six-none": 0,
+    "six-rigid": 3,
+    "six-soft": 0,
+    "six-both": 3,
+    "six-soft-alpha0": 0,
+    "six-soft-diagonal": 0,
+    "so3-both": 0,
+    "six-surface-soft": 3,
+    "six-surface-alpha0": 0,
+    "six-both-diagonal": 3,
+    "six-rigid-alpha0": 0,
+    "six-surface-diagonal": 3
+  },
+  "PD_mode_unchanged": true,
+  "membrane_GN_still_Newton_only": true,
+  "math_and_CUDA_unchanged": true
+}

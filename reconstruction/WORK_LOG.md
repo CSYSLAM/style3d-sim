@@ -5776,3 +5776,55 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   g14首差denominator，g26/g30首差numerator，均world2，仅作为局部定位，不升级60步/14项C验收。
 - 14份deferred native原始追踪全部无损SHA内容bundle roundtrip；保留local raw、提交bundle+metadata，
   另真实解包/再次校验1381原文件通过；根交接和DRIVEN_CLOTH_HOST_RECOVERY已更新688f结果与未完成项。
+- 84085b021b587077b5450e46af850ff8012d41f7已推csy且远端SHA同；149404文件快照校验0失败，含固定SDK/360pyc和688f全部结束验证。
+- driven cloth contact v3完整SDK32全部有效受力，两个首pilot逐字节采用；SO3/SIX×surface/legacy×W1/W3×Newton/PD×body-block。
+  每组9次实际joint/drive/rigidity/stretch/bending/contact force均有RHS变化，contact首轮同时改变body/cloth，均finite。
+  actual-contact-host-schedule保存每入口原始首记录、调用次数、首NL顺序和legacy两用参数；修改前688f的27文件及SDK32的4519份原始参考SHA已保存。
+  当前原版范围冻结，旧源码四基线拒绝及graph v2诊断串行中；生产guard尚未改。
+- 补抓实际native Contact输入：surface max1000/soft38、active rigid0/soft11；legacy max1000/soft24、active rigid0/soft4。
+  明确SDK32中的rigid/rolling入口为空active，不能据容量/调用数声称已验证有效rigid作用。四份688f基线均在constrained cloth guard拒绝。
+- graph v2记录实际owned节点全参数与完整matrix before输入。完整worker四诊断结束后，12对中6对无观察差，
+  另外6对的真实首差仅归约标量，全部before字节、真实标量/null参数和逐粒子输出相同。
+  对这6份实际包三端每端32次pointwise逐位同，两PTX lane原子操作数同，共36分组目标均GPU F32精确见证。
+  包由真实D2D快照与真实节点参数逐字节导出，不补造输入；原14份长程C失败仍保持。
+- 为补齐真实rigid/rolling作用，新独立driven_cloth_rigid_soft_scene增加parent/ground实际碰撞与非零rolling/torsion，
+  保持原v3夹具和SDK32冻结，生产guard未改；先采两份SDK有效性pilot再决定开放范围。
+- 有效rigid+rolling补充pilot两份SDK均通过：surface11/legacy4 soft及8 rigid，首soft同时改变cloth/body；
+  rigid与rolling各9次调用，均4次实际改变RHS，所有其它material/joint力有效，状态finite。
+  新独立fixture冻结，完整32 active-rigid/soft矩阵将逐字节采用两个首pilot；原soft-only SDK32与所有失败不改，生产尚未变动。
+- active-rigid矩阵driver首尝试在GPU前因遗留pilot报告路径失败，原driver/输出/日志保存；修正v2使用actual original2，生产无变化。
+- active-rigid/soft原版32全部有效：rigid/rolling/contact/membrane/bending/joint驱动均实际改变RHS；加上前soft32共64份冻结参考。
+  混合接触修改前检查点保存688f的27份source/build/so及SDK64的10766份原始文件SHA，原版/旧失败不改。
+  接着仅按真实调度开放AL driven cloth soft/rigid-soft及body-block组合，保持hard/self/其它材料保护；数学/核代码/模板/调度不改。
+- 接触guard生成首次因136列预览断言在写源前停止，源SHA仍与688f检查点相同；set-e未继续编译/GPU。保留attempt1，v2仅换行。
+- 仅开放captured contact guards后编译1d0cc8367d500c9f8928620dc681c79f3fd8b25625a89e021300eea8848f51c5，CUDA176/f0不变。
+  固定SDK64首次源码全部退出0：27严格，48份完整metadata相同；16个SIX+PD的metadata不同，失败与完整buffer全部保留。
+  实际SDK表明SIX+PD+soft仍初始化BlockNonDiagonal并加rigidity GN，但不加membrane GN，不能把PD整体改Newton。
+  1d0cc修改前检查点保存27源/build/so和10755份首源码文件SHA。已按范围SHA验证并保留SDK64a原step反汇编。
+  fb68d保留原nonlinear flag；fc03b/fc055→fe490及102790独立选择block matrix，SIX+soft且alpha>0时生效；还在用9个实际SDK probe确认边界。
+- 12个SDK实际native-channel/alpha/diagonal探针确认：SIX的独立block_matrix条件为rigid输入或full-surface输入且alpha>0，
+  legacy soft单独不触发；rigid容量1000即使active0仍触发，diagonal开关不取消rigid/full-surface触发；alpha0取消。
+  之前从静态局部分支概括为“soft触发”的假设不成立，以实际probe完整结果为准；nonlinear始终PD，membrane GN均0。
+- 按step的独立矩阵flag恢复block template、rigidity GN、preconditioner copy、affine-build类型/行数及PCG稀疏类型；
+  保留PD对membrane/spring GN等的控制，未整体改PD模式，数学/CUDA176/f0不变。
+  新image23012dc5b44e7b4694daa318bf2fc2e3186d984664d22e3ec0dfbf4cb7a4e046。
+  同固定SDK64全部完整owned参数/geometry/coverage相同（49504调用），全部finite，38严格。
+  剩余严格差异保留，原1d0cc全部首失败不改；当前16种constructor→两组graph60→双端initcheck3严格串行诊断。
+- 23012dc5的16种W3 constructor五项全部通过，独立汇总保存每项计数与报告SHA；当前graph/initcheck继续，当前74未收集。
+  根交接及接触组合文档更新实际当前image，明确38严格/26未通过、正常包入口源码后端仍需交付，不能只改so文件名。
+  本机home精确文件名搜索未找到trampoline_v1051.obj；G1已有缓存，已异步询问原网格路径/下载地址，继续独立核对求解器。
+- 新增独立_core ABI构建入口，复用当前恢复的C++/CUDA，不覆盖SDK或默认包。初次CPU编译因生成的source_driver.h无include guard重复定义失败，
+  原wrapper/builder/命令/编译日志留在source-core/f06a8d64e668e038；只修独立wrapper的include次序，不改当前23012dc5 host/header。
+- 核对23012dc5局部队列已全部结束（22项）：16种constructor五项全同，soft graph60为71/128、rigid-soft为74/128严格，
+  所有轨迹finite且首失败保留；original/source四个initcheck3均零错误，共256条eager/graph轨迹各三步。
+  当前固定长程C及完整74仍未采，不能沿用历史image结果或统称剩余差异为原子波动。
+- 独立_core第二次编译成功：source-core/b8dbcb88f1f3dc6a，SHA fb2f1e86d237b587ac5a9445eedfc5ca0238747129206dbd96f10f4ce4c99867，
+  实际导出PyInit__core；公开API字段/默认值对固定schema零差异，readelf动态依赖不含SDK。源码host230/CUDA176/f0未改。
+  core_demo直接加载该扩展并通过正常包/adapter执行未改示例，不走A/B bridge：Dzhanibekov60帧、plastic bag3帧真实graph及test均退出0，
+  source_only=True、public_core_abi=True、ab_bridge_used=False、reference_solver_mapped=False，报告均已复核。
+  这证明独立源码执行，不证明所有demo的A/B一致；默认安装入口仍未切换，solver_api_ready=False，未使用账号或网络登录。
+- 回答用户替换进度：176入口已重建，但host复杂组合、固定首失败、长程正式demo与可安装默认入口仍未完成；不报无依据完成百分比。
+  下一步启动23012dc5自己的完整74与固定C10，保持源、核数学、固定SDK及首次候选不变。
+- 已启动run-regression.py→run-frontends.py串行队列，编译so、所有host源与SDK64a启动前SHA全同；当前进程仍存活，不重启已有worker。
+  为26份接触首差准备独立CPU C8重算器audit-fixed-contact-C8.py，沿用已审计8原版/3源码的逐数组逐记录步LOO计算；尚未运行C8。
+  本次先提交已结束的局部验证及_core构建/自检，活动完整回归输出暂不纳入快照；后续结束后独立提交，不把运行中状态写成验收完成。

@@ -49,6 +49,7 @@ def main():
         getattr(driver, name).argtypes = types
         getattr(driver, name).restype = ct.c_int
     assert ct.sizeof(Copy3D) == 200
+    manifest = json.loads((ROOT/'build/reconstruction-csrc/host-particles/build.json').read_text())
     previous_exit, previous_launch = wp.ScopedCapture.__exit__, wp.capture_launch
     graphs, records = {}, []
 
@@ -87,6 +88,12 @@ def main():
             name = name.value.decode()
             if name.startswith('_ZN7synreal'):
                 owned.append((node, name, params))
+        records[index]['owned_nodes'] = [
+            {'index': node, 'name': name,
+             'geometry': [params.gx, params.gy, params.gz, params.bx, params.by, params.bz, params.shared],
+             'raw_hex': [ct.string_at(params.params[i], width).hex()
+                         for i, width in enumerate(manifest['kernels'][name]['parameters'])]}
+            for node, name, params in owned]
         start = next(p for _, name, p in owned if '15initialize_step' in name)
         scalar = lambda p, i: ct.c_uint64.from_address(p.params[i]).value
         total, local = scalar(start, 23), scalar(start, 24)
@@ -164,6 +171,14 @@ def main():
                 if 'NonZeroEntry' in types[6] and 'BlockNonZeroEntry' not in types[6]:
                     before[5] = local*4
                     before[6] = local*maximum*8
+            elif key == '26multiply_matrix_and_reduce':
+                rows, maximum_entries = scalar(params, 11), scalar(params, 2)
+                assert scalar(params, 10) == total and scalar(params, 8) == local
+                before = {3: total*(36 if 'glm::mat' in types[3] else 4), 4: total*12, 5: total*12,
+                          7: total*4, 9: worlds*4}
+                if maximum_entries:
+                    before[0] = rows*4
+                    before[1] = rows*maximum_entries*(40 if 'BlockNonZeroEntry' in types[1] else 8)
             elif key == '23precondition_and_reduce':
                 before = {0: total*(36 if 'glm::mat' in types[0] else 4), 1: total*12, 6: worlds*4}
                 if ct.c_bool.from_address(params.params[3]).value:

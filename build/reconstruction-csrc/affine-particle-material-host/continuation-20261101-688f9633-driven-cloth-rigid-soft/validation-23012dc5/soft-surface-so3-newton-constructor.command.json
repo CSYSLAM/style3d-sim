@@ -1,0 +1,23 @@
+[
+  "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+  "-m",
+  "reconstruction.csrc.affine_tetrahedron_contact_constructor_ab",
+  "--output",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-rigid-soft/validation-23012dc5/soft-surface-so3-newton-constructor",
+  "--fixture",
+  "/home/oem/code/agent/style3d-sim/reconstruction/csrc/driven_cloth_contact_scene.py",
+  "--prefix",
+  "soft-surface-so3-newton-w3",
+  "--fixture-args",
+  "--rigidity",
+  "so3",
+  "--worlds",
+  "3",
+  "--seed",
+  "3",
+  "--mode",
+  "newton",
+  "--contact-kind",
+  "surface",
+  "--body-block"
+]

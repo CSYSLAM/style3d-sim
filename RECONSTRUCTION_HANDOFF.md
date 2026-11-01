@@ -1,6 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **活动688f9633：驱动关节＋布料（SO3/SIX）。** 16组9052次完整owned调用/geometry均同；12组状态和全部九轮force严格。
+> **活动23012dc5：AL驱动关节＋布料＋soft/rigid/rolling接触。** 固定SDK64的49504次完整owned参数/geometry/coverage均同；
+> 38/64严格，全部32个W1严格，26个W3首差保持未验收。16种constructor五项全同；graph为71/128和74/128，四组initcheck均0。
+> 源码已编译真正的_core入口；两个示例graph/test独立通过且未加载原版。当前74未采，默认包未切换，ready=False。
+> 修复原版独立block-matrix选择，保留PD的其它行为；见[接触组合恢复](reconstruction/csrc/DRIVEN_CLOTH_CONTACT_HOST_RECOVERY.md)。下列image均为历史证据。
+
+> **历史688f9633：驱动关节＋布料（SO3/SIX）。** 16组9052次完整owned调用/geometry均同；12组状态和全部九轮force严格。
 > 四份首失败固定C8全过；四种constructor五项同，双端initcheck零错误。graph为42/64严格，长程固定C8为18/32，14组仍失败。
 > 两种PCG实际三端逐粒子同、12个标量目标GPU原子证书全同；不能升级为整段通过。当前完整74为70严格，四份固定C10全过且CPU同，独立source入口graph/test过，ready=False。
 > 见[驱动布料恢复](reconstruction/csrc/DRIVEN_CLOTH_HOST_RECOVERY.md)。Windows继续WSL2，固定SDK64a和360个pyc不变。
@@ -126,7 +131,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `688f9633e740b7c6de174676f404f1559107281b8f3d68cdfd4a4ee58a15ffd6`；当前源码host image；aa52等历史检查点保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `23012dc5b44e7b4694daa318bf2fc2e3186d984664d22e3ec0dfbf4cb7a4e046`；当前源码host image；aa52等历史检查点保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |
@@ -329,6 +334,15 @@ GPU worker串行；活动GPU测试期间不编译/改生产源码。保留来源
 # 正式demo源码A/B。直接执行example默认仍可能是原版/其他solver，不代表源码验收。
 .venv/bin/python -m reconstruction.csrc.demo_source_ab \
   --example examples/example_body_spring.py --frames 60 --output build/windows-check/body-spring
+
+# 真正_core ABI的源码入口，无原版代算；示例自检不代替A/B轨迹验收。
+.venv/bin/python -m reconstruction.core_demo \
+  --core-build build/reconstruction-csrc/source-core/b8dbcb88f1f3dc6a/build.json \
+  --report build/windows-check/core-dzhanibekov.json \
+  examples/example_basic_dzhanibekov.py --viewer null --num-frames 60 --test
+
+# 在新机器重新构建同一源码_core，输出目录必须尚不存在。
+.venv/bin/python -m reconstruction.csrc.build_core --output build/windows-check/source-core
 
 # 完整74回归耗时较长，当前已知4组strict失败不是安装失败。
 .venv/bin/python -m reconstruction.csrc.joint_continuation_regression \

@@ -1,0 +1,27 @@
+In file included from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp:2,
+                 from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_core.cpp:17:
+/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_driver.h:15:13: error: redefinition of ‘void check(CUresult, const char*)’
+   15 | static void check(CUresult result, const char* operation)
+      |             ^~~~~
+In file included from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_core.cpp:2:
+/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_driver.h:15:13: note: ‘void check(CUresult, const char*)’ previously defined here
+   15 | static void check(CUresult result, const char* operation)
+      |             ^~~~~
+In file included from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp:2,
+                 from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_core.cpp:17:
+/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_driver.h:27:7: error: redefinition of ‘class ContextScope’
+   27 | class ContextScope {
+      |       ^~~~~~~~~~~~
+In file included from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_core.cpp:2:
+/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_driver.h:27:7: note: previous definition of ‘class ContextScope’
+   27 | class ContextScope {
+      |       ^~~~~~~~~~~~
+In file included from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp:2,
+                 from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_core.cpp:17:
+/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_driver.h:48:7: error: redefinition of ‘class Driver’
+   48 | class Driver {
+      |       ^~~~~~
+In file included from /home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_core.cpp:2:
+/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_driver.h:48:7: note: previous definition of ‘class Driver’
+   48 | class Driver {
+      |       ^~~~~~

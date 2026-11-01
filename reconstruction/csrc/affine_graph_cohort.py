@@ -18,11 +18,13 @@ from reconstruction.demo_ab import compare, spread_report
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite', choices=('surface', 'cloth', 'surface_rolling', 'tetrahedron_self', 'driven_cloth'),
+    parser.add_argument('--suite', choices=('surface', 'cloth', 'surface_rolling', 'tetrahedron_self', 'driven_cloth',
+                                          'driven_cloth_contact'),
                         required=True)
     parser.add_argument('--baseline', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--diagonal-only', action='store_true')
+    parser.add_argument('--contact-group', choices=('soft', 'rigid-soft'))
     args = parser.parse_args()
     args.output = args.output.resolve()
     args.output.mkdir(parents=True, exist_ok=False)
@@ -34,6 +36,10 @@ def main():
         from .affine_tetrahedron_ab import cases
     elif args.suite == 'driven_cloth':
         from .driven_cloth_graph_ab import cases
+    elif args.suite == 'driven_cloth_contact':
+        from .driven_cloth_contact_graph_ab import cases as contact_cases
+        assert args.contact_group is not None
+        cases = lambda: contact_cases(args.contact_group)
     else:
         from .affine_cloth_ab import cases
     expected = {f'{case[0]}-{mode}' for case in cases() for mode in (0, 1)}
@@ -41,6 +47,11 @@ def main():
     if args.suite == 'driven_cloth':
         module = 'reconstruction.csrc.driven_cloth_graph_ab'
     worker_extra = []
+    if args.suite == 'driven_cloth_contact':
+        module = 'reconstruction.csrc.driven_cloth_contact_graph_ab'
+        worker_extra = ['--contact-group', args.contact_group]
+    else:
+        assert args.contact_group is None
     if args.suite == 'tetrahedron_self':
         module = 'reconstruction.csrc.affine_tetrahedron_graph_ab'
         worker_extra = ['--fixture', str(ROOT / 'reconstruction/csrc/affine_tetrahedron_self_scene.py'),
@@ -60,6 +71,8 @@ def main():
         runtime = json.loads((args.baseline / (backend + '.runtime.json')).read_text())
         assert runtime['image_sha256'] == (REFERENCE_SHA if backend == 'original' else metadata['extension_sha256'])
         assert runtime['frames'] == 60
+        if args.suite == 'driven_cloth_contact':
+            assert runtime['contact_group'] == args.contact_group
         if args.suite == 'tetrahedron_self':
             assert runtime['diagonal_only'] == args.diagonal_only and runtime['particles_per_world'] == 24
             fixture = str(ROOT / 'reconstruction/csrc/affine_tetrahedron_self_scene.py')
@@ -120,7 +133,8 @@ def main():
                                                                  if compare(old, source)['bitwise']]}
             results[case] = {'sources': rows,
                              'primary_c_passed': all(all(row['all_steps_within'].values()) for row in rows.values())}
-    report = {'source_sha256': metadata['extension_sha256'], 'suite': args.suite, 'originals': 8, 'sources': 3,
+    report = {'source_sha256': metadata['extension_sha256'], 'suite': args.suite,
+              'contact_group': args.contact_group, 'originals': 8, 'sources': 3,
               'diagonal_only': args.diagonal_only,
               'cases': results, 'primary_c_passed': all(row['primary_c_passed'] for row in results.values()),
               'source0_replaced': False, 'full_worker_context_preserved': True, 'full_solver_complete': False}
