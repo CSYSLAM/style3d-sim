@@ -1,0 +1,118 @@
+--- original
++++ deferred
+@@ -19,6 +19,19 @@
+ static std::string trace_directory;
+ static std::size_t sequence = 0;
+ static thread_local bool observing = false;
++
++// Diagnostic staging preserves each stream's order and postpones host copies until all three steps finish.
++struct DeferredFile {
++    std::string name;
++    std::vector<char> host;
++    std::size_t offset = 0, size = 0;
++    bool device = false;
++};
++static std::vector<DeferredFile> deferred_files;
++static CUdeviceptr staging = 0;
++static std::size_t staging_used = 0;
++static const std::size_t staging_capacity = 64 * 1024 * 1024;
++
+ 
+ template <class T> static T argument(void** args, int index)
+ {
+@@ -62,17 +75,20 @@
+ 
+     void bytes(const std::string& label, const void* data, std::size_t count)
+     {
+-        std::ofstream file(prefix_ + label + ".bin", std::ios::binary);
+-        file.write(static_cast<const char*>(data), count);
++        const char* begin = static_cast<const char*>(data);
++        deferred_files.push_back({prefix_ + label + ".bin", std::vector<char>(begin, begin + count), 0, count, false});
+     }
+ 
+     void address(const std::string& label, CUdeviceptr pointer, std::size_t count, std::size_t width)
+     {
+         if (!pointer || !count) return;
+         if (count > 1000000) throw std::runtime_error("Observer only supports bounded diagnostic cases");
+-        std::vector<char> data(count * width);
+-        checked(cuMemcpyDtoH(data.data(), pointer, data.size()));
+-        bytes(label, data.data(), data.size());
++        const auto size = count * width;
++        if (!staging || staging_used + size > staging_capacity)
++            throw std::runtime_error("Deferred diagnostic staging capacity exceeded");
++        checked(cuMemcpyDtoDAsync(staging + staging_used, pointer, size, stream_));
++        deferred_files.push_back({prefix_ + label + ".bin", {}, staging_used, size, true});
++        staging_used += size;
+     }
+ 
+     void device(const std::string& label, int arg, std::size_t count, std::size_t width)
+@@ -87,14 +103,12 @@
+             const auto divisor = argument<unsigned>(args_, divisor_arg);
+             return (n + divisor - 1) / divisor;
+         }
+-        std::vector<int> world(n);
+-        checked(cuMemcpyDtoH(world.data(), pointer, n * 4));
+-        return static_cast<std::size_t>(*std::max_element(world.begin(), world.end())) + 1;
++        throw std::runtime_error("Deferred diagnostic requires contiguous groups with a null world pointer");
+     }
+ 
+     void snapshot(bool after)
+     {
+-        checked(cuStreamSynchronize(stream_));
++
+         const std::string at = after ? "after." : "before.";
+         auto copy = [&](const char* label, int arg, std::size_t count, std::size_t width) {
+             device(at + label, arg, count, width);
+@@ -373,7 +387,7 @@
+         std::ostringstream label;
+         label << trace_directory << '/' << std::setw(6) << std::setfill('0') << sequence++ << '.' << group_ << '.';
+         prefix_ = label.str();
+-        std::ofstream meta(prefix_ + "json");
++        std::ostringstream meta;
+         meta << "{\"name\":\"" << name << "\",\"grid\":" << grid << ",\"block\":" << block;
+         if (group_ == "15initialize_stepE") {
+             // Compare actual alias relationships without putting process-specific device addresses in metadata.
+@@ -388,6 +402,9 @@
+             meta << ']';
+         }
+         meta << "}\n";
++        const auto metadata = meta.str();
++        deferred_files.push_back({prefix_ + "json", std::vector<char>(metadata.begin(), metadata.end()),
++                                  0, metadata.size(), false});
+         snapshot(false);
+     }
+     ~Observation() { if (!group_.empty()) observing = false; }
+@@ -396,12 +413,32 @@
+ 
+ extern "C" void solver_trace_begin(const char* directory)
+ {
++    if (staging || !deferred_files.empty()) throw std::runtime_error("Deferred diagnostic already active");
++    checked(cuMemAlloc(&staging, staging_capacity));
++    staging_used = 0;
+     trace_directory = directory;
+     sequence = 0;
+     std::filesystem::create_directories(trace_directory);
+ }
+ 
+-extern "C" void solver_trace_end() { trace_directory.clear(); }
++extern "C" void solver_trace_end()
++{
++    trace_directory.clear();
++    checked(cuCtxSynchronize());
++    std::vector<char> data(staging_used);
++    checked(cuMemcpyDtoH(data.data(), staging, data.size()));
++    for (const auto& item : deferred_files) {
++        std::ofstream file(item.name, std::ios::binary);
++        file.write(item.device ? data.data() + item.offset : item.host.data(), item.size);
++    }
++    std::ofstream receipt(std::filesystem::path(deferred_files.front().name).parent_path() / "deferred-receipt.json");
++    receipt << "{\"device_bytes\":" << staging_used << ",\"files\":" << deferred_files.size()
++            << ",\"per_snapshot_host_synchronization\":false}\n";
++    checked(cuMemFree(staging));
++    staging = 0;
++    staging_used = 0;
++    deferred_files.clear();
++}
+ 
+ extern "C" cudaError_t cudaLaunchKernel(const void* function, dim3 grid, dim3 block, void** args,
+                                         std::size_t shared, cudaStream_t stream)

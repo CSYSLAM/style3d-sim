@@ -1,7 +1,8 @@
 # PD driven joint host 接续
 
 本文件记录源码 image：`c189db81483ca1ca6b197cb57ebeb4411e9ecfeba2035975f51275c178dba458`。
-后续活动5bd见[DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md](DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md)。
+后续5bd检查点见[DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md](DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md)。
+当前869见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
 参考仍是项目内SDK64a。CUDA176/f0、已恢复kernel数学、SDK均未改，`solver_api_ready=False`。
 本image完整74为71严格、三个particles首次失败的固定C10全过且CPU复算同，未继承04结果。
 04完整结果、实际SDK的self跨模式见证和直接源码运行入口见

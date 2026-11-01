@@ -1,10 +1,10 @@
 # 新版基准与 C++ host 进度
 
 > **活动image86916989：普通约束PD/body-block。** 24组状态/8952调用/首force buffer严格；
-> constructor/graph/initcheck运行中，当前完整74未采。见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
+> 6种构造五项同、graph96/96及双端initcheck通过，当前74为70严格、固定C10仅1/4过，三项继续定位。见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
 > 以下5bd/c189等为历史检查点，CUDA176/f0、SDK64a不改，ready=False。
 
-> **活动5bd9722e：接入driven joint/body-block，按SDK恢复drive/armature/limits→build与PD local row身份。**
+> **历史5bd9722e：接入driven joint/body-block，按SDK恢复drive/armature/limits→build与PD local row身份。**
 > 八组17052调用/状态严格、四种构造五项同；32组合graph128/128严格、双端initcheck零错误。当前74未采，ready=False。
 > 见DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md；下列为历史结果。
 >

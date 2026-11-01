@@ -1,9 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
 > **当前活动源码image86916989：普通spring/point-line/distance的PD/body-block。**
-> 24组固定原版状态、8952次完整owned调用及首force缓冲区全部严格；constructor/graph/initcheck继续中。
-> 当前完整74未采，ready=False；见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](reconstruction/csrc/PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
+> 24组固定原版状态/8952调用/首force buffer严格，6种构造五项同，graph96/96严格，双端initcheck零错误。
+> 当前74为70严格，固定C10仅1/4过；三项继续定位，ready=False。见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](reconstruction/csrc/PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
 > SDK64a、CUDA176/f0与360个pyc固定字节不变，Windows继续使用WSL2。
+> 三项固定失败的后续证明：两份SDK逐位目标见证及布料完整804算子路径，见
+> [CURRENT_FIXED_FAILURES_86916989.md](reconstruction/csrc/CURRENT_FIXED_FAILURES_86916989.md)，原C10 false保留。
 
 > **前一5bd9722e：driven joint + body-block。**
 > 八组状态/17052次完整owned参数与geometry全严格，四种constructor五项同，32组合长程graph共128/128严格，双端initcheck零错误。
@@ -55,8 +57,11 @@
 当前176个CUDA入口已重建并纳入版本清单，host组合场景和正式demo仍需继续验收。
 Git 76facc7的交接只迁移冻结基线；后续25/cc/ff新增host字段和按原版恢复调度，CUDA数学和比较标准未改。
 
+**当前86916989检查点**：三类普通约束24组状态/首buffer/8952次完整调用全严格；
+六种constructor五项同，graph96/96、双端initcheck3均通过。完整74为70严格，固定C10仅1/4过，另三份source0保持失败。
+
 **前一5bd9722e检查点**：joint/body-block八组已严格、四种构造五项同，graph128/128与双端initcheck已通过；
-当前完整74尚未采，不能继承c189结果。
+5bd未单独收集完整74，不能继承c189结果。
 
 **前一c189db81**：PD关节四组已严格，两种构造五项同，graph64/64、双端initcheck3均通过；
 完整74为71严格，其三个固定C10全过且CPU复算同。

@@ -2,7 +2,7 @@
 
 活动源码 image：`8691698973a5ef5109a5300a72d319c918d9a159c20a9b0b76a0ddb1563c2eea`。
 唯一参考仍为项目内 SDK64a；CUDA176/f0、数学阈值与固定原版不变，`solver_api_ready=False`。
-完整替代仍未完成；本 image 的完整74回归尚未收集，不继承前一版本的结论。
+完整替代仍未完成；本 image 的完整74为70严格，固定C10有三项失败，不继承前一版本的结论。
 
 ## 实际证据和修复
 
@@ -36,10 +36,17 @@ spring/point-line/distance × W1/W3 × Newton/PD × body-block，共24组。无�
 
 - 同24份固定原版：全部状态逐位相同，首 force 的 pre/post RHS 字节相同。
 - 8,952次完整 owned 参数、geometry、shared memory、source覆盖数全部相同。
-- 六种 W3 constructor（3种约束 × 两种模式，block=true）、24组合 graph60 和双端 initcheck3正在串行运行。
-  查看 `validation-86916989/status.json`，不得把尚未结束的项目写为通过。
-- 局部完成后执行本阶段 `run-regression.py` 收集当前 image 的完整74、固定首次失败C10及CPU审计，
-  再执行 `run-frontends.py` 验证未改官方示例的真实入口/graph/test。
+- 六种 W3 constructor（3种约束 × 两种模式，block=true）五项全部同。
+  spring为55分配/28上传/27 typed；point-line为56/29/27；distance为57/28/29。
+- 24组合 × eager/真实 graph ×60步共96/96项逐位同，双端各48条轨迹×3步initcheck零错误。
+  `validation-86916989/status.json` 已完成，各阶段退出0。
+- 本 image 完整74为70严格；particles seed1/2/3及mixed_cloth seed3的首次输出有差异。
+  对四份原source0各固定10份原版：仅particles seed3通过，另三项C10失败，CPU审计复算全部同。
+  不替换source0、不扩原版样本，也不把本次普通约束通过外推成完整solver通过。
+- 两个独立source入口的真实graph/自身test通过：Dzhanibekov60、plastic bag3；均未映射原版。
+- 三项后续证据：两个粒子目标有逐位SDK见证，布料完整804算子路径核对闭合，原C10失败保留。
+  见[CURRENT_FIXED_FAILURES_86916989.md](CURRENT_FIXED_FAILURES_86916989.md)。
+  fixed/ball undriven joint16份参考、已有四组基线和两种构造均已核对，但guard尚未开放。
 
 证据根目录：
 `build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/`。

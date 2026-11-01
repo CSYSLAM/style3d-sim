@@ -5557,3 +5557,43 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 新image的spring Newton/PD两种block constructor五项均已通过；point-line及distance构造队列继续。
   先发布已闭合证据、源码/当前so和交接：运行中的validation目录及其driver log明确不入本次快照。
   SDK无diff，既有360个pyc逐SHA不变，新增维护代码语法、128列及diff空白检查通过。
+- 243e3242a4770b4d0bf299c63391c4bd7d262169已推csy且远端SHA同，快照50205文件0失败。
+  同仓库SDK64a和360pyc仍固定，checkpoint明确排除尚在运行的validation。
+- 869局部队列已complete，全阶段退出0：六种constructor五项全同；spring55alloc/28upload/27typed，
+  point-line56/29/27，distance57/28/29；Newton/PD各自owned426/414、426/414、429/426。
+  24组合eager/真实graph60共96/96严格，双端各48条×3步initcheck0错误。
+  现在串行收集869自己的完整74/固定C10/CPU审计及两个standalone官方入口；未提前计为通过。
+  后续准备undriven fixed/ball joint参考16组，新增独立fixture，不改已冻结plain或driven fixture。
+- 869完整74最终报告实际为70严格：particles seed1/2/3及mixed_cloth seed3四份首次输出false。
+  先前用户进度曾按未更新完的状态误报71/74，已立即纠正；本记录以complete的74行和实际exit为准。
+  当前为这四份固定source0分别采原版C10，未写统计通过，不替换候选。
+  remaining-guard-inventory-86916989.json的18条消息含输入限制/混合范围，并非18个未恢复kernel。
+- 869当前固定C10完成：particles seed3通过；particles seed1(it5)、seed2(it1)及
+  mixed_cloth seed3(w129 duplicates)三项失败，CPU重算所有saved统计字段相同。不会扩cohort或替换source0。
+  两个standalone真实graph自身test均退出0，source_only且无SDK映射。新fixture undriven原版16份均真实
+  force改变RHS、finite/body移动，但暂不改guard：先追当前三份C10失败，保持869生产不变。
+- 新建regression_failure_trace，仅增加独立诊断入口，老particle_full_worker_trace及生产不改。
+  接受scenario/seed/case，保持完整worker顺序与前置分配，只在目标initialize后抓三步。
+  使用已验证且ABI仍同的all-entry observer；当前串行抓三个失败的original/source首对，必须实际比对
+  到各自冻结original0/source0才能声称复现。不同诊断轨迹不加入固定C10。
+- 当前三项C10失败继续诊断，不扩接受cohort：每目标预先固定8次独立SDK诊断全部保留。
+  particles seed1/it5的诊断0、seed2/it1的诊断2和5分别完整逐字节重现其source0目标全部15数组三步。
+  mixed目标在独立8份SDK中128/129个world分别有完整三步见证，仅world85未覆盖；它的三条重复三角形
+  线程255/256/257跨256 block边界。未把按world见证拼成完整SDK轨迹。
+- 首同步pair：两个particles双端各8/15；mixed SDK18/18、source7/18。实际pair首差异分别是
+  packet166/38 precondition numerator及mixed packet3 stretch force。不能把未复现诊断当冻结因果路径。
+- 新建独立deferred observer，原observer/生产/fixture均不变：同stream DtoD暂存，trace_end才同步DtoH写盘。
+  序列每步最后apply/velocity均与公共输出逐字节核实。固定1原版+3源码中，源码2/3都重现mixed source0
+  全部18数组三步，且64MiB暂存实际使用12769272字节；原版同步首份也与冻结original0完整同。
+- 采用两份实际冻结路径并保留所有SHA；四种primitive（新增spring force）×9 NL×双端共72 packet，
+  实际SDK runtime/原版PTX/源码逐元素贡献919512标量全同，306504个实际累加标量均由GPU真正global F32
+  atomic六种三项排列验证。first-three-stage旧runner与其报告保留，扩展版也记录逐input SHA。
+- 其它732公共packet共4392个三端实际调用全逐位同，250776个129-world counter字也全部比较且同，未跳过。
+  此次非零ELL与dense inverse均实际回放，保留alias；两端366调用标量/geometry/指针相等模式也全同。
+  全804算子路径已覆盖。source0和C10三项false仍保留，不推断原调度次序或改数学强行追统计。
+- checkpoint undriven-before-86916989已保存27源码/build/so及44固定回归数组SHA。
+  当前继续undriven基线：固定/球关节Newton/no-block的W1/W3四组状态/完整调用均严格（各333调用）；
+  两种W3 constructor五项同，均56分配/28上传/28typed。PD与body-block guard尚未改动。
+- 本轮全部队列已关闭后统一入库；首次逐文件pathspec列表触发Git高CPU匹配，SIGINT取消该add（尚未写index），
+  改按已核对的四个明确目录前缀及维护文件加入，数秒完成。未扩大到整个build，未停止其它用户进程。
+  当前正在生成869完整证据快照，SDK及既有360pyc逐SHA不变；下一guard变更尚未实施。
