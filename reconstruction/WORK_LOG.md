@@ -5447,3 +5447,59 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 下一已明确拒绝的host缺口PD body constraints：新增继承既有joint fixture的PD配置，不改原fixture。
   原版revolute/prismatic × W1/W3（armature=.007，drive/限位/派生速度均启用）四组三步全部finite且
   body实际运动，owned调用分别1698/1902。原版已固定，source guard尚未改，生产仍04b46fb0。
+
+### PD driven joint host：实际缺漏与修复中
+
+- 04后完整回归/独立demo/原版跨模式见证已另存1de1b10f2f42e07e0e6f3e2bfdb4535f0c69a995并推送，
+  ls-remote确认；该快照46068文件0失败。继续恢复PD关节，不把完整目标标为完成。
+- 生产修改前保存27文件的driven-joint-pd-before-04b46fb0，锁定全部22个original4证据文件SHA。
+  只窄化PD guard，仍拒绝plain/undriven PD、body-block+constraints等未捕获组合。
+  试验image77932a2be3bc02b572ddb7682f73d658808ab50588a9c3ef6ef2e646f8ff4f63：
+  转动关节W1/W3三步、1698次完整调用和状态均严格；移动关节两组失败，源码1707调用而原版1902，
+  状态出现非有限，明确拒绝，保留source4-77932a2b和27文件failed trial checkpoint。
+- 实际SDK抓到首缺漏：PD每NL在SO3之后、drive之前调用
+  add_joint_body_point_line_augmented_lagrangian_preconditioner；每CG在SO3之后、drive之前调用
+  multiply_joint_body_point_line_augmented_lagrangian。差值195=15 preconditioner+180 tangent。
+  对照so mangled签名、真实arg值/alias、已恢复joints.cu定义，核对14/15参数和四个size_t计数。
+  这两个kernel已在176中，原host没有加载/调度；只补host load及pd&&joint_line_total条件调用，
+  CUDA数学与176/f0不动。新增supported scope为driven_joint_constraints_pd_newton，正在编译并
+  复验同四份固定原版；尚未把该新image计为通过，也不继承04的74/C10结论。
+- d8457a42057f944f78c7ecbd92da1c8c396fed5b9f35452d41ba4ab9d8f60296四组全部严格同、共7200完整
+  owned调用。随后constructor审计失败，串行队列立即停止，graph/initcheck尚未启动，不宣称构造通过。
+  移动/转动分别67/64个分配事件，两端数相同但顺序不同；original typed33/31 vs source27。
+- 根据真实allocation角色（由owned用途映射，不按size瞎猜）：drive angle/initialized/velocity缓存应在
+  四个state vec3之后、diagonal之前，joint multiplier或line segment/projector/multiplier在block之后、
+  affine cache之前；原版这6/4项都typed zero。CPU权重上传应在矩阵ELL之后，当前source提前了。
+  PD multiply原版用local row-count allocation（8项），source用24项replicated buffer；数值等价但身份不符。
+  allocation-role-diagnostic.json及upload-multiset-diagnostic.json已保存。
+- 原版还保留非零D4/L5，source错误保留全零；当前step以0权重使用该channel，解释为何状态严格同但
+  upload审计仍不符。先从真实SDK静态arg抓到indices/weights/stiffness，不改生产，CPU用F32逐步推导：
+  D4完全逐位同；point-first L5六词不符（3个对称pair），失败script/报告/NPZ保留。
+  line-first与global-index-sorted都能解释原fixture，暂不选一种。正在用SDK initialize-only、明确反转
+  affine proxy ownership的额外诊断消歧；不是物理trajectory，不扩cohort、不替换任何固定样本。
+  生产仍d845，尚未修改constructor/template/row选择。原版initialize本来发生在NewSolver构造中，
+  PD配置在随后设置，因此不能把这些构造差异误认为仅PD分支特有。
+- 消歧探针首次因payload observer单独preload无法解析cudaMemcpy在目录建立前abort；不是SDK算法失败。
+  保留旧script/log/FAILURE，加入既有working observer:hook组合、禁core dump并明确CUDA context后v2成功。
+  两份实际SDK初始化：normal和affine_body_indices反转（只initialize，不step）。CPU三种候选只有
+  global-index-sorted同时逐字节吻合D4/L5，line-first在反转probe失败；order-resolved.json保留此证据。
+- 保存d845的27文件checkpoint后，按上述证据恢复：drive三typed缓存提前至state vec3之后，保留原版
+  两份zero HtoD；joint spring/line typed缓存提前至block之后（line顺序segment/projector/multiplier）。
+  driven joint权重推迟至scalar ELL之后，顺序spring→point-line→drive；D4/L5按全局粒子ID排序后
+  原F32逐项累加，保留完整非零template但step的0权重不改；PD multiply改用实际local row-count身份。
+  原非driven权重上传分支保持，未改CUDA176/f0或FP阈值；当前正在编译constructor恢复版，尚未验证。
+- constructor恢复版已编译c189db81483ca1ca6b197cb57ebeb4411e9ecfeba2035975f51275c178dba458，
+  source4-c189db81再次对同四份原版全部状态、7200完整owned参数/geometry及覆盖数严格同。
+  开始新validation-c189db81目录的constructor→16组合graph60→双backend initcheck3；
+  不覆盖d845构造失败，也未把新image继承04完整74。
+- c189 prismatic完整constructor五项全部通过：67/67 allocation/release、36/36 upload、33/33 typed、
+  1902 owned指针用途、1935/1935 owned/library名称时序。没有弱化审计或忽略旧失败。
+  validation队列已进入16组合graph60；原source四组三步仍全部严格，生产文件不再改动以保持本批immutable。
+- c189完整局部队列complete且全退出0：16组合eager/真实graph60共64项比较全部逐位同，
+  original/source各32轨迹×3步initcheck均0错误。另revolute constructor五项全同：64分配事件、35上传、
+  31 typed、1698 owned指针用途、1729 owned/library时序。
+  两种joint构造均已实际核实，未把prismatic结果外推给revolute。当前开始c189自己的完整74及固定C10。
+- 为下一个明确guard准备joint_block_scene及8组原版capture脚本（revolute/prismatic、W1/W3、Newton/PD，
+  body block=true），没有改已冻结joint_pd_scene，GPU原版capture尚未启动、body-block guard仍关闭。
+- 本次先提交c189局部已完成结果；运行中的完整74/C10输出暂不纳入快照，待结束补交，不在运行时改生产。
+  原版SDK/360个pyc、current build sources逐SHA再查均同，新增fixture语法及128列检查通过。

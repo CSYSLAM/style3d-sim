@@ -1,0 +1,4285 @@
+{
+  "original": {
+    "allocations": [
+      {
+        "id": 0,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 1,
+        "bytes": 288,
+        "uses": [
+          [
+            "apply_nonlinear_step",
+            2,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 2,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_affine_body_so3_augmented_lagrangian_force",
+            6,
+            0
+          ],
+          [
+            "evaluate_angular_limits",
+            8,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            14,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            13,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            26,
+            0
+          ],
+          [
+            "initialize_rhs",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 3,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            3,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            3,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            1,
+            0
+          ],
+          [
+            "initialize_joint_coordinate_velocities",
+            1,
+            0
+          ],
+          [
+            "initialize_step",
+            20,
+            0
+          ],
+          [
+            "update_velocity",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 4,
+        "bytes": 288,
+        "uses": [
+          [
+            "initialize_rhs",
+            2,
+            0
+          ],
+          [
+            "initialize_step",
+            21,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 5,
+        "bytes": 12,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            4,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            3,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 6,
+        "bytes": 12,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            5,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            4,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 7,
+        "bytes": 12,
+        "uses": [
+          [
+            "evaluate_joint_armature",
+            4,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            2,
+            0
+          ],
+          [
+            "initialize_joint_coordinate_velocities",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 8,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 9,
+        "bytes": 96,
+        "uses": [
+          [
+            "initialize_block_diagonal",
+            0,
+            0
+          ],
+          [
+            "initialize_step",
+            22,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 10,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 11,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 12,
+        "bytes": 864,
+        "uses": [
+          [
+            "initialize_block_diagonal",
+            1,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 13,
+        "bytes": 864,
+        "uses": [
+          [
+            "add_affine_body_so3_augmented_lagrangian_preconditioner",
+            4,
+            0
+          ],
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            9,
+            0
+          ],
+          [
+            "add_joint_drive_preconditioner",
+            17,
+            0
+          ],
+          [
+            "evaluate_angular_limits",
+            9,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            8,
+            0
+          ],
+          [
+            "initialize_block_diagonal",
+            2,
+            0
+          ],
+          [
+            "invert_block_preconditioner",
+            0,
+            0
+          ],
+          [
+            "invert_block_preconditioner",
+            3,
+            0
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 14,
+        "bytes": 48,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            6,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            9,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            8,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            7,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            8,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 15,
+        "bytes": 432,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            11,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            10,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            8,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 16,
+        "bytes": 144,
+        "uses": [
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            10,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            9,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 17,
+        "bytes": 3456,
+        "uses": []
+      },
+      {
+        "id": 18,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 19,
+        "bytes": 8,
+        "uses": []
+      },
+      {
+        "id": 20,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 21,
+        "bytes": 216,
+        "uses": [
+          [
+            "add_affine_body_so3_augmented_lagrangian_preconditioner",
+            2,
+            0
+          ],
+          [
+            "evaluate_affine_body_so3_augmented_lagrangian_force",
+            3,
+            0
+          ],
+          [
+            "initialize_affine_body_so3_state",
+            2,
+            0
+          ],
+          [
+            "multiply_affine_body_so3_augmented_lagrangian_tangent",
+            3,
+            0
+          ],
+          [
+            "update_affine_body_so3_augmented_lagrangian_state",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 22,
+        "bytes": 216,
+        "uses": [
+          [
+            "evaluate_affine_body_so3_augmented_lagrangian_force",
+            4,
+            0
+          ],
+          [
+            "initialize_affine_body_so3_state",
+            3,
+            0
+          ],
+          [
+            "update_affine_body_so3_augmented_lagrangian_state",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 23,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 24,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            7,
+            0
+          ],
+          [
+            "refresh_inertial_cache_diagonals",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 25,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            9,
+            0
+          ],
+          [
+            "refresh_inertial_cache_diagonals",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 26,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 27,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            13,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 28,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            15,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 29,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_rhs",
+            4,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 30,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 31,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 32,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            7,
+            0
+          ],
+          [
+            "initialize_rhs",
+            5,
+            0
+          ],
+          [
+            "refresh_inertial_cache_nonzeros",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 33,
+        "bytes": 456,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 34,
+        "bytes": 48,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 35,
+        "bytes": 456,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 36,
+        "bytes": 48,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 37,
+        "bytes": 72,
+        "uses": [
+          [
+            "refresh_inertial_cache_diagonals",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 38,
+        "bytes": 24,
+        "uses": [
+          [
+            "refresh_inertial_cache_diagonals",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 39,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            8,
+            0
+          ],
+          [
+            "refresh_inertial_cache_nonzeros",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 40,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 41,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 42,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 43,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            12,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 44,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            13,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 45,
+        "bytes": 64,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            2,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            4,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            3,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            3,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            3,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 46,
+        "bytes": 64,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            3,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            5,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            4,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            4,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            4,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 47,
+        "bytes": 64,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            4,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            6,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            5,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            5,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            5,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 48,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            11,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            8,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 49,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            8,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            12,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            9,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 50,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            9,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            13,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            10,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 51,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            10,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            14,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            11,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            12,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 52,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            11,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            15,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            12,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            13,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 53,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            19,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 54,
+        "bytes": 6720,
+        "uses": []
+      },
+      {
+        "id": 55,
+        "bytes": 6720,
+        "uses": []
+      },
+      {
+        "id": 56,
+        "bytes": 288,
+        "uses": [
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            1,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 57,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            6,
+            0
+          ],
+          [
+            "multiply_affine_body_so3_augmented_lagrangian_tangent",
+            0,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            0,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            1,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            4,
+            0
+          ],
+          [
+            "update_cg_direction",
+            6,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 58,
+        "bytes": 288,
+        "uses": [
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            2,
+            0
+          ],
+          [
+            "update_cg_direction",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 59,
+        "bytes": 288,
+        "uses": [
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            6,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 60,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            8,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            7,
+            0
+          ],
+          [
+            "multiply_affine_body_so3_augmented_lagrangian_tangent",
+            5,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            10,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            18,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 61,
+        "bytes": 11988,
+        "uses": [
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            12
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            24
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            36
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            48
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            60
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            72
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            84
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            96
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            108
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            120
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            132
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            12
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            24
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            36
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            48
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            60
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            72
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            84
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            96
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            108
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            120
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            132
+          ]
+        ]
+      },
+      {
+        "id": 62,
+        "bytes": 11988,
+        "uses": [
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            0
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            12
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            24
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            36
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            48
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            60
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            72
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            84
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            96
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            108
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            120
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            132
+          ],
+          [
+            "update_cg_direction",
+            4,
+            0
+          ],
+          [
+            "update_cg_direction",
+            4,
+            12
+          ],
+          [
+            "update_cg_direction",
+            4,
+            24
+          ],
+          [
+            "update_cg_direction",
+            4,
+            36
+          ],
+          [
+            "update_cg_direction",
+            4,
+            48
+          ],
+          [
+            "update_cg_direction",
+            4,
+            60
+          ],
+          [
+            "update_cg_direction",
+            4,
+            72
+          ],
+          [
+            "update_cg_direction",
+            4,
+            84
+          ],
+          [
+            "update_cg_direction",
+            4,
+            96
+          ],
+          [
+            "update_cg_direction",
+            4,
+            108
+          ],
+          [
+            "update_cg_direction",
+            4,
+            120
+          ],
+          [
+            "update_cg_direction",
+            4,
+            132
+          ],
+          [
+            "update_cg_direction",
+            5,
+            0
+          ],
+          [
+            "update_cg_direction",
+            5,
+            12
+          ],
+          [
+            "update_cg_direction",
+            5,
+            24
+          ],
+          [
+            "update_cg_direction",
+            5,
+            36
+          ],
+          [
+            "update_cg_direction",
+            5,
+            48
+          ],
+          [
+            "update_cg_direction",
+            5,
+            60
+          ],
+          [
+            "update_cg_direction",
+            5,
+            72
+          ],
+          [
+            "update_cg_direction",
+            5,
+            84
+          ],
+          [
+            "update_cg_direction",
+            5,
+            96
+          ],
+          [
+            "update_cg_direction",
+            5,
+            108
+          ],
+          [
+            "update_cg_direction",
+            5,
+            120
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            12
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            24
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            36
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            48
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            60
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            72
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            84
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            96
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            108
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            120
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            132
+          ]
+        ]
+      },
+      {
+        "id": 63,
+        "bytes": 32,
+        "uses": []
+      },
+      {
+        "id": 64,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 65,
+        "bytes": 864,
+        "uses": []
+      },
+      {
+        "id": 66,
+        "bytes": 4,
+        "uses": []
+      }
+    ],
+    "typed": [
+      {
+        "sequence": 612,
+        "type": "int",
+        "count": 1,
+        "pointer": "0x718ba5400000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 640,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba5400200",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 664,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba5400400",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+            26
+          ],
+          [
+            "_ZN7synreal6kernel30evaluate_body_point_line_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_fmbPS4_mmm",
+            14
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_S6_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            13
+          ]
+        ]
+      },
+      {
+        "sequence": 687,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba5400600",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            20
+          ],
+          [
+            "_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel38initialize_joint_coordinate_velocitiesENS0_19JointCoordinateViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_Pf",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 710,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba5400800",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            21
+          ]
+        ]
+      },
+      {
+        "sequence": 733,
+        "type": "float",
+        "count": 3,
+        "pointer": "0x718ba5400a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel30update_joint_drive_angle_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESJ_SJ_SJ_SJ_mmm",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 757,
+        "type": "int",
+        "count": 3,
+        "pointer": "0x718ba5400c00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel30update_joint_drive_angle_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESJ_SJ_SJ_SJ_mmm",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 780,
+        "type": "float",
+        "count": 3,
+        "pointer": "0x718ba5400e00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel38initialize_joint_coordinate_velocitiesENS0_19JointCoordinateViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_Pf",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 813,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x718ba5401000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 836,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x718ba5401200",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            22
+          ],
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 859,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x718ba5401400",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 882,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x718ba5401600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 905,
+        "type": "mat3",
+        "count": 24,
+        "pointer": "0x718ba5401800",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 929,
+        "type": "mat3",
+        "count": 24,
+        "pointer": "0x718ba5401c00",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+            17
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm",
+            9
+          ]
+        ]
+      },
+      {
+        "sequence": 952,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x718ba5402000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel38initialize_joint_body_point_line_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEmmmm",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel55update_joint_body_point_line_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEbmmmm",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_S6_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 975,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x718ba5402200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel38initialize_joint_body_point_line_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEmmmm",
+            10
+          ],
+          [
+            "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel55update_joint_body_point_line_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEbmmmm",
+            10
+          ],
+          [
+            "_ZN7synreal6kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_S6_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            11
+          ],
+          [
+            "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm",
+            7
+          ]
+        ]
+      },
+      {
+        "sequence": 998,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x718ba5402400",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel38initialize_joint_body_point_line_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEmmmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel55update_joint_body_point_line_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEbmmmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_S6_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            10
+          ]
+        ]
+      },
+      {
+        "sequence": 1021,
+        "type": "float",
+        "count": 864,
+        "pointer": "0x718ba5402600",
+        "value_hex": "00000000",
+        "grid_x": 2,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1044,
+        "type": "int",
+        "count": 6,
+        "pointer": "0x718ba5403400",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1083,
+        "type": "mat3",
+        "count": 6,
+        "pointer": "0x718ba5403a00",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1106,
+        "type": "mat3",
+        "count": 6,
+        "pointer": "0x718ba5403c00",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 1334,
+        "type": "scalar-entry",
+        "count": 56,
+        "pointer": "0x718ba5406800",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m",
+            13
+          ]
+        ]
+      },
+      {
+        "sequence": 1425,
+        "type": "block-entry",
+        "count": 168,
+        "pointer": "0x718ba5407c00",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1449,
+        "type": "block-entry",
+        "count": 168,
+        "pointer": "0x718ba5409800",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1474,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba540b400",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            7
+          ]
+        ]
+      },
+      {
+        "sequence": 1497,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba540b600",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1520,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba540b800",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1543,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba540ba00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1566,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x718ba540bc00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+            18
+          ],
+          [
+            "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            10
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1589,
+        "type": "float",
+        "count": 2997,
+        "pointer": "0x718ba540be00",
+        "value_hex": "00000000",
+        "grid_x": 6,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 1612,
+        "type": "float",
+        "count": 2997,
+        "pointer": "0x718ba540ee00",
+        "value_hex": "00000000",
+        "grid_x": 6,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1649,
+        "type": "mat3",
+        "count": 24,
+        "pointer": "0x718ba5412200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1672,
+        "type": "uint",
+        "count": 1,
+        "pointer": "0x718ba5412600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      }
+    ]
+  },
+  "source": {
+    "allocations": [
+      {
+        "id": 0,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 1,
+        "bytes": 288,
+        "uses": [
+          [
+            "apply_nonlinear_step",
+            2,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 2,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_affine_body_so3_augmented_lagrangian_force",
+            6,
+            0
+          ],
+          [
+            "evaluate_angular_limits",
+            8,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            14,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            13,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            26,
+            0
+          ],
+          [
+            "initialize_rhs",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 3,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            3,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            3,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            1,
+            0
+          ],
+          [
+            "initialize_joint_coordinate_velocities",
+            1,
+            0
+          ],
+          [
+            "initialize_step",
+            20,
+            0
+          ],
+          [
+            "update_velocity",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 4,
+        "bytes": 288,
+        "uses": [
+          [
+            "initialize_rhs",
+            2,
+            0
+          ],
+          [
+            "initialize_step",
+            21,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 5,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 6,
+        "bytes": 96,
+        "uses": [
+          [
+            "initialize_block_diagonal",
+            0,
+            0
+          ],
+          [
+            "initialize_step",
+            22,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 7,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 8,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 9,
+        "bytes": 864,
+        "uses": [
+          [
+            "initialize_block_diagonal",
+            1,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 10,
+        "bytes": 864,
+        "uses": [
+          [
+            "add_affine_body_so3_augmented_lagrangian_preconditioner",
+            4,
+            0
+          ],
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            9,
+            0
+          ],
+          [
+            "add_joint_drive_preconditioner",
+            17,
+            0
+          ],
+          [
+            "evaluate_angular_limits",
+            9,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            8,
+            0
+          ],
+          [
+            "initialize_block_diagonal",
+            2,
+            0
+          ],
+          [
+            "invert_block_preconditioner",
+            0,
+            0
+          ],
+          [
+            "invert_block_preconditioner",
+            3,
+            0
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 11,
+        "bytes": 3456,
+        "uses": []
+      },
+      {
+        "id": 12,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 13,
+        "bytes": 8,
+        "uses": []
+      },
+      {
+        "id": 14,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 15,
+        "bytes": 216,
+        "uses": [
+          [
+            "add_affine_body_so3_augmented_lagrangian_preconditioner",
+            2,
+            0
+          ],
+          [
+            "evaluate_affine_body_so3_augmented_lagrangian_force",
+            3,
+            0
+          ],
+          [
+            "initialize_affine_body_so3_state",
+            2,
+            0
+          ],
+          [
+            "multiply_affine_body_so3_augmented_lagrangian_tangent",
+            3,
+            0
+          ],
+          [
+            "update_affine_body_so3_augmented_lagrangian_state",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 16,
+        "bytes": 216,
+        "uses": [
+          [
+            "evaluate_affine_body_so3_augmented_lagrangian_force",
+            4,
+            0
+          ],
+          [
+            "initialize_affine_body_so3_state",
+            3,
+            0
+          ],
+          [
+            "update_affine_body_so3_augmented_lagrangian_state",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 17,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            11,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            8,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 18,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            8,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            12,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            9,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 19,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            9,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            13,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            10,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 20,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            10,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            14,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            11,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            12,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 21,
+        "bytes": 16,
+        "uses": [
+          [
+            "add_joint_drive_preconditioner",
+            11,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            15,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            12,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            13,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 22,
+        "bytes": 12,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            4,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            3,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 23,
+        "bytes": 12,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            5,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            4,
+            0
+          ],
+          [
+            "update_joint_drive_angle_state",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 24,
+        "bytes": 12,
+        "uses": [
+          [
+            "evaluate_joint_armature",
+            4,
+            0
+          ],
+          [
+            "evaluate_joint_drive_load",
+            2,
+            0
+          ],
+          [
+            "initialize_joint_coordinate_velocities",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 25,
+        "bytes": 64,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            2,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            4,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            3,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            3,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            3,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 26,
+        "bytes": 64,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            3,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            5,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            4,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            4,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            4,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 27,
+        "bytes": 64,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            4,
+            0
+          ],
+          [
+            "evaluate_body_point_line_force",
+            6,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            5,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            5,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            5,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 28,
+        "bytes": 48,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            6,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            9,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            8,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            7,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            8,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 29,
+        "bytes": 144,
+        "uses": [
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            10,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            9,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 30,
+        "bytes": 432,
+        "uses": [
+          [
+            "add_joint_body_point_line_augmented_lagrangian_preconditioner",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_body_point_line_augmented_lagrangian_force",
+            11,
+            0
+          ],
+          [
+            "initialize_joint_body_point_line_state",
+            10,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            8,
+            0
+          ],
+          [
+            "update_joint_body_point_line_augmented_lagrangian_state",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 31,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 32,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            7,
+            0
+          ],
+          [
+            "refresh_inertial_cache_diagonals",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 33,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            9,
+            0
+          ],
+          [
+            "refresh_inertial_cache_diagonals",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 34,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 35,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            13,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 36,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            15,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 37,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_rhs",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 38,
+        "bytes": 96,
+        "uses": [
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 39,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 40,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            7,
+            0
+          ],
+          [
+            "initialize_rhs",
+            5,
+            0
+          ],
+          [
+            "refresh_inertial_cache_nonzeros",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 41,
+        "bytes": 456,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 42,
+        "bytes": 48,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 43,
+        "bytes": 456,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 44,
+        "bytes": 48,
+        "uses": [
+          [
+            "refresh_inertial_cache_nonzeros",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 45,
+        "bytes": 72,
+        "uses": [
+          [
+            "refresh_inertial_cache_diagonals",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 46,
+        "bytes": 24,
+        "uses": [
+          [
+            "refresh_inertial_cache_diagonals",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 47,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            8,
+            0
+          ],
+          [
+            "refresh_inertial_cache_nonzeros",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 48,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 49,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 50,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 51,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            12,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 52,
+        "bytes": 448,
+        "uses": [
+          [
+            "combine_system_non_diagonal",
+            13,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 53,
+        "bytes": 32,
+        "uses": [
+          [
+            "initialize_step",
+            19,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 54,
+        "bytes": 6720,
+        "uses": []
+      },
+      {
+        "id": 55,
+        "bytes": 6720,
+        "uses": []
+      },
+      {
+        "id": 56,
+        "bytes": 288,
+        "uses": [
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            1,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 57,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            7,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            6,
+            0
+          ],
+          [
+            "multiply_affine_body_so3_augmented_lagrangian_tangent",
+            0,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            0,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            1,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            4,
+            0
+          ],
+          [
+            "update_cg_direction",
+            6,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 58,
+        "bytes": 288,
+        "uses": [
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            2,
+            0
+          ],
+          [
+            "update_cg_direction",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 59,
+        "bytes": 288,
+        "uses": [
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            6,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 60,
+        "bytes": 288,
+        "uses": [
+          [
+            "evaluate_angular_limits",
+            8,
+            0
+          ],
+          [
+            "evaluate_joint_armature",
+            7,
+            0
+          ],
+          [
+            "multiply_affine_body_so3_augmented_lagrangian_tangent",
+            5,
+            0
+          ],
+          [
+            "multiply_joint_body_point_line_augmented_lagrangian",
+            10,
+            0
+          ],
+          [
+            "multiply_joint_drive_tangent",
+            18,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 61,
+        "bytes": 11988,
+        "uses": [
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            0
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            12
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            24
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            36
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            48
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            60
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            72
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            84
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            96
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            108
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            120
+          ],
+          [
+            "multiply_matrix_and_reduceINS_12NonZero",
+            9,
+            132
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            12
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            24
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            36
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            48
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            60
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            72
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            84
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            96
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            108
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            120
+          ],
+          [
+            "update_solution_and_residual",
+            3,
+            132
+          ]
+        ]
+      },
+      {
+        "id": 62,
+        "bytes": 11988,
+        "uses": [
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            0
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            12
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            24
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            36
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            48
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            60
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            72
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            84
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            96
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            108
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            120
+          ],
+          [
+            "precondition_and_reduceIN3glm3matILi3",
+            6,
+            132
+          ],
+          [
+            "update_cg_direction",
+            4,
+            0
+          ],
+          [
+            "update_cg_direction",
+            4,
+            12
+          ],
+          [
+            "update_cg_direction",
+            4,
+            24
+          ],
+          [
+            "update_cg_direction",
+            4,
+            36
+          ],
+          [
+            "update_cg_direction",
+            4,
+            48
+          ],
+          [
+            "update_cg_direction",
+            4,
+            60
+          ],
+          [
+            "update_cg_direction",
+            4,
+            72
+          ],
+          [
+            "update_cg_direction",
+            4,
+            84
+          ],
+          [
+            "update_cg_direction",
+            4,
+            96
+          ],
+          [
+            "update_cg_direction",
+            4,
+            108
+          ],
+          [
+            "update_cg_direction",
+            4,
+            120
+          ],
+          [
+            "update_cg_direction",
+            4,
+            132
+          ],
+          [
+            "update_cg_direction",
+            5,
+            0
+          ],
+          [
+            "update_cg_direction",
+            5,
+            12
+          ],
+          [
+            "update_cg_direction",
+            5,
+            24
+          ],
+          [
+            "update_cg_direction",
+            5,
+            36
+          ],
+          [
+            "update_cg_direction",
+            5,
+            48
+          ],
+          [
+            "update_cg_direction",
+            5,
+            60
+          ],
+          [
+            "update_cg_direction",
+            5,
+            72
+          ],
+          [
+            "update_cg_direction",
+            5,
+            84
+          ],
+          [
+            "update_cg_direction",
+            5,
+            96
+          ],
+          [
+            "update_cg_direction",
+            5,
+            108
+          ],
+          [
+            "update_cg_direction",
+            5,
+            120
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            0
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            12
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            24
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            36
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            48
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            60
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            72
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            84
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            96
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            108
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            120
+          ],
+          [
+            "update_solution_and_residual",
+            2,
+            132
+          ]
+        ]
+      },
+      {
+        "id": 63,
+        "bytes": 32,
+        "uses": []
+      },
+      {
+        "id": 64,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 65,
+        "bytes": 864,
+        "uses": []
+      },
+      {
+        "id": 66,
+        "bytes": 4,
+        "uses": []
+      }
+    ],
+    "typed": [
+      {
+        "sequence": 579,
+        "type": "int",
+        "count": 1,
+        "pointer": "0x704059400000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 604,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x704059400200",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 629,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x704059400400",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+            26
+          ],
+          [
+            "_ZN7synreal6kernel30evaluate_body_point_line_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_fmbPS4_mmm",
+            14
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_S6_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            13
+          ]
+        ]
+      },
+      {
+        "sequence": 653,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x704059400600",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            20
+          ],
+          [
+            "_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel38initialize_joint_coordinate_velocitiesENS0_19JointCoordinateViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_Pf",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 677,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x704059400800",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            21
+          ]
+        ]
+      },
+      {
+        "sequence": 701,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x704059400a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 726,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x704059400c00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            22
+          ],
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 750,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x704059400e00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 774,
+        "type": "float",
+        "count": 24,
+        "pointer": "0x704059401000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 798,
+        "type": "mat3",
+        "count": 24,
+        "pointer": "0x704059401200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 823,
+        "type": "mat3",
+        "count": 24,
+        "pointer": "0x704059401600",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+            17
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm",
+            9
+          ]
+        ]
+      },
+      {
+        "sequence": 847,
+        "type": "float",
+        "count": 864,
+        "pointer": "0x704059401a00",
+        "value_hex": "00000000",
+        "grid_x": 2,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 871,
+        "type": "int",
+        "count": 6,
+        "pointer": "0x704059402800",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 904,
+        "type": "mat3",
+        "count": 6,
+        "pointer": "0x704059402e00",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 928,
+        "type": "mat3",
+        "count": 6,
+        "pointer": "0x704059403000",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 1204,
+        "type": "scalar-entry",
+        "count": 56,
+        "pointer": "0x704059407800",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m",
+            13
+          ]
+        ]
+      },
+      {
+        "sequence": 1233,
+        "type": "block-entry",
+        "count": 168,
+        "pointer": "0x704059407c00",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1258,
+        "type": "block-entry",
+        "count": 168,
+        "pointer": "0x704059409800",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1313,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x70405940b400",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            7
+          ]
+        ]
+      },
+      {
+        "sequence": 1337,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x70405940b600",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1361,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x70405940b800",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1385,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x70405940ba00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1409,
+        "type": "vec3",
+        "count": 24,
+        "pointer": "0x70405940bc00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+            8
+          ],
+          [
+            "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+            18
+          ],
+          [
+            "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+            10
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1433,
+        "type": "float",
+        "count": 2997,
+        "pointer": "0x70405940be00",
+        "value_hex": "00000000",
+        "grid_x": 6,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 1457,
+        "type": "float",
+        "count": 2997,
+        "pointer": "0x70405940ee00",
+        "value_hex": "00000000",
+        "grid_x": 6,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1489,
+        "type": "mat3",
+        "count": 24,
+        "pointer": "0x704059412200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1513,
+        "type": "uint",
+        "count": 1,
+        "pointer": "0x704059412600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      }
+    ]
+  }
+}

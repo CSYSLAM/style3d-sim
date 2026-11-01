@@ -16,6 +16,8 @@ def main():
     parser.add_argument('--contact-kind', choices=('surface', 'legacy'), default='surface')
     parser.add_argument('--fixture', type=Path, help='Explicit self/material fixture, keeping the same constructor audit')
     parser.add_argument('--prefix', default='body-tet-contact-w3')
+    parser.add_argument('--fixture-args', nargs=argparse.REMAINDER,
+                        help='Explicit example arguments; otherwise use the historical body/tet constructor case')
     args = parser.parse_args()
     args.output = args.output.resolve()
     args.output.mkdir(parents=True, exist_ok=False)
@@ -28,6 +30,8 @@ def main():
                               for name, spec in sorted(metadata['kernels'].items())))
     hook = ROOT / 'build/reconstruction-csrc/full-owned-hook-129/cudahook.so'
     fixture = args.fixture.resolve(strict=True) if args.fixture else fixture_path(args.contact_kind)
+    fixture_args = args.fixture_args if args.fixture_args is not None else [
+        '--worlds', '3', '--mode', 'newton', '--body-block']
     observers = {
         'full-memory': ROOT / 'build/reconstruction-csrc/self-host/memory-observer/memory_trace_full.so',
         'payload': ROOT / 'build/reconstruction-csrc/self-host/payload-observer-v2/payload_trace.so',
@@ -47,7 +51,7 @@ def main():
             (folder / 'uploads').mkdir(parents=True)
             command = [sys.executable, '-m', 'reconstruction.csrc.demo_source_ab', '--worker', backend,
                        '--tag', 'capture', '--example', str(fixture), '--frames', '3', '--output', str(folder),
-                       '--', '--worlds', '3', '--mode', 'newton', '--body-block']
+                       '--', *fixture_args]
             (folder / 'command.json').write_text(json.dumps(command, indent=2) + '\n')
             extra = {'CUPTI_KERNEL_LAYOUT_FILE': str(layout)} if name == 'initializers' else {}
             with (folder / 'run.log').open('w') as log:

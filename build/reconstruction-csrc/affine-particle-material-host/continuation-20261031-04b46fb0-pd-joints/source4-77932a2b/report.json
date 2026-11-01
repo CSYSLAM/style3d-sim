@@ -1,0 +1,2585 @@
+{
+  "source_sha256": "77932a2be3bc02b572ddb7682f73d658808ab50588a9c3ef6ef2e646f8ff4f63",
+  "cases": [
+    {
+      "case": "revolute-w1",
+      "exit": 0,
+      "passed": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "finite": true,
+      "metadata": {
+        "left_launches": 1698,
+        "right_launches": 1698,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true
+    },
+    {
+      "case": "revolute-w3",
+      "exit": 0,
+      "passed": true,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "finite": true,
+      "metadata": {
+        "left_launches": 1698,
+        "right_launches": 1698,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "coverage": true
+    },
+    {
+      "case": "prismatic-w1",
+      "exit": 0,
+      "passed": false,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 89824803422211.22,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 2.1557950539628868e+16,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": NaN,
+          "nonfinite": true
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": NaN,
+          "nonfinite": true
+        },
+        "bitwise": false
+      },
+      "finite": false,
+      "metadata": {
+        "left_launches": 1902,
+        "right_launches": 1707,
+        "different_launches": 1772,
+        "examples": [
+          {
+            "launch": 16,
+            "left": [
+              "61add_joint_body_point_line_augmented_lagrangian_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:4",
+              "u:4",
+              "u:4",
+              "u:8"
+            ],
+            "right": [
+              "30add_joint_drive_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:1",
+              "u:1",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 17,
+            "left": [
+              "30add_joint_drive_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:1",
+              "u:1",
+              "u:8"
+            ],
+            "right": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ]
+          },
+          {
+            "launch": 18,
+            "left": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ],
+            "right": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ]
+          },
+          {
+            "launch": 19,
+            "left": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ],
+            "right": [
+              "27invert_block_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:8",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 20,
+            "left": [
+              "27invert_block_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:8",
+              "u:8"
+            ],
+            "right": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 21,
+            "left": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:8"
+            ],
+            "right": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:0",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:NULL",
+              "pointer:present",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 22,
+            "left": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:0",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:NULL",
+              "pointer:present",
+              "u:8"
+            ],
+            "right": [
+              "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:2",
+              "u:2",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 23,
+            "left": [
+              "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:2",
+              "u:2",
+              "u:8"
+            ],
+            "right": [
+              "28multiply_joint_drive_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:1",
+              "u:1",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 24,
+            "left": [
+              "51multiply_joint_body_point_line_augmented_lagrangian",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:4",
+              "u:4",
+              "u:4",
+              "u:8"
+            ],
+            "right": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ]
+          },
+          {
+            "launch": 25,
+            "left": [
+              "28multiply_joint_drive_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:1",
+              "u:1",
+              "u:8"
+            ],
+            "right": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ]
+          },
+          {
+            "launch": 26,
+            "left": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ],
+            "right": [
+              "26multiply_matrix_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "u:7",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:8",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 27,
+            "left": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "1"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ],
+            "right": [
+              "28update_solution_and_residual",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 28,
+            "left": [
+              "26multiply_matrix_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "u:7",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:8",
+              "u:8"
+            ],
+            "right": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 29,
+            "left": [
+              "28update_solution_and_residual",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:8"
+            ],
+            "right": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:1",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 30,
+            "left": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:8"
+            ],
+            "right": [
+              "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:2",
+              "u:2",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 31,
+            "left": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:1",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:8"
+            ],
+            "right": [
+              "28multiply_joint_drive_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:1",
+              "u:1",
+              "u:8"
+            ]
+          }
+        ],
+        "arguments_equal": false,
+        "geometry_and_shared_memory_complete": true,
+        "equal": false
+      },
+      "coverage": true
+    },
+    {
+      "case": "prismatic-w3",
+      "exit": 0,
+      "passed": false,
+      "states": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 99388437299203.47,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 2.3853224012284284e+16,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": NaN,
+          "nonfinite": true
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": NaN,
+          "nonfinite": true
+        },
+        "bitwise": false
+      },
+      "finite": false,
+      "metadata": {
+        "left_launches": 1902,
+        "right_launches": 1707,
+        "different_launches": 1772,
+        "examples": [
+          {
+            "launch": 16,
+            "left": [
+              "61add_joint_body_point_line_augmented_lagrangian_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:c",
+              "u:4",
+              "u:4",
+              "u:8"
+            ],
+            "right": [
+              "30add_joint_drive_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:3",
+              "u:1",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 17,
+            "left": [
+              "30add_joint_drive_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:3",
+              "u:1",
+              "u:8"
+            ],
+            "right": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ]
+          },
+          {
+            "launch": 18,
+            "left": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ],
+            "right": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ]
+          },
+          {
+            "launch": 19,
+            "left": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:NULL",
+              "pointer:NULL",
+              "pointer:present"
+            ],
+            "right": [
+              "27invert_block_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:18",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 20,
+            "left": [
+              "27invert_block_preconditioner",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:18",
+              "u:8"
+            ],
+            "right": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:18"
+            ]
+          },
+          {
+            "launch": 21,
+            "left": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:18"
+            ],
+            "right": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:0",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:NULL",
+              "pointer:present",
+              "u:18"
+            ]
+          },
+          {
+            "launch": 22,
+            "left": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:0",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:NULL",
+              "pointer:present",
+              "u:18"
+            ],
+            "right": [
+              "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:6",
+              "u:2",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 23,
+            "left": [
+              "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:6",
+              "u:2",
+              "u:8"
+            ],
+            "right": [
+              "28multiply_joint_drive_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:3",
+              "u:1",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 24,
+            "left": [
+              "51multiply_joint_body_point_line_augmented_lagrangian",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:c",
+              "u:4",
+              "u:4",
+              "u:8"
+            ],
+            "right": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ]
+          },
+          {
+            "launch": 25,
+            "left": [
+              "28multiply_joint_drive_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:3",
+              "u:1",
+              "u:8"
+            ],
+            "right": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ]
+          },
+          {
+            "launch": 26,
+            "left": [
+              "23evaluate_joint_armature",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ],
+            "right": [
+              "26multiply_matrix_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "u:7",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:18",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 27,
+            "left": [
+              "23evaluate_angular_limits",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+              "launch:1,1,1,256,1,1,0,3",
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ],
+                [
+                  32,
+                  "pointer"
+                ],
+                [
+                  40,
+                  "pointer"
+                ],
+                [
+                  48,
+                  "pointer"
+                ],
+                [
+                  56,
+                  "pointer"
+                ],
+                [
+                  64,
+                  "pointer"
+                ],
+                [
+                  72,
+                  "pointer"
+                ],
+                [
+                  80,
+                  "pointer"
+                ],
+                [
+                  88,
+                  "pointer"
+                ],
+                [
+                  96,
+                  "1"
+                ],
+                [
+                  104,
+                  "3"
+                ],
+                [
+                  112,
+                  "8"
+                ]
+              ],
+              [
+                [
+                  0,
+                  "pointer"
+                ],
+                [
+                  8,
+                  "pointer"
+                ],
+                [
+                  16,
+                  "pointer"
+                ],
+                [
+                  24,
+                  "pointer"
+                ]
+              ],
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL"
+            ],
+            "right": [
+              "28update_solution_and_residual",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:18"
+            ]
+          },
+          {
+            "launch": 28,
+            "left": [
+              "26multiply_matrix_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "u:7",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:18",
+              "u:8"
+            ],
+            "right": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:18"
+            ]
+          },
+          {
+            "launch": 29,
+            "left": [
+              "28update_solution_and_residual",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:18"
+            ],
+            "right": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:1",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:18"
+            ]
+          },
+          {
+            "launch": 30,
+            "left": [
+              "23precondition_and_reduce",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "c:0",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "u:18"
+            ],
+            "right": [
+              "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:5759999",
+              "pointer:present",
+              "u:6",
+              "u:2",
+              "u:8"
+            ]
+          },
+          {
+            "launch": 31,
+            "left": [
+              "19update_cg_direction",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+              "launch:1,1,1,256,1,1,0,3",
+              "i:1",
+              "pointer:present",
+              "pointer:NULL",
+              "i:8",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "u:18"
+            ],
+            "right": [
+              "28multiply_joint_drive_tangent",
+              "grid=1",
+              "block=256",
+              "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+              "launch:1,1,1,256,1,1,0,3",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "pointer:present",
+              "f:239.999985",
+              "pointer:present",
+              "u:3",
+              "u:1",
+              "u:8"
+            ]
+          }
+        ],
+        "arguments_equal": false,
+        "geometry_and_shared_memory_complete": true,
+        "equal": false
+      },
+      "coverage": true
+    }
+  ],
+  "whole_solver_complete": false,
+  "runner_sha256": "d97118e8f86383670bc00fa44523951c4e1775e7f18133586db9784706cacd1d"
+}

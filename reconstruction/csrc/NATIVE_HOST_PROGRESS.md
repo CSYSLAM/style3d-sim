@@ -1,6 +1,10 @@
 # 新版基准与 C++ host 进度
 
-> **活动04b46fb0：SO3/tet legacy接触已严格验证，新增self组合继续定位W3差异。**
+> **活动c189db81：接入PD driven joint点线调度，并按两份实际SDK初始化恢复joint缓存/D4/L5/行身份。**
+> 四份固定SDK原版的状态/完整7200调用全严格，两种joint constructor五项同；16组合graph64/64、双端initcheck3过。
+> 当前74正在收集，ready=False，详情见DRIVEN_JOINT_PD_HOST_RECOVERY.md；下列为各自历史结果。
+>
+> **前一04b46fb0：SO3/tet legacy接触已严格验证，新增self组合继续定位W3差异。**
 > 131的legacy16、graph64/64全严格；04的self W1八组严格，W3八组状态不同，首buffer及完整owned调用同。
 > constructor五项同，四组initcheck3零错误；legacy16、surface16、无contact graph32及配置246仍通过。
 > 当前完整74为71严格，三个particles首次失败的固定C10全过且CPU复核同；self固定C8为full15/16、diagonal16/16。

@@ -1,6 +1,7 @@
 # SO3 body、tetrahedra、legacy contact 与 self 的接续
 
-当前活动源码 image：`04b46fb0e53d25ed680e724eff346526d688af01bd5f07db51d6e3bd8d9a8fb3`。
+本文件记录源码 image：`04b46fb0e53d25ed680e724eff346526d688af01bd5f07db51d6e3bd8d9a8fb3`。
+后续活动c189及PD关节host修复见[DRIVEN_JOINT_PD_HOST_RECOVERY.md](DRIVEN_JOINT_PD_HOST_RECOVERY.md)。
 唯一原版对照仍为项目内 SDK64a；源码不登录、不映射原版代算。CUDA176/f0 未改，
 `solver_api_ready=False`。完整替代尚未完成；当前 image 的74回归为71严格，三个particles首次差异
 固定C10均通过，CPU复算吻合；这不重判旧8f的固定失败。

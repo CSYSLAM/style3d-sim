@@ -52,7 +52,7 @@ class Solver {
     // Newton joints: AL joint springs (the last joint_body_spring_count body springs) and joint drives.
     std::size_t plain_spring_count_ = 0, joint_spring_total_ = 0, drive_total_ = 0;
     bool angular_limits_ = false, armature_ = false;
-    std::uint64_t joint_multiplier_ = 0, joint_d3_ = 0, joint_l4_ = 0;
+    std::uint64_t joint_multiplier_ = 0, joint_d3_ = 0, joint_d4_ = 0, joint_l4_ = 0;
     std::uint64_t drive_w_po_ = 0, drive_w_co_ = 0, drive_w_pa_ = 0, drive_w_pr_ = 0, drive_w_cr_ = 0;
     std::uint64_t drive_angle_ = 0, drive_initialized_ = 0, drive_qd_ = 0;
     std::uint64_t point_line_wp_ = 0, point_line_we0_ = 0, point_line_we1_ = 0;
@@ -666,10 +666,22 @@ class Solver {
         // Per-entry contribution lists of the inertial cache, keyed by (row, column) in std::map column order as in
         // SolverNewton::precompute_matrices: list a holds mass non-diagonal entries, list b the bodies whose affine
         // columns couple the pair (the SIX_SPRINGS -w template, refreshed under SO(3) as well but weighted 0).
-        struct Entry { std::vector<int> a, b; float l0 = 0.0f, l4 = 0.0f, l6 = 0.0f; };
+        struct Entry { std::vector<int> a, b; float l0 = 0.0f, l4 = 0.0f, l5 = 0.0f, l6 = 0.0f; };
         std::vector<std::map<int, Entry>> rows(per_world_);
         std::vector<float> host_diagonal(per_world_, 0.0f), distance_diagonal(per_world_, 0.0f),
-            joint_diagonal(per_world_, 0.0f);
+            joint_diagonal(per_world_, 0.0f), joint_line_diagonal(per_world_, 0.0f);
+        struct PendingWeightUpload { std::uint64_t* target; std::vector<char> bytes; };
+        std::map<int, PendingWeightUpload> pending_weights;
+        auto upload_weight = [&](std::uint64_t& target, const auto& values, int order) {
+            if (!model_.joint_drive_count) {
+                target = upload(values);
+                return;
+            }
+            // Actual joint constructors upload weights only after the scalar ELL cache has been initialized.
+            const auto begin = reinterpret_cast<const char*>(values.data());
+            pending_weights.emplace(order, PendingWeightUpload{
+                &target, std::vector<char>(begin, begin + values.size() * sizeof(values[0]))});
+        };
         // Actual mixed templates put the particle material Laplacian in L0 and the host diagonal.
         // All inertia/constraint channels retain the same combined columns with their own values.
         if (!spring_rows_.empty()) {
@@ -766,12 +778,11 @@ class Solver {
             }
             body_spring_total_ = n * (count_ / per_world_);
             joint_spring_total_ = model_.joint_body_spring_count * (count_ / per_world_);
-            body_spring_w0_ = upload(w0);
-            body_spring_w1_ = upload(w1);
+            upload_weight(body_spring_w0_, w0, 0);
+            upload_weight(body_spring_w1_, w1, 1);
             load("body_spring_force", "kernel26evaluate_body_spring_forceE");
             load("body_spring_hessian", "kernel36add_body_spring_gauss_newton_hessianE");
             if (joint_spring_total_) {
-                joint_multiplier_ = driver_->allocate(joint_spring_total_ * 12);
                 load("joint_spring_initialize", "kernel34initialize_joint_body_spring_stateE");
                 load("joint_spring_force", "kernel53evaluate_joint_body_spring_augmented_lagrangian_forceE");
                 load("joint_spring_update", "kernel51update_joint_body_spring_augmented_lagrangian_stateE");
@@ -828,14 +839,11 @@ class Solver {
                 w_cr[i] = weight(drive_bodies[i].b, cr[i]);
             }
             drive_total_ = n * (count_ / per_world_);
-            drive_w_po_ = upload(w_po);
-            drive_w_co_ = upload(w_co);
-            drive_w_pa_ = upload(w_pa);
-            drive_w_pr_ = upload(w_pr);
-            drive_w_cr_ = upload(w_cr);
-            drive_angle_ = upload(std::vector<float>(drive_total_, 0.0f));
-            drive_initialized_ = upload(std::vector<int>(drive_total_, 0));
-            drive_qd_ = driver_->allocate(drive_total_ * 4);
+            upload_weight(drive_w_po_, w_po, 5);
+            upload_weight(drive_w_co_, w_co, 6);
+            upload_weight(drive_w_pa_, w_pa, 7);
+            upload_weight(drive_w_pr_, w_pr, 8);
+            upload_weight(drive_w_cr_, w_cr, 9);
             angular_limits_ = model_.joint_limit_stiffnesses.size || model_.joint_limit_dampings.size;
             if (angular_limits_)
                 for (auto field : {std::make_pair(model_.joint_limit_lower, "joint_limit_lower"),
@@ -905,26 +913,27 @@ class Solver {
                 }
                 if (j < plain_line_count_) accumulate(ends, stiffness[j], host_diagonal, &Entry::l0);
                 else {
-                    // Joint line Hessians vary with the frozen projector/segment state. Only reserve their ELL
-                    // columns here; their constant template is zero (original example_joints capture).
-                    for (const auto& a : ends) for (const auto& b : ends)
-                        if (a.first != b.first) rows[a.first][b.first];
+                    // SDK captures with reversed proxy ownership disambiguate this F32 factor order.
+                    std::stable_sort(ends.begin(), ends.end(), [](const auto& a, const auto& b) {
+                        return a.first < b.first;
+                    });
+                    accumulate(ends, stiffness[j], joint_line_diagonal, &Entry::l5);
                 }
             }
             point_line_total_ = n * (count_ / per_world_);
             joint_line_total_ = model_.joint_body_point_line_count * (count_ / per_world_);
-            point_line_wp_ = upload(wp);
-            point_line_we0_ = upload(we0);
-            point_line_we1_ = upload(we1);
+            upload_weight(point_line_wp_, wp, 2);
+            upload_weight(point_line_we0_, we0, 3);
+            upload_weight(point_line_we1_, we1, 4);
             load("point_line_force", "kernel30evaluate_body_point_line_forceE");
             load("point_line_hessian", "kernel40add_body_point_line_gauss_newton_hessianE");
             if (joint_line_total_) {
-                line_segment_ = driver_->allocate(joint_line_total_ * 4);
-                line_multiplier_ = driver_->allocate(joint_line_total_ * 12);
-                line_projector_ = driver_->allocate(joint_line_total_ * 36);
                 load("joint_line_initialize", "kernel38initialize_joint_body_point_line_stateE");
                 load("joint_line_force", "kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceE");
                 load("joint_line_hessian", "kernel46add_joint_body_point_line_gauss_newton_hessianE");
+                load("joint_line_pd_preconditioner",
+                     "kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerE");
+                load("joint_line_pd_tangent", "kernel51multiply_joint_body_point_line_augmented_lagrangianE");
                 load("joint_line_update", "kernel55update_joint_body_point_line_augmented_lagrangian_stateE");
             }
         }
@@ -980,7 +989,7 @@ class Solver {
         std::vector<std::size_t> offsets_a(entries + 1, 0), offsets_b(entries + 1, 0);
         std::vector<std::vector<int>> lists_a(entries), lists_b(entries);
         std::vector<ScalarEntry> l0(pattern.size(), {-1, 0.0f}), l4(pattern.size(), {-1, 0.0f}),
-            l6(pattern.size(), {-1, 0.0f});
+            l5(pattern.size(), {-1, 0.0f}), l6(pattern.size(), {-1, 0.0f});
         for (std::size_t i = 0; i < per_world_; ++i) {
             std::size_t slot = 0;
             for (const auto& [column, entry] : rows[i]) {
@@ -988,6 +997,7 @@ class Solver {
                 pattern[e].column = column;
                 l0[e] = {column, entry.l0};
                 l4[e] = {column, entry.l4};
+                l5[e] = {column, entry.l5};
                 l6[e] = {column, entry.l6};
                 lists_a[e] = entry.a;
                 lists_b[e] = entry.b;
@@ -1030,7 +1040,7 @@ class Solver {
         body_d1_ = upload(d1);
         body_d2_ = upload(d2);
         joint_d3_ = upload(joint_diagonal);
-        zero_ = upload(std::vector<float>(per_world_, 0.0f));
+        joint_d4_ = upload(joint_line_diagonal);
         distance_d5_ = upload(distance_diagonal);
         local_row_count_ = upload(std::vector<int>(counts.begin(), counts.begin() + per_world_));
         row_count_ = upload(counts);
@@ -1045,9 +1055,11 @@ class Solver {
         body_l2_ = upload(l2);
         body_zero_ell_ = retained_particle_templates_[0] = upload(pattern);
         joint_l4_ = retained_particle_templates_[1] = upload(l4);
-        retained_particle_templates_[2] = upload(pattern);
+        retained_particle_templates_[2] = upload(l5);
         distance_l6_ = retained_particle_templates_[3] = upload(l6);
         scalar_template_ = initialized_cache(entries, 8, SourceCacheType::ScalarEntry);
+        for (const auto& [order, weight] : pending_weights)
+            *weight.target = driver_->upload(py::bytes(weight.bytes.data(), weight.bytes.size()));
         // Actual body/tetrahedron constructors upload volumes after the scalar ELL cache, immediately before kind.
         precompute_tetrahedra();
         body_kind_ = upload(kind);
@@ -1594,6 +1606,32 @@ class Solver {
         }
     }
 
+    void initialize_drive_caches()
+    {
+        drive_total_ = model_.joint_drive_count * (count_ / per_world_);
+        drive_angle_ = initialized_cache(drive_total_, 4, SourceCacheType::Scalar);
+        drive_initialized_ = initialized_cache(drive_total_, 4, SourceCacheType::Integer);
+        drive_qd_ = initialized_cache(drive_total_, 4, SourceCacheType::Scalar);
+        if (!drive_total_) return;
+        // The SDK retains both typed value initialization and these two host uploads, in this order.
+        const std::vector<float> angles(drive_total_, 0.0f);
+        const std::vector<int> initialized(drive_total_, 0);
+        check(cuMemcpyHtoD(drive_angle_, angles.data(), angles.size() * 4), "cuMemcpyHtoD initial drive angles");
+        check(cuMemcpyHtoD(drive_initialized_, initialized.data(), initialized.size() * 4),
+              "cuMemcpyHtoD initial drive flags");
+    }
+
+    void initialize_joint_caches()
+    {
+        const auto copies = count_ / per_world_;
+        joint_spring_total_ = model_.joint_body_spring_count * copies;
+        joint_line_total_ = model_.joint_body_point_line_count * copies;
+        joint_multiplier_ = initialized_cache(joint_spring_total_, 12, SourceCacheType::Vector3);
+        line_segment_ = initialized_cache(joint_line_total_, 4, SourceCacheType::Scalar);
+        line_projector_ = initialized_cache(joint_line_total_, 36, SourceCacheType::Matrix3);
+        line_multiplier_ = initialized_cache(joint_line_total_, 12, SourceCacheType::Vector3);
+    }
+
     void precompute_affine_blocks()
     {
         if (!body_count_) return;
@@ -2052,6 +2090,7 @@ public:
         rhs_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
         previous_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
         target_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
+        initialize_drive_caches();
         // initialize 10db31..10dbce creates drag geometry/cache before the four scalar diagonal caches.
         precompute_drag();
         base_diagonal_ = initialized_cache(count_, 4, SourceCacheType::Scalar);
@@ -2062,6 +2101,7 @@ public:
         preconditioner_blocks_ = initialized_cache(count_, 36, SourceCacheType::Matrix3);
         inverse_ = preconditioner_blocks_;
         zero_ = particle_kind_ = 0;
+        initialize_joint_caches();
         body_count_ = model_.body_count;
         body_state_count_ = model_.body_state_count ? model_.body_state_count : body_count_ * (count_ / per_world_);
         // The actual body storage precedes CPU matrix-template uploads and all CG/self caches.
@@ -2231,10 +2271,10 @@ public:
         const bool contact_block = hard && body_block && config.affine_body_contact_block_preconditioner;
         if (hard && config.rigid_contact_history && !contact.match_index.size)
             throw py::value_error("hard-contact history requires collision match indices");
-        // Joint/contact ordering is captured in example_basic_joints; plain constraints still lack that capture.
+        // The captured PD drive route omits joint Gauss-Newton blocks; plain/undriven PD routes remain guarded.
         if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
-            pd)
-            throw std::runtime_error("Body constraints with PD_NEWTON have not been implemented");
+            pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
+            throw std::runtime_error("Plain or undriven body constraints with PD_NEWTON have not been captured");
         if ((plain_spring_count_ || plain_line_count_ || distance_total_) && (rigid || contact.soft_max_count))
             throw std::runtime_error("Plain body constraints with contacts have not been captured");
         if ((joint_spring_total_ || joint_line_total_) &&
@@ -2303,7 +2343,7 @@ public:
                    body_diagonal_ids_, body_d1_, body_d2_, per_world_);
             // Only SIX_SPRINGS weights D1/L2. Constitutive models use their matrix-free tangent, not D2.
             launch("start", count_, stream, dt, model_.gravity.ptr, model_.gravity.size, worlds, in.particle_qd.ptr,
-                   in.particle_q.ptr, host_diagonal_, body_d1_, spring_alpha, body_d2_, zero, joint_d3_, alpha, zero_, zero,
+                   in.particle_q.ptr, host_diagonal_, body_d1_, spring_alpha, body_d2_, zero, joint_d3_, alpha, joint_d4_, zero,
                    distance_d5_, alpha, mass, flags, body_kind_, previous_, target_, diagonal_, count_, per_world_);
             copy(base_diagonal_, diagonal_, count_ * 4, stream);
             // initialize_body_distance_constraint_state runs on the prediction, before the SO(3) state.
@@ -2572,6 +2612,13 @@ public:
                     launch("so3_preconditioner", body_state_count_, stream, model_.affine_body_indices.ptr,
                            model_.body_masses.ptr, body_rotation_, so3_alpha, preconditioner_blocks_, body_state_count_,
                            body_count_, per_world_);
+                if (pd && joint_line_total_)
+                    launch("joint_line_pd_preconditioner", joint_line_total_, stream, model_.affine_body_indices.ptr,
+                           model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
+                           model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
+                           preconditioner_blocks_, joint_line_total_,
+                           static_cast<std::size_t>(model_.body_point_line_count),
+                           static_cast<std::size_t>(model_.joint_body_point_line_count), per_world_);
                 if (drive_total_) {
                     launch("drive_preconditioner", drive_total_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
                            model_.joint_drive_types.ptr, model_.joint_drive_body_indices.ptr,
@@ -2627,6 +2674,12 @@ public:
                     launch("constitutive_tangent", body_state_count_, stream, in.particle_q.ptr, direction_,
                            model_.affine_body_indices.ptr, model_.body_masses.ptr, so3_alpha, rigidity, contact_product_,
                            body_state_count_, body_count_, per_world_);
+                if (pd && joint_line_total_)
+                    launch("joint_line_pd_tangent", joint_line_total_, stream, direction_, model_.affine_body_indices.ptr,
+                           model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
+                           model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
+                           contact_product_, joint_line_total_, static_cast<std::size_t>(model_.body_point_line_count),
+                           static_cast<std::size_t>(model_.joint_body_point_line_count), per_world_);
                 // Actual simultaneous captures accumulate SO(3) before the tetrahedron tangent.
                 if (tetrahedron_count_)
                     launch("tetrahedron_tangent", tetrahedron_count_, stream, in.particle_q.ptr, direction_,
@@ -2680,7 +2733,8 @@ public:
                 // The current original passes nullptr when there is no matrix-free material/contact tangent.
                 // Adding a zero buffer instead would introduce an observable signed-zero operation.
                 launch(pd ? (block ? "scalar_block_multiply" : "scalar_multiply") : "multiply",
-                       count_, stream, row_count_, pd ? scalar_template_ : block_entries_, max_entries_,
+                       count_, stream, pd ? template_row_counts() : row_count_,
+                       pd ? scalar_template_ : block_entries_, max_entries_,
                        block ? blocks_ : diagonal_, direction_, extra_product ? contact_product_ : null,
                        product_, coefficient_world_, per_world, denominator, count_,
                        pd ? per_world_ : count_);
@@ -2819,7 +2873,8 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "body_distance_constraints_newton",
                                                      "plain_body_point_lines_newton",
                                                      "joint_springs_and_drives_newton", "joint_point_lines_newton",
-                                                     "joint_armature_newton", "cables_newton", "cables_pd_newton",
+                                                     "joint_armature_newton", "driven_joint_constraints_pd_newton",
+                                                     "cables_newton", "cables_pd_newton",
                                                      "affine_body_hard_contact_newton",
                                                      "affine_body_hard_contact_pd_newton",
                                                      "affine_body_block_preconditioner_newton",

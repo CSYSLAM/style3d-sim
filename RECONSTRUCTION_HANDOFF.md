@@ -1,6 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **继续开发更新：活动源码image为04b46fb0，新增SO3/tet legacy软接触及无external contact的self组合。**
+> **继续开发更新：活动源码image为c189db81，补齐PD driven joint点线调度并按实际SDK恢复joint构造。**
+> 同四份固定SDK原版，三步状态/7200次完整owned参数及geometry全部严格；两种joint constructor五项同。
+> 16组合graph60共64项全严格，双端各32条×3步initcheck零错误；旧失败均保留，未放宽核对。
+> 当前完整74正在收集，ready=False；见[DRIVEN_JOINT_PD_HOST_RECOVERY.md](reconstruction/csrc/DRIVEN_JOINT_PD_HOST_RECOVERY.md)。
+>
+> **前一04b46fb0：新增SO3/tet legacy软接触及无external contact的self组合。**
 > legacy在131c9873的16组/64项graph全严格；当前04的self W1八组严格、W3八组状态有差异，
 > 首buffer、完整owned ABI/geometry、constructor五项均同，四组initcheck3零错误。
 > self固定C8为full15/16、diagonal16/16；唯一失败source0保留并继续定位。
@@ -40,7 +45,10 @@
 当前176个CUDA入口已重建并纳入版本清单，host组合场景和正式demo仍需继续验收。
 Git 76facc7的交接只迁移冻结基线；后续25/cc/ff新增host字段和按原版恢复调度，CUDA数学和比较标准未改。
 
-**当前04b46fb0检查点**：self固定full C8的W3/PD/body-block首候选仍失败，diagonal16/16通过。
+**当前c189db81检查点**：PD关节四组已严格，两种构造五项同，长程graph64/64、双端initcheck3均通过；
+当前完整74正在收集，不能继承04结果。
+
+**前一04b46fb0检查点**：self固定full C8的W3/PD/body-block首候选仍失败，diagonal16/16通过。
 完整74为71严格，其三个particles首次失败的当前固定C10均通过、CPU复算同；局部结果与直接源码运行命令
 以顶部新增文档为准。新增`reconstruction.source_demo`可运行未改示例的真实入口，不需A/B worker或原版so代算。
 CUDA176/f0及参考64a始终不改，不把任何历史image结果直接计为当前验收。
@@ -75,7 +83,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `04b46fb0e53d25ed680e724eff346526d688af01bd5f07db51d6e3bd8d9a8fb3`；当前源码host image；131/8f及更早源码、构建检查点均保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `c189db81483ca1ca6b197cb57ebeb4411e9ecfeba2035975f51275c178dba458`；当前源码host image；d845/04及更早源码、构建检查点均保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |
