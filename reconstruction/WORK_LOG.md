@@ -5503,3 +5503,57 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   body block=true），没有改已冻结joint_pd_scene，GPU原版capture尚未启动、body-block guard仍关闭。
 - 本次先提交c189局部已完成结果；运行中的完整74/C10输出暂不纳入快照，待结束补交，不在运行时改生产。
   原版SDK/360个pyc、current build sources逐SHA再查均同，新增fixture语法及128列检查通过。
+- c189完整74结束：71严格，三个particles seed的固定首次输出各10原版C10均过，CPU逐字段复算吻合。
+  不沿用04统计，本批各自report与source0原样保留；旧8f/self及其它失败不重判。
+  f72f63e7a205dd1d95aebaa5459e37191e60fc6a已推csy且ls-remote同，快照47140文件0失败。
+  当前串行执行c189独立source前端的Dzhanibekov60/bag3真实graph自身test，之后才抓body-block原版8组，
+  生产与该新guard仍不改动。
+
+### Driven joint + body block
+
+- c189独立source前端Dzhanibekov60/bag3真实graph自身test再次退出0，无原版映射。随后原版8组body-block
+  已全finite且body实际运动：rev Newton/PD各2076/2073次owned，prismatic各2100/2277；全部首次原版保留。
+- 同一实际log的指针alias证明：PD affine-build row count必须与RHS local及matrix相同；Newton build
+  与matrix global相同且不同于RHS local。原source build始终传global，需按PD选择local。
+- 实际完整顺序为PD line preconditioner→drive→armature/limits→affine build→SO3 particle preconditioner。
+  先保存c189的27文件与43原版证据SHA，再将build/SO3-block段移至drive/armature/limits之后、cable前，
+  其它无joint scope的相对调用不变。仅开放无plain/distance/cable/fluid/external-contact的driven joint
+  body-block guard；未捕获范围仍拒绝。数学/176/f0未改，当前编译新image，尚未验收。
+- 编译image5bd9722e后，对固定8份SDK三步状态及17052次完整owned ABI/geometry全部严格；
+  四种W3 constructor五项均同。32组合eager/真实graph60共128/128严格，双端各64条×3步initcheck零错误。
+  本image完整74尚未采，不继承c189；新文档及根交接已更新，生产176/f0仍未改。
+
+### Plain body constraints: coverage and diagnostic preflight
+
+- 新fixture plain_body_constraint_scene使用两活动offset-COM body，显式反向attachment，
+  spring/point-line/distance × W1/W3 × Newton/PD × body-block，共24组；不涉及contacts。
+- v1用ModelBuilder.replicate后，12个W3实际未带自定义plain约束，owned log证明全部自由运动。
+  保留original24/COVERAGE_FAILURE.json及v1 fixture/driver；这些结果不算约束验证，未修改生产guard。
+- v2显式begin_world/end_world并断言native约束数与world数。spring8组均finite且body运动，
+  每组9个实际force调用且首次RHS前后有变化，原始数据保留original24-explicit-worlds。
+- v2点线首组因诊断driver误把arg13(bool)作为device output读而SIGSEGV -11；不是solver数学结论。
+  完整失败与driver保留。对实际SDK mangled签名/ABI逐项核实，force正确输出为点线arg14，
+  spring arg12、distance arg11；新增schema必须为pointer的预检。force-dump-ABI-proof.json存全签名。
+  v3只采剩余point-line/distance16组到全新目录，既有有效spring8不重采；生产与fixture仍冻结。
+- v3剩余16组全部真实force9次、RHS改变、finite/body运动。按文件SHA把既有spring8+新16组成
+  original24-valid索引，不重采首个有效原版。补充actual SDK静态输入三组均与原固定轨迹严格同。
+- 活动5bd已有Newton/no-block6组：spring与point-line的W1/W3均状态/完整ABI严格；distance两组
+  状态从第一步不同但完整330次owned元数据相同。source6-newton-b0-5bd9722e永久保留false。
+- 三种constructor旧源码均失败：spring55alloc/28upload/27typed、point-line56/29/27；
+  allocation/upload顺序错误，typed同。distance57/28但原29typed vs source27，L6字节也不同。
+  实际flat指针用途确认weights应在scalar ELL之后；distance target/multiplier应在block之后、affine之前typed zero。
+- 三种模板分别L0/L0/L6的8/6/8个F32词差1ULP，diagonal同。再用实际SDK只initialize并反转
+  affine_body_indices，保持真实权重/刚度输入；normal与reverse只有global-index-sorted同时逐字节吻合。
+  完整resolve-template-order.py与template-order-resolved.json保留，不是trajectory或扩cohort。
+  初次CPU读多场景copy固定序号失败（observer seq全局递增），失败脚本保留；改按实际memory.jsonl上传顺序。
+- 保存5bd 27文件与168原版capture文件SHA后，按证据修复plain spring/point-line/distance因子排序，
+  不改已验证joint spring的排序；所有body-constraint weights延后、distance新typed缓存提前。
+  仅开放单一plain类型、无其它材料/joint/contact的PD/body-block scope；混合组合与undriven joint仍保护。
+  新image正在编译；CUDA176/f0和数学阈值未改，未提前宣称distance已修好。
+- 新image8691698973a5ef5109a5300a72d319c918d9a159c20a9b0b76a0ddb1563c2eea编译成功，176/f0同。
+  对24份固定首次有效原版全部状态逐位同，首force前后buffer均逐字节同，完整owned参数/geometry/coverage全同。
+  原5bd的distance首步差异已经在同固定数据消除；保留旧false，不以新结果重判。
+  当前开始6种W3 constructor（3种约束×2模式，block=true）→24组合graph60→双端initcheck3，生产冻结。
+- 新image的spring Newton/PD两种block constructor五项均已通过；point-line及distance构造队列继续。
+  先发布已闭合证据、源码/当前so和交接：运行中的validation目录及其driver log明确不入本次快照。
+  SDK无diff，既有360个pyc逐SHA不变，新增维护代码语法、128列及diff空白检查通过。

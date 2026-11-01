@@ -1,0 +1,17 @@
+full-memory original complete
+full-memory source complete
+payload original complete
+payload source complete
+initializers original complete
+initializers source complete
+{"checks": {"allocation_release_bytes_identity_phase_and_preceding_owned_launch": false, "upload_bytes_and_order": false, "typed_initializer_fields_uses_and_order": true, "flat_owned_pointer_allocation_identity_and_offset": false, "owned_and_library_kernel_name_order": true}, "allocation_event_counts": [55, 55], "upload_counts": [28, 28], "typed_initializer_counts": [27, 27], "owned_launches": 327}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_tetrahedron_contact_constructor_ab.py", line 70, in <module>
+    main()
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_tetrahedron_contact_constructor_ab.py", line 66, in main
+    subprocess.run(command, cwd=ROOT, check=True)
+  File "/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/oem/code/agent/style3d-sim/.venv/bin/python', '-m', 'reconstruction.csrc.affine_constructor_audit', '--prefix', 'spring-newton-w3', '--capture', '/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring', '--output', '/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/audit.json']' returned non-zero exit status 1.

@@ -1,0 +1,130 @@
+{
+  "cases": [
+    {
+      "case": "distance-w1-newton-b0",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "distance-w1-newton-b1",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "distance-w1-pd-b0",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "distance-w1-pd-b1",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "distance-w3-newton-b0",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "distance-w3-newton-b1",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "distance-w3-pd-b0",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "distance-w3-pd-b1",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "point-line-w1-newton-b0",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "point-line-w1-newton-b1",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "point-line-w1-pd-b0",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "point-line-w1-pd-b1",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "point-line-w3-newton-b0",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "point-line-w3-newton-b1",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "point-line-w3-pd-b0",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "point-line-w3-pd-b1",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "spring-w1-newton-b0",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "spring-w1-newton-b1",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "spring-w1-pd-b0",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "spring-w1-pd-b1",
+      "actual_force_calls": 9,
+      "coverage_valid": true
+    },
+    {
+      "case": "spring-w3-newton-b0",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "spring-w3-newton-b1",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "spring-w3-pd-b0",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    },
+    {
+      "case": "spring-w3-pd-b1",
+      "actual_force_calls": 0,
+      "coverage_valid": false
+    }
+  ],
+  "invalid_cases": 12,
+  "cause": "Inherited replicate copies bodies but not the Style3D builder custom plain-constraint lists",
+  "raw_trajectories_preserved": true,
+  "adopted_for_source_validation": false,
+  "fixture_v1": "build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/versions/plain_body_constraint_scene.replicate-v1.py",
+  "fixture_v1_sha256": "d26715eee696148b559d3f32061f6d5d599f78a30bca321141600ea467ebbfe0"
+}

@@ -1,0 +1,2375 @@
+{
+  "allocations": {
+    "original": [
+      {
+        "id": 0,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 1,
+        "bytes": 288,
+        "uses": [
+          [
+            "20apply_nonlinear_step",
+            2,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 2,
+        "bytes": 288,
+        "uses": [
+          [
+            "14initialize_rhs",
+            9,
+            0
+          ],
+          [
+            "26evaluate_body_spring_force",
+            12,
+            0
+          ],
+          [
+            "51evaluate_affine_body_so3_augmented_lagrangian_force",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 3,
+        "bytes": 288,
+        "uses": [
+          [
+            "15initialize_step",
+            20,
+            0
+          ],
+          [
+            "15update_velocity",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 4,
+        "bytes": 288,
+        "uses": [
+          [
+            "14initialize_rhs",
+            2,
+            0
+          ],
+          [
+            "15initialize_step",
+            21,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 5,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 6,
+        "bytes": 96,
+        "uses": [
+          [
+            "15initialize_step",
+            22,
+            0
+          ],
+          [
+            "25initialize_block_diagonal",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 7,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 8,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 9,
+        "bytes": 864,
+        "uses": [
+          [
+            "25initialize_block_diagonal",
+            1,
+            0
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            3,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 10,
+        "bytes": 864,
+        "uses": [
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            0,
+            0
+          ],
+          [
+            "27invert_block_preconditioner",
+            0,
+            0
+          ],
+          [
+            "27invert_block_preconditioner",
+            3,
+            0
+          ],
+          [
+            "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 11,
+        "bytes": 3456,
+        "uses": []
+      },
+      {
+        "id": 12,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 13,
+        "bytes": 8,
+        "uses": []
+      },
+      {
+        "id": 14,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 15,
+        "bytes": 216,
+        "uses": [
+          [
+            "32initialize_affine_body_so3_state",
+            2,
+            0
+          ],
+          [
+            "49update_affine_body_so3_augmented_lagrangian_state",
+            2,
+            0
+          ],
+          [
+            "51evaluate_affine_body_so3_augmented_lagrangian_force",
+            3,
+            0
+          ],
+          [
+            "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+            3,
+            0
+          ],
+          [
+            "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 16,
+        "bytes": 216,
+        "uses": [
+          [
+            "32initialize_affine_body_so3_state",
+            3,
+            0
+          ],
+          [
+            "49update_affine_body_so3_augmented_lagrangian_state",
+            3,
+            0
+          ],
+          [
+            "51evaluate_affine_body_so3_augmented_lagrangian_force",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 17,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 18,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            7,
+            0
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 19,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            9,
+            0
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 20,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 21,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            13,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 22,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            15,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 23,
+        "bytes": 32,
+        "uses": [
+          [
+            "14initialize_rhs",
+            4,
+            0
+          ],
+          [
+            "29initialize_block_non_diagonal",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 24,
+        "bytes": 96,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            0,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 25,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 26,
+        "bytes": 448,
+        "uses": [
+          [
+            "14initialize_rhs",
+            5,
+            0
+          ],
+          [
+            "27combine_system_non_diagonal",
+            7,
+            0
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 27,
+        "bytes": 456,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 28,
+        "bytes": 48,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 29,
+        "bytes": 456,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 30,
+        "bytes": 48,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 31,
+        "bytes": 72,
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 32,
+        "bytes": 24,
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 33,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            8,
+            0
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 34,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 35,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 36,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 37,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            12,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 38,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            13,
+            0
+          ],
+          [
+            "29initialize_block_non_diagonal",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 39,
+        "bytes": 16,
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            5,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 40,
+        "bytes": 16,
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            6,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 41,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            19,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 42,
+        "bytes": 6720,
+        "uses": [
+          [
+            "29initialize_block_non_diagonal",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 43,
+        "bytes": 6720,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            1,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 44,
+        "bytes": 288,
+        "uses": [
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            1,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 45,
+        "bytes": 288,
+        "uses": [
+          [
+            "19update_cg_direction",
+            6,
+            0
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            4,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            4,
+            0
+          ],
+          [
+            "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 46,
+        "bytes": 288,
+        "uses": [
+          [
+            "19update_cg_direction",
+            1,
+            0
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 47,
+        "bytes": 288,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            6,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 48,
+        "bytes": 288,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            5,
+            0
+          ],
+          [
+            "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 49,
+        "bytes": 11988,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            0
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            12
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            24
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            36
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            48
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            12
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            24
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            36
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            48
+          ]
+        ]
+      },
+      {
+        "id": 50,
+        "bytes": 11988,
+        "uses": [
+          [
+            "19update_cg_direction",
+            4,
+            0
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            12
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            24
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            36
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            48
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            0
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            12
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            24
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            36
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            0
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            12
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            24
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            36
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            48
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            12
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            24
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            36
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            48
+          ]
+        ]
+      },
+      {
+        "id": 51,
+        "bytes": 32,
+        "uses": []
+      },
+      {
+        "id": 52,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 53,
+        "bytes": 864,
+        "uses": []
+      },
+      {
+        "id": 54,
+        "bytes": 4,
+        "uses": []
+      }
+    ],
+    "source": [
+      {
+        "id": 0,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 1,
+        "bytes": 288,
+        "uses": [
+          [
+            "20apply_nonlinear_step",
+            2,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 2,
+        "bytes": 288,
+        "uses": [
+          [
+            "14initialize_rhs",
+            9,
+            0
+          ],
+          [
+            "26evaluate_body_spring_force",
+            12,
+            0
+          ],
+          [
+            "51evaluate_affine_body_so3_augmented_lagrangian_force",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 3,
+        "bytes": 288,
+        "uses": [
+          [
+            "15initialize_step",
+            20,
+            0
+          ],
+          [
+            "15update_velocity",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 4,
+        "bytes": 288,
+        "uses": [
+          [
+            "14initialize_rhs",
+            2,
+            0
+          ],
+          [
+            "15initialize_step",
+            21,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 5,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 6,
+        "bytes": 96,
+        "uses": [
+          [
+            "15initialize_step",
+            22,
+            0
+          ],
+          [
+            "25initialize_block_diagonal",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 7,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 8,
+        "bytes": 96,
+        "uses": []
+      },
+      {
+        "id": 9,
+        "bytes": 864,
+        "uses": [
+          [
+            "25initialize_block_diagonal",
+            1,
+            0
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            3,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 10,
+        "bytes": 864,
+        "uses": [
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            0,
+            0
+          ],
+          [
+            "27invert_block_preconditioner",
+            0,
+            0
+          ],
+          [
+            "27invert_block_preconditioner",
+            3,
+            0
+          ],
+          [
+            "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 11,
+        "bytes": 3456,
+        "uses": []
+      },
+      {
+        "id": 12,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 13,
+        "bytes": 8,
+        "uses": []
+      },
+      {
+        "id": 14,
+        "bytes": 24,
+        "uses": []
+      },
+      {
+        "id": 15,
+        "bytes": 216,
+        "uses": [
+          [
+            "32initialize_affine_body_so3_state",
+            2,
+            0
+          ],
+          [
+            "49update_affine_body_so3_augmented_lagrangian_state",
+            2,
+            0
+          ],
+          [
+            "51evaluate_affine_body_so3_augmented_lagrangian_force",
+            3,
+            0
+          ],
+          [
+            "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+            3,
+            0
+          ],
+          [
+            "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 16,
+        "bytes": 216,
+        "uses": [
+          [
+            "32initialize_affine_body_so3_state",
+            3,
+            0
+          ],
+          [
+            "49update_affine_body_so3_augmented_lagrangian_state",
+            3,
+            0
+          ],
+          [
+            "51evaluate_affine_body_so3_augmented_lagrangian_force",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 17,
+        "bytes": 16,
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            5,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 18,
+        "bytes": 16,
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            6,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 19,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 20,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            7,
+            0
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            3,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 21,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            9,
+            0
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 22,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 23,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            13,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 24,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            15,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 25,
+        "bytes": 32,
+        "uses": [
+          [
+            "14initialize_rhs",
+            4,
+            0
+          ],
+          [
+            "29initialize_block_non_diagonal",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 26,
+        "bytes": 96,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            0,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 27,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 28,
+        "bytes": 448,
+        "uses": [
+          [
+            "14initialize_rhs",
+            5,
+            0
+          ],
+          [
+            "27combine_system_non_diagonal",
+            7,
+            0
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            6,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 29,
+        "bytes": 456,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 30,
+        "bytes": 48,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 31,
+        "bytes": 456,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 32,
+        "bytes": 48,
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 33,
+        "bytes": 72,
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 34,
+        "bytes": 24,
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 35,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            8,
+            0
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 36,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            9,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 37,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            10,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 38,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 39,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            12,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 40,
+        "bytes": 448,
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            13,
+            0
+          ],
+          [
+            "29initialize_block_non_diagonal",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 41,
+        "bytes": 32,
+        "uses": [
+          [
+            "15initialize_step",
+            19,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 42,
+        "bytes": 6720,
+        "uses": [
+          [
+            "29initialize_block_non_diagonal",
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 43,
+        "bytes": 6720,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            1,
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            11,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 44,
+        "bytes": 288,
+        "uses": [
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            1,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            7,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 45,
+        "bytes": 288,
+        "uses": [
+          [
+            "19update_cg_direction",
+            6,
+            0
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            4,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            4,
+            0
+          ],
+          [
+            "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 46,
+        "bytes": 288,
+        "uses": [
+          [
+            "19update_cg_direction",
+            1,
+            0
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 47,
+        "bytes": 288,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            6,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 48,
+        "bytes": 288,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            5,
+            0
+          ],
+          [
+            "53multiply_affine_body_so3_augmented_lagrangian_tangent",
+            5,
+            0
+          ]
+        ]
+      },
+      {
+        "id": 49,
+        "bytes": 11988,
+        "uses": [
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            0
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            12
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            24
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            36
+          ],
+          [
+            "26multiply_matrix_and_reduceINS_17BlockNonZero",
+            9,
+            48
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            12
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            24
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            36
+          ],
+          [
+            "28update_solution_and_residual",
+            3,
+            48
+          ]
+        ]
+      },
+      {
+        "id": 50,
+        "bytes": 11988,
+        "uses": [
+          [
+            "19update_cg_direction",
+            4,
+            0
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            12
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            24
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            36
+          ],
+          [
+            "19update_cg_direction",
+            4,
+            48
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            0
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            12
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            24
+          ],
+          [
+            "19update_cg_direction",
+            5,
+            36
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            0
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            12
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            24
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            36
+          ],
+          [
+            "23precondition_and_reduceIN3glm3matILi3",
+            6,
+            48
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            0
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            12
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            24
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            36
+          ],
+          [
+            "28update_solution_and_residual",
+            2,
+            48
+          ]
+        ]
+      },
+      {
+        "id": 51,
+        "bytes": 32,
+        "uses": []
+      },
+      {
+        "id": 52,
+        "bytes": 4,
+        "uses": []
+      },
+      {
+        "id": 53,
+        "bytes": 864,
+        "uses": []
+      },
+      {
+        "id": 54,
+        "bytes": 4,
+        "uses": []
+      }
+    ]
+  },
+  "uploads": {
+    "original": [
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-0.bin",
+        "bytes": 8,
+        "sha256": "64ed86b909d6d0502b64b28db0ea1272ffb358e20e9b1d88b63ccb07fa900cf5",
+        "uses": []
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-1.bin",
+        "bytes": 24,
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "uses": []
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-2.bin",
+        "bytes": 32,
+        "sha256": "e4a806ec4294e286e60adf3b706ca546adc6ab463978b47349232ab1ef95bd3c",
+        "uses": [
+          [
+            "15initialize_step",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-3.bin",
+        "bytes": 32,
+        "sha256": "3b1b0aba0a45c795caa38e02eff28c941243f94172065140ee61dde3f27534fc",
+        "uses": [
+          [
+            "15initialize_step",
+            7
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            3
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-4.bin",
+        "bytes": 32,
+        "sha256": "c253e2665e1d7e5c17f65cfc17646c91a3fa5f509f67a6fa84f93f3aafa5013b",
+        "uses": [
+          [
+            "15initialize_step",
+            9
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            4
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-5.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": [
+          [
+            "15initialize_step",
+            11
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-6.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": [
+          [
+            "15initialize_step",
+            13
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-7.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": [
+          [
+            "15initialize_step",
+            15
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-8.bin",
+        "bytes": 32,
+        "sha256": "88fac76890256fe5cef0823c2daa9935cc8ad59aacbf3274dbcc5dd235fd84b0",
+        "uses": [
+          [
+            "14initialize_rhs",
+            4
+          ],
+          [
+            "29initialize_block_non_diagonal",
+            1
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-9.bin",
+        "bytes": 96,
+        "sha256": "aaed34c69a40e6a4bbd98d30c4ce81a704e17f947bdd9a2ae2f76acdf8ab24a7",
+        "uses": [
+          [
+            "26multiply_matrix_and_reduce",
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            10
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-10.bin",
+        "bytes": 448,
+        "sha256": "f30e6531ecdae9528a41cd03accf80466cd590862279c4c8d1a75b87bc9c1cac",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-11.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "14initialize_rhs",
+            5
+          ],
+          [
+            "27combine_system_non_diagonal",
+            7
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-12.bin",
+        "bytes": 456,
+        "sha256": "94bc2f6adee36250b2a9e2acedc8df1b3b03cb82a235f399d2dd455898999afd",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            1
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-13.bin",
+        "bytes": 48,
+        "sha256": "2f33695cdd5a033ea5a94700b2e15458f3c70d030462d1c2f4f8421c1aa31a76",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            2
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-14.bin",
+        "bytes": 456,
+        "sha256": "94bc2f6adee36250b2a9e2acedc8df1b3b03cb82a235f399d2dd455898999afd",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            4
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-15.bin",
+        "bytes": 48,
+        "sha256": "e03e5aed5de5a3e7e9b5ff301a94031036beebd731895419a07c215712e17a77",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            5
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-16.bin",
+        "bytes": 72,
+        "sha256": "0d7222d144ed40f0fa106ed3156c356b1fe5366cf7015d87655844853f4e37d0",
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            1
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-17.bin",
+        "bytes": 24,
+        "sha256": "c972bad6492c0500bad5ab473471161c84a4f7268527085fc09c50df08e556c6",
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            2
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-18.bin",
+        "bytes": 448,
+        "sha256": "b2c82191024992caf6f5c09a16b4d369b905ad529c059d1afb9c5cf56e5eb47d",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            8
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            7
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-19.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            9
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-20.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            10
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-21.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            11
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-22.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            12
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-23.bin",
+        "bytes": 16,
+        "sha256": "ed88f3e9747ececdefe9a037d44047f7535d676e2b58226bc7ada84b2afd7456",
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            5
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            5
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-24.bin",
+        "bytes": 16,
+        "sha256": "6c64941f1d9ae7df622e3537cefeba951c3d0f1f0998421193d34e7bfff4270a",
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            6
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-25.bin",
+        "bytes": 32,
+        "sha256": "e61a9deb13b6dc328cd16f55b915577b64272a98ec1e74befc7db515fe53c8e0",
+        "uses": [
+          [
+            "15initialize_step",
+            19
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-26.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": []
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-27.bin",
+        "bytes": 4,
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+        "uses": []
+      }
+    ],
+    "source": [
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-0.bin",
+        "bytes": 8,
+        "sha256": "64ed86b909d6d0502b64b28db0ea1272ffb358e20e9b1d88b63ccb07fa900cf5",
+        "uses": []
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-1.bin",
+        "bytes": 24,
+        "sha256": "9d908ecfb6b256def8b49a7c504e6c889c4b0e41fe6ce3e01863dd7b61a20aa0",
+        "uses": []
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-2.bin",
+        "bytes": 16,
+        "sha256": "ed88f3e9747ececdefe9a037d44047f7535d676e2b58226bc7ada84b2afd7456",
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            5
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            5
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-3.bin",
+        "bytes": 16,
+        "sha256": "6c64941f1d9ae7df622e3537cefeba951c3d0f1f0998421193d34e7bfff4270a",
+        "uses": [
+          [
+            "26evaluate_body_spring_force",
+            6
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-4.bin",
+        "bytes": 32,
+        "sha256": "e4a806ec4294e286e60adf3b706ca546adc6ab463978b47349232ab1ef95bd3c",
+        "uses": [
+          [
+            "15initialize_step",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-5.bin",
+        "bytes": 32,
+        "sha256": "3b1b0aba0a45c795caa38e02eff28c941243f94172065140ee61dde3f27534fc",
+        "uses": [
+          [
+            "15initialize_step",
+            7
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            3
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-6.bin",
+        "bytes": 32,
+        "sha256": "c253e2665e1d7e5c17f65cfc17646c91a3fa5f509f67a6fa84f93f3aafa5013b",
+        "uses": [
+          [
+            "15initialize_step",
+            9
+          ],
+          [
+            "32refresh_inertial_cache_diagonals",
+            4
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-7.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": [
+          [
+            "15initialize_step",
+            11
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-8.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": [
+          [
+            "15initialize_step",
+            13
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-9.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": [
+          [
+            "15initialize_step",
+            15
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-10.bin",
+        "bytes": 32,
+        "sha256": "88fac76890256fe5cef0823c2daa9935cc8ad59aacbf3274dbcc5dd235fd84b0",
+        "uses": [
+          [
+            "14initialize_rhs",
+            4
+          ],
+          [
+            "29initialize_block_non_diagonal",
+            1
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-11.bin",
+        "bytes": 96,
+        "sha256": "aaed34c69a40e6a4bbd98d30c4ce81a704e17f947bdd9a2ae2f76acdf8ab24a7",
+        "uses": [
+          [
+            "26multiply_matrix_and_reduce",
+            0
+          ],
+          [
+            "36add_body_spring_gauss_newton_hessian",
+            10
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-12.bin",
+        "bytes": 448,
+        "sha256": "f44f90b253512011c7b686b248d626ee6ba96051c4875f1dde14fd333f08d397",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-13.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "14initialize_rhs",
+            5
+          ],
+          [
+            "27combine_system_non_diagonal",
+            7
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            6
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-14.bin",
+        "bytes": 456,
+        "sha256": "94bc2f6adee36250b2a9e2acedc8df1b3b03cb82a235f399d2dd455898999afd",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            1
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-15.bin",
+        "bytes": 48,
+        "sha256": "2f33695cdd5a033ea5a94700b2e15458f3c70d030462d1c2f4f8421c1aa31a76",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            2
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-16.bin",
+        "bytes": 456,
+        "sha256": "94bc2f6adee36250b2a9e2acedc8df1b3b03cb82a235f399d2dd455898999afd",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            4
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-17.bin",
+        "bytes": 48,
+        "sha256": "e03e5aed5de5a3e7e9b5ff301a94031036beebd731895419a07c215712e17a77",
+        "uses": [
+          [
+            "31refresh_inertial_cache_nonzeros",
+            5
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-18.bin",
+        "bytes": 72,
+        "sha256": "0d7222d144ed40f0fa106ed3156c356b1fe5366cf7015d87655844853f4e37d0",
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            1
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-19.bin",
+        "bytes": 24,
+        "sha256": "c972bad6492c0500bad5ab473471161c84a4f7268527085fc09c50df08e556c6",
+        "uses": [
+          [
+            "32refresh_inertial_cache_diagonals",
+            2
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-20.bin",
+        "bytes": 448,
+        "sha256": "b2c82191024992caf6f5c09a16b4d369b905ad529c059d1afb9c5cf56e5eb47d",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            8
+          ],
+          [
+            "31refresh_inertial_cache_nonzeros",
+            7
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-21.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            9
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-22.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            10
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-23.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            11
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-24.bin",
+        "bytes": 448,
+        "sha256": "cde7aaa01283a222c7c06753bacf8618a24d0f4d23d640aac05687d1a2348967",
+        "uses": [
+          [
+            "27combine_system_non_diagonal",
+            12
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-25.bin",
+        "bytes": 32,
+        "sha256": "e61a9deb13b6dc328cd16f55b915577b64272a98ec1e74befc7db515fe53c8e0",
+        "uses": [
+          [
+            "15initialize_step",
+            19
+          ]
+        ]
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-26.bin",
+        "bytes": 32,
+        "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+        "uses": []
+      },
+      {
+        "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-27.bin",
+        "bytes": 4,
+        "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+        "uses": []
+      }
+    ]
+  },
+  "upload_multiset_equal": false,
+  "original_payloads_without_source_bytes": [
+    {
+      "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/original/copy-10.bin",
+      "bytes": 448,
+      "sha256": "f30e6531ecdae9528a41cd03accf80466cd590862279c4c8d1a75b87bc9c1cac",
+      "uses": [
+        [
+          "27combine_system_non_diagonal",
+          6
+        ]
+      ]
+    }
+  ],
+  "source_payloads_without_original_bytes": [
+    {
+      "file": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-5bd9722e-plain-constraints/constructor-before-5bd9722e/spring/spring-newton-w3-payload/source/copy-12.bin",
+      "bytes": 448,
+      "sha256": "f44f90b253512011c7b686b248d626ee6ba96051c4875f1dde14fd333f08d397",
+      "uses": [
+        [
+          "27combine_system_non_diagonal",
+          6
+        ]
+      ]
+    }
+  ]
+}

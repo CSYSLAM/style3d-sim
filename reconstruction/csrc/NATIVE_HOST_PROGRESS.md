@@ -1,8 +1,16 @@
 # 新版基准与 C++ host 进度
 
-> **活动c189db81：接入PD driven joint点线调度，并按两份实际SDK初始化恢复joint缓存/D4/L5/行身份。**
+> **活动image86916989：普通约束PD/body-block。** 24组状态/8952调用/首force buffer严格；
+> constructor/graph/initcheck运行中，当前完整74未采。见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
+> 以下5bd/c189等为历史检查点，CUDA176/f0、SDK64a不改，ready=False。
+
+> **活动5bd9722e：接入driven joint/body-block，按SDK恢复drive/armature/limits→build与PD local row身份。**
+> 八组17052调用/状态严格、四种构造五项同；32组合graph128/128严格、双端initcheck零错误。当前74未采，ready=False。
+> 见DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md；下列为历史结果。
+>
+> **前一c189db81：接入PD driven joint点线调度，并按两份实际SDK初始化恢复joint缓存/D4/L5/行身份。**
 > 四份固定SDK原版的状态/完整7200调用全严格，两种joint constructor五项同；16组合graph64/64、双端initcheck3过。
-> 当前74正在收集，ready=False，详情见DRIVEN_JOINT_PD_HOST_RECOVERY.md；下列为各自历史结果。
+> c189完整74为71严格、三个固定C10全过且CPU复算同，独立source真实graph自身test通过；详情见DRIVEN_JOINT_PD_HOST_RECOVERY.md。
 >
 > **前一04b46fb0：SO3/tet legacy接触已严格验证，新增self组合继续定位W3差异。**
 > 131的legacy16、graph64/64全严格；04的self W1八组严格，W3八组状态不同，首buffer及完整owned调用同。

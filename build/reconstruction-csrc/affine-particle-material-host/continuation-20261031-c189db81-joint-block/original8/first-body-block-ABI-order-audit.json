@@ -1,0 +1,160 @@
+{
+  "cases": [
+    {
+      "case": "prismatic-w1-newton",
+      "build_rows_equal_rhs_rows": false,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:8",
+        "u:2",
+        "u:2",
+        "u:8"
+      ]
+    },
+    {
+      "case": "prismatic-w1-pd",
+      "build_rows_equal_rhs_rows": true,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "61add_joint_body_point_line_augmented_lagrangian_preconditioner",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:8",
+        "u:2",
+        "u:2",
+        "u:8"
+      ]
+    },
+    {
+      "case": "prismatic-w3-newton",
+      "build_rows_equal_rhs_rows": false,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:18",
+        "u:6",
+        "u:2",
+        "u:8"
+      ]
+    },
+    {
+      "case": "prismatic-w3-pd",
+      "build_rows_equal_rhs_rows": true,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "61add_joint_body_point_line_augmented_lagrangian_preconditioner",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:8",
+        "u:6",
+        "u:2",
+        "u:8"
+      ]
+    },
+    {
+      "case": "revolute-w1-newton",
+      "build_rows_equal_rhs_rows": false,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:8",
+        "u:2",
+        "u:2",
+        "u:8"
+      ]
+    },
+    {
+      "case": "revolute-w1-pd",
+      "build_rows_equal_rhs_rows": true,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:8",
+        "u:2",
+        "u:2",
+        "u:8"
+      ]
+    },
+    {
+      "case": "revolute-w3-newton",
+      "build_rows_equal_rhs_rows": false,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:18",
+        "u:6",
+        "u:2",
+        "u:8"
+      ]
+    },
+    {
+      "case": "revolute-w3-pd",
+      "build_rows_equal_rhs_rows": true,
+      "build_rows_equal_matrix_rows": true,
+      "first_preconditioner_order": [
+        "25initialize_block_diagonal",
+        "30add_joint_drive_preconditioner",
+        "build_affine_body_preconditioner",
+        "55add_affine_body_so3_augmented_lagrangian_preconditioner",
+        "27invert_block_preconditioner"
+      ],
+      "build_counts": [
+        "u:7",
+        "u:8",
+        "u:6",
+        "u:2",
+        "u:8"
+      ]
+    }
+  ],
+  "production_modified": false,
+  "whole_solver_complete": false
+}

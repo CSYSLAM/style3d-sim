@@ -1,8 +1,9 @@
 # PD driven joint host 接续
 
-活动源码 image：`c189db81483ca1ca6b197cb57ebeb4411e9ecfeba2035975f51275c178dba458`。
+本文件记录源码 image：`c189db81483ca1ca6b197cb57ebeb4411e9ecfeba2035975f51275c178dba458`。
+后续活动5bd见[DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md](DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md)。
 参考仍是项目内SDK64a。CUDA176/f0、已恢复kernel数学、SDK均未改，`solver_api_ready=False`。
-当前image的完整74正在收集，不能继承04的71严格及C10结果。
+本image完整74为71严格、三个particles首次失败的固定C10全过且CPU复算同，未继承04结果。
 04完整结果、实际SDK的self跨模式见证和直接源码运行入口见
 [BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md](BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md)。
 
@@ -37,7 +38,7 @@ c189据此恢复非零D4/L5、六种typed动态缓存的位置与顺序、保留
 16组合（joint类型、W1/W3、armature开关、供给/派生速度）× eager/graph ×60步，
 共64项比较全部逐位同。original/source各32条轨迹×3步initcheck均零错误。
 另revolute constructor五项也全同：64分配事件、35上传、31 typed、1698 owned指针用途、
-1729 owned/library名称时序。局部队列已complete且全退出0；完整74另看regression-driver-status.json。
+1729 owned/library名称时序。局部与完整回归队列均complete；独立source入口Dzhanibekov60/bag3真实graph自身test也均过。
 
 ## 证据与接续
 
@@ -56,6 +57,9 @@ c189据此恢复非零D4/L5、六种typed动态缓存的位置与顺序、保留
 - `build/reconstruction-checkpoints/joint-constructor-before-d8457a42/`：构造恢复前的27文件。
 
 当前仍保留plain/undriven PD、body block+constraints、其它未捕获材料/接触混合guard。
+后续已运行`joint_block_scene.py`和
+`build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-c189db81-joint-block/capture-original.py`，
+用于body-block=true八组原版；已据此修复host，当前进度以新增BODY_BLOCK文档为准。
 先读当前validation状态，定位任何实际调用/缓冲区差异；不要为了通过删除未捕获范围保护，
 也不要把新image结果用于销账04/8f或其它旧固定失败。
 

@@ -673,11 +673,7 @@ class Solver {
         struct PendingWeightUpload { std::uint64_t* target; std::vector<char> bytes; };
         std::map<int, PendingWeightUpload> pending_weights;
         auto upload_weight = [&](std::uint64_t& target, const auto& values, int order) {
-            if (!model_.joint_drive_count) {
-                target = upload(values);
-                return;
-            }
-            // Actual joint constructors upload weights only after the scalar ELL cache has been initialized.
+            // Actual body-constraint constructors upload weights after scalar ELL initialization.
             const auto begin = reinterpret_cast<const char*>(values.data());
             pending_weights.emplace(order, PendingWeightUpload{
                 &target, std::vector<char>(begin, begin + values.size() * sizeof(values[0]))});
@@ -774,6 +770,10 @@ class Solver {
                 }
                 // Plain springs go to the host constant (diagonal, L0); joint springs to D3/L4 (weight alpha).
                 const bool joint = s >= plain_spring_count_;
+                if (!joint)
+                    std::stable_sort(ends.begin(), ends.end(), [](const auto& a, const auto& b) {
+                        return a.first < b.first;
+                    });
                 accumulate(ends, stiffness[s], joint ? joint_diagonal : host_diagonal, joint ? &Entry::l4 : &Entry::l0);
             }
             body_spring_total_ = n * (count_ / per_world_);
@@ -911,14 +911,12 @@ class Solver {
                                              0.5f * (we0[j].y + we1[j].y), 0.5f * (we0[j].z + we1[j].z)};
                     for (int k = 0; k < 4; ++k) ends.emplace_back(ids[k], values[k]);
                 }
+                // Normal and reversed-proxy SDK captures disambiguate the F32 factor order for both channels.
+                std::stable_sort(ends.begin(), ends.end(), [](const auto& a, const auto& b) {
+                    return a.first < b.first;
+                });
                 if (j < plain_line_count_) accumulate(ends, stiffness[j], host_diagonal, &Entry::l0);
-                else {
-                    // SDK captures with reversed proxy ownership disambiguate this F32 factor order.
-                    std::stable_sort(ends.begin(), ends.end(), [](const auto& a, const auto& b) {
-                        return a.first < b.first;
-                    });
-                    accumulate(ends, stiffness[j], joint_line_diagonal, &Entry::l5);
-                }
+                else accumulate(ends, stiffness[j], joint_line_diagonal, &Entry::l5);
             }
             point_line_total_ = n * (count_ / per_world_);
             joint_line_total_ = model_.joint_body_point_line_count * (count_ / per_world_);
@@ -968,13 +966,14 @@ class Solver {
                     const float values[4] = {w.w, w.x, w.y, w.z};
                     for (int j = 0; j < 4; ++j) ends.emplace_back(ids[j], sign * values[j]);
                 }
+                std::stable_sort(ends.begin(), ends.end(), [](const auto& a, const auto& b) {
+                    return a.first < b.first;
+                });
                 accumulate(ends, scale[c], distance_diagonal, &Entry::l6);
             }
             distance_total_ = n * (count_ / per_world_);
-            distance_w0_ = upload(w0);
-            distance_w1_ = upload(w1);
-            distance_target_ = driver_->allocate(distance_total_ * 12);
-            distance_multiplier_ = driver_->allocate(distance_total_ * 12);
+            upload_weight(distance_w0_, w0, 10);
+            upload_weight(distance_w1_, w1, 11);
             load("distance_initialize", "kernel41initialize_body_distance_constraint_stateE");
             load("distance_force", "kernel39evaluate_body_distance_constraint_forceE");
             load("distance_update", "kernel37update_body_distance_constraint_stateE");
@@ -1630,6 +1629,9 @@ class Solver {
         line_segment_ = initialized_cache(joint_line_total_, 4, SourceCacheType::Scalar);
         line_projector_ = initialized_cache(joint_line_total_, 36, SourceCacheType::Matrix3);
         line_multiplier_ = initialized_cache(joint_line_total_, 12, SourceCacheType::Vector3);
+        distance_total_ = model_.body_distance_constraint_count * copies;
+        distance_target_ = initialized_cache(distance_total_, 12, SourceCacheType::Vector3);
+        distance_multiplier_ = initialized_cache(distance_total_, 12, SourceCacheType::Vector3);
     }
 
     void precompute_affine_blocks()
@@ -2263,7 +2265,15 @@ public:
                            body_tangent || fluid_rows_ || granular_points_;
         // The original ignores the body-block option when PD selects the scalar matrix branch.
         const bool body_block = bodies && block && config.affine_body_block_preconditioner;
-        if (body_block && (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_))
+        const bool isolated_plain =
+            ((plain_spring_count_ > 0) + (plain_line_count_ > 0) + (distance_total_ > 0) == 1) &&
+            !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
+            !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+            !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
+        if (body_block && !isolated_plain &&
+            (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
+            (plain_spring_count_ || plain_line_count_ || distance_total_ || !drive_total_ || cable_count_ ||
+             fluid_rows_ || contact.max_count || contact.soft_max_count))
             throw std::runtime_error("Affine body blocks combined with body constraints have not been captured");
         const bool extra_product = self || surface || contact_product || bending_damping_ || tetrahedron_count_ || drag ||
                                    body_tangent || fluid_rows_ || granular_points_;
@@ -2271,8 +2281,8 @@ public:
         const bool contact_block = hard && body_block && config.affine_body_contact_block_preconditioner;
         if (hard && config.rigid_contact_history && !contact.match_index.size)
             throw py::value_error("hard-contact history requires collision match indices");
-        // The captured PD drive route omits joint Gauss-Newton blocks; plain/undriven PD routes remain guarded.
-        if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
+        // Captured PD routes omit plain Gauss-Newton blocks; mixed and undriven joint routes remain guarded.
+        if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) && !isolated_plain &&
             pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
             throw std::runtime_error("Plain or undriven body constraints with PD_NEWTON have not been captured");
         if ((plain_spring_count_ || plain_line_count_ || distance_total_) && (rigid || contact.soft_max_count))
@@ -2596,22 +2606,6 @@ public:
                 if (surface)
                     launch_surface("surface_preconditioner", contact.soft_max_count, stream,
                                    surface_data, preconditioner_blocks_);
-                if (body_block) {
-                    if (rolling)
-                        launch("rolling_preconditioner", contact.max_count, stream, rolling_view(contact, in, inverse_dt),
-                               preconditioner_blocks_);
-                    // The body assembly adds SO(3) and cable terms itself, before the per-particle copies do.
-                    launch(pd ? "affine_build_scalar" : "affine_build", body_state_count_, stream,
-                           model_.affine_body_indices.ptr, model_.body_masses.ptr, mass, flags, preconditioner_blocks_,
-                           row_count_, pd ? scalar_template_ : block_entries_, max_entries_, pd ? per_world_ : count_,
-                           body_rotation_, body_so3_alpha, cable_view(), affine_cable_offsets_, affine_cable_ids_, inverse_dt,
-                           affine_enabled_, contact_block ? affine_blocks_ : null, affine_blocks_, affine_valid_,
-                           body_state_count_, body_count_, per_world_);
-                }
-                if (so3 && body_block && so3_alpha > 0.0f)
-                    launch("so3_preconditioner", body_state_count_, stream, model_.affine_body_indices.ptr,
-                           model_.body_masses.ptr, body_rotation_, so3_alpha, preconditioner_blocks_, body_state_count_,
-                           body_count_, per_world_);
                 if (pd && joint_line_total_)
                     launch("joint_line_pd_preconditioner", joint_line_total_, stream, model_.affine_body_indices.ptr,
                            model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
@@ -2633,6 +2627,23 @@ public:
                         launch("angular_limits", drive_total_, stream, joint_view(), limit_view(), in.particle_q.ptr,
                                previous_, drive_angle_, drive_initialized_, inverse_dt, null, null, preconditioner_blocks_);
                 }
+                if (body_block) {
+                    if (rolling)
+                        launch("rolling_preconditioner", contact.max_count, stream, rolling_view(contact, in, inverse_dt),
+                               preconditioner_blocks_);
+                    // The body assembly adds SO(3) and cable terms itself, before the per-particle copies do.
+                    launch(pd ? "affine_build_scalar" : "affine_build", body_state_count_, stream,
+                           model_.affine_body_indices.ptr, model_.body_masses.ptr, mass, flags, preconditioner_blocks_,
+                           pd ? template_row_counts() : row_count_, pd ? scalar_template_ : block_entries_, max_entries_,
+                           pd ? per_world_ : count_,
+                           body_rotation_, body_so3_alpha, cable_view(), affine_cable_offsets_, affine_cable_ids_, inverse_dt,
+                           affine_enabled_, contact_block ? affine_blocks_ : null, affine_blocks_, affine_valid_,
+                           body_state_count_, body_count_, per_world_);
+                }
+                if (so3 && body_block && so3_alpha > 0.0f)
+                    launch("so3_preconditioner", body_state_count_, stream, model_.affine_body_indices.ptr,
+                           model_.body_masses.ptr, body_rotation_, so3_alpha, preconditioner_blocks_, body_state_count_,
+                           body_count_, per_world_);
                 if (cable_count_)
                     launch("cable_evaluate", cable_count_, stream, cable_view(), in.particle_q.ptr, previous_, inverse_dt,
                            null, null, preconditioner_blocks_);
@@ -2872,8 +2883,12 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "affine_body_rigid_contact_pd_newton", "plain_body_springs_newton",
                                                      "body_distance_constraints_newton",
                                                      "plain_body_point_lines_newton",
+                                                     "isolated_plain_constraints_pd_newton",
+                                                     "isolated_plain_constraints_body_blocks",
                                                      "joint_springs_and_drives_newton", "joint_point_lines_newton",
                                                      "joint_armature_newton", "driven_joint_constraints_pd_newton",
+                                                     "driven_joint_body_blocks_newton",
+                                                     "driven_joint_body_blocks_pd_newton",
                                                      "cables_newton", "cables_pd_newton",
                                                      "affine_body_hard_contact_newton",
                                                      "affine_body_hard_contact_pd_newton",

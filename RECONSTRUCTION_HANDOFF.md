@@ -1,9 +1,19 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **继续开发更新：活动源码image为c189db81，补齐PD driven joint点线调度并按实际SDK恢复joint构造。**
+> **当前活动源码image86916989：普通spring/point-line/distance的PD/body-block。**
+> 24组固定原版状态、8952次完整owned调用及首force缓冲区全部严格；constructor/graph/initcheck继续中。
+> 当前完整74未采，ready=False；见[PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md](reconstruction/csrc/PLAIN_BODY_CONSTRAINT_HOST_RECOVERY.md)。
+> SDK64a、CUDA176/f0与360个pyc固定字节不变，Windows继续使用WSL2。
+
+> **前一5bd9722e：driven joint + body-block。**
+> 八组状态/17052次完整owned参数与geometry全严格，四种constructor五项同，32组合长程graph共128/128严格，双端initcheck零错误。
+> 当前完整74未采，ready=False；见[DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md](reconstruction/csrc/DRIVEN_JOINT_BODY_BLOCK_RECOVERY.md)。
+>
+> **前一c189db81：补齐PD driven joint点线调度并按实际SDK恢复joint构造。**
 > 同四份固定SDK原版，三步状态/7200次完整owned参数及geometry全部严格；两种joint constructor五项同。
 > 16组合graph60共64项全严格，双端各32条×3步initcheck零错误；旧失败均保留，未放宽核对。
-> 当前完整74正在收集，ready=False；见[DRIVEN_JOINT_PD_HOST_RECOVERY.md](reconstruction/csrc/DRIVEN_JOINT_PD_HOST_RECOVERY.md)。
+> c189完整74为71严格，三个固定C10全过且CPU复算同；两个独立source入口真实graph自身test均过。
+> 见[DRIVEN_JOINT_PD_HOST_RECOVERY.md](reconstruction/csrc/DRIVEN_JOINT_PD_HOST_RECOVERY.md)。
 >
 > **前一04b46fb0：新增SO3/tet legacy软接触及无external contact的self组合。**
 > legacy在131c9873的16组/64项graph全严格；当前04的self W1八组严格、W3八组状态有差异，
@@ -45,8 +55,11 @@
 当前176个CUDA入口已重建并纳入版本清单，host组合场景和正式demo仍需继续验收。
 Git 76facc7的交接只迁移冻结基线；后续25/cc/ff新增host字段和按原版恢复调度，CUDA数学和比较标准未改。
 
-**当前c189db81检查点**：PD关节四组已严格，两种构造五项同，长程graph64/64、双端initcheck3均通过；
-当前完整74正在收集，不能继承04结果。
+**前一5bd9722e检查点**：joint/body-block八组已严格、四种构造五项同，graph128/128与双端initcheck已通过；
+当前完整74尚未采，不能继承c189结果。
+
+**前一c189db81**：PD关节四组已严格，两种构造五项同，graph64/64、双端initcheck3均通过；
+完整74为71严格，其三个固定C10全过且CPU复算同。
 
 **前一04b46fb0检查点**：self固定full C8的W3/PD/body-block首候选仍失败，diagonal16/16通过。
 完整74为71严格，其三个particles首次失败的当前固定C10均通过、CPU复算同；局部结果与直接源码运行命令
@@ -83,7 +96,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `c189db81483ca1ca6b197cb57ebeb4411e9ecfeba2035975f51275c178dba458`；当前源码host image；d845/04及更早源码、构建检查点均保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `8691698973a5ef5109a5300a72d319c918d9a159c20a9b0b76a0ddb1563c2eea`；当前源码host image；5bd/c189/d845等历史检查点保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |
@@ -338,7 +351,8 @@ mkdir -p build/windows-check/probe-source
   历史多GB build/checkpoint未全搬入；WORK_LOG中的旧路径不能当成本次随行的已验证证据。
 - 旧根交接/部署说明在 `reconstruction/history/`，旧版本、登录、子模块命令不适用本分支。
 
-下一位agent起始动作：读顶部最新文档、校验快照，从固定self W3及历史source0失败接着查；
+下一位agent起始动作：读顶部PD joint最新文档、校验快照，先查c189完整回归状态，再抓joint body-block八组原版；
+旧self W3及历史source0失败保留，按各自image证据继续核对，不能用新结果重判；
 有差异就查实际so和捕获数据，保持计算与验收标准，分批修改、串行验证、每批记账。
 
 ## 10. 本次迁移已经怎样验证
