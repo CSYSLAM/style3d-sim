@@ -6263,3 +6263,26 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   恢复用临时目录只保存本次副本，退出后自动清理；原始数据可由已提交四分片和manifest完全还原，无需重复提交未压缩副本。
   Windows/WSL交接及新资产README加入离线恢复命令。G1输入携带闭合不代表solver数值通过，trampoline原网格仍缺。
   当前GPU双输出捕获仍由session1065/PID2467807等待实际空闲，readyFalse/旧失败/固定SDK64a和360pyc均不变。
+
+### 2026-11-01：G1接触力/矩阵双输出实际2400份严格通过，队列闭合
+
+- 固定资产/静态修正已发布349c3c29，247195快照0失败，远端SHA精确一致。之后继续poll同一session1065，未另起捕获。
+  外部world-particles进程实际退出GPU后，原排队脚本自动串行执行两端各60帧；session1065最终真实退出0，PID2467807结束。
+  两端正常公共Core graph/test均0；源码public_core_abi true、bridge false、reference_solver_mapped false。
+- 保存全部force120/matrix120原始packet SHA至closed-packets.json；实际图17522节点/17525边、55快照和209800字节按独立CPU重核。
+  全部真实before、两个完整after、原图全部节点/依赖以及目标前/后严格次序均同协议；额外快照可能改变调度，未冒充旧轨迹复现。
+- 原run-replay.py仅执行一次，session47225真实退出0：原SDK runtime/原PTX/源码PTX和双探针五后端，
+  每call两个输出，共2400份完整输出全部与实际after逐位同。保留原alias、mod256、完整geometry和真实累加器初值。
+  force RHS53次/对角54次有效，matrix两输出各54次有效；没有把空路径计为全部有效。
+- 每阶段active计数2010线程，1757提前退出；force250线程32atom、3线程28atom，matrix253线程72atom。
+  两端force16168/matrix36432共52600实际操作数的逐线程逐目标顺序和跨目标整个每线程序列均同。
+  理论双body64/144次路径本例没有执行，不能据此称所有分支都覆盖。
+- 独立CPU session18403真实退出0：直接从原始NPZ重核2400完整输出、107294400非输出after字节、52600实际操作数、全部图快照。
+  既定严格门槛全部达到，按预先计划不再做冗余逐contact隔离或原子排列证书，不改容差或删除失败。
+- 新两端固定C8仍false：原版四字段within55/52/55/54，源码59/56/58/56；最大速度偏差1.812793254852295/1.3831502944231033。
+  未复现或解释旧23.8513尖峰。八原版/三源码及report SHA32b6e2a7…不变，不扩cohort、不重判旧失败。
+- 原始前后输入、完整回放/after、原子记录、状态、图、命令、日志及实际终态全部在contact-rhs-matrix目录，
+  准备/排队文档标为历史并明确禁止重复运行闭合wrapper；方法和接续命令见csrc/G1_CONTACT_RHS_MATRIX_RECOVERY.md。
+  下一步实际graph只读检查同NL rolling force14577/preconditioner14592：两端均248字节RollingContactView加8字节输出指针，
+  参数和类型保存next-rolling-inspection.json，尚未GPU验证；先核view所有内嵌指针offset/容量/粒子跨度，禁止把opaque view当普通指针。
+  当前生产host38/Core7eb/CUDA176f0、SDK64a、默认入口和readyFalse不改；完整替代目标继续，不重复已闭合74项。

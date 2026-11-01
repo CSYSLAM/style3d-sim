@@ -1,0 +1,42 @@
+{
+  "capture": {
+    "exec_session": 1065,
+    "exit_code": 0,
+    "status": {
+      "complete": true,
+      "running": null,
+      "completed": [
+        {
+          "backend": "original",
+          "exit": 0
+        },
+        {
+          "backend": "source",
+          "exit": 0
+        }
+      ],
+      "fixed_C8_report_sha256": "32b6e2a7337aaa80442fa3fd6232896410eb8163e875d35d845d4a8ae82d4e42",
+      "whole_solver_complete": false
+    }
+  },
+  "replay": {
+    "exec_session": 47225,
+    "exit_code": 0,
+    "command": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_contact_rhs_replay",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-contact-rhs-matrix",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-contact-rhs-matrix/replay"
+    ]
+  },
+  "independent_cpu": {
+    "exec_session": 18403,
+    "exit_code": 0,
+    "runner_sha256": "f7b812a643d295bc01ab00e20d0443d1ca64cf820e0c47d07bd13f5ef1f95a88"
+  },
+  "all_GPU_phase_jobs_closed": true,
+  "whole_solver_complete": false
+}

@@ -1,4 +1,7 @@
-# G1接触力与矩阵分支：预检已过，实际GPU验证排队中
+# G1接触力与矩阵分支：准备及排队历史记录
+
+**本批GPU验证现已完成：capture1065/replay47225/CPU18403全部真实退出0，2400完整输出严格通过。**
+旧队列PID2467807已经结束，请读[实际结果与下一步](G1_CONTACT_RHS_MATRIX_RECOVERY.md)，不要重启下列历史任务。
 
 接已发布23ec2760的[G1刚体切线向量核对](G1_RIGID_TANGENT_RECOVERY.md)。
 固定SDK64a、生产host38/Core7eb、CUDA176/f0及旧C8均不改，`solver_api_ready=False`。
@@ -42,7 +45,7 @@ force只涉及32/33，tangent保守包含30/33/34；本次矩阵调用的30为NU
 实际Newton1.5下载模块的正常resolver在缓存新鲜/过期两条件均离线命中，网络操作被显式禁止，未创建GPU compute进程。
 这是Windows/WSL交接输入补齐，不升级GPU验收；完整命令和限制见[资产说明](../assets/unitree_g1/README.md)。
 
-## 当前实际等待状态，先核句柄再操作
+## 排队阶段的实际状态（历史）
 
 本机GPU另有world-particles项目360帧验证，确认PID2460294活跃，日志`/tmp/wp-v26-stretch-full.log`。
 没有中断它，也没有并行启动本次GPU验证。
@@ -59,7 +62,7 @@ force只涉及32/33，tangent保守包含30/33/34；本次矩阵调用的30为NU
 - `status.json`、两端日志及输出：GPU真正开始后才会出现；不能由排队文件推断任务已完成。
 - `independent-cpu-audit.py`：已写好且静态检查通过，等实际捕获/回放结束再执行，不能提前称其结果通过。
 
-先poll session1065，或核实际PID和命令、`nvidia-smi`、`GPU-queue-status.json`。
+等待期间使用poll session1065，或核实际PID和命令、`nvidia-smi`、`GPU-queue-status.json`。
 观察超时不等于任务结束，排队/捕获句柄还活着时禁止另起同一任务。
 若换电脑，旧机器PID/句柄不可直接当作新机状态；先确认旧机任务真实终态，再同步新生成证据。
 
@@ -70,7 +73,7 @@ cat "$phase/GPU-queue-status.json"
 ps -p 2467807,2460294 -o pid,ppid,etimes,stat,args
 ```
 
-## 捕获结束后继续什么
+## 准备时记录的后续命令（已经执行，勿在闭合目录重跑）
 
 两端捕获必须正常graph/test退出0，且源码public_core_abi true、bridge false、reference_solver_mapped false。
 等待实际GPU空闲，再运行一次回放和独立审计：
@@ -80,7 +83,7 @@ ps -p 2467807,2460294 -o pid,ppid,etimes,stat,args
 .venv/bin/python "$phase/independent-cpu-audit.py"
 ```
 
-回放会保存全部240个两输出packet、五后端共2400份完整输出；这是计划数量，尚未执行。
+回放现已保存全部240个两输出packet、五后端共2400份完整输出，并严格通过，独立CPU实际结束0。
 先核严格结果及两端真实逐线程/目标原子操作数。严格全过继续下一阶段；有差异按实际SDK隔离和真实F32证书定位，
 保留全部失败，不修改生产数学、固定八原版/三源码或阈值，不用原版代算生产路径。
 独立审计还会复核完整after未写字节、实际图依赖及新诊断对旧C8的统计，但不会替换或扩充旧cohort。

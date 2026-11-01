@@ -1,7 +1,12 @@
 # 新版基准与 C++ host 进度
 
-> **后续contact force及矩阵输出：CPU预检已过，GPU排队中，尚无新GPU结论。**
-> 计划每端60帧、两阶段、每帧209800字节/55快照；实际排队句柄1065/PID2467807，勿并行重复启动。
+> **G1 contact RHS/对角及矩阵输出实际严格通过。** 240真实输入、2400完整输出同，52600真实原子操作数同，
+> 107294400非输出after字节与图依赖CPU独立重核同；三个实际终态均0，旧队列结束，不重复启动。
+> 原版/源码新整段C仍false、旧23.85未解释，生产host38/Core7eb/readyFalse不改；下一步rolling view。
+> 见[G1接触力与矩阵实测](G1_CONTACT_RHS_MATRIX_RECOVERY.md)，下方排队记录为历史。
+
+> **历史准备阶段：contact force及矩阵输出的CPU预检和GPU排队。**
+> 每端60帧、两阶段、每帧209800字节/55快照；旧句柄1065/PID2467807现已正常结束，最终实测通过见顶部。
 > 见[G1接触力与矩阵排队](G1_CONTACT_RHS_MATRIX_QUEUE.md)，生产host38/Core7eb及readyFalse不变。
 
 > **最新刚体接触切线向量路径严格通过，完整替代仍未通过。** SDK64a/host38/Core7eb/CUDA176f0不改；

@@ -1,13 +1,18 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **G1接触力/对角及切线矩阵已实际严格通过，排队已结束。** 两端各60帧，240真实双输出输入、
+> 五后端2400完整输出全部逐位同；52600真实原子操作数和107294400非输出after字节独立CPU重核同。
+> capture1065/replay47225/CPU18403均实际退出0，勿重复启动旧队列。新两端整段C仍失败，旧23.85未解释，ready=False。
+> 下一步rolling force/preconditioner的248字节view；见[接触力/矩阵实测](reconstruction/csrc/G1_CONTACT_RHS_MATRIX_RECOVERY.md)。
+
 > **固定G1输入已随仓库携带，可离线恢复到WSL。** 203文件/293932151字节与原验证输入逐字节同，
 > 分为4个普通Git压缩分片，含原许可证和完整SHA；实际Newton1.5加载器的新鲜/过期缓存离线解析均通过。
 > `source scripts/reconstruction_env.sh`后执行`.venv/bin/python scripts/restore_reconstruction_g1_assets.py`。
 > 见[固定G1资产](reconstruction/assets/unitree_g1/README.md)。trampoline原网格仍缺，整段solver尚未验收。
 
-> **接触力RHS与矩阵分支已完成CPU预检，GPU验证尚在排队。** 每帧两处调用共209800字节、55快照节点；
+> **历史准备阶段：接触力RHS与矩阵CPU预检及GPU排队记录。** 每帧两处调用共209800字节、55快照节点；
 > 两输出布局/alias已核，诊断探针容量由128独立扩到256以覆盖矩阵最多144次原子写，生产不改。
-> 本机已有其它GPU任务；排队exec session1065/PID2467807活跃，空闲后自动捕获，勿重复启动或当作已验证通过。
+> 当时等待其它GPU任务，exec session1065/PID2467807现已正常结束；最终实际通过结果见顶部实测文档，勿重复启动。
 > 当前进度和实际续接步骤见[接触力/矩阵排队交接](reconstruction/csrc/G1_CONTACT_RHS_MATRIX_QUEUE.md)。
 
 > **当前距离完整替代：已能编译独立源码Core，完整一致性尚未验收。** 176个CUDA入口已重建；
