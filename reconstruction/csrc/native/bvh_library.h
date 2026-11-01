@@ -8,6 +8,8 @@ enum class SourceCacheType {
 // CUDA 12.4 library bridge; the independent build validates its embedded device entries.
 extern "C" __attribute__((visibility("default"))) int source_cache_initialize(
     void* data, std::size_t count, SourceCacheType type);
+extern "C" __attribute__((visibility("default"))) int source_cache_initialize_integer(
+    void* data, std::size_t count, int value);
 extern "C" __attribute__((visibility("default"))) int source_bvh_sequence_fill(
     int* sorted, int* parent, unsigned count, void* stream);
 extern "C" __attribute__((visibility("default"))) int source_bvh_reduce(

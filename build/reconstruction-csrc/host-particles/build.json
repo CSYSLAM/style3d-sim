@@ -91,6 +91,9 @@
     "granular_affine_so3_newton",
     "granular_affine_so3_pd_newton",
     "granular_affine_so3_body_blocks",
+    "granular_affine_so3_bonds_newton",
+    "granular_affine_so3_bonds_pd_newton",
+    "granular_affine_so3_bonds_body_blocks",
     "free_particle_self_collision_newton",
     "free_particle_self_collision_pd_newton",
     "mesh_self_collision_without_material_forces_newton",
@@ -2732,7 +2735,7 @@
     "-I/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles",
     "-I/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/native",
     "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp",
-    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.o",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/bvh_library.o",
     "-l:libcuda.so.1",
     "-L/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib",
     "-l:libcudart.so.12",
@@ -2741,7 +2744,7 @@
     "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so"
   ],
   "bvh_library": {
-    "object": "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.o",
+    "object": "build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/bvh_library.o",
     "accepted_device_entries": 26,
     "library_runtime_launches_completely_observed": false
   },
@@ -2756,7 +2759,7 @@
     "reconstruction/csrc/revisions/tetrahedra_23fb797.cu": "828dab3153417b5bd7ca95aa600a1f1567ac06642b668afa5be77e1c58de6c76",
     "reconstruction/csrc/revisions/granular_grid_23fb797.cu": "3599cc4bf461d03dc29a011ffd8ded30541805cc92ccbd1f4b03537e0eb5aee9",
     "reconstruction/csrc/native/kernel_symbols_23fb797.json": "aaf97925badaa2a0df180fca6dbf105e9185212244bcf398b6db831e3a1c7222",
-    "reconstruction/csrc/native/source_solver.cpp": "dd4d5898d2e9f3d851e7a8d175faeef116972269880370e07f65479603f16331",
+    "reconstruction/csrc/native/source_solver.cpp": "69736aabe5bc04e3c2f25c0881424a58295d4fab46a3defdd5945a2d23baa064",
     "reconstruction/csrc/build_host.py": "cd2f5325e97a26ad4d7c09a6602c6a159a5499abc802101021eefd375dc9a48c",
     "build/reconstruction-csrc/native/source_ptx_bundle.h": "88934c91d4abc3df5e212c9e699fef8c308daf1a1241ff89c8f4891097768231",
     "build/reconstruction-csrc/host-particles/source_api.h": "a9060e26a5c3feaac242cd142fc371e50ac5165342a817b626bae9fcf4b84f64",
@@ -2766,15 +2769,15 @@
     "build/reconstruction-csrc/tetrahedra_23fb797.ptx": "8eaf3d9effba9e0e95f8a1335652c32744e6ca3deab7d8bedccfa612c45e018f",
     "build/reconstruction-csrc/granular_grid_23fb797.ptx": "fd036938b1785fa14bdf6baa1b8122d17876421f91712f377480d56c90952c1a",
     "reconstruction/csrc/native/surface_view.h": "959e66fe05c29e0522b7920d703f86e268e407b6d4c94bf024b05759499aa6f9",
-    "reconstruction/csrc/native/bvh_library.cu": "698228f60830e02142a36d2349af92aceb140483332fbedfaf2cbf21a4ff5f69",
-    "reconstruction/csrc/native/bvh_library.h": "11c26dc29d7b0acf62489a1a995551a841a7c67e1d891d24e0fca3469fb962d1",
+    "reconstruction/csrc/native/bvh_library.cu": "0e5d8e1aed36a84b54d6e228aab7d0ce191829cca8963a92ea51d68c84906b7b",
+    "reconstruction/csrc/native/bvh_library.h": "df29b51f5f6ad5d813a3e88db0593a20e8a6518c9d7e611424b2bae427c4cffc",
     "reconstruction/csrc/library/reduction_functors.cuh": "4b42c15b8f478bfc9d5d9e05c81b0e7e0316fdda496ba9a6847471d1a23149c8",
     "reconstruction/csrc/kernels/types.cuh": "2dee46a31ed8f226d3fa549cac7c0afe519e0aa8e23bd96d76bb00ea00bd3d99",
     "reconstruction/csrc/kernels/common.cuh": "68895790cfd8cffdb96e3cdd95438d134a50a9e1527488be43d24632dbf0c2bb",
     "reconstruction/csrc/build_bvh_library.py": "147f3b079f529ea203389cc78fdab43a8d5afcaf96901c0e4d3c7000263c6dfc",
-    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.o": "5c55b1c57d5c102d59ae9cef67c4bfc78745fd511a58a89c59c7f45b9db41cfe",
-    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/build.json": "7b4a7c54aafc089b8d6531b946255a6c485c74255bae43cd493c2070b2932d94",
-    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.ptx": "369cafc05015374c6eacc8c5654ac0b169ff8e01ea673252c917e86512b65717"
+    "build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/bvh_library.o": "ae7c2b10908fb49b8df924780f7d4758bede75feaafd27b0ab45de5457ac71f8",
+    "build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/build.json": "8622ea69871662be913c674fd532ce00e2d8ff985cb087230407ddb436b3d158",
+    "build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/bvh_library.ptx": "369cafc05015374c6eacc8c5654ac0b169ff8e01ea673252c917e86512b65717"
   },
-  "extension_sha256": "dec858e551f015374453713edc46910028cae95a210b33acd6c9e9006a1c0282"
+  "extension_sha256": "0dabbaa7a57b57187549f814632efebdc5612095765932be112c2c9ca1868e3e"
 }

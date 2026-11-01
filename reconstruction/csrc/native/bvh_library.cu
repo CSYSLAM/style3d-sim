@@ -41,6 +41,14 @@ extern "C" int source_cache_initialize(void* data, std::size_t count, SourceCach
     return cudaGetLastError();
 }
 
+// SDK Granular construction uses typed int fills with both one and minus one.
+extern "C" int source_cache_initialize_integer(void* data, std::size_t count, int value)
+{
+    if (!count) return cudaSuccess;
+    initialize_cache(data, count, value);
+    return cudaGetLastError();
+}
+
 extern "C" int source_bvh_sequence_fill(int* sorted, int* parent, unsigned count, void* stream)
 {
     if (!count) return cudaSuccess;

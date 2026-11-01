@@ -1,5 +1,9 @@
 # 新版基准与 C++ host 进度
 
+> **当前主源码0dabbaa7 / Core7151054e已合入bonds/刚体恢复。** 新image的16短程、graph24、正常Core3及103/57/246合同均过。
+> 当前74已终态：69严格，五项首失败固定C10为四过一未过；Newton mixed仍失败，CPU独立复核同。
+> 当前三类constructor五项全同，driver真实0；不继承旧dec通过项，readyFalse/default原版保持。[当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先。
+
 > **dec当前验收已终态：74为71严格，三粒子固定C10全过、constructor五项同。** bonds/刚体SDK六组支持已实证。
 > 隔离EFE六短程全严格、三类构造五项全同、60步graph24/24及双端六initcheck零错误；待生产合入及新image回归。
 > 旧G1/复杂布料失败不改、readyFalse；[当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先于历史。

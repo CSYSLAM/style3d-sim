@@ -6730,3 +6730,53 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   原版/source各authored/dynamic/mixed三initcheck共6任务全0，日志均ERROR SUMMARY:0 errors；完整状态与实际命令保留。
   当前隔离bonds源码候选已通过以上门禁，下一步保存dec/Core47构建检查点，合入对应源码及准入，再编新host/Core并验证新image。
   G1/复杂布料旧长程失败、trampoline缺asset等整体缺口不据此改判；原版64a/360pyc与生产数学不变。
+
+
+### 2026-11-01：已验证bonds候选生产合入，当前0dabbaa7新image验证
+
+- 完整候选证据及dec当前回归已发布c2b20dbc11f71316ca95ee79f8eb7a4594c11742，push真实0；当时258385快照全量0失败。
+- 独立直接比较12短程与24长程完整state bytes，共36比较/1206384字节全同，包含signed-zero位；未替换原有报告或SDK原始数据。
+- 新生产phase before-checkpoint按当前Core27输入+host/Core image/build，共31文件保存并逐一SHA核准；dec/Core47旧镜像及源仍可追溯。
+- 从已经通过三constructor/graph24/initcheck6的EFE候选合入3源文件：source_solver.cpp、bvh_library.h/.cu。
+  只把候选的注释/拒绝文案/支持列表整理为实际准入范围；数学和构造源码与已测EFE保持。
+  still reject constrained bodies/other materials/rigidity/self/external contacts；不借bonds结果开放其它组合，readyFalse/default原版保持。
+- 生产build53926实际0，新host SHA 0dabbaa7a57b57187549f814632efebdc5612095765932be112c2c9ca1868e3e；
+  CUDA176/f0保持，新helper936f6e24b061593a全部26设备入口匹配，现公开Core47仍对应旧dec，不继承验收。
+- prepare-validation初稿v1在写graph-worker前发现注入绝对plan路径超128，实际1；随后v1验证在初始hash阶段缺worker实际1，未启动GPU。
+  v1脚本/log/validation-0dabbaa7保留。v2改用分行相对Root计划路径、独立-v2输出，生成实际0，未重编solver。
+  后续维护检查发现v2生成器本身一行131列；复制真实as-run到prepare-validation-v2-as-run.py，维护文件仅折行，不重跑或改活跃产物。
+- 新run-validation-v2驱动68428已启动，固定旧SDK4短程+6布局+6bonds、graph24、匹配Core3正常入口、103/57/246合同及完整74/fixedC10。
+  当前前4+6+1组已实际0，最终数值和完整回归需以新image实际报告为准，不能把dec/Candidate通过直接计为0dab。
+  具体状态在granular-affine-bonds-production/validation-0dabbaa7-v2/status.json。
+
+- 当前0dab新image进一步实际完成：4短程+6布局+6bonds全严格，60步graph24/24严格；匹配公开Core已编译，
+  SHA7151054e4597e6ea919c0caee576579e577aca233ea4de4dc8ad7aa20fa4b4e7（source-core/5037032b98b9d614），三个正常入口全0且无SDK映射。
+- 103 granular、57 fluid、246 self合同均实际0、differences为空；当前完整74已启动且进展到19/74，不能提前计旧结果。
+- 当前三类bonds constructor follower29879已启动，按run-validation-v2实际PID/starttime等待完整队列；只复用固定SDK原始数据，再采当前source。
+- 为后续实际demo（颗粒/刀具/砧板）耦合准备granular_affine_contacts_scene.py：粒子/刚体/两类接触、可让刚体与颗粒重叠，
+  native step之前保存真实接触计数，便于区分guard失败与无有效接触。当前仅AST/128检查，未运行，不写SDK支持或源码缺陷结论。
+
+
+### 2026-11-01：0dab当前回归及三类构造真实终态，纠正进度口径
+
+- 用户询问距离完整源码替换还有多少。本轮先核对实际构建、当前报告及三个原句柄，没有沿用旧image验收。
+  刚开始汇报误用了上一构建的71/74，发现本批终态后立即更正：当前0dab是69严格、五项严格失败。
+  五项为particles seed1/2/3、mixed_cloth seed3、pd_mixed_cloth seed3；全部首候选及失败保留。
+- run-validation-v2/session68428真实0；其regression74真实1、固定C10真实1均为允许记录的失败，不能将driver0写成全部通过。
+  固定五份source0、各十次真实项目内SDK64a对照：三个particles及PD mixed在波动范围内；Newton mixed仍false。
+  独立CPU实际0，完整复现五份报告，没有替换source0、扩增cohort或增加容差。
+  Newton mixed原版十次spread为0：位置最大误差1.7881393432617188e-7、速度7.152557373046875e-6，不能以数值小改判。
+- 再查4短程/6扩展布局/6bonds报告，本批16项均strict_passed=True，全部采集buffer和状态/metadata/coverage同。
+  graph24全部逐位同；三个正常公开Core入口仅证明独立运行，不替代G1独立长程验收。
+- 当前constructor/session29879真实0：9次source观测+3独立CPU，三类五项均全同。
+  authored allocation90/90、upload29/29、typed57/57、owned443、timeline504/504；
+  dynamic allocation92/92、upload27/27、typed61/61、owned446、timeline511/511；
+  mixed allocation98/98、upload31/31、typed63/63、owned605、timeline672/672。
+- 上一待验收检查点的259688文件快照验证/session22413真实0，failures=0；后续文档更新会重新生成并验证快照。
+- 当前状态/交接顶部已区分0dab与旧dec/38，移除将旧seed2失败当作当前失败的口径。
+  G1旧大尖峰、复杂布料长程、未捕获host组合、trampoline缺资产与安装/新机器复现仍未闭合。
+  176入口清单、74回归严格数均不是总体完成率；默认原版/readyFalse保持，不能宣布已完整替换。
+
+- 新close-phase.py实际0：独立核对当前host/Core所有构建输入、完整74、五项固定C10/CPU及三个constructor，
+  冻结生产phase全部2655个已有文件，terminal-verification.json明确记录driver0不等于验收通过、Newton mixed仍false。
+  原待验收检查点保持为历史记录，不将其phase_open=True覆盖成新结论；新终态单独封存。

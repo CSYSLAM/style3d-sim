@@ -1,0 +1,179 @@
+{
+  "initialize/fluid_rest_density/-1.0": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_rest_density/0.0": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_rest_density/1.0": "accepted",
+  "initialize/fluid_rest_density/nan": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_rest_density/inf": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_smoothing_radius/-1.0": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_smoothing_radius/0.0": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_smoothing_radius/1.0": "accepted",
+  "initialize/fluid_smoothing_radius/nan": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_smoothing_radius/inf": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_bulk_modulus/-1.0": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_bulk_modulus/0.0": "accepted",
+  "initialize/fluid_bulk_modulus/1.0": "accepted",
+  "initialize/fluid_bulk_modulus/nan": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_bulk_modulus/inf": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_viscosity/-1.0": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_viscosity/0.0": "accepted",
+  "initialize/fluid_viscosity/1.0": "accepted",
+  "initialize/fluid_viscosity/nan": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "initialize/fluid_viscosity/inf": [
+    "ValueError",
+    "fluid density/radius must be positive; bulk modulus/viscosity non-negative and finite"
+  ],
+  "indices/[-1]": [
+    "ValueError",
+    "fluid particle index is out of range"
+  ],
+  "indices/[1]": [
+    "ValueError",
+    "fluid particle index is out of range"
+  ],
+  "indices/[0, 0]": [
+    "ValueError",
+    "fluid indices must be unique valid particle indices"
+  ],
+  "mass/-1.0": [
+    "ValueError",
+    "particle masses must be finite and non-negative"
+  ],
+  "mass/0.0": [
+    "ValueError",
+    "fluid particles must have positive finite mass and be active"
+  ],
+  "mass/1.0": "accepted",
+  "mass/nan": [
+    "ValueError",
+    "particle masses must be finite and non-negative"
+  ],
+  "mass/inf": [
+    "ValueError",
+    "particle masses must be finite and non-negative"
+  ],
+  "non-fluid-mass/-1.0": [
+    "ValueError",
+    "particle masses must be finite and non-negative"
+  ],
+  "non-fluid-mass/0.0": "accepted",
+  "non-fluid-mass/1.0": "accepted",
+  "non-fluid-mass/nan": [
+    "ValueError",
+    "particle masses must be finite and non-negative"
+  ],
+  "non-fluid-mass/inf": [
+    "ValueError",
+    "particle masses must be finite and non-negative"
+  ],
+  "flags/None": "accepted",
+  "flags/0": [
+    "ValueError",
+    "fluid particles must have positive finite mass and be active"
+  ],
+  "flags/1": "accepted",
+  "flags/2": [
+    "ValueError",
+    "fluid particles must have positive finite mass and be active"
+  ],
+  "flags/3": "accepted",
+  "boundary-volume/-1.0": [
+    "ValueError",
+    "fluid boundary positions must be finite and volumes positive and finite"
+  ],
+  "boundary-volume/0.0": [
+    "ValueError",
+    "fluid boundary positions must be finite and volumes positive and finite"
+  ],
+  "boundary-volume/1.0": "accepted",
+  "boundary-volume/nan": [
+    "ValueError",
+    "fluid boundary positions must be finite and volumes positive and finite"
+  ],
+  "boundary-volume/inf": [
+    "ValueError",
+    "fluid boundary positions must be finite and volumes positive and finite"
+  ],
+  "boundary-position/nan": [
+    "ValueError",
+    "fluid boundary positions must be finite and volumes positive and finite"
+  ],
+  "boundary-position/inf": [
+    "ValueError",
+    "fluid boundary positions must be finite and volumes positive and finite"
+  ],
+  "step/fluid_relaxation/-1.0": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ],
+  "step/fluid_relaxation/0.0": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ],
+  "step/fluid_relaxation/1.0": "accepted",
+  "step/fluid_relaxation/1.1": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ],
+  "step/fluid_relaxation/nan": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ],
+  "step/fluid_relaxation/inf": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ],
+  "step/fluid_max_step_ratio/-1.0": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ],
+  "step/fluid_max_step_ratio/0.0": "accepted",
+  "step/fluid_max_step_ratio/1.0": "accepted",
+  "step/fluid_max_step_ratio/1.1": "accepted",
+  "step/fluid_max_step_ratio/nan": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ],
+  "step/fluid_max_step_ratio/inf": [
+    "ValueError",
+    "fluid relaxation must be in (0, 1] and maximum step ratio finite and non-negative"
+  ]
+}

@@ -120,13 +120,13 @@ class Solver {
         if (model.granular_particle_count && (model.spring_count || model.triangle_count ||
                                             model.edge_count || model.tetrahedron_count || model.fluid_particle_count))
             throw std::runtime_error("Granular combined with other particle materials has not been captured");
-        // Only unconstrained, unbonded granular/SO3 body layouts have been compared against the SDK.
+        // Unconstrained granular/SO3 layouts with authored or dynamic bonds are captured against the SDK.
         // Free-body DOF/target channels alone do not imply constraints or drives.
         if (model.granular_particle_count && has_bodies &&
             (model.body_spring_count || model.body_distance_constraint_count || model.body_point_line_count ||
              model.joint_drive_count || model.joint_body_spring_count || model.joint_body_point_line_count ||
-             model.cable_count || model.granular_bond_count || model.granular_adhesion > 0.0f))
-            throw std::runtime_error("Constrained or bonded granular/body combinations have not been captured");
+             model.cable_count))
+            throw std::runtime_error("Constrained granular/body combinations have not been captured");
         const bool bodies = model.body_count || model.body_state_count;
         const bool particle_materials = model.spring_count || model.triangle_count || model.edge_count ||
                                         model.tetrahedron_count;
@@ -220,6 +220,15 @@ class Solver {
         // Auxiliary dispatch remains separate from owned-kernel coverage counts.
         check_bvh_library(source_cache_initialize(reinterpret_cast<void*>(pointer), count, type),
                           "Cache value initialization");
+        return pointer;
+    }
+
+    std::uint64_t initialized_integer_cache(std::size_t count, int value)
+    {
+        if (!count) return 0;
+        const auto pointer = driver_->allocate(count * sizeof(int));
+        check_bvh_library(source_cache_initialize_integer(reinterpret_cast<void*>(pointer), count, value),
+                          "Integer cache value initialization");
         return pointer;
     }
 
@@ -1543,8 +1552,8 @@ class Solver {
             group.pairs = upload(bonds);
             group.rest = upload(lengths);
             group.history = upload(lengths);
-            group.active = upload(std::vector<int>(bonds.size(), active));
-            group.tangent = allocate(bonds.size() * 36);
+            group.active = initialized_integer_cache(bonds.size(), active);
+            group.tangent = initialized_cache(bonds.size(), 36, SourceCacheType::Matrix3);
         };
         std::vector<std::array<int, 2>> global_pairs;
         std::vector<float> global_rest;
@@ -1565,17 +1574,22 @@ class Solver {
             }
         prepare_bonds(granular_initial_, global_pairs, global_rest, 1);
         if (dynamic) {
-            prepare_bonds(granular_dynamic_, std::vector<std::array<int, 2>>(dynamic, {0, 0}),
-                          std::vector<float>(dynamic, 0.0f), 0);
-            granular_partner_ = upload(std::vector<int>(dynamic, -1));
             std::vector<int> offsets{0}, columns;
             for (auto& row : adjacency) {
                 std::sort(row.begin(), row.end());
                 columns.insert(columns.end(), row.begin(), row.end());
                 offsets.push_back(static_cast<int>(columns.size()));
             }
+            // SDK 0x1293d7..0x1294c7 uploads CSR before allocating its dynamic bond caches.
             granular_offsets_ = upload(offsets);
             granular_columns_ = columns.empty() ? 0 : upload(columns);
+            granular_partner_ = initialized_integer_cache(dynamic, -1);
+            granular_dynamic_.count = static_cast<int>(dynamic);
+            granular_dynamic_.pairs = initialized_cache(dynamic, 8, SourceCacheType::Index2);
+            granular_dynamic_.rest = initialized_cache(dynamic, 4, SourceCacheType::Scalar);
+            granular_dynamic_.history = initialized_cache(dynamic, 4, SourceCacheType::Scalar);
+            granular_dynamic_.active = initialized_cache(dynamic, 4, SourceCacheType::Integer);
+            granular_dynamic_.tangent = initialized_cache(dynamic, 36, SourceCacheType::Matrix3);
         }
         for (const auto& suffix : {"10build_grid", "19accumulate_contacts", "16accumulate_bonds", "12add_diagonal",
                                   "17multiply_contacts", "14multiply_bonds", "12commit_bonds", "10form_bonds"})
@@ -2992,6 +3006,9 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "particle_granular_newton", "particle_granular_pd_newton",
                                                      "granular_affine_so3_newton", "granular_affine_so3_pd_newton",
                                                      "granular_affine_so3_body_blocks",
+                                                     "granular_affine_so3_bonds_newton",
+                                                     "granular_affine_so3_bonds_pd_newton",
+                                                     "granular_affine_so3_bonds_body_blocks",
                                                      "free_particle_self_collision_newton",
                                                      "free_particle_self_collision_pd_newton",
                                                      "mesh_self_collision_without_material_forces_newton",
