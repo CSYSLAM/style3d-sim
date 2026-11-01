@@ -6481,5 +6481,34 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   该差异已在drive之前，当前三个核本批都严格；尚未证明差异来自哪个前置核或是否导致后续响应。
   接续first RHS25/joint AL30边界，必要时接contact26/rolling27；先共同输入实际回放，再按失败决定原子证书。
 - 生产host38/Core7eb/CUDA176f0与旧所有失败保持，没有重跑74；完整源码替代继续活动，Windows仍WSL2。
+
+### 2026-11-01：G1冻结首force差定位到初始joint AL，实际SDK隔离与F32顺序证据
+
+- 承接edcc36ac已发布、252673快照零失败及远端精确确认，属于progress。本轮SDK64a/host38/Core7eb/CUDA176f0不动。
+- 新g1_first_rhs.py复用固定checkpoint/图快照/三端回放，仅选择RHS25/joint30/drive31，一SDK一源码局部诊断，不建立新C队列。
+  CPU预检10279实际0；capture/replay驱动56089实际0，两正常Core worker0、公共状态CPU/18回放/CPU均0。
+  每端50快照/70772字节，原17467/17466完整保留，实际17517/17522及依赖/范围CPU独立核准。
+- 新两端force before逐位复现旧sdk0/rebuilt0。RHS同；joint全部输入和force before同，joint after有同样11项差，最大4.77e-7。
+  86份实际lambda为零；joint after与紧邻drive before同，drive after剩9项差。首差明确在joint内，未预设大响应根因。
+  18三端回放30输出26严格，joint runtime0/2、原PTX1/2、source1/2；四严格失败保持。
+  CPU重核522792 after字节、482712非输出guard、270指针、2808 ABI字节、648标量及10020输出word。
+- 原子后续首probe生产者新写的数组stride256与PTX实际128不匹配，原先初步布尔被独立CPU拒绝。
+  原驱动67817实际1，probe0/CPU1；atomic/全部失败原源码/plan/PTX/NPZ/log/状态保存，未把坏记录当通过。
+  只改新诊断生产者两个128常数，atomic-v2重新probe，原正常Core采集及所有真实packet不变。
+- v2 probe与CPU、prepare均0；驱动23608实际1是isolation外层wrapper缺项目import path，尚未开始GPU隔离，无isolation数据目录。
+  V3仅加外层sys.path及复用字节相同as-run；旧wrapper/log/退出1不动。驱动43265后续isolation/cert/CPU全实际0。
+- 正确probe两份各2064原子，4128逐线程/逐目标及跨目标完整序列同；实际输入/初值连scalar全部相同。
+  Probe独立CPU核67712 after字节、59264 guard/非输出字节、528含探针实际ABI字节、2112输出word。
+  原SDK/PTX/source逐86弹簧/双零初值共1032调用全逐位同，与真实操作数预测同；CPU核544896完整输出word/19952保存ABI字节。
+  原乘子指针偏移12*k，count/joint=1、spring_count=k+1；所有全局数组及particle width176保持。
+- 捕获after、三端回放、有效probe所有目标bit共1086 GPU scalar证书全过，4292 GPU F32历史值CPU重核同，最多8项全排列。
+  证明标量结果与相同实际操作数的合法顺序一致，不推断原全局warp调度，不把四严格失败或旧C8改成通过。
+- 接续核第4子步真实线性迭代系数/非线性位置；源码固定5*50轮，无host早停假设，先采实际分支输入再判断。
+  见G1_FIRST_RHS_RECOVERY.md及continuation-20261101-38b70dcd-g1-first-rhs完整证据。生产未改，未重复74，完整替代继续活动。
+- revision-independent-cpu-audit.py实际退出0，独立核准旧v1仅root生产者版本用归档源码映射、两个stride常数修正、
+  两份joint原始字节和instrumented PTX不动、隔离/证书模板不动、wrapper仅导入路径/复用同字节模板变化。
+  两个失败退出/原报告均保存，旧C8 SHA不动。随后关闭完整证据，准备全量快照校验后发布。
+- 归档前格式检查首次把旧worker原字节模板也纳入128列维护规则而退出1；调整检查范围为本轮维护脚本。
+  历史as-run/template按既定SHA保留，不为格式重写原始证据；本轮维护脚本语法及128列检查通过。
 - 全部本轮GPU已正常结束，未修改生产/SDK/pyc或宽松比较。说明见G1_DRIVE_AND_AL_STATE_RECOVERY.md，
   原始证据/命令/终态在continuation-20261101-38b70dcd-g1-drive-and-AL-state。完整源码替代仍未验收，goal活动，readyFalse，Windows仍WSL2。

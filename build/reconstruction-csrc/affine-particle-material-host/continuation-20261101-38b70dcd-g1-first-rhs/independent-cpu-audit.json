@@ -1,0 +1,95 @@
+{
+  "force_boundaries": {
+    "rhs": {
+      "before": {
+        "different_words": 0,
+        "indices": [],
+        "max_abs_error": 0.0
+      },
+      "after": {
+        "different_words": 0,
+        "indices": [],
+        "max_abs_error": 0.0
+      },
+      "all_non_output_pointer_inputs_bitwise_equal": true
+    },
+    "joint": {
+      "before": {
+        "different_words": 0,
+        "indices": [],
+        "max_abs_error": 0.0
+      },
+      "after": {
+        "different_words": 11,
+        "indices": [
+          180,
+          181,
+          184,
+          185,
+          186,
+          187,
+          188,
+          192,
+          194,
+          198,
+          201
+        ],
+        "max_abs_error": 4.76837158203125e-07
+      },
+      "all_non_output_pointer_inputs_bitwise_equal": true
+    },
+    "drive": {
+      "before": {
+        "different_words": 11,
+        "indices": [
+          180,
+          181,
+          184,
+          185,
+          186,
+          187,
+          188,
+          192,
+          194,
+          198,
+          201
+        ],
+        "max_abs_error": 4.76837158203125e-07
+      },
+      "after": {
+        "different_words": 9,
+        "indices": [
+          180,
+          181,
+          184,
+          185,
+          187,
+          188,
+          192,
+          194,
+          198
+        ],
+        "max_abs_error": 4.76837158203125e-07
+      },
+      "all_non_output_pointer_inputs_bitwise_equal": true
+    }
+  },
+  "old_first_force_before_bitwise_reproduced": {
+    "sdk0": true,
+    "rebuilt0": true
+  },
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/sdk0/trace/rhs-packets/frame-00.npz": "597628db2ec1bb506cd8914d8cbe629cb5967cac0b3658064cea1d9afe82cc6c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/sdk0/trace/joint-packets/frame-00.npz": "9452fedb25e56aea667db3676e5f012ded8fbe76cd45dc370f0d6051c873747b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/sdk0/trace/drive-packets/frame-00.npz": "be9348a54713d239c06f9870707c7d7d02e8ac5b1d38b431285b61965edd5a54",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/rebuilt0/trace/rhs-packets/frame-00.npz": "2a3ffdb80a563ba368883ad22cd6aaac0261e867dd65c0fa6e30e81d21e1d1f1",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/rebuilt0/trace/joint-packets/frame-00.npz": "5b68a83ac815aa8f585e641a877a2bdc5ad3b618146678f1b3ccfc2421ec847f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/rebuilt0/trace/drive-packets/frame-00.npz": "83bacca6d2e0d8589f91556495289cc9adc4923af4a4fb57156c1dcd8a693c78"
+  },
+  "joint_initial_multiplier_all_positive_or_negative_zero": true,
+  "original_velocity_helper_bug_retained": true,
+  "new_numeric_C_cohort_created": false,
+  "old_C8_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

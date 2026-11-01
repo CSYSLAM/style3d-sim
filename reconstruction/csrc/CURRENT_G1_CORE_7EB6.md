@@ -1,5 +1,9 @@
 # 当前公共Core的G1固定原版对比：38b70dcd / 7eb6e847
 
+> [首次累计力首差](G1_FIRST_RHS_RECOVERY.md)已复现旧两端force，并定位joint AL30；RHS及joint全部输入/初值同。
+> 4128真实操作数同、1032 SDK隔离同、1086 GPU F32证书全过，四严格失败和旧C8仍保留。
+> 这不证明局部首差导致后续23.85；下一步第4子步真实CG系数和位置，生产host38/Core7eb/readyFalse不改。
+
 > 新[共同起点六子步](G1_CHECKPOINT_SUBSTEPS_RECOVERY.md)的594回放/1188输出全严格，原图/after/ABI已CPU核准。
 > 第4子步响应分组已定位，首次drive前force有11个末位差异，其它前26输入全同；向前追first RHS及joint AL。
 > 新单帧诊断C过不替代本文旧C8，原helper速度测试问题保留，整体readyFalse不变。

@@ -1,0 +1,21 @@
+{
+  "driver_session": 67817,
+  "driver_actual_exit": 1,
+  "steps": [
+    {
+      "label": "probe",
+      "pid": 2668251,
+      "actual_exit": 0
+    },
+    {
+      "label": "probe-independent-cpu-audit",
+      "pid": 2668442,
+      "actual_exit": 1
+    }
+  ],
+  "source_sha256": "71fa75afa8bd12851ee1d7d20b3beadf2b0cad2e62a92ecb9c3a9917c9c0a4c0",
+  "reason": "PTX lane stride is128*16 bytes; producer parsed a256*16 stride; first invalid parsed lane43",
+  "GPU_raw_full_trace_not_saved_so_all_operands_cannot_be_recovered": "repeat only probes from exact saved joint inputs",
+  "production_changed": false,
+  "whole_solver_complete": false
+}

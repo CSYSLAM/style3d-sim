@@ -1,0 +1,1025 @@
+{
+  "rows": [
+    {
+      "label": "sdk0",
+      "stage": "rhs",
+      "kernel_key": "rhs",
+      "capture_sha256": "597628db2ec1bb506cd8914d8cbe629cb5967cac0b3658064cea1d9afe82cc6c",
+      "output_sha256": "3299120e137ac3268aad16b492d8dbc140b0897b6201720a7f092c7993f72d74",
+      "groups": [
+        {
+          "indices": [
+            8
+          ],
+          "start": 12991257600,
+          "end": 12991258304,
+          "padding": 256,
+          "device_base": 131176608038912
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 12991261696,
+          "end": 12991262400,
+          "padding": 256,
+          "device_base": 131176608040448
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991294464,
+          "end": 12991296576,
+          "padding": 256,
+          "device_base": 131176608041984
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991299584,
+          "end": 12991301696,
+          "padding": 256,
+          "device_base": 131176608045056
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 131350218673152,
+          "end": 131350218675264,
+          "padding": 256,
+          "device_base": 131176608048128
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 131350218678272,
+          "end": 131350218680384,
+          "padding": 256,
+          "device_base": 131176608051200
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 131350218738688,
+          "end": 131350218739392,
+          "padding": 256,
+          "device_base": 131176608054272
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 131350218767872,
+          "end": 131350218794624,
+          "padding": 256,
+          "device_base": 131176608055808
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "joint",
+      "kernel_key": "joint",
+      "capture_sha256": "9452fedb25e56aea667db3676e5f012ded8fbe76cd45dc370f0d6051c873747b",
+      "output_sha256": "8d6af2101ab390277ee3a0ea46bec1b1b9d593684617314ad61df9ab96d37e43",
+      "groups": [
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991263744,
+          "end": 12991264448,
+          "padding": 256,
+          "device_base": 131176608038912
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 12991272960,
+          "end": 12991273648,
+          "padding": 256,
+          "device_base": 131176608040448
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 12991273984,
+          "end": 12991275016,
+          "padding": 256,
+          "device_base": 131176608041984
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 12991275520,
+          "end": 12991276552,
+          "padding": 256,
+          "device_base": 131176608044032
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991277056,
+          "end": 12991277400,
+          "padding": 256,
+          "device_base": 131176608046080
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 12991294464,
+          "end": 12991296576,
+          "padding": 256,
+          "device_base": 131176608047104
+        },
+        {
+          "indices": [
+            10
+          ],
+          "start": 131350218673152,
+          "end": 131350218675264,
+          "padding": 256,
+          "device_base": 131176608050176
+        },
+        {
+          "indices": [
+            8
+          ],
+          "start": 131350218699776,
+          "end": 131350218700808,
+          "padding": 256,
+          "device_base": 131176608053248
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 131350219017728,
+          "end": 131350219019104,
+          "padding": 256,
+          "device_base": 131176608055296
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 131350219019264,
+          "end": 131350219020640,
+          "padding": 256,
+          "device_base": 131176608057344
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "10": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "10": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "10": false
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "drive",
+      "kernel_key": "drive",
+      "capture_sha256": "be9348a54713d239c06f9870707c7d7d02e8ac5b1d38b431285b61965edd5a54",
+      "output_sha256": "3cc2529a7c2e40a67b7b74ea295ca8f404851201dc7da384159b98b27306056f",
+      "groups": [
+        {
+          "indices": [
+            21
+          ],
+          "start": 12991216640,
+          "end": 12991216836,
+          "padding": 256,
+          "device_base": 131176608038912
+        },
+        {
+          "indices": [
+            18
+          ],
+          "start": 12991217152,
+          "end": 12991217348,
+          "padding": 256,
+          "device_base": 131176608039936
+        },
+        {
+          "indices": [
+            19
+          ],
+          "start": 12991217664,
+          "end": 12991217860,
+          "padding": 256,
+          "device_base": 131176608040960
+        },
+        {
+          "indices": [
+            22
+          ],
+          "start": 12991218176,
+          "end": 12991218372,
+          "padding": 256,
+          "device_base": 131176608041984
+        },
+        {
+          "indices": [
+            20
+          ],
+          "start": 12991220736,
+          "end": 12991220932,
+          "padding": 256,
+          "device_base": 131176608043008
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 12991263744,
+          "end": 12991264448,
+          "padding": 256,
+          "device_base": 131176608044032
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 12991278080,
+          "end": 12991278252,
+          "padding": 256,
+          "device_base": 131176608045568
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991278592,
+          "end": 12991278936,
+          "padding": 256,
+          "device_base": 131176608046592
+        },
+        {
+          "indices": [
+            8
+          ],
+          "start": 12991279104,
+          "end": 12991279620,
+          "padding": 256,
+          "device_base": 131176608047616
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 12991281152,
+          "end": 12991281668,
+          "padding": 256,
+          "device_base": 131176608049152
+        },
+        {
+          "indices": [
+            10
+          ],
+          "start": 12991282176,
+          "end": 12991282692,
+          "padding": 256,
+          "device_base": 131176608050688
+        },
+        {
+          "indices": [
+            16
+          ],
+          "start": 12991284224,
+          "end": 12991284396,
+          "padding": 256,
+          "device_base": 131176608052224
+        },
+        {
+          "indices": [
+            17
+          ],
+          "start": 12991284736,
+          "end": 12991284908,
+          "padding": 256,
+          "device_base": 131176608053248
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 12991294464,
+          "end": 12991296576,
+          "padding": 256,
+          "device_base": 131176608054272
+        },
+        {
+          "indices": [
+            24
+          ],
+          "start": 12991321088,
+          "end": 12991321284,
+          "padding": 256,
+          "device_base": 131176608057344
+        },
+        {
+          "indices": [
+            25
+          ],
+          "start": 12991321600,
+          "end": 12991321796,
+          "padding": 256,
+          "device_base": 131176608058368
+        },
+        {
+          "indices": [
+            23
+          ],
+          "start": 12991322624,
+          "end": 12991322820,
+          "padding": 256,
+          "device_base": 131176608059392
+        },
+        {
+          "indices": [
+            26
+          ],
+          "start": 131350218673152,
+          "end": 131350218675264,
+          "padding": 256,
+          "device_base": 131176608060416
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 131350218675712,
+          "end": 131350218677824,
+          "padding": 256,
+          "device_base": 131176608063488
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 131350218680832,
+          "end": 131350218681004,
+          "padding": 256,
+          "device_base": 131176608066560
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 131350218681344,
+          "end": 131350218681516,
+          "padding": 256,
+          "device_base": 131176608067584
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 131350218681856,
+          "end": 131350218682028,
+          "padding": 256,
+          "device_base": 131176608068608
+        },
+        {
+          "indices": [
+            11
+          ],
+          "start": 131350219020800,
+          "end": 131350219021488,
+          "padding": 256,
+          "device_base": 131176608069632
+        },
+        {
+          "indices": [
+            12
+          ],
+          "start": 131350219021824,
+          "end": 131350219022512,
+          "padding": 256,
+          "device_base": 131176608071168
+        },
+        {
+          "indices": [
+            13
+          ],
+          "start": 131350219022848,
+          "end": 131350219023536,
+          "padding": 256,
+          "device_base": 131176608072704
+        },
+        {
+          "indices": [
+            14
+          ],
+          "start": 131350219023872,
+          "end": 131350219024560,
+          "padding": 256,
+          "device_base": 131176608074240
+        },
+        {
+          "indices": [
+            15
+          ],
+          "start": 131350219024896,
+          "end": 131350219025584,
+          "padding": 256,
+          "device_base": 131176608075776
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "3": true,
+            "4": true,
+            "26": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "3": true,
+            "4": true,
+            "26": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "3": true,
+            "4": true,
+            "26": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "rhs",
+      "kernel_key": "rhs",
+      "capture_sha256": "2a3ffdb80a563ba368883ad22cd6aaac0261e867dd65c0fa6e30e81d21e1d1f1",
+      "output_sha256": "3299120e137ac3268aad16b492d8dbc140b0897b6201720a7f092c7993f72d74",
+      "groups": [
+        {
+          "indices": [
+            8
+          ],
+          "start": 12991257600,
+          "end": 12991258304,
+          "padding": 256,
+          "device_base": 131176608038912
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 12991261696,
+          "end": 12991262400,
+          "padding": 256,
+          "device_base": 131176608040448
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991294464,
+          "end": 12991296576,
+          "padding": 256,
+          "device_base": 131176608041984
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991299584,
+          "end": 12991301696,
+          "padding": 256,
+          "device_base": 131176608045056
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 124649465711616,
+          "end": 124649465713728,
+          "padding": 256,
+          "device_base": 131176608048128
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 124649465716736,
+          "end": 124649465718848,
+          "padding": 256,
+          "device_base": 131176608051200
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 124649465777152,
+          "end": 124649465777856,
+          "padding": 256,
+          "device_base": 131176608054272
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 124649465806336,
+          "end": 124649465833088,
+          "padding": 256,
+          "device_base": 131176608055808
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "joint",
+      "kernel_key": "joint",
+      "capture_sha256": "5b68a83ac815aa8f585e641a877a2bdc5ad3b618146678f1b3ccfc2421ec847f",
+      "output_sha256": "8d6af2101ab390277ee3a0ea46bec1b1b9d593684617314ad61df9ab96d37e43",
+      "groups": [
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991263744,
+          "end": 12991264448,
+          "padding": 256,
+          "device_base": 131176608038912
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 12991272960,
+          "end": 12991273648,
+          "padding": 256,
+          "device_base": 131176608040448
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 12991273984,
+          "end": 12991275016,
+          "padding": 256,
+          "device_base": 131176608041984
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 12991275520,
+          "end": 12991276552,
+          "padding": 256,
+          "device_base": 131176608044032
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991277056,
+          "end": 12991277400,
+          "padding": 256,
+          "device_base": 131176608046080
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 12991294464,
+          "end": 12991296576,
+          "padding": 256,
+          "device_base": 131176608047104
+        },
+        {
+          "indices": [
+            10
+          ],
+          "start": 124649465711616,
+          "end": 124649465713728,
+          "padding": 256,
+          "device_base": 131176608050176
+        },
+        {
+          "indices": [
+            8
+          ],
+          "start": 124649465738240,
+          "end": 124649465739272,
+          "padding": 256,
+          "device_base": 131176608053248
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 124649466056192,
+          "end": 124649466057568,
+          "padding": 256,
+          "device_base": 131176608055296
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 124649466057728,
+          "end": 124649466059104,
+          "padding": 256,
+          "device_base": 131176608057344
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "10": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "10": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "10": false
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "drive",
+      "kernel_key": "drive",
+      "capture_sha256": "83bacca6d2e0d8589f91556495289cc9adc4923af4a4fb57156c1dcd8a693c78",
+      "output_sha256": "3efc8ffc4648942423e53e1af877f68ee69128169c7a7f05790aad9df79cc418",
+      "groups": [
+        {
+          "indices": [
+            21
+          ],
+          "start": 12991216640,
+          "end": 12991216836,
+          "padding": 256,
+          "device_base": 131176608038912
+        },
+        {
+          "indices": [
+            18
+          ],
+          "start": 12991217152,
+          "end": 12991217348,
+          "padding": 256,
+          "device_base": 131176608039936
+        },
+        {
+          "indices": [
+            19
+          ],
+          "start": 12991217664,
+          "end": 12991217860,
+          "padding": 256,
+          "device_base": 131176608040960
+        },
+        {
+          "indices": [
+            22
+          ],
+          "start": 12991218176,
+          "end": 12991218372,
+          "padding": 256,
+          "device_base": 131176608041984
+        },
+        {
+          "indices": [
+            20
+          ],
+          "start": 12991220736,
+          "end": 12991220932,
+          "padding": 256,
+          "device_base": 131176608043008
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 12991263744,
+          "end": 12991264448,
+          "padding": 256,
+          "device_base": 131176608044032
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 12991278080,
+          "end": 12991278252,
+          "padding": 256,
+          "device_base": 131176608045568
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991278592,
+          "end": 12991278936,
+          "padding": 256,
+          "device_base": 131176608046592
+        },
+        {
+          "indices": [
+            8
+          ],
+          "start": 12991279104,
+          "end": 12991279620,
+          "padding": 256,
+          "device_base": 131176608047616
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 12991281152,
+          "end": 12991281668,
+          "padding": 256,
+          "device_base": 131176608049152
+        },
+        {
+          "indices": [
+            10
+          ],
+          "start": 12991282176,
+          "end": 12991282692,
+          "padding": 256,
+          "device_base": 131176608050688
+        },
+        {
+          "indices": [
+            16
+          ],
+          "start": 12991284224,
+          "end": 12991284396,
+          "padding": 256,
+          "device_base": 131176608052224
+        },
+        {
+          "indices": [
+            17
+          ],
+          "start": 12991284736,
+          "end": 12991284908,
+          "padding": 256,
+          "device_base": 131176608053248
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 12991294464,
+          "end": 12991296576,
+          "padding": 256,
+          "device_base": 131176608054272
+        },
+        {
+          "indices": [
+            24
+          ],
+          "start": 12991321088,
+          "end": 12991321284,
+          "padding": 256,
+          "device_base": 131176608057344
+        },
+        {
+          "indices": [
+            25
+          ],
+          "start": 12991321600,
+          "end": 12991321796,
+          "padding": 256,
+          "device_base": 131176608058368
+        },
+        {
+          "indices": [
+            23
+          ],
+          "start": 12991322624,
+          "end": 12991322820,
+          "padding": 256,
+          "device_base": 131176608059392
+        },
+        {
+          "indices": [
+            26
+          ],
+          "start": 124649465711616,
+          "end": 124649465713728,
+          "padding": 256,
+          "device_base": 131176608060416
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 124649465714176,
+          "end": 124649465716288,
+          "padding": 256,
+          "device_base": 131176608063488
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 124649465719296,
+          "end": 124649465719468,
+          "padding": 256,
+          "device_base": 131176608066560
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 124649465719808,
+          "end": 124649465719980,
+          "padding": 256,
+          "device_base": 131176608067584
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 124649465720320,
+          "end": 124649465720492,
+          "padding": 256,
+          "device_base": 131176608068608
+        },
+        {
+          "indices": [
+            11
+          ],
+          "start": 124649466059264,
+          "end": 124649466059952,
+          "padding": 256,
+          "device_base": 131176608069632
+        },
+        {
+          "indices": [
+            12
+          ],
+          "start": 124649466060288,
+          "end": 124649466060976,
+          "padding": 256,
+          "device_base": 131176608071168
+        },
+        {
+          "indices": [
+            13
+          ],
+          "start": 124649466061312,
+          "end": 124649466062000,
+          "padding": 256,
+          "device_base": 131176608072704
+        },
+        {
+          "indices": [
+            14
+          ],
+          "start": 124649466062336,
+          "end": 124649466063024,
+          "padding": 256,
+          "device_base": 131176608074240
+        },
+        {
+          "indices": [
+            15
+          ],
+          "start": 124649466063360,
+          "end": 124649466064048,
+          "padding": 256,
+          "device_base": 131176608075776
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "3": true,
+            "4": true,
+            "26": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "3": true,
+            "4": true,
+            "26": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "3": true,
+            "4": true,
+            "26": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    }
+  ],
+  "complete": true,
+  "actual_calls": 18,
+  "runner_sha256": "5f4f9b6d6ec673a6fd56f84be271f1e6f59536cc553c2e1a3d6e36dc34cf1bd7",
+  "strict_failures_retained": true,
+  "production_changed": false,
+  "old_C8_reclassified": false,
+  "whole_solver_complete": false
+}

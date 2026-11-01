@@ -1,0 +1,210 @@
+{
+  "CPU_preflight": {
+    "session": 10279,
+    "actual_exit": 0
+  },
+  "capture_and_direct_replay": {
+    "session": 56089,
+    "actual_exit": 0
+  },
+  "worker_steps": [
+    {
+      "label": "sdk0",
+      "pid": 2663543,
+      "actual_exit": 0
+    },
+    {
+      "label": "rebuilt0",
+      "pid": 2663833,
+      "actual_exit": 0
+    }
+  ],
+  "direct_followup_steps": [
+    {
+      "label": "independent-cpu-audit",
+      "pid": 2664193,
+      "actual_exit": 0
+    },
+    {
+      "label": "replay",
+      "pid": 2664279,
+      "actual_exit": 0
+    },
+    {
+      "label": "replay-independent-cpu-audit",
+      "pid": 2664343,
+      "actual_exit": 0
+    }
+  ],
+  "failed_stride_diagnostic": {
+    "session": 67817,
+    "actual_exit": 1,
+    "steps": [
+      {
+        "label": "probe",
+        "pid": 2668251,
+        "actual_exit": 0
+      },
+      {
+        "label": "probe-independent-cpu-audit",
+        "pid": 2668442,
+        "actual_exit": 1
+      }
+    ],
+    "preliminary_probe_boolean_rejected_by_independent_CPU": true
+  },
+  "corrected_probe_wrapper_bootstrap_failure": {
+    "session": 23608,
+    "actual_exit": 1,
+    "steps": [
+      {
+        "label": "probe",
+        "pid": 2670125,
+        "actual_exit": 0
+      },
+      {
+        "label": "probe-independent-cpu-audit",
+        "pid": 2670191,
+        "actual_exit": 0
+      },
+      {
+        "label": "prepare-followup",
+        "pid": 2670223,
+        "actual_exit": 0
+      },
+      {
+        "label": "isolation",
+        "pid": 2670276,
+        "actual_exit": 1
+      }
+    ]
+  },
+  "corrected_wrapper_continuation": {
+    "session": 43265,
+    "actual_exit": 0,
+    "steps": [
+      {
+        "label": "isolation",
+        "pid": 2671133,
+        "actual_exit": 0
+      },
+      {
+        "label": "certificates",
+        "pid": 2671197,
+        "actual_exit": 0
+      },
+      {
+        "label": "atomic-followup-cpu-audit",
+        "pid": 2671282,
+        "actual_exit": 0
+      }
+    ]
+  },
+  "revision_independent_CPU": {
+    "actual_exit": 0
+  },
+  "all_started_own_GPU_jobs_terminal": true,
+  "all_own_terminal_exit_codes_observed": true,
+  "commands": {
+    "atomic/probe-independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/probe-independent-cpu-audit.py"
+    ],
+    "atomic/probe.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_first_joint_probe",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic"
+    ],
+    "atomic-v2/atomic-followup-cpu-audit-v3.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2/atomic-followup-cpu-audit.py"
+    ],
+    "atomic-v2/certificates-v3.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2/certificates-wrapper-v3.py",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2/certificates"
+    ],
+    "atomic-v2/isolation-v3.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2/isolation-wrapper-v3.py",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2/isolation"
+    ],
+    "atomic-v2/isolation.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2/isolation-wrapper.py",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2/isolation"
+    ],
+    "atomic-v2/prepare-followup.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/prepare-followup-v2.py"
+    ],
+    "atomic-v2/probe-independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/probe-independent-cpu-audit-v2.py"
+    ],
+    "atomic-v2/probe.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_first_joint_probe",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/atomic-v2"
+    ],
+    "independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/independent-cpu-audit.py"
+    ],
+    "rebuilt0.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_first_rhs",
+      "--backend",
+      "source",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/rebuilt0"
+    ],
+    "replay-independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_first_rhs",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs",
+      "--audit"
+    ],
+    "replay.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_first_rhs",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs",
+      "--replay"
+    ],
+    "sdk0.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_first_rhs",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-first-rhs/sdk0"
+    ]
+  },
+  "strict_failures_retained": 4,
+  "old_C8_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

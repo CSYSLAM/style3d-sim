@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **G1 first RHS严格同；旧11项force首差逐位复现并定位初始零乘子joint AL30。** 26/30严格，四失败保留。
+> 4128真实原子操作数序列同、1032 SDK逐弹簧隔离全同、1086 GPU F32证书/4292历史CPU重核全过。
+> 诊断stride和wrapper错误保留并修正，生产不改。下一步第4子步真实CG系数/位置，旧C8及readyFalse保持。
+> 见[G1_FIRST_RHS_RECOVERY.md](G1_FIRST_RHS_RECOVERY.md)。
+
 > **G1六子步：594三端回放、1188完整输出全严格，首次drive load的473条初始化已核。**
 > 原图/ABI/完整after独立CPU重核；新单帧C三源码过，不重判旧C8。明显响应分组定位到第4子步附近。
 > 首次drive前26输入内容全同，但force的11分量最大差4.77e-7；下一步first RHS25/joint AL30，原因未证明。
