@@ -5902,3 +5902,26 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 补充四处actual shape_types[105]各420字节，original/source全部逐字节相同，完整owned metadata/coverage仍同。
   raw constructor false原样保留；外部地址字段标签及补充数据解释了该项差异，未发现需要修改生产实现的owned指针错误，
   不把这份补抓外推为之前两个进程的所有pointee/opaque view/copy/clear均已证明。后续仍须定位固定G1 source2越界轨迹。
+- G1冻结source2位置范围失败的最大误差分量已保存：子步12粒子143.x、子步15粒子153.z；同一源轨迹不变，CPU定位未新增GPU样本。
+- demo_native_trace_ab观察G1首步1283算子，metadata同；两端都未复现各自冻结目标的任何完整state记录，不可替换原C8。
+  active148条软接触记录集合逐字节同、次序不同；raw observer还读了capacity尾，后续审计只解释前148条，不能用tail差异判核错误。
+  148条的kind均1/2（65/83），两个实际soft force的RHS都不变；没有证明其order是轨迹差异原因。
+  第一项观察到的输出差异为000007 PCG numerator，before inverse/r/numerator及after z逐字节同。
+- 实际PCG同buffer三端各32次，逐粒子z全同；原runtime自身覆盖原/源两个标量目标。
+  两PTX真实176 lane贡献同，分组GPU原子证书两份均过，target bits904486421/904486419，分别7/2次CPU候选搜索，GPU全history同。
+- 新pcg_path_replay对G1两端首步全部PCG算子回放，共1000实际packet、三端3000项逐粒子输出全部同。
+  aggregate与captured各自逐位匹配仅runtime398/1000、原PTX390/1000、源码414/1000，未把归约不同隐藏或改判。
+  各端同一输入复用分配，原捕获设备指针alias完整布局未证明；first-step原source2轨迹也未复现，whole_solver_complete仍false。
+  保留driver-as-run，并另存audit列出上述限制；后续runner仅新增显式限制metadata，不改生产源或回放数学。
+- 两端首步actual trace各12234文件lossless content-store归档，逐文件roundtrip及原目录验证全同；raw原件保留不另加入Git，
+  actual-archive.json可在WSL恢复，导出的首PCG小packet仍以原始文件随行。
+- 真正源码_core的正常包入口运行未改G1真实graph60帧和--test退出0：source_only/public_core_abi true、bridge false、原版映射false。
+  正在额外核对正常_core ABI下的原版/源码60帧graph逐帧状态，保持graph本身和例程参数不变；此项不是旧eager C8的替代采样。
+- 新core_graph_worker通过真正_core和正常包/adapter执行未改G1真实graph60帧，按帧末读取state，未使用A/B bridge。
+  原/源两端都通过--test，首对轨迹strict false，max particle_q差0.0498149395；未把物理自检当A/B通过。
+  初次worker有一行133列，完整运行两端后保存原字节为worker-as-run.py，仅换行修正维护版本；固定cohort继续执行归档原runner字节，
+  每个worker的runner SHA与首对完全相同，未因换行替换或改变协议。pcg_path_replay同样保留as-run版本及显式限制说明。
+- run-g1-public-core-fixed-C8预先固定8原版/3源码，逐字节采用首对60帧states.npz，新增7原版/2源码已全部结束。
+  所有11worker真实graph与--test均过，固定C8 false；独立CPU重算完全相同，失败不改判。
+  source0四字段within60/54/60/54，source1为46/51/44/50，source2为59/53/59/55；source1 body_qd最大ratio2.0800101608856862。
+  保存所有逐帧越界error/spread/ratio及明确host230/coreFB2/SDK64a的补充审计，不沿用旧3帧eager统计。

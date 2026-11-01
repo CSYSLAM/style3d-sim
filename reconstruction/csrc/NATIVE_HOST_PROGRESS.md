@@ -6,6 +6,7 @@
 > CPU重算四份报告同；默认包未切换，ready=False。接触固定C为短10/26、长37/64和39/64，失败均保留。
 > 首surface force完整输入/逐接触计算/真实原子贡献已核同；一个分量的两端值有保持线程同目标顺序的GPU原子证书，不能外推整段通过。
 > 新增未改G1正式示例3帧：46908完整调用同；固定C8第三条源码在子步12/15的位置检查未过，见[G1验收](OFFICIAL_G1_RECOVERY.md)。
+> 真正_core的G1真实graph60帧两端自检均过，但固定8原版/3源码的C8仍false；逐帧失败和CPU复核已保存，不能宣称完整替代。
 > 修复原版独立block-matrix选择，保留PD的其它行为；见[接触组合恢复](DRIVEN_CLOTH_CONTACT_HOST_RECOVERY.md)。下列image均为历史证据。
 
 > **历史688f9633：驱动关节＋布料（SO3/SIX）。** 16组9052次完整owned调用/geometry均同；12组状态和全部九轮force严格。

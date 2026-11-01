@@ -39,6 +39,33 @@ G1资产存在不表示trampoline网格存在，后者仍缺`assets/trampoline_v
 修复前保存当前源、build和原始失败。
 不补采到通过、不改数学、不放宽比较范围、不使用原版中间结果代算源码轨迹。
 
+首步诊断已结束：观察了1283个算子，metadata同；它没有复现冻结original0或source2的状态，不能替代原失败。
+首软接触有效148记录，完整记录multiset逐字节同而次序不同；全部是kind1/2代理粒子，两个实际kernel的RHS均未变化。
+因此未将该contact次序差异认定为轨迹分歧原因，也未解读capacity之外的未定义尾部。
+首个观察到的输出差异为`000007` PCG numerator：inverse/r/初值及逐粒子z同。
+三端同buffer各32次的z全同；原runtime自身能产生两端目标值。真实176 lane原子操作数同，
+两目标各有单lane真实GPU global F32 atomic和history精确见证；不推断原实际执行顺序。
+
+进一步对两端首步全部PCG调用逐份回放：1000份输入、三端3000项逐粒子结果全部相同。
+这仍是独立诊断输入上的核对；原设备指针alias完整布局未证明，归约标量的逐位结果也不全部同。
+原固定G1 C8继续false，不能据首步归约证书宣布子步12/15已经闭合。
+命令和原始输入见`official-g1-first-step-trace/`、`official-g1-first-pcg-packet/`、
+`official-g1-first-pcg-replay/`、`official-g1-first-pcg-certificate/`、`official-g1-pcg-path-replay/`。
+两份trace各12234原始文件已lossless归档，WSL用`scripts/unpack_reconstruction_trace.py`读取各端`actual-archive.json`还原。
+
+独立真正_core入口也已运行未改G1真实graph60帧并通过`--test`，没有A/B bridge或原版求解器映射；
+报告`official-g1-source-core-graph60.json`。这证明独立执行及示例自检，不能代替同帧A/B轨迹验收。
+
+正常_core ABI的原/源真实graph60帧固定C8也已采完并独立CPU复核；11个worker都通过例程`--test`，
+但整批C8 false。source0的位置60/60、速度54/60；source1四字段分别46/51/44/50帧，
+source2分别59/53/59/55帧在原版范围内（顺序body_q/body_qd/particle_q/particle_qd）。
+最高ratio为source1的body_qd 2.0800101608856862，不能统称为边界误差或自检通过即一致。
+`official-g1-public-core-graph60/`保存首次原版/源码逐帧状态和实际runner；
+`official-g1-public-core-graph60-fixed-C8/`逐字节采用它们，再固定采7原版/2源码，未更换候选或补采到通过。
+`official-g1-public-core-fixed-C8-cpu-audit.json`及`official-g1-public-core-fixed-outside-frames.json`保存独立重算和失败帧。
+源码实际扩展为fb2f1e86（host23012dc5），无A/B bridge，源码进程不映射原版；固定SDK仍64a0be7f。
+此正常graph批次与旧3帧eager C8是不同协议，两份失败都保留，后续需各自定位。
+
 在仓库根目录，每个新Bash先加载环境；新结果使用全新输出目录，GPU任务串行：
 
 ```bash

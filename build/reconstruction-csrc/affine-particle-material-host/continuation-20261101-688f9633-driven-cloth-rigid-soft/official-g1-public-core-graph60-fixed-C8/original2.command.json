@@ -1,0 +1,21 @@
+[
+  "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+  "-c",
+  "import sys;from pathlib import Path;p=Path(sys.argv.pop(1));exec(compile(p.read_bytes(),str(p),'exec'),{'__name__':'__main__','__package__':'reconstruction.csrc','__file__':str(p)})",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-rigid-soft/official-g1-public-core-graph60/worker-as-run.py",
+  "--backend",
+  "original",
+  "--core-build",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/source-core/b8dbcb88f1f3dc6a/build.json",
+  "--example",
+  "examples/example_robot_g1.py",
+  "--frames",
+  "60",
+  "--output",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-rigid-soft/official-g1-public-core-graph60-fixed-C8/original2",
+  "--",
+  "--solver",
+  "synreal",
+  "--world-count",
+  "1"
+]
