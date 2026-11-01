@@ -1,0 +1,136 @@
+{
+  "source_sha256": "688f9633e740b7c6de174676f404f1559107281b8f3d68cdfd4a4ee58a15ffd6",
+  "plan": [
+    [
+      "so3-w3-pd-b1",
+      "original"
+    ],
+    [
+      "so3-w3-pd-b1",
+      "source"
+    ]
+  ],
+  "completed": [
+    {
+      "case": "so3-w3-pd-b1",
+      "backend": "original",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0025895237922668457,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 10.22412109375,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0246315598487854,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 5.19232177734375,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "73d00223882e1cbfbea73aa230f481b208a064a28b53756feec58d6d54051f2b",
+      "actual_npz_sha256": "e8d2002d6102c2c6c8ea44e4708d4ec264638fc2f4a780aaa00b07a82389c8e6",
+      "metadata": {
+        "left_launches": 640,
+        "right_launches": 640,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 232512,
+        "files": 1380,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "so3-w3-pd-b1",
+      "backend": "source",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "first_step_reproduced": true,
+      "frozen_npz_sha256": "e8d2002d6102c2c6c8ea44e4708d4ec264638fc2f4a780aaa00b07a82389c8e6",
+      "actual_npz_sha256": "e8d2002d6102c2c6c8ea44e4708d4ec264638fc2f4a780aaa00b07a82389c8e6",
+      "metadata": {
+        "left_launches": 640,
+        "right_launches": 640,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 232512,
+        "files": 1380,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    }
+  ],
+  "complete": true,
+  "frozen_candidate_replaced": false,
+  "cohort_expanded": false,
+  "observer_sha256": "eb32ed2d2d1bdb1cae9b6e043002d6a3a28f106f26865b28de5c6d91244bdbec",
+  "running": null
+}

@@ -1,4 +1,4 @@
-"""Certify grouped precomputed PCG sums from actual original/source lane operands and real GPU atomics."""
+"""Certify grouped PCG sums from actual original/source lane operands and real GPU atomics."""
 import argparse
 import ctypes as ct
 import hashlib
@@ -36,16 +36,21 @@ def main():
         metadata = json.loads(read(folder / (prefix + 'json')))
         assert '23precondition_and_reduceIN3glm' in metadata['name']
         payload = {label: read(folder / (prefix + label + '.bin')) for label in (
-            'before.r', 'before.z', 'before.precomputed', 'before.per_group', 'before.numerator', 'after.z')}
-        assert payload['before.precomputed'] == b'\1'
+            'before.r', 'before.precomputed', 'before.per_group', 'before.numerator', 'after.z')}
+        assert payload['before.precomputed'] in (b'\0', b'\1')
+        precomputed = payload['before.precomputed'] == b'\1'
+        input_label = 'before.z' if precomputed else 'before.inverse'
+        payload[input_label] = read(folder / (prefix + input_label + '.bin'))
         assert not (folder / (prefix + 'before.world.bin')).exists()
-        assert payload['before.z'] == payload['after.z']
+        if precomputed:
+            assert payload['before.z'] == payload['after.z']
         targets[side] = read(folder / (prefix + 'after.numerator.bin'))
         payloads[side] = metadata, payload
     assert payloads['original'] == payloads['source'], 'The first-divergence inputs are not identical'
     metadata, payload = payloads['original']
     name = metadata['name']
-    n = len(payload['before.z']) // 12
+    precomputed = payload['before.precomputed'] == b'\1'
+    n = len(payload['after.z']) // 12
     groups = len(targets['original']) // 4
     per_group = int.from_bytes(payload['before.per_group'], 'little')
     assert n > 0 and n == groups * per_group and len(payload['before.numerator']) == groups * 4
@@ -78,13 +83,16 @@ def main():
         lanes = metadata['grid'] * metadata['block']
         trace_zero, count_zero = np.zeros((lanes, 128, 16), dtype='u1'), np.zeros(lanes, dtype='u4')
         trace, counts = driver.upload(trace_zero), driver.upload(count_zero)
-        z_initial = np.frombuffer(payload['before.z'], dtype='u1').copy()
+        z_initial = (np.frombuffer(payload['before.z'], dtype='u1').copy() if precomputed else
+                     np.zeros(n * 12, dtype='u1'))
         z = driver.upload(z_initial)
         r = driver.upload(np.frombuffer(payload['before.r'], dtype='u1'))
-        inverse = driver.upload(np.zeros((n, 9), dtype='f4'))
+        inverse_initial = (np.zeros((n, 9), dtype='f4') if precomputed else
+                           np.frombuffer(payload['before.inverse'], dtype='f4').reshape(n, 9))
+        inverse = driver.upload(inverse_initial)
         initial = np.zeros(groups, dtype='f4')
         counter = driver.upload(initial)
-        parameters = [inverse, r, z, ct.c_bool(True), ct.c_void_p(), ct.c_uint(per_group), counter, k.u64(n)]
+        parameters = [inverse, r, z, ct.c_bool(precomputed), ct.c_void_p(), ct.c_uint(per_group), counter, k.u64(n)]
         operands = []
         for side, module in modules.items():
             changed, sites = instrument(module, name)
@@ -146,7 +154,8 @@ def main():
                 arrays[tag + '-order'], arrays[tag + '-hardware-history'] = order, actual_history
                 row.update(passed=True, actual_production_order_inferred=False, hardware_atomic_order_verified=True)
         report = {'source_sha256': build['extension_sha256'], 'kernel': name, 'particles': n, 'groups': groups,
-                  'per_group': per_group, 'real_lane_operands_equal': True, 'certificates': certificates,
+                  'per_group': per_group, 'precomputed': precomputed,
+                  'real_lane_operands_equal': True, 'certificates': certificates,
                   'all_passed': all(row['passed'] for row in certificates), 'input_sha256': inputs,
                   'frozen_candidate_replaced': False, 'cohort_expanded': False, 'whole_solver_complete': False,
                   'harness_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}

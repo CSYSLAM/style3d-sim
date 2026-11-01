@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/pcg_same_buffer_probe.py", line 144, in <module>
+    main()
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/pcg_same_buffer_probe.py", line 52, in main
+    per_group = struct.unpack('<I', payload('before.per_group'))[0]
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/pcg_same_buffer_probe.py", line 43, in payload
+    data = path.read_bytes()
+           ^^^^^^^^^^^^^^^^^
+  File "/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/pcg-input-traces-688f9633/so3-w3-pd-b1/original/native/000008.23precondition_and_reduceIN3glm.before.per_group.bin'

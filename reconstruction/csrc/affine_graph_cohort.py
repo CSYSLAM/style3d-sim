@@ -18,7 +18,8 @@ from reconstruction.demo_ab import compare, spread_report
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite', choices=('surface', 'cloth', 'surface_rolling', 'tetrahedron_self'), required=True)
+    parser.add_argument('--suite', choices=('surface', 'cloth', 'surface_rolling', 'tetrahedron_self', 'driven_cloth'),
+                        required=True)
     parser.add_argument('--baseline', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--diagonal-only', action='store_true')
@@ -31,10 +32,14 @@ def main():
         from .affine_surface_rolling_ab import cases
     elif args.suite == 'tetrahedron_self':
         from .affine_tetrahedron_ab import cases
+    elif args.suite == 'driven_cloth':
+        from .driven_cloth_graph_ab import cases
     else:
         from .affine_cloth_ab import cases
     expected = {f'{case[0]}-{mode}' for case in cases() for mode in (0, 1)}
     module = f'reconstruction.csrc.affine_{args.suite}_graph_ab'
+    if args.suite == 'driven_cloth':
+        module = 'reconstruction.csrc.driven_cloth_graph_ab'
     worker_extra = []
     if args.suite == 'tetrahedron_self':
         module = 'reconstruction.csrc.affine_tetrahedron_graph_ab'

@@ -5732,3 +5732,47 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   actual-material-host-schedule保存真实记录，确认没有particle spring/tet/drag/point-line/distance/cable/fluid/granular调用。
   430b的SO3与SIX Newton/no-block两个基线均在constructor被材料+约束guard拒绝，失败保留。
   修改前保存430b的27源/build/so与SDK16实际全部参考SHA，接着仅开放已捕获无接触/无self的driven cloth组合。
+
+- 续接核实5a6b784350a69f443cf7cf583b428ee5739f9f08已推csy且远端SHA相同。
+- driven cloth只开放已捕获无contact/self/drag的AL组合，编译688f9633e740b7c6de174676f404f1559107281b8f3d68cdfd4a4ee58a15ffd6；CUDA176/f0不变。
+  固定SDK16首源码比较全部退出0，12组状态/九次五force字节严格，4组W3状态与后续force不同；16组完整ABI/geometry/coverage均同。
+  失败为SO3 W3 Newton b0/PD b0/PD b1、SIX W3 Newton b1；首失败不改。原run-validation因严格gate未运行，
+  独立with-failures driver继续诊断构造/graph/initcheck，保留原driver；局部仍未验收，ready=False。
+- 688f四种constructor全部五项同，均106 allocation events/37 uploads/61 typed，owned652/640/595/574。
+  graph60为42/64严格，多组SDK自身eager/graph也不同；双端各32轨迹×3步initcheck0错误。
+- 首步deferred八诊断全部完成并校验最终q/v与public输出；无一复现原冻结首步，不替换首候选。
+  SO3 Newton b0/SIX Newton b1诊断首步所有已观察包同；两PD诊断首差都是precondition归约，before输入和after.z同，仅world2 numerator差1–2ULP。
+  对PD b0真实同输入，actual SDK runtime/原PTX/source PTX各32次pointwise全同；实际36 lane操作数两PTX逐位同，
+  original/source共6个group目标均由真实GPU串行F32原子加精确复现，无未解释，不能据此验收整段。
+- precomputed输入observer v1把else错误绑到after-or-precomputed，导致b1缺r/per_group等before文件；三端probe在GPU启动前FileNotFoundError。
+  四份v1诊断及脚本/so/provenance保留，不用推导数据填缺。接着修observer并只重抓b1两端的新诊断；生产未改。
+- 688f四份首失败固定C8全部通过，8 originals/3 sources包含原样首候选，36新worker的完整owned/geometry/coverage及第0轮五force均同。
+  source0严格false仍保持，不重采、不改变9轮dump同步协议。CPU独立重算四例统计完全相同。
+- observer v2修复后只补抓PD b1两端真实输入；actual runtime/原PTX/source PTX各32次逐粒子同，
+  两PTX实际36 lane操作数同，六分组目标GPU F32原子顺序精确复现；前一b0六目标同，总12/12。
+- 完整worker graph固定C8完成：18/32通过，14失败；source0/original0原字节采用，不替换接受样本。
+  CPU独立重算4三步+32长程共36组全部统计同；graph-fixed-first-outside定位68个越界字段，14项保持未验收。
+  688f自己的完整74正在串行，之后固定C10/CPU及standalone；不能继承3d统计。
+- 新driven_cloth_contact_scene独立夹具已准备，使用真实CollisionPipeline的surface/legacy与运动parent box，
+  首接触必须非零并记录实际proxy/free索引；尚未GPU采集或开放guard。正式trampoline所需OBJ在当前assets缺失，未替代网格。
+- 688f完整74结束：70严格，particles三seed及mixed_cloth seed3四首差固定C10全部过，CPU审计复算相同。
+  独立source真实graph/test的Dzhanibekov60和plastic-bag3均过，无SDK映射。当前image不继承历史统计。
+- 为14项长程失败新增真实graph D2D诊断，保留完整16组合worker顺序，观察graph10/14/26/30，四worker全退出0。
+  使用实际rhs max_count与6个body states，PD build的row/entry读取正确local维度，不使用旧单body假设。
+  初步source0对original0：g10已观察280快照全同，g14首差matrix denominator；g26/g30首差precondition numerator。
+  完整首候选复现关系保存在status中；尚未把这些诊断算为冻结失败重放或全部内核通过。
+- 接触夹具v1实际SDK有4个broad-phase contact，但9次surface force RHS均不变，未实际受力，不能作为有效参考。
+  保存原fixture及全部SDK失败；新v2只将parent上移0.016m形成实际穿入，生产/688f image不改，另目录重抓有效性。
+- contact v2 CPU按完整实际log审计：surface确实同时受力；legacy入口18次，force ordinal0/2/…16、
+  preconditioner为RHS-null ordinal1/3/…17。旧dump limit9只抓5轮force，且这5轮legacy均无RHS变化；
+  v2不能作为legacy有效性证明，后处理错误及全部数据保留，无补造。
+  v3只把布料方形从0.1m缩到0.04m覆盖0.05m箱体投影，以实际顶点接触验证legacy；生产不改。
+  原版pilot协议预先固定legacy limit18并正确读取偶数force ordinal，surface limit9；旧采样保留为失败。
+- 接触v3两份首次SDK全部有效：surface11 contacts、legacy4 contacts，首force的cloth/body均实际受力。
+  全部joint/drive/rigidity/stretch/bending/soft force均有真实RHS变化；legacy18入口中9次force按实际偶数ordinal完整捕获。
+  pilot legacy静态receipt仍写limit9，实际driver env18且有call016文件；不改原receipt，另存纠正证据。
+  v3 fixture按实际字节冻结；完整32参考driver已准备，并会逐字节采用这两份首pilot，不修改生产guard。
+- graph四诊断审计已保存：g10三source的280快照/public首步与actual SDK诊断及固定SDK1/3/4/6首步相同；
+  g14首差denominator，g26/g30首差numerator，均world2，仅作为局部定位，不升级60步/14项C验收。
+- 14份deferred native原始追踪全部无损SHA内容bundle roundtrip；保留local raw、提交bundle+metadata，
+  另真实解包/再次校验1381原文件通过；根交接和DRIVEN_CLOTH_HOST_RECOVERY已更新688f结果与未完成项。

@@ -1,0 +1,1030 @@
+{
+  "source_sha256": "688f9633e740b7c6de174676f404f1559107281b8f3d68cdfd4a4ee58a15ffd6",
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/first-step-traces-688f9633/so3-w3-pd-b0/original/native/000008.23precondition_and_reduceIN3glm.after.z.bin": "27ed0122bbf056d5706bf58ee7f79166d4ddcd8ed8f5fb8da81cc5303fce3184",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/first-step-traces-688f9633/so3-w3-pd-b0/original/native/000008.23precondition_and_reduceIN3glm.before.numerator.bin": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/first-step-traces-688f9633/so3-w3-pd-b0/original/native/000008.23precondition_and_reduceIN3glm.before.per_group.bin": "42f4aeb81c1ef81f771f3de8abca9dcf66901c575530e7672e4b1146474ae650",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/first-step-traces-688f9633/so3-w3-pd-b0/original/native/000008.23precondition_and_reduceIN3glm.before.precomputed.bin": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/first-step-traces-688f9633/so3-w3-pd-b0/original/native/000008.23precondition_and_reduceIN3glm.before.inverse.bin": "cbc6ff2419e86ce306bd01c64ad558875bcd6ac684edb14260ec60ab0585b5a6",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/first-step-traces-688f9633/so3-w3-pd-b0/original/native/000008.23precondition_and_reduceIN3glm.before.r.bin": "783f3acb9c34a6b109014a6ab0ee0ce7696ea966f6583f8c70499b03afaf6f5c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/first-step-traces-688f9633/so3-w3-pd-b0/original/native/000008.23precondition_and_reduceIN3glm.after.numerator.bin": "4e3c32f97bb8f8a3ccf4e4ca20ed965a9a809257f526725e0ab641e0cf16d637"
+  },
+  "original_ptx_sha256": "a22824c519e1045bd728caefdcdc6591ebeb8839999ba6b1d490f3a36f67944c",
+  "method": "Identical buffers and nonblocking stream; rotate actual runtime/original PTX/source PTX order",
+  "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+  "pointwise_output": "z",
+  "atomic_output": "numerator",
+  "particles": 36,
+  "groups": 3,
+  "trials_per_backend": 32,
+  "checks": [
+    {
+      "trial": 0,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031450
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 0,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031450
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 0,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031450
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 1,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 1,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 1,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 2,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 2,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 2,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 3,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 3,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 3,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 4,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 4,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 4,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 5,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 5,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 5,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 6,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 6,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 6,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 7,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 7,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 7,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 8,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 8,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 8,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 9,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 9,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 9,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 10,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 10,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 10,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 11,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 11,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 11,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 12,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 12,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 12,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 13,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 13,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 13,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 14,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 14,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 14,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 15,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 15,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 15,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 16,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 16,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 16,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 17,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 17,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 17,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 18,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 18,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 18,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 19,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 19,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 19,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 20,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 20,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 20,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 21,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 21,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 21,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 22,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 22,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 22,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 23,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 23,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 23,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 24,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 24,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 24,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 25,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 25,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 25,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 26,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 26,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 26,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 27,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 27,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 27,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 28,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 28,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 28,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 29,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 29,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 29,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 30,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 30,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 30,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 31,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 31,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 31,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1195031450,
+        1195031450,
+        1195031452
+      ],
+      "pointwise_equal": true
+    }
+  ],
+  "precomputed": false,
+  "captured_atomic_output_bits": [
+    1195031450,
+    1195031450,
+    1195031452
+  ],
+  "patterns": {
+    "original-runtime": [
+      [
+        1195031450,
+        1195031450,
+        1195031450
+      ],
+      [
+        1195031450,
+        1195031450,
+        1195031452
+      ]
+    ],
+    "original-driver": [
+      [
+        1195031450,
+        1195031450,
+        1195031450
+      ],
+      [
+        1195031450,
+        1195031450,
+        1195031452
+      ]
+    ],
+    "source-driver": [
+      [
+        1195031450,
+        1195031450,
+        1195031450
+      ],
+      [
+        1195031450,
+        1195031450,
+        1195031452
+      ]
+    ]
+  },
+  "all_pointwise_equal": true,
+  "diagnostic_intentionally_maps_original": true,
+  "whole_solver_accepted": false
+}

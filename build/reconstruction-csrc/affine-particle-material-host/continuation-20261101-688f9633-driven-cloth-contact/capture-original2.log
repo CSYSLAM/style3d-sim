@@ -1,0 +1,6 @@
+{'kind': 'surface', 'exit': 0, 'finite': True, 'actual_layout': {'count': 4, 'proxy_indices': [4, 5, 6, 7, 8, 9, 10, 11], 'free_indices': [0, 1, 2, 3]}, 'first_force_contact_count': 4, 'body_rhs_changed': False, 'cloth_rhs_changed': False, 'forces': {'53evaluate_joint_body_spring_augmented_lagrangian_force': {'calls': 9, 'rhs_changed_calls': 9}, '25evaluate_joint_drive_load': {'calls': 9, 'rhs_changed_calls': 9}, '22evaluate_stretch_force': {'calls': 9, 'rhs_changed_calls': 9}, '22evaluate_bending_force': {'calls': 9, 'rhs_changed_calls': 9}, '33evaluate_affine_body_spring_force': {'calls': 9, 'rhs_changed_calls': 8}, '30evaluate_surface_contact_force': {'calls': 9, 'rhs_changed_calls': 0}}}
+Traceback (most recent call last):
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-contact/capture-original2.py", line 48, in <module>
+    assert code==0 and row['finite'] and row['body_rhs_changed'] and row['cloth_rhs_changed']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

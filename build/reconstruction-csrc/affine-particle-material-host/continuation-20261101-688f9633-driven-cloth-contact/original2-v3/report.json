@@ -1,0 +1,117 @@
+{
+  "cases": [
+    {
+      "kind": "surface",
+      "exit": 0,
+      "finite": true,
+      "actual_layout": {
+        "count": 11,
+        "proxy_indices": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "free_indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "first_force_contact_count": 11,
+      "body_rhs_changed": true,
+      "cloth_rhs_changed": true,
+      "forces": {
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "rhs_changed_calls": 8
+        },
+        "30evaluate_surface_contact_force": {
+          "calls": 9,
+          "rhs_changed_calls": 8
+        }
+      }
+    },
+    {
+      "kind": "legacy",
+      "exit": 0,
+      "finite": true,
+      "actual_layout": {
+        "count": 4,
+        "proxy_indices": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "free_indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "first_force_contact_count": 4,
+      "body_rhs_changed": true,
+      "cloth_rhs_changed": true,
+      "forces": {
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "rhs_changed_calls": 9
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "rhs_changed_calls": 8
+        },
+        "27evaluate_soft_contact_force": {
+          "calls": 18,
+          "rhs_changed_calls": 5
+        }
+      }
+    }
+  ],
+  "sha256": {
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/driven_cloth_contact_scene.py": "b9908ee185c9bca7c32b23f31a08614102a3026ea620aa070ce7e38395d3642a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/full-owned-hook-129/cudahook.so": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-contact/capture-original2-v3.py": "93c3ab6425fc372c36f68754858bb4ffe822b70efa761159126834ad0f5f08a9"
+  },
+  "production_guard_changed": false,
+  "whole_solver_complete": false
+}

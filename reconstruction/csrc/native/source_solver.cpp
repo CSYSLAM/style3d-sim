@@ -128,9 +128,14 @@ class Solver {
             throw std::runtime_error("Requested source model topology has not been implemented");
         if (bodies && model.collision_triangle_count && !model.triangle_count && !model.tetrahedron_count)
             throw std::runtime_error("Affine bodies combined with other elements have not been implemented");
-        if (bodies && particle_materials && (model.body_spring_count || model.body_distance_constraint_count ||
-                model.body_point_line_count || model.joint_drive_count || model.joint_body_spring_count ||
-                model.joint_body_point_line_count || model.cable_count || model.fluid_particle_count))
+        const bool driven_cloth = model.triangle_count && model.joint_drive_count && model.joint_body_spring_count &&
+            model.body_spring_count == model.joint_body_spring_count && !model.body_point_line_count &&
+            !model.joint_body_point_line_count && !model.body_distance_constraint_count && !model.spring_count &&
+            !model.tetrahedron_count && !model.cable_count && !model.fluid_particle_count && !model.granular_particle_count;
+        if (bodies && particle_materials && !driven_cloth &&
+            (model.body_spring_count || model.body_distance_constraint_count || model.body_point_line_count ||
+             model.joint_drive_count || model.joint_body_spring_count || model.joint_body_point_line_count ||
+             model.cable_count || model.fluid_particle_count))
             throw std::runtime_error("Particle materials combined with constrained/fluid affine bodies are not captured");
     }
 
@@ -2254,6 +2259,14 @@ public:
         const bool so3 = bodies && rigidity == AffineBodyRigidityModel::SO3_AUGMENTED_LAGRANGIAN;
         const bool six_springs = bodies && rigidity == AffineBodyRigidityModel::SIX_SPRINGS;
         const bool constitutive = bodies && !so3 && !six_springs;
+        // Active drag, contacts, self-collision and other joint/material combinations remain outside this capture.
+        const bool driven_cloth = bodies && (so3 || six_springs) && joint_al && triangle_count_ && drive_total_ &&
+            joint_spring_total_ && body_spring_total_ == joint_spring_total_ && !point_line_total_ &&
+            !distance_total_ && !cable_count_ && !fluid_rows_ && !granular_points_ && !self && !drag_count_ &&
+            !tetrahedron_count_ && !spring_count_ && !contact.max_count && !contact.soft_max_count;
+        if (bodies && (triangle_count_ || edge_count_) &&
+            (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) && !driven_cloth)
+            throw std::runtime_error("This constrained cloth/body combination has not been captured");
         if (self && bodies && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||
                               cable_count_ || fluid_rows_ || (contact.max_count && config.rigid_contact_hard)))
             throw std::runtime_error("This affine self-collision constraint/rigidity branch has not been captured");
@@ -2265,7 +2278,8 @@ public:
                 ((contact.max_count || contact.soft_max_count) &&
                  (self || !contact.soft_max_count || config.rigid_contact_hard))))
             throw std::runtime_error("This affine tetrahedron/contact/material combination has not been captured");
-        if (bodies && !so3 && (spring_count_ || triangle_count_ || edge_count_ || body_spring_total_ ||
+        if (bodies && !so3 && !driven_cloth &&
+            (spring_count_ || triangle_count_ || edge_count_ || body_spring_total_ ||
                               distance_total_ || point_line_total_ || drive_total_ ||
                               cable_count_ || contact.max_count || contact.soft_max_count || fluid_rows_))
             throw std::runtime_error("Other affine rigidity models combined with constraints have not been captured");
@@ -2927,6 +2941,11 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "joint_armature_newton", "driven_joint_constraints_pd_newton",
                                                      "driven_joint_body_blocks_newton",
                                                      "driven_joint_body_blocks_pd_newton",
+                                                     "driven_cloth_so3_newton",
+                                                     "driven_cloth_so3_pd_newton",
+                                                     "driven_cloth_six_springs_newton",
+                                                     "driven_cloth_six_springs_pd_newton",
+                                                     "driven_cloth_body_blocks",
                                                      "cables_newton", "cables_pd_newton",
                                                      "affine_body_hard_contact_newton",
                                                      "affine_body_hard_contact_pd_newton",

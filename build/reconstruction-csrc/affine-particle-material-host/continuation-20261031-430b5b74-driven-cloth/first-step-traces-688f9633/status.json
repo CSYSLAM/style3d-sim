@@ -1,0 +1,508 @@
+{
+  "source_sha256": "688f9633e740b7c6de174676f404f1559107281b8f3d68cdfd4a4ee58a15ffd6",
+  "plan": [
+    [
+      "so3-w3-newton-b0",
+      "original"
+    ],
+    [
+      "so3-w3-newton-b0",
+      "source"
+    ],
+    [
+      "so3-w3-pd-b0",
+      "original"
+    ],
+    [
+      "so3-w3-pd-b0",
+      "source"
+    ],
+    [
+      "so3-w3-pd-b1",
+      "original"
+    ],
+    [
+      "so3-w3-pd-b1",
+      "source"
+    ],
+    [
+      "six-springs-w3-newton-b1",
+      "original"
+    ],
+    [
+      "six-springs-w3-newton-b1",
+      "source"
+    ]
+  ],
+  "completed": [
+    {
+      "case": "so3-w3-newton-b0",
+      "backend": "original",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0009102523326873779,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.10983467102050781,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0009119510650634766,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.10983467102050781,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "869b9090ccf1a28ba0ad1f0dafb906a791416cabd0e139ccbf14cdb643061ed5",
+      "actual_npz_sha256": "ac9668b016894e5f738e8b9a4da8068631b1dfc5f4442e08676dced2ec41e8b3",
+      "metadata": {
+        "left_launches": 553,
+        "right_launches": 553,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 433392,
+        "files": 1560,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "so3-w3-newton-b0",
+      "backend": "source",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 1.7762184143066406e-05,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0034637451171875,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 8.273124694824219e-05,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.010972023010253906,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "f3f4f05e2423698404c0421addd227a40b1150c015d0a70d6a818b3301463ab7",
+      "actual_npz_sha256": "dead222606f6b00a2a0efcbf9730e9bb8427200e811eee443402f9d8976fb864",
+      "metadata": {
+        "left_launches": 553,
+        "right_launches": 553,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 433392,
+        "files": 1560,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "so3-w3-pd-b0",
+      "backend": "original",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0006963908672332764,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0843353271484375,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0006969571113586426,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0843353271484375,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "c6d0047fb464b8d7362861a55dcc25ec0847131fb95f68758aa3301ddec203da",
+      "actual_npz_sha256": "940984144b8f9819d74d82a8001563d1d5eabaa51938d80555c0c99e73271c56",
+      "metadata": {
+        "left_launches": 541,
+        "right_launches": 541,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 226032,
+        "files": 1365,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "so3-w3-pd-b0",
+      "backend": "source",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.001397252082824707,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.16778564453125,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0013952851295471191,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.16778564453125,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "95c9a12c6ce5e8ce2a9fd0f2c1d2f0080609f59bb1c41e977d9a6d08178c9b34",
+      "actual_npz_sha256": "71922406bad96f75cf4f47e6854a098e6cc1933f7c22d5d3ab28f85c9b30a69e",
+      "metadata": {
+        "left_launches": 541,
+        "right_launches": 541,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 226032,
+        "files": 1365,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "so3-w3-pd-b1",
+      "backend": "original",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0037134289741516113,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 3.718780517578125,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.022674739360809326,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 5.85699462890625,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "73d00223882e1cbfbea73aa230f481b208a064a28b53756feec58d6d54051f2b",
+      "actual_npz_sha256": "0e5eccadfc8a0c3b5e732e281db9d7fd79dcbe3c2a53d2706673292b9a2a6cd8",
+      "metadata": {
+        "left_launches": 640,
+        "right_launches": 640,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 226032,
+        "files": 1365,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "so3-w3-pd-b1",
+      "backend": "source",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.002822577953338623,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 8.99517822265625,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.019807040691375732,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 4.5032958984375,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "e8d2002d6102c2c6c8ea44e4708d4ec264638fc2f4a780aaa00b07a82389c8e6",
+      "actual_npz_sha256": "9212c2c0d9877e294223650a2fe7e1b41e5a351b2641f42c2147cff13867d4eb",
+      "metadata": {
+        "left_launches": 640,
+        "right_launches": 640,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 226032,
+        "files": 1365,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "six-springs-w3-newton-b1",
+      "backend": "original",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.0020344629883766174,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.9000244140625,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.004960954189300537,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 0,
+          "first_diff_substep": 0,
+          "max_abs": 0.9216699600219727,
+          "nonfinite": false
+        },
+        "bitwise": false
+      },
+      "first_step_reproduced": false,
+      "frozen_npz_sha256": "3aa84c0249de2f48366ae62543aa29f8a1c8de5782b44cbf40283a72e030b8a1",
+      "actual_npz_sha256": "784681d5fba19d700247a55b89629dbcde5c906e9ec949029169fd4e1964b663",
+      "metadata": {
+        "left_launches": 595,
+        "right_launches": 595,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 433392,
+        "files": 1560,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    },
+    {
+      "case": "six-springs-w3-newton-b1",
+      "backend": "source",
+      "exit": 0,
+      "frozen_state_comparison": {
+        "body_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 3,
+          "length_match": true,
+          "bitwise_substeps": 3,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      },
+      "first_step_reproduced": true,
+      "frozen_npz_sha256": "784681d5fba19d700247a55b89629dbcde5c906e9ec949029169fd4e1964b663",
+      "actual_npz_sha256": "784681d5fba19d700247a55b89629dbcde5c906e9ec949029169fd4e1964b663",
+      "metadata": {
+        "left_launches": 595,
+        "right_launches": 595,
+        "different_launches": 0,
+        "examples": [],
+        "arguments_equal": true,
+        "geometry_and_shared_memory_complete": true,
+        "equal": true
+      },
+      "receipt": {
+        "device_bytes": 433392,
+        "files": 1560,
+        "per_snapshot_host_synchronization": false
+      },
+      "captured_step_output_validated": true
+    }
+  ],
+  "complete": true,
+  "frozen_candidate_replaced": false,
+  "cohort_expanded": false,
+  "observer_sha256": "667b5efac448f02bf4f227c25968de847a0c7c091693e5d80cb188eda3f25ee9",
+  "running": null
+}

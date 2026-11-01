@@ -1,0 +1,23 @@
+Warp 1.16.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 5090 D v2" (23 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     /home/oem/.cache/warp/1.16.0
+user_processed_reference=True login_called=False
+spring_w1_zero_rest {'error_type': 'ValueError', 'message': 'spring rest length must be finite and positive', 'device_inputs_unchanged_on_error': True}
+spring_w2_zero_rest {'error_type': 'ValueError', 'message': 'spring rest length must be finite and positive', 'device_inputs_unchanged_on_error': True}
+spring_w7_zero_rest {'error_type': 'ValueError', 'message': 'spring rest length must be finite and positive', 'device_inputs_unchanged_on_error': True}
+spring_w129_zero_rest {'error_type': 'ValueError', 'message': 'spring rest length must be finite and positive', 'device_inputs_unchanged_on_error': True}
+spring_invalid_negative_stiffness {'error_type': 'ValueError', 'message': 'spring stiffness must be finite and non-negative', 'device_inputs_unchanged_on_error': True}
+spring_invalid_nan_stiffness {'error_type': 'ValueError', 'message': 'spring stiffness must be finite and non-negative', 'device_inputs_unchanged_on_error': True}
+spring_invalid_infinite_stiffness {'error_type': 'ValueError', 'message': 'spring stiffness must be finite and non-negative', 'device_inputs_unchanged_on_error': True}
+spring_invalid_negative_rest {'error_type': 'ValueError', 'message': 'spring rest length must be finite and positive', 'device_inputs_unchanged_on_error': True}
+spring_invalid_nan_rest {'error_type': 'ValueError', 'message': 'spring rest length must be finite and positive', 'device_inputs_unchanged_on_error': True}
+spring_invalid_infinite_rest {'error_type': 'ValueError', 'message': 'spring rest length must be finite and positive', 'device_inputs_unchanged_on_error': True}
+spring_invalid_same_endpoint {'error_type': 'ValueError', 'message': 'spring endpoints must reference different particles', 'device_inputs_unchanged_on_error': True}
+spring_invalid_invalid_endpoint {'error_type': 'ValueError', 'message': 'spring references an invalid particle index', 'device_inputs_unchanged_on_error': True}
+Module newton._src.utils.mesh 3a50b9a load on device 'cpu' took 1.20 ms  (cached)
+Module newton._src.geometry.bvh cca3a6c load on device 'cuda:0' took 0.65 ms  (cached)
+legacy: 30 cases, 684 arrays

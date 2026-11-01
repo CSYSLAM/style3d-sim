@@ -1,0 +1,15 @@
+{'kind': 'surface', 'exit': 0, 'finite': True, 'actual_layout': {'count': 5, 'proxy_indices': [4, 5, 6, 7, 8, 9, 10, 11], 'free_indices': [0, 1, 2, 3]}, 'first_force_contact_count': 5, 'body_rhs_changed': True, 'cloth_rhs_changed': True, 'forces': {'53evaluate_joint_body_spring_augmented_lagrangian_force': {'calls': 9, 'rhs_changed_calls': 9}, '25evaluate_joint_drive_load': {'calls': 9, 'rhs_changed_calls': 9}, '22evaluate_stretch_force': {'calls': 9, 'rhs_changed_calls': 9}, '22evaluate_bending_force': {'calls': 9, 'rhs_changed_calls': 9}, '33evaluate_affine_body_spring_force': {'calls': 9, 'rhs_changed_calls': 8}, '30evaluate_surface_contact_force': {'calls': 9, 'rhs_changed_calls': 5}}}
+Traceback (most recent call last):
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-contact/capture-original2-v2.py", line 42, in <module>
+    'rhs_changed_calls':sum((folder/f'dump_{token}_call{i:03d}_pre_arg{arg}.bin').read_bytes()!=
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-contact/capture-original2-v2.py", line 42, in <genexpr>
+    'rhs_changed_calls':sum((folder/f'dump_{token}_call{i:03d}_pre_arg{arg}.bin').read_bytes()!=
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-contact/original2-v2/legacy/dump_27evaluate_soft_contact_force_call001_pre_arg36.bin'

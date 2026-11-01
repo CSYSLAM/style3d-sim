@@ -1,0 +1,32 @@
+{
+  "metadata": "build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/pcg-input-traces-v2-688f9633/so3-w3-pd-b1/source/native-archive.json",
+  "results": [
+    {
+      "stage": "fresh_extract",
+      "command": [
+        ".venv/bin/python",
+        "scripts/unpack_reconstruction_trace.py",
+        "build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/pcg-input-traces-v2-688f9633/so3-w3-pd-b1/source/native-archive.json",
+        "--output",
+        "/tmp/style3d-driven-trace-roundtrip-1gv57rw5/native"
+      ],
+      "exit": 0,
+      "stdout": "Restored and verified 1381 raw files in /tmp/style3d-driven-trace-roundtrip-1gv57rw5/native\n",
+      "stderr": ""
+    },
+    {
+      "stage": "existing_verify",
+      "command": [
+        ".venv/bin/python",
+        "scripts/unpack_reconstruction_trace.py",
+        "build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-430b5b74-driven-cloth/pcg-input-traces-v2-688f9633/so3-w3-pd-b1/source/native-archive.json",
+        "--output",
+        "/tmp/style3d-driven-trace-roundtrip-1gv57rw5/native"
+      ],
+      "exit": 0,
+      "stdout": "Verified 1381 existing raw files in /tmp/style3d-driven-trace-roundtrip-1gv57rw5/native\n",
+      "stderr": ""
+    }
+  ],
+  "temporary_directory_removed": true
+}
