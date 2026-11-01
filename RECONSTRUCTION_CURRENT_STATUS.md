@@ -22,6 +22,10 @@ W3/subset/mixed/PD的eager/graph仍未通过全部长程门禁，候选未合入
 960真实SO3输入/5760次三端调用完整输出严格，独立CPU重读及240份公开位置对应检查通过。
 新观测先出现位置输入差，再出现rotation差；旧固定长程失败不改。
 见[PD graph与SO3核对](reconstruction/csrc/PD_CONTACT_GRAPH_SO3_RECOVERY.md)，下一步向前核RHS/接触/颗粒与线性输入。
+接续已实采21600份RHS/CG阶段，三条新诊断首差均为同输入CG分母第三组1 ULP；
+72次真实SDK/PTX/source与18份GPU F32顺序证书核准，后续两向量36次同输入回放也全严格。
+旧固定长程失败不改，下一步补CG extra/tangent及后期接触完整输入；
+见[RHS与首CG差异](reconstruction/csrc/PD_CONTACT_RHS_CG_RECOVERY.md)。
 
 ## 已经做到
 

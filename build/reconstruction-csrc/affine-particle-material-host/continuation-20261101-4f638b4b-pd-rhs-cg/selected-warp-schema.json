@@ -1,0 +1,1271 @@
+{
+  "kernels": {
+    "_predict_affine_body_inertia_092ca3c1_cuda_kernel_forward": [
+      {
+        "cpp_type": "wp::launch_bounds_t<1>",
+        "parameter": "dim",
+        "width": 24,
+        "fields": [
+          {
+            "name": "shape",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          },
+          {
+            "name": "size",
+            "offset": 8,
+            "size": 8,
+            "kind": "scalar"
+          },
+          {
+            "name": "coord_mult",
+            "offset": 16,
+            "size": 8,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::transform_t<wp::float32>>",
+        "parameter": "var_body_q",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<6, wp::float32>>",
+        "parameter": "var_body_qd",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<6, wp::float32>>",
+        "parameter": "var_body_f",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::int32>",
+        "parameter": "var_affine_body_ids",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<3, wp::float32>>",
+        "parameter": "var_body_com",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::float32>",
+        "parameter": "var_body_mass",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::mat_t<3, 3, wp::float32>>",
+        "parameter": "var_affine_body_inertia",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::int32>",
+        "parameter": "var_fixed_affine_body_flags",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::int32",
+        "parameter": "var_inertia_mode",
+        "width": 4,
+        "fields": [
+          {
+            "name": "var_inertia_mode",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::float32",
+        "parameter": "var_dt",
+        "width": 4,
+        "fields": [
+          {
+            "name": "var_dt",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::transform_t<wp::float32>>",
+        "parameter": "var_predicted_body_q",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<6, wp::float32>>",
+        "parameter": "var_predicted_body_qd",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      }
+    ],
+    "_predict_affine_body_velocities_81ec5689_cuda_kernel_forward": [
+      {
+        "cpp_type": "wp::launch_bounds_t<1>",
+        "parameter": "dim",
+        "width": 24,
+        "fields": [
+          {
+            "name": "shape",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          },
+          {
+            "name": "size",
+            "offset": 8,
+            "size": 8,
+            "kind": "scalar"
+          },
+          {
+            "name": "coord_mult",
+            "offset": 16,
+            "size": 8,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::transform_t<wp::float32>>",
+        "parameter": "var_body_q",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::transform_t<wp::float32>>",
+        "parameter": "var_predicted_body_q",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<4, wp::int32>>",
+        "parameter": "var_affine_body_indices",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::int32>",
+        "parameter": "var_affine_body_ids",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<3, wp::float32>>",
+        "parameter": "var_body_com",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<3, wp::float32>>",
+        "parameter": "var_particle_q",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::float32",
+        "parameter": "var_dt",
+        "width": 4,
+        "fields": [
+          {
+            "name": "var_dt",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<3, wp::float32>>",
+        "parameter": "var_particle_qd",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      }
+    ],
+    "_update_affine_body_poses_cda05b4e_cuda_kernel_forward": [
+      {
+        "cpp_type": "wp::launch_bounds_t<1>",
+        "parameter": "dim",
+        "width": 24,
+        "fields": [
+          {
+            "name": "shape",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          },
+          {
+            "name": "size",
+            "offset": 8,
+            "size": 8,
+            "kind": "scalar"
+          },
+          {
+            "name": "coord_mult",
+            "offset": 16,
+            "size": 8,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<3, wp::float32>>",
+        "parameter": "var_particle_q",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<3, wp::float32>>",
+        "parameter": "var_particle_qd",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<4, wp::int32>>",
+        "parameter": "var_affine_body_indices",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::int32>",
+        "parameter": "var_affine_body_ids",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::int32>",
+        "parameter": "var_fixed_affine_body_flags",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<3, wp::float32>>",
+        "parameter": "var_body_com",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::mat_t<3, 3, wp::float32>>",
+        "parameter": "var_affine_body_inertia",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::int32",
+        "parameter": "var_inertia_mode",
+        "width": 4,
+        "fields": [
+          {
+            "name": "var_inertia_mode",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::float32",
+        "parameter": "var_dt",
+        "width": 4,
+        "fields": [
+          {
+            "name": "var_dt",
+            "offset": 0,
+            "size": 4,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::transform_t<wp::float32>>",
+        "parameter": "var_body_q",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      },
+      {
+        "cpp_type": "wp::array_t<wp::vec_t<6, wp::float32>>",
+        "parameter": "var_body_qd",
+        "width": 56,
+        "fields": [
+          {
+            "name": "data",
+            "offset": 0,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "grad",
+            "offset": 8,
+            "size": 8,
+            "kind": "pointer"
+          },
+          {
+            "name": "shape",
+            "offset": 16,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "strides",
+            "offset": 32,
+            "size": 16,
+            "kind": "scalar"
+          },
+          {
+            "name": "ndim",
+            "offset": 48,
+            "size": 2,
+            "kind": "scalar"
+          },
+          {
+            "name": "flags",
+            "offset": 50,
+            "size": 2,
+            "kind": "scalar"
+          }
+        ]
+      }
+    ]
+  },
+  "schema_from": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/warp-schema.json",
+  "schema_sha256": "772e562eb67c885050d5c8b624ade037c23d3b7c695c0df28e591eab02247bd7",
+  "actual_driver_widths_checked_for_all_graphs": true
+}

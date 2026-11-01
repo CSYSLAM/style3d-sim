@@ -1,0 +1,208 @@
+{
+  "cases": [
+    {
+      "source_run": 1,
+      "topology_equal": true,
+      "all_node_types_and_kernel_geometry_ABI_equal": true,
+      "complete_typed_parameters_and_cross_graph_pointer_patterns_equal": true,
+      "scalar_parameters_equal": true,
+      "pointer_identities": [
+        129,
+        129
+      ],
+      "padding_bytes_ignored": [
+        232,
+        232
+      ],
+      "two_graph_nodes_per_backend": 552,
+      "Model_only_audited_kernel_read_fields_compared": true,
+      "whole_Model_equivalence_claimed": false
+    },
+    {
+      "source_run": 2,
+      "topology_equal": true,
+      "all_node_types_and_kernel_geometry_ABI_equal": true,
+      "complete_typed_parameters_and_cross_graph_pointer_patterns_equal": true,
+      "scalar_parameters_equal": true,
+      "pointer_identities": [
+        129,
+        129
+      ],
+      "padding_bytes_ignored": [
+        232,
+        232
+      ],
+      "two_graph_nodes_per_backend": 552,
+      "Model_only_audited_kernel_read_fields_compared": true,
+      "whole_Model_equivalence_claimed": false
+    },
+    {
+      "source_run": 3,
+      "topology_equal": true,
+      "all_node_types_and_kernel_geometry_ABI_equal": true,
+      "complete_typed_parameters_and_cross_graph_pointer_patterns_equal": true,
+      "scalar_parameters_equal": true,
+      "pointer_identities": [
+        129,
+        129
+      ],
+      "padding_bytes_ignored": [
+        232,
+        232
+      ],
+      "two_graph_nodes_per_backend": 552,
+      "Model_only_audited_kernel_read_fields_compared": true,
+      "whole_Model_equivalence_claimed": false
+    }
+  ],
+  "function_resource_differences": {
+    "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm": {
+      "original": {
+        "max_threads": 1024,
+        "registers": 36,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 1024,
+        "registers": 38,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm": {
+      "original": {
+        "max_threads": 1024,
+        "registers": 40,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 1024,
+        "registers": 38,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel22evaluate_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mmS8_S8_S8_fPS6_Pf": {
+      "original": {
+        "max_threads": 896,
+        "registers": 72,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 512,
+        "registers": 111,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel30evaluate_rolling_contact_forceENS0_18RollingContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE": {
+      "original": {
+        "max_threads": 384,
+        "registers": 143,
+        "local_bytes": 536,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 640,
+        "registers": 95,
+        "local_bytes": 264,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_": {
+      "original": {
+        "max_threads": 640,
+        "registers": 83,
+        "local_bytes": 128,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 640,
+        "registers": 93,
+        "local_bytes": 96,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm": {
+      "original": {
+        "max_threads": 1024,
+        "registers": 35,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 1024,
+        "registers": 40,
+        "local_bytes": 72,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel34add_rolling_contact_preconditionerENS0_18RollingContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE": {
+      "original": {
+        "max_threads": 384,
+        "registers": 141,
+        "local_bytes": 536,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 640,
+        "registers": 91,
+        "local_bytes": 264,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_": {
+      "original": {
+        "max_threads": 1024,
+        "registers": 51,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 1024,
+        "registers": 50,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_": {
+      "original": {
+        "max_threads": 640,
+        "registers": 85,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 896,
+        "registers": 72,
+        "local_bytes": 0,
+        "shared_bytes": 0
+      }
+    },
+    "_ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_": {
+      "original": {
+        "max_threads": 384,
+        "registers": 143,
+        "local_bytes": 536,
+        "shared_bytes": 0
+      },
+      "source": {
+        "max_threads": 640,
+        "registers": 91,
+        "local_bytes": 264,
+        "shared_bytes": 0
+      }
+    }
+  },
+  "function_resource_difference_count": 10,
+  "device_pointees_read": false,
+  "resource_differences_proven_to_cause_fixed_failure": false,
+  "GPU_used_for_this_audit": false,
+  "fixed_C8_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false,
+  "runner_sha256": "cb6ec8fc93f902cc9ac83d25516dbefdf54c006f54d3db05b42ae894318cb568"
+}

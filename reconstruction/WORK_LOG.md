@@ -6882,3 +6882,33 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 新PD_CONTACT_GRAPH_SO3_RECOVERY记录已做范围、真实native展平尺寸、观察器影响、GPU/CPU命令及下一步。
   根状态/Windows交接/csrc接触与交接入口同步更新；将旧dec进度明确标为历史，避免误读为当前0dab验收。
   write-next-step与close-phase均实际0，本批封存2143个文件及其SHA；原固定失败、SDK64a/360pyc、生产host与候选均保持。
+
+### 2026-11-01：接续PD接触的真实RHS/CG首差
+
+- 上轮为progress：960真实SO3输入/5760调用严格、独立CPU和266961文件快照校验0失败，
+  5ff1631562d7d6f6288534def115c0168b253774已push0并核远端精确HEAD。本轮起始tracked clean，主host/候选均不改。
+- 新phase continuation-20261101-4f638b4b-pd-rhs-cg；实际核八graph完整ABI和90阶段快照长度，
+  一graph staging324984字节、684复制节点。保存真实颗粒链表/邻居与两类bonds私有缓存，非公开位置重建。
+  刚体/软/滚动接触力只记录定位子集，明确不称完整同输入证明。
+- GPU起始被外部worldparticle进程3072655使用，未终止；run-rhs/session91528实时等待，空闲后才运行SDK。
+  v1实际1：相邻观测阶段的after/before复制可并行，不满足唯一拓扑断言；目标graph尚未启动，旧脚本/日志/原始SHA保留。
+- make-v2真实0：以先前after尾串联相邻before；先核八份符号DAG的960节点/1139边，再实际采集。
+  实际v2 observer固定于phase/capture-observer-v2.py，root首版保留供溯源和复用select_stages，勿直接用其Observer。
+  run-rhs-v2/session69473实际0，1SDK+3source四worker全0；末轮位置240次匹配公开状态，源码三worker无SDK映射。
+- static-payload-proof/session42850实际CPU0：10类完整输入kernel、20原版/source PTX写指针均在声明输出内。
+  rhs audit/session56941独立CPU0：21600阶段、2880别名group、八graph原节点/边及快照顺序、240末轮q均核准。
+  新轨迹均未精确复现旧完整source0/original0，C8归属false/false/true/false，未扩cohort或替换首失败。
+- 三条新诊断首数值差均为CG-product第三组分母1 ULP：worker1/frame2/rank227、worker2/frame0/rank239、
+  worker3/frame0/rank177；七份完整before及完整Ap都逐字节同。CG为三组/每组12，不能混用SO3的3/3/36布局。
+  新实际graph独立CPU核全276节点/两模板、已审计参数/跨图129指针identity均同；资源差异未调，也不称根因已证明。
+- first-CG prepare/execute均实际0，共72次真实调用。每份四轮SDK runtime/原版PTX/source PTX完整Ap严格；
+  原版/source PTX 108个真实F32操作数字同，实际SDK受控每lane映射的324个有效贡献字与GPU zero+operand结果同。
+  18个捕获标量均有真实GPU F32顺序证书，216步history同；不推断实际全局调度，不将隔离诊断冒称独立source轨迹。
+  audit-first-CG独立CPU0，重核51完整Ap、108原始操作数、324隔离贡献、216 history及全部保存的ABI/guard。
+  受控map创建代码/参数和输出保持，未额外保存map读回字节，不宣称CPU独立读回该数组。
+- 紧随三处首差的CG更新：六份真实输入仅分母不同，捕获两向量差字分别7/22、7/23、18/22。
+  first-update prepare/execute/audit均真实0，36次SDK/PTX/source按各自真实输入精确复现两个完整向量；
+  独立CPU重核7776输出字、54参数和全部只读/guard。新增路径这一步传播核准，不能外推旧source0/frame32长程全部通过。
+- 新PD_CONTACT_RHS_CG_RECOVERY写明真实输入范围、首版采集失败、v2修复、CG分组、受控隔离限制及后续步骤。
+  根状态/Windows交接及csrc三个入口同步更新；write-next-step/close-phase实际0，封存413个原始数据与脚本文件。
+  旧固定source0/frame32、原版八份cohort及候选未合入状态保持；接续完整CG extra/tangent及后期接触输入。

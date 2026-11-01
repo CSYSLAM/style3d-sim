@@ -1,0 +1,11 @@
+.version 7.2
+.target sm_52
+.address_size 64
+.visible .entry audit_atomic_rows(.param .u64 input, .param .u64 output, .param .u32 count) {
+ .reg .pred %p; .reg .b32 %r<4>; .reg .b64 %d<6>; .reg .f32 %f;
+ ld.param.u64 %d0, [input]; ld.param.u64 %d1, [output]; ld.param.u32 %r0, [count];
+ mov.u32 %r1, %tid.x; mov.u32 %r2, %ctaid.x; mov.u32 %r3, %ntid.x;
+ mad.lo.u32 %r1, %r2, %r3, %r1; setp.ge.u32 %p, %r1, %r0; @%p ret;
+ mul.wide.u32 %d2, %r1, 4; add.u64 %d3, %d0, %d2; add.u64 %d4, %d1, %d2;
+ ld.global.f32 %f, [%d3]; red.global.add.f32 [%d4], %f; ret;
+}

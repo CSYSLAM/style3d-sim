@@ -6,6 +6,8 @@
 接续实际graph与SO3状态已核：960真实输入/5760次SDK runtime、原版PTX及源码PTX调用完整输出严格；
 独立CPU重读通过。旧固定长程失败不改，下一步向前核RHS/接触/颗粒与线性输入，
 详见[PD graph与SO3核对](PD_CONTACT_GRAPH_SO3_RECOVERY.md)。
+再接续实采21600份RHS/CG阶段，三条新路径的同输入首分母差及其向量传播已以SDK和F32证书核准，
+仍未改判旧长程失败，见[RHS与首CG差异](PD_CONTACT_RHS_CG_RECOVERY.md)。
 
 ## 已完成的实际检查
 
