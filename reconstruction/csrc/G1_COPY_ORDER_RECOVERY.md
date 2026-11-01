@@ -37,7 +37,10 @@
 旧源码的真正_core fb2f1e86仍是历史构建；新源码已重新build_core，目录`source-core/2f64faf07f385323/`，
 SHA为`749397b566ba224c46b7f409fb9d5e408dd564460f33576b9aab1c1a9e66a4af`，对应host141c18f6。
 三个正常_core入口示例graph/test均已结束并通过：Dzhanibekov60帧、plastic bag3帧、G1 60帧，源码进程均不映射原版。
-`run-current-validation.py`当前继续完整74回归；未结束项目不能提前计通过，也不能拿自检代替数值一致性。
+当前完整74回归已结束：70严格通过，particles seed1/2/3及pd_mixed_cloth seed3四份首差保留。
+固定C10已结束且CPU重算完全同：seed1和PD mixed seed3通过，粒子seed2/seed3失败，两份首差仍未解决。
+只读核资源审计覆盖实际加载的129自有核，42个核的寄存器/局部内存或最大线程属性不同；
+PTX规范化相同的入口没有资源属性差异。没有改变资源设置，也没有据属性相同或不同判数值通过或归因。
 完整替代还需当前image自己的完整回归、正常graph固定A/B/C及未实现组合，不能只通过重命名或切换加载路径完成。
 
 ```bash

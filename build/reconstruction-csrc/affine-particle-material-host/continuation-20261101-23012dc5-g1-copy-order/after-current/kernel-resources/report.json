@@ -1,0 +1,4127 @@
+{
+  "source_sha256": "141c18f6269ef4c4044756d681550e18f4e334693bb462ef8dae6a7519d646c3",
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "kernels": [
+    {
+      "symbol": "_ZN7synreal12fluid_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_PfPiSA_PNS3_ILi3EiLS4_0EEESA_SA_ii",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 28,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 28,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal12fluid_kernel10scale_stepENS_5ModelEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPKfi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 14,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 14,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal12fluid_kernel11bound_scaleENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEffPf",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 18,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 18,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal12fluid_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal12fluid_kernel13evaluate_rowsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPfS7_PiS8_PNS3_ILi4EfLS4_0EEE",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 51,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 52,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          51,
+          52
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal12fluid_kernel13multiply_rowsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKfS7_PS5_",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 50,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 50,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal12fluid_kernel15accumulate_rowsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKfS9_S7_PS5_PNS2_3matILi3ELi3EfLS4_0EEE",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal12fluid_kernel16initialize_scaleEPffi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 10,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 10,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 30,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 30,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel10form_bondsENS_5ModelENS0_4ViewEPKiS4_PiPN3glm3vecILi2EiLNS6_9qualifierE0EEEPfSB_S5_",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel12commit_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKNS3_ILi2EiLS4_0EEEPKfPfPii",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 36,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 36,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 51,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 50,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          51,
+          50
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel15query_edge_edgeEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS_4AabbESB_PKNS2_ILi2EiLS3_0EEESB_fPiSI_mmmi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 66,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          1024,
+          896
+        ],
+        "registers": [
+          56,
+          66
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel15query_edge_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi3EiLS3_0EEEPKiPKNS_4AabbESE_PKNS2_ILi2EiLS3_0EEESE_fPiSL_mmmmi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel16build_edge_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS_4AabbEfmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel17query_vertex_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPKNS2_ILi3EiLS3_0EEES8_PKNS_4AabbES8_PKNS2_ILi2EiLS3_0EEES8_ffbPiSK_mmmmi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel20accumulate_edge_edgeEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_SB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 86,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 86,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel20accumulate_edge_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_PKNS2_ILi3EiLS3_0EEESB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 96,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 96,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel20add_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 26,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 26,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel20build_particle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPNS_4AabbEmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 28,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 28,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel20query_particle_pairsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfS8_S8_PKNS_4AabbES8_PKNS2_ILi2EiLS3_0EEES8_S8_S8_PiSH_mmmi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 42,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 42,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel22accumulate_vertex_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPKNS2_ILi3EiLS3_0EEES8_S8_SA_ffbfPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 70,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 64,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          896,
+          1024
+        ],
+        "registers": [
+          70,
+          64
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel25accumulate_particle_pairsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfS8_S8_SA_fPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel25multiply_contact_tangentsEPKNS_27SelfCollisionContactTangentEPKjPKN3glm3vecILi3EfLNS6_9qualifierE0EEEPS9_",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel25multiply_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 27,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 27,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal21self_collision_kernel9refit_bvhEPKNS_4AabbEPKiS5_PKN3glm3vecILi2EiLNS6_9qualifierE0EEEPjPS1_mm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 34,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 34,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel11refit_aabbsEPNS_4AabbEPKS1_PKiS6_PKN3glm3vecILi2EiLNS7_9qualifierE0EEEPjj",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 30,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 30,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 38,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          40,
+          38
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel15evaluate_cablesENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fS7_PS5_PNS2_3matILi3ELi3EfLS4_0EEE",
+      "original": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1432,
+        "registers": 209,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1448,
+        "registers": 210,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "local_bytes": [
+          1432,
+          1448
+        ],
+        "registers": [
+          209,
+          210
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 36,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 38,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          36,
+          38
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel17evaluate_residualINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_SI_PSG_mm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel17evaluate_residualINS_12NonZeroEntryEfEEvPKiPKT_mPKT0_PKN3glm3vecILi3EfLNSB_9qualifierE0EEESG_SG_PSE_mm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel17evaluate_residualINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_SI_PSG_mm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 20,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel21evaluate_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 27,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 27,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel21generate_morton_codesEPjPKNS_4AabbES2_j",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 21,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 21,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22evaluate_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mmS8_S8_S8_fPS6_Pf",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 512,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 111,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          896,
+          512
+        ],
+        "registers": [
+          72,
+          111
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22evaluate_hard_contactsENS0_15HardContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPfPKS5_S6_PNS2_3matILi3ELi3EfLS4_0EEESC_S7_",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 160,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 768,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 96,
+        "registers": 80,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          896,
+          768
+        ],
+        "local_bytes": [
+          160,
+          96
+        ],
+        "registers": [
+          72,
+          80
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22evaluate_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi3EiLS3_0EEEPKfS6_SB_fS4_fPS4_Pfmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22prepare_cable_tangentsENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEE",
+      "original": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1432,
+        "registers": 188,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 384,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1416,
+        "registers": 168,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          256,
+          384
+        ],
+        "local_bytes": [
+          1432,
+          1416
+        ],
+        "registers": [
+          188,
+          168
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22snapshot_hard_contactsENS0_15HardContactViewE",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel22update_cable_penaltiesENS0_9CableViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEff",
+      "original": {
+        "max_threads": 512,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 32,
+        "registers": 120,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 512,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 32,
+        "registers": 122,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          120,
+          122
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 96,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 88,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          96,
+          88
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel23evaluate_joint_armatureENS0_19JointCoordinateViewEPKfPKN3glm3vecILi3EfLNS4_9qualifierE0EEES9_S3_fS9_PS7_PNS4_3matILi3ELi3EfLS6_0EEE",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 96,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 96,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel23precondition_and_reduceIfEEvPKT_PKN3glm3vecILi3EfLNS5_9qualifierE0EEEPS8_bPKijPfm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel23prepare_cable_penaltiesEPKN3glm3vecILi4EfLNS1_9qualifierE0EEEPS4_PimmfffffbbPKi",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 128,
+        "registers": 83,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 96,
+        "registers": 93,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "local_bytes": [
+          128,
+          96
+        ],
+        "registers": [
+          83,
+          93
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel24initialize_hard_contactsENS0_15HardContactViewE",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 59,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 69,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          1024,
+          896
+        ],
+        "registers": [
+          59,
+          69
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel24initialize_triangle_dragEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPS4_Pfmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel25apply_affine_body_torquesEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 44,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 44,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 96,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 768,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 80,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          640,
+          768
+        ],
+        "registers": [
+          96,
+          80
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 16,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel25update_hard_contact_dualsENS0_15HardContactViewE",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 61,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 70,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          1024,
+          896
+        ],
+        "registers": [
+          61,
+          70
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel26build_primitive_leaf_nodesEPiPKij",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 10,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 10,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel26evaluate_tetrahedron_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKfSF_fPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEfEEvPKiPKT_mPKT0_PKN3glm3vecILi3EfLNSB_9qualifierE0EEESG_PSE_S4_jPfmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 37,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 39,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 39,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel28multiply_joint_drive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPS4_mmm",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 768,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 80,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          896,
+          768
+        ],
+        "registers": [
+          72,
+          80
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 22,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 24,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30add_joint_drive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESH_SH_SH_SH_SB_SB_PKfSJ_fPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 64,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 69,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          1024,
+          896
+        ],
+        "registers": [
+          64,
+          69
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30add_tetrahedron_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPSB_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 112,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "local_bytes": [
+          0,
+          112
+        ],
+        "registers": [
+          56,
+          40
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30evaluate_body_point_line_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_fmbPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 54,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          54,
+          48
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30evaluate_rolling_contact_forceENS0_18RollingContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE",
+      "original": {
+        "max_threads": 384,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 536,
+        "registers": 143,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 264,
+        "registers": 95,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          384,
+          640
+        ],
+        "local_bytes": [
+          536,
+          264
+        ],
+        "registers": [
+          143,
+          95
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 440,
+        "registers": 95,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 136,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          640,
+          896
+        ],
+        "local_bytes": [
+          440,
+          136
+        ],
+        "registers": [
+          95,
+          72
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30multiply_triangle_drag_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEES6_PKfPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 34,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 34,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 18,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 18,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel30update_joint_drive_angle_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESJ_SJ_SJ_SJ_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 43,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          43,
+          40
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 34,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 32,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          34,
+          32
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel31refresh_inertial_cache_nonzerosEPKfPKmPKiS2_S4_S6_PNS_12NonZeroEntryES8_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32add_triangle_drag_preconditionerEPKN3glm3vecILi3EiLNS1_9qualifierE0EEEPKNS2_ILi3EfLS3_0EEEPKfPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 28,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 28,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32build_affine_body_preconditionerINS_12NonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+      "original": {
+        "max_threads": 384,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1344,
+        "registers": 166,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1312,
+        "registers": 172,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          384,
+          256
+        ],
+        "local_bytes": [
+          1344,
+          1312
+        ],
+        "registers": [
+          166,
+          172
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+      "original": {
+        "max_threads": 384,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1344,
+        "registers": 166,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 256,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 1312,
+        "registers": 170,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          384,
+          256
+        ],
+        "local_bytes": [
+          1344,
+          1312
+        ],
+        "registers": [
+          166,
+          170
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 33,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 33,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32multiply_bending_damping_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+      "original": {
+        "max_threads": 384,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 536,
+        "registers": 143,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 264,
+        "registers": 91,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          384,
+          640
+        ],
+        "local_bytes": [
+          536,
+          264
+        ],
+        "registers": [
+          143,
+          91
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32multiply_surface_contact_tangentENS0_18SurfaceContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 440,
+        "registers": 90,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 136,
+        "registers": 70,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          640,
+          896
+        ],
+        "local_bytes": [
+          440,
+          136
+        ],
+        "registers": [
+          90,
+          70
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel32reset_selected_joint_drive_stateEPKiPim",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 8,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 8,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 45,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 45,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel34add_bending_damping_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel34add_rolling_contact_preconditionerENS0_18RollingContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE",
+      "original": {
+        "max_threads": 384,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 536,
+        "registers": 141,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 264,
+        "registers": 91,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          384,
+          640
+        ],
+        "local_bytes": [
+          536,
+          264
+        ],
+        "registers": [
+          141,
+          91
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel34add_surface_contact_preconditionerENS0_18SurfaceContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 440,
+        "registers": 90,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 136,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          640,
+          896
+        ],
+        "local_bytes": [
+          440,
+          136
+        ],
+        "registers": [
+          90,
+          72
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 10,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 10,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel35add_surface_contact_stiffness_scaleENS0_18SurfaceContactViewEPf",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 440,
+        "registers": 95,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 136,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          640,
+          896
+        ],
+        "local_bytes": [
+          440,
+          136
+        ],
+        "registers": [
+          95,
+          72
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 25,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 25,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel36add_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 64,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          64,
+          56
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel37update_body_distance_constraint_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfPS4_SI_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel38initialize_joint_body_point_line_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEmmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel38initialize_joint_coordinate_velocitiesENS0_19JointCoordinateViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_Pf",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 70,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 66,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          70,
+          66
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 144,
+        "registers": 70,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 72,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "local_bytes": [
+          144,
+          72
+        ],
+        "registers": [
+          70,
+          72
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel39evaluate_affine_body_constitutive_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 46,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 46,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel39evaluate_body_distance_constraint_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_S6_fPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel40add_body_point_line_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKffmbPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 352,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 352,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel41initialize_body_distance_constraint_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfPS4_SI_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 39,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 39,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel41multiply_affine_body_constitutive_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 54,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          48,
+          54
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_",
+      "original": {
+        "max_threads": 640,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 85,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          640,
+          896
+        ],
+        "registers": [
+          85,
+          72
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel43add_affine_body_constitutive_preconditionerEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffNS_23AffineBodyRigidityModelEPNS1_3matILi3ELi3EfLS3_0EEEmmm",
+      "original": {
+        "max_threads": 896,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 112,
+        "registers": 72,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 112,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "max_threads": [
+          896,
+          1024
+        ],
+        "registers": [
+          72,
+          48
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel43add_affine_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 16,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 36,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "local_bytes": [
+          16,
+          0
+        ],
+        "registers": [
+          40,
+          36
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel46add_joint_body_point_line_gauss_newton_hessianEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_PKiPNS_17BlockNonZeroEntryEmmmmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 64,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 64,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          64,
+          48
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel51multiply_joint_body_point_line_augmented_lagrangianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_PKfSH_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel51update_joint_body_spring_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PS4_mmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": true
+    },
+    {
+      "symbol": "_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 38,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 38,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 35,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 72,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "local_bytes": [
+          0,
+          72
+        ],
+        "registers": [
+          35,
+          40
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel55update_joint_body_point_line_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PfPS4_PNS1_3matILi3ELi3EfLS3_0EEEbmmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 44,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          40,
+          44
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel57evaluate_joint_body_point_line_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESF_SF_S6_S6_PKfSH_S6_PKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 56,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 48,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {
+        "registers": [
+          56,
+          48
+        ]
+      },
+      "normalized_ptx_entry_equal": false
+    },
+    {
+      "symbol": "_ZN7synreal6kernel61add_joint_body_point_line_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKNS2_ILi4EfLS3_0EEESC_SC_PKfSE_PKNS1_3matILi3ELi3EfLS3_0EEEfPSG_mmmm",
+      "original": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "source": {
+        "max_threads": 1024,
+        "shared_bytes": 0,
+        "constant_bytes": 0,
+        "local_bytes": 0,
+        "registers": 40,
+        "ptx_version": 52,
+        "binary_version": 120,
+        "cache_mode_ca": 0,
+        "max_dynamic_shared_bytes": 49152,
+        "preferred_shared_carveout": -1
+      },
+      "differences": {},
+      "normalized_ptx_entry_equal": false
+    }
+  ],
+  "different_kernels": 42,
+  "cuda_kernel_launches": 0,
+  "kernel_resource_settings_modified": false,
+  "resource_equality_implies_numeric_equality": false,
+  "whole_solver_complete": false,
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/kernel_resource_audit.py": "fd8898094a9e848b7d742a577bddf8664608c257d2a80869a4d9532059830850",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/build.json": "8761acc7d4a3bd55f526b3d765db9a55df827ed5d0ffc261592bd8e52b72189d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_ptx_bundle.h": "0b99741035a1bb95da92ed30456219fff9faf642e0e36a4d114356e45233293c",
+    "/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include/driver_types.h": "e1e050d7437381fb36065c466861d53162ef9c97caac49cc9a5f737c58b40f20",
+    "/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include/cuda.h": "dbd3ae3677ecf076f6b2a0971d42b2dd5b9d5f1ccdf34e74774a16fc2df7cac1",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.3.sm_52.ptx": "0df1f91c63a350c75ee925340094d12a79f0b821704302ed0ee84e009af2f811",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.6.sm_52.ptx": "41006fa7ca56b84aa52140e006aa6d2017cd69f92d34e6727b6c306c07c22880",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx": "a22824c519e1045bd728caefdcdc6591ebeb8839999ba6b1d490f3a36f67944c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.5.sm_52.ptx": "636c7548cb75dcd6f8ba73c986d2729d0c373d9a451e1b141e004566912ee057",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.2.sm_52.ptx": "62c356c37770ad959f971c5ba05c857d696fbf68f772ce06790de2bde6e685b7"
+  }
+}

@@ -5943,3 +5943,29 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   活动队列日志run-current-validation.log，终态以validation/status.json及对应报告为准。
 - 141对应Core749三个独立正常入口graph/test均结束、退出0，source_only/public_core_abi true且无原版映射；
   当前队列已进入141完整74，记录及原image固定失败不变。先提交已结束证据，运行中regression输出下批结束后提交。
+- 续接离线审计26份历史full-memory capture：20份688f/230驱动布料及接触每份6条差异，全部严格为3子步两次copy相邻互换；
+  六份869普通无驱动约束则零差异。historical-copy-clear-audits及pair-classification保存每capture实际source SHA，
+  明确这些不是141当前验收；支持copy-order修复范围，不能替代新版对应场景测试。
+- 准备独立plain_body_contact_scene与原版pilot6（三普通约束×W1Newton/no-block及W3PD/body-block），
+  新夹具保留旧plain fixture不改，增加实际box/ground、非零rolling/torsion；计划抓9轮constraint/rigid/rolling RHS验证有效性。
+  当前只完成CPU语法/ABI pointer核对，GPU尚未运行，生产plain-contact guard仍保留。
+- 准备kernel_resource_audit，对实际SDK runtime属性和源码driver属性只读比较129自有核的寄存器/local/shared等，
+  不设置资源参数、不把属性相同当数值相同，尚未运行GPU API。新增run-after-current要求当前74队列complete后才串行采C10/CPU→pilot→资源属性。
+- 141完整74已全部结束，原session65225确认退出0：70严格通过，particles seed1/2/3和pd_mixed_cloth seed3四项严格失败。
+  首差原样保持，已启动run-after-current串行固定C10/CPU复核→plain-contact原版pilot6→资源属性；不沿用旧image C10结论。
+- after-current已全部结束，session44646确认退出0。当前四C10：粒子seed1与PD mixed seed3通过，粒子seed2/3失败；CPU全同。
+  两失败不补采、不替换；当前74仍70严格，不能宣称141全部通过。
+- plain-contact原版pilot6全部有限且约束/rigid/rolling真实改变RHS：每类约束9/9轮，rigid/rolling各3/9或9/9轮。
+  先前fixture不改；有效pilot首次输出冻结，已启动original24，六pilot逐字节采用，剩余18组只采一次；生产guard尚未开放。
+- kernel_resource_audit只读实际加载129自有核完成，42核资源属性不同（registers42、max_threads21、local_bytes17），
+  所有规范化PTX相同入口的资源属性也相同。没有设置资源/编译参数，没有据寄存器差异推断数值根因或接受轨迹。
+- plain/contact固定SDK24已全部结束，每组约束、rigid、rolling均实际改变RHS，六pilot逐字节采用；1443原始文件保存。
+  141源码spring W1 Newton及distance W3 PD/body-block两个基线确实被guard拒绝，未强行绕过。
+  首baseline脚本错用has而实际消息have，断言在源修改/编译前拦下；源/build SHA仍同141，失败记录及同一基线原输出保留。
+- 保存141的27文件及原版24/1443文件SHA后，只开放纯affine SO3正alpha/AL单一plain约束与penalty rigid/rolling范围。
+  非body particle、额外材料、joint/drive/self/cable/fluid、surface和hard等仍保护；没有改force/matrix/PCG或数学。
+  编译新host eb661284fd3852610e81857ccb7cc5731f76a843abd417e8772bdd6693a4efb7，CUDA176/f0不变，正在按原始SDK24逐组核对。
+- eb661284首次源码24已全部结束，24/24严格：13488次完整owned参数/geometry、source coverage、三步全状态及三类九轮force buffer全部同。
+  原SDK24、旧guard拒绝及当前首源码输出冻结不动，未调数学或放宽比较。
+  接着已串行启动六constructor→真实graph60（24case/eager+graph）→原版/源码initcheck3，输出validation-eb661284；
+  当前完整74和正常Core仍未做，旧141/G1/粒子统计不能沿用作当前image验收。

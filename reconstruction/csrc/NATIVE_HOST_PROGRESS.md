@@ -1,7 +1,11 @@
 # 新版基准与 C++ host 进度
 
+> **当前eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
+> constructor/graph/initcheck正在串行核对；不得据短程通过宣称完整替代。
+> 数学/CUDA176/f0未改，完整替代未完成，当前完整74尚未采。见[普通约束接触恢复](PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
+
 > **当前141c18f6：恢复G1 supplied drive速度复制在基础对角缓存复制之前。** 固定SDK反汇编及18子步实际序列确认；
-> 新捕获486 D2D+4788清零记录序列全部同。数值验收及当前回归仍待完成，不能沿用下列历史结果。
+> 新捕获486 D2D+4788清零记录序列全部同。当前74为70严格，四份首差的固定C10继续核对；不能沿用下列历史结果。
 > 见[设备复制顺序恢复](G1_COPY_ORDER_RECOVERY.md)，SDK64a/CUDA176/f0不变，ready=False。
 
 > **活动23012dc5：AL驱动关节＋布料＋soft/rigid/rolling接触。** 固定SDK64的49504次完整owned参数/geometry/coverage均同；

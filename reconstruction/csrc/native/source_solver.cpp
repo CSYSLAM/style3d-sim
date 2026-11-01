@@ -2296,6 +2296,13 @@ public:
                            body_tangent || fluid_rows_ || granular_points_;
         // The original ignores the body-block option when PD selects the scalar matrix branch.
         const bool body_block = bodies && block && config.affine_body_block_preconditioner;
+        // Only the single plain-constraint, all-affine, SO3 penalty-contact combinations are captured here.
+        const bool plain_contact = so3 && rigid && !surface && joint_al && alpha > 0.0f &&
+            !config.rigid_contact_hard && count_ == body_state_count_ * 4 &&
+            ((plain_spring_count_ > 0) + (plain_line_count_ > 0) + (distance_total_ > 0) == 1) &&
+            !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
+            !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+            !triangle_count_ && !edge_count_;
         const bool isolated_plain =
             (plain_spring_count_ || plain_line_count_ || distance_total_) &&
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
@@ -2306,7 +2313,7 @@ public:
             !cable_count_ && !fluid_rows_ && !granular_points_ && !self &&
             !drag_count_ && !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&
             !contact.max_count && !contact.soft_max_count;
-        if (body_block && !driven_cloth && !isolated_plain && !isolated_undriven_joint &&
+        if (body_block && !driven_cloth && !isolated_plain && !plain_contact && !isolated_undriven_joint &&
             (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             (plain_spring_count_ || plain_line_count_ || distance_total_ || !drive_total_ || cable_count_ ||
              fluid_rows_ || contact.max_count || contact.soft_max_count))
@@ -2319,10 +2326,11 @@ public:
             throw py::value_error("hard-contact history requires collision match indices");
         // Captured isolated plain PD routes omit Gauss-Newton blocks; undriven-line joint routes remain guarded.
         if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
-            !isolated_plain && !isolated_undriven_joint &&
+            !isolated_plain && !plain_contact && !isolated_undriven_joint &&
             pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
             throw std::runtime_error("Plain or undriven body constraints with PD_NEWTON have not been captured");
-        if ((plain_spring_count_ || plain_line_count_ || distance_total_) && (rigid || contact.soft_max_count))
+        if ((plain_spring_count_ || plain_line_count_ || distance_total_) &&
+            (rigid || contact.soft_max_count) && !plain_contact)
             throw std::runtime_error("Plain body constraints with contacts have not been captured");
         if ((joint_spring_total_ || joint_line_total_) && !joint_al) {
             const bool isolated_penalty = config.joint_constraint_mode == JointConstraintMode::PENALTY && so3 &&
