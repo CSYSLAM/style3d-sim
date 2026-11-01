@@ -118,3 +118,9 @@ scalar84的9线程18次真实贡献，保持各线程同目标顺序的合并，
 这是该scalar的F32累计存在性证明，未推断原实际调度，也未证明跨目标完整执行顺序；原C8失败仍保留。
 数据为`first-surface-diagnosis-23012dc5/`、`first-surface-ordered-atomic-certificates/`。
 粒子seed2/it5完整worker trace两端各仅8/15目标数组匹配冻结值，不能解释原固定失败，需继续定位。
+
+九轮surface力补充：隔离dynamic hook按每次有效count读取6个contact数组，避免读取未定义tail。
+两端的active数均为33,33,33,36,36,36,6,6,6，全部18份输入逐接触三端输出与真实原子贡献核对相同。
+两端前两轮完整输入同，之后状态/接触几何逐渐不同；见`all-surface-input-audit.json`及
+`all-surface-replay-23012dc5/`。扩展观察器未复现整段冻结state，不能据此销账C8失败。
+旧220字节return-contact结构在当前首packet上仍有aggregate差异，未作为生产修复采用。

@@ -5872,3 +5872,33 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 已串行完成seed2/it5完整worker内部trace两端，复用已验证SHA的all-entry-packets observer，生产source230不变。
   两端各只有8/15目标state数组匹配冻结候选，因此不把这份动态trace当原失败路径；original/source raw各8348文件保留。
   对两native目录做lossless SHA-content archive并逐文件roundtrip检查，后续WSL用unpack_reconstruction_trace.py还原。
+- 检查此前220字节return-contact布局实验在当前真实33contact输入上的表现：first-surface-return220-replay三端逐接触与操作数仍同，
+  aggregate仍未复现原版，未采用到生产。它不能作为已找到执行布局修复的证据，当前数学/source230/bundle均保持原样。
+- 为读取九轮真实contact输入，新增隔离dynamic-surface-hook：只对surface-force view的6个contact数组按该次count读取，
+  runtime/driver两端均先读取实际count并检查0<=count<=capacity，再拷贝active*stride；不改原cudahook.c/so或生产源码，不读未定义tail。
+  两端实际count均33,33,33,36,36,36,6,6,6；capture-all-surface-calls.py保留原九轮RHS并导出每轮完整输入，owned metadata同。
+  首RHS仍复现各自冻结pre/post，但新增观察器使两端完整state均未复现首次候选，明确不替换原C8。
+- run-all-surface-replay.py串行18任务全部完成：每份actual input上runtime/原PTX/源码逐接触输出全同，
+  两PTX真实原子贡献及其目标顺序全同。两端ordinal0/1完整输入同，ordinal2起x/RHS或后续contact几何已不同。
+  all-surface-input-audit.json列出每轮输入差异；回放各端自己的实际buffer，不把原版中间结果喂入生产求解器。
+  这扩展了九轮surface force的同输入核对，仍未证明整条host/PCG路径或原长程固定失败；不改原固定C结论。
+- 18份surface回放共450个实际contact输入检查、9036次真实atomic贡献核对，逐接触与操作数全部同；
+  aggregate复现各自captured输出的比例为runtime7/18、原PTX7/18、源码PTX9/18，完整报告保留，不宣称aggregate逐位全同。
+- 开始未改examples/example_robot_g1.py正式模型验收：--solver synreal --world-count 1，3帧共18子步。
+  first3两端worker均正常结束且finite，四字段均自首步strict不同（max q约7.82e-6，qd约1.262e-3），首次NPZ不改。
+  独立owned审计两端46908完整launch参数/geometry全同、source coverage同；未将新的观察器状态替换首候选。
+  已记录实际G1缓存203文件共293932151字节SHA，以后新机器需同资产版本，不替换缺失trampoline网格或改示例。
+- run-g1-fixed-C8.py已串行启动，按既定8原版/3源码且逐字节采用first3的original0/source0；
+  每新增worker检查所有source与harness及203资产SHA，runtime完全相同。尚未完成，不提前写通过；生产230/SDK64a不变。
+- G1固定C8全部结束：source0/source1四字段所有18子步均在原版LOO范围内；source2的body_q与particle_q未全部通过，
+  两速度字段通过，整体C8仍false。独立CPU逐数组逐子步重算与报告完全相同，不筛掉source2、不追加原版样本。
+  继续串行运行G1 constructor三类观察器（分配/payload/initializer）双端五项审计，排查原先小fixture没覆盖的正式机器人构造差异。
+- G1 constructor六worker结束：64 allocation事件、35 uploads、31 typed initializer与46939 owned/library时序均同；
+  raw flat pointer一项false，已原样保存。9360条差异全部是同一external model.shape_types[105]的地址不同，模型字段标签相同，
+  并非owned allocation身份/offset差异。不能仅按标签消除此项，接着在四个实际参数位置抓105个int32检查pointee。
+  首生成器误用不存在的multiply_contact_tangent token，ABI唯一性断言在写driver/GPU之前拒绝；没有执行错误指针copy。
+  改为实际evaluate_contact_force arg12、evaluate_contact_tangent arg12、soft_force arg13、soft_hessian arg8，
+  四处均先对129-entry实际schema确认是pointer后才启动独立诊断；不改原audit.json或比较标准。
+- 补充四处actual shape_types[105]各420字节，original/source全部逐字节相同，完整owned metadata/coverage仍同。
+  raw constructor false原样保留；外部地址字段标签及补充数据解释了该项差异，未发现需要修改生产实现的owned指针错误，
+  不把这份补抓外推为之前两个进程的所有pointee/opaque view/copy/clear均已证明。后续仍须定位固定G1 source2越界轨迹。
