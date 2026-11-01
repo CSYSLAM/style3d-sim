@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py", line 186, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py", line 156, in main
+    return worker(args)
+           ^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py", line 89, in worker
+    example = module.Example(viewer, demo_args)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/undriven_axis_joint_scene.py", line 33, in __init__
+    super().__init__(viewer, Namespace(joint_kind=args.joint_kind, worlds=args.worlds, seed=args.seed,
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/joint_body_scene.py", line 54, in __init__
+    self.solver = s3d.NewtonSolver(self.model)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py", line 861, in __init__
+    self._validate_model()
+  File "/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py", line 3201, in _validate_model
+    raise ValueError("All joint drive arrays must be provided together.")
+ValueError: All joint drive arrays must be provided together.
+Warp 1.16.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 5090 D v2" (23 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     /home/oem/code/agent/style3d-sim/build/reconstruction-warp/1.16.0
+Module validate_and_correct_inertia_kernel_5e18b3cd 5e18b3c load on device 'cuda:0' took 2.40 ms  (cached)
+Module newton._src.geometry.bvh cca3a6c load on device 'cuda:0' took 1.98 ms  (cached)

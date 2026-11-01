@@ -11,7 +11,7 @@ from reconstruction.csrc.affine_tetrahedron_contact_ab import clean_env
 from reconstruction.csrc.host_api_probe import REFERENCE_SHA
 from reconstruction.csrc.audit_cudahook import schemas, parameter_types
 base=Path(__file__).resolve().parent
-output=base/'original32'
+output=base/'original32-v2'
 output.mkdir(exist_ok=False)
 build=root/'build/reconstruction-csrc/host-particles/build.json'
 saved=build.read_bytes()
@@ -57,6 +57,8 @@ for constraint_mode,kind,worlds,mode,block in cases:
                 row['body_moved']=not np.array_equal(data['body_q'][0],data['body_q'][-1])
                 row['shapes']={k:list(data[k].shape) for k in data.files}
             row['owned_calls']=len((folder/'launches.txt').read_text().splitlines())
+            row['actual_drive_load_calls']=sum('25evaluate_joint_drive_load' in x for x in (folder/'launches.txt').read_text().splitlines())
+            assert row['actual_drive_load_calls']==0
             row['actual_force_calls']=sum(token in x.split()[1] for x in (folder/'launches.txt').read_text().splitlines())
             before=(folder/f'dump_{token}_pre_arg{index}.bin').read_bytes()
             after=(folder/f'dump_{token}_post_arg{index}.bin').read_bytes()

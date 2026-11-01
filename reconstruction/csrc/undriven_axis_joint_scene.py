@@ -21,19 +21,24 @@ class Example(DrivenExample):
         return parser
 
     def __init__(self, viewer, args):
-        assemble = adapter.NewtonSolver._assemble_joint_constraints
+        initialize = adapter.Solver.initialize
 
-        def constraints_without_drive(solver, **options):
-            assemble(solver, **options)
-            # This fixture requests the native zero-drive branch; all generated joint geometry stays intact.
-            solver._joint_drive_types = None
+        def native_constraints_without_drive(solver, model):
+            # Request the public native zero-drive case after the adapter validates its own arrays.
+            model.joint_drive_count = 0
+            for name in ('joint_drive_types', 'joint_drive_body_indices', 'joint_drive_parent_origins',
+                         'joint_drive_child_origins', 'joint_drive_parent_axis_points',
+                         'joint_drive_parent_reference_points', 'joint_drive_child_reference_points',
+                         'joint_drive_dof_indices', 'joint_drive_target_indices'):
+                setattr(model, name, adapter.Span())
+            return initialize(solver, model)
 
-        adapter.NewtonSolver._assemble_joint_constraints = constraints_without_drive
+        adapter.Solver.initialize = native_constraints_without_drive
         try:
             super().__init__(viewer, Namespace(joint_kind=args.joint_kind, worlds=args.worlds, seed=args.seed,
                                               armature=0., derive_velocity=False))
         finally:
-            adapter.NewtonSolver._assemble_joint_constraints = assemble
+            adapter.Solver.initialize = initialize
         native = self.solver._synreal_model
         assert native.joint_drive_count == 0 and native.particle_state_count == 8 * args.worlds
         assert (native.joint_body_point_line_count if args.joint_kind == 'prismatic' else

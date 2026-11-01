@@ -2,7 +2,7 @@
 
 > **活动源码3d1b1b88：混合普通spring/point-line/distance。**
 > 固定32组状态/12576次完整调用/各primitive首force buffer严格，八种构造五项均同，graph128/128严格，双端initcheck全过。
-> 当前image完整74尚未收集，不能继承aa52结果，ready=False。
+> 当前image完整74为71严格；三particles固定C10全过且CPU重算同，两个独立源码入口graph/test过，ready=False。
 > 修复实际distance/line权重分配顺序；见[混合约束恢复](reconstruction/csrc/PLAIN_BODY_MIXED_CONSTRAINT_HOST_RECOVERY.md)。
 > aa52布料首force的实际三端/精确累加证明见
 > [首步诊断](reconstruction/csrc/OFFICIAL_CLOTH_FIRST_STEP_AA52.md)，整段仍未通过。

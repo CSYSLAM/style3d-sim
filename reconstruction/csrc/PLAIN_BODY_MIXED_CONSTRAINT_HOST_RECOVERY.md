@@ -2,7 +2,7 @@
 
 活动源码：`3d1b1b883a620f0028f2c4b16c2d2e490b96407a9e16e4dc75034d10baef6be1`。
 固定参考为SDK64a，CUDA176/f0及数学不变，`solver_api_ready=False`。
-当前image完整74尚未采集，不能继承aa52或其它历史image的回归结论。
+当前image完整74为71严格，三particles固定首次输出C10均通过、CPU重算同；不继承旧image结论。
 
 证据目录：
 `build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-aa52ee61-mixed-plain/`。
@@ -42,7 +42,8 @@ spring+line和三者组合被constructor guard拒绝。先保存27文件与306�
 
 32组合60步eager/真实graph共128/128严格；双端各64轨迹×3步initcheck均0错误。
 `validation-3d1b1b88/status.json`已complete且全部退出0。
-本image完整74、固定首次失败C10及两个独立官方入口尚未执行。
+本image完整74为71严格；三个particles首次严格失败的固定C10全过，CPU审计同。
+两个独立源码官方入口Dzhanibekov60/plastic-bag3真实graph及自身test全过，无SDK映射。
 aa52正式布料的整段C仍失败，首force证明见[OFFICIAL_CLOTH_FIRST_STEP_AA52.md](OFFICIAL_CLOTH_FIRST_STEP_AA52.md)。
 
 ## 接续
@@ -58,4 +59,4 @@ source scripts/reconstruction_env.sh
 如用 `--original-capture`，需放在 `--fixture-args` 前，并保持旧prefix、fixture参数与kernel清单完全相同。
 输出用新目录，不覆盖旧失败。Windows按根交接使用WSL2；SDK/360个pyc继续固定在同一仓库。
 检查点：`mixed-plain-before-aa52ee61/`、`mixed-weight-before-6a514e46/`，均在`build/reconstruction-checkpoints/`。
-下一独立zero-drive axis fixture只准备了代码，尚未GPU运行，也没有开放其guard。
+下一独立zero-drive axis fixture的v1 adapter验证失败已保留，v2原版采集中，尚未开放生产guard。

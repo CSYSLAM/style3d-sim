@@ -5692,3 +5692,26 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 3d1b1b88局部完整结束：八种constructor五项全同，graph128/128严格，双端各64轨迹×3步initcheck均0错误。
   当前先发布这批闭合源码/so/原版与完整失败/修复证据，完整74与新axis SDK32尚未开始，不入本次局部快照。
   同仓库参考SDK64a与既有360pyc逐SHA未变；新增维护Python语法/128列与维护diff检查通过。
+- 2492f0247635d6e42f866ff5391101e8ac171896已提交，135430文件快照0失败，正在推csy。
+  该检查点包含3d局部全通过、aa52完整失败及首force七类精确证明、六份lossless raw bundle与WSL解包工具。
+  当前开始3d自己的完整74/固定C10/CPU和两个独立官方入口；其运行中输出未计入2492快照。
+- 2492f024已推csy，ls-remote核对远端同2492f0247635d6e42f866ff5391101e8ac171896。
+  当前3d完整74继续，下一zero-drive SDK队列已排在regression/frontends完成之后，GPU仍严格串行。
+- 在GPU回归期间仅CPU复核aa52七类5205见证：所有值再次精确、操作数及中间值均无subnormal。
+  同时确认原搜索没有限制线程内同destination发射次序，每类289–337条所选排列不保留该顺序；
+  它们是逐标量算术证书，不能升级成全局GPU调度重现。补充exact-witness-detail-audit与文档说明。
+  基础六类原有见证中仅非零同owner次序亦有1325次倒置（跨六类累计），不据此推断硬件次序或修改数学。
+  三端实际逐接触输出与原/源码atomic操作数序列全同的独立实测仍成立；整段C失败一直保留。
+- 3d完整回归及after-local已结束：74为71严格，三particles首候选严格不同但固定C10三份全部通过，CPU审计0且所有统计同。
+  独立Dzhanibekov60/plastic-bag3真实graph及自身test全部过、source_only无SDK映射。
+- CPU在已提交snapshot的80个旧SDK候选/seed内查找，并严格验证fixture/harness相同；仅50个/seed eligible。
+  所有3d严格失败目标各自均有实际旧SDK逐字节完整三步见证；seed1全部3目标还在同一SDK run同时出现，seed2/3未找到联合run。
+  没有拼接轨迹、增加GPU采样或重判C10；旧harness差异/旧目录布局缺provenance均显式排除，失败脚本/说明保留。
+- zero-drive fixture v1在adapter验证即失败：只清_joint_drive_types破坏九组数组同时提供约束，尚未调用native initialize。
+  保存fixture-v1和original32-fixture-v1-invalid全部失败；生产不改。v2改在public native initialize入口
+  显式清joint_drive_count及九个native descriptor span，adapter自身验证正常保留；只在fixture构造期包装并finally恢复。
+  新original32-v2使用新目录，追加实际drive_load调用数必须0，当前GPU原版采集开始；未改生产guard。
+- zero-drive v2 SDK32全部有效，所有actual drive_load=0且primitive force9次确实改RHS；v1失败独立保留。
+  3d Newton/no-block八基线六条全部状态/完整ABI严格；仅Penalty prismatic的W1/W3被原guard拒绝，未重采。
+  AL prismatic W3/no-block baseline constructor五项全同：59 alloc/29 upload/30 typed/348 owned。
+  保存3d的27源/build/so与226份SDK v2参考SHA，准备仅窄化已捕获pure joint line范围。

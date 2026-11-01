@@ -1,0 +1,6 @@
+{
+  "CPU_only": true,
+  "reason": "An older validation uses a different regression directory layout; its comparison provenance was not found at the expected path",
+  "fix": "Exclude that older cohort explicitly instead of assuming provenance; retain the excluded row and SHA256",
+  "acceptance_cohort_changed": false
+}

@@ -1,0 +1,7 @@
+{
+  "reason": "Clearing only _joint_drive_types violates the adapter rule that all drive arrays are provided together",
+  "actual_native_solver_initialize_called": false,
+  "accepted_original_reference": false,
+  "production_changed": false,
+  "fix": "Request the zero-drive native API explicitly at initialize by clearing native descriptor count and spans; preserve adapter validation"
+}
