@@ -10,6 +10,14 @@
 固定当前source0的十次原版对照已输出五项：三个particles与PD mixed在原版波动范围内，Newton mixed仍越界。
 独立CPU复核实际0，五项结论均复现；当前三类constructor五项全同、driver实际0。
 严格失败记录全部保留，不继承旧dec的通过项。
+当前Newton mixed已重新采集0dab的冻结失败路径：732公共packet/4392三端回放及72散射packet均核准。
+world85首差定位到调用90弹簧RHS，真实GPU相同操作数的两种顺序精确复现两端；固定C10仍false。
+详见[当前mixed固定路径](reconstruction/csrc/CURRENT_MIXED_FIXED_0DABBAA7.md)。
+外部接触组合隔离候选`4f638b4b`已编译：六SDK支持、当前生产六guard拒绝，候选四短程严格、两短程固定C8过。
+四类constructor五项全同、六initcheck零错误；60步严格16/24，长程固定C8三source为10/12。
+W3/subset/mixed/PD的eager/graph仍未通过全部长程门禁，候选未合入。
+见[外部接触恢复记录](reconstruction/csrc/GRANULAR_AFFINE_CONTACT_HOST_RECOVERY.md)。
+候选已独立跑现有牛肉demo低分辨率三帧，固定C8/独立CPU过；该短程配置不代表默认/长程验收。
 
 ## 已经做到
 
@@ -26,10 +34,11 @@
 
 ## 仍需完成
 
-1. 定位当前0dab的Newton mixed固定失败；五项C10及其独立CPU复核已完成，三类constructor五项全同。
+1. 当前0dab的Newton mixed仍须完整轨迹验收；首差已有实际GPU累加顺序证据，不能据此将固定失败改判。
+   五项C10及其独立CPU复核已完成，三类constructor五项全同。
 2. 继续解决G1及复杂布料的长程固定对照失败；G1旧速度误差约23.85的尖峰尚未完整解释。
    已有大量同输入核对及归约顺序证据，不能据此把完整轨迹失败改判为通过。
-3. 补齐SDK实际支持、源码仍拒绝或尚未验证的host组合，下一组合是颗粒/刚体加外部接触。
+3. 继续颗粒/刚体加外部接触隔离候选的PD多世界长程首差；其余未验证host组合仍需逐一实测。
    粒子seed2在旧host38的固定失败保留；当前0dab应按本构建的实际固定结果记录，不能相互继承。
    未捕获的组合总量尚未封闭，不能只按74项回归的失败数计算剩余工作。
 4. 全部所需范围验收后，切换默认加载至源码构建后端，完成可安装交付及新机器复现。

@@ -1,0 +1,81 @@
+{
+  "stages": [
+    {
+      "call": 180,
+      "name": "_ZN7synreal6kernel21evaluate_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PS4_mmm",
+      "isolated_contributions_equal": true,
+      "isolated_scalar_checks": 2322,
+      "captured_scalars_explained_by_exact_permutations": {
+        "rhs/source": 774
+      }
+    },
+    {
+      "call": 181,
+      "name": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+      "isolated_contributions_equal": true,
+      "isolated_scalar_checks": 3483,
+      "captured_scalars_explained_by_exact_permutations": {
+        "rhs/source": 1161
+      }
+    },
+    {
+      "call": 183,
+      "name": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+      "isolated_contributions_equal": true,
+      "isolated_scalar_checks": 31347,
+      "captured_scalars_explained_by_exact_permutations": {
+        "diagonal/source": 3483,
+        "entries/source": 6966
+      }
+    },
+    {
+      "call": 184,
+      "name": "_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+      "isolated_contributions_equal": true,
+      "isolated_scalar_checks": 13932,
+      "captured_scalars_explained_by_exact_permutations": {
+        "diagonal/source": 2322,
+        "entries/source": 2322
+      }
+    }
+  ],
+  "captured_side": "source",
+  "offset": 178,
+  "force_only": false,
+  "runner_sha256": "ac05298889c8e3248f17b76a8b49aabf028814e1053bcd652c13c160834e96b1",
+  "sum_ptx_sha256": "af90f8e49cc3536700b803b4438815224c6f25dfa1e28bf665f5768b779e81f4",
+  "whole_solver_bitwise_equal": false,
+  "diagnostic_intentionally_maps_original": true,
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "all_three_backends_pointwise_equal": true,
+  "all_captured_atomic_folds_verified_on_gpu": true,
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000180.21evaluate_spring_forceE.json": "92930de8a6bff5605d4d30cc1b3d02fa869af44381ed2e63d2389d38e70d44c8",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000180.21evaluate_spring_forceE.before.x.bin": "4931fb5dd3b3d807a5827370cdca661deda68c807b0f3f73aedee4d444c67efa",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000180.21evaluate_spring_forceE.before.indices.bin": "7305e8e74c13ffd76e4a423a484a3ba25fbc14331e052963d5c092193fbcb659",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000180.21evaluate_spring_forceE.before.stiffness.bin": "e1d159b13445ad6bab197bfe9b760d28289ecc477e78bae64bb5307913fc393d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000180.21evaluate_spring_forceE.before.rest.bin": "4c68053b109639b7e194cc99076650bd980cf14de6cef36e011df22b5d223b02",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000180.21evaluate_spring_forceE.before.rhs.bin": "5a63c7564c48e2cb3bceb811e394302f7776ca60b6a2c9f37fc8b0b0165d3a87",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000180.21evaluate_spring_forceE.after.rhs.bin": "2a7ef3c10bf0ced207bade738eb296ab7f7cf0c604bc8ff84f15f0486f5b25e4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.json": "fc42b933bc946b8191f9117995bf141060047ddc220f85387bbe6ff12af24f8f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.before.x.bin": "4931fb5dd3b3d807a5827370cdca661deda68c807b0f3f73aedee4d444c67efa",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.before.indices.bin": "f0f05679062d8d21b52c291de821383c6faaf59c2f7c71b89ea2026f69128725",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.before.area.bin": "11fa4ab82ca73857ba2f8a72aae610f0ca00f17f7465cbc183f52493c902fa72",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.before.pose.bin": "9ac1d502c523717379beaa82659c928b474b65b5b0f6814ec80b4bb8cf3cd2b8",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.before.stiffness.bin": "dd4bd13510214d5964f952cce6232dcee67ffab6dac49542bf1cef4837fa07f4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.before.rhs.bin": "2a7ef3c10bf0ced207bade738eb296ab7f7cf0c604bc8ff84f15f0486f5b25e4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000181.22evaluate_stretch_forceE.after.rhs.bin": "c51c5c0351f6e3f0da022bfde78af293f58cf3538e5696ca0a0e8fc3e804c1cc",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000183.39add_cloth_membrane_gauss_newton_hessianE.json": "ca9a38aba1433aa1ed94f1cbe8129969a03d399d1590eb5b0f7ab3136eadcb62",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000183.39add_cloth_membrane_gauss_newton_hessianE.before.blocks.bin": "c6470a8afb06c24cc8a171b3a9ba31b45ff31500b20516b62b697ee4ab0f6a2c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000183.39add_cloth_membrane_gauss_newton_hessianE.after.blocks.bin": "af51d25dd556c9e9b5ad3faa55203c4900433ac721385af0f99611535617df80",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000183.39add_cloth_membrane_gauss_newton_hessianE.before.entries.bin": "079044873a42d0f46cde5123ea363431a9503ce6b83e1dee8f4d2a4f53824057",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000183.39add_cloth_membrane_gauss_newton_hessianE.after.entries.bin": "f60b4ab3f95b9368261071d93e633037c2510ebe9557c9faa74d8a299ebbd988",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000184.31add_spring_gauss_newton_hessianE.json": "e0c44efa6ec8c45187556de44934db29483fa22266ab29d88714532e06132a6a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000184.31add_spring_gauss_newton_hessianE.before.blocks.bin": "af51d25dd556c9e9b5ad3faa55203c4900433ac721385af0f99611535617df80",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000184.31add_spring_gauss_newton_hessianE.after.blocks.bin": "5907d1b88b6577c55016abf0822331ca2e69d80ea3c8b3291038506319796d2a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000184.31add_spring_gauss_newton_hessianE.before.entries.bin": "f60b4ab3f95b9368261071d93e633037c2510ebe9557c9faa74d8a299ebbd988",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-mixed-newton-fixed/frozen-reproduced-mixed-pair/source/native/000184.31add_spring_gauss_newton_hessianE.after.entries.bin": "3fd077e275ccac5816143a8c8e9f50007ba6b230a75fc4777f33e0efdf93e89a"
+  },
+  "source_image_sha256": "0dabbaa7a57b57187549f814632efebdc5612095765932be112c2c9ca1868e3e",
+  "source_cuda_digest": "f0e0137a1eef9e603495dd9fe04f89f285d0723380099d7ce16951c8a267c79a"
+}

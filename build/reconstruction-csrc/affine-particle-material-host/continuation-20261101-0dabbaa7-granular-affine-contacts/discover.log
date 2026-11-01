@@ -1,0 +1,20 @@
+w1-b1-n2-s0-none-newton-b0-particle-hit0 original 1 rigid 0 soft 5 grain/body 0
+w1-b1-n2-s0-none-newton-b0-particle-hit0 source 1 rigid 0 soft 5 grain/body 0
+w1-b1-n3-s0-authored-pd-b1-rigid-hit0 original 1 rigid 4 soft 1 grain/body 0
+w1-b1-n3-s0-authored-pd-b1-rigid-hit0 source 1 rigid 4 soft 1 grain/body 0
+w1-b1-n2-s0-dynamic-newton-b1-both-hit0 original 1 rigid 4 soft 5 grain/body 0
+w1-b1-n2-s0-dynamic-newton-b1-both-hit0 source 1 rigid 4 soft 5 grain/body 0
+w3-b1-n2-s1-mixed-pd-b0-both-hit0 original 1 rigid 12 soft 15 grain/body 0
+w3-b1-n2-s1-mixed-pd-b0-both-hit0 source 1 rigid 12 soft 15 grain/body 0
+w3-b2-n2-s0-authored-newton-b1-both-hit1 original 1 rigid 24 soft 42 grain/body 24
+w3-b2-n2-s0-authored-newton-b1-both-hit1 source 1 rigid 24 soft 42 grain/body 24
+w1-b2-n3-s1-mixed-pd-b0-particle-hit0 original 1 rigid 4 soft 11 grain/body 0
+w1-b2-n3-s1-mixed-pd-b0-particle-hit0 source 1 rigid 4 soft 11 grain/body 0
+Traceback (most recent call last):
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-granular-affine-contacts/discover.py", line 123, in <module>
+    assert all(row['three_steps_finite'] and row['actual_exit'] == 0 for row in rows if row['backend'] == 'original')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-granular-affine-contacts/discover.py", line 123, in <genexpr>
+    assert all(row['three_steps_finite'] and row['actual_exit'] == 0 for row in rows if row['backend'] == 'original')
+               ~~~^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'three_steps_finite'

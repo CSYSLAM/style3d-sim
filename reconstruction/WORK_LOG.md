@@ -6780,3 +6780,68 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 新close-phase.py实际0：独立核对当前host/Core所有构建输入、完整74、五项固定C10/CPU及三个constructor，
   冻结生产phase全部2655个已有文件，terminal-verification.json明确记录driver0不等于验收通过、Newton mixed仍false。
   原待验收检查点保持为历史记录，不将其phase_open=True覆盖成新结论；新终态单独封存。
+
+
+### 2026-11-01：继续定位0dab的当前Newton mixed固定失败
+
+- 上轮为实际进展：bonds生产合入、当前74/C10/constructor均真实终态，261072文件快照0失败；
+  提交6ae6cd227e7d1ab7b7ad2393866b09b52de5e40c已push0并以ls-remote核对精确远端HEAD，起始工作区clean。
+- 新phase continuation-20261101-0dabbaa7-mixed-newton-fixed；CPU直接核当前source0/original0的18份三步target数组：
+  差异只在world85/particle257；当前source0目标与869历史冻结源码目标18/18逐字节同。
+  这只是线索，不将869历史算子证明直接记成当前构建验收，也不扩大/替换任何固定cohort。
+- 当前capture-current.py已预先固定1SDK+3source deferred诊断，保留完整worker前置fixture与分配顺序。
+  复用已验证独立deferred observer，每步最后apply/velocity必须与实际公开状态逐字节同；
+  冻结当前host25输入、image、SDK64a及原fixed cohort全部文件SHA，GPU仍等空闲后逐端串行。
+  session54379已启动，结果待真实终态；生产源码、CUDA176/f0、阈值、默认后端与readyFalse不改。
+
+- session54379真实0，四份预定诊断均0。SDK0复现original0目标18/18，source1复现固定source0目标18/18；
+  source2/3均与original0目标18/18同，全部保留，不用其替换首失败。采用SDK0/source1并逐文件SHA冻结。
+- run-replays/session16774真实0：732公共packet/4392三端实际调用全严格；两端九轮共72散射packet的贡献与GPU原子fold均过。
+  audit-current-path独立CPU真实0：无部分重叠，366对实际标量/alias模式同，250776归约计数字严格，
+  919512隔离贡献标量、417960完整GPU fold标量及306504受触达标量均核准，输入SHA一致。
+- first-difference CPU0：全局最早RHS差为调用2、world21的固定粒子，与最终world85问题不能混为同一首差。
+  target-first-difference CPU0：world85首次为调用90弹簧after RHS；此前已检查语义数据无该world差异，未映射差异buffer为0。
+  相同before RHS/三个真实隔离贡献/六份GPU折叠输出下，九标量整块分别精确符合原版(1,2,0)、源码(0,1,2)。
+  不声称推断实际全局GPU调度，不改固定C10 false。新CURRENT_MIXED_FIXED_0DABBAA7.md记录作用范围与恢复命令。
+- archive-traces实际0：四原始诊断及两采用副本各6796文件，无损SHA内容归档并逐blob回读核准，本地raw全部保留。
+- 接续实际host缺口：contact fixture只新增有效contact前缀/形状归属输出，模型和求解数学不改。
+  六组合预先固定粒子/刚体/两类接触、bonds/世界/体块/子集及真正粒子-刚体接触，SDK与当前source逐端串行。
+  discovery session9695已启动；必须先有真实活跃接触、SDK支持及源码guard证据，再恢复隔离候选，不能凭guard推断缺陷。
+
+- 两份无损bundle在全新目录实际解包0，独立与原始13592文件逐字节相同；archive-restoration.json保存结果与包SHA。
+- 接触discover/session9695实际1：六SDK worker均在rigid force报invalid argument，六source均为预期外部接触guard；
+  driver最后又因失败row缺three_steps_finite而KeyError，整个v1/source/log/plan保持，不把它当成SDK不支持的证据。
+  查固定SDK实际ABI尾部Pf及已恢复缓存分配，发现诊断把rigid force的arg33标量对角读成total*36，实际应total*4。
+  新no-dump-control/session62030真实0，同一fixture/参数保留launch日志但不读中间buffer，原版三步有限，证实采集介入。
+  v2只修arg33读取长度及安全汇总字段，输出discovery-v2，不覆盖v1；session16547已启动，生产源码/math不变。
+
+- v2/session16547真实0：六SDK正常三步，六当前source guard；每组实际接触计数/形状/颗粒索引核准，hit1组24条真实granular-body接触。
+  隔离build/session92973真实0，候选4f638b4b9141e6ad6e2aabfb6533f8ed23bdfedbf7c1508063ea96bdb7e09326。
+  只删除step guard中contact.max_count/contact.soft_max_count；独立CPU完整逆向文本相等、正确PyInit及无SDK ELF依赖核准。
+- candidate capture/session5014真实1：六source worker全0；四严格，两W3状态不严格，所有完整owned参数/geometry同。
+  W3/PD/mixed首buffer全同但后续状态差；W3/Newton/authored/body-hit仅soft force首post RHS不严格。
+  原样保存，不把driver1误当worker崩溃。独立CPU检查两份实际soft contact完整记录集合相同，排列不同，生产输入未排序。
+- 短程fixed C8/session38312真实0：两个首失败source0及SDK original0保持；各补足固定8SDK/3source，两者首source0及全部3source均在范围。
+  audit-fixed-spread独立CPU0，逐帧原始数组重算全部统计同，没有扩样本或改容差。
+- constructor/session46584真实0：18GPU+3独立CPU，三类五项全同。
+  particle85/85、26/26、55/55、575owned、634/634；rigid90/90、29/29、57/57、728owned、789/789；
+  grain/body90/90、29/29、57/57、731owned、792/792。
+- graph/session68324真实1：原版worker在读取生成后的loader路径时FileNotFound，未生成轨迹；全部v1源码/日志保持。
+  v2只改正确父目录及独立输出，session5062真实0：两个60帧worker全0，严格16/24；六双端initcheck全0、ERROR SUMMARY0。
+- 长程fixed C8/session59776真实1但9个worker全部0：六案例/两模式原完整顺序保持，首样本不替换，固定8SDK/3source。
+  12组source0为11通过、全部三source为10通过。失败仅W3/subset/mixed/PD：eager首source0通过但新source1/2越界，graph首source0也越界。
+  独立audit-graph-fixed-spread CPU0，重算全部60帧/六数组/完整统计，首次越界坐标已保存；不以有限/实际0宣布长程通过。
+- 对当前失败PD组合单独constructor/session28571真实0：6GPU+1CPU，五项全同，98/98分配、31/31上传、63/63 typed、692owned、759/759。
+  固定source0 graph最早越界frame32/world2/body_q[2,3]；source1为frame25速度，路径不得混用。候选不合入生产。
+- 现有example_granular_beaf短程/session94147实际1：两个SDK/source worker均0，632完整调用参数/geometry同，body状态严格。
+  粒子约7.21e-13位置/1.97e-11速度差保留，未因量级小改判。固定SDK8/source3复核已预先安排，session22155运行中。
+
+- 牛肉demo fixed C8/session22155真实0，九新增worker全0，保留首SDK/source后固定8/3；首source0及全部三source均在原版波动范围。
+  audit-beef-fixed-spread独立CPU真实0，三帧/四状态数组全部重算、统计同；只验收该低分辨率短程配置，初始严格失败仍保留。
+  主源码0dab/Core715没有合入4f候选，原版64a/360pyc、CUDA176/f0及生产数学保持，readyFalse。
+
+
+- 本轮两phase已独立封存：mixed166个可发布文件（原raw由六无损包覆盖），contacts3570文件；close-phase均真实0。
+  接触长程PD失败/首样本/初始严格失败原样保留，主host0dab/Core715和生产数学未改。
+  新publication/next-step.json明确source0 graph frame32与source1 frame25不能混用，下一步直接观察实际graph共同输入和私有history。
+  不从公开位置重建动态bond/AL私有缓存，不用SDK中间值代算source，不调容差/资源/排序掩盖失败。

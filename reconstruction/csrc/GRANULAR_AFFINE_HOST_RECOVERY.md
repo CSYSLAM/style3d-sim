@@ -1,5 +1,9 @@
 # 颗粒与SO3刚体组合：实际支持与独立候选核对
 
+> **新增外部接触隔离候选4f638b4b，主源码仍0dab/Core715。** 六SDK支持、四短程严格、两短程固定C8过；四类构造五项同。
+> 60步严格16/24、长C8全部三source为10/12，W3/subset/mixed/PD仍未过；六initcheck零错误，候选未合入。
+> 原牛肉demo低分辨率三帧的固定C8/独立CPU通过；不能外推默认配置或长程。见[接触恢复记录](GRANULAR_AFFINE_CONTACT_HOST_RECOVERY.md)。
+
 > **当前主源码0dabbaa7 / Core7151054e已合入bonds/刚体恢复。** 新image的16短程、graph24、正常Core3及103/57/246合同均过。
 > 当前74已终态：69严格，五项首失败固定C10为四过一未过；Newton mixed仍失败，CPU独立复核同。
 > 当前三类constructor五项全同，driver真实0；不继承旧dec通过项，readyFalse/default原版保持。[当前状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先。

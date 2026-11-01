@@ -107,8 +107,21 @@ class Example:
         if output:
             path = Path(output) / ('contacts-' + str(self.step_index) + '.npz')
             assert not path.exists()
-            np.savez_compressed(path, rigid_count=self.contacts.rigid_contact_count.numpy(),
-                                soft_count=self.contacts.soft_contact_count.numpy())
+            rigid_count = self.contacts.rigid_contact_count.numpy()
+            soft_count = self.contacts.soft_contact_count.numpy()
+            rigid_n, soft_n = int(rigid_count[0]), int(soft_count[0])
+            rigid_shape0 = self.contacts.rigid_contact_shape0.numpy()
+            soft_shape = self.contacts.soft_contact_shape.numpy()
+            assert 0 <= rigid_n <= len(rigid_shape0) and 0 <= soft_n <= len(soft_shape)
+            np.savez_compressed(path, rigid_count=rigid_count, soft_count=soft_count,
+                                rigid_shape0=rigid_shape0[:rigid_n],
+                                rigid_shape1=self.contacts.rigid_contact_shape1.numpy()[:rigid_n],
+                                soft_shape=soft_shape[:soft_n],
+                                soft_particle=self.contacts.soft_contact_particle.numpy()[:soft_n],
+                                soft_body_pos=self.contacts.soft_contact_body_pos.numpy()[:soft_n],
+                                soft_body_vel=self.contacts.soft_contact_body_vel.numpy()[:soft_n],
+                                soft_normal=self.contacts.soft_contact_normal.numpy()[:soft_n],
+                                shape_body=self.model.shape_body.numpy())
         self.solver.step(self.state_0, self.state_1, self.control, self.contacts, 1 / 240)
         self.state_0, self.state_1 = self.state_1, self.state_0
         self.step_index += 1

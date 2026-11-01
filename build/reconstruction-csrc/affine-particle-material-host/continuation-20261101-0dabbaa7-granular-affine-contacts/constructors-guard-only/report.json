@@ -1,0 +1,87 @@
+{
+  "cases": [
+    {
+      "case": "w1-b1-n2-s0-none-newton-b0-particle-hit0",
+      "checks": {
+        "allocation_release_bytes_identity_phase_and_preceding_owned_launch": true,
+        "upload_bytes_and_order": true,
+        "typed_initializer_fields_uses_and_order": true,
+        "flat_owned_pointer_allocation_identity_and_offset": true,
+        "owned_and_library_kernel_name_order": true
+      },
+      "allocation_counts": [
+        85,
+        85
+      ],
+      "upload_counts": [
+        26,
+        26
+      ],
+      "typed_counts": [
+        55,
+        55
+      ],
+      "owned_launches": 575,
+      "kernel_timeline_counts": [
+        634,
+        634
+      ]
+    },
+    {
+      "case": "w1-b1-n3-s0-authored-pd-b1-rigid-hit0",
+      "checks": {
+        "allocation_release_bytes_identity_phase_and_preceding_owned_launch": true,
+        "upload_bytes_and_order": true,
+        "typed_initializer_fields_uses_and_order": true,
+        "flat_owned_pointer_allocation_identity_and_offset": true,
+        "owned_and_library_kernel_name_order": true
+      },
+      "allocation_counts": [
+        90,
+        90
+      ],
+      "upload_counts": [
+        29,
+        29
+      ],
+      "typed_counts": [
+        57,
+        57
+      ],
+      "owned_launches": 728,
+      "kernel_timeline_counts": [
+        789,
+        789
+      ]
+    },
+    {
+      "case": "w3-b2-n2-s0-authored-newton-b1-both-hit1",
+      "checks": {
+        "allocation_release_bytes_identity_phase_and_preceding_owned_launch": true,
+        "upload_bytes_and_order": true,
+        "typed_initializer_fields_uses_and_order": true,
+        "flat_owned_pointer_allocation_identity_and_offset": true,
+        "owned_and_library_kernel_name_order": true
+      },
+      "allocation_counts": [
+        90,
+        90
+      ],
+      "upload_counts": [
+        29,
+        29
+      ],
+      "typed_counts": [
+        57,
+        57
+      ],
+      "owned_launches": 731,
+      "kernel_timeline_counts": [
+        792,
+        792
+      ]
+    }
+  ],
+  "production_changed": false,
+  "whole_solver_complete": false
+}
