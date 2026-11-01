@@ -6133,3 +6133,35 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   csrc/G1_LATE_MATRIX_RECOVERY.md。生产未变，不无故重跑74；本轮局部证据不升级为全局验收。
   下一步向前追direction/extra形成阶段；其q输入随后被覆盖，不能用q_out减dx猜回F32原输入，需要明确观察影响的实际快照。
   所有GPU任务均已结束，没有挂起worker；完整替代仍未完成，readyFalse，Windows仍使用WSL2固定Linux对照。
+
+### 2026-11-01：G1晚期drive tangent真实图内快照、30960次SDK隔离及63370份GPU证书
+
+- 上轮晚期最后矩阵已发布cb1f0df7，本轮向前核最后drive tangent（rank17453），其规范化PTX不同、资源SDK72/896对源码80/768。
+  生产SDK64a、host38/Core7eb、CUDA176/f0、数学、阈值、旧失败和默认入口均不改。
+- 新g1_drive_tangent_capture.py在旧正常worker上仅加诊断attach/record；原图17467节点/17466边保留，
+  一个15416字节buffer和19个D2D快照形成17486节点/17487边，唯一拓扑次序及before/after相对目标/后续核次序核准。
+  43drive/44body/49DOF/176粒子，18真实before pointer payload和累加器after都保存；不合成初值。
+  CPU先核两端旧图的尺寸与全部pointer参数；原版/源码PTX各72静态atomic site均可完整记录。
+- 预先固定两端各60帧，239输入SHA含203资产，capture session25052两端graph/test均实际退出0；源码无bridge/原版映射。
+  新GPU快照可改变后续原子调度，不视作冻结轨迹复现；每份调用确实改变183到265个标量。
+- 新g1_drive_tangent_replay.py使用全部120真实输入，在同一buffer轮换SDK64a runtime/原版PTX/源码PTX，并记录双PTX探针。
+  保留重叠、mod256及完整geometry，真实before输出不另设seed；保存所有600完整输出及各group的完整after bytes。
+  session6153终态0：全部247680真实atomic记录（每packet43lane各24次、其余213lane0次）逐线程/目标相同；
+  独立CPU还确认跨目标的整个每线程序列同。完整向量对捕获after的严格匹配为116/120、116/120、119/120，
+  两探针112/120、111/120，未改判为全部严格相同。
+- 为避免只用PTX探针推断实际SDK算术，新g1_drive_tangent_isolated.py对每个drive做真实SDK/PTX/source隔离，
+  drive-local数组统一移到原k行、count/local1、全body/DOF/particle数组与176world宽度不改，geometry仍原1/256。
+  使用+0/-0输出初值，全部30960调用三端逐位同，且均与原真实线程操作数在对应初值的结果同。
+  session39324确实退出0；较长运行中核查实际父/子PID2424724/2424764、GPU活动和已落盘结果，等待原任务完成，未超时重启。
+- 固定所有捕获/三端/双探针的63370个packet/标量/目标组合，未挑选目标；每scalar最多4项，保留所有操作数含符号零，
+  每线程对同目标仅一次，合法排列穷举。新g1_drive_tangent_certificates.py用真实before位模式和真实GPU global F32 atomic，
+  63370目标及123860条硬件累加前值全部通过，session83856实际退出0；这不是单一全局调度证明，也不推断旧实际顺序。
+- 独立CPU session55629完成0：从原始数据重新核图依赖/完整快照、6715200非输出after字节、600向量、247680操作数、
+  30960隔离调用的16346880输出标量字、63370 GPU证书及123860历史。不仅核report布尔值；所有原始buffer/操作数/次序保留。
+  新原版固定C8 within44/48/43/46，源码58/53/58/55，仍失败；最大速度字段差1.73232/1.32446，未复现旧23.8513。
+  新两端与旧11轨迹不逐位同，固定C8 SHA32b6e2a7…不变，不扩基准/改门槛，也不声称旧尖峰已解释。
+- 全部代码、输入、图、完整after、探针、真实SDK隔离、GPU证书和状态在continuation-20261101-38b70dcd-g1-drive-tangent。
+  具体方法/命令/Windows仍WSL2限制见csrc/G1_DRIVE_TANGENT_RECOVERY.md。生产未变，没有无故重跑74。
+  下一步向前核rigid contact tangent的真实before/after与完整输入，不再重复闭合的最后矩阵/drive，也不由q_out减dx猜回输入。
+  全部任务已经实际结束，完整替代仍未通过，readyFalse，原始严格差异/整段失败均保留。
+  最后仅拆分CPU审计一条129字符断言；成功执行源码保留为as-run并核报告SHA、AST相同，不重跑GPU或覆盖原结果。

@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **G1晚期drive tangent已新增实证。** 120份真实图内before/after、30960次SDK/PTX/source逐drive隔离含正负零全严格。
+> 247680实际操作数每线程序列同；63370份真实初值GPU标量证书及完整after byte均CPU独立同。
+> 整向量严格差异、整段C失败及旧23.85不改，生产仍host38/Core7eb/readyFalse；下一项rigid contact tangent。
+> 见[G1驱动切线核对](G1_DRIVE_TANGENT_RECOVERY.md)。
+
 > **G1晚期最后矩阵实际同输入已核对。** 两端各60帧非零输入，三端720次Ap全严格；42240 GPU操作数同，
 > 211份目标真实F32原子排列证书全过，CPU独立同。生产host38/Core7eb不改，整段C仍失败，旧23.85未解释，ready=False。
 > 下一步向前追direction/extra；见[G1晚期矩阵核对](G1_LATE_MATRIX_RECOVERY.md)。

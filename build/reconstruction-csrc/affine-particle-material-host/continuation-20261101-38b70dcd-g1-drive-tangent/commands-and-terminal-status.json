@@ -1,0 +1,57 @@
+{
+  "environment": "source scripts/reconstruction_env.sh",
+  "capture": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-tangent/run-captures.py"
+  ],
+  "replay": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-tangent/run-replay.py"
+  ],
+  "isolation": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-tangent/run-isolation.py"
+  ],
+  "certificates": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-tangent/run-certificates.py"
+  ],
+  "independent_CPU_audit": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-tangent/independent-cpu-audit.py"
+  ],
+  "terminal_sessions": {
+    "capture": {
+      "id": 25052,
+      "exit": 0
+    },
+    "replay": {
+      "id": 6153,
+      "exit": 0
+    },
+    "isolation": {
+      "id": 39324,
+      "exit": 0
+    },
+    "certificates": {
+      "id": 83856,
+      "exit": 0
+    },
+    "CPU": {
+      "id": 55629,
+      "exit": 0
+    }
+  },
+  "verified_wait_during_isolation": {
+    "parent_pid": 2424724,
+    "worker_pid": 2424764,
+    "GPU_utilization_percent_at_check": 100,
+    "observed_packet_files_at_checks": [
+      10,
+      16,
+      120
+    ]
+  },
+  "production_changed": false,
+  "whole_solver_complete": false
+}

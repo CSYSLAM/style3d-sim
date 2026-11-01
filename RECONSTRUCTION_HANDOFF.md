@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **新增G1晚期drive tangent真实图内快照及SDK逐drive隔离。** 两端120份真实before/after；
+> 30960次SDK/PTX/source隔离含正负零全严格，247680实际原子操作数的每线程序列同。
+> 63370份真实初值GPU标量证书、123860条历史、完整after buffer全部CPU独立重核同；生产host38/Core7eb不改。
+> 原向量严格差异/整段C失败/旧23.85全部保留，ready=False；下一步rigid contact tangent。
+> 见[G1驱动切线核对](reconstruction/csrc/G1_DRIVE_TANGENT_RECOVERY.md)，Windows仍WSL2。
+
 > **新增G1晚期真实同输入矩阵核对，生产版本未改。** 每端60帧最后矩阵，120份非零输入，三端720次Ap全部逐位同。
 > 42240真实GPU操作数相同、全部211份目标的真实F32原子排列证书通过，独立CPU重核同。
 > 初值受控且不推断旧实际顺序；新两端整段固定C仍失败，未复现旧23.85尖峰，旧失败不改，ready=False。
