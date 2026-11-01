@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_constructor_audit.py", line 123, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/affine_constructor_audit.py", line 85, in main
+    typed = [initializers.capture(root/(args.prefix+'-initializers')/side, 2) for side in ('original', 'source')]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/initialization_trace_audit.py", line 37, in capture
+    assert len(matches) == 1, row
+           ^^^^^^^^^^^^^^^^^
+AssertionError: {'seq': 2069, 'api': 'cudaLaunchKernel', 'symbol': '_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3vecILi3EiLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_', 'domain': 2, 'correlation': 1585, 'grid_x': 1, 'block_x': 256, 'parameters': ['00b8408b9f760000000000000000000000000000a2760000', '0800000000000000']}

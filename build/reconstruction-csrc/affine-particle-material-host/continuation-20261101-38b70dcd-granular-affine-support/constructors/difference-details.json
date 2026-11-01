@@ -1,0 +1,2697 @@
+{
+  "typed_calls": {
+    "original": [
+      {
+        "sequence": 602,
+        "type": "int",
+        "count": 1,
+        "pointer": "0x769f8b400000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 626,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b400200",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 654,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b400400",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 677,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b400600",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            20
+          ],
+          [
+            "_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 700,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b400800",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            21
+          ]
+        ]
+      },
+      {
+        "sequence": 723,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x769f8b400a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 747,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x769f8b400c00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            22
+          ],
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 770,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x769f8b400e00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 793,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x769f8b401000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 816,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x769f8b401200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 840,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x769f8b401400",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 863,
+        "type": "float",
+        "count": 144,
+        "pointer": "0x769f8b401600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            17
+          ]
+        ]
+      },
+      {
+        "sequence": 886,
+        "type": "int",
+        "count": 1,
+        "pointer": "0x769f8b401a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            18
+          ]
+        ]
+      },
+      {
+        "sequence": 925,
+        "type": "mat3",
+        "count": 1,
+        "pointer": "0x769f8b402000",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 948,
+        "type": "mat3",
+        "count": 1,
+        "pointer": "0x769f8b402200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 1128,
+        "type": "scalar-entry",
+        "count": 24,
+        "pointer": "0x769f8b404e00",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m",
+            13
+          ],
+          [
+            "_ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1159,
+        "type": "block-entry",
+        "count": 24,
+        "pointer": "0x769f8b405200",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 1183,
+        "type": "block-entry",
+        "count": 24,
+        "pointer": "0x769f8b405600",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 1208,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b405a00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1231,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b405c00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1254,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b405e00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1277,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b406000",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1300,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x769f8b406200",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1323,
+        "type": "float",
+        "count": 999,
+        "pointer": "0x769f8b406400",
+        "value_hex": "00000000",
+        "grid_x": 2,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 1346,
+        "type": "float",
+        "count": 999,
+        "pointer": "0x769f8b407400",
+        "value_hex": "00000000",
+        "grid_x": 2,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1389,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b408800",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1412,
+        "type": "int",
+        "count": 248,
+        "pointer": "0x769f8b408a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1435,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b408e00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1458,
+        "type": "int",
+        "count": 248,
+        "pointer": "0x769f8b409000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1481,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x769f8b409400",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1504,
+        "type": "uint",
+        "count": 1,
+        "pointer": "0x769f8b409600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1528,
+        "type": "aabb",
+        "count": 8,
+        "pointer": "0x769f8b409800",
+        "value_hex": "000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal21self_collision_kernel20build_particle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPNS_4AabbEmmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel21generate_morton_codesEPjPKNS_4AabbES2_j",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1552,
+        "type": "aabb",
+        "count": 15,
+        "pointer": "0x769f8b409a00",
+        "value_hex": "000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1575,
+        "type": "int",
+        "count": 15,
+        "pointer": "0x769f8b409c00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1598,
+        "type": "ivec2",
+        "count": 7,
+        "pointer": "0x769f8b409e00",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1622,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b40a000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26build_primitive_leaf_nodesEPiPKij",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1645,
+        "type": "int",
+        "count": 15,
+        "pointer": "0x769f8b40a200",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1668,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b40a400",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26build_primitive_leaf_nodesEPiPKij",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1691,
+        "type": "uint",
+        "count": 7,
+        "pointer": "0x769f8b40a600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1718,
+        "type": "uint",
+        "count": 8,
+        "pointer": "0x769f8b40a800",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel21generate_morton_codesEPjPKNS_4AabbES2_j",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1741,
+        "type": "int",
+        "count": 15,
+        "pointer": "0x769f8b40aa00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1764,
+        "type": "ivec2",
+        "count": 7,
+        "pointer": "0x769f8b40ac00",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1787,
+        "type": "uint",
+        "count": 7,
+        "pointer": "0x769f8b40ae00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1977,
+        "type": "int",
+        "count": 16,
+        "pointer": "0x769f8b40b000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            10
+          ]
+        ]
+      },
+      {
+        "sequence": 2000,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b40b200",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            11
+          ]
+        ]
+      },
+      {
+        "sequence": 2023,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b40b400",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            7
+          ]
+        ]
+      },
+      {
+        "sequence": 2046,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b40b600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            8
+          ]
+        ]
+      },
+      {
+        "sequence": 2069,
+        "type": "ivec3",
+        "count": 8,
+        "pointer": "0x769f8b40b800",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            9
+          ]
+        ]
+      },
+      {
+        "sequence": 2097,
+        "type": "vec3",
+        "count": 8,
+        "pointer": "0x769f8b40ba00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 2120,
+        "type": "vec3",
+        "count": 8,
+        "pointer": "0x769f8b40bc00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 2143,
+        "type": "float",
+        "count": 8,
+        "pointer": "0x769f8b40be00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 2166,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x769f8b40c000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 2189,
+        "type": "int",
+        "count": 256,
+        "pointer": "0x769f8b40c200",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 2212,
+        "type": "vec4",
+        "count": 256,
+        "pointer": "0x769f8b40c600",
+        "value_hex": "00000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 2236,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x769f8b40d600",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i",
+            0
+          ],
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            2
+          ]
+        ]
+      }
+    ],
+    "source": [
+      {
+        "sequence": 579,
+        "type": "int",
+        "count": 1,
+        "pointer": "0x79b66f400000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 604,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f400200",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 629,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f400400",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 653,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f400600",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            20
+          ],
+          [
+            "_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 677,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f400800",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            21
+          ]
+        ]
+      },
+      {
+        "sequence": 701,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x79b66f400a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 726,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x79b66f400c00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm",
+            22
+          ],
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 750,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x79b66f400e00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 774,
+        "type": "float",
+        "count": 12,
+        "pointer": "0x79b66f401000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 798,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x79b66f401200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 823,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x79b66f401400",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+            0
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 847,
+        "type": "float",
+        "count": 144,
+        "pointer": "0x79b66f401600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            17
+          ]
+        ]
+      },
+      {
+        "sequence": 871,
+        "type": "int",
+        "count": 1,
+        "pointer": "0x79b66f401a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            18
+          ]
+        ]
+      },
+      {
+        "sequence": 904,
+        "type": "mat3",
+        "count": 1,
+        "pointer": "0x79b66f402000",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 928,
+        "type": "mat3",
+        "count": 1,
+        "pointer": "0x79b66f402200",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 1109,
+        "type": "scalar-entry",
+        "count": 24,
+        "pointer": "0x79b66f404e00",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m",
+            13
+          ],
+          [
+            "_ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1138,
+        "type": "block-entry",
+        "count": 24,
+        "pointer": "0x79b66f405200",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm",
+            4
+          ]
+        ]
+      },
+      {
+        "sequence": 1163,
+        "type": "block-entry",
+        "count": 24,
+        "pointer": "0x79b66f405600",
+        "value_hex": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel32build_affine_body_preconditionerINS_17BlockNonZeroEntryEEEvPKN3glm3vecILi4EiLNS3_9qualifierE0EEEPKfSA_PKiPKNS3_3matILi3ELi3EfLS5_0EEESC_PKT_mmSG_fNS0_9CableViewEPKmSC_fSC_SA_PfPimmm",
+            6
+          ]
+        ]
+      },
+      {
+        "sequence": 1218,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f405a00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            7
+          ],
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1242,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f405c00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1266,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f405e00",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            1
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel32apply_affine_body_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKiPKNS2_ILi3EfLS3_0EEEPSB_mmm",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel35apply_block_diagonal_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKNS1_3vecILi3EfLS3_0EEEPS8_m",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1290,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f406000",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1314,
+        "type": "vec3",
+        "count": 12,
+        "pointer": "0x79b66f406200",
+        "value_hex": "000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm",
+            5
+          ]
+        ]
+      },
+      {
+        "sequence": 1338,
+        "type": "float",
+        "count": 999,
+        "pointer": "0x79b66f406400",
+        "value_hex": "00000000",
+        "grid_x": 2,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+            9
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            3
+          ]
+        ]
+      },
+      {
+        "sequence": 1362,
+        "type": "float",
+        "count": 999,
+        "pointer": "0x79b66f407400",
+        "value_hex": "00000000",
+        "grid_x": 2,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            4
+          ],
+          [
+            "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+            5
+          ],
+          [
+            "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+            6
+          ],
+          [
+            "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1413,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x79b66f408800",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1437,
+        "type": "int",
+        "count": 248,
+        "pointer": "0x79b66f408a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1461,
+        "type": "mat3",
+        "count": 12,
+        "pointer": "0x79b66f408e00",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1485,
+        "type": "uint",
+        "count": 1,
+        "pointer": "0x79b66f409000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1510,
+        "type": "aabb",
+        "count": 8,
+        "pointer": "0x79b66f409200",
+        "value_hex": "000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal21self_collision_kernel20build_particle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPNS_4AabbEmmm",
+            3
+          ],
+          [
+            "_ZN7synreal6kernel21generate_morton_codesEPjPKNS_4AabbES2_j",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1535,
+        "type": "aabb",
+        "count": 15,
+        "pointer": "0x79b66f409400",
+        "value_hex": "000000000000000000000000000000000000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1559,
+        "type": "int",
+        "count": 15,
+        "pointer": "0x79b66f409600",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1583,
+        "type": "ivec2",
+        "count": 7,
+        "pointer": "0x79b66f409800",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj",
+            2
+          ]
+        ]
+      },
+      {
+        "sequence": 1608,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x79b66f409a00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26build_primitive_leaf_nodesEPiPKij",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1632,
+        "type": "int",
+        "count": 15,
+        "pointer": "0x79b66f409c00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1656,
+        "type": "int",
+        "count": 8,
+        "pointer": "0x79b66f409e00",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel26build_primitive_leaf_nodesEPiPKij",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1680,
+        "type": "uint",
+        "count": 7,
+        "pointer": "0x79b66f40a000",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      },
+      {
+        "sequence": 1707,
+        "type": "uint",
+        "count": 8,
+        "pointer": "0x79b66f40a200",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj",
+            2
+          ],
+          [
+            "_ZN7synreal6kernel21generate_morton_codesEPjPKNS_4AabbES2_j",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1731,
+        "type": "int",
+        "count": 15,
+        "pointer": "0x79b66f40a400",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj",
+            0
+          ]
+        ]
+      },
+      {
+        "sequence": 1755,
+        "type": "ivec2",
+        "count": 7,
+        "pointer": "0x79b66f40a600",
+        "value_hex": "0000000000000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": [
+          [
+            "_ZN7synreal6kernel16build_radix_treeEPiPN3glm3vecILi2EiLNS2_9qualifierE0EEEPKjj",
+            1
+          ]
+        ]
+      },
+      {
+        "sequence": 1779,
+        "type": "uint",
+        "count": 7,
+        "pointer": "0x79b66f40a800",
+        "value_hex": "00000000",
+        "grid_x": 1,
+        "block_x": 256,
+        "grid_matches_thrust_256x2": true,
+        "owned_uses": []
+      }
+    ]
+  },
+  "ordered_differences": [
+    {
+      "operation": "delete",
+      "original": [
+        {
+          "sequence": 1435,
+          "type": "int",
+          "count": 8,
+          "pointer": "0x769f8b408e00",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": []
+        },
+        {
+          "sequence": 1458,
+          "type": "int",
+          "count": 248,
+          "pointer": "0x769f8b409000",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": []
+        }
+      ],
+      "source": []
+    },
+    {
+      "operation": "delete",
+      "original": [
+        {
+          "sequence": 1977,
+          "type": "int",
+          "count": 16,
+          "pointer": "0x769f8b40b000",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              10
+            ]
+          ]
+        },
+        {
+          "sequence": 2000,
+          "type": "int",
+          "count": 8,
+          "pointer": "0x769f8b40b200",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              11
+            ]
+          ]
+        },
+        {
+          "sequence": 2023,
+          "type": "int",
+          "count": 8,
+          "pointer": "0x769f8b40b400",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              7
+            ]
+          ]
+        },
+        {
+          "sequence": 2046,
+          "type": "int",
+          "count": 8,
+          "pointer": "0x769f8b40b600",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              8
+            ]
+          ]
+        },
+        {
+          "sequence": 2069,
+          "type": "ivec3",
+          "count": 8,
+          "pointer": "0x769f8b40b800",
+          "value_hex": "000000000000000000000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              9
+            ]
+          ]
+        },
+        {
+          "sequence": 2097,
+          "type": "vec3",
+          "count": 8,
+          "pointer": "0x769f8b40ba00",
+          "value_hex": "000000000000000000000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              4
+            ]
+          ]
+        },
+        {
+          "sequence": 2120,
+          "type": "vec3",
+          "count": 8,
+          "pointer": "0x769f8b40bc00",
+          "value_hex": "000000000000000000000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              5
+            ]
+          ]
+        },
+        {
+          "sequence": 2143,
+          "type": "float",
+          "count": 8,
+          "pointer": "0x769f8b40be00",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+              6
+            ]
+          ]
+        },
+        {
+          "sequence": 2166,
+          "type": "int",
+          "count": 8,
+          "pointer": "0x769f8b40c000",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+              3
+            ]
+          ]
+        },
+        {
+          "sequence": 2189,
+          "type": "int",
+          "count": 256,
+          "pointer": "0x769f8b40c200",
+          "value_hex": "00000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+              4
+            ]
+          ]
+        },
+        {
+          "sequence": 2212,
+          "type": "vec4",
+          "count": 256,
+          "pointer": "0x769f8b40c600",
+          "value_hex": "00000000000000000000000000000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+              5
+            ]
+          ]
+        },
+        {
+          "sequence": 2236,
+          "type": "mat3",
+          "count": 12,
+          "pointer": "0x769f8b40d600",
+          "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+          "grid_x": 1,
+          "block_x": 256,
+          "grid_matches_thrust_256x2": true,
+          "owned_uses": [
+            [
+              "_ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i",
+              0
+            ],
+            [
+              "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+              2
+            ]
+          ]
+        }
+      ],
+      "source": []
+    }
+  ],
+  "missing_signatures": [
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 248,
+        "grid_x": 1,
+        "owned_uses": [],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 16,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            10
+          ]
+        ],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            11
+          ]
+        ],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            7
+          ]
+        ],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            8
+          ]
+        ],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            9
+          ]
+        ],
+        "type": "ivec3",
+        "value_hex": "000000000000000000000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            4
+          ]
+        ],
+        "type": "vec3",
+        "value_hex": "000000000000000000000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            5
+          ]
+        ],
+        "type": "vec3",
+        "value_hex": "000000000000000000000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_",
+            6
+          ]
+        ],
+        "type": "float",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 8,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            3
+          ]
+        ],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 256,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            4
+          ]
+        ],
+        "type": "int",
+        "value_hex": "00000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 256,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            5
+          ]
+        ],
+        "type": "vec4",
+        "value_hex": "00000000000000000000000000000000"
+      },
+      "count": 1
+    },
+    {
+      "signature": {
+        "block_x": 256,
+        "count": 12,
+        "grid_x": 1,
+        "owned_uses": [
+          [
+            "_ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i",
+            0
+          ],
+          [
+            "_ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE",
+            2
+          ]
+        ],
+        "type": "mat3",
+        "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "count": 1
+    }
+  ],
+  "missing_original_default_value_initializers": 14,
+  "extra_source_typed_initializers": 0,
+  "all_missing_value_fields_zero": true,
+  "actual_allocation_event_differences": [
+    {
+      "event": 53,
+      "original": [
+        "allocate",
+        53,
+        32,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        53,
+        432,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 54,
+      "original": [
+        "allocate",
+        54,
+        992,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        54,
+        4,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 55,
+      "original": [
+        "allocate",
+        55,
+        432,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        55,
+        192,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 56,
+      "original": [
+        "allocate",
+        56,
+        4,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        56,
+        360,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 57,
+      "original": [
+        "allocate",
+        57,
+        192,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        57,
+        60,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 58,
+      "original": [
+        "allocate",
+        58,
+        360,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        58,
+        56,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 59,
+      "original": [
+        "allocate",
+        59,
+        60,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        59,
+        32,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 60,
+      "original": [
+        "allocate",
+        60,
+        56,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        60,
+        60,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 62,
+      "original": [
+        "allocate",
+        62,
+        60,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        62,
+        28,
+        "initialize",
+        -1
+      ]
+    },
+    {
+      "event": 63,
+      "original": [
+        "allocate",
+        63,
+        32,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        63,
+        32,
+        "initialize",
+        0
+      ]
+    },
+    {
+      "event": 64,
+      "original": [
+        "allocate",
+        64,
+        28,
+        "initialize",
+        -1
+      ],
+      "source": [
+        "allocate",
+        64,
+        60,
+        "initialize",
+        0
+      ]
+    },
+    {
+      "event": 65,
+      "original": [
+        "allocate",
+        65,
+        32,
+        "initialize",
+        0
+      ],
+      "source": [
+        "allocate",
+        65,
+        56,
+        "initialize",
+        0
+      ]
+    },
+    {
+      "event": 66,
+      "original": [
+        "allocate",
+        66,
+        60,
+        "initialize",
+        0
+      ],
+      "source": [
+        "allocate",
+        66,
+        28,
+        "initialize",
+        0
+      ]
+    },
+    {
+      "event": 67,
+      "original": [
+        "allocate",
+        67,
+        56,
+        "initialize",
+        0
+      ],
+      "source": [
+        "allocate",
+        67,
+        25,
+        "initialize",
+        0
+      ]
+    },
+    {
+      "event": 68,
+      "original": [
+        "allocate",
+        68,
+        28,
+        "initialize",
+        0
+      ],
+      "source": [
+        "release",
+        67,
+        "initialize",
+        0
+      ]
+    },
+    {
+      "event": 69,
+      "original": [
+        "allocate",
+        69,
+        25,
+        "initialize",
+        0
+      ],
+      "source": [
+        "allocate",
+        68,
+        257,
+        "initialize",
+        1
+      ]
+    },
+    {
+      "event": 70,
+      "original": [
+        "release",
+        69,
+        "initialize",
+        0
+      ],
+      "source": [
+        "release",
+        68,
+        "initialize",
+        1
+      ]
+    },
+    {
+      "event": 71,
+      "original": [
+        "allocate",
+        70,
+        257,
+        "initialize",
+        1
+      ],
+      "source": [
+        "allocate",
+        69,
+        64,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 72,
+      "original": [
+        "release",
+        70,
+        "initialize",
+        1
+      ],
+      "source": [
+        "allocate",
+        70,
+        32,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 73,
+      "original": [
+        "allocate",
+        71,
+        64,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        71,
+        32,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 75,
+      "original": [
+        "allocate",
+        73,
+        32,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        73,
+        96,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 76,
+      "original": [
+        "allocate",
+        74,
+        32,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        74,
+        96,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 78,
+      "original": [
+        "allocate",
+        76,
+        96,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        76,
+        32,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 79,
+      "original": [
+        "allocate",
+        77,
+        96,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        77,
+        32,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 80,
+      "original": [
+        "allocate",
+        78,
+        32,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        78,
+        1024,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 81,
+      "original": [
+        "allocate",
+        79,
+        32,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        79,
+        4096,
+        "initialize",
+        4
+      ]
+    },
+    {
+      "event": 82,
+      "original": [
+        "allocate",
+        80,
+        1024,
+        "initialize",
+        4
+      ],
+      "source": [
+        "allocate",
+        80,
+        432,
+        "initialize",
+        4
+      ]
+    }
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/constructors/audit-v2.json": "6673a058f7f600e07471d8d9cee7b369aa31e7bdc7fc6c74e0a77f002b5d3356"
+  },
+  "production_changed": false,
+  "whole_solver_complete": false
+}

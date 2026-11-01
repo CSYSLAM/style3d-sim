@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/graph2-worker.py", line 58, in <module>
+    exec(compile(text, str(script), 'exec'), namespace)
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/graph60-candidate2/source-graph-as-run.py", line 127, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/graph60-candidate2/source-graph-as-run.py", line 93, in main
+    return worker(args)
+           ^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-granular-affine-support/graph60-candidate2/source-graph-as-run.py", line 43, in worker
+    'frames': args.frames, 'sha256': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}}
+                                                             ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'read_bytes'

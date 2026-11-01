@@ -6588,3 +6588,40 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 发布不可变支持发现/隔离构建检查点：原8 worker已终态，v1审计失败与v2修复保留；候选85554仍经工具确认存活等待外部2727055。
   只纳入不可变代码、原始SDK/guard数据和候选构建，排除candidate.run.status.json及正在/未来生成的候选输出。
   这是未完阶段检查点，不声明候选通过或全部GPU终态，后续结果另行追加。
+
+### 2026-11-01：颗粒＋刚体候选四组全严格，继续恢复真实constructor差异
+
+- 上轮21b23514已经发布、253368快照零失败，本轮重查clean并复查85554同句柄，属于progress后续；未重启等待任务。
+- 外部2727055随后不在compute表；原候选驱动85554真实退出0，四worker2756237/2756461/2756549/2756714及CPU2756823全0。
+  四组3步完整状态、全部buffer before/after、完整owned ABI/geometry/coverage全部严格；生产38/Core7eb未改。
+- graph-template-preflight.py实际0，真实生成模板AST/四固定case/source无SDK映射断言均核准，没有GPU执行。
+- constructor driver23708实际0，但其内部CPU1：六GPU worker全部0；初版shared decoder未识别实际ivec3/vec4 Thrust typed fill。
+  原parser/root未改，constructor-audit-v2.py只在诊断进程追加两种实际符号/12与16字节value宽度，保留旧log/失败。
+  v2 CPU实际1为真实不一致：allocation85/83、typed55/41、upload26/26；pointer identity和library timeline也不同。
+- 逐调用详细CPU核14个缺失默认初始化全为零，无source额外typed fill；2个缓存分配＋12个granular缓存未typed初始化。
+  重新从固定SDK64a按真实nm范围导出SelfCollision::initialize和Granular::initialize，独立manifest固定SHA；未用旧4c反汇编作当前依据。
+  模型没有三角形时原版仍保留free-VF候选缓存；旧self/granular实际日志无VF query，恢复缓存时不启用额外query或改变capacity。
+- 第二隔离候选candidate2仅加上述缓存、12个实际Thrust零初始化；扩充bridge的ivec3/vec4两种host dispatch，enum旧值保持。
+  新helper26条设备入口逐一与已验收176清单规范化digest相同；生产CUDA176/f0及数学不动。
+- 首candidate2生成器在NVCC前因外层sys.path缺root而退出1，全部源码/计划保存candidate2-generation-failed-v1；无GPU或NVCC启动。
+  修外层导入路径后build24413实际0，helper26/26同，候选SHA402a7a5c323eb20642a214dd6d52a81e53c8b83253562d512e87258b46d3675e。
+- 第二候选四输入已冻结；驱动10867等待实际外部2761439，未中断。后续先4组严格，再constructor2/graph/initcheck；不提前写通过。
+- 新granular_affine_layout_scene.py固定六种更大布局：1/2 body、8/27普通粒子、1/3世界、颗粒subset；尚未实际GPU验证。
+  作者API实测默认world=-1、replicate 0/1/2，修正新CPU预期，非放宽运行结果。此调用初始化Warp设备枚举，无solver/kernel提交。
+- followup50900按实际driver PID2764084/starttime141852150等待，四组全严格后才constructor2/graph16/initcheck；
+  broader71924按followup PID2770923/starttime141873602等待，全部门禁满足后才开始六组双端；没有并发solver或重启旧任务。
+  新脚本AST/128均通过，当前仍待实际2761439释放GPU，生产/原版/360pyc不动。
+- 2761439随后离开进程表，外部退出未知未中断。第二候选10867真实0，四worker及CPU全部0，四组全严格。
+- constructor2七子任务全部0，五检查全同：85/85 allocation、26/26 upload、55/55 typed、485 owned及544/544时序。
+- graph2初稿两端因Paths列表含str，在建模前退出1；followup50900和broader71924因此实际1，原log/as-run/plan保留。
+  V3只修Path记录类型，CPU预检实际生成paths对象存在；原solver及已经通过的constructor不重采、不重编。
+  followup63949真实0：graph16/16全60步逐位同，原版/source initcheck均零错误；所有GPU均0。
+- broader V3 session68247真实0，六组12worker全0、实际映射全核，六状态与owned metadata/coverage全部严格；
+  五组全buffer严格，W3/width3/1body/block1首次granular force+diag两buffer严格失败保留。
+- 新first-force预先三SDK/三source固定输入，全11嵌套指针及5普通参数捕获，三对实际alias保持；所有链81节点/bucket合法。
+  除head/next，其余14逻辑输入及scalar同；分别实际grid及共同grid控制，共36 GPU调用/180完整输出全严格。
+  CPU重核2466720 after、428112 readonly/guard、5760实际ABI、576指针及509652输出word。
+- 旧原版force+diag被original0/source0/1精确复现，旧源码两buffer被实际SDK original1同时逐位复现。
+  原版不同链表自身产生force4/diag21个word差，统一head/next后全端全输出同；不修改生产排序/数学，不重判旧两strict失败。
+  first-force72933实际0，六worker及replay2802969/CPU2803082全0；本轮自有GPU均终态。
+- 接续保存38/Core7eb/27源构建检查点，合入验证后的构造恢复和无约束颗粒/刚体准入，再编公共Core及当前回归；整体未验收。

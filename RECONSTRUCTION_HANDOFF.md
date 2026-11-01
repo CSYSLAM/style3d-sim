@@ -1,5 +1,13 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **颗粒＋SO3刚体候选2已实测。** 四短程严格、constructor五项全同、graph16/16、双端initcheck零错误。
+> 六大布局状态均严格；两中间buffer的旧源码值被真实SDK复现，同输入/共同链表三端180输出全严格。
+> 待生产合入及当前回归，旧严格失败与整体readyFalse保持；见[颗粒与刚体恢复](reconstruction/csrc/GRANULAR_AFFINE_HOST_RECOVERY.md)。
+
+> **颗粒＋刚体首候选4/4短程完整严格；constructor发现14个缺失零初始化。** 原版typed55/候选41，allocation85/83。
+> 第二隔离候选已按真实SDK补缓存，26个helper设备入口均与已验收源码同；实际GPU验证排队，生产38/Core7eb不变。
+> 已串行安排四组、constructor/graph/initcheck及六组更大布局；见[颗粒与刚体组合](reconstruction/csrc/GRANULAR_AFFINE_HOST_RECOVERY.md)。
+
 > **实际确认新增host缺口：颗粒＋SO3刚体。** 四组SDK正常运行，生产源码四组在初始化时明确拒绝。
 > 已独立核对真实granular ids/代理索引、有效颗粒力及完整状态；首审计12行状态修正保留原始失败。
 > 隔离guard候选已编译，正进行固定四组对比；生产host38/Core7eb及readyFalse不改。
