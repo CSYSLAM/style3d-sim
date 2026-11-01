@@ -1,8 +1,9 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
 > **当前eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
-> 六种constructor五项同，graph96/96严格、双端initcheck零错误。匹配Core8797三个独立入口graph/test过；当前完整74仍在运行。
-> 数学/CUDA176/f0未改，完整替代未完成，当前完整74尚未采。见[普通约束接触恢复](reconstruction/csrc/PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
+> 六种constructor五项同，graph96/96严格、双端initcheck零错误。匹配Core8797三个独立入口graph/test过。
+> 当前完整74已结束：70逐位同；三个粒子首差固定C10通过，PD mixed seed3仍失败，独立CPU复核同。
+> 数学/CUDA176/f0未改，完整替代未完成；70/74不是总体完成率。见[普通约束接触恢复](reconstruction/csrc/PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
 
 > **当前141c18f6：恢复G1 supplied drive速度复制在基础对角缓存复制之前。** 固定SDK反汇编及18子步实际序列确认；
 > 新捕获486 D2D+4788清零记录序列全部同。当前74为70严格，四份首差的固定C10继续核对；不能沿用下列历史结果。
@@ -143,7 +144,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `23012dc5b44e7b4694daa318bf2fc2e3186d984664d22e3ec0dfbf4cb7a4e046`；当前源码host image；aa52等历史检查点保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `eb661284fd3852610e81857ccb7cc5731f76a843abd417e8772bdd6693a4efb7`；当前源码host image；230等历史检查点保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |
@@ -304,11 +305,13 @@ source1/source2通过并与多条真实原版完整轨迹逐位相同，但不�
    保持SDK64a、CUDA176/f0和360个pyc固定，不先升级库或覆盖已有结果。
 2. 当前eb661284的单一plain约束＋rigid/rolling已24/24严格、六constructor五项同、graph96/96、双端initcheck零错误。
    先检查`continuation-20261101-141c18f6-plain-contact/validation-eb661284/broad-validation/status.json`及真实进程，
-   接续当前完整74/C10/CPU队列。正在运行就等待同一进程，不重复启动或覆盖首候选。
+   队列已complete：74项中70逐位同；三个particles固定C10过，pd_mixed_cloth seed3的7个数组记录仍越界，CPU复核同。
+   定位这份固定首失败，不重新启动同一队列或覆盖首候选；三个C10通过不能改写为逐位同。
 3. 新Core8797对应hosteb，三独立入口自检已过，默认安装包尚未切换。自检通过不代表A/B全轨迹一致。
    141的粒子seed2/3、230的G1 eager/graph、驱动布料等固定失败保留；按它们各自image和原协议定位，不换样本或改门槛。
 4. 未解释差异先核完整输入、opaque view、copy/clear、library geometry和kernel参数；使用实际SDK调用或精确反汇编确认。
    G1复制顺序已按真实证据修过；一两个归约的F32证书不能直接解释整条轨迹。
+   G1旧1000份PCG回放尚未证明原始指针跨度的alias/overlap关系；下一步补实际参数和调用前输出内容，按真实重叠关系回放。
    同输入回放先证明实际捕获与冻结失败关联；插桩若改变第一步，只算诊断，不能替代原失败。
 5. 当前版本自己的回归结束后，继续尚被guard拒绝的组合，例如混合plain约束与contact、plain与full-surface/hard、
    material与其它约束/fluid body、cable与约束、非SO3额外材料。先固定有效原版，再恢复捕获到的调度和参数；不直接删guard硬跑。

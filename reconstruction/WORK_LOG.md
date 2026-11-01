@@ -5986,3 +5986,11 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   仅从本阶段HEAD恢复该固定文件字节，并独立核验全部360个tracked pyc SHA与快照一致。SDK64a未变；后续CPU导入同样加载环境。
 - 根交接第6节和正常Core命令更新到当前eb/Core8797，删除误导接续的旧“下一步尚未支持body/tet/full-surface”措辞，
   保留这些分支各自历史实现和失败，明确当前队列路径、未解固定失败和仍有保护的组合；旧历史数据未删。
+- 用户询问距完整源码替代还差多少，重新读取当前实际构建、进程及终态报告，没有把历史image或测试通过率当总体完成率。
+  eb661284的run-broad-validation现已complete：三个正常Core示例自检退出0；完整74中70逐位同，
+  particles seed1/2/3与pd_mixed_cloth seed3首严格失败原样保留。四份固定首源码对10次真实原版的C10为三个particles过，
+  PD mixed seed3仍有7个数组记录失败，CPU独立重算全同。回归/C10各退出1，CPU退出0不是全求解器通过。
+  结果目录为continuation-20261101-141c18f6-plain-contact/validation-eb661284/{regression74,regression-fixed-C10,broad-validation}。
+  本次仅更新交接/进展记录，不改生产源码、数学、CUDA、SDK或首失败，不新增GPU样本。
+  完整替代仍需补guard保护的组合、解决固定PD及G1/布料长程差异、完整demo验收后再切默认安装入口；ready=False。
+  G1下一项诊断是补实际PCG raw参数及调用前输出，并保留指针跨度alias/overlap回放；目前只是计划，尚未实施，不记为已证明。

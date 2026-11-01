@@ -36,7 +36,12 @@ SDK64a、CUDA176/f0及数学未改，`solver_api_ready=False`。完整替代仍�
 `graph60-initcheck-independent-audit.json`逐字节复核四条轨迹、形状、finite及日志摘要，均通过。
 新匹配_core已构建，SHA为`8797bf16e849cc6370e58233ffe0dcee259664e8bc07d7f985e198d3c5c6bfd6`。
 Dzhanibekov60、plastic bag3、G1真实graph60三个正常Core入口及自检均通过，无A/B bridge、无原版求解器映射。
-当前`run-broad-validation.py`继续当前完整74及固定C10；以终态报告为准，不能以自检替代数值验收。
+当前`run-broad-validation.py`已结束，`broad-validation/status.json`为complete，三个Core自检退出0。
+本image自己的完整74为70项逐位同，首严格失败为particles seed1/2/3与pd_mixed_cloth seed3。
+四份首次源码NPZ原样固定、每份10次真实原版的C10中，三个particles全部逐数组逐步在原版范围内，
+PD mixed seed3的7个数组记录仍越界；独立CPU重算四份报告完全吻合。
+回归及C10进程均退出1，真实失败已保留；CPU审计退出0表示报告重现，不表示求解器全部通过。
+这些结果在`validation-eb661284/regression74/`与`regression-fixed-C10/`，不能以Core自检代替数值验收。
 六份constructor日志的已捕获D2D/填充序列也全部同（每Newton 48copy/75fill，每PD 30copy/75fill），
 仍未声称全部CUDA API或外部pointee内容均已证明。
 141的70/74严格、两项C10失败和G1未过结果仍是历史证据，
