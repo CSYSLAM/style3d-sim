@@ -5,6 +5,10 @@
 > 当前完整74已结束：70逐位同；三个粒子首差固定C10通过，PD mixed seed3仍失败，独立CPU复核同。
 > 数学/CUDA176/f0未改，完整替代未完成。见[普通约束接触恢复](PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
 
+> 当前eb补充：PD冻结目标两端实际复现，714公共packet三端4284调用和250776计数字全严格；
+> 36力packet真实GPU原子见证全过，C10 false保留。见[当前PD固定路径](CURRENT_PD_MIXED_FIXED_EB661284.md)。
+> G1新1000份实际跨度3000逐粒子同，标量未全部同且未关联旧失败，见[G1指针跨度](G1_PCG_POINTER_SPANS.md)。
+
 > **当前141c18f6：恢复G1 supplied drive速度复制在基础对角缓存复制之前。** 固定SDK反汇编及18子步实际序列确认；
 > 新捕获486 D2D+4788清零记录序列全部同。当前74为70严格，四份首差的固定C10继续核对；不能沿用下列历史结果。
 > 见[设备复制顺序恢复](G1_COPY_ORDER_RECOVERY.md)，SDK64a/CUDA176/f0不变，ready=False。

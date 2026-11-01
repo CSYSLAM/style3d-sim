@@ -1,0 +1,119 @@
+{
+  "source_sha256": "eb661284fd3852610e81857ccb7cc5731f76a843abd417e8772bdd6693a4efb7",
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "frozen_target": "pd_mixed_w129_duplicates",
+  "frozen_arrays_per_side": 18,
+  "diagnostic_reproduction": [
+    {
+      "variant": "deferred-trace4",
+      "run": 0,
+      "side": "legacy",
+      "equal_target_arrays": 18
+    },
+    {
+      "variant": "deferred-trace4",
+      "run": 1,
+      "side": "source",
+      "equal_target_arrays": 11
+    },
+    {
+      "variant": "deferred-trace4",
+      "run": 2,
+      "side": "source",
+      "equal_target_arrays": 18
+    },
+    {
+      "variant": "deferred-trace4",
+      "run": 3,
+      "side": "source",
+      "equal_target_arrays": 18
+    },
+    {
+      "variant": "complete-trace4",
+      "run": 0,
+      "side": "legacy",
+      "equal_target_arrays": 18
+    },
+    {
+      "variant": "complete-trace4",
+      "run": 1,
+      "side": "source",
+      "equal_target_arrays": 11
+    },
+    {
+      "variant": "complete-trace4",
+      "run": 2,
+      "side": "source",
+      "equal_target_arrays": 11
+    },
+    {
+      "variant": "complete-trace4",
+      "run": 3,
+      "side": "source",
+      "equal_target_arrays": 11
+    },
+    {
+      "variant": "raw-only-trace4",
+      "run": 0,
+      "side": "legacy",
+      "equal_target_arrays": 18
+    },
+    {
+      "variant": "raw-only-trace4",
+      "run": 1,
+      "side": "source",
+      "equal_target_arrays": 18
+    },
+    {
+      "variant": "raw-only-trace4",
+      "run": 2,
+      "side": "source",
+      "equal_target_arrays": 18
+    },
+    {
+      "variant": "raw-only-trace4",
+      "run": 3,
+      "side": "source",
+      "equal_target_arrays": 11
+    }
+  ],
+  "pointwise_packets": 714,
+  "actual_three_backend_calls": 4284,
+  "counter_words_strict": 250776,
+  "paired_pointwise_scalar_and_exact_alias_patterns_equal": 357,
+  "different_start_overlapping_spans": 0,
+  "force_packets": 36,
+  "isolated_force_scalar_checks": 104490,
+  "GPU_fold_scalar_checks": 41796,
+  "force_touched_scalar_checks": 34830,
+  "force_reports": [
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-0/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-1/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-2/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-3/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-4/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-5/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-6/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-7/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/legacy-8/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-0/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-1/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-2/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-3/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-4/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-5/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-6/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-7/report.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-eb661284-pd-mixed-fixed/force-audits18/source-8/report.json"
+  ],
+  "GPU_used_for_this_audit": false,
+  "complete_launch_geometry_captured": false,
+  "production_atomic_schedule_inferred": false,
+  "complete_device_allocation_ownership_proven": false,
+  "fixed_C10_still_failed": true,
+  "frozen_candidate_replaced": false,
+  "cohort_expanded": false,
+  "production_changed": false,
+  "whole_solver_complete": false,
+  "runner_sha256": "f83b3696e1a932ca660ee8c595e9704eafedbeec97c941de9140f45ff70e9584"
+}

@@ -32,6 +32,7 @@ def main():
     parser.add_argument('--sum-ptx', type=Path, required=True)
     parser.add_argument('--side', choices=('legacy', 'source'))
     parser.add_argument('--offset', type=int, default=0)
+    parser.add_argument('--force-only', action='store_true', help='Audit the two force entries of a PD mixed path')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     folders = {'legacy': args.directory/'legacy/native', 'source': args.directory/'source/native'}
@@ -63,8 +64,10 @@ def main():
     stages = []
     saved = {}
     try:
-        for base_index, base_geometry, arity, is_force in ((2, 2, 2, True), (3, 3, 3, True),
-                                                            (5, 3, 3, False), (6, 2, 2, False)):
+        definitions = ((2, 2, 2, True), (3, 3, 3, True))
+        if not args.force_only:
+            definitions += ((5, 3, 3, False), (6, 2, 2, False))
+        for base_index, base_geometry, arity, is_force in definitions:
             index, geometry = base_index + args.offset, base_geometry + args.offset
             name = json.loads(metadata(index).read_text())['name']
             original = next(p.read_text() for p in Path('build/reconstruction-ptx/64a0be7f7a3c03cb').glob('*.ptx')
@@ -183,7 +186,7 @@ def main():
         assert hashlib.sha256(REFERENCE.read_bytes()).hexdigest() == REFERENCE_SHA
         np.savez(args.output/'contributions.npz', **saved)
         build = json.loads(Path('build/reconstruction-csrc/host-particles/build.json').read_text())
-        report = {'stages': stages, 'captured_side': args.side, 'offset': args.offset,
+        report = {'stages': stages, 'captured_side': args.side, 'offset': args.offset, 'force_only': args.force_only,
                   'runner_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   'sum_ptx_sha256': hashlib.sha256(args.sum_ptx.read_bytes()).hexdigest(),
                   'whole_solver_bitwise_equal': False, 'diagnostic_intentionally_maps_original': True,

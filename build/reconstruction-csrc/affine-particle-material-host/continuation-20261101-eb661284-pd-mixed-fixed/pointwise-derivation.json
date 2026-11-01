@@ -1,0 +1,33 @@
+{
+  "base": "reconstruction/csrc/mixed_pointwise_packet_replay.py",
+  "base_sha256": "b190149565c14fe37347ab9f09428dfdef0fe58dd077bb158df5a459bc4e5a2d",
+  "derived": "reconstruction/csrc/pd_mixed_pointwise_packet_replay.py",
+  "derived_sha256": "380a393329bbd698a0ffaad158561ae7e837b18d23d4c16eed54d34ec189ac37",
+  "anchored_changes": [
+    [
+      "\"\"\"Replay all common point operators of frozen mixed paths with actual SDK/PTX/source, including full counters.\"\"\"",
+      "\"\"\"Replay the frozen PD mixed path with actual float-PCG parameters and compare every counter word.\"\"\""
+    ],
+    [
+      "from .particle_packet_capture import PARTICLE_TOKENS, TOKENS",
+      "TOKENS = ('15initialize_stepE', '14initialize_rhsE', '30prepare_inverse_preconditionerE')\nPARTICLE_TOKENS = TOKENS + (\n    '23precondition_and_reduceIf', '19update_cg_directionE',\n    '26multiply_matrix_and_reduceINS_12NonZeroEntryEf', '28update_solution_and_residualEP',\n    '20apply_nonlinear_stepE', '15update_velocityE',\n)"
+    ],
+    [
+      "assert len(metadata) == 366",
+      "assert len(metadata) == 357"
+    ],
+    [
+      "bind(0, 'blocks', True)\n                    bind(1, 'mass')\n                    bind(2, 'flags')\n                    assert bindings[1] == static_mass and bindings[2] == static_flags",
+      "bind(0, 'diagonal', True)\n                    bindings[1], bindings[2] = static_mass, static_flags\n                    for index, source_index in ((1, 17), (2, 18)):\n                        pointer = int.from_bytes(read(full / (static_prefix + f'before.param_{source_index}.bin')),\n                                                 'little')\n                        assert value(index) == pointer, 'Static input must use the captured Model pointer'"
+    ],
+    [
+      "elif '23precondition_and_reduceIN3glm' in name:",
+      "elif '23precondition_and_reduceIf' in name:"
+    ],
+    [
+      "elif '26multiply_matrix_and_reduceINS_17BlockNonZeroEntry' in name:",
+      "elif '26multiply_matrix_and_reduceINS_12NonZeroEntryEf' in name:"
+    ]
+  ],
+  "production_changed": false
+}

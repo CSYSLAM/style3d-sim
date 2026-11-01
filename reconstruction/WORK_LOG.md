@@ -5994,3 +5994,30 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   本次仅更新交接/进展记录，不改生产源码、数学、CUDA、SDK或首失败，不新增GPU样本。
   完整替代仍需补guard保护的组合、解决固定PD及G1/布料长程差异、完整demo验收后再切默认安装入口；ready=False。
   G1下一项诊断是补实际PCG raw参数及调用前输出，并保留指针跨度alias/overlap回放；目前只是计划，尚未实施，不记为已证明。
+- 续接完成G1实际PCG跨度诊断：新增pcg_alias_capture/pcg_alias_replay，独立生成observer，不覆盖生产或旧observer。
+  当前eb/SDK64a两端各500次实际PCG，raw参数、调用前z/ap、完整三维grid/block/shared及203资产SHA核对均保存。
+  1000packet按区间重叠分组、mod256对齐和全部初值复原，同分配轮换三端，3000逐粒子输出及非输出字节检查全过。
+  实际1000份全部没有重叠，500对标量/geometry/指针相对偏移同；precomputed全部false、world全部null。
+  aggregate captured匹配仅SDK runtime520/1000、原PTX509/1000、源码509/1000；完整三帧状态仍不同，未关联旧冻结G1目标。
+  独立CPU区间/全部输入SHA/输出SHA审计同；各端10500raw文件lossless content-store归档并逐项roundtrip验证，原件本机保留。
+  命令：python -m reconstruction.csrc.pcg_alias_capture --output .../continuation-20261101-eb661284-g1-pcg-alias/first-step；
+  python -m reconstruction.csrc.pcg_alias_replay --capture 该first-step --output 同阶段/replay。均先加载reconstruction_env并用.venv。
+- 转向当前仍失败的PD mixed seed3，未沿用869的非PD证据。保持完整worker顺序和原固定C10，
+  三种deferred诊断各预先固定1次SDK/3次源码，共12次全部保留，不加入cohort。
+  旧deferred SDK18/18、源码11/18及18/18及18/18复现冻结目标；增加设备输出copy后SDK18/18、三源码均11/18，失败保留。
+  仅增加三个float入口host raw参数后SDK18/18、源码18/18及18/18及11/18；采用该版本SDK0/源码1的原始全部文件。
+  每次九个apply/三个velocity最后快照都与公开状态逐字节同；源码版本、固定失败、SDK与数学从未更改。
+- 新pd_mixed_pointwise_packet_replay从已验证mixed工具作有锚点的入口/输入类型调整，派生清单保存，旧工具不改。
+  实际PD使用scalar precondition/ELL，714公共packet三端两次共4284调用全部逐位同，包括250776个129-world counter字。
+  prepare mass/flags从同次initialize取并核对原始指针相等；独立跨度审计714份均无不同起点的部分重叠。
+  mixed_atomic_runtime_audit仅新增force-only选项，默认四入口行为保持；两端九轮36力packet三端隔离贡献同，
+  104490个隔离标量核对、41796个完整RHS目标的真实GPU六种三项F32 atomic fold见证全过，触达标量34830。
+  原C10 false不改，不把per-component见证当实际全局warp顺序或完整分配/所有CUDA API的证明。
+- 当前采用raw-only SDK0/源码1的首语义差异是000002 spring after.rhs的772及959两标量，均1ULP；
+  所有五个before payload同，两端目标都在相同实际GPU fold集合中。旧deferred源码2的首差383属于另一份内部轨迹，
+  虽公开18数组同样复现冻结目标，不混用内部记录。首差检查首次错误沿用383断言被CPU拒绝，随后按实际采用记录重新定位。
+  CPU审计首启动缺仓库sys.path、首差脚本一度将NPZ diagonal字段误称rhs，均仅修诊断并保留KeyError日志，无GPU重采。
+- 独立audit-frozen-path及audit-first-spring均通过，重算全部12诊断、采用SHA、714 raw/alias、4284调用、250776 counter及36 GPU fold。
+  当前PD阶段continuation-20261101-eb661284-pd-mixed-fixed保存三个观察器/来源/命令、12诊断和原始失败、固定采用pair、
+  pointwise-replay、force-audits18及两个独立审计；每个native目录lossless归档，raw原件保留。
+  源码和Core仍eb661284/8797，CUDA176/f0及SDK64a固定，ready=False；正常入口不切换，下一项是混合plain约束＋真实contact。

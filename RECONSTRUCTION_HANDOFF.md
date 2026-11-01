@@ -5,6 +5,11 @@
 > 当前完整74已结束：70逐位同；三个粒子首差固定C10通过，PD mixed seed3仍失败，独立CPU复核同。
 > 数学/CUDA176/f0未改，完整替代未完成；70/74不是总体完成率。见[普通约束接触恢复](reconstruction/csrc/PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
 
+> **当前补充：冻结PD失败路径及G1指针跨度。** PD目标两端18份状态实际复现，714公共packet三端4284调用全严格，
+> 全部250776计数字同，36力packet的真实GPU三项原子见证均过；原C10 false保留。
+> G1新1000份实际跨度回放3000逐粒子同，无重叠，标量未全部同；未关联旧冻结轨迹。
+> 见[当前PD固定路径](reconstruction/csrc/CURRENT_PD_MIXED_FIXED_EB661284.md)、[G1指针跨度](reconstruction/csrc/G1_PCG_POINTER_SPANS.md)。
+
 > **当前141c18f6：恢复G1 supplied drive速度复制在基础对角缓存复制之前。** 固定SDK反汇编及18子步实际序列确认；
 > 新捕获486 D2D+4788清零记录序列全部同。当前74为70严格，四份首差的固定C10继续核对；不能沿用下列历史结果。
 > 见[设备复制顺序恢复](reconstruction/csrc/G1_COPY_ORDER_RECOVERY.md)，SDK64a/CUDA176/f0不变，ready=False。
@@ -306,12 +311,14 @@ source1/source2通过并与多条真实原版完整轨迹逐位相同，但不�
 2. 当前eb661284的单一plain约束＋rigid/rolling已24/24严格、六constructor五项同、graph96/96、双端initcheck零错误。
    先检查`continuation-20261101-141c18f6-plain-contact/validation-eb661284/broad-validation/status.json`及真实进程，
    队列已complete：74项中70逐位同；三个particles固定C10过，pd_mixed_cloth seed3的7个数组记录仍越界，CPU复核同。
-   定位这份固定首失败，不重新启动同一队列或覆盖首候选；三个C10通过不能改写为逐位同。
+   PD首失败的实际冻结路径已有714公共算子与36力算子证据，见顶部链接；C10仍false。
+   不重新启动同一队列或覆盖首候选；三个C10通过不能改写为逐位同。
 3. 新Core8797对应hosteb，三独立入口自检已过，默认安装包尚未切换。自检通过不代表A/B全轨迹一致。
    141的粒子seed2/3、230的G1 eager/graph、驱动布料等固定失败保留；按它们各自image和原协议定位，不换样本或改门槛。
 4. 未解释差异先核完整输入、opaque view、copy/clear、library geometry和kernel参数；使用实际SDK调用或精确反汇编确认。
    G1复制顺序已按真实证据修过；一两个归约的F32证书不能直接解释整条轨迹。
-   G1旧1000份PCG回放尚未证明原始指针跨度的alias/overlap关系；下一步补实际参数和调用前输出内容，按真实重叠关系回放。
+   G1旧1000份的alias限制保留；新eb诊断1000份已捕获raw及调用前输出，实际无重叠、3000逐粒子同，
+   标量未全部同，且未关联冻结失败；新证据不追认旧捕获或整个G1通过。
    同输入回放先证明实际捕获与冻结失败关联；插桩若改变第一步，只算诊断，不能替代原失败。
 5. 当前版本自己的回归结束后，继续尚被guard拒绝的组合，例如混合plain约束与contact、plain与full-surface/hard、
    material与其它约束/fluid body、cable与约束、非SO3额外材料。先固定有效原版，再恢复捕获到的调度和参数；不直接删guard硬跑。
