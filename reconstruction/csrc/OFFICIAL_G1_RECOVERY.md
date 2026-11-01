@@ -1,5 +1,7 @@
 # G1 正式示例源码验收：23012dc5
 
+本页为23012dc5冻结结果。当前host141c18f6的copy顺序恢复及独立验证，见[G1_COPY_ORDER_RECOVERY.md](G1_COPY_ORDER_RECOVERY.md)。
+
 固定SDK为项目内64a0be7f，源码host为23012dc5，CUDA176/f0未改，`solver_api_ready=False`。
 本页不声明完整替代已经完成。
 

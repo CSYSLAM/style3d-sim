@@ -2400,6 +2400,9 @@ public:
                    in.particle_q.ptr, host_diagonal_, body_d1_, spring_alpha, body_d2_, zero, joint_d3_, alpha,
                    joint_d4_, line_matrix_alpha, distance_d5_, alpha, mass, flags, body_kind_, previous_, target_,
                    diagonal_, count_, per_world_);
+            // The SDK copies supplied drive velocities before snapshotting the base diagonal (101b40 -> fbf6c).
+            if (drive_total_ && control.joint_drive_velocities.size)
+                copy(drive_qd_, control.joint_drive_velocities.ptr, drive_total_ * 4, stream);
             copy(base_diagonal_, diagonal_, count_ * 4, stream);
             // initialize_body_distance_constraint_state runs on the prediction, before the SO(3) state.
             if (distance_total_)
@@ -2409,14 +2412,8 @@ public:
                        model_.body_distance_constraint_rest_lengths.ptr, distance_target_, distance_multiplier_,
                        distance_total_, static_cast<std::size_t>(model_.body_distance_constraint_count), per_world_);
             // Derive velocities from the saved pre-prediction positions when the optional control span is absent.
-            // The supplied-span path copies into the same internal cache (original captures).
-            if (drive_total_) {
-                if (control.joint_drive_velocities.size)
-                    copy(drive_qd_, control.joint_drive_velocities.ptr, drive_total_ * 4, stream);
-                else
-                    launch("drive_velocity", drive_total_, stream, joint_view(), previous_, in.particle_qd.ptr,
-                           drive_qd_);
-            }
+            if (drive_total_ && !control.joint_drive_velocities.size)
+                launch("drive_velocity", drive_total_, stream, joint_view(), previous_, in.particle_qd.ptr, drive_qd_);
             if (so3)
                 launch("so3_initialize", body_state_count_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
                        body_rotation_, body_multiplier_, body_state_count_, body_count_, per_world_);

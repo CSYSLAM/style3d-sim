@@ -5925,3 +5925,21 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   所有11worker真实graph与--test均过，固定C8 false；独立CPU重算完全相同，失败不改判。
   source0四字段within60/54/60/54，source1为46/51/44/50，source2为59/53/59/55；source1 body_qd最大ratio2.0800101608856862。
   保存所有逐帧越界error/spread/ratio及明确host230/coreFB2/SDK64a的补充审计，不沿用旧3帧eager统计。
+- 续接新增device_memory_sequence_audit离线比较设备D2D复制/D8填充及相对owned核位置：旧G1各486copies/4788fills，36项反序。
+  18子步每次SDK先control drive速度172字节→内部cache7，再diagonal cache9→base8共704字节；旧源码顺序相反。
+  SDK精确step asm SHA再次核对，fbeb7→101b40，101b5b cudaMemcpyAsync→101b6e回fbf36→fbf6c base copy确认静态顺序。
+  审计未证明全部external pointee，18次control源未语义绑定，限制保留，不把地址巧合同当完整语义证明。
+- 改前保存27份source/build/so至g1-copy-order-before-23012dc5并SHA逐项核验，旧失败/SDK不变。
+  仅前移supplied drive速度copy，fallback drive_velocity kernel位置保持，数学/CUDA176/f0/容差不动。
+  按旧build_command原编译选项编译host141c18f6269ef4c4044756d681550e18f4e334693bb462ef8dae6a7519d646c3；仅source_solver.cpp hash变化。
+- 新G1 constructor逐字节采用原固定SDK三观察器捕获，新源码三worker结束，分配/上传/typed/timeline四项同、raw external pointer仍false。
+  新5274项D2D/fill序列已全同、零差异，旧36项确实消失，不能据此认定数值失败已闭合。
+  已启动新source固定3次，对照旧冻结original8、不补采原版；当前141自己的完整回归、Core构建及graph验收尚未做。
+- 141新source三次固定G1都结束，原八份字节不改，CPU复算同，整体C仍false：source0四字段全过，source1四字段未全过，
+  source2位置过、速度未全过。修复真实copy顺序没有消除全部数值差异，不删除旧失败、不加新原版扩大范围。
+  constructor flat差异9360条仍全部同一model.shape_types[105]的external地址，四种参数位置；没有新owned identity错误。
+- 当前build_core已结束：source-core/2f64faf07f385323，SHA749397b566ba224c46b7f409fb9d5e408dd564460f33576b9aab1c1a9e66a4af，
+  host141、CUDA176/f0。已串行启动三个正常Core示例graph/test（Dzhanibekov60、bag3、G1 60）及当前完整74回归，
+  活动队列日志run-current-validation.log，终态以validation/status.json及对应报告为准。
+- 141对应Core749三个独立正常入口graph/test均结束、退出0，source_only/public_core_abi true且无原版映射；
+  当前队列已进入141完整74，记录及原image固定失败不变。先提交已结束证据，运行中regression输出下批结束后提交。

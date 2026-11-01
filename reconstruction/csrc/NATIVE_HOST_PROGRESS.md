@@ -1,5 +1,9 @@
 # 新版基准与 C++ host 进度
 
+> **当前141c18f6：恢复G1 supplied drive速度复制在基础对角缓存复制之前。** 固定SDK反汇编及18子步实际序列确认；
+> 新捕获486 D2D+4788清零记录序列全部同。数值验收及当前回归仍待完成，不能沿用下列历史结果。
+> 见[设备复制顺序恢复](G1_COPY_ORDER_RECOVERY.md)，SDK64a/CUDA176/f0不变，ready=False。
+
 > **活动23012dc5：AL驱动关节＋布料＋soft/rigid/rolling接触。** 固定SDK64的49504次完整owned参数/geometry/coverage均同；
 > 38/64严格，全部32个W1严格，26个W3首差保持未验收。16种constructor五项全同；graph为71/128和74/128，四组initcheck均0。
 > 源码已编译真正的_core入口；两个示例graph/test独立通过且未加载原版。当前74为70严格，四份C10三过、粒子seed2失败。
