@@ -1,5 +1,9 @@
 # 当前公共Core的G1固定原版对比：38b70dcd / 7eb6e847
 
+> [第4子步CG系数](G1_FOURTH_CG_SCALARS_RECOVERY.md)的5445实际scalar pairs三端受控输出全严格，55真实apply全同。
+> 本批无系数guard切换；显著分组已在第2轮增量出现。继续RHS/预条件器/必要CG向量，不推断旧大响应根因。
+> 新诊断C过不重判本文旧C8，生产host38/Core7eb/readyFalse不改。
+
 > [首次累计力首差](G1_FIRST_RHS_RECOVERY.md)已复现旧两端force，并定位joint AL30；RHS及joint全部输入/初值同。
 > 4128真实操作数同、1032 SDK隔离同、1086 GPU F32证书全过，四严格失败和旧C8仍保留。
 > 这不证明局部首差导致后续23.85；下一步第4子步真实CG系数和位置，生产host38/Core7eb/readyFalse不改。

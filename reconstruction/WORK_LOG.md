@@ -6510,5 +6510,26 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   两个失败退出/原报告均保存，旧C8 SHA不动。随后关闭完整证据，准备全量快照校验后发布。
 - 归档前格式检查首次把旧worker原字节模板也纳入128列维护规则而退出1；调整检查范围为本轮维护脚本。
   历史as-run/template按既定SHA保留，不为格式重写原始证据；本轮维护脚本语法及128列检查通过。
+
+### 2026-11-01：G1第4子步实际CG系数与非线性apply观测
+
+- 前轮d4e13608已发布、252843快照零失败及远端SHA精确一致，属于progress；SDK64a/host38/Core7eb/CUDA176f0不改。
+- 新g1_cg_scalar_trace.py固定八SDK/三源码共同frame30起点；每次第4子步250组num/den、5次apply完整输入/输出、六次末速度。
+  68176字节/532个D2D，每copy从CUDA API读回完整200字节描述符；原图完整保留，实际17999节点/18264边及唯一顺序核准。
+  11次749936原始字节/1170400描述符字节；部分CG scalar观测，不称完整CG向量输入已捕获。
+- CPU语法/128列及旧两端图预检实际0；驱动session77594实际0，11正常Core graph/test均0，源码无SDK映射/bridge。
+  原helper速度检查问题继续保留，退出0不代替独立数值比较。公共状态CPU、trace CPU和系数prepare/GPU/CPU后续全部实际0。
+- 55次apply实际out=x+delta及delta清正零逐位符合F32，110完整输出/58080 word核准。
+  系数独立CPU session7986实际0：2750 precondition→num、2750 matrix→den、2750 direction当前num，
+  55首迭代null前项和2695非首前一槽位全部从实际图参数核准；不是仅靠数组下标猜测beta输入。
+- 新g1_cg_coefficient_replay.py对全部2750 alpha/2695 beta实际bits做三端受控单位向量调用，world width1、beta iteration1明确记录。
+  六实际GPU调用的完整输出全逐位同，73755输出word、736080 after字节、372实际ABI及guard/只读输入CPU核同。
+  CPU RN除法与GPU所有系数位模式同；所有num/den有限，分母均正、guard归零0，alpha/beta最大18.3213882446/9.6323776245。
+  最小分母5.57339581064e-6/1.47107102748e-5，距1e-30守卫至少5.57e24倍，不把本批分组归因guard切换。
+- 显著两组在第2轮body12增量已呈约0.001与0.0105，两端都有；第4末代理速度约0.64与13.8，帧末约-23与0.89。
+  不是首次数值差异定位或具体物理根因证明。新单帧诊断C三源码过，旧C8 SHA32b6e2a7…及原严格差异全保留。
+- 外部GPU PID2687317的实际占用查询保留，未中断，外部退出码未知；本轮全部自身GPU任务已结束。
+  下一步第4子步第2轮RHS/预条件器/必要CG向量完整输入，先比输入再回放；生产不改，未重复74，完整替代继续活动。
+  见G1_FOURTH_CG_SCALARS_RECOVERY.md及continuation-20261101-38b70dcd-g1-fourth-cg-scalars完整证据。
 - 全部本轮GPU已正常结束，未修改生产/SDK/pyc或宽松比较。说明见G1_DRIVE_AND_AL_STATE_RECOVERY.md，
   原始证据/命令/终态在continuation-20261101-38b70dcd-g1-drive-and-AL-state。完整源码替代仍未验收，goal活动，readyFalse，Windows仍WSL2。

@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **第4子步5445组alpha/beta系数输入的三端受控输出严格同，55次真实位置更新/增量清零全同。**
+> 实际copy描述符1170400字节和系数生产/消费指针独立CPU核准，无guard归零/负分母，CPU RN与GPU同。
+> 显著分组已在第2轮增量出现；接续RHS/预条件器，旧C8/readyFalse保持，生产不改。
+> 见[G1_FOURTH_CG_SCALARS_RECOVERY.md](G1_FOURTH_CG_SCALARS_RECOVERY.md)，本批非全部CG向量回放。
+
 > **G1 first RHS严格同；旧11项force首差逐位复现并定位初始零乘子joint AL30。** 26/30严格，四失败保留。
 > 4128真实原子操作数序列同、1032 SDK逐弹簧隔离全同、1086 GPU F32证书/4292历史CPU重核全过。
 > 诊断stride和wrapper错误保留并修正，生产不改。下一步第4子步真实CG系数/位置，旧C8及readyFalse保持。
