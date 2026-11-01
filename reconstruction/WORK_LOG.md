@@ -5253,3 +5253,9 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 发布前索引21560文件，本轮6729路径约580.4MB未压缩证据；最大单文件48.51MB，无超100MiB文件。
   固定SDK无差异，360个pyc逐SHA与上一快照相同；无gitlink、LFS pointer、虚拟环境、凭据模式命中。
   host/native的当前构建来源及产物SHA、Python AST与源码/文档diff检查均通过。
+- 本轮实际快照校验21559个冻结文件，failures=0；源码与证据提交
+  8f04494cd12ca79ee59c541a6dc2ea11d76f599e已推送CSYSLAM/style3d-sim既有Windows交接分支，
+  ls-remote与本机HEAD完全同，推送后源码工作区干净。
+  按该提交从GitHub raw下载参考so、源码so及快照，三者均与本机逐字节同；参考64a、源码b945。
+  原始下载校验记录为validation-b9456031/published-8f04494-verification.json。
+  随后只补此发布记录与更新快照，不修改求解器或已验收数据；下一步仍是有实际交互的body/tet组合。
