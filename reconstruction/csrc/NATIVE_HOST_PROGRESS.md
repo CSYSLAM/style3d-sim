@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **PD多世界接触接续：实际graph与SO3计算核准，长程仍未过。**
+> 两graph拓扑/已审计类型化参数及跨图指针模式同；960实际SO3输入、5760三端调用完整输出严格，独立CPU同。
+> 原固定source0/frame32失败保留，主host0dab/Core715及候选4f均不改。
+> 下一步向前核RHS/颗粒/接触与线性输入，见[PD graph与SO3核对](PD_CONTACT_GRAPH_SO3_RECOVERY.md)。
+
 > **新增外部接触隔离候选4f638b4b，主源码仍0dab/Core715。** 六SDK支持、四短程严格、两短程固定C8过；四类构造五项同。
 > 60步严格16/24、长C8全部三source为10/12，W3/subset/mixed/PD仍未过；六initcheck零错误，候选未合入。
 > 原牛肉demo低分辨率三帧的固定C8/独立CPU通过；不能外推默认配置或长程。见[接触恢复记录](GRANULAR_AFFINE_CONTACT_HOST_RECOVERY.md)。

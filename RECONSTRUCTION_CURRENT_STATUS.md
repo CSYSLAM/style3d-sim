@@ -18,6 +18,10 @@ world85首差定位到调用90弹簧RHS，真实GPU相同操作数的两种顺�
 W3/subset/mixed/PD的eager/graph仍未通过全部长程门禁，候选未合入。
 见[外部接触恢复记录](reconstruction/csrc/GRANULAR_AFFINE_CONTACT_HOST_RECOVERY.md)。
 候选已独立跑现有牛肉demo低分辨率三帧，固定C8/独立CPU过；该短程配置不代表默认/长程验收。
+接续PD失败组合：两个实际graph的拓扑/已审计参数及跨graph指针模式同；
+960真实SO3输入/5760次三端调用完整输出严格，独立CPU重读及240份公开位置对应检查通过。
+新观测先出现位置输入差，再出现rotation差；旧固定长程失败不改。
+见[PD graph与SO3核对](reconstruction/csrc/PD_CONTACT_GRAPH_SO3_RECOVERY.md)，下一步向前核RHS/接触/颗粒与线性输入。
 
 ## 已经做到
 
@@ -28,7 +32,7 @@ W3/subset/mixed/PD的eager/graph仍未通过全部长程门禁，候选未合入
   G1原示例退出0不代表其独立长程一致性通过，原速度测试存在已记录的多行lambda读取问题。
 - 当前0dab的74项回归为69项严格一致；这不是总体完成率，也没有涵盖全部长程及材料/约束组合。
   严格相等和固定原版重复运行的波动检查分开记录，不能将后者写成逐位一致。
-- 最近颗粒＋SO3刚体的隔离候选完成四短程、构造五项、60步eager/graph16项、双端initcheck及六扩展布局验证。
+- 历史dec阶段：颗粒＋SO3刚体的隔离候选完成四短程、构造五项、60步eager/graph16项、双端initcheck及六扩展布局验证。
   六布局状态全部逐位一致；两块中间buffer差异由真实SDK复现并定位为链表输入顺序，旧严格失败保留。
   已合入新host dec858e5，其四短程、六布局及16项60步graph本次全严格；当前74已完成71严格，三个粒子固定C10全过，constructor五项全同。
 

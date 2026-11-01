@@ -1,0 +1,3012 @@
+digraph dot {
+subgraph cluster_19 {
+label="graph_19" graph[style="dashed"];
+"graph_19_node_0"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {0 (topoId: 275) | 0x0000000029EEBAE0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x0000000302816400 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x000000030282F600 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {84 | 1 | 1}}
+}"];
+
+"graph_19_node_1"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {1 (topoId: 274) | 0x0000000029EEB2E0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x0000000302816600 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x000000030282F800 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {72 | 1 | 1}}
+}"];
+
+"graph_19_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 273) | _predict_affine_body_inertia_092ca3c1_cuda_kernel_forward\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EEAAE0 | 0x00000000295C8790}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 272) | _predict_affine_body_velocities_81ec5689_cuda_kernel_forward\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EEA2E0 | 0x00000000295A46B0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_4"[style="bold" shape="record" label="{KERNEL
+| {ID | 4 (topoId: 271) | _ZN7synreal6kernel31refresh_inertial_cache_nonzerosEPKfPKmPKiS2_S4_S6_PNS_12NonZeroEntryES8_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE9AE0 | 0x0000000029428860}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_5"[style="bold" shape="record" label="{KERNEL
+| {ID | 5 (topoId: 270) | _ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE92E0 | 0x0000000029168720}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_6"[style="bold" shape="record" label="{KERNEL
+| {ID | 6 (topoId: 269) | _ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE8AE0 | 0x0000000029168260}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_7"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {7 (topoId: 268) | 0x0000000029EE82E0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208400 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208200 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {144 | 1 | 1}}
+}"];
+
+"graph_19_node_8"[style="bold" shape="record" label="{KERNEL
+| {ID | 8 (topoId: 267) | _ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE7AE0 | 0x000000002A118550}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_9"[style="bold" shape="record" label="{KERNEL
+| {ID | 9 (topoId: 266) | _ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE72E0 | 0x0000000029428D20}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_10"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {10 (topoId: 265) | 0x0000000029EE6AE0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208200 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208400 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {144 | 1 | 1}}
+}"];
+
+"graph_19_node_11"[style="bold" shape="record" label="{KERNEL
+| {ID | 11 (topoId: 264) | _ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE62E0 | 0x000000002A059180}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_12"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {12 (topoId: 263) | 0x0000000029EE5AE0 | 0x00007B330B22C800 | 0 | 255 | 1 | 128 | 1}}}"];
+
+"graph_19_node_13"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {13 (topoId: 262) | 0x0000000029EE52E0 | 0x00007B330B22F800 | 0 | 0 | 1 | 1296 | 1}}}"];
+
+"graph_19_node_14"[style="bold" shape="record" label="{KERNEL
+| {ID | 14 (topoId: 261) | _ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE4AE0 | 0x000000002985D190}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_15"[style="bold" shape="record" label="{KERNEL
+| {ID | 15 (topoId: 260) | _ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE42E0 | 0x0000000028800320}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_16"[style="bold" shape="record" label="{KERNEL
+| {ID | 16 (topoId: 259) | _ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE3AE0 | 0x0000000029B29550}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_17"[style="bold" shape="record" label="{KERNEL
+| {ID | 17 (topoId: 258) | _ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE32E0 | 0x0000000029B29550}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_18"[style="bold" shape="record" label="{KERNEL
+| {ID | 18 (topoId: 257) | _ZN7synreal6kernel22evaluate_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mmS8_S8_S8_fPS6_Pf\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE2AE0 | 0x00000000285A8B20}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_19"[style="bold" shape="record" label="{KERNEL
+| {ID | 19 (topoId: 256) | _ZN7synreal6kernel30evaluate_rolling_contact_forceENS0_18RollingContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE22E0 | 0x0000000029C8C640}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_20"[style="bold" shape="record" label="{KERNEL
+| {ID | 20 (topoId: 255) | _ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE1AE0 | 0x000000002A05DCF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_21"[style="bold" shape="record" label="{KERNEL
+| {ID | 21 (topoId: 254) | _ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE12E0 | 0x0000000028BF4890}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_22"[style="bold" shape="record" label="{KERNEL
+| {ID | 22 (topoId: 253) | _ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE0AE0 | 0x00000000288971F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_23"[style="bold" shape="record" label="{KERNEL
+| {ID | 23 (topoId: 252) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EE02E0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_24"[style="bold" shape="record" label="{KERNEL
+| {ID | 24 (topoId: 251) | _ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EDFAE0 | 0x000000002A05DCF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_25"[style="bold" shape="record" label="{KERNEL
+| {ID | 25 (topoId: 250) | _ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EDF2E0 | 0x0000000029B42DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_26"[style="bold" shape="record" label="{KERNEL
+| {ID | 26 (topoId: 249) | _ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EDEAE0 | 0x0000000028766670}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_27"[style="bold" shape="record" label="{KERNEL
+| {ID | 27 (topoId: 248) | _ZN7synreal6kernel34add_rolling_contact_preconditionerENS0_18RollingContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EDE2E0 | 0x0000000028CD3490}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_28"[style="bold" shape="record" label="{KERNEL
+| {ID | 28 (topoId: 247) | _ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EDDAE0 | 0x00000000291B14D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_29"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {29 (topoId: 246) | 0x0000000029EDD2E0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B207C00 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B210200 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {432 | 1 | 1}}
+}"];
+
+"graph_19_node_30"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {30 (topoId: 245) | 0x0000000029EDCAE0 | 0x00007B330B207A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_31"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {31 (topoId: 244) | 0x0000000029EDC2E0 | 0x00007B330B227600 | 0 | 0 | 1 | 60 | 1}}}"];
+
+"graph_19_node_32"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {32 (topoId: 243) | 0x0000000029F052E0 | 0x00007B330B210C00 | 0 | 0 | 1 | 60 | 1}}}"];
+
+"graph_19_node_33"[style="bold" shape="record" label="{KERNEL
+| {ID | 33 (topoId: 242) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F05AE0 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_34"[style="bold" shape="record" label="{KERNEL
+| {ID | 34 (topoId: 241) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F062E0 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_35"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {35 (topoId: 240) | 0x0000000029F06AE0 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_36"[style="bold" shape="record" label="{KERNEL
+| {ID | 36 (topoId: 239) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F072E0 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_37"[style="bold" shape="record" label="{KERNEL
+| {ID | 37 (topoId: 238) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F07AE0 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_38"[style="bold" shape="record" label="{KERNEL
+| {ID | 38 (topoId: 237) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F082E0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_39"[style="bold" shape="record" label="{KERNEL
+| {ID | 39 (topoId: 236) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F08AE0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_40"[style="bold" shape="record" label="{KERNEL
+| {ID | 40 (topoId: 235) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F092E0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_41"[style="bold" shape="record" label="{KERNEL
+| {ID | 41 (topoId: 234) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F09AE0 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_42"[style="bold" shape="record" label="{KERNEL
+| {ID | 42 (topoId: 233) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0A2E0 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_43"[style="bold" shape="record" label="{KERNEL
+| {ID | 43 (topoId: 232) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0AAE0 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_44"[style="bold" shape="record" label="{KERNEL
+| {ID | 44 (topoId: 231) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0B2E0 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_45"[style="bold" shape="record" label="{KERNEL
+| {ID | 45 (topoId: 230) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0BAE0 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_46"[style="bold" shape="record" label="{KERNEL
+| {ID | 46 (topoId: 229) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0C2E0 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_47"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {47 (topoId: 228) | 0x0000000029F0CAE0 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_48"[style="bold" shape="record" label="{KERNEL
+| {ID | 48 (topoId: 227) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0D2E0 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_49"[style="bold" shape="record" label="{KERNEL
+| {ID | 49 (topoId: 226) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0DAE0 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_50"[style="bold" shape="record" label="{KERNEL
+| {ID | 50 (topoId: 225) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0E2E0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_51"[style="bold" shape="record" label="{KERNEL
+| {ID | 51 (topoId: 224) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0EAE0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_52"[style="bold" shape="record" label="{KERNEL
+| {ID | 52 (topoId: 223) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0F2E0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_53"[style="bold" shape="record" label="{KERNEL
+| {ID | 53 (topoId: 222) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F0FAE0 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_54"[style="bold" shape="record" label="{KERNEL
+| {ID | 54 (topoId: 221) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F102E0 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_55"[style="bold" shape="record" label="{KERNEL
+| {ID | 55 (topoId: 220) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F10AE0 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_56"[style="bold" shape="record" label="{KERNEL
+| {ID | 56 (topoId: 219) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F112E0 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_57"[style="bold" shape="record" label="{KERNEL
+| {ID | 57 (topoId: 218) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F11AE0 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_58"[style="bold" shape="record" label="{KERNEL
+| {ID | 58 (topoId: 217) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F122E0 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_59"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {59 (topoId: 216) | 0x0000000029F12AE0 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_60"[style="bold" shape="record" label="{KERNEL
+| {ID | 60 (topoId: 215) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F132E0 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_61"[style="bold" shape="record" label="{KERNEL
+| {ID | 61 (topoId: 214) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F13AE0 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_62"[style="bold" shape="record" label="{KERNEL
+| {ID | 62 (topoId: 213) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F142E0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_63"[style="bold" shape="record" label="{KERNEL
+| {ID | 63 (topoId: 212) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F14AE0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_64"[style="bold" shape="record" label="{KERNEL
+| {ID | 64 (topoId: 211) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F152E0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_65"[style="bold" shape="record" label="{KERNEL
+| {ID | 65 (topoId: 210) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F15AE0 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_66"[style="bold" shape="record" label="{KERNEL
+| {ID | 66 (topoId: 209) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F162E0 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_67"[style="bold" shape="record" label="{KERNEL
+| {ID | 67 (topoId: 208) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F16AE0 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_68"[style="bold" shape="record" label="{KERNEL
+| {ID | 68 (topoId: 207) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F172E0 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_69"[style="bold" shape="record" label="{KERNEL
+| {ID | 69 (topoId: 206) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F17AE0 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_70"[style="bold" shape="record" label="{KERNEL
+| {ID | 70 (topoId: 205) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F18AE0 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_71"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {71 (topoId: 204) | 0x0000000029F192E0 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_72"[style="bold" shape="record" label="{KERNEL
+| {ID | 72 (topoId: 203) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F19AE0 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_73"[style="bold" shape="record" label="{KERNEL
+| {ID | 73 (topoId: 202) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F1A2E0 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_74"[style="bold" shape="record" label="{KERNEL
+| {ID | 74 (topoId: 201) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F1AAE0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_75"[style="bold" shape="record" label="{KERNEL
+| {ID | 75 (topoId: 200) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F1B2E0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_76"[style="bold" shape="record" label="{KERNEL
+| {ID | 76 (topoId: 199) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F1BAE0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_77"[style="bold" shape="record" label="{KERNEL
+| {ID | 77 (topoId: 198) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F182E0 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_78"[style="bold" shape="record" label="{KERNEL
+| {ID | 78 (topoId: 197) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EEE2E0 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_79"[style="bold" shape="record" label="{KERNEL
+| {ID | 79 (topoId: 196) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F04AE0 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_80"[style="bold" shape="record" label="{KERNEL
+| {ID | 80 (topoId: 195) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F042E0 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_81"[style="bold" shape="record" label="{KERNEL
+| {ID | 81 (topoId: 194) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F03AE0 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_82"[style="bold" shape="record" label="{KERNEL
+| {ID | 82 (topoId: 193) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F032E0 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_83"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {83 (topoId: 192) | 0x0000000029F02AE0 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_84"[style="bold" shape="record" label="{KERNEL
+| {ID | 84 (topoId: 191) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F022E0 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_85"[style="bold" shape="record" label="{KERNEL
+| {ID | 85 (topoId: 190) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F01AE0 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_86"[style="bold" shape="record" label="{KERNEL
+| {ID | 86 (topoId: 189) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F012E0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_87"[style="bold" shape="record" label="{KERNEL
+| {ID | 87 (topoId: 188) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F00AE0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_88"[style="bold" shape="record" label="{KERNEL
+| {ID | 88 (topoId: 187) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029F002E0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_89"[style="bold" shape="record" label="{KERNEL
+| {ID | 89 (topoId: 186) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFFAE0 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_90"[style="bold" shape="record" label="{KERNEL
+| {ID | 90 (topoId: 185) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFBAE0 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_91"[style="bold" shape="record" label="{KERNEL
+| {ID | 91 (topoId: 184) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFF2E0 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_92"[style="bold" shape="record" label="{KERNEL
+| {ID | 92 (topoId: 183) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFE2E0 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_93"[style="bold" shape="record" label="{KERNEL
+| {ID | 93 (topoId: 182) | _ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFDAE0 | 0x0000000026F18B90}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_94"[style="bold" shape="record" label="{KERNEL
+| {ID | 94 (topoId: 181) | _ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFD2E0 | 0x000000002A118090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_95"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {95 (topoId: 180) | 0x0000000029EFCAE0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x000000030282F000 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x0000000302811800 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {432 | 1 | 1}}
+}"];
+
+"graph_19_node_96"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {96 (topoId: 179) | 0x0000000029EFC2E0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208200 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208400 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {144 | 1 | 1}}
+}"];
+
+"graph_19_node_97"[style="bold" shape="record" label="{KERNEL
+| {ID | 97 (topoId: 178) | _ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFB2E0 | 0x000000002A059180}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_98"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {98 (topoId: 177) | 0x0000000029EFAAE0 | 0x00007B330B22C800 | 0 | 255 | 1 | 128 | 1}}}"];
+
+"graph_19_node_99"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {99 (topoId: 176) | 0x0000000029EFA2E0 | 0x00007B330B22F800 | 0 | 0 | 1 | 1296 | 1}}}"];
+
+"graph_19_node_100"[style="bold" shape="record" label="{KERNEL
+| {ID | 100 (topoId: 175) | _ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF9AE0 | 0x000000002985D190}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_101"[style="bold" shape="record" label="{KERNEL
+| {ID | 101 (topoId: 174) | _ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF92E0 | 0x0000000028800320}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_102"[style="bold" shape="record" label="{KERNEL
+| {ID | 102 (topoId: 173) | _ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF8AE0 | 0x0000000029B29550}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_103"[style="bold" shape="record" label="{KERNEL
+| {ID | 103 (topoId: 172) | _ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF82E0 | 0x0000000029B29550}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_104"[style="bold" shape="record" label="{KERNEL
+| {ID | 104 (topoId: 171) | _ZN7synreal6kernel22evaluate_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mmS8_S8_S8_fPS6_Pf\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF7AE0 | 0x00000000285A8B20}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_105"[style="bold" shape="record" label="{KERNEL
+| {ID | 105 (topoId: 170) | _ZN7synreal6kernel30evaluate_rolling_contact_forceENS0_18RollingContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF72E0 | 0x0000000029C8C640}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_106"[style="bold" shape="record" label="{KERNEL
+| {ID | 106 (topoId: 169) | _ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF6AE0 | 0x000000002A05DCF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_107"[style="bold" shape="record" label="{KERNEL
+| {ID | 107 (topoId: 168) | _ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF62E0 | 0x0000000028BF4890}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_108"[style="bold" shape="record" label="{KERNEL
+| {ID | 108 (topoId: 167) | _ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF5AE0 | 0x00000000288971F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_109"[style="bold" shape="record" label="{KERNEL
+| {ID | 109 (topoId: 166) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF52E0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_110"[style="bold" shape="record" label="{KERNEL
+| {ID | 110 (topoId: 165) | _ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF4AE0 | 0x000000002A05DCF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_111"[style="bold" shape="record" label="{KERNEL
+| {ID | 111 (topoId: 164) | _ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF42E0 | 0x0000000029B42DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_112"[style="bold" shape="record" label="{KERNEL
+| {ID | 112 (topoId: 163) | _ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF3AE0 | 0x0000000028766670}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_113"[style="bold" shape="record" label="{KERNEL
+| {ID | 113 (topoId: 162) | _ZN7synreal6kernel34add_rolling_contact_preconditionerENS0_18RollingContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF32E0 | 0x0000000028CD3490}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_114"[style="bold" shape="record" label="{KERNEL
+| {ID | 114 (topoId: 161) | _ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF2AE0 | 0x00000000291B14D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_115"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {115 (topoId: 160) | 0x0000000029EF22E0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B207C00 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B210200 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {432 | 1 | 1}}
+}"];
+
+"graph_19_node_116"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {116 (topoId: 159) | 0x0000000029EF1AE0 | 0x00007B330B207A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_117"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {117 (topoId: 158) | 0x0000000029EF12E0 | 0x00007B330B227600 | 0 | 0 | 1 | 60 | 1}}}"];
+
+"graph_19_node_118"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {118 (topoId: 157) | 0x0000000029EF0AE0 | 0x00007B330B210C00 | 0 | 0 | 1 | 60 | 1}}}"];
+
+"graph_19_node_119"[style="bold" shape="record" label="{KERNEL
+| {ID | 119 (topoId: 156) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EF02E0 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_120"[style="bold" shape="record" label="{KERNEL
+| {ID | 120 (topoId: 155) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EEFAE0 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_121"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {121 (topoId: 154) | 0x0000000029EEF2E0 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_122"[style="bold" shape="record" label="{KERNEL
+| {ID | 122 (topoId: 153) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EEEAE0 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_123"[style="bold" shape="record" label="{KERNEL
+| {ID | 123 (topoId: 152) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EEDAE0 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_124"[style="bold" shape="record" label="{KERNEL
+| {ID | 124 (topoId: 151) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EED2E0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_125"[style="bold" shape="record" label="{KERNEL
+| {ID | 125 (topoId: 150) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EECAE0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_126"[style="bold" shape="record" label="{KERNEL
+| {ID | 126 (topoId: 149) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EEC2E0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_127"[style="bold" shape="record" label="{KERNEL
+| {ID | 127 (topoId: 148) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029EFEAE0 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_128"[style="bold" shape="record" label="{KERNEL
+| {ID | 128 (topoId: 147) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FB6060 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_129"[style="bold" shape="record" label="{KERNEL
+| {ID | 129 (topoId: 146) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FB6860 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_130"[style="bold" shape="record" label="{KERNEL
+| {ID | 130 (topoId: 145) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FB7060 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_131"[style="bold" shape="record" label="{KERNEL
+| {ID | 131 (topoId: 144) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FB7860 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_132"[style="bold" shape="record" label="{KERNEL
+| {ID | 132 (topoId: 143) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FB8060 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_133"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {133 (topoId: 142) | 0x0000000029FB8860 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_134"[style="bold" shape="record" label="{KERNEL
+| {ID | 134 (topoId: 141) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FB9060 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_135"[style="bold" shape="record" label="{KERNEL
+| {ID | 135 (topoId: 140) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FB9860 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_136"[style="bold" shape="record" label="{KERNEL
+| {ID | 136 (topoId: 139) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBA060 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_137"[style="bold" shape="record" label="{KERNEL
+| {ID | 137 (topoId: 138) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBA860 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_138"[style="bold" shape="record" label="{KERNEL
+| {ID | 138 (topoId: 137) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBB060 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_139"[style="bold" shape="record" label="{KERNEL
+| {ID | 139 (topoId: 136) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBB860 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_140"[style="bold" shape="record" label="{KERNEL
+| {ID | 140 (topoId: 135) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBC060 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_141"[style="bold" shape="record" label="{KERNEL
+| {ID | 141 (topoId: 134) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBC860 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_142"[style="bold" shape="record" label="{KERNEL
+| {ID | 142 (topoId: 133) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBD060 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_143"[style="bold" shape="record" label="{KERNEL
+| {ID | 143 (topoId: 132) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBD860 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_144"[style="bold" shape="record" label="{KERNEL
+| {ID | 144 (topoId: 131) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBE060 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_145"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {145 (topoId: 130) | 0x0000000029FBE860 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_146"[style="bold" shape="record" label="{KERNEL
+| {ID | 146 (topoId: 129) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBF060 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_147"[style="bold" shape="record" label="{KERNEL
+| {ID | 147 (topoId: 128) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FBF860 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_148"[style="bold" shape="record" label="{KERNEL
+| {ID | 148 (topoId: 127) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC0060 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_149"[style="bold" shape="record" label="{KERNEL
+| {ID | 149 (topoId: 126) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC0860 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_150"[style="bold" shape="record" label="{KERNEL
+| {ID | 150 (topoId: 125) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC1060 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_151"[style="bold" shape="record" label="{KERNEL
+| {ID | 151 (topoId: 124) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC1860 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_152"[style="bold" shape="record" label="{KERNEL
+| {ID | 152 (topoId: 123) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC2060 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_153"[style="bold" shape="record" label="{KERNEL
+| {ID | 153 (topoId: 122) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC2860 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_154"[style="bold" shape="record" label="{KERNEL
+| {ID | 154 (topoId: 121) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC3060 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_155"[style="bold" shape="record" label="{KERNEL
+| {ID | 155 (topoId: 120) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC3860 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_156"[style="bold" shape="record" label="{KERNEL
+| {ID | 156 (topoId: 119) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC4060 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_157"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {157 (topoId: 118) | 0x0000000029FC4860 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_158"[style="bold" shape="record" label="{KERNEL
+| {ID | 158 (topoId: 117) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC5060 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_159"[style="bold" shape="record" label="{KERNEL
+| {ID | 159 (topoId: 116) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC5860 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_160"[style="bold" shape="record" label="{KERNEL
+| {ID | 160 (topoId: 115) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC6060 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_161"[style="bold" shape="record" label="{KERNEL
+| {ID | 161 (topoId: 114) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC6860 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_162"[style="bold" shape="record" label="{KERNEL
+| {ID | 162 (topoId: 113) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC7060 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_163"[style="bold" shape="record" label="{KERNEL
+| {ID | 163 (topoId: 112) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC8060 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_164"[style="bold" shape="record" label="{KERNEL
+| {ID | 164 (topoId: 111) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC8860 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_165"[style="bold" shape="record" label="{KERNEL
+| {ID | 165 (topoId: 110) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC9060 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_166"[style="bold" shape="record" label="{KERNEL
+| {ID | 166 (topoId: 109) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC9860 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_167"[style="bold" shape="record" label="{KERNEL
+| {ID | 167 (topoId: 108) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCA060 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_168"[style="bold" shape="record" label="{KERNEL
+| {ID | 168 (topoId: 107) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCA860 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_169"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {169 (topoId: 106) | 0x0000000029FCB060 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_170"[style="bold" shape="record" label="{KERNEL
+| {ID | 170 (topoId: 105) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FC7860 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_171"[style="bold" shape="record" label="{KERNEL
+| {ID | 171 (topoId: 104) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCB860 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_172"[style="bold" shape="record" label="{KERNEL
+| {ID | 172 (topoId: 103) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCC860 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_173"[style="bold" shape="record" label="{KERNEL
+| {ID | 173 (topoId: 102) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCD060 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_174"[style="bold" shape="record" label="{KERNEL
+| {ID | 174 (topoId: 101) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCD860 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_175"[style="bold" shape="record" label="{KERNEL
+| {ID | 175 (topoId: 100) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCE060 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_176"[style="bold" shape="record" label="{KERNEL
+| {ID | 176 (topoId: 99) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCE860 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_177"[style="bold" shape="record" label="{KERNEL
+| {ID | 177 (topoId: 98) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCF060 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_178"[style="bold" shape="record" label="{KERNEL
+| {ID | 178 (topoId: 97) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCF860 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_179"[style="bold" shape="record" label="{KERNEL
+| {ID | 179 (topoId: 96) | _ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD0060 | 0x0000000026F18B90}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_180"[style="bold" shape="record" label="{KERNEL
+| {ID | 180 (topoId: 95) | _ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD0860 | 0x000000002A118090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_181"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {181 (topoId: 94) | 0x0000000029FD1060}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x000000030282F000 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x0000000302811800 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {432 | 1 | 1}}
+}"];
+
+"graph_19_node_182"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {182 (topoId: 93) | 0x0000000029FD1860}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208200 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B208400 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {144 | 1 | 1}}
+}"];
+
+"graph_19_node_183"[style="bold" shape="record" label="{KERNEL
+| {ID | 183 (topoId: 92) | _ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FCC060 | 0x000000002A059180}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_184"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {184 (topoId: 91) | 0x0000000029FD2860 | 0x00007B330B22C800 | 0 | 255 | 1 | 128 | 1}}}"];
+
+"graph_19_node_185"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {185 (topoId: 90) | 0x0000000029FD3060 | 0x00007B330B22F800 | 0 | 0 | 1 | 1296 | 1}}}"];
+
+"graph_19_node_186"[style="bold" shape="record" label="{KERNEL
+| {ID | 186 (topoId: 89) | _ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD3860 | 0x000000002985D190}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_187"[style="bold" shape="record" label="{KERNEL
+| {ID | 187 (topoId: 88) | _ZN7synreal15granular_kernel19accumulate_contactsENS0_4ViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEEPNS2_3matILi3ELi3EfLS4_0EEEPiSA_PNS3_ILi4EfLS4_0EEE\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD2060 | 0x0000000028800320}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_188"[style="bold" shape="record" label="{KERNEL
+| {ID | 188 (topoId: 87) | _ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD4860 | 0x0000000029B29550}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_189"[style="bold" shape="record" label="{KERNEL
+| {ID | 189 (topoId: 86) | _ZN7synreal15granular_kernel16accumulate_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_fPKNS3_ILi2EiLS4_0EEEPKfSC_PKiifPS5_PNS2_3matILi3ELi3EfLS4_0EEESI_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD5060 | 0x0000000029B29550}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_190"[style="bold" shape="record" label="{KERNEL
+| {ID | 190 (topoId: 85) | _ZN7synreal6kernel22evaluate_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mmS8_S8_S8_fPS6_Pf\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD5860 | 0x00000000285A8B20}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_191"[style="bold" shape="record" label="{KERNEL
+| {ID | 191 (topoId: 84) | _ZN7synreal6kernel30evaluate_rolling_contact_forceENS0_18RollingContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD6060 | 0x0000000029C8C640}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_192"[style="bold" shape="record" label="{KERNEL
+| {ID | 192 (topoId: 83) | _ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD6860 | 0x000000002A05DCF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_193"[style="bold" shape="record" label="{KERNEL
+| {ID | 193 (topoId: 82) | _ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD4060 | 0x0000000028BF4890}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_194"[style="bold" shape="record" label="{KERNEL
+| {ID | 194 (topoId: 81) | _ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD7060 | 0x00000000288971F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_195"[style="bold" shape="record" label="{KERNEL
+| {ID | 195 (topoId: 80) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029FD7860 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_196"[style="bold" shape="record" label="{KERNEL
+| {ID | 196 (topoId: 79) | _ZN7synreal6kernel27evaluate_soft_contact_forceEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_PKfSA_S2_mmS2_S2_PKNS_9TransformES8_SA_SA_SA_SA_SA_mmmffffS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_fPS6_PfS2_mPNS3_3matILi3ELi3EfLS5_0EEESL_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D70290 | 0x000000002A05DCF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_197"[style="bold" shape="record" label="{KERNEL
+| {ID | 197 (topoId: 78) | _ZN7synreal6kernel55add_affine_body_so3_augmented_lagrangian_preconditionerEPKN3glm3vecILi4EiLNS1_9qualifierE0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPSA_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D65290 | 0x0000000029B42DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_198"[style="bold" shape="record" label="{KERNEL
+| {ID | 198 (topoId: 77) | _ZN7synreal15granular_kernel12add_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_i\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D6FA90 | 0x0000000028766670}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_199"[style="bold" shape="record" label="{KERNEL
+| {ID | 199 (topoId: 76) | _ZN7synreal6kernel34add_rolling_contact_preconditionerENS0_18RollingContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D6F290 | 0x0000000028CD3490}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_200"[style="bold" shape="record" label="{KERNEL
+| {ID | 200 (topoId: 75) | _ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D6EA90 | 0x00000000291B14D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_201"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {201 (topoId: 74) | 0x0000000029D6E290}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B207C00 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x00007B330B210200 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {432 | 1 | 1}}
+}"];
+
+"graph_19_node_202"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {202 (topoId: 73) | 0x0000000029D6DA90 | 0x00007B330B207A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_203"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {203 (topoId: 72) | 0x0000000029D6D290 | 0x00007B330B227600 | 0 | 0 | 1 | 60 | 1}}}"];
+
+"graph_19_node_204"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {204 (topoId: 71) | 0x0000000029D6CA90 | 0x00007B330B210C00 | 0 | 0 | 1 | 60 | 1}}}"];
+
+"graph_19_node_205"[style="bold" shape="record" label="{KERNEL
+| {ID | 205 (topoId: 70) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D6C290 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_206"[style="bold" shape="record" label="{KERNEL
+| {ID | 206 (topoId: 69) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D6BA90 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_207"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {207 (topoId: 68) | 0x0000000029D6B290 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_208"[style="bold" shape="record" label="{KERNEL
+| {ID | 208 (topoId: 67) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D6AA90 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_209"[style="bold" shape="record" label="{KERNEL
+| {ID | 209 (topoId: 66) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D6A290 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_210"[style="bold" shape="record" label="{KERNEL
+| {ID | 210 (topoId: 65) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D69A90 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_211"[style="bold" shape="record" label="{KERNEL
+| {ID | 211 (topoId: 64) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D69290 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_212"[style="bold" shape="record" label="{KERNEL
+| {ID | 212 (topoId: 63) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D68A90 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_213"[style="bold" shape="record" label="{KERNEL
+| {ID | 213 (topoId: 62) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D68290 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_214"[style="bold" shape="record" label="{KERNEL
+| {ID | 214 (topoId: 61) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D67A90 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_215"[style="bold" shape="record" label="{KERNEL
+| {ID | 215 (topoId: 60) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D67290 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_216"[style="bold" shape="record" label="{KERNEL
+| {ID | 216 (topoId: 59) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D66A90 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_217"[style="bold" shape="record" label="{KERNEL
+| {ID | 217 (topoId: 58) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D66290 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_218"[style="bold" shape="record" label="{KERNEL
+| {ID | 218 (topoId: 57) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D65A90 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_219"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {219 (topoId: 56) | 0x0000000029D64A90 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_220"[style="bold" shape="record" label="{KERNEL
+| {ID | 220 (topoId: 55) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D64290 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_221"[style="bold" shape="record" label="{KERNEL
+| {ID | 221 (topoId: 54) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D63A90 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_222"[style="bold" shape="record" label="{KERNEL
+| {ID | 222 (topoId: 53) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D63290 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_223"[style="bold" shape="record" label="{KERNEL
+| {ID | 223 (topoId: 52) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D62A90 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_224"[style="bold" shape="record" label="{KERNEL
+| {ID | 224 (topoId: 51) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D62290 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_225"[style="bold" shape="record" label="{KERNEL
+| {ID | 225 (topoId: 50) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D61A90 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_226"[style="bold" shape="record" label="{KERNEL
+| {ID | 226 (topoId: 49) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D61290 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_227"[style="bold" shape="record" label="{KERNEL
+| {ID | 227 (topoId: 48) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D60A90 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_228"[style="bold" shape="record" label="{KERNEL
+| {ID | 228 (topoId: 47) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D60290 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_229"[style="bold" shape="record" label="{KERNEL
+| {ID | 229 (topoId: 46) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5FA90 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_230"[style="bold" shape="record" label="{KERNEL
+| {ID | 230 (topoId: 45) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5F290 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_231"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {231 (topoId: 44) | 0x0000000029D5EA90 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_232"[style="bold" shape="record" label="{KERNEL
+| {ID | 232 (topoId: 43) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5E290 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_233"[style="bold" shape="record" label="{KERNEL
+| {ID | 233 (topoId: 42) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5DA90 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_234"[style="bold" shape="record" label="{KERNEL
+| {ID | 234 (topoId: 41) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5D290 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_235"[style="bold" shape="record" label="{KERNEL
+| {ID | 235 (topoId: 40) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5CA90 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_236"[style="bold" shape="record" label="{KERNEL
+| {ID | 236 (topoId: 39) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5C290 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_237"[style="bold" shape="record" label="{KERNEL
+| {ID | 237 (topoId: 38) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5BA90 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_238"[style="bold" shape="record" label="{KERNEL
+| {ID | 238 (topoId: 37) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5B290 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_239"[style="bold" shape="record" label="{KERNEL
+| {ID | 239 (topoId: 36) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5AA90 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_240"[style="bold" shape="record" label="{KERNEL
+| {ID | 240 (topoId: 35) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D5A290 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_241"[style="bold" shape="record" label="{KERNEL
+| {ID | 241 (topoId: 34) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D59A90 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_242"[style="bold" shape="record" label="{KERNEL
+| {ID | 242 (topoId: 33) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D59290 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_243"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {243 (topoId: 32) | 0x0000000029D58A90 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_244"[style="bold" shape="record" label="{KERNEL
+| {ID | 244 (topoId: 31) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D58290 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_245"[style="bold" shape="record" label="{KERNEL
+| {ID | 245 (topoId: 30) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D57A90 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_246"[style="bold" shape="record" label="{KERNEL
+| {ID | 246 (topoId: 29) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D57290 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_247"[style="bold" shape="record" label="{KERNEL
+| {ID | 247 (topoId: 28) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D56A90 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_248"[style="bold" shape="record" label="{KERNEL
+| {ID | 248 (topoId: 27) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D56290 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_249"[style="bold" shape="record" label="{KERNEL
+| {ID | 249 (topoId: 26) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D55A90 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_250"[style="bold" shape="record" label="{KERNEL
+| {ID | 250 (topoId: 25) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D55290 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_251"[style="bold" shape="record" label="{KERNEL
+| {ID | 251 (topoId: 24) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D54A90 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_252"[style="bold" shape="record" label="{KERNEL
+| {ID | 252 (topoId: 23) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D54290 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_253"[style="bold" shape="record" label="{KERNEL
+| {ID | 253 (topoId: 22) | _ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D53A90 | 0x000000002916B950}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_254"[style="bold" shape="record" label="{KERNEL
+| {ID | 254 (topoId: 21) | _ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029D53290 | 0x00000000296BF0A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_255"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {255 (topoId: 20) | 0x0000000029E5BAB0 | 0x00007B330B210A00 | 0 | 0 | 1 | 432 | 1}}}"];
+
+"graph_19_node_256"[style="bold" shape="record" label="{KERNEL
+| {ID | 256 (topoId: 19) | _ZN7synreal6kernel53multiply_affine_body_so3_augmented_lagrangian_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEEfPS4_mmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E5B2B0 | 0x000000002A118A10}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_257"[style="bold" shape="record" label="{KERNEL
+| {ID | 257 (topoId: 18) | _ZN7synreal15granular_kernel17multiply_contactsENS0_4ViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E5A2B0 | 0x00000000287FFE60}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_258"[style="bold" shape="record" label="{KERNEL
+| {ID | 258 (topoId: 17) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E59AB0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_259"[style="bold" shape="record" label="{KERNEL
+| {ID | 259 (topoId: 16) | _ZN7synreal15granular_kernel14multiply_bondsEPKN3glm3vecILi2EiLNS1_9qualifierE0EEEPKiPKNS1_3matILi3ELi3EfLS3_0EEEiPKNS2_ILi3EfLS3_0EEEPSD_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E592B0 | 0x0000000029C53DF0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_260"[style="bold" shape="record" label="{KERNEL
+| {ID | 260 (topoId: 15) | _ZN7synreal6kernel24evaluate_contact_tangentEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_S8_S8_S8_PKfSA_S2_S2_PKNS_9TransformES8_SA_SA_SA_SA_fmmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_S8_PS6_fmPNS3_3matILi3ELi3EfLS5_0EEESK_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E58AB0 | 0x00000000290D2CA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_261"[style="bold" shape="record" label="{KERNEL
+| {ID | 261 (topoId: 14) | _ZN7synreal6kernel42multiply_soft_contact_hessian_off_diagonalEPKimS2_S2_PKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfS2_S2_PKNS_9TransformES8_SA_S2_SA_SA_SA_mmmS2_PKNS4_ILi4EiLS5_0EEES8_mS8_S8_PS6_fmffmS2_mSA_SA_ffS8_S8_\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E582B0 | 0x000000002A05D830}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_262"[style="bold" shape="record" label="{KERNEL
+| {ID | 262 (topoId: 13) | _ZN7synreal6kernel32multiply_rolling_contact_tangentENS0_18RollingContactViewEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPS5_\<\<\<4,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E57AB0 | 0x0000000028CD2FD0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_263"[style="bold" shape="record" label="{KERNEL
+| {ID | 263 (topoId: 12) | _ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E572B0 | 0x0000000026F11090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_264"[style="bold" shape="record" label="{KERNEL
+| {ID | 264 (topoId: 11) | _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E56AB0 | 0x00000000291AC400}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_265"[style="bold" shape="record" label="{KERNEL
+| {ID | 265 (topoId: 10) | _ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E562B0 | 0x0000000026F18B90}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_266"[style="bold" shape="record" label="{KERNEL
+| {ID | 266 (topoId: 9) | _ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E55AB0 | 0x000000002A118090}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_267"[style="solid" shape="record" label="{
+MEMCPY
+| {{ID | node handle} | {267 (topoId: 8) | 0x0000000029E552B0}}
+| {{src | dst} | { MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD | MemoryType | Array | Host | Device | XInBytes | Y | Z | Pitch | Height | LOD} | {DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x000000030282F000 | 0 | 0 | 0 | 0 | 0 | 0 | DEVICE (DEVICE) | 0x0000000000000000 | 0x0000000000000000 | 0x0000000302811800 | 0 | 0 | 0 | 0 | 0 | 0}}
+| {Extent | {WidthInBytes | Height | Depth} | {432 | 1 | 1}}
+}"];
+
+"graph_19_node_268"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {268 (topoId: 7) | 0x0000000029E54AB0 | 0x00007B330B207800 | 0 | 0 | 1 | 4 | 1}}}"];
+
+"graph_19_node_269"[style="bold" shape="record" label="{KERNEL
+| {ID | 269 (topoId: 6) | _ZN7synreal15granular_kernel12commit_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKNS3_ILi2EiLS4_0EEEPKfPfPii\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E542B0 | 0x0000000029C531B0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_270"[style="bold" shape="record" label="{KERNEL
+| {ID | 270 (topoId: 5) | _ZN7synreal15granular_kernel12commit_bondsENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEEPKNS3_ILi2EiLS4_0EEEPKfPfPii\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E53AB0 | 0x0000000029C531B0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_271"[style="solid" style="solid" shape="record" label="{MEMSET
+| {{ID | node handle | dptr | pitch | value | elementSize | width | height} | {271 (topoId: 4) | 0x0000000029E532B0 | 0x00007B330B22C800 | 0 | 255 | 1 | 128 | 1}}}"];
+
+"graph_19_node_272"[style="bold" shape="record" label="{KERNEL
+| {ID | 272 (topoId: 3) | _ZN7synreal15granular_kernel10build_gridENS_5ModelEPKN3glm3vecILi3EfLNS2_9qualifierE0EEES7_NS0_4ViewEPS5_S9_PfPiSB_PNS3_ILi3EiLS4_0EEESB_SB_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E52AB0 | 0x000000002985D190}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_273"[style="bold" shape="record" label="{KERNEL
+| {ID | 273 (topoId: 2) | _ZN7synreal15granular_kernel10form_bondsENS_5ModelENS0_4ViewEPKiS4_PiPN3glm3vecILi2EiLNS6_9qualifierE0EEEPfSB_S5_\<\<\<1,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E522B0 | 0x000000002A300630}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_274"[style="bold" shape="record" label="{KERNEL
+| {ID | 274 (topoId: 1) | _ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E51AB0 | 0x0000000026F186D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_275"[style="bold" shape="record" label="{KERNEL
+| {ID | 275 (topoId: 0) | _update_affine_body_poses_cda05b4e_cuda_kernel_forward\<\<\<1,256,0\>\>\>}
+| {{node handle | func handle} | {0x0000000029E512B0 | 0x00000000295DB2B0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+| {cluster dim | (0,0,0)}
+| {preferred cluster dim | (0,0,0)}
+| {cluster scheduling policy preference | 1}
+}"];
+
+"graph_19_node_0" -> "graph_19_node_1" [headlabel=0];
+"graph_19_node_1" -> "graph_19_node_2" [headlabel=0];
+"graph_19_node_2" -> "graph_19_node_3" [headlabel=0];
+"graph_19_node_3" -> "graph_19_node_4" [headlabel=0];
+"graph_19_node_4" -> "graph_19_node_5" [headlabel=0];
+"graph_19_node_5" -> "graph_19_node_6" [headlabel=0];
+"graph_19_node_6" -> "graph_19_node_7" [headlabel=0];
+"graph_19_node_7" -> "graph_19_node_8" [headlabel=0];
+"graph_19_node_8" -> "graph_19_node_9" [headlabel=0];
+"graph_19_node_9" -> "graph_19_node_10" [headlabel=0];
+"graph_19_node_10" -> "graph_19_node_11" [headlabel=0];
+"graph_19_node_11" -> "graph_19_node_12" [headlabel=0];
+"graph_19_node_12" -> "graph_19_node_13" [headlabel=0];
+"graph_19_node_13" -> "graph_19_node_14" [headlabel=0];
+"graph_19_node_14" -> "graph_19_node_15" [headlabel=0];
+"graph_19_node_15" -> "graph_19_node_16" [headlabel=0];
+"graph_19_node_16" -> "graph_19_node_17" [headlabel=0];
+"graph_19_node_17" -> "graph_19_node_18" [headlabel=0];
+"graph_19_node_18" -> "graph_19_node_19" [headlabel=0];
+"graph_19_node_19" -> "graph_19_node_20" [headlabel=0];
+"graph_19_node_20" -> "graph_19_node_21" [headlabel=0];
+"graph_19_node_21" -> "graph_19_node_22" [headlabel=0];
+"graph_19_node_22" -> "graph_19_node_23" [headlabel=0];
+"graph_19_node_23" -> "graph_19_node_24" [headlabel=0];
+"graph_19_node_24" -> "graph_19_node_25" [headlabel=0];
+"graph_19_node_25" -> "graph_19_node_26" [headlabel=0];
+"graph_19_node_26" -> "graph_19_node_27" [headlabel=0];
+"graph_19_node_27" -> "graph_19_node_28" [headlabel=0];
+"graph_19_node_28" -> "graph_19_node_29" [headlabel=0];
+"graph_19_node_29" -> "graph_19_node_30" [headlabel=0];
+"graph_19_node_30" -> "graph_19_node_31" [headlabel=0];
+"graph_19_node_31" -> "graph_19_node_32" [headlabel=0];
+"graph_19_node_32" -> "graph_19_node_33" [headlabel=0];
+"graph_19_node_33" -> "graph_19_node_34" [headlabel=0];
+"graph_19_node_34" -> "graph_19_node_35" [headlabel=0];
+"graph_19_node_35" -> "graph_19_node_36" [headlabel=0];
+"graph_19_node_36" -> "graph_19_node_37" [headlabel=0];
+"graph_19_node_37" -> "graph_19_node_38" [headlabel=0];
+"graph_19_node_38" -> "graph_19_node_39" [headlabel=0];
+"graph_19_node_39" -> "graph_19_node_40" [headlabel=0];
+"graph_19_node_40" -> "graph_19_node_41" [headlabel=0];
+"graph_19_node_41" -> "graph_19_node_42" [headlabel=0];
+"graph_19_node_42" -> "graph_19_node_43" [headlabel=0];
+"graph_19_node_43" -> "graph_19_node_44" [headlabel=0];
+"graph_19_node_44" -> "graph_19_node_45" [headlabel=0];
+"graph_19_node_45" -> "graph_19_node_46" [headlabel=0];
+"graph_19_node_46" -> "graph_19_node_47" [headlabel=0];
+"graph_19_node_47" -> "graph_19_node_48" [headlabel=0];
+"graph_19_node_48" -> "graph_19_node_49" [headlabel=0];
+"graph_19_node_49" -> "graph_19_node_50" [headlabel=0];
+"graph_19_node_50" -> "graph_19_node_51" [headlabel=0];
+"graph_19_node_51" -> "graph_19_node_52" [headlabel=0];
+"graph_19_node_52" -> "graph_19_node_53" [headlabel=0];
+"graph_19_node_53" -> "graph_19_node_54" [headlabel=0];
+"graph_19_node_54" -> "graph_19_node_55" [headlabel=0];
+"graph_19_node_55" -> "graph_19_node_56" [headlabel=0];
+"graph_19_node_56" -> "graph_19_node_57" [headlabel=0];
+"graph_19_node_57" -> "graph_19_node_58" [headlabel=0];
+"graph_19_node_58" -> "graph_19_node_59" [headlabel=0];
+"graph_19_node_59" -> "graph_19_node_60" [headlabel=0];
+"graph_19_node_60" -> "graph_19_node_61" [headlabel=0];
+"graph_19_node_61" -> "graph_19_node_62" [headlabel=0];
+"graph_19_node_62" -> "graph_19_node_63" [headlabel=0];
+"graph_19_node_63" -> "graph_19_node_64" [headlabel=0];
+"graph_19_node_64" -> "graph_19_node_65" [headlabel=0];
+"graph_19_node_65" -> "graph_19_node_66" [headlabel=0];
+"graph_19_node_66" -> "graph_19_node_67" [headlabel=0];
+"graph_19_node_67" -> "graph_19_node_68" [headlabel=0];
+"graph_19_node_68" -> "graph_19_node_69" [headlabel=0];
+"graph_19_node_69" -> "graph_19_node_70" [headlabel=0];
+"graph_19_node_70" -> "graph_19_node_71" [headlabel=0];
+"graph_19_node_71" -> "graph_19_node_72" [headlabel=0];
+"graph_19_node_72" -> "graph_19_node_73" [headlabel=0];
+"graph_19_node_73" -> "graph_19_node_74" [headlabel=0];
+"graph_19_node_74" -> "graph_19_node_75" [headlabel=0];
+"graph_19_node_75" -> "graph_19_node_76" [headlabel=0];
+"graph_19_node_76" -> "graph_19_node_77" [headlabel=0];
+"graph_19_node_77" -> "graph_19_node_78" [headlabel=0];
+"graph_19_node_78" -> "graph_19_node_79" [headlabel=0];
+"graph_19_node_79" -> "graph_19_node_80" [headlabel=0];
+"graph_19_node_80" -> "graph_19_node_81" [headlabel=0];
+"graph_19_node_81" -> "graph_19_node_82" [headlabel=0];
+"graph_19_node_82" -> "graph_19_node_83" [headlabel=0];
+"graph_19_node_83" -> "graph_19_node_84" [headlabel=0];
+"graph_19_node_84" -> "graph_19_node_85" [headlabel=0];
+"graph_19_node_85" -> "graph_19_node_86" [headlabel=0];
+"graph_19_node_86" -> "graph_19_node_87" [headlabel=0];
+"graph_19_node_87" -> "graph_19_node_88" [headlabel=0];
+"graph_19_node_88" -> "graph_19_node_89" [headlabel=0];
+"graph_19_node_89" -> "graph_19_node_90" [headlabel=0];
+"graph_19_node_90" -> "graph_19_node_91" [headlabel=0];
+"graph_19_node_91" -> "graph_19_node_92" [headlabel=0];
+"graph_19_node_92" -> "graph_19_node_93" [headlabel=0];
+"graph_19_node_93" -> "graph_19_node_94" [headlabel=0];
+"graph_19_node_94" -> "graph_19_node_95" [headlabel=0];
+"graph_19_node_95" -> "graph_19_node_96" [headlabel=0];
+"graph_19_node_96" -> "graph_19_node_97" [headlabel=0];
+"graph_19_node_97" -> "graph_19_node_98" [headlabel=0];
+"graph_19_node_98" -> "graph_19_node_99" [headlabel=0];
+"graph_19_node_99" -> "graph_19_node_100" [headlabel=0];
+"graph_19_node_100" -> "graph_19_node_101" [headlabel=0];
+"graph_19_node_101" -> "graph_19_node_102" [headlabel=0];
+"graph_19_node_102" -> "graph_19_node_103" [headlabel=0];
+"graph_19_node_103" -> "graph_19_node_104" [headlabel=0];
+"graph_19_node_104" -> "graph_19_node_105" [headlabel=0];
+"graph_19_node_105" -> "graph_19_node_106" [headlabel=0];
+"graph_19_node_106" -> "graph_19_node_107" [headlabel=0];
+"graph_19_node_107" -> "graph_19_node_108" [headlabel=0];
+"graph_19_node_108" -> "graph_19_node_109" [headlabel=0];
+"graph_19_node_109" -> "graph_19_node_110" [headlabel=0];
+"graph_19_node_110" -> "graph_19_node_111" [headlabel=0];
+"graph_19_node_111" -> "graph_19_node_112" [headlabel=0];
+"graph_19_node_112" -> "graph_19_node_113" [headlabel=0];
+"graph_19_node_113" -> "graph_19_node_114" [headlabel=0];
+"graph_19_node_114" -> "graph_19_node_115" [headlabel=0];
+"graph_19_node_115" -> "graph_19_node_116" [headlabel=0];
+"graph_19_node_116" -> "graph_19_node_117" [headlabel=0];
+"graph_19_node_117" -> "graph_19_node_118" [headlabel=0];
+"graph_19_node_118" -> "graph_19_node_119" [headlabel=0];
+"graph_19_node_119" -> "graph_19_node_120" [headlabel=0];
+"graph_19_node_120" -> "graph_19_node_121" [headlabel=0];
+"graph_19_node_121" -> "graph_19_node_122" [headlabel=0];
+"graph_19_node_122" -> "graph_19_node_123" [headlabel=0];
+"graph_19_node_123" -> "graph_19_node_124" [headlabel=0];
+"graph_19_node_124" -> "graph_19_node_125" [headlabel=0];
+"graph_19_node_125" -> "graph_19_node_126" [headlabel=0];
+"graph_19_node_126" -> "graph_19_node_127" [headlabel=0];
+"graph_19_node_127" -> "graph_19_node_128" [headlabel=0];
+"graph_19_node_128" -> "graph_19_node_129" [headlabel=0];
+"graph_19_node_129" -> "graph_19_node_130" [headlabel=0];
+"graph_19_node_130" -> "graph_19_node_131" [headlabel=0];
+"graph_19_node_131" -> "graph_19_node_132" [headlabel=0];
+"graph_19_node_132" -> "graph_19_node_133" [headlabel=0];
+"graph_19_node_133" -> "graph_19_node_134" [headlabel=0];
+"graph_19_node_134" -> "graph_19_node_135" [headlabel=0];
+"graph_19_node_135" -> "graph_19_node_136" [headlabel=0];
+"graph_19_node_136" -> "graph_19_node_137" [headlabel=0];
+"graph_19_node_137" -> "graph_19_node_138" [headlabel=0];
+"graph_19_node_138" -> "graph_19_node_139" [headlabel=0];
+"graph_19_node_139" -> "graph_19_node_140" [headlabel=0];
+"graph_19_node_140" -> "graph_19_node_141" [headlabel=0];
+"graph_19_node_141" -> "graph_19_node_142" [headlabel=0];
+"graph_19_node_142" -> "graph_19_node_143" [headlabel=0];
+"graph_19_node_143" -> "graph_19_node_144" [headlabel=0];
+"graph_19_node_144" -> "graph_19_node_145" [headlabel=0];
+"graph_19_node_145" -> "graph_19_node_146" [headlabel=0];
+"graph_19_node_146" -> "graph_19_node_147" [headlabel=0];
+"graph_19_node_147" -> "graph_19_node_148" [headlabel=0];
+"graph_19_node_148" -> "graph_19_node_149" [headlabel=0];
+"graph_19_node_149" -> "graph_19_node_150" [headlabel=0];
+"graph_19_node_150" -> "graph_19_node_151" [headlabel=0];
+"graph_19_node_151" -> "graph_19_node_152" [headlabel=0];
+"graph_19_node_152" -> "graph_19_node_153" [headlabel=0];
+"graph_19_node_153" -> "graph_19_node_154" [headlabel=0];
+"graph_19_node_154" -> "graph_19_node_155" [headlabel=0];
+"graph_19_node_155" -> "graph_19_node_156" [headlabel=0];
+"graph_19_node_156" -> "graph_19_node_157" [headlabel=0];
+"graph_19_node_157" -> "graph_19_node_158" [headlabel=0];
+"graph_19_node_158" -> "graph_19_node_159" [headlabel=0];
+"graph_19_node_159" -> "graph_19_node_160" [headlabel=0];
+"graph_19_node_160" -> "graph_19_node_161" [headlabel=0];
+"graph_19_node_161" -> "graph_19_node_162" [headlabel=0];
+"graph_19_node_162" -> "graph_19_node_163" [headlabel=0];
+"graph_19_node_163" -> "graph_19_node_164" [headlabel=0];
+"graph_19_node_164" -> "graph_19_node_165" [headlabel=0];
+"graph_19_node_165" -> "graph_19_node_166" [headlabel=0];
+"graph_19_node_166" -> "graph_19_node_167" [headlabel=0];
+"graph_19_node_167" -> "graph_19_node_168" [headlabel=0];
+"graph_19_node_168" -> "graph_19_node_169" [headlabel=0];
+"graph_19_node_169" -> "graph_19_node_170" [headlabel=0];
+"graph_19_node_170" -> "graph_19_node_171" [headlabel=0];
+"graph_19_node_171" -> "graph_19_node_172" [headlabel=0];
+"graph_19_node_172" -> "graph_19_node_173" [headlabel=0];
+"graph_19_node_173" -> "graph_19_node_174" [headlabel=0];
+"graph_19_node_174" -> "graph_19_node_175" [headlabel=0];
+"graph_19_node_175" -> "graph_19_node_176" [headlabel=0];
+"graph_19_node_176" -> "graph_19_node_177" [headlabel=0];
+"graph_19_node_177" -> "graph_19_node_178" [headlabel=0];
+"graph_19_node_178" -> "graph_19_node_179" [headlabel=0];
+"graph_19_node_179" -> "graph_19_node_180" [headlabel=0];
+"graph_19_node_180" -> "graph_19_node_181" [headlabel=0];
+"graph_19_node_181" -> "graph_19_node_182" [headlabel=0];
+"graph_19_node_182" -> "graph_19_node_183" [headlabel=0];
+"graph_19_node_183" -> "graph_19_node_184" [headlabel=0];
+"graph_19_node_184" -> "graph_19_node_185" [headlabel=0];
+"graph_19_node_185" -> "graph_19_node_186" [headlabel=0];
+"graph_19_node_186" -> "graph_19_node_187" [headlabel=0];
+"graph_19_node_187" -> "graph_19_node_188" [headlabel=0];
+"graph_19_node_188" -> "graph_19_node_189" [headlabel=0];
+"graph_19_node_189" -> "graph_19_node_190" [headlabel=0];
+"graph_19_node_190" -> "graph_19_node_191" [headlabel=0];
+"graph_19_node_191" -> "graph_19_node_192" [headlabel=0];
+"graph_19_node_192" -> "graph_19_node_193" [headlabel=0];
+"graph_19_node_193" -> "graph_19_node_194" [headlabel=0];
+"graph_19_node_194" -> "graph_19_node_195" [headlabel=0];
+"graph_19_node_195" -> "graph_19_node_196" [headlabel=0];
+"graph_19_node_196" -> "graph_19_node_197" [headlabel=0];
+"graph_19_node_197" -> "graph_19_node_198" [headlabel=0];
+"graph_19_node_198" -> "graph_19_node_199" [headlabel=0];
+"graph_19_node_199" -> "graph_19_node_200" [headlabel=0];
+"graph_19_node_200" -> "graph_19_node_201" [headlabel=0];
+"graph_19_node_201" -> "graph_19_node_202" [headlabel=0];
+"graph_19_node_202" -> "graph_19_node_203" [headlabel=0];
+"graph_19_node_203" -> "graph_19_node_204" [headlabel=0];
+"graph_19_node_204" -> "graph_19_node_205" [headlabel=0];
+"graph_19_node_205" -> "graph_19_node_206" [headlabel=0];
+"graph_19_node_206" -> "graph_19_node_207" [headlabel=0];
+"graph_19_node_207" -> "graph_19_node_208" [headlabel=0];
+"graph_19_node_208" -> "graph_19_node_209" [headlabel=0];
+"graph_19_node_209" -> "graph_19_node_210" [headlabel=0];
+"graph_19_node_210" -> "graph_19_node_211" [headlabel=0];
+"graph_19_node_211" -> "graph_19_node_212" [headlabel=0];
+"graph_19_node_212" -> "graph_19_node_213" [headlabel=0];
+"graph_19_node_213" -> "graph_19_node_214" [headlabel=0];
+"graph_19_node_214" -> "graph_19_node_215" [headlabel=0];
+"graph_19_node_215" -> "graph_19_node_216" [headlabel=0];
+"graph_19_node_216" -> "graph_19_node_217" [headlabel=0];
+"graph_19_node_217" -> "graph_19_node_218" [headlabel=0];
+"graph_19_node_218" -> "graph_19_node_219" [headlabel=0];
+"graph_19_node_219" -> "graph_19_node_220" [headlabel=0];
+"graph_19_node_220" -> "graph_19_node_221" [headlabel=0];
+"graph_19_node_221" -> "graph_19_node_222" [headlabel=0];
+"graph_19_node_222" -> "graph_19_node_223" [headlabel=0];
+"graph_19_node_223" -> "graph_19_node_224" [headlabel=0];
+"graph_19_node_224" -> "graph_19_node_225" [headlabel=0];
+"graph_19_node_225" -> "graph_19_node_226" [headlabel=0];
+"graph_19_node_226" -> "graph_19_node_227" [headlabel=0];
+"graph_19_node_227" -> "graph_19_node_228" [headlabel=0];
+"graph_19_node_228" -> "graph_19_node_229" [headlabel=0];
+"graph_19_node_229" -> "graph_19_node_230" [headlabel=0];
+"graph_19_node_230" -> "graph_19_node_231" [headlabel=0];
+"graph_19_node_231" -> "graph_19_node_232" [headlabel=0];
+"graph_19_node_232" -> "graph_19_node_233" [headlabel=0];
+"graph_19_node_233" -> "graph_19_node_234" [headlabel=0];
+"graph_19_node_234" -> "graph_19_node_235" [headlabel=0];
+"graph_19_node_235" -> "graph_19_node_236" [headlabel=0];
+"graph_19_node_236" -> "graph_19_node_237" [headlabel=0];
+"graph_19_node_237" -> "graph_19_node_238" [headlabel=0];
+"graph_19_node_238" -> "graph_19_node_239" [headlabel=0];
+"graph_19_node_239" -> "graph_19_node_240" [headlabel=0];
+"graph_19_node_240" -> "graph_19_node_241" [headlabel=0];
+"graph_19_node_241" -> "graph_19_node_242" [headlabel=0];
+"graph_19_node_242" -> "graph_19_node_243" [headlabel=0];
+"graph_19_node_243" -> "graph_19_node_244" [headlabel=0];
+"graph_19_node_244" -> "graph_19_node_245" [headlabel=0];
+"graph_19_node_245" -> "graph_19_node_246" [headlabel=0];
+"graph_19_node_246" -> "graph_19_node_247" [headlabel=0];
+"graph_19_node_247" -> "graph_19_node_248" [headlabel=0];
+"graph_19_node_248" -> "graph_19_node_249" [headlabel=0];
+"graph_19_node_249" -> "graph_19_node_250" [headlabel=0];
+"graph_19_node_250" -> "graph_19_node_251" [headlabel=0];
+"graph_19_node_251" -> "graph_19_node_252" [headlabel=0];
+"graph_19_node_252" -> "graph_19_node_253" [headlabel=0];
+"graph_19_node_253" -> "graph_19_node_254" [headlabel=0];
+"graph_19_node_254" -> "graph_19_node_255" [headlabel=0];
+"graph_19_node_255" -> "graph_19_node_256" [headlabel=0];
+"graph_19_node_256" -> "graph_19_node_257" [headlabel=0];
+"graph_19_node_257" -> "graph_19_node_258" [headlabel=0];
+"graph_19_node_258" -> "graph_19_node_259" [headlabel=0];
+"graph_19_node_259" -> "graph_19_node_260" [headlabel=0];
+"graph_19_node_260" -> "graph_19_node_261" [headlabel=0];
+"graph_19_node_261" -> "graph_19_node_262" [headlabel=0];
+"graph_19_node_262" -> "graph_19_node_263" [headlabel=0];
+"graph_19_node_263" -> "graph_19_node_264" [headlabel=0];
+"graph_19_node_264" -> "graph_19_node_265" [headlabel=0];
+"graph_19_node_265" -> "graph_19_node_266" [headlabel=0];
+"graph_19_node_266" -> "graph_19_node_267" [headlabel=0];
+"graph_19_node_267" -> "graph_19_node_268" [headlabel=0];
+"graph_19_node_268" -> "graph_19_node_269" [headlabel=0];
+"graph_19_node_269" -> "graph_19_node_270" [headlabel=0];
+"graph_19_node_270" -> "graph_19_node_271" [headlabel=0];
+"graph_19_node_271" -> "graph_19_node_272" [headlabel=0];
+"graph_19_node_272" -> "graph_19_node_273" [headlabel=0];
+"graph_19_node_273" -> "graph_19_node_274" [headlabel=0];
+"graph_19_node_274" -> "graph_19_node_275" [headlabel=0];
+}
+}

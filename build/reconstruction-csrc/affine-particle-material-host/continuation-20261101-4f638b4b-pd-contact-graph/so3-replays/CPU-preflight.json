@@ -1,0 +1,762 @@
+{
+  "_ZN7synreal6kernel32initialize_affine_body_so3_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_mmm": {
+    "original": {
+      "parameter_count": 7,
+      "store_instructions": [
+        {
+          "instruction": "st.global.u32 [%rd33], %r138;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+4], %r139;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+8], %r140;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+12], %r141;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+16], %r142;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+20], %r143;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+24], %r144;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+28], %r145;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd33+32], %r146;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+4], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+8], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+12], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+16], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+20], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+24], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+28], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd35+32], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        }
+      ],
+      "potential_written_pointer_fields": [
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "narrow_loads_into_wide_registers": [],
+      "indirect_64bit_loaded_store_addresses": false,
+      "noninlined_calls": false,
+      "bounds_proven_by_this_analysis": false,
+      "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+      "parameter_address_aliases": {},
+      "canonicalized_parameter_loads": [],
+      "parameter_load_ranges_checked": true,
+      "analysis_only_canonicalization": true,
+      "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+      "actual_entry_sha256": "9e100ac5c4b367d523afe0e71b8d1a13dcb1e3acf8f4d8b35727b60d7f50d653",
+      "canonical_analysis_entry_sha256": "9e100ac5c4b367d523afe0e71b8d1a13dcb1e3acf8f4d8b35727b60d7f50d653"
+    },
+    "source": {
+      "parameter_count": 7,
+      "store_instructions": [
+        {
+          "instruction": "st.global.u32 \t[%rd33], %r138;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+4], %r139;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+8], %r140;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+12], %r141;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+16], %r142;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+20], %r143;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+24], %r144;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+28], %r145;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd33+32], %r146;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+4], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+8], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+12], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+16], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+20], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+24], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+28], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd35+32], %r70;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        }
+      ],
+      "potential_written_pointer_fields": [
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "narrow_loads_into_wide_registers": [],
+      "indirect_64bit_loaded_store_addresses": false,
+      "noninlined_calls": false,
+      "bounds_proven_by_this_analysis": false,
+      "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+      "parameter_address_aliases": {},
+      "canonicalized_parameter_loads": [],
+      "parameter_load_ranges_checked": true,
+      "analysis_only_canonicalization": true,
+      "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+      "actual_entry_sha256": "20744a80ef526ce3924ec92033b8be8cfc71c6216949a6fb1a7672d98bb6388b",
+      "canonical_analysis_entry_sha256": "20744a80ef526ce3924ec92033b8be8cfc71c6216949a6fb1a7672d98bb6388b"
+    }
+  },
+  "_ZN7synreal6kernel49update_affine_body_so3_augmented_lagrangian_stateEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPNS1_3matILi3ELi3EfLS3_0EEESC_bmmm": {
+    "original": {
+      "parameter_count": 8,
+      "store_instructions": [
+        {
+          "instruction": "st.global.u32 [%rd36], %r146;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+4], %r147;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+8], %r148;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+12], %r149;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+16], %r150;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+20], %r151;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+24], %r152;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+28], %r153;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 [%rd36+32], %r154;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8], %f298;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+4], %f299;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+8], %f300;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+12], %f307;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+16], %f308;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+20], %f309;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+24], %f316;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+28], %f317;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 [%rd8+32], %f318;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        }
+      ],
+      "potential_written_pointer_fields": [
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "narrow_loads_into_wide_registers": [],
+      "indirect_64bit_loaded_store_addresses": false,
+      "noninlined_calls": false,
+      "bounds_proven_by_this_analysis": false,
+      "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+      "parameter_address_aliases": {},
+      "canonicalized_parameter_loads": [],
+      "parameter_load_ranges_checked": true,
+      "analysis_only_canonicalization": true,
+      "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+      "actual_entry_sha256": "7562683d678a4ce6cf640aacbee05e200d6ad9b2bba633f94189cf57cdf0eb4a",
+      "canonical_analysis_entry_sha256": "7562683d678a4ce6cf640aacbee05e200d6ad9b2bba633f94189cf57cdf0eb4a"
+    },
+    "source": {
+      "parameter_count": 8,
+      "store_instructions": [
+        {
+          "instruction": "st.global.u32 \t[%rd36], %r146;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+4], %r147;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+8], %r148;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+12], %r149;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+16], %r150;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+20], %r151;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+24], %r152;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+28], %r153;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.u32 \t[%rd36+32], %r154;",
+          "parameter_pointer_origins": [
+            [
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8], %f294;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+4], %f297;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+8], %f300;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+12], %f303;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+16], %f306;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+20], %f309;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+24], %f312;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+28], %f315;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "instruction": "st.global.f32 \t[%rd8+32], %f318;",
+          "parameter_pointer_origins": [
+            [
+              3,
+              0
+            ]
+          ]
+        }
+      ],
+      "potential_written_pointer_fields": [
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "narrow_loads_into_wide_registers": [],
+      "indirect_64bit_loaded_store_addresses": false,
+      "noninlined_calls": false,
+      "bounds_proven_by_this_analysis": false,
+      "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+      "parameter_address_aliases": {},
+      "canonicalized_parameter_loads": [],
+      "parameter_load_ranges_checked": true,
+      "analysis_only_canonicalization": true,
+      "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+      "actual_entry_sha256": "01f5d754e43007c7c0e87c258fc307ba229d08c10edc6baf0c8105748ff8b1f0",
+      "canonical_analysis_entry_sha256": "01f5d754e43007c7c0e87c258fc307ba229d08c10edc6baf0c8105748ff8b1f0"
+    }
+  }
+}

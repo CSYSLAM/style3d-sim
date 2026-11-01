@@ -6845,3 +6845,40 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   接触长程PD失败/首样本/初始严格失败原样保留，主host0dab/Core715和生产数学未改。
   新publication/next-step.json明确source0 graph frame32与source1 frame25不能混用，下一步直接观察实际graph共同输入和私有history。
   不从公开位置重建动态bond/AL私有缓存，不用SDK中间值代算source，不调容差/资源/排序掩盖失败。
+
+
+### 2026-11-01：接续4f的PD多世界graph，先核实际模板与固定轨迹
+
+- 上轮为实际进展：新接触候选、四类构造、双端initcheck、固定短/长C8及真实牛肉短程均实测并封存；
+  264814文件快照0失败，10dddd81775e3e4307cd146ca2e8d676262ad5b6已push0、远端精确核对，起始工作区clean。
+- 新phase continuation-20261101-4f638b4b-pd-contact-graph；固定source0 graph frame32/world2/body_q[2,3]为接续目标。
+  主host0dab/Core715、候选4f、SDK64a及源数学保持。GPU起始为空，继续旧空闲等待策略，未终止任何其它任务。
+- 先预先固定1SDK+3source只读graph诊断：保留完整原案例/模式顺序，在目标轨迹保存后延长scene/graph生命周期，
+  全worker完成后才查询定义；无GPU staging allocation、无节点修改、无pointee读取，不将新运行加入既有C8。
+  v1 driver实际1，worker在生成阶段断言case-loop仅一处，实际worker/main有两处，尚未执行GPU仿真。
+  v1源码/日志原样保留；v2只在首处worker循环注入，独立definitions4-v2输出，session3377实际0、四worker全0。
+- 两个实际graph各276节点/275边，三source与SDK均同。沿两graph共用一个alias map独立CPU核对：
+  三对各552节点的类型、kernel完整geometry、实际ABI offsets/widths、类型化参数及跨graph129个pointer identity均同。
+  Warp三函数使用原已核schema，并核当前ctypes/native array头SHA及所有实际driver宽度；
+  Model只比较既有逐kernel已审计读字段，不宣称opaque全部Model字节/设备pointee或完整所有CUDA API相同。
+  compare-definitions实际0；函数资源差异单列，不调寄存器/launch资源，也不宣称其已证明是根因。
+- 四份新诊断均未精确复现旧完整60帧原首轨迹。对原固定C8的CPU观察：新SDK也有速度帧越界，
+  新source1越界、source2/3在范围内；这不是将SDK诊断追加到cohort，更不重判原source0失败。
+
+- 上一goal turn仅回应用户进度问题，按持续目标记为no progress；本轮重新核当前工作区、AGENTS与GPU空闲后执行下一安全步骤。
+  audit-definition-trajectories实际CPU0，四份新诊断对既有C8归属false/false/true/true，原失败保持。
+- 添加affine_so3_graph_capture/replay，只用于诊断，不改生产代码。准备时逐一核八个真实graph的完整SO3 ABI及指针跨度。
+  实际参数为3/3/36，位置432、索引48、R/M各108字节；不能沿用未证实的1/12局部布局推算。
+  每graph一份3648字节staging、24节点/32边，完整拓扑和原276节点/275边保留。
+- 预定1SDK+3source的SO3采集session11027实际0，四worker全部0；每端两graph各30帧，960份真实before/after。
+  末轮位置与独立公开位置240次逐字节同；source三worker均无原SDK映射。新增采集没有复现旧完整source0/original0，未采用替换。
+- SO3 prepare/session88307真实0，写入960份输入SHA、完整参数、写指针审计与预定5760次调用计划。
+  三端回放session76134实际0：每输入两次SDK runtime/原版PTX/候选源码PTX，所有R/M完整输出逐位同、只读输入/guard同。
+  audit-so3/session54821独立CPU实际0，重新检查960份输入及5760调用完整buffer、拓扑、240份末轮q；
+  新诊断C8归属为false/false/true/false，首份为SDK，固定cohort/失败不改。
+- compare-so3-observed实际CPU0：新增source1/2首q输入差为frame4/update-1/particle[28,2]，
+  frame4/update-2才出现R输出差；source3首q差frame7/update-1/particle[24,2]。初始化前未定义history不作语义比较。
+  这只是新观测路径，未声称解释原source0/frame32；接续向前核实际RHS/接触/颗粒与CG输入，数学/资源/阈值均不改。
+- 新PD_CONTACT_GRAPH_SO3_RECOVERY记录已做范围、真实native展平尺寸、观察器影响、GPU/CPU命令及下一步。
+  根状态/Windows交接/csrc接触与交接入口同步更新；将旧dec进度明确标为历史，避免误读为当前0dab验收。
+  write-next-step与close-phase均实际0，本批封存2143个文件及其SHA；原固定失败、SDK64a/360pyc、生产host与候选均保持。

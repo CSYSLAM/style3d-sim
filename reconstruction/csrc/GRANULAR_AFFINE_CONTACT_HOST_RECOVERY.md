@@ -3,6 +3,10 @@
 主源码仍为host`0dabbaa7`/公开Core`7151054e`，完整替换未通过，默认原版、readyFalse保持。
 唯一原版对照为项目内SDK64a。以下候选尚未合入主源码。
 
+接续实际graph与SO3状态已核：960真实输入/5760次SDK runtime、原版PTX及源码PTX调用完整输出严格；
+独立CPU重读通过。旧固定长程失败不改，下一步向前核RHS/接触/颗粒与线性输入，
+详见[PD graph与SO3核对](PD_CONTACT_GRAPH_SO3_RECOVERY.md)。
+
 ## 已完成的实际检查
 
 六组实际SDK/当前source发现：SDK六组均正常三步，当前source六组均在外部接触guard拒绝。
