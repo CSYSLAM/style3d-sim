@@ -1,0 +1,234 @@
+{
+  "GPU_context_created": false,
+  "static_only": true,
+  "whole_solver_complete": false,
+  "sides": {
+    "sdk0": {
+      "graph_sha256": "e212ce5338217bb03cc080f7bf2dc7f6826c60562f30003d8a98a1ad5dd17c44",
+      "final_accumulated_rhs_copy_rank": 9351,
+      "parameters": {
+        "srcXInBytes": 0,
+        "srcY": 0,
+        "srcZ": 0,
+        "srcLOD": 0,
+        "srcMemoryType": 2,
+        "srcHost": 0,
+        "srcDevice": 139502569917440,
+        "srcArray": 0,
+        "reserved0": 0,
+        "srcPitch": 0,
+        "srcHeight": 0,
+        "dstXInBytes": 0,
+        "dstY": 0,
+        "dstZ": 0,
+        "dstLOD": 0,
+        "dstMemoryType": 2,
+        "dstHost": 0,
+        "dstDevice": 139502570539520,
+        "dstArray": 0,
+        "reserved1": 0,
+        "dstPitch": 0,
+        "dstHeight": 0,
+        "WidthInBytes": 2112,
+        "Height": 1,
+        "Depth": 1
+      },
+      "zero_initializers": [
+        {
+          "rank": 9352,
+          "consumer_rank": 9365,
+          "argument": 6,
+          "parameters": {
+            "dst": 139502569914880,
+            "pitch": 0,
+            "value": 0,
+            "elementSize": 1,
+            "width": 2112,
+            "height": 1
+          }
+        },
+        {
+          "rank": 9353,
+          "consumer_rank": 9355,
+          "argument": 6,
+          "parameters": {
+            "dst": 139502570556416,
+            "pitch": 0,
+            "value": 0,
+            "elementSize": 1,
+            "width": 200,
+            "height": 1
+          }
+        },
+        {
+          "rank": 9354,
+          "consumer_rank": 9364,
+          "argument": 9,
+          "parameters": {
+            "dst": 139502570552320,
+            "pitch": 0,
+            "value": 0,
+            "elementSize": 1,
+            "width": 200,
+            "height": 1
+          }
+        }
+      ]
+    },
+    "rebuilt0": {
+      "graph_sha256": "1778f8f0db1dc896b7870b1cf786810b782c9a45631fc52305aa838e8f870dc4",
+      "final_accumulated_rhs_copy_rank": 9351,
+      "parameters": {
+        "srcXInBytes": 0,
+        "srcY": 0,
+        "srcZ": 0,
+        "srcLOD": 0,
+        "srcMemoryType": 2,
+        "srcHost": 0,
+        "srcDevice": 136768353471488,
+        "srcArray": 0,
+        "reserved0": 0,
+        "srcPitch": 0,
+        "srcHeight": 0,
+        "dstXInBytes": 0,
+        "dstY": 0,
+        "dstZ": 0,
+        "dstLOD": 0,
+        "dstMemoryType": 2,
+        "dstHost": 0,
+        "dstDevice": 136768354093568,
+        "dstArray": 0,
+        "reserved1": 0,
+        "dstPitch": 0,
+        "dstHeight": 0,
+        "WidthInBytes": 2112,
+        "Height": 1,
+        "Depth": 1
+      },
+      "zero_initializers": [
+        {
+          "rank": 9352,
+          "consumer_rank": 9365,
+          "argument": 6,
+          "parameters": {
+            "dst": 136768353468928,
+            "pitch": 0,
+            "value": 0,
+            "elementSize": 1,
+            "width": 2112,
+            "height": 1
+          }
+        },
+        {
+          "rank": 9353,
+          "consumer_rank": 9355,
+          "argument": 6,
+          "parameters": {
+            "dst": 136768354110464,
+            "pitch": 0,
+            "value": 0,
+            "elementSize": 1,
+            "width": 200,
+            "height": 1
+          }
+        },
+        {
+          "rank": 9354,
+          "consumer_rank": 9364,
+          "argument": 9,
+          "parameters": {
+            "dst": 136768354106368,
+            "pitch": 0,
+            "value": 0,
+            "elementSize": 1,
+            "width": 200,
+            "height": 1
+          }
+        }
+      ]
+    }
+  },
+  "kernels": {
+    "rhs": {
+      "normalized_PTX_equal": false,
+      "entry_sha256": {
+        "original": "cf9a1f5300fe0ded00a9385147d3f86316b4193358f2d2a56cc803a1adf87efd",
+        "source": "ef951db92becd700fbb258fcd83bbbedc5ab6a82c0a920beb75ce9f51a480e3f"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx"
+    },
+    "inverse": {
+      "normalized_PTX_equal": false,
+      "entry_sha256": {
+        "original": "925326fb0e7967b2d65534553c7cd9dfe9de10e0470e02d24f069bf04b2e39ce",
+        "source": "b313525d238bf3aaff7ddfcaa65f53fc806ab1520bd15a2ca83b16254112925f"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx"
+    },
+    "precondition_first": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "0d34a56fa95fc8b5c31e66eb300202ee9912f57706dd63e862e6d8ca84ad20a4",
+        "source": "19aed913bffc6d8267cc8511d27d50940a483c8a47fcf7abf0a6d1d04448d8a4"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    },
+    "direction_first": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "f9204c6faaed4f8224ba269447026dfb71e2f7ad2ebb97db9da8401c3342d61e",
+        "source": "2db5a221897225486ba53d6d492384b283919e25385361f8f24e5a3f5ab03f2e"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    },
+    "matrix_first": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "aaeb9509f88720d1830f6d098ed8c388d4b861e2d9d7f4bdd2673b0c09bbbb8d",
+        "source": "a3747cccf1dc8aa1169693823421e01a997195373d2768a256109b699c88d7cb"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    },
+    "update_first": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "b5e137d20eae57045481515259b8f9419cc2ddd4d9be49dfc103897004d07421",
+        "source": "d50af67f1d3f391cca4ddeee7f90a9c56da9751413944a579d4ba71a057559f3"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    },
+    "precondition_last": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "0d34a56fa95fc8b5c31e66eb300202ee9912f57706dd63e862e6d8ca84ad20a4",
+        "source": "19aed913bffc6d8267cc8511d27d50940a483c8a47fcf7abf0a6d1d04448d8a4"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    },
+    "direction_last": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "f9204c6faaed4f8224ba269447026dfb71e2f7ad2ebb97db9da8401c3342d61e",
+        "source": "2db5a221897225486ba53d6d492384b283919e25385361f8f24e5a3f5ab03f2e"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    },
+    "matrix_last": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "aaeb9509f88720d1830f6d098ed8c388d4b861e2d9d7f4bdd2673b0c09bbbb8d",
+        "source": "a3747cccf1dc8aa1169693823421e01a997195373d2768a256109b699c88d7cb"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    },
+    "update_last": {
+      "normalized_PTX_equal": true,
+      "entry_sha256": {
+        "original": "b5e137d20eae57045481515259b8f9419cc2ddd4d9be49dfc103897004d07421",
+        "source": "d50af67f1d3f391cca4ddeee7f90a9c56da9751413944a579d4ba71a057559f3"
+      },
+      "original_module": "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx"
+    }
+  },
+  "runner_sha256": "afef79b043b33604e03cc275b1f52efbd5514a276c036440b2b9c5cbeb1cd93e"
+}

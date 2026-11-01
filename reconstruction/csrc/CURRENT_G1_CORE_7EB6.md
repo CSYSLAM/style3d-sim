@@ -1,5 +1,10 @@
 # 当前公共Core的G1固定原版对比：38b70dcd / 7eb6e847
 
+> **第4子步NL2完整线性阶段已实测。** 原地inverse的6336字节别名保持；72份非归约输出全部逐位同。
+> scalar仅9/24严格、15份失败保留；2816真实操作数同、48次SDK/PTX/source隔离和21份GPU F32证书通过。
+> 完整after/实际ABI及3696历史值CPU独立核准；本批不是全部50轮向量回放，旧C8/readyFalse不改。
+> 接续未覆盖host组合的实际SDK支持与调度核对；见[G1第4子步NL2](G1_FOURTH_NL2_LINEAR_RECOVERY.md)。
+
 > [第4子步CG系数](G1_FOURTH_CG_SCALARS_RECOVERY.md)的5445实际scalar pairs三端受控输出全严格，55真实apply全同。
 > 本批无系数guard切换；显著分组已在第2轮增量出现。继续RHS/预条件器/必要CG向量，不推断旧大响应根因。
 > 新诊断C过不重判本文旧C8，生产host38/Core7eb/readyFalse不改。

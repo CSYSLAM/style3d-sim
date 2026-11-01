@@ -1,0 +1,1625 @@
+{
+  "rows": [
+    {
+      "label": "sdk0",
+      "stage": "rhs",
+      "kernel_key": "rhs",
+      "capture_sha256": "9e623449ec9c19c2bdf23dd2d059e12e409091331ed90a549f491f1d1a4ffa07",
+      "output_sha256": "77bf1d2a748b0b4546c17f692d3ce189d2bf6ae06908ca3bfd7c0c269736d87f",
+      "groups": [
+        {
+          "indices": [
+            8
+          ],
+          "start": 12991257600,
+          "end": 12991258304,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 12991261696,
+          "end": 12991262400,
+          "padding": 256,
+          "device_base": 134052591961600
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991307776,
+          "end": 12991309888,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991312896,
+          "end": 12991315008,
+          "padding": 256,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 125843164630016,
+          "end": 125843164632128,
+          "padding": 256,
+          "device_base": 134052591969280
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 125843164635136,
+          "end": 125843164637248,
+          "padding": 256,
+          "device_base": 134052591972352
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 125843164695552,
+          "end": 125843164696256,
+          "padding": 256,
+          "device_base": 134052591975424
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 125843164724736,
+          "end": 125843164751488,
+          "padding": 256,
+          "device_base": 134052591976960
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "inverse",
+      "kernel_key": "inverse",
+      "capture_sha256": "694c0870480812ba5520e33f6e97cc3b14fe969a4588267378b7c37c47dd4ec4",
+      "output_sha256": "ba0efe603d6f044693dda5ade15aafeccb9a90a734d32478cc05b25e21c6cc3f",
+      "groups": [
+        {
+          "indices": [
+            2
+          ],
+          "start": 12991257600,
+          "end": 12991258304,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991261696,
+          "end": 12991262400,
+          "padding": 256,
+          "device_base": 134052591961600
+        },
+        {
+          "indices": [
+            0,
+            3
+          ],
+          "start": 125843164649984,
+          "end": 125843164656320,
+          "padding": 256,
+          "device_base": 134052591963136
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "3": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "3": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "3": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "precondition_first",
+      "kernel_key": "precondition_first",
+      "capture_sha256": "e1b6f5dcb46a2fc4961f1427a739c308ad0dc1d740658472bb46f317742a6c28",
+      "output_sha256": "73db78083b82fa979986e8d9e153c122c748432156bac4817adfb482880ea083",
+      "groups": [
+        {
+          "indices": [
+            0
+          ],
+          "start": 125843164649984,
+          "end": 125843164656320,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 125843165252096,
+          "end": 125843165254208,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 125843165257216,
+          "end": 125843165259328,
+          "padding": 256,
+          "device_base": 134052591970304
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843165268992,
+          "end": 125843165268996,
+          "padding": 256,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "direction_first",
+      "kernel_key": "direction_first",
+      "capture_sha256": "935f749e4d621ba8957a3858de8c4963cbaed7e0be2b620604cb88debfe037da",
+      "output_sha256": "ccfbed0f86619bcb5325f6533ca3db1838d8221de511021e41e70222acfe348f",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843165254656,
+          "end": 125843165256768,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 125843165257216,
+          "end": 125843165259328,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 125843165268992,
+          "end": 125843165268996,
+          "padding": 256,
+          "device_base": 134052591966208
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "matrix_first",
+      "kernel_key": "matrix_first",
+      "capture_sha256": "af42ac2b736d01c1f802e67941b6d2a64c776ba5ce36ee0f1db3a3e17d612389",
+      "output_sha256": "41aa4d5b4d2954149dd4890bda71387f1b0ebbbeeb71df60d43eaae9555907bb",
+      "groups": [
+        {
+          "indices": [
+            3
+          ],
+          "start": 125843164643328,
+          "end": 125843164649664,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 125843164696576,
+          "end": 125843164697280,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 125843165117952,
+          "end": 125843165251712,
+          "padding": 256,
+          "device_base": 134052591968768
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 125843165254656,
+          "end": 125843165256768,
+          "padding": 256,
+          "device_base": 134052592103424
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843165259776,
+          "end": 125843165261888,
+          "padding": 256,
+          "device_base": 134052592106496
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 125843165262336,
+          "end": 125843165264448,
+          "padding": 256,
+          "device_base": 134052592109568
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 125843165264896,
+          "end": 125843165264900,
+          "padding": 256,
+          "device_base": 134052592112640
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "update_first",
+      "kernel_key": "update_first",
+      "capture_sha256": "54d85a517ca46630056614d420c0978d74485822211ae2d128d5422974cd02e7",
+      "output_sha256": "6d95690624183b006bb21318202c7b9b9fe9016234206afc0e65f81c75e9b5ef",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843164627456,
+          "end": 125843164629568,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 125843165252096,
+          "end": 125843165254208,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 125843165254656,
+          "end": 125843165256768,
+          "padding": 256,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 125843165259776,
+          "end": 125843165261888,
+          "padding": 256,
+          "device_base": 134052591969280
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 125843165264896,
+          "end": 125843165264900,
+          "padding": 256,
+          "device_base": 134052591972352
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 125843165268992,
+          "end": 125843165268996,
+          "padding": 256,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "precondition_last",
+      "kernel_key": "precondition_last",
+      "capture_sha256": "842da9f74e19cd952d50970ba0998da6b5d7778883bc87c2a73011ccc5410543",
+      "output_sha256": "a6f3b1a4aedbdcaac90d5c95d0863c174c138e52f9c2e967918ee4b577d48faf",
+      "groups": [
+        {
+          "indices": [
+            0
+          ],
+          "start": 125843164649984,
+          "end": 125843164656320,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 125843165252096,
+          "end": 125843165254208,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 125843165257216,
+          "end": 125843165259328,
+          "padding": 256,
+          "device_base": 134052591970304
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843165269188,
+          "end": 125843165269192,
+          "padding": 452,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "direction_last",
+      "kernel_key": "direction_last",
+      "capture_sha256": "f71ae31ec09381ad417ec12d3379f95a67c964e38f98b4cb56f159f4be8810e2",
+      "output_sha256": "487c4fe809ee77b8398222567e638a4b12d7a90da8d6dbfa7e4682efc04933c5",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843165254656,
+          "end": 125843165256768,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 125843165257216,
+          "end": 125843165259328,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 125843165269184,
+          "end": 125843165269188,
+          "padding": 448,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 125843165269188,
+          "end": 125843165269192,
+          "padding": 452,
+          "device_base": 134052591967232
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "matrix_last",
+      "kernel_key": "matrix_last",
+      "capture_sha256": "8ebe38e69fe125e5cce3c7b8b0b688adfe813c1f3d5034d406ed840b481bba33",
+      "output_sha256": "611af3618ac2f629adebef7313675dcb061d75a804ecd1c434d0cf26cee6396d",
+      "groups": [
+        {
+          "indices": [
+            3
+          ],
+          "start": 125843164643328,
+          "end": 125843164649664,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 125843164696576,
+          "end": 125843164697280,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 125843165117952,
+          "end": 125843165251712,
+          "padding": 256,
+          "device_base": 134052591968768
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 125843165254656,
+          "end": 125843165256768,
+          "padding": 256,
+          "device_base": 134052592103424
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843165259776,
+          "end": 125843165261888,
+          "padding": 256,
+          "device_base": 134052592106496
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 125843165262336,
+          "end": 125843165264448,
+          "padding": 256,
+          "device_base": 134052592109568
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 125843165265092,
+          "end": 125843165265096,
+          "padding": 452,
+          "device_base": 134052592112640
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "9": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": false
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "sdk0",
+      "stage": "update_last",
+      "kernel_key": "update_last",
+      "capture_sha256": "712978c07367552e53f6f5fb4e6bae9d3ce0d58450c204a989ba5931526ff410",
+      "output_sha256": "629c037d737a2ec532eba341669101c9d3bf783d0df167b9b098d62eb45206fb",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 125843164627456,
+          "end": 125843164629568,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 125843165252096,
+          "end": 125843165254208,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 125843165254656,
+          "end": 125843165256768,
+          "padding": 256,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 125843165259776,
+          "end": 125843165261888,
+          "padding": 256,
+          "device_base": 134052591969280
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 125843165265092,
+          "end": 125843165265096,
+          "padding": 452,
+          "device_base": 134052591972352
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 125843165269188,
+          "end": 125843165269192,
+          "padding": 452,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "rhs",
+      "kernel_key": "rhs",
+      "capture_sha256": "7a0d81e6cf75c189b0d55abd8e9b57c27d1873f1fc267fb67d978f14e3c7e9ff",
+      "output_sha256": "af4ee865cedf5de05d02d8cb5058dcee6188966cd98b7e233572481784895934",
+      "groups": [
+        {
+          "indices": [
+            8
+          ],
+          "start": 12991257600,
+          "end": 12991258304,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 12991261696,
+          "end": 12991262400,
+          "padding": 256,
+          "device_base": 134052591961600
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991307776,
+          "end": 12991309888,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 12991312896,
+          "end": 12991315008,
+          "padding": 256,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 133299462736896,
+          "end": 133299462739008,
+          "padding": 256,
+          "device_base": 134052591969280
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 133299462742016,
+          "end": 133299462744128,
+          "padding": 256,
+          "device_base": 134052591972352
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 133299462802432,
+          "end": 133299462803136,
+          "padding": 256,
+          "device_base": 134052591975424
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 133299462831616,
+          "end": 133299462858368,
+          "padding": 256,
+          "device_base": 134052591976960
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "inverse",
+      "kernel_key": "inverse",
+      "capture_sha256": "eef1edba9b31e4c3ba06e1cad5da6ffb942e523830c910387ace6cd08d40f03b",
+      "output_sha256": "d3f9ebaaf9e0ef293b961a0351e2c1b176af2e5e99bdc40c8c49f9a13a0c1c25",
+      "groups": [
+        {
+          "indices": [
+            2
+          ],
+          "start": 12991257600,
+          "end": 12991258304,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 12991261696,
+          "end": 12991262400,
+          "padding": 256,
+          "device_base": 134052591961600
+        },
+        {
+          "indices": [
+            0,
+            3
+          ],
+          "start": 133299462756864,
+          "end": 133299462763200,
+          "padding": 256,
+          "device_base": 134052591963136
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "3": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "3": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "3": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "precondition_first",
+      "kernel_key": "precondition_first",
+      "capture_sha256": "cfa3ef8a76f5873b5b7fc7805be772a74f361773cdab261f0f360f719d6039ca",
+      "output_sha256": "3d966eb2bfcbf00b43cddfd64ac33355217802f4cac41a17b99045eb2146a3f8",
+      "groups": [
+        {
+          "indices": [
+            0
+          ],
+          "start": 133299462756864,
+          "end": 133299462763200,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 133299463358976,
+          "end": 133299463361088,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 133299463364096,
+          "end": 133299463366208,
+          "padding": 256,
+          "device_base": 134052591970304
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299463375872,
+          "end": 133299463375876,
+          "padding": 256,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "direction_first",
+      "kernel_key": "direction_first",
+      "capture_sha256": "cdecd1eb5785044125984232f3203e10dd419f243bc3b51e2e3284bb99c28ab0",
+      "output_sha256": "78a3ba73a2a805e077bb5caba136402041ed4ed5ca59d7e5d29c8c1e5cd0cac0",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299463361536,
+          "end": 133299463363648,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 133299463364096,
+          "end": 133299463366208,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 133299463375872,
+          "end": 133299463375876,
+          "padding": 256,
+          "device_base": 134052591966208
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "matrix_first",
+      "kernel_key": "matrix_first",
+      "capture_sha256": "3914307e3a2e6ee195eb9d875e7523dc81f939d54ebdd2e555a047af64697c3e",
+      "output_sha256": "576d2418abfd32eb3f71392af8ecece53906f106cb85147e6ca8f5f635c5225d",
+      "groups": [
+        {
+          "indices": [
+            3
+          ],
+          "start": 133299462750208,
+          "end": 133299462756544,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 133299462803456,
+          "end": 133299462804160,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 133299463224832,
+          "end": 133299463358592,
+          "padding": 256,
+          "device_base": 134052591968768
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 133299463361536,
+          "end": 133299463363648,
+          "padding": 256,
+          "device_base": 134052592103424
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299463366656,
+          "end": 133299463368768,
+          "padding": 256,
+          "device_base": 134052592106496
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 133299463369216,
+          "end": 133299463371328,
+          "padding": 256,
+          "device_base": 134052592109568
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 133299463371776,
+          "end": 133299463371780,
+          "padding": 256,
+          "device_base": 134052592112640
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "update_first",
+      "kernel_key": "update_first",
+      "capture_sha256": "50c4e5b6c1b02e5aab82e08d4596a8806889ac64b948ee60577f42a726d4246a",
+      "output_sha256": "f7d9508090c15fbce13dae9bb7e174e3f8aa347cf73776c78ccb727886df9a16",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299462734336,
+          "end": 133299462736448,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 133299463358976,
+          "end": 133299463361088,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 133299463361536,
+          "end": 133299463363648,
+          "padding": 256,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 133299463366656,
+          "end": 133299463368768,
+          "padding": 256,
+          "device_base": 134052591969280
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 133299463371776,
+          "end": 133299463371780,
+          "padding": 256,
+          "device_base": 134052591972352
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 133299463375872,
+          "end": 133299463375876,
+          "padding": 256,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "precondition_last",
+      "kernel_key": "precondition_last",
+      "capture_sha256": "49118ae01d21cdcc2ac5c28bbc0467448b4d9367b15f5d00b572e8f0ee3a2035",
+      "output_sha256": "b4c523da5238aabb94d072facb73cceae5e748ccbd8719e3a15ed93d5fcbfaee",
+      "groups": [
+        {
+          "indices": [
+            0
+          ],
+          "start": 133299462756864,
+          "end": 133299462763200,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 133299463358976,
+          "end": 133299463361088,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 133299463364096,
+          "end": 133299463366208,
+          "padding": 256,
+          "device_base": 134052591970304
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299463376068,
+          "end": 133299463376072,
+          "padding": 452,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "2": true,
+            "6": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "2": true,
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "direction_last",
+      "kernel_key": "direction_last",
+      "capture_sha256": "ed012bebc9ab6d8827961fda28b7837a884f6b930b6434b21cf3e9cef5c2059a",
+      "output_sha256": "9b267a574ced588261f130610fc50f403d302afb45994dece16413e3a935f4d6",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299463361536,
+          "end": 133299463363648,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 133299463364096,
+          "end": 133299463366208,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 133299463376064,
+          "end": 133299463376068,
+          "padding": 448,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 133299463376068,
+          "end": 133299463376072,
+          "padding": 452,
+          "device_base": 134052591967232
+        }
+      ],
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "matrix_last",
+      "kernel_key": "matrix_last",
+      "capture_sha256": "fad28abe68741791ead93955b41cfdec6b769e7c4205524f87f700c28e0acd44",
+      "output_sha256": "5317487bd2dbc5b885389efab4f51d6856816c9f6b91772a7e8845528f53806f",
+      "groups": [
+        {
+          "indices": [
+            3
+          ],
+          "start": 133299462750208,
+          "end": 133299462756544,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            0
+          ],
+          "start": 133299462803456,
+          "end": 133299462804160,
+          "padding": 256,
+          "device_base": 134052591967232
+        },
+        {
+          "indices": [
+            1
+          ],
+          "start": 133299463224832,
+          "end": 133299463358592,
+          "padding": 256,
+          "device_base": 134052591968768
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 133299463361536,
+          "end": 133299463363648,
+          "padding": 256,
+          "device_base": 134052592103424
+        },
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299463366656,
+          "end": 133299463368768,
+          "padding": 256,
+          "device_base": 134052592106496
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 133299463369216,
+          "end": 133299463371328,
+          "padding": 256,
+          "device_base": 134052592109568
+        },
+        {
+          "indices": [
+            9
+          ],
+          "start": 133299463371972,
+          "end": 133299463371976,
+          "padding": 452,
+          "device_base": 134052592112640
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "9": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": false
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "9": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "update_last",
+      "kernel_key": "update_last",
+      "capture_sha256": "765988ebc7c191606336bbcde2285768729eeb8aad3b12f1607654f93a3bd41c",
+      "output_sha256": "a46282288b9584cc925e4b12fb36c41b84d3d72c48b9b238946ccbc899712068",
+      "groups": [
+        {
+          "indices": [
+            6
+          ],
+          "start": 133299462734336,
+          "end": 133299462736448,
+          "padding": 256,
+          "device_base": 134052591960064
+        },
+        {
+          "indices": [
+            7
+          ],
+          "start": 133299463358976,
+          "end": 133299463361088,
+          "padding": 256,
+          "device_base": 134052591963136
+        },
+        {
+          "indices": [
+            4
+          ],
+          "start": 133299463361536,
+          "end": 133299463363648,
+          "padding": 256,
+          "device_base": 134052591966208
+        },
+        {
+          "indices": [
+            5
+          ],
+          "start": 133299463366656,
+          "end": 133299463368768,
+          "padding": 256,
+          "device_base": 134052591969280
+        },
+        {
+          "indices": [
+            3
+          ],
+          "start": 133299463371972,
+          "end": 133299463371976,
+          "padding": 452,
+          "device_base": 134052591972352
+        },
+        {
+          "indices": [
+            2
+          ],
+          "start": 133299463376068,
+          "end": 133299463376072,
+          "padding": 452,
+          "device_base": 134052591973376
+        }
+      ],
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "source-ptx",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        },
+        {
+          "backend": "original-runtime",
+          "captured_output_equal": {
+            "6": true,
+            "7": true
+          },
+          "unwritten_bytes_unchanged": true
+        }
+      ]
+    }
+  ],
+  "complete": true,
+  "actual_calls": 60,
+  "runner_sha256": "d5f057116af445962c93fc3b265ba66df8f71bcde58a5241f5c59eacb8fb1906",
+  "strict_failures_retained": true,
+  "production_changed": false,
+  "old_C8_reclassified": false,
+  "whole_solver_complete": false
+}

@@ -1,0 +1,133 @@
+{
+  "CPU_preflight_before_formatting": {
+    "session": 26272,
+    "actual_exit": 0
+  },
+  "CPU_preflight_after_formatting": {
+    "session": 23707,
+    "actual_exit": 0
+  },
+  "capture_replay_driver": {
+    "session": 20100,
+    "actual_exit": 0
+  },
+  "atomic_driver": {
+    "session": 45158,
+    "actual_exit": 0
+  },
+  "children": {
+    "run": [
+      {
+        "label": "sdk0",
+        "pid": 2714271,
+        "actual_exit": 0
+      },
+      {
+        "label": "rebuilt0",
+        "pid": 2714659,
+        "actual_exit": 0
+      }
+    ],
+    "followup": [
+      {
+        "label": "independent-cpu-audit",
+        "pid": 2714970,
+        "actual_exit": 0
+      },
+      {
+        "label": "replay",
+        "pid": 2715049,
+        "actual_exit": 0
+      },
+      {
+        "label": "replay-independent-cpu-audit",
+        "pid": 2715218,
+        "actual_exit": 0
+      }
+    ],
+    "atomic": [
+      {
+        "label": "atomic-gpu",
+        "pid": 2718125,
+        "actual_exit": 0
+      },
+      {
+        "label": "atomic-independent-cpu-audit",
+        "pid": 2718174,
+        "actual_exit": 0
+      }
+    ]
+  },
+  "static_context_CPU": {
+    "session": 47399,
+    "actual_exit": 0
+  },
+  "inverse_text_and_revision_CPU": {
+    "actual_exit": 0
+  },
+  "linear_inputs_CPU": {
+    "actual_exit": 0
+  },
+  "remaining_three_inverse_cofactors_finite": true,
+  "all_started_own_GPU_jobs_terminal": true,
+  "foreign_PID_2704714_interrupted": false,
+  "foreign_process_exit": null,
+  "whole_solver_complete": false,
+  "strict_failures_reclassified": false,
+  "production_changed": false,
+  "commands": {
+    "atomic-gpu.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_nl2_atomic",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear"
+    ],
+    "atomic-independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear/atomic-independent-cpu-audit.py"
+    ],
+    "independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear/independent-cpu-audit.py"
+    ],
+    "rebuilt0.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_nl2_linear",
+      "--backend",
+      "source",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear/rebuilt0"
+    ],
+    "replay-independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_nl2_linear",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear",
+      "--audit"
+    ],
+    "replay.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_nl2_linear",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear",
+      "--replay"
+    ],
+    "sdk0.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_nl2_linear",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-fourth-nl2-linear/sdk0"
+    ]
+  }
+}

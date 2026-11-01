@@ -1,0 +1,112 @@
+.visible .entry _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m(
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_0,
+	.param .u32 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_1,
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_2,
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_3,
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_4,
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_5,
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_6,
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_7,
+	.param .u64 _ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_8
+)
+{
+	.reg .pred 	%p<7>;
+	.reg .f32 	%f<32>;
+	.reg .b32 	%r<10>;
+	.reg .b64 	%rd<29>;
+
+
+	ld.param.u64 	%rd2, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_0];
+	ld.param.u32 	%r4, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_1];
+	ld.param.u64 	%rd3, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_2];
+	ld.param.u64 	%rd4, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_3];
+	ld.param.u64 	%rd5, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_4];
+	ld.param.u64 	%rd6, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_5];
+	ld.param.u64 	%rd7, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_6];
+	ld.param.u64 	%rd8, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_7];
+	ld.param.u64 	%rd9, [_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m_param_8];
+	mov.u32 	%r5, %ctaid.x;
+	mov.u32 	%r6, %ntid.x;
+	mul.wide.u32 	%rd10, %r5, %r6;
+	mov.u32 	%r7, %tid.x;
+	cvt.u64.u32 	%rd11, %r7;
+	add.s64 	%rd1, %rd10, %rd11;
+	setp.ge.u64 	%p1, %rd1, %rd9;
+	@%p1 bra 	$L__BB18_8;
+
+	setp.eq.s64 	%p2, %rd2, 0;
+	@%p2 bra 	$L__BB18_3;
+
+	cvta.to.global.u64 	%rd12, %rd2;
+	shl.b64 	%rd13, %rd1, 2;
+	add.s64 	%rd14, %rd12, %rd13;
+	ld.global.u32 	%r9, [%rd14];
+	bra.uni 	$L__BB18_4;
+
+$L__BB18_3:
+	cvt.u32.u64 	%r8, %rd1;
+	div.u32 	%r9, %r8, %r4;
+
+$L__BB18_4:
+	cvta.to.global.u64 	%rd15, %rd3;
+	mul.wide.s32 	%rd16, %r9, 4;
+	add.s64 	%rd17, %rd15, %rd16;
+	ld.global.f32 	%f1, [%rd17];
+	cvta.to.global.u64 	%rd18, %rd4;
+	add.s64 	%rd19, %rd18, %rd16;
+	ld.global.f32 	%f2, [%rd19];
+	abs.f32 	%f6, %f2;
+	setp.leu.f32 	%p3, %f6, 0f0DA24260;
+	setp.gtu.f32 	%p4, %f6, 0f7F800000;
+	or.pred  	%p5, %p3, %p4;
+	mov.f32 	%f31, 0f00000000;
+	@%p5 bra 	$L__BB18_7;
+
+	abs.f32 	%f8, %f1;
+	setp.gtu.f32 	%p6, %f8, 0f7F800000;
+	@%p6 bra 	$L__BB18_7;
+
+	div.rn.f32 	%f31, %f1, %f2;
+
+$L__BB18_7:
+	cvta.to.global.u64 	%rd20, %rd6;
+	mul.lo.s64 	%rd21, %rd1, 12;
+	add.s64 	%rd22, %rd20, %rd21;
+	ld.global.f32 	%f9, [%rd22];
+	mul.f32 	%f10, %f31, %f9;
+	ld.global.f32 	%f11, [%rd22+4];
+	mul.f32 	%f12, %f31, %f11;
+	ld.global.f32 	%f13, [%rd22+8];
+	mul.f32 	%f14, %f31, %f13;
+	cvta.to.global.u64 	%rd23, %rd8;
+	add.s64 	%rd24, %rd23, %rd21;
+	ld.global.f32 	%f15, [%rd24];
+	sub.f32 	%f16, %f15, %f10;
+	st.global.f32 	[%rd24], %f16;
+	ld.global.f32 	%f17, [%rd24+4];
+	sub.f32 	%f18, %f17, %f12;
+	st.global.f32 	[%rd24+4], %f18;
+	ld.global.f32 	%f19, [%rd24+8];
+	sub.f32 	%f20, %f19, %f14;
+	st.global.f32 	[%rd24+8], %f20;
+	cvta.to.global.u64 	%rd25, %rd5;
+	add.s64 	%rd26, %rd25, %rd21;
+	ld.global.f32 	%f21, [%rd26];
+	ld.global.f32 	%f22, [%rd26+4];
+	ld.global.f32 	%f23, [%rd26+8];
+	cvta.to.global.u64 	%rd27, %rd7;
+	add.s64 	%rd28, %rd27, %rd21;
+	ld.global.f32 	%f24, [%rd28];
+	fma.rn.f32 	%f25, %f31, %f21, %f24;
+	st.global.f32 	[%rd28], %f25;
+	ld.global.f32 	%f26, [%rd28+4];
+	fma.rn.f32 	%f27, %f31, %f22, %f26;
+	st.global.f32 	[%rd28+4], %f27;
+	ld.global.f32 	%f28, [%rd28+8];
+	fma.rn.f32 	%f29, %f31, %f23, %f28;
+	st.global.f32 	[%rd28+8], %f29;
+
+$L__BB18_8:
+	ret;
+
+}

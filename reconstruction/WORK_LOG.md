@@ -6533,3 +6533,33 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   见G1_FOURTH_CG_SCALARS_RECOVERY.md及continuation-20261101-38b70dcd-g1-fourth-cg-scalars完整证据。
 - 全部本轮GPU已正常结束，未修改生产/SDK/pyc或宽松比较。说明见G1_DRIVE_AND_AL_STATE_RECOVERY.md，
   原始证据/命令/终态在continuation-20261101-38b70dcd-g1-drive-and-AL-state。完整源码替代仍未验收，goal活动，readyFalse，Windows仍WSL2。
+
+### 2026-11-01：G1第4子步NL2完整线性阶段采集准备
+
+- 前一goal轮仅回答状态，属于no progress；本轮重查fe39faab与未提交g1_nl2_linear.py，继续实际工作。
+- SDK64a/host38/Core7eb/CUDA176f0、生产数学、旧失败/阈值不动。固定一SDK一source局部诊断，不是新数值C队列。
+- 十实际调用：RHS9332、原地inverse9350及首末CG precondition/direction/matrix/update；全部输入/输出和ABI捕获。
+  每端69 copy/421756字节，实际API返回200字节描述符；inverse输入0输出3的6336字节完整别名保持。
+- 首维护脚本格式门禁退出1：adapter第94行131列。首CPU prepare26272实际0但尚无GPU，保留before-formatting计划后修字符串格式。
+  重冻结prepare23707实际0；所有调用ABI和两端静态潜在写字段同；维护脚本AST/128列门禁通过。
+- 驱动session20100排队，外部PID2704714实际占用，保留GPU查询，未终止外部任务。后续真实终态以status/终端为准。
+- 首新增文档patch误匹配WORK_LOG标题被拒绝，未写文件；随后独立新增和追加。探索性read两不存在路径返回2/1，无数据修改。
+- 接续60三端回放、96完整输出及独立CPU；只在真实scalar失败后做必要原子证据，不预设向量差异原因。
+  详见G1_FOURTH_NL2_LINEAR_RECOVERY.md和continuation-20261101-38b70dcd-g1-fourth-nl2-linear证据目录。
+- GPU等待期间static-context.py session47399实际0：两端实际图9351复制最终累计RHS，9352..9354清零解及两组50槽scalar。
+  CG precondition/direction/matrix/update全部规范化PTX相同；inverse唯一规范化差别为一条F32乘法交换两操作数，CPU独立确认。
+  此静态结果不覆盖NaN payload选择，也不替代真实原地alias/完整向量回放；RHS文本仍不同，未据文本差判数值一致。
+  pre-GPU revision audit确认只更换adapter格式SHA，worker/transport/replay渲染字节全不变，旧plan保留。
+- 驱动session20100实际0：两正常Core worker2714271/2714659及CPU2714970、60回放2715049、CPU2715218全部0。
+  原图完整保留，17536节点/17555边；843512快照字节、27600真实copy描述符字节及28 producer/consumer完整链核准。
+- 72非归约输出全严格；scalar9/24严格，合计81/96，15严格失败保留。CPU核2481792 after/2304288非输出guard、
+  4068实际ABI/318指针/1524 scalar字节及44376输出word；不是全部50轮CG向量回放。
+- linear-input-audit.py实际0：两端176实际inverse块/中间cofactor有限、176正determinant，无fallback；首解/首末numerator正零。
+  RHS状态输入在进入这一轮前已不同，固定质量/flags/ELL/基础diagonal同；本次两端NL2增量都属0.001组，未采到0.0105组。
+- 新g1_nl2_atomic.py、八输入固定plan、16真实probe的2816 literal贡献逐位同；保存完整256×128×16与真实counts，未重复stride错误。
+  48次SDK runtime/原PTX/source逐粒子world隔离，±0两初值，8448独立贡献及全部pointwise输出严格同。
+- 所有捕获/回放/probe scalar合并21 GPU真实F32证书全部过；3696硬件before历史值独立CPU FTZ重算同，包含负贡献。
+  固定100000预算，实际2..36搜索次数；无subnormal。仅证明每scalar合法顺序，不推断旧warp调度，不重判15严格失败或旧C8。
+- atomic prepare/AST/128实际0，驱动45158实际0，GPU2718125/CPU2718174均0；CPU核5233024 after、5097792 guard、5652 ABI字节。
+  外部2704714已不在表，退出未知；本轮自有全部GPU已结束。生产/SDK/pyc不改、未冗余重复74，readyFalse/goal活动。
+- 证据和方法见G1_FOURTH_NL2_LINEAR_RECOVERY.md；下一步实际SDK核未覆盖host组合支持/调度，继续补功能范围。

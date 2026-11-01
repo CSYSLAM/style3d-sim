@@ -1,5 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **第4子步NL2完整线性阶段已实测。** 原地inverse的6336字节别名保持；72份非归约输出全部逐位同。
+> scalar仅9/24严格、15份失败保留；2816真实操作数同、48次SDK/PTX/source隔离和21份GPU F32证书通过。
+> 完整after/实际ABI及3696历史值CPU独立核准；本批不是全部50轮向量回放，旧C8/readyFalse不改。
+> 接续未覆盖host组合的实际SDK支持与调度核对；见[G1第4子步NL2](reconstruction/csrc/G1_FOURTH_NL2_LINEAR_RECOVERY.md)。
+
 > **第4子步CG系数已实际核准。** 2750 alpha/2695 beta原始输入，三端受控完整输出逐位同，CPU RN也同。
 > 55次真实非线性apply两输出全逐位符合F32运算；copy API描述符1170400字节及实际生产/消费指针独立核准。
 > 本批无系数guard归零/负分母；显著响应分组已在第2轮增量出现，两端都有，旧C8/readyFalse不改。
