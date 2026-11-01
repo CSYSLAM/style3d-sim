@@ -1,0 +1,131 @@
+{
+  "base_sha256": "f1bf4bc2e44798a3d9c5b348fcdb53dff92c0319ffc10d12ef4f82074ea33357",
+  "replacements": [
+    {
+      "old": "return {1:(1,0,2112 if key=='force' else 6336),",
+      "new": "return {1:(1,0,2112),2:(2,0,2112),",
+      "occurrences": 1
+    },
+    {
+      "old": "len(replay['packets'])==240",
+      "new": "len(replay['packets'])==120",
+      "occurrences": 1
+    },
+    {
+      "old": "len(new_order)==17519",
+      "new": "len(new_order)==17494",
+      "occurrences": 1
+    },
+    {
+      "old": "len(new['edges'])==17522",
+      "new": "len(new['edges'])==17495",
+      "occurrences": 1
+    },
+    {
+      "old": "len(layout['snapshots'])==52",
+      "new": "len(layout['snapshots'])==27",
+      "occurrences": 1
+    },
+    {
+      "old": "len(layout['stages'])==2",
+      "new": "len(layout['stages'])==1",
+      "occurrences": 1
+    },
+    {
+      "old": "(14577 if key=='force' else 14592)",
+      "new": "17455",
+      "occurrences": 1
+    },
+    {
+      "old": "[248,8]",
+      "new": "[248,8,8]",
+      "occurrences": 3
+    },
+    {
+      "old": "stage['outputs']==[1]",
+      "new": "stage['outputs']==[2]",
+      "occurrences": 1
+    },
+    {
+      "old": "('after',1)",
+      "new": "('after',2)",
+      "occurrences": 1
+    },
+    {
+      "old": "==196776",
+      "new": "==96276",
+      "occurrences": 1
+    },
+    {
+      "old": "range(2)",
+      "new": "range(3)",
+      "occurrences": 2
+    },
+    {
+      "old": "packet['after-binding-1']",
+      "new": "packet['after-binding-2']",
+      "occurrences": 1
+    },
+    {
+      "old": "bindings[1]",
+      "new": "bindings[2]",
+      "occurrences": 1
+    },
+    {
+      "old": "{'1':changed}",
+      "new": "{'2':changed}",
+      "occurrences": 1
+    },
+    {
+      "old": "actual_pointers[1]",
+      "new": "actual_pointers[2]",
+      "occurrences": 5
+    },
+    {
+      "old": "{'1':actual_pointers[2]}",
+      "new": "{'2':actual_pointers[2]}",
+      "occurrences": 1
+    },
+    {
+      "old": "backend+'-output-1'",
+      "new": "backend+'-output-2'",
+      "occurrences": 1
+    },
+    {
+      "old": "{'1':equal}",
+      "new": "{'2':equal}",
+      "occurrences": 1
+    },
+    {
+      "old": "if i==1:",
+      "new": "if i==2:",
+      "occurrences": 1
+    },
+    {
+      "old": "(18 if key=='force' else 54)",
+      "new": "18",
+      "occurrences": 1
+    },
+    {
+      "old": "target=(1,",
+      "new": "target=(2,",
+      "occurrences": 1
+    },
+    {
+      "old": "('force','matrix')",
+      "new": "('tangent',)",
+      "occurrences": 1
+    },
+    {
+      "old": "        for check in row['checks']:",
+      "new": "        assert len(row['checks'])==5\n        assert {c['backend'] for c in row['checks']}=={\n            'original-runtime','original-ptx','source-ptx','original-probe','source-probe'}\n        for check in row['checks']:",
+      "occurrences": 1
+    },
+    {
+      "old": "        counts[key]['preserved_view_scalar_bytes']+=int(scalar.sum())",
+      "new": "        counts[key]['preserved_view_scalar_bytes']+=int(scalar.sum())\n        counts[key]['ABI_pointer_fields_rechecked']+=len(expected)\n        counts[key]['actual_ABI_bytes_rechecked']+=sum(map(len,relocated))",
+      "occurrences": 1
+    }
+  ],
+  "generated_sha256": "390daa2e8add6ecabe705783b7dd0fb0021436313832f554eef522a0f8386bbc"
+}

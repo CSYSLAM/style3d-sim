@@ -1,5 +1,15 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **G1质量/ELL和joint/SO3 RHS已实际核对。** RHS360/SO3 600完整输出严格同；13个固定缓存buffer跨端逐字节同。
+> joint完整向量严格失败保留，但61920次SDK/PTX/source逐弹簧隔离全严格、64867 GPU真实F32标量证书全过，CPU重核同。
+> 当前新增整段C仍false、旧23.85未解释；生产host38/Core7eb/readyFalse不变，完整替代未通过。
+> 接续drive load14581、soft force14578、joint/SO3 state16882/17459；见[RHS实测](reconstruction/csrc/G1_INERTIAL_JOINT_SO3_RHS_RECOVERY.md)。
+
+> **G1最后rolling tangent已实际严格通过。** 120真实输入、五后端600完整输出全逐位同，4392实际原子操作数同。
+> 完整after、3120实际指针及6720标量字节CPU直接重核；12个固定模型字段跨端逐字节相同，未覆盖其它构造缓存。
+> 新整段C仍false、旧23.85未解释，host38/Core7eb/readyFalse不改。下一步实际质量/ELL缓存及joint/SO3 AL RHS。
+> 见[晚期滚动切线](reconstruction/csrc/G1_ROLLING_TANGENT_RECOVERY.md)；下方“先补rolling tangent”为历史下一步。
+
 > **G1滚动摩擦force/preconditioner实际严格通过。** 240真实输入、1200完整输出同；17712真实原子操作数同，
 > 107928000非输出after字节、6000重定位指针/13440标量字节CPU直接重核。capture99117/replay81787/CPU14067均0。
 > 新两端整段C仍false、旧23.85未解释；先补最后rolling tangent（rank17455、ABI248/8/8），再核joint/SO3 AL force。

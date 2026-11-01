@@ -6321,3 +6321,65 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   接续见csrc/G1_ROLLING_FORCE_RECOVERY.md。实际图还存在最后rolling tangent17455，ABI248/8/8已保存只读检查但尚未GPU回放，
   下一步先补齐该路径，再核RHS中joint/SO3 AL force14580/14583；其余RHS节点参数/类型也保存，不冒充执行结果。
   当前全部GPU任务已结束，未重跑生产74；完整源码替代仍未验收，goal继续活动，readyFalse，Windows仍WSL2。
+
+### 2026-11-01：最后rolling tangent的真实完整输出、实际ABI和固定模型输入核对
+
+- 已发布abdb9dc6是上一批rolling force/preconditioner进展。随后rolling tangent的实测已经闭合，本轮补整理。
+  上一条仅回答用户剩余进度，属于no progress；本轮重新检查实际worktree、报告和终态，继续推进而非重述状态。
+  SDK64a、host38/Core7eb、CUDA176/f0、固定八原版/三源码、全部旧失败和默认入口始终保持。
+- 新g1_rolling_tangent_capture/replay.py对固定SHA旧模板带锚点/次数断言派生，保存精确templates/as-run。
+  选择最后multiply_rolling_contact_tangent17455，真实ABI248/8/8、geometry4/256；24个view指针加direction/output。
+  W1/44body/176particle/cap1000/inverse_dt360/epsilon0.1；沿用上一轮native C++ sizeof248/32个offsetof证据。
+  CPU preflight session75177退出0；27 D2D快照、96276字节；原图17467/17466全保留，实际17494/17495独立核同。
+- capture16873和replay12520均实际退出0；两端各60帧正常公共Core真实graph/test过，源码bridge false、无SDK映射。
+  120真实输入、50次有效调用；实际runtime/双PTX/双探针共600完整输出全部逐位同。
+  1988计数前缀线程中1744提前退出、244各9atom；双PTX4392真实操作数的同目标及跨目标整条线程序列同。
+  全120份direction均528分量非零；双body最大18次未执行，不外推其它world/epsilon/NULL分支。
+- 独立CPU63230实际退出0：600完整向量、55231200非输出after字节、3120实际指针字段、6720标量字节，
+  以及全部31680实际ABI字节直接从原始NPZ/span重核。严格门槛已达，不启动冗余隔离或排列证书。
+  control-form实际通过；规范化PTX仍不同、静态site15/27，源码trap guard previous==NULL而120实际previous均非空。
+  不测试/推断原版NULL契约，不删生产trap，不声称一般索引bounds/控制流证明。
+- 曾观察外部verify_prescribed_motion.py PID2535766活跃18秒，当时只做CPU；其消失且nvidia compute列表空后才回放。
+  未停止外部进程，也未因观察超时重启。全部本轮GPU任务已结束，生产不改，不重复74项回归。
+- 同packet的12项固定模型数据（shape body/type/transform/scale、ke/kd/rolling/torsional、body ids/indices/com/inertia）
+  各端60帧均字节恒定，跨端全部同。新增可复现cross-backend-model-fields.py，重新核120输入SHA并完整复现首报告，实际退出0。
+  这不包含质量ELL、关节或其它构造缓存。另只读核到历史G1 constructor3属于host141、flat pointer仍false，不能继承为当前通过。
+- 新诊断整段C仍false：原版within40/59/40/60、源码48/51/49/56；最大速度误差1.288238525390625/2.047191083431244。
+  未复现或解释旧23.8513，旧报告SHA32b6e2a7…及所有旧样本不变。完整源码替代仍未验收，readyFalse，Windows继续WSL2。
+  全部闭合数据、命令/实际终态和文件SHA在continuation-20261101-38b70dcd-g1-rolling-tangent；说明见G1_ROLLING_TANGENT_RECOVERY.md。
+  下一项直接读取实际G1 initialize_rhs的mass/ELL和joint/SO3 AL输入，补同输入完整输出核对，不凭参数地址相同推断缓存内容同。
+
+### 2026-11-01：实际G1质量ELL缓存、joint/SO3 RHS与SDK逐弹簧隔离及F32证书
+
+- 保持SDK64a、host38/Core7eb、CUDA176/f0及旧C8；新增g1_al_rhs_capture/replay.py按固定SHA旧contact工具带锚点派生。
+  直接选择最后子步首次NL initialize_rhs14575、joint AL force14580、SO3 AL force14583；全为真实正常公共Core，不改demo。
+  W1/44body/176particle/86 joint body springs，ABI92/116/76字节，geometry1/256；27快照/63728字节，实际图17494/17499。
+- 初CPU preflight6252因SO3三条0f00000000字面量原子加被旧寄存器专用探针拒绝，GPU未启动，原脚本/PTX/错误保留。
+  新ptx_atomic_literal_probe.py只扩展诊断记录为原始u32 bit，每条原red指令保留原字节，旧helper SHA183ec44e…不动。
+  正/负零及NaN payload三CPU正例、谓词/十进制/其它寄存器三拒绝实际通过；不声称这些合成输入全部做过GPU验证。
+  修正后CPU preflight57528实际退出0，templates/independent auditor先冻结，再启动GPU。
+- capture15273、replay88332、独立CPU87392均实际退出0。两端各60帧graph/test过，源码bridge false、无SDK映射。
+  共360真实packet，三个stage各120次有效；原图节点/边全保留、每份原before/after、完整输入与输出、实际ABI均保存。
+  initialize_rhs三后端360完整输出严格同，SO3五后端600严格同。
+  joint五后端严格份数runtime35/origPTX28/source54/origProbe28/sourceProbe31，各分母120；424严格失败检查不改判。
+  joint495360、SO3 126720真实操作数的每线程同目标及跨目标整条序列全同。
+- 独立CPU直接核全部1560完整输出、22185600非输出after字节、2880实际指针、11040标量字节、共34080实际ABI字节。
+  全部span/alias/mod256、完整graph拓扑、前后依赖及全部actual参数原字节核准；非只信运行时断言。
+  实际质量/ELL行计数/19×176完整ELL/mask、joint proxy/body pairs/双anchor/双weights/k、SO3 proxy/weight共13参数buffer，
+  每端60帧字节恒定且跨端全同。proxy字段有重复，不说成13个独立分配，更不升级为所有构造缓存均已证明同。
+- 严格joint门槛未通过才固定后续计划；准备阶段生成131列被CPU拒绝，旧脚本/日志保存，缩短诊断日志文字后10095退出0。
+  新g1_joint_rhs_isolated.py从固定SHA旧drive工具派生：global数组不动，count/local1、spring_count=k+1选原k，multiplier偏移12*k。
+  两种零符号、三真实后端、120×86共61920次实际调用全严格，并匹配原始逐lane真实操作数预测。
+  新g1_joint_rhs_certificates.py沿用既定真实GPU global F32 atomics；每target2/4/6/8线程、同线程无重复目标，完整排列不删零。
+  捕获after及五后端所有不同bit共64867份真实before初值证书全通过，所有255880个GPU历史值和最终bit保存。
+- followup session17282实际全部结束0：isolation PID2556949、certificates2557045、CPU2557258。
+  独立CPU重核32693760隔离输出word、1197120实际隔离ABI字节、64867全排列证书及255880 GPU F32历史值，全部同。
+  只证明本批各标量有合法顺序，不宣称一个共同全局调度、不推断原执行顺序、不重判原向量严格false或整段C。
+- 额外PTX文本诊断保存完整diff/F32指令/虚拟寄存器声明，文本仍不同；不把虚拟声明当物理资源或调度影响证据。
+  next-stage CPU清单首版用了错误soft名称被拒绝，原脚本/状态保留；查实际graph符号改为27evaluate_soft_contact_forceE后通过。
+  实际下一项drive load14581、soft force14578、最后joint update16882、最后SO3 update17459的完整ABI保存，尚未GPU执行，不记为通过。
+- 新两端同旧C8仍false：原版within60/56/60/57、源码55/53/55/53，最大速度误差2.20939964056015/1.9027578979730606。
+  未复现或解释旧23.8513，旧八原版/三源码和SHA32b6e2a7…全部不动；没有增加cohort、放宽标准或重选源码轨迹。
+  全部原始输入、after、隔离、证书、日志/拒绝、命令及实际终态在continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs。
+  见G1_INERTIAL_JOINT_SO3_RHS_RECOVERY.md。所有本轮GPU任务均已结束，生产/数学未改，未重复已闭合74项。
+  完整源码替代未通过，goal保持活动，readyFalse，Windows继续WSL2；下一步按上述真实图节点继续同输入核对。

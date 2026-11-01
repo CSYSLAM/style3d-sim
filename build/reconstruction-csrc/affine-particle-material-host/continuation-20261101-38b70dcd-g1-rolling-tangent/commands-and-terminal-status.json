@@ -1,0 +1,77 @@
+{
+  "CPU_preflight": {
+    "script": "cpu-preflight.py",
+    "session": 75177,
+    "actual_exit": 0
+  },
+  "capture": {
+    "script": "run-captures.py",
+    "session": 16873,
+    "actual_exit": 0,
+    "commands": {
+      "original": [
+        "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+        "-m",
+        "reconstruction.csrc.g1_rolling_tangent_capture",
+        "--backend",
+        "original",
+        "--abi",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+        "--frames",
+        "60",
+        "--output",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling-tangent/original"
+      ],
+      "source": [
+        "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+        "-m",
+        "reconstruction.csrc.g1_rolling_tangent_capture",
+        "--backend",
+        "source",
+        "--abi",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+        "--frames",
+        "60",
+        "--output",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling-tangent/source"
+      ]
+    }
+  },
+  "replay": {
+    "script": "run-replay.py",
+    "session": 12520,
+    "actual_exit": 0,
+    "command": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_rolling_tangent_replay",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling-tangent",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling-tangent/replay"
+    ]
+  },
+  "independent_CPU": {
+    "script": "independent-cpu-audit.py",
+    "session": 63230,
+    "actual_exit": 0
+  },
+  "control_CPU": {
+    "script": "control-form-audit.py",
+    "actual_exit": 0
+  },
+  "model_fields_CPU": {
+    "script": "cross-backend-model-fields.py",
+    "actual_exit": 0
+  },
+  "foreign_job_observation": {
+    "pid": 2535766,
+    "initially_live": true,
+    "interrupted": false,
+    "missing_and_compute_list_empty_before_replay": true
+  },
+  "all_started_jobs_terminal": true,
+  "production_changed": false,
+  "frozen_failure_reclassified": false,
+  "whole_solver_complete": false
+}

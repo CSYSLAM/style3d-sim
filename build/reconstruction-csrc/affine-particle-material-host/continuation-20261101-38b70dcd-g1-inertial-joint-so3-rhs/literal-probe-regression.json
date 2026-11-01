@@ -1,0 +1,34 @@
+{
+  "cases": [
+    {
+      "literal": "0f00000000",
+      "bits": 0,
+      "passed": true
+    },
+    {
+      "literal": "0f80000000",
+      "bits": 2147483648,
+      "passed": true
+    },
+    {
+      "literal": "0f7fC01234",
+      "bits": 2143294004,
+      "passed": true
+    },
+    {
+      "rejected": "predicated",
+      "passed": true
+    },
+    {
+      "rejected": "unsupported_decimal",
+      "passed": true
+    },
+    {
+      "rejected": "unsupported_other_register",
+      "passed": true
+    }
+  ],
+  "count": 6,
+  "GPU_context_created": false,
+  "runner_sha256": "3b10cf7678393ed6fe78f2e64c48fcbfb4cf5be4c362ce6f6a73744f92b27de8"
+}

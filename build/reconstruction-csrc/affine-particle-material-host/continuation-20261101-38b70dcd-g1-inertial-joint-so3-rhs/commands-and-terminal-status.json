@@ -1,0 +1,124 @@
+{
+  "CPU_preflight_refusal": {
+    "session": 6252,
+    "actual_exit": 1,
+    "GPU_started": false,
+    "preserved": true
+  },
+  "literal_CPU_regression": {
+    "actual_exit": 0,
+    "cases": 6
+  },
+  "CPU_preflight": {
+    "session": 57528,
+    "actual_exit": 0
+  },
+  "capture": {
+    "session": 15273,
+    "actual_exit": 0
+  },
+  "replay": {
+    "session": 88332,
+    "actual_exit": 0
+  },
+  "independent_CPU": {
+    "session": 87392,
+    "actual_exit": 0
+  },
+  "atomic_preparation": {
+    "session": 10095,
+    "actual_exit": 0,
+    "earlier_CPU_width_refusal_preserved": true
+  },
+  "atomic_followup": {
+    "session": 17282,
+    "actual_exit": 0,
+    "steps": [
+      {
+        "step": "isolation",
+        "pid": 2556949,
+        "actual_exit": 0
+      },
+      {
+        "step": "certificates",
+        "pid": 2557045,
+        "actual_exit": 0
+      },
+      {
+        "step": "atomic-followup-cpu-audit",
+        "pid": 2557258,
+        "actual_exit": 0
+      }
+    ]
+  },
+  "next_stage_inventory": {
+    "actual_exit": 0,
+    "earlier_CPU_symbol_refusal_preserved": true,
+    "GPU_started": false
+  },
+  "all_started_GPU_jobs_terminal": true,
+  "normal_source_core_has_no_SDK_mapping": true,
+  "strict_joint_failures_retained": true,
+  "full_C8_failure_retained": true,
+  "production_changed": false,
+  "whole_solver_complete": false,
+  "commands": {
+    "atomic-followup-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs/atomic-followup-cpu-audit.py"
+    ],
+    "certificates.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_joint_rhs_certificates",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs/certificates"
+    ],
+    "isolation.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_joint_rhs_isolated",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs/isolation"
+    ],
+    "original.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_al_rhs_capture",
+      "--backend",
+      "original",
+      "--abi",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+      "--frames",
+      "60",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs/original"
+    ],
+    "replay.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_al_rhs_replay",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs/replay"
+    ],
+    "source.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_al_rhs_capture",
+      "--backend",
+      "source",
+      "--abi",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+      "--frames",
+      "60",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs/source"
+    ]
+  }
+}

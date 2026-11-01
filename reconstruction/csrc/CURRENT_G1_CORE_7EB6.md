@@ -80,7 +80,14 @@ SDK/源码所有原始轨迹与旧失败都保留；阈值和固定八份基准�
 上述rolling force/preconditioner现已完成，见[滚动摩擦实测](G1_ROLLING_FORCE_RECOVERY.md)。
 240真实输入、1200完整输出严格同；17712真实原子操作数、完整after及实际ABI的指针重定位/标量原字节均CPU重核。
 本轮原版within60/57/60/57，源码59/59/59/60，整段C仍false、旧23.85未解释，不改旧失败。
-下一步先补最后rolling tangent（rank17455、ABI248/8/8），再核joint/SO3 AL force。
+最后rolling tangent现已完成，见[晚期滚动切线](G1_ROLLING_TANGENT_RECOVERY.md)。
+120真实输入、五后端600完整输出严格同，4392原子操作数、完整after及31680实际ABI字节CPU重核同。
+同批12个固定模型字段跨端逐字节同，不覆盖其它构造缓存；新两端整段C仍false，旧23.85仍未解释。
+实际G1质量/ELL缓存和joint/SO3 AL force现已核对，见[RHS实测](G1_INERTIAL_JOINT_SO3_RHS_RECOVERY.md)。
+13个固定缓存buffer跨端全字节同，惯性RHS360/SO3 600完整输出严格同；joint严格失败保留，
+但61920次SDK/PTX/source隔离全同、64867真实GPU F32标量证书全过，所有输出/ABI/历史独立CPU重核同。
+新原版within60/56/60/57、源码55/53/55/53，整段仍false，旧23.85未解释；不继承旧host141失败为当前通过。
+下一项实际drive load14581、soft force14578、joint/SO3 AL state16882/17459；只读符号/ABI已保存，尚无本批GPU证明。
 
 所有新执行使用新目录，GPU串行；源、SDK、数学、阈值、原始cohort保持固定，Windows继续WSL2。
 

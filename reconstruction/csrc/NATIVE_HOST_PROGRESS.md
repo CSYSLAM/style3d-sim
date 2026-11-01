@@ -1,5 +1,18 @@
 # 新版基准与 C++ host 进度
 
+> **G1惯性RHS和SO3力严格通过，joint真实原子证书通过。** 360/600完整输出严格，13固定缓存buffer跨端同。
+> joint严格差异保留；61920次SDK隔离全同，64867 GPU真实F32证书及255880历史CPU重核全过。
+> 整段C仍false、旧23.85未解释，生产host38/Core7eb/readyFalse不变；下一项drive/soft力和joint/SO3 state。
+> 见[G1_INERTIAL_JOINT_SO3_RHS_RECOVERY.md](G1_INERTIAL_JOINT_SO3_RHS_RECOVERY.md)。
+
+# 当前补充：G1晚期rolling tangent
+
+120份真实输入、五后端600完整输出逐位同，4392原子操作数及完整after/实际ABI独立CPU核同。
+12个固定模型字段跨端字节同，但其它构造缓存未核；新整段C仍false，旧23.85未解释，生产host38/Core7eb不变。
+下一步实际质量/ELL缓存及joint/SO3 AL RHS，见[G1_ROLLING_TANGENT_RECOVERY.md](G1_ROLLING_TANGENT_RECOVERY.md)。
+
+
+
 > **G1 rolling force/preconditioner：240真实输入、1200完整输出严格同。** 17712真实原子操作数、107928000非输出字节同；
 > 实际ABI参数6000指针字段/13440标量字节直接CPU重核，三个任务真实退出0。生产host38/Core7eb不改，readyFalse。
 > 新整段C仍失败、旧23.85未解释；下一步rolling tangent的248/8/8，再转joint/SO3 AL force。

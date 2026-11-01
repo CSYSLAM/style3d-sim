@@ -1,0 +1,528 @@
+{
+  "stages": [
+    {
+      "key": "rhs",
+      "rank": 14575,
+      "node": {
+        "handle": 965984256,
+        "type": 0,
+        "name": "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+        "geometry": [
+          1,
+          1,
+          1,
+          256,
+          1,
+          1,
+          0
+        ],
+        "attributes": {
+          "max_threads": 1024,
+          "registers": 38,
+          "local_bytes": 0,
+          "shared_bytes": 0
+        },
+        "parameter_offsets": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          48,
+          56,
+          64,
+          72,
+          80,
+          88
+        ],
+        "parameter_widths": [
+          4,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "parameter_hex": [
+          "0020fd47",
+          "00a0570603000000",
+          "0020201533750000",
+          "00ec560603000000",
+          "000c211533750000",
+          "007e211533750000",
+          "1300000000000000",
+          "00b4570603000000",
+          "00dc560603000000",
+          "000c201533750000",
+          "b000000000000000",
+          "b000000000000000"
+        ],
+        "owned_kernel": true
+      },
+      "sizes": {
+        "1": 2112,
+        "2": 2112,
+        "3": 704,
+        "4": 704,
+        "5": 26752,
+        "7": 2112,
+        "8": 704,
+        "9": 2112
+      },
+      "outputs": [
+        9
+      ],
+      "output_overlaps": []
+    },
+    {
+      "key": "joint",
+      "rank": 14580,
+      "node": {
+        "handle": 965994496,
+        "type": 0,
+        "name": "_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm",
+        "geometry": [
+          1,
+          1,
+          1,
+          256,
+          1,
+          1,
+          0
+        ],
+        "attributes": {
+          "max_threads": 1024,
+          "registers": 40,
+          "local_bytes": 0,
+          "shared_bytes": 0
+        },
+        "parameter_offsets": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          48,
+          56,
+          64,
+          72,
+          80,
+          88,
+          96,
+          104,
+          112
+        ],
+        "parameter_widths": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          4,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "parameter_hex": [
+          "00a0570603000000",
+          "00f4560603000000",
+          "0018570603000000",
+          "001c570603000000",
+          "0022570603000000",
+          "004e251533750000",
+          "0054251533750000",
+          "0028570603000000",
+          "0074201533750000",
+          "00c1454b",
+          "000c201533750000",
+          "5600000000000000",
+          "5600000000000000",
+          "5600000000000000",
+          "b000000000000000"
+        ],
+        "owned_kernel": true
+      },
+      "sizes": {
+        "0": 2112,
+        "1": 704,
+        "2": 688,
+        "3": 1032,
+        "4": 1032,
+        "5": 1376,
+        "6": 1376,
+        "7": 344,
+        "8": 1032,
+        "10": 2112
+      },
+      "outputs": [
+        10
+      ],
+      "output_overlaps": []
+    },
+    {
+      "key": "so3",
+      "rank": 14583,
+      "node": {
+        "handle": 966000640,
+        "type": 0,
+        "name": "_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm",
+        "geometry": [
+          1,
+          1,
+          1,
+          256,
+          1,
+          1,
+          0
+        ],
+        "attributes": {
+          "max_threads": 1024,
+          "registers": 40,
+          "local_bytes": 0,
+          "shared_bytes": 0
+        },
+        "parameter_offsets": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          48,
+          56,
+          64,
+          72
+        ],
+        "parameter_widths": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          4,
+          8,
+          8,
+          8,
+          8
+        ],
+        "parameter_hex": [
+          "00a0570603000000",
+          "00f4560603000000",
+          "00f8560603000000",
+          "00e4201533750000",
+          "00ec201533750000",
+          "00c1454b",
+          "000c201533750000",
+          "2c00000000000000",
+          "2c00000000000000",
+          "b000000000000000"
+        ],
+        "owned_kernel": true
+      },
+      "sizes": {
+        "0": 2112,
+        "1": 704,
+        "2": 176,
+        "3": 1584,
+        "4": 1584,
+        "6": 2112
+      },
+      "outputs": [
+        6
+      ],
+      "output_overlaps": []
+    }
+  ],
+  "snapshots": [
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 1,
+      "source": 12991307776,
+      "bytes": 2112,
+      "offset": 0,
+      "node": 973126176,
+      "predecessor": 965982208
+    },
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 2,
+      "source": 128862258208768,
+      "bytes": 2112,
+      "offset": 2112,
+      "node": 973128224,
+      "predecessor": 973126176
+    },
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 3,
+      "source": 12991261696,
+      "bytes": 704,
+      "offset": 4224,
+      "node": 973130272,
+      "predecessor": 973128224
+    },
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 4,
+      "source": 128862258269184,
+      "bytes": 704,
+      "offset": 4928,
+      "node": 973132320,
+      "predecessor": 973130272
+    },
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 5,
+      "source": 128862258298368,
+      "bytes": 26752,
+      "offset": 5632,
+      "node": 973134368,
+      "predecessor": 973132320
+    },
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 7,
+      "source": 12991312896,
+      "bytes": 2112,
+      "offset": 32384,
+      "node": 973136416,
+      "predecessor": 973134368
+    },
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 8,
+      "source": 12991257600,
+      "bytes": 704,
+      "offset": 34496,
+      "node": 973138464,
+      "predecessor": 973136416
+    },
+    {
+      "stage": "rhs",
+      "phase": "before",
+      "argument": 9,
+      "source": 128862258203648,
+      "bytes": 2112,
+      "offset": 35200,
+      "node": 973140512,
+      "predecessor": 973138464
+    },
+    {
+      "stage": "rhs",
+      "phase": "after",
+      "argument": 9,
+      "source": 128862258203648,
+      "bytes": 2112,
+      "offset": 37312,
+      "node": 973142560,
+      "predecessor": 965984256
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 0,
+      "source": 12991307776,
+      "bytes": 2112,
+      "offset": 39424,
+      "node": 973144608,
+      "predecessor": 965992448
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 1,
+      "source": 12991263744,
+      "bytes": 704,
+      "offset": 41536,
+      "node": 973146656,
+      "predecessor": 973144608
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 2,
+      "source": 12991272960,
+      "bytes": 688,
+      "offset": 42240,
+      "node": 973148704,
+      "predecessor": 973146656
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 3,
+      "source": 12991273984,
+      "bytes": 1032,
+      "offset": 42928,
+      "node": 973150752,
+      "predecessor": 973148704
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 4,
+      "source": 12991275520,
+      "bytes": 1032,
+      "offset": 43960,
+      "node": 973152800,
+      "predecessor": 973150752
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 5,
+      "source": 128862258548224,
+      "bytes": 1376,
+      "offset": 44992,
+      "node": 973154848,
+      "predecessor": 973152800
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 6,
+      "source": 128862258549760,
+      "bytes": 1376,
+      "offset": 46368,
+      "node": 973156896,
+      "predecessor": 973154848
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 7,
+      "source": 12991277056,
+      "bytes": 344,
+      "offset": 47744,
+      "node": 973158944,
+      "predecessor": 973156896
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 8,
+      "source": 128862258230272,
+      "bytes": 1032,
+      "offset": 48088,
+      "node": 973160992,
+      "predecessor": 973158944
+    },
+    {
+      "stage": "joint",
+      "phase": "before",
+      "argument": 10,
+      "source": 128862258203648,
+      "bytes": 2112,
+      "offset": 49120,
+      "node": 973163040,
+      "predecessor": 973160992
+    },
+    {
+      "stage": "joint",
+      "phase": "after",
+      "argument": 10,
+      "source": 128862258203648,
+      "bytes": 2112,
+      "offset": 51232,
+      "node": 973165088,
+      "predecessor": 965994496
+    },
+    {
+      "stage": "so3",
+      "phase": "before",
+      "argument": 0,
+      "source": 12991307776,
+      "bytes": 2112,
+      "offset": 53344,
+      "node": 973167136,
+      "predecessor": 965998592
+    },
+    {
+      "stage": "so3",
+      "phase": "before",
+      "argument": 1,
+      "source": 12991263744,
+      "bytes": 704,
+      "offset": 55456,
+      "node": 973169184,
+      "predecessor": 973167136
+    },
+    {
+      "stage": "so3",
+      "phase": "before",
+      "argument": 2,
+      "source": 12991264768,
+      "bytes": 176,
+      "offset": 56160,
+      "node": 973171232,
+      "predecessor": 973169184
+    },
+    {
+      "stage": "so3",
+      "phase": "before",
+      "argument": 3,
+      "source": 128862258258944,
+      "bytes": 1584,
+      "offset": 56336,
+      "node": 973173280,
+      "predecessor": 973171232
+    },
+    {
+      "stage": "so3",
+      "phase": "before",
+      "argument": 4,
+      "source": 128862258260992,
+      "bytes": 1584,
+      "offset": 57920,
+      "node": 973175328,
+      "predecessor": 973173280
+    },
+    {
+      "stage": "so3",
+      "phase": "before",
+      "argument": 6,
+      "source": 128862258203648,
+      "bytes": 2112,
+      "offset": 59504,
+      "node": 973177376,
+      "predecessor": 973175328
+    },
+    {
+      "stage": "so3",
+      "phase": "after",
+      "argument": 6,
+      "source": 128862258203648,
+      "bytes": 2112,
+      "offset": 61616,
+      "node": 973179424,
+      "predecessor": 966000640
+    }
+  ],
+  "total_snapshot_bytes": 63728,
+  "GPU_allocations_added": 1,
+  "graph_nodes_added": 27,
+  "actual_pre_call_output_bytes_captured": true,
+  "original_nodes_and_edges_preserved": true,
+  "whole_solver_complete": false
+}

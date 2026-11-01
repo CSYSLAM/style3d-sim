@@ -1,0 +1,48 @@
+{
+  "entries": [
+    {
+      "entry": "tangent-original-entry.ptx",
+      "sha256": "5de7d65236b0697c4157c86d1df7f350eae5f4b380d67452fdcf179a4f4b2f40",
+      "actual_control_forms": [
+        "bra",
+        "bra.uni",
+        "ret"
+      ],
+      "control_transfer_count": 172,
+      "source_terminal_trap_guards": [],
+      "trap_branch_false_for_all_captured_previous_pointers": true
+    },
+    {
+      "entry": "tangent-source-entry.ptx",
+      "sha256": "afa51e32ecab46014c8df00ed7d6a22ac4d019504b2dcb2f8ac7ab5ac1f1a88b",
+      "actual_control_forms": [
+        "bra",
+        "bra.uni",
+        "ret",
+        "trap"
+      ],
+      "control_transfer_count": 165,
+      "source_terminal_trap_guards": [
+        {
+          "branch": "@%p129 bra \t$L__BB2_212;",
+          "guard": "setp.eq.s64 \t%p129, %rd52, 0;",
+          "parameter": 0,
+          "offset": 232,
+          "condition": "RollingContactView.previous is NULL"
+        },
+        {
+          "branch": "@%p135 bra \t$L__BB2_212;",
+          "guard": "setp.eq.s64 \t%p135, %rd52, 0;",
+          "parameter": 0,
+          "offset": 232,
+          "condition": "RollingContactView.previous is NULL"
+        }
+      ],
+      "trap_branch_false_for_all_captured_previous_pointers": true
+    }
+  ],
+  "actual_entries_fit_alias_dominance_witness": true,
+  "arbitrary_control_flow_or_index_bounds_proven": false,
+  "GPU_code_changed": false,
+  "runner_sha256": "89a55e1a718d826d6a1d9b9fc057f3d453a9e7f2afacd592ebd17a156e628632"
+}
