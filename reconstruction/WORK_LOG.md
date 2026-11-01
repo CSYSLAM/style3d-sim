@@ -6422,5 +6422,34 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   保存frame28..33邻域及frame30/31全body仿射谱。旧source1/body12帧末31 condition1.00176069/det1.00352287，
   不把帧末矩阵推断为帧内所有状态；没有旧内部乘子/drive angle，不能声称恢复了原缓存或原子调度。
   下一步直接以冻结公共particle positions共同输入核SDK/PTX/source SO3初始化，再向尖峰前预测/PCG追踪；该GPU测试尚未执行。
+
+### 2026-11-01：冻结SO3初始化、共同frame30重启及原G1速度检查的实际负控制
+
+- 承接68297454；SDK64a、host38/Core7eb、CUDA176/f0、数学、依赖、默认入口和旧C8均固定。
+  新维护工具g1_frozen_so3_initialization.py与g1_checkpoint_restart.py；本轮没有改生产solver。
+- 冻结旧八SDK/三源码60帧共660公共位置，优先source1 frame30/31。实际六处初始化ABI56、geometry1/256核准。
+  三后端双输出canary共3960真实调用、7920完整输出全逐位同；非输出及guard全同。
+  CPU重核221760 ABI字节、15840指针、95040标量字节、31806720 after字节、3136320输出word。
+  CPU预检93675/驱动8072及GPU2598059/CPU2598192均实际0；外部训练2594139空闲后才启动，未中断，其退出码未知。
+- 预先固定八SDK/三源码，从旧source1 frame30四公共状态重启一帧；两state buffer均复制，并显式重置native/Python drive flags。
+  图17467/17466不变、六子步；控制/增益/七配置跨11次核同。源码正常公共Core、无SDK映射/bridge。
+  这是受控公共状态起点，不是旧隐含缓存/inactive buffer/原子顺序的精确恢复。
+- session95836驱动及11 worker真实退出0；新诊断四字段数值C三源码均过，独立CPU重算同。
+  与首SDK的整状态逐位比较，其余七SDK和三源码均不同，严格失败不改。
+  原旧source1 frame31 flat76=-22.864168167114258；共同起点SDK也有六次约-23，两次约+0.89，源码为两次约-23/一次+0.89。
+  因而该受控大响应不是源码独有，但没有证明旧尖峰内部根因；旧C8 SHA32b6e2a7…及23.851294673979282误差保持。
+- 发现原G1速度多行lambda经inspect只提取第一行，Warp函数仅return max(abs(qd))，丢失<0.015。
+  未改原文件/依赖；实际Newton helper在CPU/CUDA各测四项：零失败、0.01与23均通过，原Python意图不同。
+  八实际负控制及11轨迹意图中速度条件均保存；原CLI退出0不能证明速度界，独立数值比较结果不被替代。
+  负控制进程2621017已结束、输出完整；最后工具返回在上下文截断时未取得退出码，明确记unknown，不伪造0或重复采样掩盖。
+  随后新增独立CPU审计，重核完整原表达式、原文件SHA、八控制、11原始状态及旧report SHA，实际退出0。
+- 用户询问距离源码替代的进度：已能独立编译运行，176入口已重建；74项71严格不是总体百分比。
+  G1/复杂布料长程、粒子seed2、未捕获组合及默认切换仍未完成，readyFalse保持，Windows继续WSL2。
+  新记录G1_FROZEN_CHECKPOINT_RECOVERY.md；交接/当前G1/host进度同步，完整证据在两个新continuation目录。
+- 文档补丁首次因标题匹配错误被原子拒绝，无文件落地；修正标题后应用。新脚本语法与128列检查通过。
+- 两阶段证据关闭为677/135个文件（manifest自身另计），包括真实ABI/after、完整负控制和生成缓存。
+  首次快照更新错误限定pyc位于SDK目录，写入前断言拒绝；随后旧快照校验真实退出1，仅四份已编辑文档SHA不同。
+  独立核准360个pyc实际分布examples/src/reconstruction/tests且原字节不动；修正刷新器并保留首次拒绝记录。
+  全量新快照校验通过后再提交发布，不把文档哈希差异称为solver计算失败。
 - 全部本轮GPU已正常结束，未修改生产/SDK/pyc或宽松比较。说明见G1_DRIVE_AND_AL_STATE_RECOVERY.md，
   原始证据/命令/终态在continuation-20261101-38b70dcd-g1-drive-and-AL-state。完整源码替代仍未验收，goal活动，readyFalse，Windows仍WSL2。

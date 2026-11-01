@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **G1冻结SO3初始化：660公共输入、7920完整输出逐位同。** 3960实际调用及全部after/ABI已独立CPU重核。
+> 共同frame30重启八SDK/三源码完成，SDK也有约-23响应；不是旧内部状态恢复，旧C8仍false。
+> CPU/CUDA确认原速度测试的多行lambda被截断；退出0不等于速度阈值通过，独立状态对照保持。
+> 当前host38/Core7eb/readyFalse不改；见[G1_FROZEN_CHECKPOINT_RECOVERY.md](G1_FROZEN_CHECKPOINT_RECOVERY.md)。
+
 > **G1 drive与AL-state：源码1200完整输出严格，状态1800三后端输出全严格。** drive原版/probe的11个严格失败保留，
 > 30960次SDK隔离和63367 GPU F32证书全过，CPU重核同；soft只覆盖代理粒子过滤，生产host38/Core7eb不改。
 > 旧23.85精确CPU定位保留，下一步用冻结frame30/31公共输入核SO3初始化；整体readyFalse、完整替代未通过。

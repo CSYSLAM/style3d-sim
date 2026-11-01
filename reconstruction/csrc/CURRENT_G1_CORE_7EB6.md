@@ -1,5 +1,10 @@
 # 当前公共Core的G1固定原版对比：38b70dcd / 7eb6e847
 
+> 后续共同输入核对见[G1冻结公共起点](G1_FROZEN_CHECKPOINT_RECOVERY.md)：SO3初始化7920输出全严格同。
+> 新单帧共同frame30重启中SDK也出现约-23响应，不能据此重判下文旧C8或称旧隐含状态已恢复。
+> 原demo多行速度lambda经Warp转换丢失阈值比较，CPU/CUDA负控制实测确认；原退出0仅描述CLI实际行为。
+> 本文旧固定状态比较及失败不改，完整替代仍未完成。
+
 当前host38、公共Core7eb、CUDA176/f0，原版仍唯一SDK64a；生产源和数学没有为本次对比再修改。
 完整替代未通过，`solver_api_ready=False`。
 

@@ -1,0 +1,42 @@
+{
+  "CPU_preflight": {
+    "session": 93675,
+    "actual_exit": 0
+  },
+  "driver": {
+    "session": 8072,
+    "actual_exit": 0
+  },
+  "steps": [
+    {
+      "step": "execute",
+      "pid": 2598059,
+      "actual_exit": 0
+    },
+    {
+      "step": "independent-cpu-audit",
+      "pid": 2598192,
+      "actual_exit": 0
+    }
+  ],
+  "foreign_PID_2594139_interrupted": false,
+  "foreign_process_exit": null,
+  "GPU_jobs_terminal_with_recorded_exit": true,
+  "commands": {
+    "execute.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_frozen_so3_initialization",
+      "--phase",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-frozen-so3-init",
+      "--execute"
+    ],
+    "independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-frozen-so3-init/independent-cpu-audit.py"
+    ]
+  },
+  "old_fixed_C8_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

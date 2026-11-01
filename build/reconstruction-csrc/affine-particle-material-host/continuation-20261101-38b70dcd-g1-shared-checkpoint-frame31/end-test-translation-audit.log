@@ -1,0 +1,18 @@
+Warp 1.16.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 5090 D v2" (23 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     /home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/end-test-cache/1.16.0
+Module test_body_state__locals__test_fn_kernel_3a40cd2c f61e8ab load on device 'cpu' took 1588.18 ms  (compiled)
+cpu zero Python intended True actual helper False
+cpu small_angular Python intended True actual helper True
+cpu large_angular Python intended False actual helper True
+cpu large_all Python intended False actual helper True
+Module test_body_state__locals__test_fn_kernel_3a40cd2c 3a40cd2 load on device 'cuda:0' took 213.73 ms  (compiled)
+cuda:0 zero Python intended True actual helper False
+cuda:0 small_angular Python intended True actual helper True
+cuda:0 large_angular Python intended False actual helper True
+cuda:0 large_all Python intended False actual helper True
+Original multiline velocity comparison is missing from the translated helper on CPU and CUDA

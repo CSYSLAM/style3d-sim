@@ -1,0 +1,211 @@
+{
+  "original_predicate_source_from_inspect": "            lambda q, qd: max(abs(qd))\n",
+  "Warp_converted_function_source": "def func_30996d06(q, qd):\n  return max(abs(qd))",
+  "original_test_name": "all body velocities are small",
+  "sentinel_results": [
+    {
+      "device": "cpu",
+      "case": "zero",
+      "velocity": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "original_Python_predicate": true,
+      "actual_Newton_Warp_helper_passed": false,
+      "ValueError_preserved": "Test \"all body velocities are small\" failed for the following bodies: [sentinel]",
+      "different_from_intended_predicate": true
+    },
+    {
+      "device": "cpu",
+      "case": "small_angular",
+      "velocity": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0
+      ],
+      "original_Python_predicate": true,
+      "actual_Newton_Warp_helper_passed": true,
+      "ValueError_preserved": null,
+      "different_from_intended_predicate": false
+    },
+    {
+      "device": "cpu",
+      "case": "large_angular",
+      "velocity": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        23.0,
+        0.0
+      ],
+      "original_Python_predicate": false,
+      "actual_Newton_Warp_helper_passed": true,
+      "ValueError_preserved": null,
+      "different_from_intended_predicate": true
+    },
+    {
+      "device": "cpu",
+      "case": "large_all",
+      "velocity": [
+        23.0,
+        23.0,
+        23.0,
+        23.0,
+        23.0,
+        23.0
+      ],
+      "original_Python_predicate": false,
+      "actual_Newton_Warp_helper_passed": true,
+      "ValueError_preserved": null,
+      "different_from_intended_predicate": true
+    },
+    {
+      "device": "cuda:0",
+      "case": "zero",
+      "velocity": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "original_Python_predicate": true,
+      "actual_Newton_Warp_helper_passed": false,
+      "ValueError_preserved": "Test \"all body velocities are small\" failed for the following bodies: [sentinel]",
+      "different_from_intended_predicate": true
+    },
+    {
+      "device": "cuda:0",
+      "case": "small_angular",
+      "velocity": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0
+      ],
+      "original_Python_predicate": true,
+      "actual_Newton_Warp_helper_passed": true,
+      "ValueError_preserved": null,
+      "different_from_intended_predicate": false
+    },
+    {
+      "device": "cuda:0",
+      "case": "large_angular",
+      "velocity": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        23.0,
+        0.0
+      ],
+      "original_Python_predicate": false,
+      "actual_Newton_Warp_helper_passed": true,
+      "ValueError_preserved": null,
+      "different_from_intended_predicate": true
+    },
+    {
+      "device": "cuda:0",
+      "case": "large_all",
+      "velocity": [
+        23.0,
+        23.0,
+        23.0,
+        23.0,
+        23.0,
+        23.0
+      ],
+      "original_Python_predicate": false,
+      "actual_Newton_Warp_helper_passed": true,
+      "ValueError_preserved": null,
+      "different_from_intended_predicate": true
+    }
+  ],
+  "controlled_recorded_state_intended_checks": [
+    {
+      "label": "sdk0",
+      "max_abs_body_qd": 23.075130462646484,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "sdk1",
+      "max_abs_body_qd": 23.014394760131836,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "sdk2",
+      "max_abs_body_qd": 2.1289594173431396,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "sdk3",
+      "max_abs_body_qd": 23.04071807861328,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "sdk4",
+      "max_abs_body_qd": 23.1544246673584,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "sdk5",
+      "max_abs_body_qd": 22.974857330322266,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "sdk6",
+      "max_abs_body_qd": 2.1563549041748047,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "sdk7",
+      "max_abs_body_qd": 22.89829444885254,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "rebuilt0",
+      "max_abs_body_qd": 23.01171875,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "rebuilt1",
+      "max_abs_body_qd": 23.039108276367188,
+      "intended_velocity_condition_all_bodies": false
+    },
+    {
+      "label": "rebuilt2",
+      "max_abs_body_qd": 2.118490219116211,
+      "intended_velocity_condition_all_bodies": false
+    }
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/examples/example_robot_g1.py": "a10ffded44f52f1c7a7888a2d9e2abd30ebc1fd58f16e7c7e5149d384cfc9b74",
+    "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/examples/__init__.py": "84447ef10f53991ca97c72ef6964330e4ac9cbd78bcb8bacce094ec01b0c6833",
+    "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/warp/_src/utils.py": "a8994f2cdb524f273ac69ccc941a3a57e9ac3f69ec835ffd530f1b0d4cfafe49",
+    "/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/inspect.py": "5c54ebf0bfdc25397750e5d0f63800751650ee50e65325ff3ea4069c9bfa5f75",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/end-test-translation-audit.py": "cf9816df3ba47c16a783745fcf11c434cbbaf1d16d2efd76b71896b2683b6c2b"
+  },
+  "GPU_wait_observations": [
+    {
+      "compute_apps": "",
+      "own_context_excluded": 2621017,
+      "foreign": []
+    }
+  ],
+  "original_example_or_test_helper_modified": false,
+  "CLI_exit0_is_not_evidence_of_the_intended_velocity_bound": true,
+  "diagnostic_numeric_C_comparison_unchanged": true,
+  "old_C8_reclassified": false,
+  "whole_solver_complete": false
+}

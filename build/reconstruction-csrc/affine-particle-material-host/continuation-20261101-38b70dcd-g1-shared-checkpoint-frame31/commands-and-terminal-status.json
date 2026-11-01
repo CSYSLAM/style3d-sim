@@ -1,0 +1,255 @@
+{
+  "driver": {
+    "session": 95836,
+    "actual_exit": 0
+  },
+  "workers": [
+    {
+      "label": "sdk0",
+      "backend": "original",
+      "pid": 2611451,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "sdk1",
+      "backend": "original",
+      "pid": 2611773,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "sdk2",
+      "backend": "original",
+      "pid": 2612121,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "sdk3",
+      "backend": "original",
+      "pid": 2612530,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "sdk4",
+      "backend": "original",
+      "pid": 2612827,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "sdk5",
+      "backend": "original",
+      "pid": 2613194,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "sdk6",
+      "backend": "original",
+      "pid": 2613564,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "sdk7",
+      "backend": "original",
+      "pid": 2613958,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "rebuilt0",
+      "backend": "source",
+      "pid": 2614288,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "rebuilt1",
+      "backend": "source",
+      "pid": 2614548,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    },
+    {
+      "label": "rebuilt2",
+      "backend": "source",
+      "pid": 2614896,
+      "actual_exit": 0,
+      "normal_demo_test_passed": true,
+      "completed_frame_saved": true,
+      "end_test_failure": false
+    }
+  ],
+  "independent_CPU": {
+    "actual_exit": 0
+  },
+  "end_test_negative_control": {
+    "pid": 2621017,
+    "process_no_longer_running": true,
+    "complete_output_saved": true,
+    "actual_exit": null,
+    "reason": "tool return truncated at context boundary; exit not recovered",
+    "not_restarted_to_hide_missing_terminal": true
+  },
+  "end_test_independent_CPU": {
+    "actual_exit": 0
+  },
+  "normal_demo_test_passed_flags_mean_actual_CLI_exit_only": true,
+  "original_velocity_bound_not_enforced_by_translated_helper": true,
+  "all_GPU_terminal_exit_codes_observed": false,
+  "documentation_patch_first_attempt_refused_atomically_then_corrected": true,
+  "commands": {
+    "independent-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/independent-cpu-audit.py"
+    ],
+    "rebuilt0.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "source",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/rebuilt0"
+    ],
+    "rebuilt1.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "source",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/rebuilt1"
+    ],
+    "rebuilt2.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "source",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/rebuilt2"
+    ],
+    "sdk0.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk0"
+    ],
+    "sdk1.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk1"
+    ],
+    "sdk2.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk2"
+    ],
+    "sdk3.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk3"
+    ],
+    "sdk4.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk4"
+    ],
+    "sdk5.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk5"
+    ],
+    "sdk6.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk6"
+    ],
+    "sdk7.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_checkpoint_restart",
+      "--backend",
+      "original",
+      "--plan",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/plan.json",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-shared-checkpoint-frame31/sdk7"
+    ]
+  },
+  "old_fixed_C8_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}
