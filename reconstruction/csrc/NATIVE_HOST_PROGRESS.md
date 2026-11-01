@@ -1,6 +1,11 @@
 # 新版基准与 C++ host 进度
 
-> **当前eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
+> **当前候选38b70dcd：混合plain约束＋rigid/rolling接触。** SDK32全部有效、旧eb保护拒绝已保存，改前27文件与2643参考SHA有检查点。
+> 首次源码32/32严格，18624完整调用及2448力buffer全同；八constructor五项同、graph128/128及双端initcheck全过，CPU重核同。
+> 数学/CUDA176/f0不变，匹配Core7eb三个正常入口graph/test已过，无原版映射；本轮完整74正在执行，ready=False。
+> 见[混合约束接触恢复](MIXED_PLAIN_CONTACT_HOST_RECOVERY.md)。下列eb及其它image为历史证据。
+
+> **历史eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
 > 六种constructor五项同，graph96/96严格、双端initcheck零错误。匹配Core8797三个独立入口graph/test过。
 > 当前完整74已结束：70逐位同；三个粒子首差固定C10通过，PD mixed seed3仍失败，独立CPU复核同。
 > 数学/CUDA176/f0未改，完整替代未完成。见[普通约束接触恢复](PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。

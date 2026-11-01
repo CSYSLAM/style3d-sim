@@ -1,11 +1,17 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **当前eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
+> **当前候选38b70dcd：混合普通约束＋实际rigid/rolling接触。** 固定SDK32全部有效，旧eb两条guard拒绝基线已保存；
+> 改前27文件与2643原版文件SHA有检查点。只扩展普通约束种类组合，数学/CUDA176/f0不变。
+> 首次源码32/32严格，18624完整调用及2448力buffer同；八constructor五项全同、graph128/128、双端initcheck零错误，CPU重核同。
+> 匹配Core7eb三个独立正常入口graph/test过，无原版映射；本轮完整74正在执行，不能继承下列历史结论。
+> 见[混合约束接触恢复](reconstruction/csrc/MIXED_PLAIN_CONTACT_HOST_RECOVERY.md)，ready=False。
+
+> **前一eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
 > 六种constructor五项同，graph96/96严格、双端initcheck零错误。匹配Core8797三个独立入口graph/test过。
 > 当前完整74已结束：70逐位同；三个粒子首差固定C10通过，PD mixed seed3仍失败，独立CPU复核同。
 > 数学/CUDA176/f0未改，完整替代未完成；70/74不是总体完成率。见[普通约束接触恢复](reconstruction/csrc/PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
 
-> **当前补充：冻结PD失败路径及G1指针跨度。** PD目标两端18份状态实际复现，714公共packet三端4284调用全严格，
+> **eb补充：冻结PD失败路径及G1指针跨度。** PD目标两端18份状态实际复现，714公共packet三端4284调用全严格，
 > 全部250776计数字同，36力packet的真实GPU三项原子见证均过；原C10 false保留。
 > G1新1000份实际跨度回放3000逐粒子同，无重叠，标量未全部同；未关联旧冻结轨迹。
 > 见[当前PD固定路径](reconstruction/csrc/CURRENT_PD_MIXED_FIXED_EB661284.md)、[G1指针跨度](reconstruction/csrc/G1_PCG_POINTER_SPANS.md)。
@@ -149,7 +155,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `eb661284fd3852610e81857ccb7cc5731f76a843abd417e8772bdd6693a4efb7`；当前源码host image；230等历史检查点保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49`；当前候选host；eb等历史检查点保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |
@@ -308,12 +314,15 @@ source1/source2通过并与多条真实原版完整轨迹逐位相同，但不�
 
 1. 校验快照，读取顶部当前image文档及WORK_LOG末尾；历史章节和历史image结果不能直接计为当前验收。
    保持SDK64a、CUDA176/f0和360个pyc固定，不先升级库或覆盖已有结果。
-2. 当前eb661284的单一plain约束＋rigid/rolling已24/24严格、六constructor五项同、graph96/96、双端initcheck零错误。
+2. 当前38b70dcd混合plain/contact的source32/32、八构造、graph128/128及双端initcheck已全过，CPU重核同。
+   本轮匹配Core7eb及三正常入口已过、完整74正执行，先检查本阶段broad-validation/status与实际进程；不继承eb结果。
+   前一eb661284的单一plain约束＋rigid/rolling已24/24严格、六constructor五项同、graph96/96、双端initcheck零错误。
    先检查`continuation-20261101-141c18f6-plain-contact/validation-eb661284/broad-validation/status.json`及真实进程，
    队列已complete：74项中70逐位同；三个particles固定C10过，pd_mixed_cloth seed3的7个数组记录仍越界，CPU复核同。
    PD首失败的实际冻结路径已有714公共算子与36力算子证据，见顶部链接；C10仍false。
    不重新启动同一队列或覆盖首候选；三个C10通过不能改写为逐位同。
-3. 新Core8797对应hosteb，三独立入口自检已过，默认安装包尚未切换。自检通过不代表A/B全轨迹一致。
+3. 当前Core7eb对应host38，三独立正常入口graph/test已过；默认安装包尚未切换。
+   自检通过不代表A/B全轨迹一致。
    141的粒子seed2/3、230的G1 eager/graph、驱动布料等固定失败保留；按它们各自image和原协议定位，不换样本或改门槛。
 4. 未解释差异先核完整输入、opaque view、copy/clear、library geometry和kernel参数；使用实际SDK调用或精确反汇编确认。
    G1复制顺序已按真实证据修过；一两个归约的F32证书不能直接解释整条轨迹。
@@ -364,7 +373,7 @@ GPU worker串行；活动GPU测试期间不编译/改生产源码。保留来源
 
 # 真正_core ABI的源码入口，无原版代算；示例自检不代替A/B轨迹验收。
 .venv/bin/python -m reconstruction.core_demo \
-  --core-build build/reconstruction-csrc/source-core/f01ddc6be1e2263a/build.json \
+  --core-build build/reconstruction-csrc/source-core/a318a3ce42f6a731/build.json \
   --report build/windows-check/core-dzhanibekov.json \
   examples/example_basic_dzhanibekov.py --viewer null --num-frames 60 --test
 

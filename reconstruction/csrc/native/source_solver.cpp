@@ -2296,10 +2296,10 @@ public:
                            body_tangent || fluid_rows_ || granular_points_;
         // The original ignores the body-block option when PD selects the scalar matrix branch.
         const bool body_block = bodies && block && config.affine_body_block_preconditioner;
-        // Only the single plain-constraint, all-affine, SO3 penalty-contact combinations are captured here.
+        // Captured plain-constraint type combinations use all-affine SO3 penalty contacts.
         const bool plain_contact = so3 && rigid && !surface && joint_al && alpha > 0.0f &&
             !config.rigid_contact_hard && count_ == body_state_count_ * 4 &&
-            ((plain_spring_count_ > 0) + (plain_line_count_ > 0) + (distance_total_ > 0) == 1) &&
+            (plain_spring_count_ || plain_line_count_ || distance_total_) &&
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
             !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
             !triangle_count_ && !edge_count_;

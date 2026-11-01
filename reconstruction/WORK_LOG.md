@@ -6021,3 +6021,23 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   当前PD阶段continuation-20261101-eb661284-pd-mixed-fixed保存三个观察器/来源/命令、12诊断和原始失败、固定采用pair、
   pointwise-replay、force-audits18及两个独立审计；每个native目录lossless归档，raw原件保留。
   源码和Core仍eb661284/8797，CUDA176/f0及SDK64a固定，ready=False；正常入口不切换，下一项是混合plain约束＋真实contact。
+- 新独立plain_body_mixed_contact_scene保留旧夹具原样，四普通约束组合×W1/W3×Newton/PD×body-block共32组，
+  两运动offset-COM箱体、实际地面及非零rolling/torsion。原版pilot8全有效，逐字节采用后再采24新组合，SDK32全部finite且各力有效。
+  original32完整保留每种启用力九轮pre/post及完整owned调用；没有用空接触/空约束当覆盖。
+  旧eb两条源码baseline（spring-line/W1/Newton/no-block、all/W3/PD/body-block）实际被guard拒绝，日志保存。
+  保存27份source/build/so及2643原版文件SHA到mixed-plain-contact-before-eb661284后，仅将plain_contact种类数==1改为至少一种，
+  其它条件及force/matrix/PCG数学不动，按旧build_command编译host38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49。
+  当前串行run-restoration-and-local（exec session25531）正执行source32首输出，之后门控八constructor/graph60/双端initcheck；
+  尚不提前声明32严格或长程通过。新版本完整74与匹配Core未采，不能继承eb结果，ready=False。
+- 38b70dcd的source32已全部结束，32/32首次输出严格：18624完整owned ABI/geometry/coverage及所有三步状态、2448力buffer全同。
+  独立CPU audit-source32另核128状态字段的dtype/shape/三步/finite/raw bytes及2448buffer均同，源码数学和CUDA仍未改。
+  同一串行队列现已进入八constructor，之后graph60/双端initcheck，未重复采样；这些后续任务尚未提前记过。
+- 38局部11任务全部结束，session25531确认退出0：八constructor五项全同，32组合四轨迹128/128图比较严格，
+  原版/源码各64条eager/graph轨迹×3步initcheck均ERROR SUMMARY0。独立CPU核512状态数组及全部日志/constructor SHA同。
+  constructor8-copy-clear的CPU只读序列核对也全同，Newton每份48D2D/75fill、PD每份30D2D/75fill，不等于外部pointee证明。
+  随后串行启动run-broad-validation（exec session84952）：先匹配Core构建与三个正常入口graph/test，再当前38的完整74/C10/CPU。
+  活动GPU测试期间不再编译或修改生产源；旧eb/141/230固定失败不改，完整替代仍未完成。
+- 匹配Core已构建为source-core/a318a3ce42f6a731，SHA7eb6e847ad6f100b51f2bc89db0a88744f93878077c318c91288d2f595116b53，
+  对应host38/CUDA176/f0。独立核27项Core来源与扩展SHA均同；Dzhanibekov60、bag3、G1真实graph60正常入口及--test退出0，
+  source_only/public_core_abi true、bridge false、无原版映射。不可变public-core-validation.json只记已结束四任务。
+  当前队列已进入38的完整74；先同步已结束的模块/源码/Core，运行中regression及其status/log不提前纳入快照。

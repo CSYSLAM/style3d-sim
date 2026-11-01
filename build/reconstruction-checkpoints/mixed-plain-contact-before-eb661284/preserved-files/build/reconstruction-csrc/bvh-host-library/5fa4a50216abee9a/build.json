@@ -1,0 +1,93 @@
+{
+  "provisional_not_integrated": true,
+  "source_solver_image_at_build": "9a78777b604df8cc6dabb24060c1212893e4f13b931601c0db4d65e13065261b",
+  "commands": [
+    [
+      "/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/bin/nvcc",
+      "--cuda",
+      "--keep",
+      "--keep-dir",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a",
+      "-Xcompiler=-fPIC",
+      "-arch=sm_52",
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG",
+      "-diag-suppress=20012",
+      "-I/home/oem/code/agent/style3d-sim/reconstruction/csrc/kernels",
+      "-I/home/oem/code/agent/style3d-sim/build/third_party/glm-1.0.1",
+      "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/bvh_library.cu",
+      "-o",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.host.cpp"
+    ],
+    [
+      "c++",
+      "-std=c++17",
+      "-O3",
+      "-DNDEBUG",
+      "-D__NV_LEGACY_LAUNCH",
+      "-fPIC",
+      "-fvisibility=hidden",
+      "-I/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include",
+      "-I/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a",
+      "-c",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.cudafe1.cpp",
+      "-o",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.o"
+    ],
+    [
+      "c++",
+      "-shared",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.o",
+      "-L/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib",
+      "-l:libcudart.so.12",
+      "-Wl,-rpath,/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib",
+      "-o",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/libsource_bvh_library.so"
+    ]
+  ],
+  "inputs": {
+    "reconstruction/csrc/native/bvh_library.cu": "b06a3d65b5c66cd79ea17635cad4d02cd3955359d513244828ada83e73a0f8ac",
+    "reconstruction/csrc/native/bvh_library.h": "88c438e7ac478acc40af228f9c5a8a6cc7ce2bc6604b0274c69d1811e0ac448d",
+    "reconstruction/csrc/library/reduction_functors.cuh": "4b42c15b8f478bfc9d5d9e05c81b0e7e0316fdda496ba9a6847471d1a23149c8",
+    "reconstruction/csrc/kernels/types.cuh": "2dee46a31ed8f226d3fa549cac7c0afe519e0aa8e23bd96d76bb00ea00bd3d99",
+    "reconstruction/csrc/kernels/common.cuh": "68895790cfd8cffdb96e3cdd95438d134a50a9e1527488be43d24632dbf0c2bb",
+    "reconstruction/csrc/build_bvh_library.py": "15768ff7f9b5510686c1a16c4c0374b298b10abbd577e0d484328e8b71bebf60"
+  },
+  "host_type_reference_replacements": {
+    "MergeAabbs": 24,
+    "PrimitiveCentroidAabb": 7
+  },
+  "host_stub_before_sha256": "919f6eb8bedbf14e4f0abc05181072ba68577f58686b4fa23f90e4618f68eec2",
+  "host_stub_after_sha256": "e10decd5ac5a1b53d194a08d81d62a714a7ab89a61f7e0b1a6cb90fc4f7c1120",
+  "embedded_ptx_sha256": "dae914d68f33de2b7706e3c0f8b9387ee5598d836f5a32d31ab20171fafa1a2f",
+  "embedded_fatbin_sha256": "05ce263d3998a0516581fc4d2bba09eee74dcc5ed7cdcd27cf8145b4352548e7",
+  "device_entries_identical_to_accepted_source": {
+    "_ZN3cub17CUB_200302_520_NS11EmptyKernelIvEEvv": true,
+    "_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIN7synreal4AabbEjN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EN6thrust20THRUST_200302_520_NS8cuda_cub26transform_input_iterator_tIS4_NSA_10device_ptrIKS4_EENS5_21PrimitiveCentroidAabbEEEPS4_jS6_S4_S4_EEvT0_T1_T2_T3_T4_": true,
+    "_ZN3cub17CUB_200302_520_NS18DeviceReduceKernelINS0_18DeviceReducePolicyIN7synreal4AabbEjN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EN6thrust20THRUST_200302_520_NS8cuda_cub26transform_input_iterator_tIS4_NSA_10device_ptrIKS4_EENS5_21PrimitiveCentroidAabbEEEjS6_S4_EEvT0_PT3_T1_NS0_13GridEvenShareISL_EET2_": true,
+    "_ZN3cub17CUB_200302_520_NS28DeviceReduceSingleTileKernelINS0_18DeviceReducePolicyIN7synreal4AabbEjN48_GLOBAL__N__17933b98_15_lbvh_builder_cu_f487594f10MergeAabbsEE9Policy600EPS4_S9_iS6_S4_S4_EEvT0_T1_T2_T3_T4_": true,
+    "_ZN3cub17CUB_200302_520_NS31DeviceRadixSortSingleTileKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT1_PS7_PKT2_PSB_T3_iiT4_": true,
+    "_ZN3cub17CUB_200302_520_NS28DeviceRadixSortUpsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0ELb0EjjNS0_6detail21identity_decomposer_tEEEvPKT2_PT3_SA_iiNS0_13GridEvenShareISA_EET4_": true,
+    "_ZN3cub17CUB_200302_520_NS28DeviceRadixSortUpsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb1ELb0EjjNS0_6detail21identity_decomposer_tEEEvPKT2_PT3_SA_iiNS0_13GridEvenShareISA_EET4_": true,
+    "_ZN3cub17CUB_200302_520_NS23RadixSortScanBinsKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900EjEEvPT0_i": true,
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortDownsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT2_PS7_PKT3_PSB_PT4_SF_iiNS0_13GridEvenShareISF_EET5_": true,
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortDownsweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb1ELb0EjijNS0_6detail21identity_decomposer_tEEEvPKT2_PS7_PKT3_PSB_PT4_SF_iiNS0_13GridEvenShareISF_EET5_": true,
+    "_ZN3cub17CUB_200302_520_NS30DeviceRadixSortHistogramKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjjNS0_6detail21identity_decomposer_tEEEvPT2_PKT1_S7_iiT3_": true,
+    "_ZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900EjEEvPT0_": true,
+    "_ZN3cub17CUB_200302_520_NS29DeviceRadixSortOnesweepKernelINS0_21DeviceRadixSortPolicyIjijE9Policy900ELb0EjijiiNS0_6detail21identity_decomposer_tEEEvPT5_S8_PT3_PKS9_PT1_PKSD_PT2_PKSH_T4_iiT6_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIfEEfEEmEESA_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3vecILi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3matILi3ELi3EfLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal17BlockNonZeroEntryEEESA_EEmEESC_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIiEEiEEmEESA_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIjEEjEEmEESA_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN3glm3vecILi2EiLNS9_9qualifierE0EEEEESC_EEmEESE_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal4AabbEEESA_EEmEESC_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIN7synreal12NonZeroEntryEEESA_EEmEESC_mEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_10__tabulate7functorINS0_10device_ptrIiEENS0_6system6detail7generic6detail22compute_sequence_valueIivEElEElEESG_lEEvT0_T1_": true,
+    "_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_6__fill7functorINS0_6detail15normal_iteratorINS0_10device_ptrIiEEEEiEElEESD_lEEvT0_T1_": true
+  },
+  "object_sha256": "1dda18586d99b03bb7108642b78a3b1c12b250ee2497581edb4455d9f5d6eb2c",
+  "library_sha256": "63a7f810de3040a51182c4982c10f856518a188e78cc7a9374d894edde929f8b"
+}
