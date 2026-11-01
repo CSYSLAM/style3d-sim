@@ -5828,3 +5828,19 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 已启动run-regression.py→run-frontends.py串行队列，编译so、所有host源与SDK64a启动前SHA全同；当前进程仍存活，不重启已有worker。
   为26份接触首差准备独立CPU C8重算器audit-fixed-contact-C8.py，沿用已审计8原版/3源码的逐数组逐记录步LOO计算；尚未运行C8。
   本次先提交已结束的局部验证及_core构建/自检，活动完整回归输出暂不纳入快照；后续结束后独立提交，不把运行中状态写成验收完成。
+- 上述已结束证据及源码已提交并推送81e203b1bb9a7d525dfa8d67c5eeefb6ea27b278，ls-remote确认分支同提交。
+  快照185917文件校验零失败、360个pyc与旧快照逐字节相同、SDK64a不变。完整回归仍在进程1097349/1097381运行，
+  当前已完成64/74，已知三particles seed严格失败；最终结果及C10以队列结束报告为准。
+  run-after-regression.py已准备，要求当前完整回归及两个独立前端完成后才运行26份短C8→CPU重算→两组完整worker长程C8；
+  不与现有GPU队列并发，不自动重启、替换source0或扩大cohort。
+- 23012dc5完整74现已全部结束：70严格通过；particles seed1/2/3及pd_mixed_cloth seed3严格失败，四份首次输出保持不变。
+  当前串行队列已自动进入固定C10；不能先沿用688f的四项C通过结论。后续继续观察原session52257，不重启回归。
+- session52257已确认退出0，完整74及固定C10/CPU/独立前端队列全部结束。
+  四份当前C10为particles seed1/3及pd_mixed_cloth seed3通过，particles seed2失败；CPU重算四报告完全相同，失败不改判。
+  seed2超出范围集中n257_w1_it5_f0记录1/2的q/qd，共7数组，最大全局比2.5714285707443345；原10份与source0全部保留。
+  两独立source前端真实graph/test均过且无原版映射。接着已串行启动run-after-regression.py：26份接触短C8→CPU→两组长程C8，
+  当前生产23012dc5、SDK64a、数学和比较标准不变；seed2另需同输入定位，不能用接触C代替该失败。
+- CPU逐数组bit审计已保存particles-seed2-first-state-audit.json并记录11份输入SHA：14份数组与original0不同。
+  C10失败分支n257_w1_it5_f0最早差异在记录1/in.particle_q，particle251.x，source 0x3f37f4dd、original0 0x3f37f4de，
+  十份实际原版均无该完整数组匹配；其它分支的严格差异不都造成C失败，不能混淆最早全worker严格差异与失败分支首差。
+  下一诊断应保留seed2完整worker顺序和it5目标上下文，先确认observer是否复现固定251.x，再做同输入算子回放；旧seed1/it1证据不直接继承。

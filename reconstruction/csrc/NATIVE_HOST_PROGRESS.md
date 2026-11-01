@@ -2,7 +2,8 @@
 
 > **活动23012dc5：AL驱动关节＋布料＋soft/rigid/rolling接触。** 固定SDK64的49504次完整owned参数/geometry/coverage均同；
 > 38/64严格，全部32个W1严格，26个W3首差保持未验收。16种constructor五项全同；graph为71/128和74/128，四组initcheck均0。
-> 源码已编译真正的_core入口；两个示例graph/test独立通过且未加载原版。当前74未采，默认包未切换，ready=False。
+> 源码已编译真正的_core入口；两个示例graph/test独立通过且未加载原版。当前74为70严格，四份C10三过、粒子seed2失败。
+> CPU重算四份报告同；默认包未切换，ready=False。接触组合固定C正在串行采集，不能提前认定通过。
 > 修复原版独立block-matrix选择，保留PD的其它行为；见[接触组合恢复](DRIVEN_CLOTH_CONTACT_HOST_RECOVERY.md)。下列image均为历史证据。
 
 > **历史688f9633：驱动关节＋布料（SO3/SIX）。** 16组9052次完整owned调用/geometry均同；12组状态和全部九轮force严格。

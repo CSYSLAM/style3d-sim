@@ -53,7 +53,10 @@ affine-build的模板/行数和PCG的稀疏类型；membrane/spring等仍保留�
 - 16种W3 constructor五项全部相同；真实graph60比较为soft 71/128、rigid-soft 74/128严格。
   所有worker均结束且状态finite，未通过项全部保留；长程固定C尚未采集。
 - 两组场景的original/source共四个initcheck3 worker均为零错误，覆盖256条eager/graph轨迹各三步。
-- 本image完整74、固定C与正式demo的A/B一致性尚未验收，不能继承688f结果。
+- 本image完整74已结束，70严格通过；particles seed1/2/3和pd_mixed_cloth seed3首次差异均保留。
+  四份固定C10为seed1/seed3/PD mixed通过、seed2失败，CPU重算四份报告完全相同；seed2仍未解决。
+  两个独立source前端Dzhanibekov60/plastic bag3真实graph与test也已结束，均退出0且未映射原版。
+  接触短/长固定C与正式复杂demo的A/B一致性尚未验收，不能继承688f结果。
 
 历史688f有70/74严格、四份固定C10通过，但其无接触长程graph固定C8仍14项失败。
 它的补充实际graph诊断已导出6份同输入首归约包：三端每端32次pointwise相同，
