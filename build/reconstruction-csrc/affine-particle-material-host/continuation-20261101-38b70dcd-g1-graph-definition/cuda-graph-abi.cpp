@@ -1,0 +1,62 @@
+#include <cuda.h>
+#include <cstddef>
+#include <cstdio>
+int main() {
+  std::printf("{\n");
+  std::printf("\"kernel_size\":%zu,\n", sizeof(CUDA_KERNEL_NODE_PARAMS_v1));
+  std::printf("\"kernel_offsets\":{");
+  std::printf("\"func\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, func));
+  std::printf("\"gx\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, gridDimX));
+  std::printf("\"gy\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, gridDimY));
+  std::printf("\"gz\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, gridDimZ));
+  std::printf("\"bx\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, blockDimX));
+  std::printf("\"by\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, blockDimY));
+  std::printf("\"bz\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, blockDimZ));
+  std::printf("\"shared\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, sharedMemBytes));
+  std::printf("\"params\":%zu,", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, kernelParams));
+  std::printf("\"extra\":%zu", offsetof(CUDA_KERNEL_NODE_PARAMS_v1, extra));
+  std::printf("},\n");
+  std::printf("\"copy_size\":%zu,\n", sizeof(CUDA_MEMCPY3D));
+  std::printf("\"copy_offsets\":{");
+  std::printf("\"srcXInBytes\":%zu,", offsetof(CUDA_MEMCPY3D, srcXInBytes));
+  std::printf("\"srcY\":%zu,", offsetof(CUDA_MEMCPY3D, srcY));
+  std::printf("\"srcZ\":%zu,", offsetof(CUDA_MEMCPY3D, srcZ));
+  std::printf("\"srcLOD\":%zu,", offsetof(CUDA_MEMCPY3D, srcLOD));
+  std::printf("\"srcMemoryType\":%zu,", offsetof(CUDA_MEMCPY3D, srcMemoryType));
+  std::printf("\"srcHost\":%zu,", offsetof(CUDA_MEMCPY3D, srcHost));
+  std::printf("\"srcDevice\":%zu,", offsetof(CUDA_MEMCPY3D, srcDevice));
+  std::printf("\"srcArray\":%zu,", offsetof(CUDA_MEMCPY3D, srcArray));
+  std::printf("\"reserved0\":%zu,", offsetof(CUDA_MEMCPY3D, reserved0));
+  std::printf("\"srcPitch\":%zu,", offsetof(CUDA_MEMCPY3D, srcPitch));
+  std::printf("\"srcHeight\":%zu,", offsetof(CUDA_MEMCPY3D, srcHeight));
+  std::printf("\"dstXInBytes\":%zu,", offsetof(CUDA_MEMCPY3D, dstXInBytes));
+  std::printf("\"dstY\":%zu,", offsetof(CUDA_MEMCPY3D, dstY));
+  std::printf("\"dstZ\":%zu,", offsetof(CUDA_MEMCPY3D, dstZ));
+  std::printf("\"dstLOD\":%zu,", offsetof(CUDA_MEMCPY3D, dstLOD));
+  std::printf("\"dstMemoryType\":%zu,", offsetof(CUDA_MEMCPY3D, dstMemoryType));
+  std::printf("\"dstHost\":%zu,", offsetof(CUDA_MEMCPY3D, dstHost));
+  std::printf("\"dstDevice\":%zu,", offsetof(CUDA_MEMCPY3D, dstDevice));
+  std::printf("\"dstArray\":%zu,", offsetof(CUDA_MEMCPY3D, dstArray));
+  std::printf("\"reserved1\":%zu,", offsetof(CUDA_MEMCPY3D, reserved1));
+  std::printf("\"dstPitch\":%zu,", offsetof(CUDA_MEMCPY3D, dstPitch));
+  std::printf("\"dstHeight\":%zu,", offsetof(CUDA_MEMCPY3D, dstHeight));
+  std::printf("\"WidthInBytes\":%zu,", offsetof(CUDA_MEMCPY3D, WidthInBytes));
+  std::printf("\"Height\":%zu,", offsetof(CUDA_MEMCPY3D, Height));
+  std::printf("\"Depth\":%zu", offsetof(CUDA_MEMCPY3D, Depth));
+  std::printf("},\n");
+  std::printf("\"memset_size\":%zu,\n", sizeof(CUDA_MEMSET_NODE_PARAMS));
+  std::printf("\"memset_offsets\":{");
+  std::printf("\"dst\":%zu,", offsetof(CUDA_MEMSET_NODE_PARAMS, dst));
+  std::printf("\"pitch\":%zu,", offsetof(CUDA_MEMSET_NODE_PARAMS, pitch));
+  std::printf("\"value\":%zu,", offsetof(CUDA_MEMSET_NODE_PARAMS, value));
+  std::printf("\"elementSize\":%zu,", offsetof(CUDA_MEMSET_NODE_PARAMS, elementSize));
+  std::printf("\"width\":%zu,", offsetof(CUDA_MEMSET_NODE_PARAMS, width));
+  std::printf("\"height\":%zu", offsetof(CUDA_MEMSET_NODE_PARAMS, height));
+  std::printf("},\n");
+  std::printf("\"host_size\":%zu,\n", sizeof(CUDA_HOST_NODE_PARAMS));
+  std::printf("\"host_offsets\":{");
+  std::printf("\"function\":%zu,", offsetof(CUDA_HOST_NODE_PARAMS, fn));
+  std::printf("\"user_data\":%zu", offsetof(CUDA_HOST_NODE_PARAMS, userData));
+  std::printf("}\n");
+  std::printf("}\n");
+}

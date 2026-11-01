@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **新增G1实际graph定义审计，生产版本未改。** 两端各一次正常Core真实graph60/test退出0；
+> 17467节点/17466依赖、15672内核完整类型化参数/geometry、174复制、1621填充同。
+> 267地址映射及记录范围内偏移同，CPU独立重核；14种函数资源属性仍不同，pointee未比较。
+> 两次新增诊断均未通过固定C8、未复现旧23.85尖峰，旧失败保持，ready=False。
+> 下一步核真实执行的同输入buffer；见[G1图定义审计](reconstruction/csrc/G1_GRAPH_DEFINITION_AUDIT.md)。
+
 > **当前候选38b70dcd：混合普通约束＋实际rigid/rolling接触。** 固定SDK32全部有效，旧eb两条guard拒绝基线已保存；
 > 改前27文件与2643原版文件SHA有检查点。只扩展普通约束种类组合，数学/CUDA176/f0不变。
 > 首次源码32/32严格，18624完整调用及2448力buffer同；八constructor五项全同、graph128/128、双端initcheck零错误，CPU重核同。

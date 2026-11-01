@@ -1,5 +1,9 @@
 # 新版基准与 C++ host 进度
 
+> **G1实际graph定义已核对，生产host38/Core7eb未改。** 两端17467节点/17466边、全部内核类型化参数/geometry、
+> 复制/填充及267指针关系同；记录范围内偏移CPU独立同。14种函数资源仍不同，未读pointee。
+> 两份新诊断仍未通过固定C，未复现旧23.85尖峰，旧失败不改；见[G1图定义审计](G1_GRAPH_DEFINITION_AUDIT.md)。
+
 > **当前候选38b70dcd：混合plain约束＋rigid/rolling接触。** SDK32全部有效、旧eb保护拒绝已保存，改前27文件与2643参考SHA有检查点。
 > 首次源码32/32严格，18624完整调用及2448力buffer全同；八constructor五项同、graph128/128及双端initcheck全过，CPU重核同。
 > 数学/CUDA176/f0不变，匹配Core7eb三个正常入口graph/test已过；本轮完整74为71严格，粒子C10 seed1/3过、seed2失败，CPU同。

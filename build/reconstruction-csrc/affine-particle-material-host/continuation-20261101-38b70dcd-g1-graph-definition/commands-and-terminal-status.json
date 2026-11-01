@@ -1,0 +1,40 @@
+{
+  "driver": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/run-graph-definitions.py"
+  ],
+  "schema_successful_as_run": {
+    "actual_filename": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/prepare-warp-schema.py",
+    "preserved_script": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/prepare-warp-schema-as-run.py",
+    "sha256": "5c0d055c65e3af8f460c6ae27468d6ed94fb87a13cc0b1c0a1b8e42de642ad66"
+  },
+  "independent_cpu_audit": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/audit-graph-definitions.py"
+  ],
+  "comparator": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "-m",
+    "reconstruction.csrc.graph_definition_compare",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/original/worker/definition-0/graph.json",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/source/worker/definition-0/graph.json",
+    "--warp-schema",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/warp-schema.json",
+    "--output",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/graph-comparison.json"
+  ],
+  "shell_environment": "source scripts/reconstruction_env.sh",
+  "GPU_driver_session": {
+    "session_id": 27273,
+    "backends_exit_codes": [
+      0,
+      0
+    ],
+    "terminal_handle_missing": true
+  },
+  "CPU_comparator_session": {
+    "session_id": 87920,
+    "exit": 0
+  },
+  "whole_solver_complete": false
+}

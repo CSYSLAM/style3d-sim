@@ -6068,3 +6068,35 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   控制不加入基准，源码C8报告SHA全程不变，也没有改判源码false。三个SDK控制最大速度字段偏差约2.10545，
   没复现源码23.8513尖峰；C失败本身不能证明算术有错，G1根因仍需正常graph节点/依赖/参数证据。
   所有测试均已结束，下一项graph只读诊断尚未实现，不记成已验证；生产仍host38/Core7eb/CUDA176f0/readyFalse。
+
+### 2026-11-01：G1正常公共Core实际graph定义、完整参数与记录范围偏移核对
+
+- 上一用户问询轮仅核对并汇报当前状态，没有新增验证；本轮继续真实graph诊断，未将状态复述计作进展。
+  固定SDK64a、host38b70dcd、公共Core7eb6e847、CUDA176/f0、默认入口和readyFalse全部不改。
+- 新`g1_graph_definition.py`基于旧正常worker精确源码，只保留实际Graph对象，并在全部60帧/test及NPZ保存后查询图。
+  新`graph_definition_dump.py`使用只读Driver API抓取所有节点、依赖、复制、填充和全部kernel原始参数。
+  cuFuncGetParamInfo给出实际参数offset/宽度，已出现的自有函数同时对照固定manifest；没有跳过非自有参数。
+- 本机CUDA12.4头文件CPU C++ sizeof/offsetof逐字段核准：明确kernel v1为56，copy200、memset40、host16。
+  初次CPU导入遇到class comprehension作用域NameError，GPU前退出，旧文件和错误保存于相邻startup-failed目录；修正后ABI通过。
+- 预先固定两端各一次，242输入SHA含203资产；run-graph-definitions.py严格串行。session27273两端均实际退出0、
+  完成60帧和示例test后句柄消失；源码public_core_abi true、bridge false、reference_solver_mapped false。
+  两条是新诊断，未替换八原版或三源码固定轨迹。
+- 两端均17467节点/17466边；独立链验证及唯一拓扑次序同。15672内核节点（15636自有、36 Warp）、
+  174 D2D复制、1621填充，所有名称、geometry、shared、参数ABI布局和显式类型化字段相同。
+  本图没有其它Thrust/CUB节点、child、event、host或未知节点，未出现分支不算已验证。
+- Warp的10种内核使用日志指定hash的实际加载CU，保存生成源/编译产物和布局依赖共27文件。
+  CPU准备时全缓存重复symbol断言失败，改从实际日志选模块；之后全日志相同断言因结束test模块名不同失败，旧脚本保留。
+  正式图内每个Warp函数仍按生成声明、ctypes字段和真实Driver宽度严格核准；仅声明padding不比较，原始字节未丢。
+  prepare-warp-schema-as-run.py保存实际成功执行版本；维护脚本仅修正一条对test模块差异原因过度推断的注释。
+- 新graph_definition_compare.py已实际完成0（session87920）：267指针身份关系全部同；Warp padding出现量2500。
+  独立CPU audit不复用其归一化算法，直接核95318标量字段、238397指针字段出现量和原始地址双向映射。
+  1969实际copy/fill范围做525723次成员/相对offset核对，含4910个范围内命中，全部同。
+  这不是完整allocation边界或device pointee证明；也未抓kernel-node额外属性或单独确认graph_exec有效属性。
+- 14种函数/7812个节点的register/local/max_threads等资源属性仍不同，单列完整报告，未改判或擅改launch/math来配资源。
+  原因尚未证明。新两端四字段均58/60位于固定C8范围，仍均失败；新SDK/源码最大速度字段误差约1.119/1.111。
+  均未逐位复现旧11条轨迹，尤其没有复现旧source1的23.8513尖峰；不能代替或解释旧失败。
+  独立CPU重算统计同，旧C8报告SHA32b6e2a7…不变，没有添加基准样本或放宽阈值。
+- 全部原始graph JSON/DOT、60帧NPZ、日志/命令、as-run代码、编译ABI程序、类型schema和CPU审计保存在
+  continuation-20261101-38b70dcd-g1-graph-definition；方法与限制见csrc/G1_GRAPH_DEFINITION_AUDIT.md。
+  下一步转真实同输入执行/内部buffer的逐帧六子步定位，再三端回放及真实F32原子操作数协议核对；不再重复已闭合的图参数检查。
+  完整替代仍未完成，生产readyFalse，Windows仍WSL2固定Linux对照。
