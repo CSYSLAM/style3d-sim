@@ -1,0 +1,96 @@
+{
+  "base_sha256": "f9d0d2cf036b317ed9358bcc50785e6f5cc22525ac5ee1ca3bd9945e3a4b24aa",
+  "changes": [
+    {
+      "old": "SIZES = {\n    'rhs': {1: 2112, 2: 2112, 3: 704, 4: 704, 5: 26752, 7: 2112, 8: 704, 9: 2112},\n    'joint': {0: 2112, 1: 704, 2: 688, 3: 1032, 4: 1032, 5: 1376, 6: 1376, 7: 344, 8: 1032, 10: 2112},\n    'so3': {0: 2112, 1: 704, 2: 176, 3: 1584, 4: 1584, 6: 2112},\n}\nOUTPUT = {'rhs': 9, 'joint': 10, 'so3': 6}\nRANKS = {'rhs': 14575, 'joint': 14580, 'so3': 14583}\nWIDTHS = {'rhs': [4] + [8] * 11, 'joint': [8] * 9 + [4] + [8] * 5, 'so3': [8] * 5 + [4] + [8] * 4}\nSTATIC = {'rhs': (3, 4, 5, 8), 'joint': tuple(range(1, 8)), 'so3': (1, 2)}\n",
+      "new": "SIZES = {\n    'drive': {0: 2112, 1: 2112, 2: 172, 3: 172, 4: 172, 5: 704, 6: 172, 7: 344,\n              8: 516, 9: 516, 10: 516, 11: 688, 12: 688, 13: 688, 14: 688, 15: 688,\n              16: 172, 17: 172, 18: 196, 19: 196, 20: 196, 21: 196, 22: 196, 23: 196, 24: 196, 25: 196, 26: 2112},\n    'soft': {0: 4, 2: 73920, 3: 73920, 4: 221760, 5: 221760, 6: 221760, 7: 704, 8: 704, 9: 704,\n             12: 420, 13: 420, 14: 2940, 15: 1260, 16: 420, 17: 420, 18: 420, 19: 420, 20: 420,\n             28: 176, 29: 704, 30: 528, 32: 2112, 33: 2112, 34: 2112, 36: 2112, 37: 704},\n    'joint': {0: 2112, 1: 704, 2: 688, 3: 1032, 4: 1032, 5: 1376, 6: 1376, 7: 1032},\n    'so3_true': {0: 2112, 1: 704, 2: 1584, 3: 1584},\n    'so3_false': {0: 2112, 1: 704, 2: 1584, 3: 1584},\n}\nOUTPUT = {'drive': [3, 4, 26], 'soft': [36, 37], 'joint': [7], 'so3_true': [2, 3], 'so3_false': [2, 3]}\nRANKS = {'drive': 14581, 'soft': 14578, 'joint': 16882, 'so3_true': 15149, 'so3_false': 17459}\nWIDTHS = {'drive': [8] * 32 + [4], 'soft': [8] * 24 + [4] * 4 + [8] * 7 + [4] + [8] * 6,\n          'joint': [8] * 12, 'so3_true': [8] * 4 + [1] + [8] * 3, 'so3_false': [8] * 4 + [1] + [8] * 3}\nSTATIC = {'drive': tuple(range(5, 23)), 'soft': (7, 8, 9, *range(12, 21), 28, 29, 30),\n          'joint': tuple(range(1, 7)), 'so3_true': (1,), 'so3_false': (1,)}\nSNAPSHOT_BYTES = sum(sum(v.values()) + sum(v[i] for i in OUTPUT[k]) for k, v in SIZES.items())",
+      "count": 1
+    },
+    {
+      "old": "len(replay['packets']) == 360",
+      "new": "len(replay['packets']) == 600",
+      "count": 1
+    },
+    {
+      "old": "len(after) == 17494",
+      "new": "len(after) == 17546",
+      "count": 1
+    },
+    {
+      "old": "len(changed['edges']) == 17499",
+      "new": "len(changed['edges']) == 17555",
+      "count": 1
+    },
+    {
+      "old": "len(layout['stages']) == 3",
+      "new": "len(layout['stages']) == 5",
+      "count": 1
+    },
+    {
+      "old": "len(layout['snapshots']) == 27",
+      "new": "len(layout['snapshots']) == 79",
+      "count": 1
+    },
+    {
+      "old": "node['geometry'] == [1, 1, 1, 256, 1, 1, 0]",
+      "new": "node['geometry'] == [73 if key == 'soft' else 1, 1, 1, 256, 1, 1, 0]",
+      "count": 1
+    },
+    {
+      "old": "stage['outputs'] == [OUTPUT[key]]",
+      "new": "stage['outputs'] == OUTPUT[key]",
+      "count": 1
+    },
+    {
+      "old": "('after', OUTPUT[key])",
+      "new": "*(('after', i) for i in OUTPUT[key])",
+      "count": 1
+    },
+    {
+      "old": "== 63728",
+      "new": "== SNAPSHOT_BYTES",
+      "count": 1
+    },
+    {
+      "old": "if i == out:",
+      "new": "if i in outputs:",
+      "count": 1
+    },
+    {
+      "old": "{str(out): pointers[out]}",
+      "new": "{str(i): pointers[i] for i in outputs}",
+      "count": 1
+    },
+    {
+      "old": "if key != 'rhs':",
+      "new": "if key in ('drive', 'soft'):",
+      "count": 1
+    },
+    {
+      "old": "        out = OUTPUT[key]\n        expected = packet['after-arg-' + str(out)].tobytes()\n        assert len(expected) == 2112\n        effective = int(np.count_nonzero(np.frombuffer(expected, '<u4') != np.frombuffer(bindings[out], '<u4')))\n        assert row['capture_effective_scalars'] == {str(out): effective}\n        counts[key]['effective_calls'] += int(effective != 0)\n",
+      "new": "        outputs = OUTPUT[key]\n        expected = {i: packet['after-arg-' + str(i)].tobytes() for i in outputs}\n        assert all(len(expected[i]) == len(bindings[i]) for i in outputs)\n        effective = {str(i): int(np.count_nonzero(np.frombuffer(expected[i], '<u4') !=\n                                                 np.frombuffer(bindings[i], '<u4'))) for i in outputs}\n        assert row['capture_effective_scalars'] == effective\n        counts[key]['effective_calls'] += int(any(effective.values()))\n        if key == 'so3_false':\n            assert expected[3] == bindings[3]\n        for i, value in effective.items():\n            counts[key]['effective_output_' + i] += int(value != 0)\n",
+      "count": 1
+    },
+    {
+      "old": "            output_bytes = actual[backend + '-output-' + str(out)].tobytes()\n            equal = output_bytes == expected\n            assert check['captured_output_equal'] == {str(out): equal} and check['all_outputs_equal'] == equal\n            strict[key][backend] += int(equal)\n            for i, (group, initial, mask) in enumerate(zip(groups, initial_groups, masks)):\n                after = actual[backend + '-group-' + str(i)]\n                assert after.shape == initial.shape and np.array_equal(after[mask], initial[mask])\n                counts[key]['unwritten_after_bytes_rechecked'] += int(mask.sum())\n                if out in group['indices']:\n                    offset = group['start'] % 256 + values[out] - group['start']\n                    assert after[offset:offset + 2112].tobytes() == output_bytes\n            assert check['unwritten_bytes_unchanged']\n            counts[key]['complete_vectors_rechecked'] += 1\n",
+      "new": "            results = {i: actual[backend + '-output-' + str(i)].tobytes() for i in outputs}\n            equals = {str(i): results[i] == expected[i] for i in outputs}\n            assert check['captured_output_equal'] == equals and check['all_outputs_equal'] == all(equals.values())\n            for i in outputs:\n                strict[key][backend + '-output-' + str(i)] += int(equals[str(i)])\n            for i, (group, initial, mask) in enumerate(zip(groups, initial_groups, masks)):\n                after = actual[backend + '-group-' + str(i)]\n                assert after.shape == initial.shape and np.array_equal(after[mask], initial[mask])\n                counts[key]['unwritten_after_bytes_rechecked'] += int(mask.sum())\n                for out in outputs:\n                    if out in group['indices']:\n                        offset = group['start'] % 256 + values[out] - group['start']\n                        assert after[offset:offset + len(bindings[out])].tobytes() == results[out]\n            assert check['unwritten_bytes_unchanged']\n            counts[key]['complete_vectors_rechecked'] += len(outputs)\n",
+      "count": 1
+    },
+    {
+      "old": "        active = {'rhs': 176, 'joint': 86, 'so3': 44}[key]\n        assert row['actual_lane_count'] == row['active_lanes'] == active\n        assert row['atomic_probes_executed'] == (key != 'rhs')\n        if key == 'rhs':\n            assert not row['atomic_operands']\n        else:\n",
+      "new": "        if key == 'soft':\n            count = int.from_bytes(bindings[0], 'little', signed=True)\n            active, lanes = min(max(count, 0), 18480), 18688\n        else:\n            count = active = {'drive': 43, 'joint': 86, 'so3_true': 44, 'so3_false': 44}[key]\n            lanes = 256\n        assert row['reported_lane_count'] == count and row['active_lanes'] == active and row['trace_lanes'] == lanes\n        counts[key]['active_prefix_lanes'] += active\n        assert row['atomic_probes_executed'] == (key in ('drive', 'soft'))\n        if key not in ('drive', 'soft'):\n            assert not row['atomic_operands']\n        else:\n",
+      "count": 1
+    },
+    {
+      "old": "                assert sizes.shape == (1024,) and not sizes[active:].any()\n                if key == 'joint':\n                    pairs = np.frombuffer(bindings[2], '<i4').reshape(86, 2)\n                    assert ((pairs >= -1) & (pairs < 44)).all()\n                    expected_sizes = 12 * np.count_nonzero(pairs >= 0, axis=1)\n                else:\n                    expected_sizes = np.full(44, 12)\n                assert np.array_equal(sizes[:active], expected_sizes)\n",
+      "new": "                assert sizes.shape == (lanes,) and not sizes[active:].any() and sizes.max() <= 36\n                counts[key]['probe_zero_lanes'] += int(np.count_nonzero(sizes[:active] == 0))\n",
+      "count": 1
+    },
+    {
+      "old": "                        assert pointers[out] <= address < pointers[out] + 2112 and (address - pointers[out]) % 4 == 0\n                        target = (out, (address - pointers[out]) // 4)",
+      "new": "                        targets_here = [(out, (address - pointers[out]) // 4) for out in outputs\n                                        if pointers[out] <= address < pointers[out] + len(bindings[out])]\n                        assert len(targets_here) == 1\n                        target = targets_here[0]\n                        assert (address - pointers[target[0]]) % 4 == 0",
+      "count": 1
+    }
+  ],
+  "generated_sha256": "bda2b388c6415d488c384922c56dbd4c1e2e169a93fdbb4c2f270316a0c4ff23"
+}

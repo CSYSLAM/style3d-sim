@@ -1,0 +1,81 @@
+{
+  "base_sha256": "788ca8e715dd86cc42f56deec4557711d5048297dc43d3a0fdaab2a6cde7c403",
+  "changes": [
+    {
+      "old": "row['stage'] == 'joint'",
+      "new": "row['stage'] == 'drive'",
+      "count": 1
+    },
+    {
+      "old": "BASE / side / 'joint-packets'",
+      "new": "BASE / side / 'drive-packets'",
+      "count": 1
+    },
+    {
+      "old": "f'joint-{side}-frame-{frame:02d}.npz'",
+      "new": "f'drive-{side}-frame-{frame:02d}.npz'",
+      "count": 1
+    },
+    {
+      "old": "range(86)",
+      "new": "range(43)",
+      "count": 2
+    },
+    {
+      "old": "lane < 86",
+      "new": "lane < 43",
+      "count": 1
+    },
+    {
+      "old": "['actual_output_replay_addresses']['10']",
+      "new": "['actual_output_replay_addresses']['26']",
+      "count": 1
+    },
+    {
+      "old": "np.empty((2, 86, 528)",
+      "new": "np.empty((2, 43, 528)",
+      "count": 1
+    },
+    {
+      "old": "== (3, 2, 86, 528)",
+      "new": "== (3, 2, 43, 528)",
+      "count": 1
+    },
+    {
+      "old": "range(15)",
+      "new": "range(33)",
+      "count": 1
+    },
+    {
+      "old": "assert set(pointers) == {*range(9), 10}",
+      "new": "assert set(pointers) == set(range(27))\n        shifted = {2: 4, 3: 4, 4: 4, 6: 4, 7: 8, 8: 12, 9: 12, 10: 12,\n                   11: 16, 12: 16, 13: 16, 14: 16, 15: 16, 16: 4, 17: 4}",
+      "count": 1
+    },
+    {
+      "old": "pointers[i] + (12 * lane if i == 8 else 0)",
+      "new": "pointers[i] + shifted.get(i, 0) * lane",
+      "count": 1
+    },
+    {
+      "old": "                if i in (11, 13):\n                    expected = 1\n                elif i == 12:\n                    expected = lane + 1",
+      "new": "                if i in (27, 28):\n                    expected = 1",
+      "count": 1
+    },
+    {
+      "old": "== (86, len(value))",
+      "new": "== (43, len(value))",
+      "count": 1
+    },
+    {
+      "old": "packet['before-arg-10']",
+      "new": "packet['before-arg-26']",
+      "count": 1
+    },
+    {
+      "old": "== 61920",
+      "new": "== 30960",
+      "count": 1
+    }
+  ],
+  "generated_sha256": "ae4fe90125818a42d58462951c2132ef6cc17a5c6c6b697e1264c7fdf15b4a26"
+}

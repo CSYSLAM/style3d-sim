@@ -87,7 +87,12 @@ SDK/源码所有原始轨迹与旧失败都保留；阈值和固定八份基准�
 13个固定缓存buffer跨端全字节同，惯性RHS360/SO3 600完整输出严格同；joint严格失败保留，
 但61920次SDK/PTX/source隔离全同、64867真实GPU F32标量证书全过，所有输出/ABI/历史独立CPU重核同。
 新原版within60/56/60/57、源码55/53/55/53，整段仍false，旧23.85未解释；不继承旧host141失败为当前通过。
-下一项实际drive load14581、soft force14578、joint/SO3 AL state16882/17459；只读符号/ABI已保存，尚无本批GPU证明。
+实际drive load、soft过滤、joint及两种SO3 AL state已经核对，见[drive/state实测](G1_DRIVE_AND_AL_STATE_RECOVERY.md)。
+源码1200完整输出全严格，关节/SO3状态1800三后端输出严格；drive原版/probe的11严格失败保留，
+30960次SDK隔离和63367 GPU F32证书全过，CPU重核同；41固定参数buffer跨端字节同。
+soft19008记录全因kind非零被过滤，不包含有效接触力算术。新原版within57/59/57/58、源码31/50/31/48，整段仍false。
+旧source1尖峰已按原始11份SHA精确CPU定位，frame31/body12/component4、23.85129467/原spread1.20910270仍保持失败。
+下一步使用冻结公共particle positions核SO3初始化，尤其frame30/31；尚未GPU执行，不声称旧内部乘子/调度已恢复。
 
 所有新执行使用新目录，GPU串行；源、SDK、数学、阈值、原始cohort保持固定，Windows继续WSL2。
 

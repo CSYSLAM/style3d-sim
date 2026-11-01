@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **G1 drive与AL-state：源码1200完整输出严格，状态1800三后端输出全严格。** drive原版/probe的11个严格失败保留，
+> 30960次SDK隔离和63367 GPU F32证书全过，CPU重核同；soft只覆盖代理粒子过滤，生产host38/Core7eb不改。
+> 旧23.85精确CPU定位保留，下一步用冻结frame30/31公共输入核SO3初始化；整体readyFalse、完整替代未通过。
+> 见[G1_DRIVE_AND_AL_STATE_RECOVERY.md](G1_DRIVE_AND_AL_STATE_RECOVERY.md)。
+
 > **G1惯性RHS和SO3力严格通过，joint真实原子证书通过。** 360/600完整输出严格，13固定缓存buffer跨端同。
 > joint严格差异保留；61920次SDK隔离全同，64867 GPU真实F32证书及255880历史CPU重核全过。
 > 整段C仍false、旧23.85未解释，生产host38/Core7eb/readyFalse不变；下一项drive/soft力和joint/SO3 state。

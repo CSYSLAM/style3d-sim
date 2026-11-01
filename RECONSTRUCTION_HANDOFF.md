@@ -1,5 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **G1 drive/soft/AL-state实际核对完成。** 600真实输入、4800完整输出，源码1200输出全严格；关节/SO3状态1800全严格。
+> drive的11个原版/probe严格失败保留；30960次SDK隔离、63367 GPU F32证书全部通过并独立CPU重核。
+> soft仅覆盖19008个代理粒子过滤；旧C8/23.85仍false。下一步直接用旧冻结公共状态核SO3初始化及尖峰前输入。
+> 见[drive与AL-state实测](reconstruction/csrc/G1_DRIVE_AND_AL_STATE_RECOVERY.md)；host38/Core7eb/readyFalse保持。
+
 > **G1质量/ELL和joint/SO3 RHS已实际核对。** RHS360/SO3 600完整输出严格同；13个固定缓存buffer跨端逐字节同。
 > joint完整向量严格失败保留，但61920次SDK/PTX/source逐弹簧隔离全严格、64867 GPU真实F32标量证书全过，CPU重核同。
 > 当前新增整段C仍false、旧23.85未解释；生产host38/Core7eb/readyFalse不变，完整替代未通过。

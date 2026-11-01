@@ -1,0 +1,66 @@
+{
+  "base_sha256": "e213a9a50d755529e719a18077f818b0c57898d850c1457e61d828a024d9b050",
+  "changes": [
+    {
+      "old": "from reconstruction.csrc.g1_joint_rhs_isolated",
+      "new": "from reconstruction.csrc.g1_drive_load_isolated",
+      "count": 1
+    },
+    {
+      "old": "from reconstruction.csrc.g1_joint_rhs_certificates",
+      "new": "from reconstruction.csrc.g1_drive_load_certificates",
+      "count": 1
+    },
+    {
+      "old": "row['stage'] != 'joint'",
+      "new": "row['stage'] != 'drive'",
+      "count": 1
+    },
+    {
+      "old": "BASE / side / 'joint-packets'",
+      "new": "BASE / side / 'drive-packets'",
+      "count": 1
+    },
+    {
+      "old": "f'joint-{side}-frame-{frame:02d}.npz'",
+      "new": "f'drive-{side}-frame-{frame:02d}.npz'",
+      "count": 1
+    },
+    {
+      "old": "source['after-arg-10']",
+      "new": "source['after-arg-26']",
+      "count": 1
+    },
+    {
+      "old": "'-output-10'",
+      "new": "'-output-26'",
+      "count": 1
+    },
+    {
+      "old": "['actual_output_replay_addresses']['10']",
+      "new": "['actual_output_replay_addresses']['26']",
+      "count": 1
+    },
+    {
+      "old": "ROOT / 'reconstruction/csrc/g1_joint_rhs_isolated.py'",
+      "new": "ROOT / 'reconstruction/csrc/g1_drive_load_isolated.py'",
+      "count": 1
+    },
+    {
+      "old": "ROOT / 'reconstruction/csrc/g1_joint_rhs_certificates.py'",
+      "new": "ROOT / 'reconstruction/csrc/g1_drive_load_certificates.py'",
+      "count": 1
+    },
+    {
+      "old": "'expected_calls': 61920",
+      "new": "'expected_calls': 30960",
+      "count": 1
+    },
+    {
+      "old": "             'count': 1, 'joints_per_world': 1, 'spring_count': 'k+1', 'multiplier_byte_offset': '12*k',\n             'global_spring_body_particle_arrays_unchanged': True, 'particle_world_width': 176}",
+      "new": "             'count': 1, 'drives_per_world': 1, 'global_body_DOF_target_arrays_unchanged': True,\n             'dofs_per_world': 49, 'targets_per_world': 49, 'particle_world_width': 176}",
+      "count": 1
+    }
+  ],
+  "generated_sha256": "b2a07002c06eecbb504dfb7f219d7d263b0dcf2165146dc2565b279cc54d4170"
+}

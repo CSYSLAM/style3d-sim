@@ -6383,3 +6383,44 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   全部原始输入、after、隔离、证书、日志/拒绝、命令及实际终态在continuation-20261101-38b70dcd-g1-inertial-joint-so3-rhs。
   见G1_INERTIAL_JOINT_SO3_RHS_RECOVERY.md。所有本轮GPU任务均已结束，生产/数学未改，未重复已闭合74项。
   完整源码替代未通过，goal保持活动，readyFalse，Windows继续WSL2；下一步按上述真实图节点继续同输入核对。
+
+### 2026-11-01：G1 drive、soft过滤与joint/SO3 AL状态，直接检查旧冻结尖峰输入
+
+- 上轮已发布8d1ca532、完整249653快照零失败并精确核远端，属于progress。本轮确认worktree干净后继续。
+  SDK64a、host38/Core7eb、CUDA176/f0、生产数学、默认入口、旧C8及全部固定失败保持，不重跑已闭合74项。
+- 外部GPU PID2564287的URDF600帧任务实际观察活跃18/57秒，期间仅做CPU；之后ps确认缺失、compute列表空才启动GPU。
+  不知道该外部任务退出码，不声称0；没有停止它，也未因观察超时重启任何任务，观察保存在GPU-observations.json。
+- 新g1_drive_state_capture/replay.py按固定SHA旧contact模板派生；选drive14581、soft14578、joint state16882、
+  SO3 true15149及false17459。实际最后SO3 bool为false，不能只采最后一条便宣称乘子更新也已覆盖。
+  CPU preflight44808退出0：全部参数类型/width与当前build同，potential writes仅声明输出及soft NULL40/41。
+  79 D2D快照、881868字节，geometry1/256及soft73/256，trace分别256/18688 lane，max36 atomic/lane。
+- capture69204实际退出0，两端各60帧正常公共Core graph/test过，源码bridge false、无原版映射。600真实packet全部SHA闭合。
+  原17467/17466图完整保留，实际17546/17555，前后依赖和所有range经独立CPU复核。
+- 首次replay73313实际退出1：我新增的数量lanes被旧per-thread list同名覆盖，第二packet报TypeError，非求解器数值失败。
+  replay-variable-v1-error完整保存旧plan/template/as-run/log/partial输出及维护工具。仅改四处维度名trace_lanes，
+  CPU preflight31949重新通过，revision审计确认固定input pins只改root replay和replay-template两项；全部600采集SHA不动，没有重复采集。
+  完整replay90754退出0，独立CPU50025退出0；没有静默覆盖错误或重写生产数学。
+- 4800完整输出中4789严格，源码PTX的1200个输出全严格。joint state三后端360、SO3 true/false三后端各720全严格。
+  drive angle/initialized五后端1200全严格、实际均保持；drive force严格份数runtime118/origPTX119/source120/probes116/116，各120。
+  11个原版/probe严格失败原样保留。完整非输出510606720字节、8280指针、28080标量字节、共94320实际ABI字节直接CPU核同。
+  41固定参数buffer每端60恒定、跨端字节同，含重复映射，不宣称整个构造器/41独立分配均证明完毕。
+- soft原版9544/源码9464，共19008真实prefix候选，粒子索引全合法、mass为正、kind全非零。核实际原版PTX parameter9 guard非零跳ret。
+  所有soft探针记录0 atomic，两个完整输出五后端共1200份严格保持原字节。这只覆盖过滤，不算有效soft force或矩阵算术验证。
+  全部drive type/initialized均1，实际初次初始化angle/flag未覆盖，范围限制在filter-and-drive-domain-audit.json中明确记录。
+- drive双PTX247632真实操作数的同目标及跨目标整条线程序列同；5160输入lane中5159各24atom，另一条空路径，不算有效算术。
+  严格门槛未全过后才固定后续：新增g1_drive_load_isolated/certificates.py按旧joint工具固定SHA派生。
+  所有drive-local数组偏移k，count/local1，完整44body/176particle及49DOF/target数组、实际angle/flag保持，正/负零force均测试。
+  准备器重复创建模板被CPU拒绝，旧代码/日志存followup-template-v1-refusal；修正后准备97771退出0，未在错误状态启动GPU。
+- followup29272实际全部结束0：isolation PID2578865、certificates2578968、CPU2579034。
+  30960次真实SDK/PTX/source隔离全严格并匹配真实逐lane操作数；CPU独立重核16346880输出word、1341600实际隔离ABI字节。
+  63367份真实before初值的GPU F32排列证书全过，全部123830硬件历史/目标bit及线程完整排列独立核同，正负零未丢弃。
+  只证明各标量合法顺序，不证明共同全局调度、不推断原实际顺序，不把11个原严格false或整段C改判。
+- 同旧C8新诊断原版within57/59/57/58、源码31/50/31/48，整段均false，body_qd max误差0.9105834364891052/1.8645520210266113。
+  旧23.85未复现/解释；八原版/三源码、SHA32b6e2a7…、门槛及旧失败全部不动，没有扩cohort或重选候选。
+- 新inspect-frozen-spike.py直接核旧11份NPZ的原始SHA，重算source1 frame31/body12/component4(flat76)，
+  误差23.851294673979282、spread1.2091027029923032、ratio19.726442274053134全与旧报告同，失败保持。
+  保存frame28..33邻域及frame30/31全body仿射谱。旧source1/body12帧末31 condition1.00176069/det1.00352287，
+  不把帧末矩阵推断为帧内所有状态；没有旧内部乘子/drive angle，不能声称恢复了原缓存或原子调度。
+  下一步直接以冻结公共particle positions共同输入核SDK/PTX/source SO3初始化，再向尖峰前预测/PCG追踪；该GPU测试尚未执行。
+- 全部本轮GPU已正常结束，未修改生产/SDK/pyc或宽松比较。说明见G1_DRIVE_AND_AL_STATE_RECOVERY.md，
+  原始证据/命令/终态在continuation-20261101-38b70dcd-g1-drive-and-AL-state。完整源码替代仍未验收，goal活动，readyFalse，Windows仍WSL2。

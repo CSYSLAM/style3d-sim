@@ -1,0 +1,29 @@
+{
+  "only_changed_input_pins": [
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/replay-template.py",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/g1_drive_state_replay.py"
+  ],
+  "exact_template_changes": [
+    [
+      "grid, lanes =",
+      "grid, trace_lanes ="
+    ],
+    [
+      "np.zeros((lanes, TRACE_RECORDS, 16)",
+      "np.zeros((trace_lanes, TRACE_RECORDS, 16)"
+    ],
+    [
+      "np.zeros(lanes, dtype='u4')",
+      "np.zeros(trace_lanes, dtype='u4')"
+    ],
+    [
+      "'trace_lanes': lanes,",
+      "'trace_lanes': trace_lanes,"
+    ]
+  ],
+  "capture_plan_sha256": "7e1af980b356d2b72702dbc0ab861c8e1d5bb0e713752fa4faa5fd0ce089eded",
+  "revised_replay_plan_sha256": "1f3b47e184a888ab384e68c9366aed06355ecd167f929c4e99101047e2a77ee2",
+  "all600_capture_packets_unchanged": true,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

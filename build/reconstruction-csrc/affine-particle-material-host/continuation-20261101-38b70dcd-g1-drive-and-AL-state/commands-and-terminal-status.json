@@ -1,0 +1,123 @@
+{
+  "CPU_preflight": {
+    "session": 44808,
+    "actual_exit": 0
+  },
+  "capture": {
+    "session": 69204,
+    "actual_exit": 0
+  },
+  "failed_replay_preserved": {
+    "session": 73313,
+    "actual_exit": 1
+  },
+  "corrected_CPU_preflight": {
+    "session": 31949,
+    "actual_exit": 0
+  },
+  "corrected_replay": {
+    "session": 90754,
+    "actual_exit": 0
+  },
+  "independent_CPU": {
+    "session": 50025,
+    "actual_exit": 0
+  },
+  "atomic_preparation": {
+    "session": 97771,
+    "actual_exit": 0,
+    "earlier_CPU_refusal_preserved": true
+  },
+  "atomic_followup": {
+    "session": 29272,
+    "actual_exit": 0,
+    "steps": [
+      {
+        "step": "isolation",
+        "pid": 2578865,
+        "actual_exit": 0
+      },
+      {
+        "step": "certificates",
+        "pid": 2578968,
+        "actual_exit": 0
+      },
+      {
+        "step": "atomic-followup-cpu-audit",
+        "pid": 2579034,
+        "actual_exit": 0
+      }
+    ]
+  },
+  "filter_domain_CPU": {
+    "actual_exit": 0
+  },
+  "frozen_spike_CPU": {
+    "actual_exit": 0,
+    "GPU_done": false
+  },
+  "all_started_GPU_jobs_terminal": true,
+  "strict_drive_failures_retained": true,
+  "old_full_C8_failure_retained": true,
+  "production_changed": false,
+  "whole_solver_complete": false,
+  "commands": {
+    "atomic-followup-cpu-audit.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/atomic-followup-cpu-audit.py"
+    ],
+    "certificates.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_drive_load_certificates",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/certificates"
+    ],
+    "isolation.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_drive_load_isolated",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/isolation"
+    ],
+    "original.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_drive_state_capture",
+      "--backend",
+      "original",
+      "--abi",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+      "--frames",
+      "60",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/original"
+    ],
+    "replay.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_drive_state_replay",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/replay"
+    ],
+    "source.command.json": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_drive_state_capture",
+      "--backend",
+      "source",
+      "--abi",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+      "--frames",
+      "60",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/source"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+drive original replayed complete two-output packet 0
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/g1_drive_state_replay.py", line 89, in <module>
+    main()
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/g1_drive_state_replay.py", line 85, in main
+    namespace['main']()
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-drive-and-AL-state/replay-replay-as-run.py", line 182, in main
+    trace_zero = np.zeros((lanes, TRACE_RECORDS, 16), dtype='u1')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'list' object cannot be interpreted as an integer
