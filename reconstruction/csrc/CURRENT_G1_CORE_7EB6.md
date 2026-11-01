@@ -1,5 +1,9 @@
 # 当前公共Core的G1固定原版对比：38b70dcd / 7eb6e847
 
+> 新[共同起点六子步](G1_CHECKPOINT_SUBSTEPS_RECOVERY.md)的594回放/1188输出全严格，原图/after/ABI已CPU核准。
+> 第4子步响应分组已定位，首次drive前force有11个末位差异，其它前26输入全同；向前追first RHS及joint AL。
+> 新单帧诊断C过不替代本文旧C8，原helper速度测试问题保留，整体readyFalse不变。
+
 > 后续共同输入核对见[G1冻结公共起点](G1_FROZEN_CHECKPOINT_RECOVERY.md)：SO3初始化7920输出全严格同。
 > 新单帧共同frame30重启中SDK也出现约-23响应，不能据此重判下文旧C8或称旧隐含状态已恢复。
 > 原demo多行速度lambda经Warp转换丢失阈值比较，CPU/CUDA负控制实测确认；原退出0仅描述CLI实际行为。

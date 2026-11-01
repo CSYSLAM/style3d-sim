@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **G1六子步：594三端回放、1188完整输出全严格，首次drive load的473条初始化已核。**
+> 原图/ABI/完整after独立CPU重核；新单帧C三源码过，不重判旧C8。明显响应分组定位到第4子步附近。
+> 首次drive前26输入内容全同，但force的11分量最大差4.77e-7；下一步first RHS25/joint AL30，原因未证明。
+> host38/Core7eb/readyFalse保持；见[G1_CHECKPOINT_SUBSTEPS_RECOVERY.md](G1_CHECKPOINT_SUBSTEPS_RECOVERY.md)。
+
 > **G1冻结SO3初始化：660公共输入、7920完整输出逐位同。** 3960实际调用及全部after/ABI已独立CPU重核。
 > 共同frame30重启八SDK/三源码完成，SDK也有约-23响应；不是旧内部状态恢复，旧C8仍false。
 > CPU/CUDA确认原速度测试的多行lambda被截断；退出0不等于速度阈值通过，独立状态对照保持。

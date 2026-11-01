@@ -6451,5 +6451,35 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   首次快照更新错误限定pyc位于SDK目录，写入前断言拒绝；随后旧快照校验真实退出1，仅四份已编辑文档SHA不同。
   独立核准360个pyc实际分布examples/src/reconstruction/tests且原字节不动；修正刷新器并保留首次拒绝记录。
   全量新快照校验通过后再提交发布，不把文档哈希差异称为solver计算失败。
+
+### 2026-11-01：共同起点六子步trace准备与首次drive分支
+
+- 前轮097542a9已推送并核远端，252067快照文件零失败，属于progress；本轮保持SDK64a/host38/Core7eb不动。
+- 新g1_checkpoint_substeps.py在固定原worker/checkpoint hook上加入真实图快照；六子步各首次drive、末velocity/angle共18调用。
+  相邻velocity/angle用同一快照依赖链；预期209304字节/300copy。潜在写来源两端精确为drive3/4/26、velocity3、angle1/2。
+- 新g1_checkpoint_substeps_replay.py保留真实span/alias/mod256、完整after及实际参数，固定计划594三端回放并独立CPU重核。
+  新trace-cpu-audit核实际首次initialized=0、后续状态链及最后公共状态，输出六子步body12代理粒子速度和角度变化。
+  原demo/helper/阈值/八旧原版C8不改，不将CLI退出0当作意图中的速度测试通过。
+- CPU语法/128列检查通过；prepare session29012实际0，旧两端图18处选择与ABI/写来源通过，没有创建GPU context。
+  驱动session31954进入真实GPU队列，外部worldparticle训练PID2630247占用期间持续保存查询，没有终止外部任务。
+  实际运行/终态见对应run.status.json和followup.status.json，不在尚未采集时记通过。
+- 等待期间用编译来源SHA核准source_solver.cpp，静态记录20处范围保护位置/上下文，host-guard-inventory.py真实退出0。
+  不删除保护；这不是SDK支持/可达性或20个缺陷的证明，不能折算剩余工作量。
+  本轮证据目录continuation-20261101-38b70dcd-g1-checkpoint-substeps，接续见G1_CHECKPOINT_SUBSTEPS_RECOVERY.md。
+- 上述队列session31954现已真实退出0：八SDK/三源码11 worker均0，原公共状态CPU审计0；不是仍等待或仅准备。
+  trace CPU2653999、replay2654431、独立replay CPU2654516均实际0。外部四PID2630247/2646250/2648023/2651917
+  共221条实际等待观察保留，未终止外部任务，外部退出码未知。
+- 每图17767节点/17802边，原17467/17466完整保留，300快照及唯一拓扑/范围独立核准。
+  198真实packet、594 GPU调用、1188完整输出全部逐位同；含11首drive/473条initialized=0→1，angle update仅已初始化分支。
+  CPU直接重核10395000 after字节、9422424非输出guard、8712指针、85536 ABI字节、15840标量字节及243144输出word。
+  严格全过后不做冗余原子隔离/证书，未改数学/阈值。新受控单帧数值C三源码都过，旧C8失败保持。
+- 八SDK第4子步body12代理速度分成约0.64..0.66和13.82..13.85；第6子步对应约23和0.89。
+  三源码属于前一轨迹，第6步代理速度23.13/23.01/23.18；不是第4步才出现任何末位差异，也未证明旧尖峰内部根因。
+  compare-substep-inputs.py实际0，保存各子步全27字段分组/原版范围，描述性数据不作为新门槛。
+- first-force-context.py实际0：第一次drive前全部11次前26指针输入内容逐字节同，八SDK初始force也逐位同。
+  三源码均同样11分量差异，最大4.76837158203125e-07，particles60..67；精确F32 bit和数值保存。
+  该差异已在drive之前，当前三个核本批都严格；尚未证明差异来自哪个前置核或是否导致后续响应。
+  接续first RHS25/joint AL30边界，必要时接contact26/rolling27；先共同输入实际回放，再按失败决定原子证书。
+- 生产host38/Core7eb/CUDA176f0与旧所有失败保持，没有重跑74；完整源码替代继续活动，Windows仍WSL2。
 - 全部本轮GPU已正常结束，未修改生产/SDK/pyc或宽松比较。说明见G1_DRIVE_AND_AL_STATE_RECOVERY.md，
   原始证据/命令/终态在continuation-20261101-38b70dcd-g1-drive-and-AL-state。完整源码替代仍未验收，goal活动，readyFalse，Windows仍WSL2。

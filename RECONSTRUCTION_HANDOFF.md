@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **共同起点六子步已实测闭合。** 198真实调用输入、594三端回放、1188完整输出全严格，含首次drive load初始化。
+> 原图和真实ABI/完整after独立CPU核同；八SDK/三源码单帧诊断C全过，旧C8仍false，整体readyFalse。
+> 响应从第4子步明显分组；首次drive之前已有11个force分量差异，最大4.77e-7，其它前26输入全同。
+> 下一步向前核first RHS25及joint AL30等累计力；不预设小差异为大响应原因，生产host38/Core7eb不改。
+> 证据和终态见[G1共同起点六子步](reconstruction/csrc/G1_CHECKPOINT_SUBSTEPS_RECOVERY.md)。
+
 > **冻结G1公共输入SO3初始化通过。** 660组、3960实际调用、7920完整输出逐位同，独立CPU重核同。
 > 旧source1 frame30共同起点的八SDK/三源码单帧诊断已结束，SDK也出现约-23同分量响应；旧C8失败不改。
 > 原G1多行速度lambda被Warp取源码截断，CPU/CUDA负控制确认，原退出0不能证明速度阈值通过。

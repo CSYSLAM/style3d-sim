@@ -1,0 +1,134 @@
+{
+  "source": "reconstruction/csrc/native/source_solver.cpp",
+  "source_sha256": "8f681cd5e3b644cf1a7284fa07b3de60930660e035706b2d702124827b52da09",
+  "compiled_host_sha256": "38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49",
+  "guards": [
+    {
+      "line": 119,
+      "message": "Requested source model topology has not been implemented",
+      "context_first_line": 111,
+      "context": "    void reject_model(const Model& model)\n    {\n        const bool has_bodies = model.body_count || model.body_state_count;\n        if (model.hinge_count || (model.cable_count && !has_bodies) || (model.body_spring_count && !has_bodies) ||\n            (model.body_distance_constraint_count && !has_bodies) ||\n            (model.body_point_line_count && !has_bodies) || (model.joint_drive_count && !has_bodies) ||\n            (model.joint_body_spring_count && !has_bodies) ||\n            (model.joint_body_point_line_count && !has_bodies))\n            throw std::runtime_error(\"Requested source model topology has not been implemented\");\n        if (model.granular_particle_count && (has_bodies || model.spring_count || model.triangle_count ||"
+    },
+    {
+      "line": 122,
+      "message": "Granular combined with other materials or bodies has not been captured",
+      "context_first_line": 114,
+      "context": "        if (model.hinge_count || (model.cable_count && !has_bodies) || (model.body_spring_count && !has_bodies) ||\n            (model.body_distance_constraint_count && !has_bodies) ||\n            (model.body_point_line_count && !has_bodies) || (model.joint_drive_count && !has_bodies) ||\n            (model.joint_body_spring_count && !has_bodies) ||\n            (model.joint_body_point_line_count && !has_bodies))\n            throw std::runtime_error(\"Requested source model topology has not been implemented\");\n        if (model.granular_particle_count && (has_bodies || model.spring_count || model.triangle_count ||\n                                            model.edge_count || model.tetrahedron_count || model.fluid_particle_count))\n            throw std::runtime_error(\"Granular combined with other materials or bodies has not been captured\");\n        const bool bodies = model.body_count || model.body_state_count;"
+    },
+    {
+      "line": 128,
+      "message": "Requested source model topology has not been implemented",
+      "context_first_line": 120,
+      "context": "        if (model.granular_particle_count && (has_bodies || model.spring_count || model.triangle_count ||\n                                            model.edge_count || model.tetrahedron_count || model.fluid_particle_count))\n            throw std::runtime_error(\"Granular combined with other materials or bodies has not been captured\");\n        const bool bodies = model.body_count || model.body_state_count;\n        const bool particle_materials = model.spring_count || model.triangle_count || model.edge_count ||\n                                        model.tetrahedron_count;\n        // Free joints contribute DOFs/targets but no kernels without drives (captured free-body schedule).\n        if ((model.particle_mass_non_diagonal_count || model.joint_dof_count || model.joint_target_count) && !bodies)\n            throw std::runtime_error(\"Requested source model topology has not been implemented\");\n        if (bodies && model.collision_triangle_count && !model.triangle_count && !model.tetrahedron_count)"
+    },
+    {
+      "line": 130,
+      "message": "Affine bodies combined with other elements have not been implemented",
+      "context_first_line": 122,
+      "context": "            throw std::runtime_error(\"Granular combined with other materials or bodies has not been captured\");\n        const bool bodies = model.body_count || model.body_state_count;\n        const bool particle_materials = model.spring_count || model.triangle_count || model.edge_count ||\n                                        model.tetrahedron_count;\n        // Free joints contribute DOFs/targets but no kernels without drives (captured free-body schedule).\n        if ((model.particle_mass_non_diagonal_count || model.joint_dof_count || model.joint_target_count) && !bodies)\n            throw std::runtime_error(\"Requested source model topology has not been implemented\");\n        if (bodies && model.collision_triangle_count && !model.triangle_count && !model.tetrahedron_count)\n            throw std::runtime_error(\"Affine bodies combined with other elements have not been implemented\");\n        const bool driven_cloth = model.triangle_count && model.joint_drive_count && model.joint_body_spring_count &&"
+    },
+    {
+      "line": 139,
+      "message": "Particle materials combined with constrained/fluid affine bodies are not captured",
+      "context_first_line": 131,
+      "context": "        const bool driven_cloth = model.triangle_count && model.joint_drive_count && model.joint_body_spring_count &&\n            model.body_spring_count == model.joint_body_spring_count && !model.body_point_line_count &&\n            !model.joint_body_point_line_count && !model.body_distance_constraint_count && !model.spring_count &&\n            !model.tetrahedron_count && !model.cable_count && !model.fluid_particle_count && !model.granular_particle_count;\n        if (bodies && particle_materials && !driven_cloth &&\n            (model.body_spring_count || model.body_distance_constraint_count || model.body_point_line_count ||\n             model.joint_drive_count || model.joint_body_spring_count || model.joint_body_point_line_count ||\n             model.cable_count || model.fluid_particle_count))\n            throw std::runtime_error(\"Particle materials combined with constrained/fluid affine bodies are not captured\");\n    }"
+    },
+    {
+      "line": 888,
+      "message": "Mixed plain constraints with joints/cables/fluid have not been captured",
+      "context_first_line": 880,
+      "context": "        if (model_.body_point_line_count) {\n            const std::size_t n = model_.body_point_line_count;\n            if (model_.joint_body_point_line_count > n)\n                throw py::value_error(\"joint_body_point_line_count exceeds body_point_line_count\");\n            plain_line_count_ = n - model_.joint_body_point_line_count;\n            if (plain_spring_count_ && plain_line_count_ && (model_.joint_body_spring_count ||\n                    model_.joint_body_point_line_count || model_.joint_drive_count || model_.cable_count ||\n                    model_.fluid_particle_count))\n                throw std::runtime_error(\"Mixed plain constraints with joints/cables/fluid have not been captured\");\n            for (auto field : {std::make_pair(model_.body_point_line_indices, \"body_point_line_indices\"),"
+    },
+    {
+      "line": 1222,
+      "message": "Cable mixed with body constraints has not been captured",
+      "context_first_line": 1214,
+      "context": "    }\n\n    void precompute_cables()\n    {\n        cable_count_ = model_.cable_count * (count_ / per_world_);\n        if (!cable_count_) return;\n        if (model_.body_spring_count || model_.body_point_line_count || model_.body_distance_constraint_count ||\n            model_.joint_drive_count)\n            throw std::runtime_error(\"Cable mixed with body constraints has not been captured\");\n        const std::size_t n = model_.cable_count;"
+    },
+    {
+      "line": 2101,
+      "message": "Source shape host currently supports static shapes only",
+      "context_first_line": 2093,
+      "context": "            for (float radius : read<float>(model_.particle_radii, per_world_))\n                if (std::isnan(radius) || radius < 0.0f)\n                    throw py::value_error(\"particle radii must be non-negative and not NaN\");\n        }\n        // Body-owned shapes only matter for contacts, which are rejected for body models in step().\n        if (model.shape_count && !(model.body_count || model.body_state_count)) {\n            const auto bodies = read<int>(model.shape_bodies, model.shape_count);\n            for (auto body : bodies)\n                if (body >= 0) throw std::runtime_error(\"Source shape host currently supports static shapes only\");\n        }"
+    },
+    {
+      "line": 2257,
+      "message": "Self-collision combined with other physics has not been captured",
+      "context_first_line": 2249,
+      "context": "        const bool pd = config.nonlinear_solver == NonlinearSolver::PD_NEWTON;\n        const bool joint_al = config.joint_constraint_mode == JointConstraintMode::AUGMENTED_LAGRANGIAN;\n        const bool drag = drag_count_ && config.air_density > 0.0f;\n        const bool surface = contact.soft_max_count && contact.soft_indices.size && contact.soft_barycentric.size;\n        const bool particle_contact = contact.soft_max_count && (!surface || contact.soft_particle_only_shapes.size);\n        const bool contact_product = particle_contact && config.enable_collision_hessian_non_diagonal;\n        const bool bodies = body_count_ != 0;\n        if (self && surface && (fluid_rows_ || granular_points_))\n            throw std::runtime_error(\"Self-collision combined with other physics has not been captured\");\n        const auto rigidity = config.affine_body_rigidity_model;"
+    },
+    {
+      "line": 2271,
+      "message": "This constrained cloth/body combination has not been captured",
+      "context_first_line": 2263,
+      "context": "        const bool driven_cloth = bodies && (so3 || six_springs) && joint_al && triangle_count_ && drive_total_ &&\n            joint_spring_total_ && body_spring_total_ == joint_spring_total_ && !point_line_total_ &&\n            !distance_total_ && !cable_count_ && !fluid_rows_ && !granular_points_ && !self && !drag_count_ &&\n            !tetrahedron_count_ && !spring_count_ &&\n            ((!contact.max_count && !contact.soft_max_count) ||\n             (contact.soft_max_count && !config.rigid_contact_hard));\n        if (bodies && (triangle_count_ || edge_count_) &&\n            (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) && !driven_cloth)\n            throw std::runtime_error(\"This constrained cloth/body combination has not been captured\");\n        if (self && bodies && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||"
+    },
+    {
+      "line": 2274,
+      "message": "This affine self-collision constraint/rigidity branch has not been captured",
+      "context_first_line": 2266,
+      "context": "            !tetrahedron_count_ && !spring_count_ &&\n            ((!contact.max_count && !contact.soft_max_count) ||\n             (contact.soft_max_count && !config.rigid_contact_hard));\n        if (bodies && (triangle_count_ || edge_count_) &&\n            (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) && !driven_cloth)\n            throw std::runtime_error(\"This constrained cloth/body combination has not been captured\");\n        if (self && bodies && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||\n                              cable_count_ || fluid_rows_ || (contact.max_count && config.rigid_contact_hard)))\n            throw std::runtime_error(\"This affine self-collision constraint/rigidity branch has not been captured\");\n        if (bodies && surface && !driven_cloth &&"
+    },
+    {
+      "line": 2279,
+      "message": "Requested affine-body scheduling branch has not been implemented",
+      "context_first_line": 2271,
+      "context": "            throw std::runtime_error(\"This constrained cloth/body combination has not been captured\");\n        if (self && bodies && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||\n                              cable_count_ || fluid_rows_ || (contact.max_count && config.rigid_contact_hard)))\n            throw std::runtime_error(\"This affine self-collision constraint/rigidity branch has not been captured\");\n        if (bodies && surface && !driven_cloth &&\n            (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||\n                                  cable_count_ || fluid_rows_ || drag_count_ ||\n                                  config.rigid_contact_hard))\n            throw std::runtime_error(\"Requested affine-body scheduling branch has not been implemented\");\n        if (bodies && tetrahedron_count_ && (!so3 || drag_count_ || fluid_rows_ ||"
+    },
+    {
+      "line": 2283,
+      "message": "This affine tetrahedron/contact/material combination has not been captured",
+      "context_first_line": 2275,
+      "context": "        if (bodies && surface && !driven_cloth &&\n            (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||\n                                  cable_count_ || fluid_rows_ || drag_count_ ||\n                                  config.rigid_contact_hard))\n            throw std::runtime_error(\"Requested affine-body scheduling branch has not been implemented\");\n        if (bodies && tetrahedron_count_ && (!so3 || drag_count_ || fluid_rows_ ||\n                ((contact.max_count || contact.soft_max_count) &&\n                 (self || !contact.soft_max_count || config.rigid_contact_hard))))\n            throw std::runtime_error(\"This affine tetrahedron/contact/material combination has not been captured\");\n        if (bodies && !so3 && !driven_cloth &&"
+    },
+    {
+      "line": 2288,
+      "message": "Other affine rigidity models combined with constraints have not been captured",
+      "context_first_line": 2280,
+      "context": "        if (bodies && tetrahedron_count_ && (!so3 || drag_count_ || fluid_rows_ ||\n                ((contact.max_count || contact.soft_max_count) &&\n                 (self || !contact.soft_max_count || config.rigid_contact_hard))))\n            throw std::runtime_error(\"This affine tetrahedron/contact/material combination has not been captured\");\n        if (bodies && !so3 && !driven_cloth &&\n            (spring_count_ || triangle_count_ || edge_count_ || body_spring_total_ ||\n                              distance_total_ || point_line_total_ || drive_total_ ||\n                              cable_count_ || contact.max_count || contact.soft_max_count || fluid_rows_))\n            throw std::runtime_error(\"Other affine rigidity models combined with constraints have not been captured\");\n        const float alpha = config.constraint_alpha;"
+    },
+    {
+      "line": 2320,
+      "message": "Affine body blocks combined with body constraints have not been captured",
+      "context_first_line": 2312,
+      "context": "            !plain_spring_count_ && !plain_line_count_ && !distance_total_ && !drive_total_ &&\n            !cable_count_ && !fluid_rows_ && !granular_points_ && !self &&\n            !drag_count_ && !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&\n            !contact.max_count && !contact.soft_max_count;\n        if (body_block && !driven_cloth && !isolated_plain && !plain_contact && !isolated_undriven_joint &&\n            (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&\n            (plain_spring_count_ || plain_line_count_ || distance_total_ || !drive_total_ || cable_count_ ||\n             fluid_rows_ || contact.max_count || contact.soft_max_count))\n            throw std::runtime_error(\"Affine body blocks combined with body constraints have not been captured\");\n        const bool extra_product = self || surface || contact_product || bending_damping_ || tetrahedron_count_ || drag ||"
+    },
+    {
+      "line": 2331,
+      "message": "Plain or undriven body constraints with PD_NEWTON have not been captured",
+      "context_first_line": 2323,
+      "context": "        const bool hard = rigid && config.rigid_contact_hard;\n        const bool contact_block = hard && body_block && config.affine_body_contact_block_preconditioner;\n        if (hard && config.rigid_contact_history && !contact.match_index.size)\n            throw py::value_error(\"hard-contact history requires collision match indices\");\n        // Captured isolated plain PD routes omit Gauss-Newton blocks; undriven-line joint routes remain guarded.\n        if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&\n            !isolated_plain && !plain_contact && !isolated_undriven_joint &&\n            pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))\n            throw std::runtime_error(\"Plain or undriven body constraints with PD_NEWTON have not been captured\");\n        if ((plain_spring_count_ || plain_line_count_ || distance_total_) &&"
+    },
+    {
+      "line": 2334,
+      "message": "Plain body constraints with contacts have not been captured",
+      "context_first_line": 2326,
+      "context": "            throw py::value_error(\"hard-contact history requires collision match indices\");\n        // Captured isolated plain PD routes omit Gauss-Newton blocks; undriven-line joint routes remain guarded.\n        if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&\n            !isolated_plain && !plain_contact && !isolated_undriven_joint &&\n            pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))\n            throw std::runtime_error(\"Plain or undriven body constraints with PD_NEWTON have not been captured\");\n        if ((plain_spring_count_ || plain_line_count_ || distance_total_) &&\n            (rigid || contact.soft_max_count) && !plain_contact)\n            throw std::runtime_error(\"Plain body constraints with contacts have not been captured\");\n        if ((joint_spring_total_ || joint_line_total_) && !joint_al) {"
+    },
+    {
+      "line": 2342,
+      "message": "This mixed or undriven-line joint penalty scope has not been captured",
+      "context_first_line": 2334,
+      "context": "            throw std::runtime_error(\"Plain body constraints with contacts have not been captured\");\n        if ((joint_spring_total_ || joint_line_total_) && !joint_al) {\n            const bool isolated_penalty = config.joint_constraint_mode == JointConstraintMode::PENALTY && so3 &&\n                !plain_spring_count_ && !plain_line_count_ && !distance_total_ &&\n                (drive_total_ || isolated_undriven_joint) && !cable_count_ && !fluid_rows_ &&\n                !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&\n                !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;\n            if (!isolated_penalty)\n                throw std::runtime_error(\"This mixed or undriven-line joint penalty scope has not been captured\");\n        }"
+    },
+    {
+      "line": 2347,
+      "message": "Contact/control source host scheduling has not been implemented",
+      "context_first_line": 2339,
+      "context": "                !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&\n                !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;\n            if (!isolated_penalty)\n                throw std::runtime_error(\"This mixed or undriven-line joint penalty scope has not been captured\");\n        }\n        const bool rolling = rigid && rolling_;\n        if (!drive_total_ && (control.joint_f.size || control.joint_target_q.size ||\n            control.joint_target_qd.size || control.joint_drive_velocities.size))\n            throw std::runtime_error(\"Contact/control source host scheduling has not been implemented\");\n        if (control.tetrahedron_activations.size && control.tetrahedron_activations.size < tetrahedron_count_)"
+    },
+    {
+      "line": 2353,
+      "message": "Partial surface-contact inputs have not been implemented",
+      "context_first_line": 2345,
+      "context": "        if (!drive_total_ && (control.joint_f.size || control.joint_target_q.size ||\n            control.joint_target_qd.size || control.joint_drive_velocities.size))\n            throw std::runtime_error(\"Contact/control source host scheduling has not been implemented\");\n        if (control.tetrahedron_activations.size && control.tetrahedron_activations.size < tetrahedron_count_)\n            throw py::value_error(\"tetrahedron activations are smaller than the tetrahedron state count\");\n        if (contact.soft_max_count) {\n            if (!surface && (contact.soft_indices.size || contact.soft_barycentric.size ||\n                             contact.soft_particle_only_shapes.size))\n                throw std::runtime_error(\"Partial surface-contact inputs have not been implemented\");\n            if (!model_.shape_count) throw py::value_error(\"Soft contacts require model shapes\");"
+    }
+  ],
+  "count": 20,
+  "static_source_inventory_only": true,
+  "conditions_reachability_or_SDK_support_not_proven": true,
+  "guard_count_is_not_a_remaining_work_estimate": true,
+  "guards_not_removed": true,
+  "production_changed": false,
+  "whole_solver_complete": false
+}
