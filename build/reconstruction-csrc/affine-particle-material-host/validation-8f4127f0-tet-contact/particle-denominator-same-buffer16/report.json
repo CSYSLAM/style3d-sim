@@ -1,0 +1,451 @@
+{
+  "source_sha256": "8f4127f0f2f3b90fed919ca87f94ff3e5e38fa251b4e24992e065b2f62ac02d2",
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8f4127f0-tet-contact/particle-first-divergence-packets/legacy/actual/000040.26multiply_matrix_and_reduceINS_17BlockNonZeroEntry.after.ap.bin": "4ca904655c327bb65c63ee59dd8685a84bfcdecb002cceff5a7a775bed918376",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8f4127f0-tet-contact/particle-first-divergence-packets/legacy/actual/000040.26multiply_matrix_and_reduceINS_17BlockNonZeroEntry.before.denominator.bin": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8f4127f0-tet-contact/particle-first-divergence-packets/legacy/actual/000040.26multiply_matrix_and_reduceINS_17BlockNonZeroEntry.before.per_group.bin": "a0454a24dd4bc418448ca19320519ea3fe544fa1a910868b62ca210614f119f8",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8f4127f0-tet-contact/particle-first-divergence-packets/legacy/actual/000040.26multiply_matrix_and_reduceINS_17BlockNonZeroEntry.before.max_count.bin": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8f4127f0-tet-contact/particle-first-divergence-packets/legacy/actual/000040.26multiply_matrix_and_reduceINS_17BlockNonZeroEntry.before.rows.bin": "4adeb4453cb2e0d4f186667f3052bf6c34b102cf0fa25910f6964f4f8a55ab84",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8f4127f0-tet-contact/particle-first-divergence-packets/legacy/actual/000040.26multiply_matrix_and_reduceINS_17BlockNonZeroEntry.before.blocks.bin": "f80a1296538fad32097fc3d7fe5c1dc1cbdf319172e77a5e3dcda154b0296362",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-8f4127f0-tet-contact/particle-first-divergence-packets/legacy/actual/000040.26multiply_matrix_and_reduceINS_17BlockNonZeroEntry.before.p.bin": "813f5170412c19ddb98198843de3c353436e18067141d729f50bdaa3eb57a23b"
+  },
+  "original_ptx_sha256": "a22824c519e1045bd728caefdcdc6591ebeb8839999ba6b1d490f3a36f67944c",
+  "method": "Identical buffers and nonblocking stream; rotate actual runtime/original PTX/source PTX order",
+  "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+  "pointwise_output": "ap",
+  "atomic_output": "denominator",
+  "particles": 257,
+  "groups": 1,
+  "trials_per_backend": 16,
+  "checks": [
+    {
+      "trial": 0,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 0,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 0,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 1,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 1,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 1,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 2,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 2,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 2,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 3,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 3,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181753
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 3,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 4,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 4,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 4,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 5,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181753
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 5,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181756
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 5,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 6,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 6,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 6,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 7,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 7,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 7,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 8,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 8,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 8,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181756
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 9,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 9,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181756
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 9,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 10,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 10,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181756
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 10,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 11,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 11,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 11,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 12,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 12,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 12,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 13,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 13,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 13,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 14,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 14,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 14,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181756
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 15,
+      "backend": "original-runtime",
+      "scalar_bits": [
+        1184181756
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 15,
+      "backend": "original-driver",
+      "scalar_bits": [
+        1184181755
+      ],
+      "pointwise_equal": true
+    },
+    {
+      "trial": 15,
+      "backend": "source-driver",
+      "scalar_bits": [
+        1184181754
+      ],
+      "pointwise_equal": true
+    }
+  ],
+  "patterns": {
+    "original-runtime": [
+      [
+        1184181754
+      ],
+      [
+        1184181755
+      ],
+      [
+        1184181756
+      ]
+    ],
+    "original-driver": [
+      [
+        1184181753
+      ],
+      [
+        1184181754
+      ],
+      [
+        1184181755
+      ],
+      [
+        1184181756
+      ]
+    ],
+    "source-driver": [
+      [
+        1184181753
+      ],
+      [
+        1184181754
+      ],
+      [
+        1184181755
+      ],
+      [
+        1184181756
+      ]
+    ]
+  },
+  "all_pointwise_equal": true,
+  "diagnostic_intentionally_maps_original": true,
+  "whole_solver_accepted": false
+}

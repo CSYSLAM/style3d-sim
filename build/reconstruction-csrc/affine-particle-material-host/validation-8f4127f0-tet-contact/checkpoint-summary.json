@@ -1,0 +1,89 @@
+{
+  "source_sha256": "8f4127f0f2f3b90fed919ca87f94ff3e5e38fa251b4e24992e065b2f62ac02d2",
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "cuda_kernel_count": 176,
+  "cuda_source_digest": "f0e0137a1eef9e603495dd9fe04f89f285d0723380099d7ce16951c8a267c79a",
+  "contact_source16_strict": 16,
+  "owned_calls": 8824,
+  "defined_post_buffers": 160,
+  "graph60_strict": 64,
+  "constructor_checks": {
+    "allocation_release_bytes_identity_phase_and_preceding_owned_launch": true,
+    "upload_bytes_and_order": true,
+    "typed_initializer_fields_uses_and_order": true,
+    "flat_owned_pointer_allocation_identity_and_offset": true,
+    "owned_and_library_kernel_name_order": true
+  },
+  "constructor_counts": {
+    "allocation_event_counts": [
+      96,
+      96
+    ],
+    "upload_counts": [
+      29,
+      29
+    ],
+    "typed_initializer_counts": [
+      57,
+      57
+    ],
+    "owned_launches": 634,
+    "kernel_timeline_counts": [
+      699,
+      699
+    ]
+  },
+  "surface_view_bindings": {
+    "calls": 63,
+    "pointers_per_view": 26,
+    "pointer_targets": {
+      "native_step_span": 504,
+      "null": 63,
+      "model": 945,
+      "owned": 126
+    },
+    "all_equal": true
+  },
+  "initcheck3_original_and_source_errors": 0,
+  "initcheck_trajectories_per_backend": 32,
+  "noncontact_tet_graph_strict": 32,
+  "self_config_contract": 246,
+  "regression74_strict": 71,
+  "regression_strict_failures": [
+    "particles-seed1",
+    "particles-seed2",
+    "particles-seed3"
+  ],
+  "fixed_C10": [
+    {
+      "case": "particles-seed1",
+      "every_array_and_step_within": false,
+      "outside": [
+        "n257_w1_it1_f0/1/in.particle_q",
+        "n257_w1_it1_f0/1/out.particle_q",
+        "n257_w1_it1_f0/1/out.particle_qd",
+        "n257_w1_it1_f0/2/in.particle_q",
+        "n257_w1_it1_f0/2/in.particle_qd",
+        "n257_w1_it1_f0/2/out.particle_q",
+        "n257_w1_it1_f0/2/out.particle_qd"
+      ]
+    },
+    {
+      "case": "particles-seed2",
+      "every_array_and_step_within": true,
+      "outside": []
+    },
+    {
+      "case": "particles-seed3",
+      "every_array_and_step_within": true,
+      "outside": []
+    }
+  ],
+  "C10_failure_reclassified": false,
+  "first_divergence_actual_original_runtime_reproduces_both_scalar_values": true,
+  "first_candidate_replaced": false,
+  "old_failures_preserved": true,
+  "whole_solver_complete": false,
+  "solver_api_ready": false,
+  "source_only": true
+}

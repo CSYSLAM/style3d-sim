@@ -5259,3 +5259,61 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   按该提交从GitHub raw下载参考so、源码so及快照，三者均与本机逐字节同；参考64a、源码b945。
   原始下载校验记录为validation-b9456031/published-8f04494-verification.json。
   随后只补此发布记录与更新快照，不修改求解器或已验收数据；下一步仍是有实际交互的body/tet组合。
+
+### b945续接：实际body/tetrahedron full-surface接触
+
+- 从已发布861a930干净状态继续，固定参考64a、活动host b945、CUDA176/f0均未修改。
+  新fixture保留实际deformed/damped tet，把有速度SO3 box置于其底面附近，使用官方full-surface pipeline。
+  预先固定W1/W3×Newton/PD×body block×diagonal-only共16组，每组三步，先只抓原版。
+  验证要求非零contact、surface对tet/body两侧RHS都起作用、tet force也实际改变RHS；
+  逐kernel dump前核对pointer ABI，保留完整owned参数/geometry，禁止放宽比较或替换首候选。
+  新证据目录continuation-20261031-b9456031-contact，所有本轮GPU worker串行，未停止其他项目进程。
+- 新harness首轮ABI预检拒绝surface arg0：它是by-value SurfaceContactView，首word才是count device pointer。
+  在任何GPU worker启动前已退出。保存失败harness/日志，按实际View头布局及hook的word解引用实现，
+  仅显式允许该4B count字段；所有其它dump仍要求pointer。换新original16-view-aware目录重新抓取。
+- 原版16组均完成且finite，W1初始10个真实contact，tet/body两侧RHS和tet弹性项全部实际变化。
+  实测force顺序surface→SO3→stretch→tet→bending，preconditioner为tet→surface，CG为SO3→tet→surface。
+  修改前27个生产源码/构建文件及所有原版结果SHA保存于tetrahedron-contact-before-b9456031。
+  仅放开SO3+tet的full-surface软接触分支；self、legacy-only contact、hard contact、drag/fluid继续拒绝。
+  未修改CUDA数学、kernel digest或比较标准。先编译并对固定16原版逐位核对，尚未验收此scope。
+- 新host image为8f4127f0f2f3b90fed919ca87f94ff3e5e38fa251b4e24992e065b2f62ac02d2，
+  构建来源SHA全部吻合，176入口和f0 digest不变。独立validation-8f4127f0-tet-contact队列顺序运行
+  source-first16、完整eager/graph60、W3三种observer构造审计、original/source各graph initcheck3。
+  队列固定build字节、保留每条命令与非零退出；新增harness不修改已冻结的tet/surface fixture或旧证据。
+- source-first16已完成：16/16状态逐位同，8824次完整owned ABI/geometry同，160份定义post buffer同，
+  source launch coverage均同，实际contact/双方反作用与tet弹性项检查全部生效。旧失败不改变。
+  正在跑完整graph/constructor/initcheck队列；这只是新scope局部结果，不能宣称完整solver通过。
+- 新scope主队列全部完成：64/64项60步eager/真实graph比较逐位同；original/source各32条轨迹×3步
+  initcheck均ERROR SUMMARY:0 errors。W3实际constructor五项全部同：96分配/释放、29上传、57 typed、
+  634 owned指针用途、699 owned+library核名称时序。审计边界仍不包含全部CUDA API/opaque view/library几何。
+  随后串行重验新image的无contact tet graph60、246配置和完整74回归；不用b945结果代替本次结果。
+- 离线直接按dtype/shape/原始bytes复核首次16组状态、160个post buffer和64对graph轨迹，全部同；
+  saved-contact-cpu-audit.json锁定输入SHA，无GPU重采样、无首候选替换。
+- 利用已保存full-memory构造资料补SurfaceContactView审计：63次view调用、每次26个pointer字段，
+  11个scalar word，记录全同。126个owned用途、945个Model字段、63个null均同；504个外部地址暂只能
+  逐地址比较，尚未证明其State/Contact语义。旧auditor已逐字保存后，新增可选实际native step绑定与
+  host-only marker支持，准备在完整回归结束后串行补抓；不改计算或增加GPU操作，不替代固定首候选。
+- 当前完整74已完成：71严格，三个particles seed严格差异。固定C10完成且CPU重算完全吻合：
+  seed2/3通过，seed1未通过，7个数组/记录步超范围，全部在n257_w1_it1_f0的step1/2。
+  最大位置误差约2.38e-7，速度约1.43e-5，固定C ratio最高约1.20536；不扩充10原版、不替换source0。
+  保存此失败并继续定位257粒子单NL/无外力PCG路径；不能写成新image全部回归已验收。
+- Surface view绑定诊断完成：63次view全同，504个旧外部地址全部识别到实际native State/Contact Span，
+  另945个Model字段、126个owned allocation+offset、63个null同；每view11个scalar word同，忽略4B padding。
+  新diagnostic原版/源码三步状态也同；未替换首次16组。全pointee数据与其它view不在此次结论内。
+- CPU首差报告初次JSON写出遇到numpy.int64索引，尚未生成输出；改为显式Python int后重算成功。
+  固定case仅7数组各6词差异，step0原版/源码完全同，step1位置最大1 ULP、step2最大4 ULP。
+- 新particle_full_worker_trace保留全部前置fixture和adapter，仅目标initialize之后开启既有host_trace。
+  原版/源码目标15/15数组分别与冻结original0/source0完全同，实际复现本次失败，不是换另一个候选。
+  抓到102个entry名称/geometry同，首post差异为000038 precondition numerator：输入inverse/r、输出z及
+  初始counter全同，累计值1184181755 vs1184181753；000040的p/Ap/初始counter同，累计值1184181755 vs1184181756。
+- 对两个first-divergence packet，actual SDK runtime/原版PTX/源码PTX在完全同一缓冲区/stream各16次轮换，
+  共96次kernel逐粒子结果全同；actual SDK runtime自身均产生冻结原版和源码两端累计值。
+  257个真实dot贡献找到四个精确F32排列证书，均无未解释目标；未将这些诊断加入固定10原版。
+  两个PCG entry规范化PTX完全同；全部10个实际entry中7同，start/RHS/invert三者文本仍不同，已如实列出。
+  此次首个分歧定位为atomic归约次序，不擅改生产数学，完整C10/整段轨迹仍false，旧固定失败均保留。
+- 全部本轮GPU任务已退出，nvidia-smi无计算进程；checkpoint-summary.json明确71/74、C10两过一失败、
+  新contact16/64严格通过和view语义绑定范围。整理源码、当前so、27文件检查点、原始数据与交接到既有分支，
+  不修改固定SDK/360个pyc，不把本轮局部通过说成完整solver完成。
+- 发布前索引25442文件，本轮3888路径约277.2MB未压缩证据，最大新文件7.74MB。
+  固定SDK无改动，360个pyc与上一快照逐SHA相同，无gitlink/LFS pointer/凭据模式命中。
+  当前host/native构建来源与产物SHA均一致，新增Python AST及128列检查、源码/文档diff检查通过。

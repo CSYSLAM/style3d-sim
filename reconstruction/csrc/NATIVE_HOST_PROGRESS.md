@@ -1,6 +1,14 @@
 # 新版基准与 C++ host 进度
 
-> **活动b9456031：新增SO3 body + tetrahedra（Newton/PD、W1/W3、body block开关）。**
+> **活动8f4127f0：新增SO3 body/tetrahedra实际full-surface软接触。**
+> 16组状态/160buffer/8824次完整owned调用全同；64项60步eager/graph逐位同。
+> 构造96/29/57/634/699五项同，original/source各32条×3步initcheck均零错误。
+> 无contact tet graph32/32、246配置同；74回归71严格，三particles固定C10两过一失败，CPU复核同。
+> 已复现seed1的冻结目标轨迹并定位首个PCG原子累计差异；实际SDK同buffer也产生两端值，C10仍false。
+> 补充63个surface view的26指针字段/11标量word语义绑定全同；不继承b945结论，旧失败仍保留。
+> CUDA176/f0、参考64a未改，ready=False；见BODY_TETRAHEDRA_CONTACT_RECOVERY.md。
+>
+> **前一b9456031：新增SO3 body + tetrahedra（Newton/PD、W1/W3、body block开关）。**
 > 按原版恢复body路径的体积上传位置及SO3→tet tangent，八组状态/buffer/ABI/coverage全部严格同，
 > 32项60步eager/真实graph比较全同；原版和source各16条×3步initcheck均零错误。
 > 构造五项全同：96分配/释放、29上传、57 typed、508 owned指针、573核名称时序。

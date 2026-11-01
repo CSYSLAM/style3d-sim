@@ -1,6 +1,12 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **继续开发更新：活动源码image为b9456031，新增按原版恢复的SO3 body/tetrahedra组合。**
+> **继续开发更新：活动源码image为8f4127f0，新增SO3 body/tetrahedra实际full-surface软接触。**
+> 16组三步状态/160份buffer/8824次完整调用全同，64项60步eager/graph比较全同，
+> 构造五项全同，original/source各32条×3步initcheck均零错误，补充63次view指针语义绑定全同。
+> 完整74为71严格；三个particles首候选固定C10两过一失败，已复现seed1并定位首个PCG原子归约差异。
+> 当前结果、命令及限制见[BODY_TETRAHEDRA_CONTACT_RECOVERY.md](reconstruction/csrc/BODY_TETRAHEDRA_CONTACT_RECOVERY.md)。
+>
+> **前一源码image b9456031：按原版恢复SO3 body/tetrahedra组合。**
 > 八组状态/buffer/ABI全严格，32项60步eager/graph比较全同，原版/源码initcheck3均零错误；
 > 构造五项审计全同，74项为70严格、4份固定首次差异C10通过，CPU复核吻合。见
 > [BODY_TETRAHEDRA_HOST_RECOVERY.md](reconstruction/csrc/BODY_TETRAHEDRA_HOST_RECOVERY.md)。
@@ -24,13 +30,17 @@
 当前176个CUDA入口已重建并纳入版本清单，host组合场景和正式demo仍需继续验收。
 Git 76facc7的交接只迁移冻结基线；后续25/cc/ff新增host字段和按原版恢复调度，CUDA数学和比较标准未改。
 
-**当前b945检查点**：body+tet新增八组状态/buffer/ABI严格相同，eager/graph60步32项全同，
+**当前8f4127f0检查点**：body+tet+full-surface软接触16组与64项60步比较全部逐位同，构造五项同，initcheck零错误。
+无contact tet graph为32/32，246配置同；完整74为71严格，三个particles固定C10为seed2/3过、seed1失败。
+seed1目标轨迹已逐字节复现，首个PCG差异由同输入实际SDK回放和精确F32次序见证解释，C10仍保留false。
+不能继承b945的统计结论；下一步是legacy particle contact或实际self，不直接删除相应guard。
+
+**前一b945检查点**：body+tet新增八组状态/buffer/ABI严格相同，eager/graph60步32项全同，
 完整构造五项审计全同；完整74项70严格，另四份固定首次输出的C10通过且CPU重算同。
 surface/legacy cloth graph仍有严格差异，未收集b945自己的surface/cloth C8或正式大demo 3/8 cohort。
 不得继承ff34的统计结论，也不能用新结果销账旧固定失败。
-接续优先捕获真正有交互的body/tet+self或contact原版，再按证据开放对应guard；
-当前仅SO3无contact/self/fluid/drag/body constraints的body+tet范围已核对。
-详细命令与当前结果以顶部链接的BODY_TETRAHEDRA_HOST_RECOVERY.md为准；下文第4至7节保留8f历史过程。
+body/tet full-surface软接触现已在8f4127f0局部核对；self/legacy-only/hard等范围仍有guard。
+详细命令与当前结果以顶部链接的BODY_TETRAHEDRA_CONTACT_RECOVERY.md为准；下文第4至7节保留8f历史过程。
 
 此前ff34：旧W3固定失败保留；新增body/full-surface/rolling、32block上限、单世界默认shape tile均按
 实际原版调用/反汇编恢复。正式cloth_balls可完成60帧物理检查、5214次调用参数与geometry同，
@@ -50,7 +60,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `b94560319d3a1c8aa7c898ce49b37748ae254ec30de28533deae292b4970a278`；当前源码host image；8f/814/25/cc/d932/ff源与构建检查点均保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `8f4127f0f2f3b90fed919ca87f94ff3e5e38fa251b4e24992e065b2f62ac02d2`；当前源码host image；8f/814/25/cc/d932/ff/b945源与构建检查点均保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |

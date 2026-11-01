@@ -1,6 +1,9 @@
 # SO3 body与tetrahedra组合恢复
 
-当前host image：`b94560319d3a1c8aa7c898ce49b37748ae254ec30de28533deae292b4970a278`。
+> 本页为b945阶段的冻结结果；活动8f4127f0增加实际full-surface接触，见
+> [BODY_TETRAHEDRA_CONTACT_RECOVERY.md](BODY_TETRAHEDRA_CONTACT_RECOVERY.md)，不能直接继承本页统计结论。
+
+该阶段host image：`b94560319d3a1c8aa7c898ce49b37748ae254ec30de28533deae292b4970a278`。
 参考仍为项目内处理版64a0be7f，CUDA仍为176入口、f0e0137a digest。求解器自身不登录、不调用原版代算。
 完整替代仍未完成，`solver_api_ready=False`。此前ff34的失败与实验见
 [SURFACE_STAGE_ISOLATION.md](SURFACE_STAGE_ISOLATION.md)。
