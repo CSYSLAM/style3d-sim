@@ -1,5 +1,9 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **生产合入进行中，尚未验收。** 新host dec858e5恢复颗粒/SO3缓存及准入，CUDA176/f0保持。
+> 首guard误拒绝自由DOF已据真实字段修复；新版串行验证session91260等待外部GPU，不能继承host38的71/74。
+> 匹配新版Core尚待构建，默认后端不切换、readyFalse；[当前整体状态](RECONSTRUCTION_CURRENT_STATUS.md)优先于下方历史记录。
+
 > **颗粒＋SO3刚体候选2已实测。** 四短程严格、constructor五项全同、graph16/16、双端initcheck零错误。
 > 六大布局状态均严格；两中间buffer的旧源码值被真实SDK复现，同输入/共同链表三端180输出全严格。
 > 待生产合入及当前回归，旧严格失败与整体readyFalse保持；见[颗粒与刚体恢复](reconstruction/csrc/GRANULAR_AFFINE_HOST_RECOVERY.md)。

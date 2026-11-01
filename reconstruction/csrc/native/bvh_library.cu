@@ -34,6 +34,8 @@ extern "C" int source_cache_initialize(void* data, std::size_t count, SourceCach
     case SourceCacheType::Index2: initialize_cache(data, count, glm::ivec2(0)); break;
     case SourceCacheType::Box: initialize_cache(data, count, synreal::Aabb{glm::vec3(0.0f), glm::vec3(0.0f)}); break;
     case SourceCacheType::ScalarEntry: initialize_cache(data, count, synreal::NonZeroEntry{0, 0.0f}); break;
+    case SourceCacheType::Index3: initialize_cache(data, count, glm::ivec3(0)); break;
+    case SourceCacheType::Vector4: initialize_cache(data, count, glm::vec4(0.0f)); break;
     default: return cudaErrorInvalidValue;
     }
     return cudaGetLastError();

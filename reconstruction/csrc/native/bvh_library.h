@@ -1,7 +1,9 @@
 #pragma once
 #include <cstddef>
 
-enum class SourceCacheType { Scalar, Vector3, Matrix3, BlockEntry, Integer, Unsigned, Index2, Box, ScalarEntry };
+enum class SourceCacheType {
+    Scalar, Vector3, Matrix3, BlockEntry, Integer, Unsigned, Index2, Box, ScalarEntry, Index3, Vector4
+};
 
 // CUDA 12.4 library bridge; the independent build validates its embedded device entries.
 extern "C" __attribute__((visibility("default"))) int source_cache_initialize(

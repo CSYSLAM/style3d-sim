@@ -1,0 +1,22 @@
+{
+  "phase": "granular-affine-production",
+  "previous_closed_evidence_commit": "8065c0ebc1be2da23bdcc2a6a384969b3c804c22",
+  "before_checkpoint_verified_files": 31,
+  "changed_sources": {
+    "reconstruction/csrc/native/source_solver.cpp": "81cc97fd459a10b14e15e3886aa86438b452a85e199b557b3423cdc4cf9a3616",
+    "reconstruction/csrc/native/bvh_library.h": "11c26dc29d7b0acf62489a1a995551a841a7c67e1d891d24e0fca3469fb962d1",
+    "reconstruction/csrc/native/bvh_library.cu": "698228f60830e02142a36d2349af92aceb140483332fbedfaf2cbf21a4ff5f69",
+    "reconstruction/csrc/build_bvh_library.py": "147f3b079f529ea203389cc78fdab43a8d5afcaf96901c0e4d3c7000263c6dfc"
+  },
+  "scope": "Unconstrained SO3 bodies and unbonded granular particles, no self/external contacts, no other particle materials",
+  "tests_planned": [
+    "Build helper and verify all 26 entries against accepted CUDA176",
+    "Build host and true public Core",
+    "Recheck four frozen SDK fixtures on the current host",
+    "Recheck six broader layouts without dropping intermediate failures",
+    "Three public Core normal demo entrypoints without original SO mapping",
+    "Full current-image regression74 and fixed C10 plus independent CPU"
+  ],
+  "solver_api_ready": false,
+  "whole_solver_complete": false
+}

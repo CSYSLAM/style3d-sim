@@ -6625,3 +6625,27 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   原版不同链表自身产生force4/diag21个word差，统一head/next后全端全输出同；不修改生产排序/数学，不重判旧两strict失败。
   first-force72933实际0，六worker及replay2802969/CPU2803082全0；本轮自有GPU均终态。
 - 接续保存38/Core7eb/27源构建检查点，合入验证后的构造恢复和无约束颗粒/刚体准入，再编公共Core及当前回归；整体未验收。
+
+
+### 2026-11-01：用户询问整体进度，继续将已验证颗粒/刚体候选合入生产
+
+- 核准远端与本地8065c0ebc1be2da23bdcc2a6a384969b3c804c22完全同，工作区起始clean；不是未发布候选。
+- 如实说明当前可独立编译公开Core、176 CUDA已重建，但host38的71/74不是整体完成率；G1/布料长程、粒子seed2及其它组合仍未验收。
+- 改前31文件检查点逐一SHA核准；合入候选2已验证的两块inactive VF缓存、12组typed初始化及Index3/Vector4 bridge。
+  新范围检查只准入无约束/无bond SO3颗粒刚体，不擅自开放其它材料、contact/self或其它rigidity；生产数学不改。
+- 首构建31999实际0，host c915b3814757d7c652430f97e3923f602a93769bc79dc643dd685090177dc12a；
+  CUDA176/f0保持，helper26入口全部同。首验证10390实际1，首worker1，被新增范围检查拒绝。
+- 诊断56913实际1（复现原拒绝），initialize前读取实际native Model：自由body的joint_dof_count=6、joint_target_count=6，
+  body/joint约束、drive、cable、bond全部0，adhesion0；原源码已有free joint注释，新guard误将channel计数作约束。
+  rejected-actual-model-fields.json、失败image/build/源码/driver/plan及日志均保留，不将该失败记作solver数学差异。
+- 仅移除新guard的DOF/target判定并补解释注释，原拒绝保护保留；第二host构建85242已启动，尚不能算通过。
+- 新run-validation.py预先固定四旧SDK参考、六布局参考及60步eager/graph参考，不覆盖旧数据；
+  新镜像逐次核SHA、串行GPU、保留完整状态/ABI/buffer首差，然后编真实Core/三个正常入口/74及固定C10+独立CPU。
+  新RECONSTRUCTION_CURRENT_STATUS.md集中说明整体剩余项；默认原版、readyFalse及所有旧失败保持。
+
+- 第二host构建85242实际0，SHA dec858e551f015374453713edc46910028cae95a210b33acd6c9e9006a1c0282。
+  audit-integration.py独立CPU实际0：去掉明确范围检查/元数据后源码与已测candidate2完全同，helper CUDA字节同、header仅空白差；
+  当前25输入SHA有效、176完整清单与旧生产同、26helper匹配。这不是当前运行验收。
+- 验证91260当前无source worker启动，正在等待真实外部GPU PID2817572/worldparticle，未终止外部作业、未重复启动。
+  本阶段immutable-checkpoint.json只固定终态/静态文件，排除活跃validation-dec858e5及run-validation-v2.log。
+  新snapshot明确public_core_matches_current_host=False，公开Core7eb仍为旧host38产物，不能误用作新host验收。

@@ -4,14 +4,14 @@
   "base_commit": "e74e136",
   "reference_sdk_commit": "23fb797e642ebefd3540fc64c6e18d31920eee94",
   "solver_api_ready": false,
-  "source_image_sha256": "38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49",
+  "source_image_sha256": "dec858e551f015374453713edc46910028cae95a210b33acd6c9e9006a1c0282",
   "cuda_kernel_count": 176,
   "pyc_count": 360,
   "glm_version": "1.0.1",
   "glm_commit": "0af55ccecd98d4e5a8d1fad7de25ba429d60e863",
   "public_core_image_sha256": "7eb6e847ad6f100b51f2bc89db0a88744f93878077c318c91288d2f595116b53",
   "historical_public_core_image_sha256": "8797bf16e849cc6370e58233ffe0dcee259664e8bc07d7f985e198d3c5c6bfd6",
-  "public_core_matches_current_host": true,
+  "public_core_matches_current_host": false,
   "public_core_host_sha256": "38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49",
   "files": {
     ".gitattributes": {
@@ -54,9 +54,13 @@
       "bytes": 12002,
       "sha256": "706e9ea0b70949e118fbbe9fa522a07b698b8cd78e655bc751073ae7a00885fc"
     },
+    "RECONSTRUCTION_CURRENT_STATUS.md": {
+      "bytes": 3525,
+      "sha256": "fe99b145c6c286d1cec304453039100cfe42b1059e1c1a76e8467b013b9f795e"
+    },
     "RECONSTRUCTION_HANDOFF.md": {
-      "bytes": 47817,
-      "sha256": "5ec5eaf54709867fa68b658620025f7ca4c5596b6e589a46f4a7cb133ae410c1"
+      "bytes": 48222,
+      "sha256": "cf337dac51f91829071b2303f2075344ddf1bc643e5abf867331c403ac5947e7"
     },
     "assets/plastic_bag.usd": {
       "bytes": 39300,
@@ -925490,6 +925494,258 @@
       "bytes": 2600,
       "sha256": "cce4fdf9bcd070a28e29fdc64696d9bc0ca82d7433e08ab36580fd9fbb1ec712"
     },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/audit-integration.py": {
+      "bytes": 3887,
+      "sha256": "4ef9e0d2ee8db436b0c05398f21589de437b9a981fdb973949310261ec379907"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before-checkpoint.json": {
+      "bytes": 8064,
+      "sha256": "86e25ff4489d70e823e92cfa9a3d1872c5ddb5b648ab0e28337365215e27b04d"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/build.json": {
+      "bytes": 8379,
+      "sha256": "54d30bb36a87ba18068d649068c9c1071d7517d7a902bbc2e77de008fea9841d"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.o": {
+      "bytes": 705640,
+      "sha256": "1dda18586d99b03bb7108642b78a3b1c12b250ee2497581edb4455d9f5d6eb2c"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.ptx": {
+      "bytes": 991418,
+      "sha256": "dae914d68f33de2b7706e3c0f8b9387ee5598d836f5a32d31ab20171fafa1a2f"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/granular_grid_23fb797.ptx": {
+      "bytes": 87229,
+      "sha256": "fd036938b1785fa14bdf6baa1b8122d17876421f91712f377480d56c90952c1a"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so": {
+      "bytes": 7768288,
+      "sha256": "38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/host-particles/build.json": {
+      "bytes": 80067,
+      "sha256": "02984b5b7b0ebdc42fe9463fd6baa9253bef413f71e79d977368ab100a522dea"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/host-particles/source_api.h": {
+      "bytes": 41036,
+      "sha256": "a9060e26a5c3feaac242cd142fc371e50ac5165342a817b626bae9fcf4b84f64"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/host-particles/source_driver.h": {
+      "bytes": 7009,
+      "sha256": "54aa8bc2816a8b08e1a32308f13e4dac9b20433ac056ecd412e0bddd04e1542c"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/host-particles/source_ptx_bundle.h": {
+      "bytes": 5830741,
+      "sha256": "0b99741035a1bb95da92ed30456219fff9faf642e0e36a4d114356e45233293c"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/native/source_ptx_bundle.h": {
+      "bytes": 6234595,
+      "sha256": "88934c91d4abc3df5e212c9e699fef8c308daf1a1241ff89c8f4891097768231"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/pcg_23fb797.ptx": {
+      "bytes": 191764,
+      "sha256": "06f1350d5f728ee07b57d0af9a15b2bf1aa766d71824eca46cb032082dcd7d70"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/source-core/a318a3ce42f6a731/_core.cpython-312-x86_64-linux-gnu.so": {
+      "bytes": 7769472,
+      "sha256": "7eb6e847ad6f100b51f2bc89db0a88744f93878077c318c91288d2f595116b53"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/source-core/a318a3ce42f6a731/build.json": {
+      "bytes": 5109,
+      "sha256": "58e88d0749f06709196921366c182262d5af08794fec515270bb42303cd90379"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/build/reconstruction-csrc/tetrahedra_23fb797.ptx": {
+      "bytes": 25266,
+      "sha256": "8eaf3d9effba9e0e95f8a1335652c32744e6ca3deab7d8bedccfa612c45e018f"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/build_bvh_library.py": {
+      "bytes": 4235,
+      "sha256": "15768ff7f9b5510686c1a16c4c0374b298b10abbd577e0d484328e8b71bebf60"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/build_core.py": {
+      "bytes": 3318,
+      "sha256": "a7e2c901541346b14a7e9f379b72c93bc49fff134917416cb471fde85b43ab38"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/build_host.py": {
+      "bytes": 13291,
+      "sha256": "cd2f5325e97a26ad4d7c09a6602c6a159a5499abc802101021eefd375dc9a48c"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/kernels/common.cuh": {
+      "bytes": 2347,
+      "sha256": "68895790cfd8cffdb96e3cdd95438d134a50a9e1527488be43d24632dbf0c2bb"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/kernels/types.cuh": {
+      "bytes": 1835,
+      "sha256": "2dee46a31ed8f226d3fa549cac7c0afe519e0aa8e23bd96d76bb00ea00bd3d99"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/library/reduction_functors.cuh": {
+      "bytes": 1577,
+      "sha256": "4b42c15b8f478bfc9d5d9e05c81b0e7e0316fdda496ba9a6847471d1a23149c8"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/api_schema.json": {
+      "bytes": 25791,
+      "sha256": "cc08b835369ffdb423ad6f14493a38918235593020955a8af84d883dc862ed69"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/bvh_library.cu": {
+      "bytes": 4362,
+      "sha256": "b06a3d65b5c66cd79ea17635cad4d02cd3955359d513244828ada83e73a0f8ac"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/bvh_library.h": {
+      "bytes": 996,
+      "sha256": "88c438e7ac478acc40af228f9c5a8a6cc7ce2bc6604b0274c69d1811e0ac448d"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/kernel_symbols_23fb797.json": {
+      "bytes": 28631,
+      "sha256": "aaf97925badaa2a0df180fca6dbf105e9185212244bcf398b6db831e3a1c7222"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/source_core.cpp": {
+      "bytes": 740,
+      "sha256": "53d7d4c3b931937b2ee8615bb5505a523d7fdf044c61695dbd513bab40850d6d"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/source_cuda.cpp": {
+      "bytes": 8007,
+      "sha256": "f2fbd0aa2e2eb1f8f75f46c2ff5c2cd9177ebd84f610920ba685582346cc23df"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/source_solver.cpp": {
+      "bytes": 209351,
+      "sha256": "8f681cd5e3b644cf1a7284fa07b3de60930660e035706b2d702124827b52da09"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/native/surface_view.h": {
+      "bytes": 1037,
+      "sha256": "959e66fe05c29e0522b7920d703f86e268e407b6d4c94bf024b05759499aa6f9"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/revisions/granular_grid_23fb797.cu": {
+      "bytes": 16771,
+      "sha256": "3599cc4bf461d03dc29a011ffd8ded30541805cc92ccbd1f4b03537e0eb5aee9"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/revisions/pcg_23fb797.cu": {
+      "bytes": 4467,
+      "sha256": "108f76405da5745b60e8de0f45420a24be8df35f3df4a49158807059dfceb5cc"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/before/reconstruction/csrc/revisions/tetrahedra_23fb797.cu": {
+      "bytes": 4750,
+      "sha256": "828dab3153417b5bd7ca95aa600a1f1567ac06642b668afa5be77e1c58de6c76"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/build-host-v2.log": {
+      "bytes": 121,
+      "sha256": "6d29367340047d131030118af94b68f14c70afc8cd19e73e46836c2899b64bde"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/build-host-v2.status.json": {
+      "bytes": 140,
+      "sha256": "515bc6884337abc8af15c72e8387cfb91266b15544073a65e21dfcaef40ff558"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/build-host.log": {
+      "bytes": 327,
+      "sha256": "3454127cc7d8127be9ac66408ae3df694dcb01e5a44224127639f4b13536800f"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/build-host.status.json": {
+      "bytes": 140,
+      "sha256": "679fea1a4e3ad142c4d22bc469bcd66334feb33d24adabc78d739a484ae8fc20"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/graph-worker.py": {
+      "bytes": 1997,
+      "sha256": "e030ccbf2bbf7cc802d15edb0c7cf79ea301e8d910dc8ff2966c8ea2730b7cb8"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/immutable-checkpoint.json": {
+      "bytes": 10445,
+      "sha256": "4c5d5e9a639148a0e087f03e80bf3ac0835341203da56a21c8e4b87e5b2a5b3e"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/integration-cpu-audit.json": {
+      "bytes": 496,
+      "sha256": "f1dca191cdf67263f4a2623564fe581ef25134d44326cf92712d7a3b9a7cb976"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/integration-plan-v2.json": {
+      "bytes": 1637,
+      "sha256": "14df52bc412674b6396d690931a3544ebc9e1678a93e0071a346517a1cd07467"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/integration-plan.json": {
+      "bytes": 1273,
+      "sha256": "c64465f869978dededaacecbffe8850f88b437848b3cd93e52bcdc6baa4461bf"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/model-field-probe.log": {
+      "bytes": 1959,
+      "sha256": "efa0034a7c7af9aa8e47f7c6f0e49329043dd21a5752dbd4045e4d03bf46ef95"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/model-field-probe.py": {
+      "bytes": 1148,
+      "sha256": "a448dd9c3238979b1496d240a87d964a1798efaf816e0c9c86d77bb64ba2c53a"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/model-field-probe/probe.runtime.json": {
+      "bytes": 489,
+      "sha256": "c02afd84a8e510e30c2c0c07b59cc40b2426dd1175a21b9fe0531c8613946da8"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/refresh-snapshot.py": {
+      "bytes": 2269,
+      "sha256": "a4a2839345b9c21f92c6c4c5a9b492645ed75b9f50f3f68c40927251b5bda428"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/rejected-actual-model-fields.json": {
+      "bytes": 395,
+      "sha256": "ff83ceace60b0c0a8efc07377940b4481dadd797eb72b73bb07bf74c35dcb71b"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/rejected-guard-v1-status.json": {
+      "bytes": 1040,
+      "sha256": "57f7ea9a7f63bfbe479c9867245ffc074a1fe9179f0e62f6abc0b10397496bd7"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/rejected-guard-v1/_source_solver.cpython-312-x86_64-linux-gnu.so": {
+      "bytes": 7777408,
+      "sha256": "c915b3814757d7c652430f97e3923f602a93769bc79dc643dd685090177dc12a"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/rejected-guard-v1/build.json": {
+      "bytes": 80177,
+      "sha256": "3bcc9adabc77103cffbb2ea19e7e495625f54c6a5a09225ed0380ed819ad7741"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/rejected-guard-v1/integration-plan.json": {
+      "bytes": 1273,
+      "sha256": "c64465f869978dededaacecbffe8850f88b437848b3cd93e52bcdc6baa4461bf"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/rejected-guard-v1/run-validation.py": {
+      "bytes": 11673,
+      "sha256": "1f97b20ab1da3bb41ecf997aaa5957045db2c408850e464e15935d2e8a3a6e3b"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/rejected-guard-v1/source_solver.cpp": {
+      "bytes": 211193,
+      "sha256": "81cc97fd459a10b14e15e3886aa86438b452a85e199b557b3423cdc4cf9a3616"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/run-validation.log": {
+      "bytes": 1030,
+      "sha256": "8eddb1e6642e57c48542c218693efc2355a4148e33e0d2a16406e93f3b859383"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/run-validation.py": {
+      "bytes": 11673,
+      "sha256": "1f97b20ab1da3bb41ecf997aaa5957045db2c408850e464e15935d2e8a3a6e3b"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/source-v2.diff": {
+      "bytes": 9472,
+      "sha256": "e8cf08f5c1d439e082151735dc83439c00e52f32ce027ee8142e55055339eb72"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/source.diff": {
+      "bytes": 9455,
+      "sha256": "cd3c5a6777e2cc46e593242294ae7bd150796c0c9d0c1ccd0f214b2294520981"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/validation-c915b381/build.json": {
+      "bytes": 80177,
+      "sha256": "3bcc9adabc77103cffbb2ea19e7e495625f54c6a5a09225ed0380ed819ad7741"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/validation-c915b381/current-newton-b0.command.json": {
+      "bytes": 502,
+      "sha256": "a34c45f0ee4db78d56c3856d25b32c935e02c5d88ab0fb42da9c18b8c9e17696"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/validation-c915b381/current-newton-b0.log": {
+      "bytes": 1686,
+      "sha256": "18f7d27722a05862df6cdc0b7408353cebf8e58a4eecd30f080810c7c36b8d09"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/validation-c915b381/current-newton-b0/capture.runtime.json": {
+      "bytes": 581,
+      "sha256": "da4550f8c5e987095161550e08e08b76b0c1e40f6884ea6c260efac4aa5fab85"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/validation-c915b381/current-newton-b0/model-before.npz": {
+      "bytes": 1669,
+      "sha256": "b589ff32c23c3594ddc04d40c78c67e80c9b57a5e66835a5fcdccc4cf22c1df4"
+    },
+    "build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/validation-c915b381/status.json": {
+      "bytes": 386,
+      "sha256": "144e381f3a20c9416150db1895073cab214ab96ba544a3a5d66b2de85507fd5a"
+    },
     "build/reconstruction-csrc/affine-particle-material-host/surface-grid-source-final/launches.txt": {
       "bytes": 187927,
       "sha256": "c9ad806003f7d5a4f24610ffd57f049441193dab3959b3b5b038dbce1a4ac800"
@@ -1005426,6 +1005682,82 @@
       "bytes": 4761,
       "sha256": "73a5b14b7e63a640d362400537f57a4c7ee82cb269ca8899afdf388bbe43b5dd"
     },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/build.json": {
+      "bytes": 8829,
+      "sha256": "7b4a7c54aafc089b8d6531b946255a6c485c74255bae43cd493c2070b2932d94"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.cpp1.ii": {
+      "bytes": 9912599,
+      "sha256": "f31658045391a3041ce52f3453374441ef0db877bce0538d69232500c9b866ad"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.cpp4.ii": {
+      "bytes": 9822895,
+      "sha256": "ff142981fa45288f8bfe1284832e42312ca197daaf5f50f76e181a9a90947d72"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.cudafe1.c": {
+      "bytes": 327,
+      "sha256": "e775ee4ec861bea7275c94d0a1701210e856935ba3705aa92b691aa2629fbe47"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.cudafe1.cpp": {
+      "bytes": 7828587,
+      "sha256": "c1419bc633eb258c10ce148b3ae51052bfe66a58060bdcfe45811da710e6dfdc"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.cudafe1.gpu": {
+      "bytes": 6447671,
+      "sha256": "d214ea7de437c842f59e013cdaf8716d884b1a57899a81e9275a580f08334cc5"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.cudafe1.stub.c": {
+      "bytes": 116332,
+      "sha256": "23c173d29bc38cee86f9908151f9357889126d450b2f24f495cd81534e29be13"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.cudafe1.stub.c.original": {
+      "bytes": 115402,
+      "sha256": "3913fa9a5177728945093b885119f7321a0f98a2ae3b06c54acdb73e71bd8333"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.fatbin": {
+      "bytes": 515328,
+      "sha256": "79e8b69705d5d9a09b150bc68925ccc0cbecabaa0123d1e7f8d5fa511670370a"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.fatbin.c": {
+      "bytes": 1385544,
+      "sha256": "d8d0a677fe135167c8a717894fbab56a0128a7d6add1847a5cd2288a7e7faa9d"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.host.cpp": {
+      "bytes": 16760339,
+      "sha256": "813d754ffd89b54084654b4adebc0d02b7e5150f575b032d997c9663d4622e26"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.module_id": {
+      "bytes": 36,
+      "sha256": "44f89f03f6e251662206b9ede68ae9a9a02b1dfa04c339712ce0c19c358cb041"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.o": {
+      "bytes": 722776,
+      "sha256": "5c55b1c57d5c102d59ae9cef67c4bfc78745fd511a58a89c59c7f45b9db41cfe"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.ptx": {
+      "bytes": 997540,
+      "sha256": "369cafc05015374c6eacc8c5654ac0b169ff8e01ea673252c917e86512b65717"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/bvh_library.sm_52.cubin": {
+      "bytes": 312000,
+      "sha256": "5e47ea141ff38dd1abb4d5b2d610382bfd466a587be094369ce85a3011dc3ada"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/compilation.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/generation.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/libsource_bvh_library.so": {
+      "bytes": 637000,
+      "sha256": "284648e82576e38ea0a3d8b458bfbf4d1c10841cb2c04c84c5fb266e76d29b3b"
+    },
+    "build/reconstruction-csrc/bvh-host-library/5d9b59bc64d80d85/link.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
     "build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/build.json": {
       "bytes": 8379,
       "sha256": "54d30bb36a87ba18068d649068c9c1071d7517d7a902bbc2e77de008fea9841d"
@@ -1005451,12 +1005783,12 @@
       "sha256": "fd036938b1785fa14bdf6baa1b8122d17876421f91712f377480d56c90952c1a"
     },
     "build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so": {
-      "bytes": 7768288,
-      "sha256": "38b70dcd9f3ca5053184eca9c6ec64cc33c137248a3e70efa729bd7ff0d92a49"
+      "bytes": 7777408,
+      "sha256": "dec858e551f015374453713edc46910028cae95a210b33acd6c9e9006a1c0282"
     },
     "build/reconstruction-csrc/host-particles/build.json": {
-      "bytes": 80067,
-      "sha256": "02984b5b7b0ebdc42fe9463fd6baa9253bef413f71e79d977368ab100a522dea"
+      "bytes": 80177,
+      "sha256": "ac64ef7127608fed0f04f5b3ab70bc5bf85d4a790257a750e04cfdb91ba0a0ee"
     },
     "build/reconstruction-csrc/host-particles/host_trace.so": {
       "bytes": 60552,
@@ -1009139,8 +1009471,8 @@
       "sha256": "2137d08742f84ac21da1c3e4c5dc825ba90c381f91589184977ce75dc415d6af"
     },
     "reconstruction/WORK_LOG.md": {
-      "bytes": 632732,
-      "sha256": "2698546134b02379ec3d703bd320c9d42a7eee01dabb85e45a36756dd4476ee7"
+      "bytes": 635328,
+      "sha256": "c8305b5c4e07d787f3ad5272c035b8915a53d2545db57f350813da1ac954f8a1"
     },
     "reconstruction/__init__.py": {
       "bytes": 87,
@@ -1009531,8 +1009863,8 @@
       "sha256": "b0fa9a4c1397c8bb25d2a4009333d15822a3b3c2408ccc52360296640e5bbcdd"
     },
     "reconstruction/csrc/GRANULAR_AFFINE_HOST_RECOVERY.md": {
-      "bytes": 11979,
-      "sha256": "6aca612caefb4616241bc4dc80ac23f214636ac0a7e5993c61e2752f27dc5bfd"
+      "bytes": 12390,
+      "sha256": "ab8fbc02e43f542ef828c151762e3c83d30ac13ecb942f798f3e4e2cd7a780f8"
     },
     "reconstruction/csrc/GRANULAR_AUDIT.md": {
       "bytes": 4903,
@@ -1009543,8 +1009875,8 @@
       "sha256": "3cebc9813bd30b084875b53cb58b3dd5116242c006efa1eca94ba4f59f3e0dfa"
     },
     "reconstruction/csrc/HANDOFF.md": {
-      "bytes": 30481,
-      "sha256": "911bda82df4e2aa0629e57a452dc41e3e2a32546ec208b0b44a74eb0a9e4428b"
+      "bytes": 30892,
+      "sha256": "b1b23499fae4fab3a3fd29442b6fda803d935408e05489765bd4250417dac201"
     },
     "reconstruction/csrc/HARD_EVALUATE_AUDIT.md": {
       "bytes": 3622,
@@ -1009579,8 +1009911,8 @@
       "sha256": "d9a60b23efda0c71ceccf18bc9442fe5cbbefbd82dc1b0b53053e3b23afafdb8"
     },
     "reconstruction/csrc/NATIVE_HOST_PROGRESS.md": {
-      "bytes": 46558,
-      "sha256": "54cee1b1786feafaebba7e5c85a35b046d530f96237613a68034cecf9c7284d2"
+      "bytes": 46969,
+      "sha256": "2f3d6847c9afaa3cb2545d9a3413ff04e1461c9d26b8f3e09bfee8b39c2221a1"
     },
     "reconstruction/csrc/OFFICIAL_CLOTH_FIRST_STEP_AA52.md": {
       "bytes": 4458,
@@ -1010776,7 +1011108,7 @@
     },
     "reconstruction/csrc/build_bvh_library.py": {
       "bytes": 4235,
-      "sha256": "15768ff7f9b5510686c1a16c4c0374b298b10abbd577e0d484328e8b71bebf60"
+      "sha256": "147f3b079f529ea203389cc78fdab43a8d5afcaf96901c0e4d3c7000263c6dfc"
     },
     "reconstruction/csrc/build_core.py": {
       "bytes": 3318,
@@ -1011539,12 +1011871,12 @@
       "sha256": "cc08b835369ffdb423ad6f14493a38918235593020955a8af84d883dc862ed69"
     },
     "reconstruction/csrc/native/bvh_library.cu": {
-      "bytes": 4362,
-      "sha256": "b06a3d65b5c66cd79ea17635cad4d02cd3955359d513244828ada83e73a0f8ac"
+      "bytes": 4539,
+      "sha256": "698228f60830e02142a36d2349af92aceb140483332fbedfaf2cbf21a4ff5f69"
     },
     "reconstruction/csrc/native/bvh_library.h": {
-      "bytes": 996,
-      "sha256": "88c438e7ac478acc40af228f9c5a8a6cc7ce2bc6604b0274c69d1811e0ac448d"
+      "bytes": 1017,
+      "sha256": "11c26dc29d7b0acf62489a1a995551a841a7c67e1d891d24e0fca3469fb962d1"
     },
     "reconstruction/csrc/native/cupti_trace.cpp": {
       "bytes": 5892,
@@ -1011583,8 +1011915,8 @@
       "sha256": "f2fbd0aa2e2eb1f8f75f46c2ff5c2cd9177ebd84f610920ba685582346cc23df"
     },
     "reconstruction/csrc/native/source_solver.cpp": {
-      "bytes": 209351,
-      "sha256": "8f681cd5e3b644cf1a7284fa07b3de60930660e035706b2d702124827b52da09"
+      "bytes": 211210,
+      "sha256": "dd4d5898d2e9f3d851e7a8d175faeef116972269880370e07f65479603f16331"
     },
     "reconstruction/csrc/native/surface_view.h": {
       "bytes": 1037,
@@ -1018994,5 +1019326,7 @@
       "bytes": 328009,
       "sha256": "7b3f54b1b7eff6c3e6eabdf28bcbf2e939cacceb4047dd35790388a121e8aa74"
     }
-  }
+  },
+  "checkpoint_runtime_validation_complete": false,
+  "checkpoint_note": "Granular-affine production promotion; current GPU validation remains pending"
 }

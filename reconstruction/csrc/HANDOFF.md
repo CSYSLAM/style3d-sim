@@ -1,5 +1,9 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> **生产合入进行中，尚未验收。** 新host dec858e5恢复颗粒/SO3缓存及准入，CUDA176/f0保持。
+> 首guard误拒绝自由DOF已据真实字段修复；新版串行验证session91260等待外部GPU，不能继承host38的71/74。
+> 匹配新版Core尚待构建，默认后端不切换、readyFalse；[当前整体状态](../../RECONSTRUCTION_CURRENT_STATUS.md)优先于下方历史记录。
+
 > **2026-10-31 Windows迁移入口：[当前根交接](../../RECONSTRUCTION_HANDOFF.md)。**
 > 本文件下部保留历史过程，其中188入口、旧参考路径、禁止提交和仅准修改两个目录等属于旧阶段。
 > 当前用户已授权整理项目、固定处理版so/pyc、建立新分支并提交到CSYSLAM/style3d-sim。

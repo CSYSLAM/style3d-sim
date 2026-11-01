@@ -1,4 +1,4 @@
-"""Build the CUDA 12.4 cache/BVH bridge and pin its 24 already accepted device entries.
+"""Build the CUDA 12.4 cache/BVH bridge and pin its 26 already accepted device entries.
 
 CUDA 12.4 misprints two explicitly named _GLOBAL__N__ functor types as its current anonymous namespace in
 generated host registration code. Correct only these host type references; device PTX/fatbin remain untouched.
@@ -40,7 +40,7 @@ def build(output):
     for name, body in entries(ptx.read_text()).items():
         actual = hashlib.sha256(pc.normalise(body).encode()).hexdigest()
         checks[name] = name in inventory['kernels'] and actual == inventory['kernels'][name]['digest']
-    assert len(checks) == 24 and all(checks.values()), checks
+    assert len(checks) == 26 and all(checks.values()), checks
     stub = output/'bvh_library.cudafe1.stub.c'
     original = stub.read_bytes()
     (output/'bvh_library.cudafe1.stub.c.original').write_bytes(original)

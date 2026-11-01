@@ -1,0 +1,131 @@
+diff --git a/reconstruction/csrc/build_bvh_library.py b/reconstruction/csrc/build_bvh_library.py
+index 555cbd63..a8efa5c3 100644
+--- a/reconstruction/csrc/build_bvh_library.py
++++ b/reconstruction/csrc/build_bvh_library.py
+@@ -1,4 +1,4 @@
+-"""Build the CUDA 12.4 cache/BVH bridge and pin its 24 already accepted device entries.
++"""Build the CUDA 12.4 cache/BVH bridge and pin its 26 already accepted device entries.
+ 
+ CUDA 12.4 misprints two explicitly named _GLOBAL__N__ functor types as its current anonymous namespace in
+ generated host registration code. Correct only these host type references; device PTX/fatbin remain untouched.
+@@ -40,7 +40,7 @@ def build(output):
+     for name, body in entries(ptx.read_text()).items():
+         actual = hashlib.sha256(pc.normalise(body).encode()).hexdigest()
+         checks[name] = name in inventory['kernels'] and actual == inventory['kernels'][name]['digest']
+-    assert len(checks) == 24 and all(checks.values()), checks
++    assert len(checks) == 26 and all(checks.values()), checks
+     stub = output/'bvh_library.cudafe1.stub.c'
+     original = stub.read_bytes()
+     (output/'bvh_library.cudafe1.stub.c.original').write_bytes(original)
+diff --git a/reconstruction/csrc/native/bvh_library.cu b/reconstruction/csrc/native/bvh_library.cu
+index 0e84e32d..f4e425e1 100644
+--- a/reconstruction/csrc/native/bvh_library.cu
++++ b/reconstruction/csrc/native/bvh_library.cu
+@@ -34,6 +34,8 @@ extern "C" int source_cache_initialize(void* data, std::size_t count, SourceCach
+     case SourceCacheType::Index2: initialize_cache(data, count, glm::ivec2(0)); break;
+     case SourceCacheType::Box: initialize_cache(data, count, synreal::Aabb{glm::vec3(0.0f), glm::vec3(0.0f)}); break;
+     case SourceCacheType::ScalarEntry: initialize_cache(data, count, synreal::NonZeroEntry{0, 0.0f}); break;
++    case SourceCacheType::Index3: initialize_cache(data, count, glm::ivec3(0)); break;
++    case SourceCacheType::Vector4: initialize_cache(data, count, glm::vec4(0.0f)); break;
+     default: return cudaErrorInvalidValue;
+     }
+     return cudaGetLastError();
+diff --git a/reconstruction/csrc/native/bvh_library.h b/reconstruction/csrc/native/bvh_library.h
+index ada30995..2fccd398 100644
+--- a/reconstruction/csrc/native/bvh_library.h
++++ b/reconstruction/csrc/native/bvh_library.h
+@@ -1,7 +1,9 @@
+ #pragma once
+ #include <cstddef>
+ 
+-enum class SourceCacheType { Scalar, Vector3, Matrix3, BlockEntry, Integer, Unsigned, Index2, Box, ScalarEntry };
++enum class SourceCacheType {
++    Scalar, Vector3, Matrix3, BlockEntry, Integer, Unsigned, Index2, Box, ScalarEntry, Index3, Vector4
++};
+ 
+ // CUDA 12.4 library bridge; the independent build validates its embedded device entries.
+ extern "C" __attribute__((visibility("default"))) int source_cache_initialize(
+diff --git a/reconstruction/csrc/native/source_solver.cpp b/reconstruction/csrc/native/source_solver.cpp
+index 9196073f..d04a688e 100644
+--- a/reconstruction/csrc/native/source_solver.cpp
++++ b/reconstruction/csrc/native/source_solver.cpp
+@@ -117,9 +117,16 @@ class Solver {
+             (model.joint_body_spring_count && !has_bodies) ||
+             (model.joint_body_point_line_count && !has_bodies))
+             throw std::runtime_error("Requested source model topology has not been implemented");
+-        if (model.granular_particle_count && (has_bodies || model.spring_count || model.triangle_count ||
++        if (model.granular_particle_count && (model.spring_count || model.triangle_count ||
+                                             model.edge_count || model.tetrahedron_count || model.fluid_particle_count))
+-            throw std::runtime_error("Granular combined with other materials or bodies has not been captured");
++            throw std::runtime_error("Granular combined with other particle materials has not been captured");
++        // Only unconstrained, unbonded granular/SO3 body layouts have been compared against the SDK.
++        // Free-body DOF/target channels alone do not imply constraints or drives.
++        if (model.granular_particle_count && has_bodies &&
++            (model.body_spring_count || model.body_distance_constraint_count || model.body_point_line_count ||
++             model.joint_drive_count || model.joint_body_spring_count || model.joint_body_point_line_count ||
++             model.cable_count || model.granular_bond_count || model.granular_adhesion > 0.0f))
++            throw std::runtime_error("Constrained or bonded granular/body combinations have not been captured");
+         const bool bodies = model.body_count || model.body_state_count;
+         const bool particle_materials = model.spring_count || model.triangle_count || model.edge_count ||
+                                         model.tetrahedron_count;
+@@ -449,6 +456,10 @@ class Solver {
+             driver_->release(staging);
+             candidates(self_vf_mesh_, mesh_vertices.size(), indices);
+             if (self_pp_.local) candidates(self_vf_free_, self_pp_.local, model_.collision_particle_indices.ptr);
++        } else if (self_pp_.local) {
++            // The SDK retains these zero-filled buffers without enabling the inactive VF query.
++            self_vf_free_.counts = initialized_cache(copies * self_pp_.local, 4, SourceCacheType::Integer);
++            self_vf_free_.slots = initialized_cache(copies * self_pp_.local * 31, 4, SourceCacheType::Integer);
+         }
+         // The original allocates these vectors even for a single local primitive, whose PP query is skipped.
+         self_pp_.counts = initialized_cache(copies * self_pp_.local, 4, SourceCacheType::Integer);
+@@ -1514,18 +1525,18 @@ class Solver {
+         while (granular_slots_ < granular_points_) granular_slots_ *= 2;
+         granular_slots_ *= 2;
+         auto allocate = [&](std::size_t size) { return driver_->allocate(size); };
+-        granular_head_ = allocate(static_cast<std::size_t>(granular_slots_) * 4);
+-        granular_next_ = allocate(points * 4);
+-        granular_ids_ = allocate(points * 4);
+-        granular_world_ = allocate(points * 4);
+-        granular_cells_ = allocate(points * 12);
+-        granular_positions_ = allocate(points * 12);
+-        granular_previous_ = allocate(points * 12);
+-        granular_radius_ = allocate(points * 4);
+-        granular_counts_ = allocate(points * 4);
+-        granular_neighbors_ = allocate(points * 32 * 4);
+-        granular_cache_ = allocate(points * 32 * 16);
+-        granular_diagonal_ = allocate(count_ * 36);
++        granular_head_ = initialized_cache(granular_slots_, 4, SourceCacheType::Integer);
++        granular_next_ = initialized_cache(points, 4, SourceCacheType::Integer);
++        granular_ids_ = initialized_cache(points, 4, SourceCacheType::Integer);
++        granular_world_ = initialized_cache(points, 4, SourceCacheType::Integer);
++        granular_cells_ = initialized_cache(points, 12, SourceCacheType::Index3);
++        granular_positions_ = initialized_cache(points, 12, SourceCacheType::Vector3);
++        granular_previous_ = initialized_cache(points, 12, SourceCacheType::Vector3);
++        granular_radius_ = initialized_cache(points, 4, SourceCacheType::Scalar);
++        granular_counts_ = initialized_cache(points, 4, SourceCacheType::Integer);
++        granular_neighbors_ = initialized_cache(points * 32, 4, SourceCacheType::Integer);
++        granular_cache_ = initialized_cache(points * 32, 16, SourceCacheType::Vector4);
++        granular_diagonal_ = initialized_cache(count_, 36, SourceCacheType::Matrix3);
+         auto prepare_bonds = [&](GranularBonds& group, const auto& bonds, const auto& lengths, int active) {
+             group.count = static_cast<int>(bonds.size());
+             if (!group.count) return;
+@@ -2257,6 +2268,9 @@ public:
+             throw std::runtime_error("Self-collision combined with other physics has not been captured");
+         const auto rigidity = config.affine_body_rigidity_model;
+         const bool so3 = bodies && rigidity == AffineBodyRigidityModel::SO3_AUGMENTED_LAGRANGIAN;
++        if (bodies && granular_points_ &&
++            (!so3 || config.enable_self_collision || contact.max_count || contact.soft_max_count))
++            throw std::runtime_error("Granular bodies with other rigidity, self or external contacts are not captured");
+         const bool six_springs = bodies && rigidity == AffineBodyRigidityModel::SIX_SPRINGS;
+         const bool constitutive = bodies && !so3 && !six_springs;
+         // Active drag, hard contacts, self-collision and other joint/material combinations remain outside this capture.
+@@ -2976,6 +2990,8 @@ PYBIND11_MODULE(_source_solver, module)
+                                                      "free_affine_body_corotated_pd_newton",
+                                                      "free_affine_body_abd_newton", "free_affine_body_abd_pd_newton",
+                                                      "particle_granular_newton", "particle_granular_pd_newton",
++                                                     "granular_affine_so3_newton", "granular_affine_so3_pd_newton",
++                                                     "granular_affine_so3_body_blocks",
+                                                      "free_particle_self_collision_newton",
+                                                      "free_particle_self_collision_pd_newton",
+                                                      "mesh_self_collision_without_material_forces_newton",

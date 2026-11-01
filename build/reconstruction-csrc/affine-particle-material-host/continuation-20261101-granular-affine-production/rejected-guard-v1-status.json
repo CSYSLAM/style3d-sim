@@ -1,0 +1,23 @@
+{
+  "validation_session": 10390,
+  "validation_actual_exit": 1,
+  "model_probe_session": 56913,
+  "model_probe_actual_exit": 1,
+  "fields_probe": "rejected-actual-model-fields.json",
+  "reason": "Free body exposes six DOFs and six target channels but no constraints/drives; the new guard incorrectly rejected them",
+  "saved_files": {
+    "build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so": {
+      "saved": "rejected-guard-v1/_source_solver.cpython-312-x86_64-linux-gnu.so",
+      "sha256": "c915b3814757d7c652430f97e3923f602a93769bc79dc643dd685090177dc12a"
+    },
+    "build/reconstruction-csrc/host-particles/build.json": {
+      "saved": "rejected-guard-v1/build.json",
+      "sha256": "3bcc9adabc77103cffbb2ea19e7e495625f54c6a5a09225ed0380ed819ad7741"
+    },
+    "reconstruction/csrc/native/source_solver.cpp": {
+      "saved": "rejected-guard-v1/source_solver.cpp",
+      "sha256": "81cc97fd459a10b14e15e3886aa86438b452a85e199b557b3423cdc4cf9a3616"
+    }
+  },
+  "whole_solver_complete": false
+}

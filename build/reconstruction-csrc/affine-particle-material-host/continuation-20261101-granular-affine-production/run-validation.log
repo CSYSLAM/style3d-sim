@@ -1,0 +1,11 @@
+current-newton-b0 actual exit 1
+Traceback (most recent call last):
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/run-validation.py", line 134, in <module>
+    short.append(capture(label, reference, ROOT / 'reconstruction/csrc/granular_affine_scene.py',
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/run-validation.py", line 93, in capture
+    run(label, ['-m', 'reconstruction.csrc.demo_source_ab', '--worker', 'source', '--tag', 'capture',
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/run-validation.py", line 81, in run
+    assert code in allowed, (name, code)
+           ^^^^^^^^^^^^^^^
+AssertionError: ('current-newton-b0', 1)
