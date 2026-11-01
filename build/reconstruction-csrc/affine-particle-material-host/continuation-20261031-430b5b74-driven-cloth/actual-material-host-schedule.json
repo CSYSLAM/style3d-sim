@@ -1,0 +1,1111 @@
+{
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "cases": [
+    {
+      "case": "so3-w1-newton-b0",
+      "owned_calls": 553,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:78057f202e00 u:78057f203000 f:0 u:78057f203200 f:0 u:78057f203400 f:100 u:78057f203600 f:0 u:78057f203800 f:100 u:303011a00 u:302000800 u:78057f207c00 u:78057f200600 u:78057f200800 u:78057f201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:78057f203e00 u:78057f204200 u:78057f205600 u:78057f205a00 u:78057f205e00 u:78057f206200 u:78057f206600 u:78057f206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "18 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:78057f206e00 u:78057f207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:78057f200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "19 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:78057f206e00 u:78057f207000 u:302001a00 u:78057f201c00 f:5759999 u:78057f200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "20 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:78057f200600 u:78057f200e00 u:78057f200a00 u:78057f200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:78057f207200 u:78057f207400 u:78057f207600 u:78057f207800 u:78057f207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:78057f200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "21 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:78057f207200(2.13268e+38|4.30549e-41),56:78057f207400(2.13279e+38|4.30549e-41),64:78057f207600(2.13289e+38|4.30549e-41),72:78057f207800(2.133e+38|4.30549e-41),80:78057f207a00(2.1331e+38|4.30549e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:78057f200600 u:78057f200a00 u:78057f200c00 f:239.999985 u:0 u:78057f200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "22 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 u:78057f202a00 u:78057f202c00 f:5759999 u:78057f200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:78057f200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "24 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:78057f200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:78057f200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "so3-w1-newton-b1",
+      "owned_calls": 652,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:785c67202e00 u:785c67203000 f:0 u:785c67203200 f:0 u:785c67203400 f:100 u:785c67203600 f:0 u:785c67203800 f:100 u:303011a00 u:302000800 u:785c67207c00 u:785c67200600 u:785c67200800 u:785c67201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:785c67203e00 u:785c67204200 u:785c67205600 u:785c67205a00 u:785c67205e00 u:785c67206200 u:785c67206600 u:785c67206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "18 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:785c67206e00 u:785c67207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:785c67200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "19 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:785c67206e00 u:785c67207000 u:302001a00 u:785c67201c00 f:5759999 u:785c67200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "20 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:785c67200600 u:785c67200e00 u:785c67200a00 u:785c67200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:785c67207200 u:785c67207400 u:785c67207600 u:785c67207800 u:785c67207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:785c67200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "21 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:785c67207200(7.57682e+23|4.31768e-41),56:785c67207400(7.57718e+23|4.31768e-41),64:785c67207600(7.57755e+23|4.31768e-41),72:785c67207800(7.57792e+23|4.31768e-41),80:785c67207a00(7.57829e+23|4.31768e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:785c67200600 u:785c67200a00 u:785c67200c00 f:239.999985 u:0 u:785c67200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "22 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 u:785c67202a00 u:785c67202c00 f:5759999 u:785c67200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:785c67200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "24 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:785c67200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:785c67200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "so3-w1-pd-b0",
+      "owned_calls": 541,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:775f23202e00 u:775f23203000 f:0 u:775f23203200 f:0 u:775f23203400 f:100 u:775f23203600 f:0 u:775f23203800 f:100 u:303011a00 u:302000800 u:775f23207c00 u:775f23200600 u:775f23200800 u:775f23201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:775f23203e00 u:775f23204200 u:775f23205600 u:775f23205a00 u:775f23205e00 u:775f23206200 u:775f23206600 u:775f23206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:775f23206e00 u:775f23207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:775f23200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:775f23206e00 u:775f23207000 u:302001a00 u:775f23201c00 f:5759999 u:775f23200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:775f23200600 u:775f23200e00 u:775f23200a00 u:775f23200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:775f23207200 u:775f23207400 u:775f23207600 u:775f23207800 u:775f23207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:775f23200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:775f23207200(8.69776e-18|4.28223e-41),56:775f23207400(8.69818e-18|4.28223e-41),64:775f23207600(8.6986e-18|4.28223e-41),72:775f23207800(8.69903e-18|4.28223e-41),80:775f23207a00(8.69945e-18|4.28223e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:775f23200600 u:775f23200a00 u:775f23200c00 f:239.999985 u:0 u:775f23200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "21 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 u:775f23202a00 u:775f23202c00 f:5759999 u:775f23200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:775f23200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:775f23200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:775f23200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "so3-w1-pd-b1",
+      "owned_calls": 640,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:72b177202e00 u:72b177203000 f:0 u:72b177203200 f:0 u:72b177203400 f:100 u:72b177203600 f:0 u:72b177203800 f:100 u:303011a00 u:302000800 u:72b177207c00 u:72b177200600 u:72b177200800 u:72b177201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:72b177203e00 u:72b177204200 u:72b177205600 u:72b177205a00 u:72b177205e00 u:72b177206200 u:72b177206600 u:72b177206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:72b177206e00 u:72b177207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:72b177200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:72b177206e00 u:72b177207000 u:302001a00 u:72b177201c00 f:5759999 u:72b177200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:72b177200600 u:72b177200e00 u:72b177200a00 u:72b177200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:72b177207200 u:72b177207400 u:72b177207600 u:72b177207800 u:72b177207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:72b177200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:72b177207200(3.25422e+33|4.11435e-41),56:72b177207400(3.25438e+33|4.11435e-41),64:72b177207600(3.25453e+33|4.11435e-41),72:72b177207800(3.25469e+33|4.11435e-41),80:72b177207a00(3.25485e+33|4.11435e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:72b177200600 u:72b177200a00 u:72b177200c00 f:239.999985 u:0 u:72b177200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "21 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 u:72b177202a00 u:72b177202c00 f:5759999 u:72b177200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:72b177200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:72b177200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:72b177200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "so3-w3-newton-b0",
+      "owned_calls": 553,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:7fa79b203e00 u:7fa79b204000 f:0 u:7fa79b204200 f:0 u:7fa79b204400 f:100 u:7fa79b204600 f:0 u:7fa79b204800 f:100 u:303011a00 u:302000800 u:7fa79b208c00 u:7fa79b200600 u:7fa79b200800 u:7fa79b201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:7fa79b204e00 u:7fa79b205200 u:7fa79b206600 u:7fa79b206a00 u:7fa79b206e00 u:7fa79b207200 u:7fa79b207600 u:7fa79b207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "18 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:7fa79b207e00 u:7fa79b208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:7fa79b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "19 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:7fa79b207e00 u:7fa79b208000 u:302001a00 u:7fa79b202400 f:5759999 u:7fa79b200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "20 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:7fa79b200600 u:7fa79b200e00 u:7fa79b200a00 u:7fa79b200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:7fa79b208200 u:7fa79b208400 u:7fa79b208600 u:7fa79b208800 u:7fa79b208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:7fa79b200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "21 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:7fa79b208200(-1.32769e-22|4.5793e-41),56:7fa79b208400(-1.32775e-22|4.5793e-41),64:7fa79b208600(-1.32782e-22|4.5793e-41),72:7fa79b208800(-1.32788e-22|4.5793e-41),80:7fa79b208a00(-1.32795e-22|4.5793e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:7fa79b200600 u:7fa79b200a00 u:7fa79b200c00 f:239.999985 u:0 u:7fa79b200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "22 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 u:7fa79b203a00 u:7fa79b203c00 f:5759999 u:7fa79b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:7fa79b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "24 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:7fa79b200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:7fa79b200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "so3-w3-newton-b1",
+      "owned_calls": 652,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:780bbb203e00 u:780bbb204000 f:0 u:780bbb204200 f:0 u:780bbb204400 f:100 u:780bbb204600 f:0 u:780bbb204800 f:100 u:303011a00 u:302000800 u:780bbb208c00 u:780bbb200600 u:780bbb200800 u:780bbb201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:780bbb204e00 u:780bbb205200 u:780bbb206600 u:780bbb206a00 u:780bbb206e00 u:780bbb207200 u:780bbb207600 u:780bbb207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "18 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:780bbb207e00 u:780bbb208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:780bbb200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "19 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:780bbb207e00 u:780bbb208000 u:302001a00 u:780bbb202400 f:5759999 u:780bbb200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "20 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:780bbb200600 u:780bbb200e00 u:780bbb200a00 u:780bbb200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:780bbb208200 u:780bbb208400 u:780bbb208600 u:780bbb208800 u:780bbb208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:780bbb200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "21 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:780bbb208200(-0.00244915|4.30633e-41),56:780bbb208400(-0.00244927|4.30633e-41),64:780bbb208600(-0.00244939|4.30633e-41),72:780bbb208800(-0.00244951|4.30633e-41),80:780bbb208a00(-0.00244963|4.30633e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:780bbb200600 u:780bbb200a00 u:780bbb200c00 f:239.999985 u:0 u:780bbb200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "22 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 u:780bbb203a00 u:780bbb203c00 f:5759999 u:780bbb200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:780bbb200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "24 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:780bbb200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:780bbb200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "so3-w3-pd-b0",
+      "owned_calls": 541,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:756d67203e00 u:756d67204000 f:0 u:756d67204200 f:0 u:756d67204400 f:100 u:756d67204600 f:0 u:756d67204800 f:100 u:303011a00 u:302000800 u:756d67208c00 u:756d67200600 u:756d67200800 u:756d67201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:756d67204e00 u:756d67205200 u:756d67206600 u:756d67206a00 u:756d67206e00 u:756d67207200 u:756d67207600 u:756d67207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:756d67207e00 u:756d67208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:756d67200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:756d67207e00 u:756d67208000 u:302001a00 u:756d67202400 f:5759999 u:756d67200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:756d67200600 u:756d67200e00 u:756d67200a00 u:756d67200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:756d67208200 u:756d67208400 u:756d67208600 u:756d67208800 u:756d67208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:756d67200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:756d67208200(7.57977e+23|4.21244e-41),56:756d67208400(7.58014e+23|4.21244e-41),64:756d67208600(7.58051e+23|4.21244e-41),72:756d67208800(7.58087e+23|4.21244e-41),80:756d67208a00(7.58124e+23|4.21244e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:756d67200600 u:756d67200a00 u:756d67200c00 f:239.999985 u:0 u:756d67200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "21 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 u:756d67203a00 u:756d67203c00 f:5759999 u:756d67200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:756d67200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:756d67200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:756d67200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "so3-w3-pd-b1",
+      "owned_calls": 640,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:7d8e4b203e00 u:7d8e4b204000 f:0 u:7d8e4b204200 f:0 u:7d8e4b204400 f:100 u:7d8e4b204600 f:0 u:7d8e4b204800 f:100 u:303011a00 u:302000800 u:7d8e4b208c00 u:7d8e4b200600 u:7d8e4b200800 u:7d8e4b201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "15 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:0 f:0 f:100 f:0 f:100 u:7d8e4b204e00 u:7d8e4b205200 u:7d8e4b206600 u:7d8e4b206a00 u:7d8e4b206e00 u:7d8e4b207200 u:7d8e4b207600 u:7d8e4b207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:7d8e4b207e00 u:7d8e4b208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:7d8e4b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:7d8e4b207e00 u:7d8e4b208000 u:302001a00 u:7d8e4b202400 f:5759999 u:7d8e4b200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:7d8e4b200600 u:7d8e4b200e00 u:7d8e4b200a00 u:7d8e4b200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:7d8e4b208200 u:7d8e4b208400 u:7d8e4b208600 u:7d8e4b208800 u:7d8e4b208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:7d8e4b200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:7d8e4b208200(1.0519e+07|4.50405e-41),56:7d8e4b208400(1.05196e+07|4.50405e-41),64:7d8e4b208600(1.05201e+07|4.50405e-41),72:7d8e4b208800(1.05206e+07|4.50405e-41),80:7d8e4b208a00(1.05211e+07|4.50405e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:7d8e4b200600 u:7d8e4b200a00 u:7d8e4b200c00 f:239.999985 u:0 u:7d8e4b200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "21 51evaluate_affine_body_so3_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 u:7d8e4b203a00 u:7d8e4b203c00 f:5759999 u:7d8e4b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel51evaluate_affine_body_so3_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKfPKNS1_3matILi3ELi3EfLS3_0EEESF_fPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:7d8e4b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:7d8e4b200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:7d8e4b200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w1-newton-b0",
+      "owned_calls": 496,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:783941202e00 u:783941203000 f:100 u:783941203200 f:0 u:783941203400 f:100 u:783941203600 f:0 u:783941203800 f:100 u:303011a00 u:302000800 u:783941207c00 u:783941200600 u:783941200800 u:783941201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:783941203e00 u:783941204200 u:783941205600 u:783941205a00 u:783941205e00 u:783941206200 u:783941206600 u:783941206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:783941206e00 u:783941207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:783941200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:783941206e00 u:783941207000 u:302001a00 u:783941201c00 f:5759999 u:783941200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:783941200600 u:783941200e00 u:783941200a00 u:783941200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:783941207200 u:783941207400 u:783941207600 u:783941207800 u:783941207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:783941200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:783941207200(10.0278|4.31278e-41),56:783941207400(10.0283|4.31278e-41),64:783941207600(10.0288|4.31278e-41),72:783941207800(10.0293|4.31278e-41),80:783941207a00(10.0298|4.31278e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:783941200600 u:783941200a00 u:783941200c00 f:239.999985 u:0 u:783941200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "21 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 f:5759999 u:783941200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:783941200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:783941200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:783941200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 9,
+          "first_actual_record": "26 43add_affine_body_spring_gauss_newton_hessian grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 f:5759999 u:783941201800 u:783941203c00 u:783941208c00 u:7 u:2 u:2 u:c u:c symbol:_ZN7synreal6kernel43add_affine_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w1-newton-b1",
+      "owned_calls": 595,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:7e726b202e00 u:7e726b203000 f:100 u:7e726b203200 f:0 u:7e726b203400 f:100 u:7e726b203600 f:0 u:7e726b203800 f:100 u:303011a00 u:302000800 u:7e726b207c00 u:7e726b200600 u:7e726b200800 u:7e726b201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:7e726b203e00 u:7e726b204200 u:7e726b205600 u:7e726b205a00 u:7e726b205e00 u:7e726b206200 u:7e726b206600 u:7e726b206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:7e726b206e00 u:7e726b207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:7e726b200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:7e726b206e00 u:7e726b207000 u:302001a00 u:7e726b201c00 f:5759999 u:7e726b200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:7e726b200600 u:7e726b200e00 u:7e726b200a00 u:7e726b200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:7e726b207200 u:7e726b207400 u:7e726b207600 u:7e726b207800 u:7e726b207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:7e726b200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:7e726b207200(1.93966e+26|4.536e-41),56:7e726b207400(1.93976e+26|4.536e-41),64:7e726b207600(1.93985e+26|4.536e-41),72:7e726b207800(1.93995e+26|4.536e-41),80:7e726b207a00(1.94004e+26|4.536e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:7e726b200600 u:7e726b200a00 u:7e726b200c00 f:239.999985 u:0 u:7e726b200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "21 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 f:5759999 u:7e726b200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:7e726b200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:7e726b200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:7e726b200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 9,
+          "first_actual_record": "26 43add_affine_body_spring_gauss_newton_hessian grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 f:5759999 u:7e726b201800 u:7e726b203c00 u:7e726b208c00 u:7 u:2 u:2 u:c u:c symbol:_ZN7synreal6kernel43add_affine_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w1-pd-b0",
+      "owned_calls": 475,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:789a77202e00 u:789a77203000 f:100 u:789a77203200 f:0 u:789a77203400 f:100 u:789a77203600 f:0 u:789a77203800 f:100 u:303011a00 u:302000800 u:789a77207c00 u:789a77200600 u:789a77200800 u:789a77201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:789a77203e00 u:789a77204200 u:789a77205600 u:789a77205a00 u:789a77205e00 u:789a77206200 u:789a77206600 u:789a77206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "16 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:789a77206e00 u:789a77207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:789a77200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "17 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:789a77206e00 u:789a77207000 u:302001a00 u:789a77201c00 f:5759999 u:789a77200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "18 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:789a77200600 u:789a77200e00 u:789a77200a00 u:789a77200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:789a77207200 u:789a77207400 u:789a77207600 u:789a77207800 u:789a77207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:789a77200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "19 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:789a77207200(3.25422e+33|4.32637e-41),56:789a77207400(3.25438e+33|4.32637e-41),64:789a77207600(3.25453e+33|4.32637e-41),72:789a77207800(3.25469e+33|4.32637e-41),80:789a77207a00(3.25485e+33|4.32637e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:789a77200600 u:789a77200a00 u:789a77200c00 f:239.999985 u:0 u:789a77200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "20 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 f:5759999 u:789a77200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "21 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:789a77200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:789a77200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:789a77200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w1-pd-b1",
+      "owned_calls": 574,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:1 u:302000a00 u:302004600 u:302004400 u:73ead7202e00 u:73ead7203000 f:100 u:73ead7203200 f:0 u:73ead7203400 f:100 u:73ead7203600 f:0 u:73ead7203800 f:100 u:303011a00 u:302000800 u:73ead7207c00 u:73ead7200600 u:73ead7200800 u:73ead7201200 u:c u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:73ead7203e00 u:73ead7204200 u:73ead7205600 u:73ead7205a00 u:73ead7205e00 u:73ead7206200 u:73ead7206600 u:73ead7206a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "16 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:73ead7206e00 u:73ead7207000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:73ead7200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "17 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:302001400 u:302001600 u:302001800 u:73ead7206e00 u:73ead7207000 u:302001a00 u:73ead7201c00 f:5759999 u:73ead7200400 u:2 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "18 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302004400 u:73ead7200600 u:73ead7200e00 u:73ead7200a00 u:73ead7200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:73ead7207200 u:73ead7207400 u:73ead7207600 u:73ead7207800 u:73ead7207a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302006a00 u:302006400 u:302006600 u:73ead7200400 u:1 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "19 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:73ead7207200(-1.76411e+14|4.15821e-41),56:73ead7207400(-1.7642e+14|4.15821e-41),64:73ead7207600(-1.76429e+14|4.15821e-41),72:73ead7207800(-1.76437e+14|4.15821e-41),80:73ead7207a00(-1.76446e+14|4.15821e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:1(1.4013e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302004400 u:73ead7200600 u:73ead7200a00 u:73ead7200c00 f:239.999985 u:0 u:73ead7200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "20 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302004400 u:303011e00 u:303012000 f:5759999 u:73ead7200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "21 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302004400 u:303005a00 u:303005400 u:303005200 u:30300de00 u:73ead7200400 u:2 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302004400 u:73ead7200600 u:30300e000 u:30300e200 u:303005c00 u:303006200 f:239.999985 u:73ead7200400 u:5 u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w3-newton-b0",
+      "owned_calls": 496,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:728627203e00 u:728627204000 f:100 u:728627204200 f:0 u:728627204400 f:100 u:728627204600 f:0 u:728627204800 f:100 u:303011a00 u:302000800 u:728627208c00 u:728627200600 u:728627200800 u:728627201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:728627204e00 u:728627205200 u:728627206600 u:728627206a00 u:728627206e00 u:728627207200 u:728627207600 u:728627207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:728627207e00 u:728627208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:728627200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:728627207e00 u:728627208000 u:302001a00 u:728627202400 f:5759999 u:728627200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:728627200600 u:728627200e00 u:728627200a00 u:728627200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:728627208200 u:728627208400 u:728627208600 u:728627208800 u:728627208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:728627200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:728627208200(2.22749e-15|4.10833e-41),56:728627208400(2.2276e-15|4.10833e-41),64:728627208600(2.22771e-15|4.10833e-41),72:728627208800(2.22782e-15|4.10833e-41),80:728627208a00(2.22793e-15|4.10833e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:728627200600 u:728627200a00 u:728627200c00 f:239.999985 u:0 u:728627200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "21 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 f:5759999 u:728627200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:728627200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:728627200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:728627200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 9,
+          "first_actual_record": "26 43add_affine_body_spring_gauss_newton_hessian grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 f:5759999 u:728627201800 u:728627204c00 u:72862720b600 u:7 u:6 u:2 u:c u:24 symbol:_ZN7synreal6kernel43add_affine_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w3-newton-b1",
+      "owned_calls": 595,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:70935b203e00 u:70935b204000 f:100 u:70935b204200 f:0 u:70935b204400 f:100 u:70935b204600 f:0 u:70935b204800 f:100 u:303011a00 u:302000800 u:70935b208c00 u:70935b200600 u:70935b200800 u:70935b201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:70935b204e00 u:70935b205200 u:70935b206600 u:70935b206a00 u:70935b206e00 u:70935b207200 u:70935b207600 u:70935b207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "17 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:70935b207e00 u:70935b208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:70935b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "18 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:70935b207e00 u:70935b208000 u:302001a00 u:70935b202400 f:5759999 u:70935b200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "19 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:70935b200600 u:70935b200e00 u:70935b200a00 u:70935b200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:70935b208200 u:70935b208400 u:70935b208600 u:70935b208800 u:70935b208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:70935b200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "20 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:70935b208200(4.51789e+16|4.0384e-41),56:70935b208400(4.51811e+16|4.0384e-41),64:70935b208600(4.51833e+16|4.0384e-41),72:70935b208800(4.51855e+16|4.0384e-41),80:70935b208a00(4.51877e+16|4.0384e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:70935b200600 u:70935b200a00 u:70935b200c00 f:239.999985 u:0 u:70935b200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "21 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 f:5759999 u:70935b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:70935b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "23 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:70935b200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:70935b200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 9,
+          "first_actual_record": "26 43add_affine_body_spring_gauss_newton_hessian grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 f:5759999 u:70935b201800 u:70935b204c00 u:70935b20b600 u:7 u:6 u:2 u:c u:24 symbol:_ZN7synreal6kernel43add_affine_body_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w3-pd-b0",
+      "owned_calls": 475,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:79767b203e00 u:79767b204000 f:100 u:79767b204200 f:0 u:79767b204400 f:100 u:79767b204600 f:0 u:79767b204800 f:100 u:303011a00 u:302000800 u:79767b208c00 u:79767b200600 u:79767b200800 u:79767b201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:79767b204e00 u:79767b205200 u:79767b206600 u:79767b206a00 u:79767b206e00 u:79767b207200 u:79767b207600 u:79767b207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "16 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:79767b207e00 u:79767b208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:79767b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "17 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:79767b207e00 u:79767b208000 u:302001a00 u:79767b202400 f:5759999 u:79767b200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "18 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:79767b200600 u:79767b200e00 u:79767b200a00 u:79767b200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:79767b208200 u:79767b208400 u:79767b208600 u:79767b208800 u:79767b208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:79767b200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "19 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:79767b208200(8.33404e+35|4.3572e-41),56:79767b208400(8.33445e+35|4.3572e-41),64:79767b208600(8.33485e+35|4.3572e-41),72:79767b208800(8.33526e+35|4.3572e-41),80:79767b208a00(8.33566e+35|4.3572e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:79767b200600 u:79767b200a00 u:79767b200c00 f:239.999985 u:0 u:79767b200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "20 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 f:5759999 u:79767b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "21 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:79767b200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:79767b200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:79767b200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    },
+    {
+      "case": "six-springs-w3-pd-b1",
+      "owned_calls": 574,
+      "selected": {
+        "15initialize_step": {
+          "calls": 3,
+          "first_actual_record": "12 15initialize_step grid=1 block=256 upload_seq=37 f:0.00416666688 u:30300dc00 u:3 u:0 u:302005c00 u:302005a00 u:7253eb203e00 u:7253eb204000 f:100 u:7253eb204200 f:0 u:7253eb204400 f:100 u:7253eb204600 f:0 u:7253eb204800 f:100 u:303011a00 u:302000800 u:7253eb208c00 u:7253eb200600 u:7253eb200800 u:7253eb201200 u:24 u:c symbol:_ZN7synreal6kernel15initialize_stepEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEEmPKiS6_PS4_PKfSB_fSB_fSB_fSB_fSB_fSB_S8_S8_S9_S9_Pfmm launch:1,1,1,256,1,1,0,3"
+        },
+        "27combine_system_non_diagonal": {
+          "calls": 3,
+          "first_actual_record": "14 27combine_system_non_diagonal grid=1 block=256 upload_seq=37 f:57599.9922 f:100 f:0 f:100 f:0 f:100 u:7253eb204e00 u:7253eb205200 u:7253eb206600 u:7253eb206a00 u:7253eb206e00 u:7253eb207200 u:7253eb207600 u:7253eb207a00 u:54 symbol:_ZN7synreal6kernel27combine_system_non_diagonalEffffffPKNS_12NonZeroEntryES3_S3_S3_S3_S3_S3_PS1_m launch:1,1,1,256,1,1,0,3"
+        },
+        "26evaluate_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "16 26evaluate_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:7253eb207e00 u:7253eb208000 u:302001a00 u:302001c00 f:5759999 u:2 c:0 u:7253eb200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel26evaluate_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfSH_fmbPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "53evaluate_joint_body_spring_augmented_lagrangian_force": {
+          "calls": 9,
+          "first_actual_record": "17 53evaluate_joint_body_spring_augmented_lagrangian_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:302001400 u:302001600 u:302001800 u:7253eb207e00 u:7253eb208000 u:302001a00 u:7253eb202400 f:5759999 u:7253eb200400 u:6 u:2 u:2 u:c symbol:_ZN7synreal6kernel53evaluate_joint_body_spring_augmented_lagrangian_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EiLS3_0EEES6_S6_PKNS2_ILi4EfLS3_0EEESF_PKfS6_fPS4_mmmm launch:1,1,1,256,1,1,0,3"
+        },
+        "25evaluate_joint_drive_load": {
+          "calls": 9,
+          "first_actual_record": "18 25evaluate_joint_drive_load grid=1 block=256 upload_seq=37 u:302005a00 u:7253eb200600 u:7253eb200e00 u:7253eb200a00 u:7253eb200c00 u:303011e00 u:302001e00 u:302002000 u:302002200 u:302002600 u:302002800 u:7253eb208200 u:7253eb208400 u:7253eb208600 u:7253eb208800 u:7253eb208a00 u:302002c00 u:302002e00 u:30300a200 u:30300a400 u:30300b000 u:30300a000 u:30300a600 u:302008000 u:302007a00 u:302007c00 u:7253eb200400 u:3 u:1 u:c u:7 u:7 f:239.999985 symbol:_ZN7synreal6kernel25evaluate_joint_drive_loadEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPfPiPKNS2_ILi4EiLS3_0EEEPKiPKNS2_ILi2EiLS3_0EEES6_S6_S6_PKNS2_ILi4EfLS3_0EEESL_SL_SL_SL_SF_SF_S8_S8_S8_SF_S8_S8_S8_S8_PS4_mmmmmf launch:1,1,1,256,1,1,0,3"
+        },
+        "23evaluate_angular_limits": {
+          "calls": 63,
+          "first_actual_record": "19 23evaluate_angular_limits grid=1 block=256 upload_seq=37 Jview:0:303011e00(3.79441e-37|4.2039e-45),8:302001e00(9.41256e-38|4.2039e-45),16:302002000(9.41314e-38|4.2039e-45),24:302002200(9.41371e-38|4.2039e-45),32:302002600(9.41486e-38|4.2039e-45),40:302002800(9.41543e-38|4.2039e-45),48:7253eb208200(-1.94042e+26|4.10118e-41),56:7253eb208400(-1.94051e+26|4.10118e-41),64:7253eb208600(-1.94061e+26|4.10118e-41),72:7253eb208800(-1.9407e+26|4.10118e-41),80:7253eb208a00(-1.9408e+26|4.10118e-41),88:302002c00(9.41658e-38|4.2039e-45),96:1(1.4013e-45|0),104:3(4.2039e-45|0),112:c(1.68156e-44|0), Lview:0:30300b600(3.78247e-37|4.2039e-45),8:30300b800(3.7827e-37|4.2039e-45),16:30300ba00(3.78293e-37|4.2039e-45),24:30300bc00(3.78316e-37|4.2039e-45), u:302005a00 u:7253eb200600 u:7253eb200a00 u:7253eb200c00 f:239.999985 u:0 u:7253eb200400 u:0 symbol:_ZN7synreal6kernel23evaluate_angular_limitsENS0_19JointCoordinateViewENS0_16AngularLimitViewEPKN3glm3vecILi3EfLNS3_9qualifierE0EEES8_PKfPKifS8_PS6_PNS3_3matILi3ELi3EfLS5_0EEE launch:1,1,1,256,1,1,0,3"
+        },
+        "51evaluate_affine_body_so3_augmented_lagrangian_force": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "33evaluate_affine_body_spring_force": {
+          "calls": 9,
+          "first_actual_record": "20 33evaluate_affine_body_spring_force grid=1 block=256 upload_seq=37 u:302005a00 u:303011e00 u:303012000 f:5759999 u:7253eb200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel33evaluate_affine_body_spring_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKffPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_stretch_force": {
+          "calls": 9,
+          "first_actual_record": "21 22evaluate_stretch_force grid=1 block=256 upload_seq=37 u:302005a00 u:303005a00 u:303005400 u:303007a00 u:30300de00 u:7253eb200400 u:6 u:2 u:c symbol:_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "22evaluate_bending_force": {
+          "calls": 9,
+          "first_actual_record": "22 22evaluate_bending_force grid=1 block=256 upload_seq=37 u:302005a00 u:7253eb200600 u:30300e000 u:30300e200 u:303005200 u:303006200 f:239.999985 u:7253eb200400 u:f u:5 u:c symbol:_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm launch:1,1,1,256,1,1,0,3"
+        },
+        "43add_affine_body_spring_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "39add_cloth_membrane_gauss_newton_hessian": {
+          "calls": 0,
+          "first_actual_record": null
+        },
+        "32build_affine_body_preconditioner": {
+          "calls": 0,
+          "first_actual_record": null
+        }
+      },
+      "excluded_components_actual_calls": {
+        "21evaluate_spring_force": 0,
+        "26evaluate_tetrahedron_force": 0,
+        "22evaluate_triangle_drag": 0,
+        "26evaluate_body_distance_constraint_force": 0,
+        "39evaluate_body_distance_constraint_force": 0,
+        "30evaluate_body_point_line_force": 0,
+        "cable_kernel": 0,
+        "fluid_kernel": 0,
+        "granular_kernel": 0
+      }
+    }
+  ],
+  "production_changed": false,
+  "source_guard_opened": false
+}

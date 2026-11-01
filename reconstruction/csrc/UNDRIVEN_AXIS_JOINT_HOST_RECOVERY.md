@@ -1,6 +1,6 @@
 # Native zero-drive axis joint 接续
 
-当前生产仍为 `3d1b1b88`；参考为SDK64a，CUDA176/f0不变，`solver_api_ready=False`。
+当前生产为 `430b5b74`；参考为SDK64a，CUDA176/f0不变，`solver_api_ready=False`。
 本文件记录原生API输入的zero-drive组合，独立fixture不是未修改的官方demo。
 
 证据目录：
@@ -25,8 +25,11 @@ v1只清一个适配器数组，触发“All joint drive arrays must be provided
 - 修改前检查点`build/reconstruction-checkpoints/undriven-axis-before-3d1b1b88/`：
   27个source/build/so文件和226份有效SDK参考文件的SHA。
 
-生产guard尚未修改。下一步只开放已捕获的纯joint point-line范围，保持plain、joint混合、材料/contact等限制。
-先对同32份SDK核对所有状态、首force buffer、完整ABI，再做八种constructor、graph60和双端initcheck3。
+生产仅开放纯joint spring XOR joint line的已捕获isolation，保持joint spring+line及其它未捕获混合限制。
+Penalty沿用该isolation允许pure line；CPU模板、kernel调度代码和CUDA未改。
+430b对同32份SDK：状态/首force buffer严格，12288次完整owned参数/geometry严格。
+八种constructor五项全同；32组合graph60共128/128严格，双端各64轨迹×3步initcheck均0错误。
+当前image完整74未收集；下一步进入正式机器人布料所需的材料+driven body组合。
 出现差异先检查实际SDK调用和buffer，不改权重、容差或换候选。
 
 ```bash
@@ -36,5 +39,5 @@ source scripts/reconstruction_env.sh
   --constraint-mode al --joint-kind prismatic --worlds 3 --seed 3 --mode newton
 ```
 
-该命令当前只验证已允许的Newton/no-block分支；PD/body-block和Penalty prismatic仍有guard。
-`compare-source32.py`、`run-validation.py`是下一步脚本，当前不能提前声称已通过。
+`compare-source32.py`及`run-validation.py`局部全部结束且退出0，以当前image的status.json为准。
+3d旧baseline guard拒绝记录及旧失败均保留，不以新结果重判。

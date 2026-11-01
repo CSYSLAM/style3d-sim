@@ -2281,8 +2281,9 @@ public:
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
             !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
             !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
-        const bool isolated_undriven_joint = joint_spring_total_ && !plain_spring_count_ && !point_line_total_ &&
-            !distance_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ && !granular_points_ && !self &&
+        const bool isolated_undriven_joint = ((joint_spring_total_ > 0) != (joint_line_total_ > 0)) &&
+            !plain_spring_count_ && !plain_line_count_ && !distance_total_ && !drive_total_ &&
+            !cable_count_ && !fluid_rows_ && !granular_points_ && !self &&
             !drag_count_ && !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&
             !contact.max_count && !contact.soft_max_count;
         if (body_block && !isolated_plain && !isolated_undriven_joint &&
@@ -2306,7 +2307,7 @@ public:
         if ((joint_spring_total_ || joint_line_total_) && !joint_al) {
             const bool isolated_penalty = config.joint_constraint_mode == JointConstraintMode::PENALTY && so3 &&
                 !plain_spring_count_ && !plain_line_count_ && !distance_total_ &&
-                (drive_total_ || (joint_spring_total_ && !joint_line_total_)) && !cable_count_ && !fluid_rows_ &&
+                (drive_total_ || isolated_undriven_joint) && !cable_count_ && !fluid_rows_ &&
                 !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
                 !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
             if (!isolated_penalty)
@@ -2915,6 +2916,10 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "undriven_joint_constraints_pd_newton",
                                                      "undriven_joint_body_blocks_newton",
                                                      "undriven_joint_body_blocks_pd_newton",
+                                                     "undriven_joint_point_lines_newton",
+                                                     "undriven_joint_point_lines_pd_newton",
+                                                     "undriven_joint_point_lines_body_blocks",
+                                                     "undriven_joint_point_lines_penalty",
                                                      "joint_penalty_constraints_newton",
                                                      "joint_penalty_constraints_pd_newton",
                                                      "joint_penalty_constraints_body_blocks",

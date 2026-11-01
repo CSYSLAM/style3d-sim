@@ -1,6 +1,9 @@
 # 新版基准与 C++ host 进度
 
-> **活动3d1b1b88：混合普通约束。** 固定32组状态/12576次完整owned调用/各primitive首buffer严格；
+> **活动430b5b74：native zero-drive轴关节。** 固定SDK32状态/首force buffer/12288次owned调用严格；
+> constructor五项全同、graph128/128及双端initcheck全过；当前74未收集，ready=False。见[zero-drive恢复](UNDRIVEN_AXIS_JOINT_HOST_RECOVERY.md)。
+
+> **历史3d1b1b88：混合普通约束。** 固定32组状态/12576次完整owned调用/各primitive首buffer严格；
 > 八种构造五项均同，graph128/128严格，双端initcheck全过，当前完整74为71严格、三固定C10全过，CPU同，独立source graph/test过，ready=False。
 > 修复实际distance/line权重分配顺序；见[混合约束恢复](PLAIN_BODY_MIXED_CONSTRAINT_HOST_RECOVERY.md)。
 > aa52正式布料首force证据见[OFFICIAL_CLOTH_FIRST_STEP_AA52.md](OFFICIAL_CLOTH_FIRST_STEP_AA52.md)，整段C仍失败。

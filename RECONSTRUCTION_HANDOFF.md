@@ -1,6 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **活动源码3d1b1b88：混合普通spring/point-line/distance。**
+> **活动源码430b5b74：native zero-drive轴关节。**
+> 有效SDK32的状态/首force buffer及12288完整owned调用严格；八种构造五项同、graph128/128、双端initcheck全过。
+> 当前430b完整74未收集；正恢复正式机器人布料所需SIX_SPRINGS+joint+cloth，ready=False。
+> 见[zero-drive恢复](reconstruction/csrc/UNDRIVEN_AXIS_JOINT_HOST_RECOVERY.md)，ready=False。
+
+> **历史3d1b1b88：混合普通spring/point-line/distance。**
 > 固定32组状态/12576次完整调用/各primitive首force buffer严格，八种构造五项均同，graph128/128严格，双端initcheck全过。
 > 当前image完整74为71严格；三particles固定C10全过且CPU重算同，两个独立源码入口graph/test过，ready=False。
 > 修复实际distance/line权重分配顺序；见[混合约束恢复](reconstruction/csrc/PLAIN_BODY_MIXED_CONSTRAINT_HOST_RECOVERY.md)。
@@ -116,7 +121,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `3d1b1b883a620f0028f2c4b16c2d2e490b96407a9e16e4dc75034d10baef6be1`；当前源码host image；aa52等历史检查点保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `430b5b74176c82b7f487a902d8ae3f77593d9657824207458a57b141b850f1b2`；当前源码host image；aa52等历史检查点保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |

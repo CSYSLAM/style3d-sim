@@ -5715,3 +5715,20 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   3d Newton/no-block八基线六条全部状态/完整ABI严格；仅Penalty prismatic的W1/W3被原guard拒绝，未重采。
   AL prismatic W3/no-block baseline constructor五项全同：59 alloc/29 upload/30 typed/348 owned。
   保存3d的27源/build/so与226份SDK v2参考SHA，准备仅窄化已捕获pure joint line范围。
+- a4e16642c1dc1f07ab403bfc9176eb2ab43bce36已提交，136764文件快照0失败，并已push成功（远端SHA待ls-remote二次确认）。
+  包含3d完整74/C10/CPU/standalone全结果，v2有效SDK32、baseline8及baseline constructor，生产guard仍为3d关闭状态。
+- 只窄化纯joint spring XOR joint line的isolated范围，Penalty使用该isolation允许pure line，保持spring+line及其它混合限制。
+  新增四scope标签；CPU模板、kernel调度代码和CUDA176/f0未改。新image430b5b74176c82b7f487a902d8ae3f77593d9657824207458a57b141b850f1b2。
+- 430b对固定v2 SDK32全部状态/选定force pre/post字节/12288完整owned参数和geometry严格同。
+  当前八种constructor→graph128→双端initcheck串行；尚未收集430b完整74，不继承3d统计结论。
+- 查正式example_robot_cloth_trampoline：直接Native NewtonSolver，SIX_SPRINGS/AL/Newton、有关节和布料，
+  当前材料+约束及非SO3 guard尚拒绝。新增driven_cloth_scene只作独立小夹具准备，SO3/SIX两种rigidity，
+  有真实joint drive、两triangle与bending、固定点/初始cloth prestrain；尚未GPU运行或开放该生产guard。
+- 430b局部队列complete且全退出0：八种constructor五项全同；AL prismatic59/29/30、owned447/489，
+  Penalty prismatic59/29/30、owned426/414；revolute56/28/28，AL owned432/429、Penalty417/414。
+  32组合graph60共128/128严格，双端各64轨迹×3步initcheck0错误。430b完整74未收集，不继承3d结论。
+- driven_cloth_scene原版16全部有效，SO3/SIX×W1/W3×Newton/PD×body-block；五种force各抓完整9次pre/post，
+  关节/drive/stretch/bending每次都实际改变RHS，rigidity至少后8次改变；全部finite/body移动。
+  actual-material-host-schedule保存真实记录，确认没有particle spring/tet/drag/point-line/distance/cable/fluid/granular调用。
+  430b的SO3与SIX Newton/no-block两个基线均在constructor被材料+约束guard拒绝，失败保留。
+  修改前保存430b的27源/build/so与SDK16实际全部参考SHA，接着仅开放已捕获无接触/无self的driven cloth组合。
