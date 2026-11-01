@@ -1,6 +1,10 @@
 # 新版基准与 C++ host 进度
 
-> **活动6a7061d7：无drive固定/球关节PD/body-block。** 16组状态/6096调用/首buffer严格；
+> **活动aa52ee61：joint PENALTY host。** 32组状态/14868调用/首buffer严格，八种构造五项同；
+> graph128/128与双端initcheck全部通过，当前74未采。见[JOINT_PENALTY_HOST_RECOVERY.md](JOINT_PENALTY_HOST_RECOVERY.md)。
+> CUDA176/f0、SDK64a不变，ready=False。下列为历史image结果。
+
+> **历史6a7061d7：无drive固定/球关节PD/body-block。** 16组状态/6096调用/首buffer严格；
 > 四种构造五项同，graph64/64、双端initcheck均通过。当前74未收集，ready=False。
 > 见[UNDRIVEN_JOINT_HOST_RECOVERY.md](UNDRIVEN_JOINT_HOST_RECOVERY.md)，以下image为历史。
 

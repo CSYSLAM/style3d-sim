@@ -2232,6 +2232,7 @@ public:
         validate_step_config();
         const bool self = config.enable_self_collision && self_pp_.capacity;
         const bool pd = config.nonlinear_solver == NonlinearSolver::PD_NEWTON;
+        const bool joint_al = config.joint_constraint_mode == JointConstraintMode::AUGMENTED_LAGRANGIAN;
         const bool drag = drag_count_ && config.air_density > 0.0f;
         const bool surface = contact.soft_max_count && contact.soft_indices.size && contact.soft_barycentric.size;
         const bool particle_contact = contact.soft_max_count && (!surface || contact.soft_particle_only_shapes.size);
@@ -2285,16 +2286,22 @@ public:
         const bool contact_block = hard && body_block && config.affine_body_contact_block_preconditioner;
         if (hard && config.rigid_contact_history && !contact.match_index.size)
             throw py::value_error("hard-contact history requires collision match indices");
-        // Captured PD routes omit plain Gauss-Newton blocks; mixed and undriven joint routes remain guarded.
+        // Captured PD routes omit plain Gauss-Newton blocks; mixed and undriven-line routes remain guarded.
         if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             !isolated_plain && !isolated_undriven_joint &&
             pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
             throw std::runtime_error("Plain or undriven body constraints with PD_NEWTON have not been captured");
         if ((plain_spring_count_ || plain_line_count_ || distance_total_) && (rigid || contact.soft_max_count))
             throw std::runtime_error("Plain body constraints with contacts have not been captured");
-        if ((joint_spring_total_ || joint_line_total_) &&
-            config.joint_constraint_mode != JointConstraintMode::AUGMENTED_LAGRANGIAN)
-            throw std::runtime_error("Only augmented-Lagrangian joint constraints have been captured");
+        if ((joint_spring_total_ || joint_line_total_) && !joint_al) {
+            const bool isolated_penalty = config.joint_constraint_mode == JointConstraintMode::PENALTY && so3 &&
+                !plain_spring_count_ && !plain_line_count_ && !distance_total_ &&
+                (drive_total_ || (joint_spring_total_ && !joint_line_total_)) && !cable_count_ && !fluid_rows_ &&
+                !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+                !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
+            if (!isolated_penalty)
+                throw std::runtime_error("This mixed or undriven-line joint penalty scope has not been captured");
+        }
         const bool rolling = rigid && rolling_;
         if (!drive_total_ && (control.joint_f.size || control.joint_target_q.size ||
             control.joint_target_qd.size || control.joint_drive_velocities.size))
@@ -2341,6 +2348,7 @@ public:
         const float so3_alpha = alpha * inverse_dt2;
         const float spring_alpha = six_springs ? alpha : zero;
         const float body_so3_alpha = so3 ? so3_alpha : zero;
+        const float line_matrix_alpha = joint_al ? zero : alpha;
         // Query the pre-prediction positions once per step, before initialize_step mutates them.
         if (self) begin_self_particle_pairs(in, stream);
         if (cable_count_ && cable_ramping())
@@ -2358,8 +2366,9 @@ public:
                    body_diagonal_ids_, body_d1_, body_d2_, per_world_);
             // Only SIX_SPRINGS weights D1/L2. Constitutive models use their matrix-free tangent, not D2.
             launch("start", count_, stream, dt, model_.gravity.ptr, model_.gravity.size, worlds, in.particle_qd.ptr,
-                   in.particle_q.ptr, host_diagonal_, body_d1_, spring_alpha, body_d2_, zero, joint_d3_, alpha, joint_d4_, zero,
-                   distance_d5_, alpha, mass, flags, body_kind_, previous_, target_, diagonal_, count_, per_world_);
+                   in.particle_q.ptr, host_diagonal_, body_d1_, spring_alpha, body_d2_, zero, joint_d3_, alpha,
+                   joint_d4_, line_matrix_alpha, distance_d5_, alpha, mass, flags, body_kind_, previous_, target_,
+                   diagonal_, count_, per_world_);
             copy(base_diagonal_, diagonal_, count_ * 4, stream);
             // initialize_body_distance_constraint_state runs on the prediction, before the SO(3) state.
             if (distance_total_)
@@ -2380,16 +2389,16 @@ public:
             if (so3)
                 launch("so3_initialize", body_state_count_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
                        body_rotation_, body_multiplier_, body_state_count_, body_count_, per_world_);
-            if (joint_spring_total_)
+            if (joint_al && joint_spring_total_)
                 launch("joint_spring_initialize", joint_spring_total_, stream, joint_multiplier_, joint_spring_total_);
-            if (joint_line_total_)
+            if (joint_al && joint_line_total_)
                 launch("joint_line_initialize", joint_line_total_, stream, in.particle_q.ptr,
                        model_.affine_body_indices.ptr, model_.body_point_line_indices.ptr, point_line_wp_,
                        point_line_we0_, point_line_we1_, model_.body_point_line_endpoints0.ptr,
                        model_.body_point_line_endpoints1.ptr, line_segment_, line_multiplier_, line_projector_,
                        joint_line_total_, static_cast<std::size_t>(model_.body_point_line_count),
                        static_cast<std::size_t>(model_.joint_body_point_line_count), per_world_);
-            launch("combine", entries, stream, inverse_dt2, spring_alpha, zero, alpha, zero, alpha,
+            launch("combine", entries, stream, inverse_dt2, spring_alpha, zero, alpha, line_matrix_alpha, alpha,
                    body_l0_, body_l1_, body_l2_, body_zero_ell_, joint_l4_,
                    retained_particle_templates_[2], distance_l6_,
                    scalar_template_, entries);
@@ -2447,7 +2456,7 @@ public:
                        model_.body_spring_indices.ptr, model_.body_spring_points0.ptr, model_.body_spring_points1.ptr,
                        body_spring_w0_, body_spring_w1_, model_.body_spring_stiffnesses.ptr,
                        model_.body_spring_rest_lengths.ptr, so3_alpha,
-                       static_cast<std::size_t>(model_.joint_body_spring_count), false, rhs_, body_spring_total_,
+                       static_cast<std::size_t>(model_.joint_body_spring_count), !joint_al, rhs_, body_spring_total_,
                        static_cast<std::size_t>(model_.body_spring_count), per_world_);
             if (distance_total_)
                 launch("distance_force", distance_total_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
@@ -2455,7 +2464,7 @@ public:
                        model_.body_distance_constraint_points1.ptr, distance_w0_, distance_w1_,
                        model_.body_distance_constraint_mass_scales.ptr, distance_target_, distance_multiplier_, so3_alpha,
                        rhs_, distance_total_, static_cast<std::size_t>(model_.body_distance_constraint_count), per_world_);
-            if (joint_spring_total_)
+            if (joint_al && joint_spring_total_)
                 launch("joint_spring_force", joint_spring_total_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
                        model_.body_spring_indices.ptr, model_.body_spring_points0.ptr, model_.body_spring_points1.ptr,
                        body_spring_w0_, body_spring_w1_, model_.body_spring_stiffnesses.ptr, joint_multiplier_, so3_alpha,
@@ -2467,9 +2476,9 @@ public:
                        model_.affine_body_indices.ptr, model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_,
                        point_line_we1_, model_.body_point_line_endpoints0.ptr, model_.body_point_line_endpoints1.ptr,
                        model_.body_point_line_stiffnesses.ptr, model_.body_point_line_dampings.ptr, so3_alpha,
-                       static_cast<std::size_t>(model_.joint_body_point_line_count), false, rhs_, point_line_total_,
+                       static_cast<std::size_t>(model_.joint_body_point_line_count), !joint_al, rhs_, point_line_total_,
                        static_cast<std::size_t>(model_.body_point_line_count), per_world_);
-            if (joint_line_total_)
+            if (joint_al && joint_line_total_)
                 launch("joint_line_force", joint_line_total_, stream, in.particle_q.ptr,
                        model_.affine_body_indices.ptr, model_.body_point_line_indices.ptr, point_line_wp_,
                        point_line_we0_, point_line_we1_, model_.body_point_line_endpoints0.ptr,
@@ -2554,15 +2563,15 @@ public:
                            model_.body_spring_stiffnesses.ptr, model_.body_spring_rest_lengths.ptr, blocks_, row_count_,
                            block_entries_, max_entries_, body_spring_total_,
                            static_cast<std::size_t>(model_.body_spring_count), per_world_, count_);
-                if (!pd && plain_line_count_)
+                if (!pd && (plain_line_count_ || (!joint_al && joint_line_total_)))
                     launch("point_line_hessian", point_line_total_, stream, in.particle_q.ptr,
                            model_.affine_body_indices.ptr, model_.body_point_line_indices.ptr, point_line_wp_,
                            point_line_we0_, point_line_we1_, model_.body_point_line_endpoints0.ptr,
                            model_.body_point_line_endpoints1.ptr, model_.body_point_line_stiffnesses.ptr, so3_alpha,
-                           static_cast<std::size_t>(model_.joint_body_point_line_count), !joint_line_total_,
+                           static_cast<std::size_t>(model_.joint_body_point_line_count), !joint_al || !joint_line_total_,
                            blocks_, row_count_, block_entries_, max_entries_, point_line_total_,
                            static_cast<std::size_t>(model_.body_point_line_count), per_world_, count_);
-                if (!pd && joint_line_total_)
+                if (!pd && joint_al && joint_line_total_)
                     launch("joint_line_hessian", joint_line_total_, stream, model_.affine_body_indices.ptr,
                            model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
                            model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
@@ -2611,7 +2620,7 @@ public:
                 if (surface)
                     launch_surface("surface_preconditioner", contact.soft_max_count, stream,
                                    surface_data, preconditioner_blocks_);
-                if (pd && joint_line_total_)
+                if (pd && joint_al && joint_line_total_)
                     launch("joint_line_pd_preconditioner", joint_line_total_, stream, model_.affine_body_indices.ptr,
                            model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
                            model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
@@ -2690,7 +2699,7 @@ public:
                     launch("constitutive_tangent", body_state_count_, stream, in.particle_q.ptr, direction_,
                            model_.affine_body_indices.ptr, model_.body_masses.ptr, so3_alpha, rigidity, contact_product_,
                            body_state_count_, body_count_, per_world_);
-                if (pd && joint_line_total_)
+                if (pd && joint_al && joint_line_total_)
                     launch("joint_line_pd_tangent", joint_line_total_, stream, direction_, model_.affine_body_indices.ptr,
                            model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
                            model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
@@ -2779,7 +2788,7 @@ public:
             }
             // Joint multipliers advance after iterations whose count is a multiple of the primal iteration count,
             // never after the last one (captured: iterations 2, 4, ..., 18 of 20 with primal = 2).
-            if (joint_spring_total_) {
+            if (joint_al && joint_spring_total_) {
                 const int c = iteration + 1, primal = std::max(config.joint_constraint_primal_iterations, 1);
                 if (c < config.nonlinear_iterations && c % primal == 0)
                     launch("joint_spring_update", joint_spring_total_, stream, out.particle_q.ptr,
@@ -2789,7 +2798,7 @@ public:
                            static_cast<std::size_t>(model_.body_spring_count),
                            static_cast<std::size_t>(model_.joint_body_spring_count), per_world_);
             }
-            if (joint_line_total_) {
+            if (joint_al && joint_line_total_) {
                 const int c = iteration + 1, primal = std::max(config.joint_constraint_primal_iterations, 1);
                 const bool advance = c < config.nonlinear_iterations && c % primal == 0;
                 launch("joint_line_update", joint_line_total_, stream, out.particle_q.ptr,
@@ -2893,6 +2902,9 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "undriven_joint_constraints_pd_newton",
                                                      "undriven_joint_body_blocks_newton",
                                                      "undriven_joint_body_blocks_pd_newton",
+                                                     "joint_penalty_constraints_newton",
+                                                     "joint_penalty_constraints_pd_newton",
+                                                     "joint_penalty_constraints_body_blocks",
                                                      "joint_springs_and_drives_newton", "joint_point_lines_newton",
                                                      "joint_armature_newton", "driven_joint_constraints_pd_newton",
                                                      "driven_joint_body_blocks_newton",

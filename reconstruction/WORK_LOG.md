@@ -5619,3 +5619,18 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   pure joint spring Newton没有general spring GN Hessian，不能凭推测补一个调用。
 - 保留actual-penalty-host-schedule.json全参数及32份原版；修改前6a检查点27文件与226份原版文件SHA已保存。
   生产尚未改变为Penalty支持，下一步仅按上述实际host证据恢复切换。
+- 65d9bd2b7f1897d8a35c15c4755d2db3646d4721已推csy且远端SHA同，快照128699文件0失败。
+  该提交为6a完整局部结果及32份Penalty原版，生产guard仍关闭。
+- 首次Penalty生成在写源文件前AssertionError，源SHA核对仍6a；shell缺set-e导致随后对旧源重编译，
+  没有GPU测试该状态。保留GENERATOR_ATTEMPT1及旧日志；新脚本具名唯一性校验、128列检查并set-e。
+- 按32份真实调用恢复：joint_al控制AL init/force/update/Hess/PD-operators；general force include_joints
+  在Penalty为true；D4/L5权重切到alpha；prismatic Newton用general line GN Hessian，不补不存在的spring GN。
+  仅孤立、无其它材料/contact的已捕获joint范围开放Penalty，Ctor与CUDA176/f0未改。
+  编译aa52ee61a8fe9bad2032859095f8ec591e3cd80141f76af3fd521f67c3f6419a，正在对固定32份原版逐个核对。
+- aa52对固定32份Penalty原版全部状态/首force buffer/14868次完整owned参数与geometry严格同。
+  八种W3构造五项同：fixed/ball56/28/28，revolute64/35/31，prismatic67/36/33。
+  32组合eager/真实graph60共128/128严格，当前双端initcheck3继续；维护新PENALTY文档与根交接。
+  局部结束后计划当前74/固定C10/CPU、standalone两例及正式cloth_balls固定original8再核对。
+- aa52局部队列已complete，全阶段退出0，双端各64轨迹×3步initcheck0错误，graph128/128严格。
+  此时先发布当前源码/so和已结束局部证据，之后才开始完整74及正式cloth重查，避免把运行中输出纳入快照。
+  mixed plain的独立fixture/graph与每种primitive单独RHS证明的参考32脚本已准备，尚未GPU运行或改guard。

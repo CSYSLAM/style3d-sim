@@ -1,6 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **活动源码6a7061d7：无drive固定/球关节的PD/body-block。**
+> **活动源码aa52ee61：joint PENALTY四种关节、两种mode与body-block。**
+> 32组状态/14868调用/首force buffer严格，八种构造五项同，graph128/128及双端initcheck全过。
+> 当前74尚未采，ready=False；见[JOINT_PENALTY_HOST_RECOVERY.md](reconstruction/csrc/JOINT_PENALTY_HOST_RECOVERY.md)。
+
+> **前一6a7061d7：无drive固定/球关节的PD/body-block。**
 > 16组状态/6096调用/首force buffer严格，四种构造五项同，graph64/64及双端initcheck全过；ready=False。
 > 见[UNDRIVEN_JOINT_HOST_RECOVERY.md](reconstruction/csrc/UNDRIVEN_JOINT_HOST_RECOVERY.md)。
 
@@ -105,7 +109,7 @@ Linux `.so`、Windows `.pyd` 均为实际Git文件，不是gitlink或LFS指针�
 | 文件 | SHA256及用途 |
 | --- | --- |
 | `style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so` | `64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63`；当前唯一原版对照，用户处理版，无需登录 |
-| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `6a7061d769946498b59c3d10b6ede7f843ff73b973e9d2ebe0cbb669725803f4`；当前源码host image；869/5bd/c189等历史检查点保留 |
+| `build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so` | `aa52ee61a8fe9bad2032859095f8ec591e3cd80141f76af3fd521f67c3f6419a`；当前源码host image；6a/869等历史检查点保留 |
 | `style3d-sim-bin/Linux/Release/_core.cpython-311-x86_64-linux-gnu.so` | `d6ad63fcd3d46e12382fa6f8a220a461efe1bd33a2a1102786607f0e1c441331`；现有SDK随行，未用作当前对照 |
 | `style3d-sim-bin/Windows/Release/_core.cp312-win_amd64.pyd` | `4ffb334893d2f2431dc00ae11ca626755157d7b7cfc99d08889dd413898b8b18`；官方Windows文件，未证明与处理版Linux等价 |
 | `style3d-sim-bin/Windows/Release/_core.cp311-win_amd64.pyd` | `dcbf828f726ebba3241671332c7339264859f9f0a0ca9c40f725ad87cd4bd7f3`；同上 |
