@@ -1,0 +1,21 @@
+[
+  "c++",
+  "-std=c++17",
+  "-O2",
+  "-DNDEBUG",
+  "-shared",
+  "-fPIC",
+  "-I/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/pybind11/include",
+  "-I/home/oem/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/include/python3.12",
+  "-I/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include",
+  "-I/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles",
+  "-I/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/native",
+  "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_core.cpp",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/5fa4a50216abee9a/bvh_library.o",
+  "-l:libcuda.so.1",
+  "-L/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib",
+  "-l:libcudart.so.12",
+  "-Wl,-rpath,/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib",
+  "-o",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/source-core/f01ddc6be1e2263a/_core.cpython-312-x86_64-linux-gnu.so"
+]

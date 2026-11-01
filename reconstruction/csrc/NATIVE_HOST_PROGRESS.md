@@ -1,7 +1,7 @@
 # 新版基准与 C++ host 进度
 
 > **当前eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
-> constructor/graph/initcheck正在串行核对；不得据短程通过宣称完整替代。
+> 六种constructor五项同，graph96/96严格、双端initcheck零错误。匹配Core8797三个独立入口graph/test过；当前完整74仍在运行。
 > 数学/CUDA176/f0未改，完整替代未完成，当前完整74尚未采。见[普通约束接触恢复](PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
 
 > **当前141c18f6：恢复G1 supplied drive速度复制在基础对角缓存复制之前。** 固定SDK反汇编及18子步实际序列确认；

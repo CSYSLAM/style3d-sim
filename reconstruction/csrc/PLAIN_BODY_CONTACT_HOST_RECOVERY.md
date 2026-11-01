@@ -31,8 +31,15 @@ SDK64a、CUDA176/f0及数学未改，`solver_api_ready=False`。完整替代仍�
 图验证把collision pipeline及clear/solver完整放进每个真实graph，eager和graph都先warm碰撞workspace；
 24组×eager/graph，比较同端eager/graph和原/源，共96项。不是把碰撞结果固定后只捕获solver。
 
-六种constructor、graph60和两端initcheck3正在串行执行，结果以当前`validation-eb661284/status.json`为准。
-本image完整74及正常_core构建尚未执行。141的70/74严格、两项C10失败和G1未过结果仍是历史证据，
+六种constructor五项全部同；graph60为96/96严格，两端各48条eager/graph轨迹×3步initcheck均零错误。
+`source24-constructor6-independent-audit.json`独立重核四状态字段和54个力buffer，
+`graph60-initcheck-independent-audit.json`逐字节复核四条轨迹、形状、finite及日志摘要，均通过。
+新匹配_core已构建，SHA为`8797bf16e849cc6370e58233ffe0dcee259664e8bc07d7f985e198d3c5c6bfd6`。
+Dzhanibekov60、plastic bag3、G1真实graph60三个正常Core入口及自检均通过，无A/B bridge、无原版求解器映射。
+当前`run-broad-validation.py`继续当前完整74及固定C10；以终态报告为准，不能以自检替代数值验收。
+六份constructor日志的已捕获D2D/填充序列也全部同（每Newton 48copy/75fill，每PD 30copy/75fill），
+仍未声称全部CUDA API或外部pointee内容均已证明。
+141的70/74严格、两项C10失败和G1未过结果仍是历史证据，
 不可直接算作eb661284的完整验收。
 
 ```bash

@@ -1,7 +1,7 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
 > **当前eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
-> constructor/graph/initcheck正在串行核对；不得据短程通过宣称完整替代。
+> 六种constructor五项同，graph96/96严格、双端initcheck零错误。匹配Core8797三个独立入口graph/test过；当前完整74仍在运行。
 > 数学/CUDA176/f0未改，完整替代未完成，当前完整74尚未采。见[普通约束接触恢复](reconstruction/csrc/PLAIN_BODY_CONTACT_HOST_RECOVERY.md)。
 
 > **当前141c18f6：恢复G1 supplied drive速度复制在基础对角缓存复制之前。** 固定SDK反汇编及18子步实际序列确认；
@@ -300,19 +300,24 @@ source1/source2通过并与多条真实原版完整轨迹逐位相同，但不�
 
 ## 6. 继续做什么、怎么做
 
-1. 校验快照、离线重算固定C8；先不要升级库或全量重编译覆盖活动image。
-2. 从 `affine_cloth_scene.py`、`affine_cloth_graph_ab.py` 的完整worker/capture上下文，
-   继续查contact graph首次不同输出。保持前置fixture顺序、分配身份、stream和capture顺序。
-3. 补查constructor未覆盖的opaque view字段、copy/clear、非initializer library geometry。
-   不确定就看实际so反汇编、调用参数与缓存，不能猜常量。
-4. 用post-step的rhs/inverse/body indices/flags等做同输入重放，但先证明重放关联到原失败路径。
-   插桩若改变第一步，只算诊断样本，不能代替首次失败。
-5. 有真实证据再修host，重编译成新image，独立输出目录，以同一固定协议复验。
-   当前74回归4项严格失败也需在新image闭合。
-6. 再恢复被guard拒绝的组合：body+tet/full-surface，material+constrained/fluid body，
-   cable与约束、非SO3部分材料组合等。`SourceSurfaceView` 的body字段/kind仍要看实际原版，不能删guard硬跑。
-7. 之后逐个正式demo验收；`example_cloth_balls.py` 还需要body+full-surface，不能说已经支持。
-8. 全部通过后才改默认加载路径、做drop-in `_core.so`、设置 `solver_api_ready=True`。
+1. 校验快照，读取顶部当前image文档及WORK_LOG末尾；历史章节和历史image结果不能直接计为当前验收。
+   保持SDK64a、CUDA176/f0和360个pyc固定，不先升级库或覆盖已有结果。
+2. 当前eb661284的单一plain约束＋rigid/rolling已24/24严格、六constructor五项同、graph96/96、双端initcheck零错误。
+   先检查`continuation-20261101-141c18f6-plain-contact/validation-eb661284/broad-validation/status.json`及真实进程，
+   接续当前完整74/C10/CPU队列。正在运行就等待同一进程，不重复启动或覆盖首候选。
+3. 新Core8797对应hosteb，三独立入口自检已过，默认安装包尚未切换。自检通过不代表A/B全轨迹一致。
+   141的粒子seed2/3、230的G1 eager/graph、驱动布料等固定失败保留；按它们各自image和原协议定位，不换样本或改门槛。
+4. 未解释差异先核完整输入、opaque view、copy/clear、library geometry和kernel参数；使用实际SDK调用或精确反汇编确认。
+   G1复制顺序已按真实证据修过；一两个归约的F32证书不能直接解释整条轨迹。
+   同输入回放先证明实际捕获与冻结失败关联；插桩若改变第一步，只算诊断，不能替代原失败。
+5. 当前版本自己的回归结束后，继续尚被guard拒绝的组合，例如混合plain约束与contact、plain与full-surface/hard、
+   material与其它约束/fluid body、cable与约束、非SO3额外材料。先固定有效原版，再恢复捕获到的调度和参数；不直接删guard硬跑。
+   body/tet/full-surface及部分驱动布料分支已有恢复记录，先看对应文档，避免重复此前工作。
+6. 逐个正式demo核对同输入子步或真实graph逐帧状态，保留strict及固定A/B/C结果。G1等能独立运行但未完整通过，
+   `example_cloth_balls.py`已有实现与正式失败记录；不要把它重新当作完全未实现，也不要称其已经验收。
+   trampoline仍需原`assets/trampoline_v1051.obj`，不能换网格后沿用结果。
+7. 所需demo一致性、剩余host范围、正常Core入口和可安装交付都验证后，才切默认加载并设置`solver_api_ready=True`。
+   完整目标仍是独立源码替换；生产执行不读取账号、不登录、不用原版中间输出代算。
 
 标准保持：A同输入逐位；B真实F32原子贡献的精确加法顺序见证；C至少5次实际原版，
 按逐数组逐记录步的原版LOO spread（当前主线固定8原版/3源码）。
@@ -349,7 +354,7 @@ GPU worker串行；活动GPU测试期间不编译/改生产源码。保留来源
 
 # 真正_core ABI的源码入口，无原版代算；示例自检不代替A/B轨迹验收。
 .venv/bin/python -m reconstruction.core_demo \
-  --core-build build/reconstruction-csrc/source-core/b8dbcb88f1f3dc6a/build.json \
+  --core-build build/reconstruction-csrc/source-core/f01ddc6be1e2263a/build.json \
   --report build/windows-check/core-dzhanibekov.json \
   examples/example_basic_dzhanibekov.py --viewer null --num-frames 60 --test
 

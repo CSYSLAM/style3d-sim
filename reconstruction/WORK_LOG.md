@@ -5969,3 +5969,20 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   原SDK24、旧guard拒绝及当前首源码输出冻结不动，未调数学或放宽比较。
   接着已串行启动六constructor→真实graph60（24case/eager+graph）→原版/源码initcheck3，输出validation-eb661284；
   当前完整74和正常Core仍未做，旧141/G1/粒子统计不能沿用作当前image验收。
+- eb661284局部九任务已全部结束（session18886确认退出0）：六种W3/body-block constructor五项同；
+  24组eager/graph60比较96/96严格，原版/源码各48条轨迹×3步initcheck均ERROR SUMMARY0。
+  spring两mode分配55/upload28/typed27，point-line56/29/27，distance57/28/29；全部完整owned身份及library时序同。
+- CPU独立复核24组三步四状态及每组54个力buffer逐字节同；六constructor报告五项与SHA逐一核对。
+  另独立复核graph24组×四轨迹的字节/finite/60步形状全同，两端initcheck日志SHA/零错误已验证；未新增GPU样本。
+  对应source24-constructor6-independent-audit.json与graph60-initcheck-independent-audit.json；不外推成整个solver通过。
+- 已启动run-broad-validation：局部complete门槛通过后才构建当前匹配Core，再跑Dzhanibekov60、bag3、G1graph60自检及eb自己的完整74/C10/CPU。
+  源、核数学及固定SDK不变，GPU测试严格串行。当前只有已结束的局部结果可算通过，不能继承141的完整回归。
+- 六份当前constructor原始日志再做CPU D2D/byte-fill序列审计，全同：Newton每份48copy+75fill，PD30copy+75fill。
+  相对owned核位置、live allocation identity/offset/bytes及stream关系均核对，未将external anchor等同pointee证明，未声称全部CUDA API覆盖。
+- 当前匹配Core已编译，SHA8797bf16e849cc6370e58233ffe0dcee259664e8bc07d7f985e198d3c5c6bfd6，对应hosteb661284；
+  三个真实公共Core入口Dzhanibekov60/bag3/G1graph60的--test均退出0，source_only/public_core_abi true、bridge false、无原版映射。
+  运行中队列已进入eb自己的完整74，局部证据和已结束Core示例先同步；运行中结果不提前写成验收完成。
+- 一次未加载reconstruction_env的系统Python CPU导入刷新了tracked validate.cpython-310.pyc；git状态发现后，
+  仅从本阶段HEAD恢复该固定文件字节，并独立核验全部360个tracked pyc SHA与快照一致。SDK64a未变；后续CPU导入同样加载环境。
+- 根交接第6节和正常Core命令更新到当前eb/Core8797，删除误导接续的旧“下一步尚未支持body/tet/full-surface”措辞，
+  保留这些分支各自历史实现和失败，明确当前队列路径、未解固定失败和仍有保护的组合；旧历史数据未删。
