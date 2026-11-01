@@ -1,5 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **固定G1输入已随仓库携带，可离线恢复到WSL。** 203文件/293932151字节与原验证输入逐字节同，
+> 分为4个普通Git压缩分片，含原许可证和完整SHA；实际Newton1.5加载器的新鲜/过期缓存离线解析均通过。
+> `source scripts/reconstruction_env.sh`后执行`.venv/bin/python scripts/restore_reconstruction_g1_assets.py`。
+> 见[固定G1资产](reconstruction/assets/unitree_g1/README.md)。trampoline原网格仍缺，整段solver尚未验收。
+
 > **接触力RHS与矩阵分支已完成CPU预检，GPU验证尚在排队。** 每帧两处调用共209800字节、55快照节点；
 > 两输出布局/alias已核，诊断探针容量由128独立扩到256以覆盖矩阵最多144次原子写，生产不改。
 > 本机已有其它GPU任务；排队exec session1065/PID2467807活跃，空闲后自动捕获，勿重复启动或当作已验证通过。
@@ -254,6 +259,7 @@ uv pip install --python .venv/bin/python --no-deps -e . \
   -Ccmake.define.SYNREAL_SOLVER_USE_PREBUILT=ON
 .venv/bin/python scripts/restore_reconstruction_toolchain.py
 source scripts/reconstruction_env.sh
+.venv/bin/python scripts/restore_reconstruction_g1_assets.py
 nvidia-smi
 .venv/bin/python -c 'import warp as wp; wp.init(); print(wp.get_device("cuda:0"))'
 ```
@@ -280,6 +286,11 @@ CUDA12.4依然编译sm_52 PTX，由显卡驱动JIT；不要改成sm_120或用CUD
 第三条离线重算固定首次失败的C8，预期 `saved_report_reproduced=true`、**`primary_c_passed=false`**。
 退出0只说明交接的原始数组重算吻合，不表示solver通过。
 没有NVIDIA GPU仍可做文件校验和离线C8，不能做GPU验收。
+
+G1的固定203份输入已存于`reconstruction/assets/unitree_g1/`，上面的恢复命令只用本仓库分片，逐文件核SHA。
+它已在独立临时缓存中恢复、幂等重验，并经实际Newton1.5的正常download_asset解析（含TTL过期）离线核对。
+可用`NEWTON_CACHE_PATH`或`--cache-dir`指定位置，已有不同缓存不覆盖；详细许可和证据见资产README。
+这不包含正式trampoline缺失的`trampoline_v1051.obj`，也不等于GPU或原生Windows一致性已通过。
 
 ## 4. 已经做了哪些：以8fb9d2ee image为准
 

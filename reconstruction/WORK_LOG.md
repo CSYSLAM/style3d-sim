@@ -6216,3 +6216,50 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   运行中的GPU-queue-status/observations及未来capture输出尚未闭合，不纳入本次静态快照；完成后补审计、manifest和原始数据发布。
   当前没有新增GPU通过结论、没有扩大旧基准。接续步骤见csrc/G1_CONTACT_RHS_MATRIX_QUEUE.md。
   源码完整替代仍未通过，goal保持活动；不把GPU等待解释为失败或重跑已闭合的74项。
+
+### 2026-11-01：等待同一活GPU队列期间，核真实PTX写基址并修静态加载类型判断
+
+- 上轮15495eea完成双输出工具、CPU布局/探针预检、247158文件快照0失败及远端精确确认，属于progress。
+  本轮先poll同一exec session1065并核/proc PID2467807和nvidia-smi；外部PID2460294仍活跃、日志推进至180/360，
+  队列仍在等实际GPU空闲，未重启或并行启动GPU，也没有把状态文件/观察超时当作完成。
+- 新independent-static-audit.py检查本次真实原版/源码force/matrix entry，第一次CPU退出1：
+  旧ptx_store_origins.py把ld.global.s32到%rd14/%rd24按寄存器名字误标为未知64位间接指针，污染后续索引来源。
+  原版实际red地址%rd366来自output32基址加由s32索引形成的offset；依据PTX指令宽度及NVIDIA扩展加载规则确认。
+  原失败runner、旧helper精确字节和错误保存于cpu-static-analysis-v1-error，旧helper完全不改，不破坏原证据SHA。
+- 新ptx_store_origins_typed.py按load类型宽度区分窄整数扩展与64位加载，保留未知64指针/未解析store/非内联call拒绝。
+  第二次CPU runner仅因tuple与list比较退出1，精确旧runner/helper及实际来源保存于cpu-static-analysis-v2-error；修比较类型后才通过。
+  四份实际entry共342个global原子site，force两端均32/33基址、tangent两端均30/33/34基址，未出现其它参数基址。
+  实际加载有global/local s32进入64位寄存器，全部保留在报告；两核规范化PTX仍不同。
+  静态来源集合不证明索引bounds、分支可达性或计算相同，不能替代尚未执行的双输出GPU验证。
+- 新typed-origin-regression.py的15个CPU回归实际退出0：六种窄整数扩展正确接受，直接基址原行为同；
+  64位global/local间接指针、窄值直接作完整地址、generic store和非内联call仍拒绝。原始PTX/逐项结果全部保存。
+  新维护Python语法/128列均通过，生产27文件/host/Core/CUDA、SDK64a和360pyc不变。
+- 同时继续追正式trampoline缺网格来源：本机项目/缓存及本地git assets历史未找到精确trampoline_v1051.obj。
+  官方GitHub tree API完整响应200：Style3D/style3d-sim-assets树4d5c0d3a…134项，
+  Style3D/style3d-sim树04498f00…291项，均未截断、无该网格；精确响应/headers/SHA及查询脚本已保存。
+  浏览器普通搜索无结果、models页面抓取受限，随后官方tree API正常。只读git查询CSYSLAM/trampoline_sim返回128/Repository not found，
+  按不可访问记录而不推断不存在；没有下载整包、创建替代网格、更新SDK或把trampoline算作已验收。
+- 全部新CPU证据和两次错误位于同一contact-rhs-matrix目录，动态GPU状态/observations继续留在快照之外。
+  捕获真正结束0后再串行运行run-replay.py和independent-cpu-audit.py；若差异存在，继续实际SDK/原子操作数定位。
+  完整源码替代目标仍活动，readyFalse和旧G1/布料/粒子失败及固定阈值保持。
+
+### 2026-11-01：固定G1资产离线携带与实际Newton缓存解析验收
+
+- 等待同一GPU队列时发现本轮203个G1固定输入只在/home/oem/.cache/newton，没有包含在已推送仓库里。
+  逐项核当前捕获plan：203文件共293932151字节，最大39596034字节；带BSD顶层和Apache策略许可证。
+  为实现用户要求的新电脑WSL接续，将已有原字节打包，不下载新包，不换网格，不改生产数学或当前缓存内容。
+- asset-source-audit/bundle-g1-assets.py实际session20026退出0；固定全部203输入SHA、确认覆盖实际asset目录全部文件。
+  确定性tar/gzip为105696680字节，超过单文件100MiB，因此分4个最大32MiB普通Git分片，避免LFS/外仓库依赖。
+  reconstruction/assets/unitree_g1/manifest.json保存203文件长度/SHA、整体archive与四片SHA、精确ref261cd1f4…及cache identity110bd790。
+  顶层LICENSE另存，archive完整保留两份许可证、全部USD/STL/纹理/策略等输入；没有改变其原始文件字节。
+- 新scripts/restore_reconstruction_g1_assets.py只用stdlib和本仓库数据，不导入solver、不访问网络。
+  验分片/整体archive后在新临时目录按完整相对布局恢复并逐文件验证，完成后改名到准确cache目录；已有相同缓存核验重用，差异拒绝覆盖。
+  支持NEWTON_CACHE_PATH和--cache-dir；Linux/WSL缺省遵从XDG_CACHE_HOME/.cache/newton。
+- 新verify-g1-bundle.py实际session40976退出0：独立临时缓存首次恢复和幂等重复均0，203文件全部293932151字节与固定源缓存直接相等。
+  保存实际安装Newton1.5的download_assets.py原字节，SHA c3e3686a…；按原代码正常download_asset("unitree_g1")解析，
+  新鲜cache及强制过期2小时都返回恢复目录。审计钩子拒绝网络socket/clone/fetch/ls-remote，未发生网络尝试，实际子进程仅git version两次及nvidia-smi。
+  nvidia-smi确认本CPU审计进程没有创建compute context；已有外部GPU任务和本机排队PID均未中断或重启。
+- fresh/reuse原始命令、日志、报告、逐字节独立审计、打包脚本及原Newton模块均保存于asset-source-audit。
+  恢复用临时目录只保存本次副本，退出后自动清理；原始数据可由已提交四分片和manifest完全还原，无需重复提交未压缩副本。
+  Windows/WSL交接及新资产README加入离线恢复命令。G1输入携带闭合不代表solver数值通过，trampoline原网格仍缺。
+  当前GPU双输出捕获仍由session1065/PID2467807等待实际空闲，readyFalse/旧失败/固定SDK64a和360pyc均不变。

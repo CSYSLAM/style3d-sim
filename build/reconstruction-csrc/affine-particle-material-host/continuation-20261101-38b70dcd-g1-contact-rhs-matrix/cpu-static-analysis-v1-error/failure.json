@@ -1,0 +1,10 @@
+{
+  "exit_code": 1,
+  "GPU_context_created": false,
+  "error": "Unresolved or indirect store address: red.global.add.f32 [%rd366], %f402; origins {(32,0),(-1,-1)}",
+  "root_cause": "ld.global.s32 into %rd14/%rd24 is extended scalar data; old analyzer classified by register name.",
+  "old_analyzer_sha256": "981d087c3a419370919067d923df2e02ff39dc200087552a041109f40fa0034e",
+  "production_changed": false,
+  "frozen_failure_reclassified": false,
+  "reference": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size"
+}

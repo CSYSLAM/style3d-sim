@@ -1,0 +1,117 @@
+{
+  "cases": [
+    {
+      "case": "extended-scalar-s32",
+      "accepted": true,
+      "expected": true,
+      "rejection": null,
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.s32 %rd2, [%rd1];\nmul.lo.u64 %rd3, %rd2, 4;\nadd.u64 %rd4, %rd0, %rd3;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    },
+    {
+      "case": "extended-scalar-u32",
+      "accepted": true,
+      "expected": true,
+      "rejection": null,
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.u32 %rd2, [%rd1];\nmul.lo.u64 %rd3, %rd2, 4;\nadd.u64 %rd4, %rd0, %rd3;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    },
+    {
+      "case": "extended-scalar-s16",
+      "accepted": true,
+      "expected": true,
+      "rejection": null,
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.s16 %rd2, [%rd1];\nmul.lo.u64 %rd3, %rd2, 4;\nadd.u64 %rd4, %rd0, %rd3;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    },
+    {
+      "case": "extended-scalar-u16",
+      "accepted": true,
+      "expected": true,
+      "rejection": null,
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.u16 %rd2, [%rd1];\nmul.lo.u64 %rd3, %rd2, 4;\nadd.u64 %rd4, %rd0, %rd3;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    },
+    {
+      "case": "extended-scalar-u8",
+      "accepted": true,
+      "expected": true,
+      "rejection": null,
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.u8 %rd2, [%rd1];\nmul.lo.u64 %rd3, %rd2, 4;\nadd.u64 %rd4, %rd0, %rd3;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    },
+    {
+      "case": "extended-scalar-b32",
+      "accepted": true,
+      "expected": true,
+      "rejection": null,
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.b32 %rd2, [%rd1];\nmul.lo.u64 %rd3, %rd2, 4;\nadd.u64 %rd4, %rd0, %rd3;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    },
+    {
+      "case": "indirect-loaded-pointer-u64",
+      "accepted": false,
+      "expected": false,
+      "rejection": "('Unresolved or indirect store address', 'red.global.add.f32 [%rd2], %f0;', {(-1, -1)})",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.u64 %rd2, [%rd1];\nred.global.add.f32 [%rd2], %f0;\nret;\n}"
+    },
+    {
+      "case": "indirect-loaded-pointer-b64",
+      "accepted": false,
+      "expected": false,
+      "rejection": "('Unresolved or indirect store address', 'red.global.add.f32 [%rd2], %f0;', {(-1, -1)})",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.b64 %rd2, [%rd1];\nred.global.add.f32 [%rd2], %f0;\nret;\n}"
+    },
+    {
+      "case": "indirect-loaded-pointer-s64",
+      "accepted": false,
+      "expected": false,
+      "rejection": "('Unresolved or indirect store address', 'red.global.add.f32 [%rd2], %f0;', {(-1, -1)})",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.s64 %rd2, [%rd1];\nred.global.add.f32 [%rd2], %f0;\nret;\n}"
+    },
+    {
+      "case": "indirect-pointer-added-to-base",
+      "accepted": false,
+      "expected": false,
+      "rejection": "('Unresolved or indirect store address', 'red.global.add.f32 [%rd4], %f0;', {(-1, -1), (0, 0)})",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.u64 %rd2, [%rd1];\nadd.u64 %rd4, %rd0, %rd2;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    },
+    {
+      "case": "narrow-load-as-entire-address",
+      "accepted": false,
+      "expected": false,
+      "rejection": "('Unresolved or indirect store address', 'red.global.add.f32 [%rd2], %f0;', set())",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.global.u32 %rd2, [%rd1];\nred.global.add.f32 [%rd2], %f0;\nret;\n}"
+    },
+    {
+      "case": "indirect-local-pointer",
+      "accepted": false,
+      "expected": false,
+      "rejection": "('Unresolved or indirect store address', 'red.global.add.f32 [%rd2], %f0;', {(-1, -1)})",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nld.local.u64 %rd2, [%rd1];\nred.global.add.f32 [%rd2], %f0;\nret;\n}"
+    },
+    {
+      "case": "unknown-generic-store",
+      "accepted": false,
+      "expected": false,
+      "rejection": "st.f32 [%rd0], %f0;",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nst.f32 [%rd0], %f0;\nret;\n}"
+    },
+    {
+      "case": "noninlined-call",
+      "accepted": false,
+      "expected": false,
+      "rejection": "Non-inlined call requires a separate side-effect audit",
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\ncall helper, ();\nred.global.add.f32 [%rd0], %f0;\nret;\n}"
+    },
+    {
+      "case": "unchanged-direct-base",
+      "accepted": true,
+      "expected": true,
+      "rejection": null,
+      "PTX": ".visible .entry probe(.param .u64 output, .param .u64 indices) {\n.reg .b64 %rd<8>;\n.reg .b32 %r<8>;\n.reg .f32 %f<2>;\nld.param.u64 %rd0, [output];\nld.param.u64 %rd1, [indices];\nadd.u64 %rd4, %rd0, 8;\nred.global.add.f32 [%rd4], %f0;\nret;\n}"
+    }
+  ],
+  "case_count": 15,
+  "all_expected": true,
+  "GPU_context_created": false,
+  "bounds_claimed": false,
+  "production_changed": false,
+  "whole_solver_complete": false,
+  "typed_analyzer_sha256": "fe8f63cdb54e27e828b677a03b43ab6e9f64434752dcf6d230a54eb7d8ab7d13",
+  "runner_sha256": "56cacd4489b22648a5c05327686576e8fd7941a9c5d8a7bf8e40805a15dccf5e"
+}

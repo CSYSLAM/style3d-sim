@@ -20,6 +20,28 @@
 force最大动态64。旧128容量探针及生产PTX/源码均未改，扩容只作用于新诊断PTX。
 CPU预检实际退出0，全部新维护Python语法/128列检查通过；没有重跑已严格通过的向量路径或74项生产回归。
 
+后续新增CPU核对：两端force各96、matrix各75条global原子写，共342条静态site的参数基址来源一致。
+force只涉及32/33，tangent保守包含30/33/34；本次矩阵调用的30为NULL，静态分析没有据此推断分支可达性。
+两核规范化PTX仍不同，没有把基址集合一致解释为计算或内存边界已证明。
+
+旧`ptx_store_origins.py`按`%rd`寄存器名将原版`ld.global.s32 %rd14`误判为64位间接指针，第一次CPU审计因此退出1。
+实际PTX允许32位整数直接扩展到64位目标寄存器，见[NVIDIA规则](https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size)。
+新`ptx_store_origins_typed.py`按加载指令宽度区分，旧工具及其固定证据字节不改；失败版本和报告均保留。
+随后runner的tuple/list比较错误也单独保存并修正，未修改任何GPU输入或队列脚本。
+修正后四份真实entry分析通过；15项CPU回归通过，包括64位间接指针、缺失参数基址、generic store和非内联call仍拒绝。
+这只核参数基址，不能证明任意索引范围或全部线程行为；仍要等待实际双输出GPU回放。
+
+等待期间另核官方资产仓库和主仓库当前完整Git tree，分别134/291项、响应未截断，均无`trampoline_v1051.obj`。
+完整响应与SHA保存在`asset-source-audit/`，只查元数据，未下载大包、换网格或更新SDK。
+尝试按本地资产文档中的仓库名读取`CSYSLAM/trampoline_sim`返回Repository not found，不能据此证明仓库不存在。
+正式trampoline仍缺原网格，不能当作已通过；此资产问题不阻止当前G1接触力/矩阵工作继续。
+
+另已把现有G1固定203文件打包进`reconstruction/assets/unitree_g1/`，原始293932151字节、压缩105696680字节，
+按32MiB分成4个普通Git文件，包含BSD/Apache许可证和完整逐文件SHA。没有下载新包，也没有改本机源缓存。
+`scripts/restore_reconstruction_g1_assets.py`在独立临时缓存的首次/重复恢复均退出0，全部字节与固定输入相同。
+实际Newton1.5下载模块的正常resolver在缓存新鲜/过期两条件均离线命中，网络操作被显式禁止，未创建GPU compute进程。
+这是Windows/WSL交接输入补齐，不升级GPU验收；完整命令和限制见[资产说明](../assets/unitree_g1/README.md)。
+
 ## 当前实际等待状态，先核句柄再操作
 
 本机GPU另有world-particles项目360帧验证，确认PID2460294活跃，日志`/tmp/wp-v26-stretch-full.log`。
