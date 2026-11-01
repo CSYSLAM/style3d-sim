@@ -1,0 +1,13 @@
+{
+  "stage": "CPU PTX pointer-origin preflight",
+  "GPU_workers_started": 0,
+  "error": "Vector parameter loads require explicit lane offsets",
+  "extra_correction": "Predicate dependencies are not address-value origins; exclude predicate operands",
+  "followup_corrections": [
+    "Handle vector ld.param lane offsets explicitly",
+    "Exclude predicate control dependencies from pointer address values",
+    "Do not propagate a memory container address to loaded scalar data; reject unknown indirect store addresses",
+    "Split one131-character Python assertion after both interval preflights passed"
+  ],
+  "all_corrections_before_GPU_captures": true
+}

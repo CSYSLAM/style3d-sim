@@ -1,5 +1,9 @@
 # 新版基准与 C++ host 进度
 
+> **G1晚期最后矩阵实际同输入已核对。** 两端各60帧非零输入，三端720次Ap全严格；42240 GPU操作数同，
+> 211份目标真实F32原子排列证书全过，CPU独立同。生产host38/Core7eb不改，整段C仍失败，旧23.85未解释，ready=False。
+> 下一步向前追direction/extra；见[G1晚期矩阵核对](G1_LATE_MATRIX_RECOVERY.md)。
+
 > **G1实际graph定义已核对，生产host38/Core7eb未改。** 两端17467节点/17466边、全部内核类型化参数/geometry、
 > 复制/填充及267指针关系同；记录范围内偏移CPU独立同。14种函数资源仍不同，未读pointee。
 > 两份新诊断仍未通过固定C，未复现旧23.85尖峰，旧失败不改；见[G1图定义审计](G1_GRAPH_DEFINITION_AUDIT.md)。

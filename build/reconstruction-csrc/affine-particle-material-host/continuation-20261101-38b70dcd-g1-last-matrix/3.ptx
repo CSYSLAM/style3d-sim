@@ -1,0 +1,55 @@
+.visible .entry _ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m(
+.param .f32 _ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_0,
+.param .u64 _ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_1,
+.param .u64 _ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_2,
+.param .u64 _ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_3,
+.param .u64 _ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_4
+)
+{
+.reg .pred %p<2>;
+.reg .f32 %f<14>;
+.reg .b32 %r<4>;
+.reg .b64 %rd<15>;
+
+
+ld.param.f32 %f1, [_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_0];
+ld.param.u64 %rd2, [_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_1];
+ld.param.u64 %rd3, [_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_2];
+ld.param.u64 %rd4, [_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_3];
+ld.param.u64 %rd5, [_ZN7synreal6kernel15update_velocityEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PS4_m_param_4];
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mul.wide.u32 %rd6, %r1, %r2;
+mov.u32 %r3, %tid.x;
+cvt.u64.u32 %rd7, %r3;
+add.s64 %rd1, %rd6, %rd7;
+setp.ge.u64 %p1, %rd1, %rd5;
+@%p1 bra $L__BB64_2;
+
+cvta.to.global.u64 %rd8, %rd3;
+mul.lo.s64 %rd9, %rd1, 12;
+add.s64 %rd10, %rd8, %rd9;
+cvta.to.global.u64 %rd11, %rd2;
+add.s64 %rd12, %rd11, %rd9;
+ld.global.f32 %f2, [%rd12];
+ld.global.f32 %f3, [%rd10];
+sub.f32 %f4, %f3, %f2;
+ld.global.f32 %f5, [%rd12+4];
+ld.global.f32 %f6, [%rd10+4];
+sub.f32 %f7, %f6, %f5;
+ld.global.f32 %f8, [%rd12+8];
+ld.global.f32 %f9, [%rd10+8];
+sub.f32 %f10, %f9, %f8;
+mul.f32 %f11, %f4, %f1;
+mul.f32 %f12, %f7, %f1;
+mul.f32 %f13, %f10, %f1;
+cvta.to.global.u64 %rd13, %rd4;
+add.s64 %rd14, %rd13, %rd9;
+st.global.f32 [%rd14], %f11;
+st.global.f32 [%rd14+4], %f12;
+st.global.f32 [%rd14+8], %f13;
+
+$L__BB64_2:
+ret;
+
+}

@@ -1,0 +1,36 @@
+{
+  "environment": "source scripts/reconstruction_env.sh",
+  "capture": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-last-matrix/run-captures.py"
+  ],
+  "replay": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-last-matrix/run-replay.py"
+  ],
+  "certificates": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-last-matrix/run-certificates.py"
+  ],
+  "independent_CPU_audit": [
+    "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-last-matrix/independent-cpu-audit.py"
+  ],
+  "terminal_sessions": {
+    "capture": {
+      "id": 81278,
+      "exit": 0
+    },
+    "replay": {
+      "id": 95100,
+      "exit": 0
+    },
+    "certificates": {
+      "id": 10223,
+      "exit": 0
+    }
+  },
+  "no_GPU_workers_remaining": true,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

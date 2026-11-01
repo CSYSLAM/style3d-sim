@@ -6100,3 +6100,36 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   continuation-20261101-38b70dcd-g1-graph-definition；方法与限制见csrc/G1_GRAPH_DEFINITION_AUDIT.md。
   下一步转真实同输入执行/内部buffer的逐帧六子步定位，再三端回放及真实F32原子操作数协议核对；不再重复已闭合的图参数检查。
   完整替代仍未完成，生产readyFalse，Windows仍WSL2固定Linux对照。
+
+### 2026-11-01：G1每帧最后矩阵真实同输入、720回放与211份GPU F32原子证书
+
+- 上轮实际graph定义/参数已闭合并发布6a1718e8，本轮继续真实执行证据，生产host38/Core7eb/CUDA176f0完全不改。
+  选择每帧第六子步、最后NL/CG轮的block ELL矩阵（rank17456），向晚期帧扩展，不把首步结论外推整段。
+- 新ptx_store_origins.py追实际原版/源码PTX store/atomic来源，未知/间接store、非内联call或未解析store即拒绝。
+  初CPU版不支持vector参数load而失败；补lane offset后又发现谓词与内存地址污染读出数据的过度传播，
+  均在GPU前修正，旧分析器/报告和失败记录保存在cpu-preflight-errors，未把旧过度传播报告当核行为错误。
+  参数来源分析不独自证明任意索引边界，使用本次有效模型/输出尺寸核区间；两端旧实际图预检均通过19个潜在写范围。
+- 新g1_last_matrix_capture.py仅在旧正常worker四状态下载之后，查询图并读取仍保留的最后矩阵输入/输出。
+  后续10节点按原版/源码PTX写来源列出的19范围与所有packet字段无重叠；实际图再次核对通过。
+  没有新增GPU分配或节点，读回可影响后续原子时序；不是原冻结轨迹的复现。CPU预检末尾一条131字符行已拆开。
+- 预先固定两端各60帧、242输入SHA含203资产。capture session81278实际两端test/graph均退出0，保存120份packet；
+  源码public_core_abi true、bridge false、reference_solver_mapped false。每份176行/max19 ELL，所有528 direction和Ap分量非零。
+  row counts704字节、entries133760、blocks6336、direction/extra/Ap各2112、归约4，全部raw参数/原始buffer保存。
+- 新g1_last_matrix_replay.py实际SDK runtime/原版PTX/源码PTX在同一buffer三端轮换，保留重叠和mod256对齐及完整geometry。
+  Ap调用前旧字节未采，用0x7f/0xa5两受控初值，归约初值受控零，未冒充已观察before值。
+  replay session95100完成0：720次Ap全部严格；GPU worker完整读回检查非输出字节未变。
+  所有Ap/归约输出NPZ均保存；非输出完整after字节没有另存，不能称CPU从这些未保存字节独立复核。
+  对实际捕获归约值的匹配仅为runtime80/240、原版PTX89/240、源码84/240，467不匹配未改判严格同。
+- 固定全部120份输入产生的211份目标、每份10000排列搜索上限，不挑目标或扩cohort。
+  新g1_last_matrix_certificates.py实际采两端PTX每lane原子操作数：176 lane各1次、多余80 lane0次，42240操作数全部同。
+  7658个负操作数、无subnormal，未假设非负；该矩阵核规范化PTX同。全部211目标真实GPU global F32 atomic排列证书通过，
+  最多2311次CPU排列搜索；原始操作数/记录/计数/排列/GPU逐项历史全保存。certificate session10223终态0。
+  证书是受控零初值下合法次序的存在性，不推断实际旧顺序或原调用前归约字节，也不外推其它核/完整轨迹。
+- independent-cpu-audit.py已实际完成0：从保存字节重核720输出、42240操作数、211证书及37136条GPU逐项前值，
+  每个排列恰有176 lane各一次；区间、原始SHA、完整状态和固定C统计同。不是仅相信report布尔值。
+  新原版四字段各59/60，源码57/58/57/57，均仍不通过固定C；最大速度字段误差原版1.34154、源码1.10486。
+  未复现旧11条轨迹及source1的23.8513尖峰，旧C8 SHA32b6e2a7…不变。没有修改原失败、基准或门槛。
+- 原始数据/脚本/命令与状态全在continuation-20261101-38b70dcd-g1-last-matrix；方法和WSL接续命令见
+  csrc/G1_LATE_MATRIX_RECOVERY.md。生产未变，不无故重跑74；本轮局部证据不升级为全局验收。
+  下一步向前追direction/extra形成阶段；其q输入随后被覆盖，不能用q_out减dx猜回F32原输入，需要明确观察影响的实际快照。
+  所有GPU任务均已结束，没有挂起worker；完整替代仍未完成，readyFalse，Windows仍使用WSL2固定Linux对照。
