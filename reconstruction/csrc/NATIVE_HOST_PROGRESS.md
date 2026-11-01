@@ -1,5 +1,10 @@
 # 新版基准与 C++ host 进度
 
+> **G1 rolling force/preconditioner：240真实输入、1200完整输出严格同。** 17712真实原子操作数、107928000非输出字节同；
+> 实际ABI参数6000指针字段/13440标量字节直接CPU重核，三个任务真实退出0。生产host38/Core7eb不改，readyFalse。
+> 新整段C仍失败、旧23.85未解释；下一步rolling tangent的248/8/8，再转joint/SO3 AL force。
+> 见[G1滚动摩擦实测](G1_ROLLING_FORCE_RECOVERY.md)。
+
 > **G1 contact RHS/对角及矩阵输出实际严格通过。** 240真实输入、2400完整输出同，52600真实原子操作数同，
 > 107294400非输出after字节与图依赖CPU独立重核同；三个实际终态均0，旧队列结束，不重复启动。
 > 原版/源码新整段C仍false、旧23.85未解释，生产host38/Core7eb/readyFalse不改；下一步rolling view。

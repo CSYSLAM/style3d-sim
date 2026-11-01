@@ -6286,3 +6286,38 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   下一步实际graph只读检查同NL rolling force14577/preconditioner14592：两端均248字节RollingContactView加8字节输出指针，
   参数和类型保存next-rolling-inspection.json，尚未GPU验证；先核view所有内嵌指针offset/容量/粒子跨度，禁止把opaque view当普通指针。
   当前生产host38/Core7eb/CUDA176f0、SDK64a、默认入口和readyFalse不改；完整替代目标继续，不重复已闭合74项。
+
+### 2026-11-01：G1滚动摩擦力/预条件矩阵、实际view指针重定位与1200完整输出严格通过
+
+- 上轮4355dd84已发布contact RHS/矩阵2400严格证据及离线G1输入，247714快照0失败、远端SHA精确一致，属于progress。
+  本轮先核干净worktree/空闲GPU；固定SDK64a、host38/Core7eb/CUDA176f0和所有旧失败保持。
+- 新g1_rolling_capture/replay.py按contact工具固定SHA派生，保留精确as-run/template，旧工具字节不改。
+  选第六子步首次NL rolling force14577和preconditioner14592；实际ABI248/8，view24指针和6 size_t/2float。
+  原实际参数inverse_dt360、epsilon0.1，逐字段偏移从当前native RollingView精确提取，CPU C++ sizeof248/32字段offsetof全部通过。
+  25个非空bindings含输出1，52快照/196776字节；虚拟binding256+offset/8表示view字段，保持真实ABI248/8不变。
+- CPU首次PTX分析因ld.param [%rd+offset]拒绝（GPU未启动）；旧helper/runner/错误保存在cpu-param-alias-v1-error。
+  新ptx_store_origins_param.py只为分析还原参数区别名；第二次仅支持entry前缀mov过严，旧代码/错误保存在v2-error。
+  补唯一非谓词mov且与对应load同basic block的支配见证；8项正/负回归实际通过，最终CPU preflight session6251退出0。
+  实际214条参数load解释保存，两端global写基址都仅输出parameter1；任意索引bounds和任意控制流未宣称证明。
+  旧typed helper SHA fe8f63cd…保持。所有新维护代码语法/128列检查通过，原as-run worker不做格式重写。
+- 在GPU前增加实际传入参数字节/设备span基址记录，旧预检/plan/template保存到preflight-before-replay-parameter-recording；
+  再做CPU preflight69061实际退出0，正式冻结新wrapper/template/run脚本SHA后才启动GPU。
+- capture session99117实际两端各60帧graph/test均退出0，源码public_core_abi true、bridge false、无原版映射。
+  原图节点/边全部保留，实际17519节点/17522边，52快照的before/after覆盖及依赖已独立CPU核对。
+  诊断节点可能改变原子调度，不冒充旧冻结轨迹。全部240个原始packet SHA保存closed-packets.json。
+- replay session81787实际退出0：实际SDK runtime/原版PTX/源码PTX/双探针共1200完整输出全部与实际after逐位同。
+  两阶段各2007计数前缀线程，1761提前退出、246实际贡献；force各9atom、matrix各27atom，分别4428/13284共17712真实操作数。
+  每线程同目标和跨目标整条序列均同，force/preconditioner各53次实际改变输出；没有执行双body最大18/54次路径，不外推其它分支。
+- 独立CPU session14067实际退出0：直接核1200完整向量、107928000非输出after字节、17712操作数；
+  本次还从真实ctypes参数字节及分配span核6000指针重定位、13440 view标量字节、原alias/mod256，非只相信运行时断言。
+  既定严格门槛全部达到，不再做冗余SDK逐contact隔离/原子排列证书，不改阈值或删除任何失败。
+- 额外control inventory首次因源码存在trap块而退出1，原脚本/错误保存在cpu-control-audit-v1-error。
+  实际逐指令确认源码两进入trap的guard均为view.previous(offset232)==NULL；240份实际原始参数均非空，guard全false。
+  trap在全部参数load之后、前一块ret，不影响本批参数寻址见证；修inventory后实际通过，原PTX与生产源码均不动。
+  force静态site原版15/源码27、matrix两端9，规范化PTX仍不同。没有测试/推断原版NULL previous契约，也未把文本不同当数学错误。
+- 新诊断固定C8仍false：原版60/57/60/57、源码59/59/59/60；最大速度字段误差1.346693217754364/0.8993732891976833。
+  没有复现或解释旧23.8513尖峰。旧八原版/三源码及report SHA32b6e2a7…不变，所有旧失败保留。
+- 全部原始图、before/after、完整输出、真实参数/原子记录、错误、命令与终态在continuation-20261101-38b70dcd-g1-rolling。
+  接续见csrc/G1_ROLLING_FORCE_RECOVERY.md。实际图还存在最后rolling tangent17455，ABI248/8/8已保存只读检查但尚未GPU回放，
+  下一步先补齐该路径，再核RHS中joint/SO3 AL force14580/14583；其余RHS节点参数/类型也保存，不冒充执行结果。
+  当前全部GPU任务已结束，未重跑生产74；完整源码替代仍未验收，goal继续活动，readyFalse，Windows仍WSL2。

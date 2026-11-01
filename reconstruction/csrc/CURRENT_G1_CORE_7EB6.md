@@ -75,7 +75,12 @@ SDK/源码所有原始轨迹与旧失败都保留；阈值和固定八份基准�
 后续首次NL接触力RHS/对角（rank14576）和矩阵输出（rank14587）已完成，见[双输出实测](G1_CONTACT_RHS_MATRIX_RECOVERY.md)。
 240份真实输入的2400个完整输出全部与实际after逐位同，52600真实原子操作数/107294400非输出字节CPU重核同。
 本轮原版within55/52/55/54，源码59/56/58/56，整段C仍失败，没有复现或解释旧23.85；旧失败/八原版固定不改。
-下一步同NL rolling force/preconditioner（rank14577/14592），两端实际ABI为248字节view加8字节输出，尚未GPU捕获。
+随后选择同NL rolling force/preconditioner（rank14577/14592），实际ABI为248字节view加8字节输出，现已完成该批核对。
+
+上述rolling force/preconditioner现已完成，见[滚动摩擦实测](G1_ROLLING_FORCE_RECOVERY.md)。
+240真实输入、1200完整输出严格同；17712真实原子操作数、完整after及实际ABI的指针重定位/标量原字节均CPU重核。
+本轮原版within60/57/60/57，源码59/59/59/60，整段C仍false、旧23.85未解释，不改旧失败。
+下一步先补最后rolling tangent（rank17455、ABI248/8/8），再核joint/SO3 AL force。
 
 所有新执行使用新目录，GPU串行；源、SDK、数学、阈值、原始cohort保持固定，Windows继续WSL2。
 

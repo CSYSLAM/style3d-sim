@@ -1,0 +1,88 @@
+{
+  "entries": [
+    {
+      "entry": "force-original-entry.ptx",
+      "sha256": "db75ced14df09270702494ea34806ad4037e32909bd0070c60fb2b35369c08d2",
+      "actual_control_forms": [
+        "bra",
+        "bra.uni",
+        "ret"
+      ],
+      "control_transfer_count": 167,
+      "source_terminal_trap_guards": [],
+      "trap_branch_false_for_all_captured_previous_pointers": true
+    },
+    {
+      "entry": "force-source-entry.ptx",
+      "sha256": "347665e90c98623935c0f0d773651d153afaa6a9e99d8000480191c8ec99018b",
+      "actual_control_forms": [
+        "bra",
+        "bra.uni",
+        "ret",
+        "trap"
+      ],
+      "control_transfer_count": 160,
+      "source_terminal_trap_guards": [
+        {
+          "branch": "@%p129 bra \t$L__BB0_203;",
+          "guard": "setp.eq.s64 \t%p129, %rd51, 0;",
+          "parameter": 0,
+          "offset": 232,
+          "condition": "RollingContactView.previous is NULL"
+        },
+        {
+          "branch": "@%p135 bra \t$L__BB0_203;",
+          "guard": "setp.eq.s64 \t%p135, %rd51, 0;",
+          "parameter": 0,
+          "offset": 232,
+          "condition": "RollingContactView.previous is NULL"
+        }
+      ],
+      "trap_branch_false_for_all_captured_previous_pointers": true
+    },
+    {
+      "entry": "matrix-original-entry.ptx",
+      "sha256": "aefbd6c8b321149a8ef03ae789fb29937aedeb16ad56007715e06131ed450860",
+      "actual_control_forms": [
+        "bra",
+        "bra.uni",
+        "ret"
+      ],
+      "control_transfer_count": 164,
+      "source_terminal_trap_guards": [],
+      "trap_branch_false_for_all_captured_previous_pointers": true
+    },
+    {
+      "entry": "matrix-source-entry.ptx",
+      "sha256": "63d99996faf41ab24fc8e8938d3ec4f6e152230b534c87f61157f2d126fd57c3",
+      "actual_control_forms": [
+        "bra",
+        "bra.uni",
+        "ret",
+        "trap"
+      ],
+      "control_transfer_count": 155,
+      "source_terminal_trap_guards": [
+        {
+          "branch": "@%p129 bra \t$L__BB1_196;",
+          "guard": "setp.eq.s64 \t%p129, %rd50, 0;",
+          "parameter": 0,
+          "offset": 232,
+          "condition": "RollingContactView.previous is NULL"
+        },
+        {
+          "branch": "@%p135 bra \t$L__BB1_196;",
+          "guard": "setp.eq.s64 \t%p135, %rd50, 0;",
+          "parameter": 0,
+          "offset": 232,
+          "condition": "RollingContactView.previous is NULL"
+        }
+      ],
+      "trap_branch_false_for_all_captured_previous_pointers": true
+    }
+  ],
+  "actual_entries_fit_alias_dominance_witness": true,
+  "arbitrary_control_flow_or_index_bounds_proven": false,
+  "GPU_code_changed": false,
+  "runner_sha256": "83630efacd1dcf94f391aaf45e5d65856e44ab207718f2c35a84a13e693e557a"
+}

@@ -1,0 +1,66 @@
+{
+  "cases": [
+    {
+      "case": "entry-prefix",
+      "accepted": true,
+      "expected": true,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\nmov.b64 %rd0, view;\n@%p0 bra L;\nL:\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": null
+    },
+    {
+      "case": "local-block",
+      "accepted": true,
+      "expected": true,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\nbra L;\nL:\nmov.b64 %rd0, view;\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": null
+    },
+    {
+      "case": "bypassed-definition",
+      "accepted": false,
+      "expected": false,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\n@%p0 bra L;\nmov.b64 %rd0, view;\nL:\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": "('Parameter definition does not have a dominance witness', '%rd0')"
+    },
+    {
+      "case": "predicated-definition",
+      "accepted": false,
+      "expected": false,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\n@%p0 mov.b64 %rd0, view;\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": ""
+    },
+    {
+      "case": "multiple-definitions",
+      "accepted": false,
+      "expected": false,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\nmov.b64 %rd0, view;\nmov.b64 %rd0, view;\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": "('Parameter alias is not uniquely defined', '%rd0', [{'number': 5, 'predicate': False, 'operation': 'mov.b64', 'arguments': ['%rd0', 'view']}, {'number': 6, 'predicate': False, 'operation': 'mov.b64', 'arguments': ['%rd0', 'view']}])"
+    },
+    {
+      "case": "computed-alias",
+      "accepted": false,
+      "expected": false,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\nmov.b64 %rd6, view;\nadd.u64 %rd0, %rd6, 8;\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": ""
+    },
+    {
+      "case": "out-of-range",
+      "accepted": false,
+      "expected": false,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\nmov.b64 %rd0, view;\nld.param.u64 %rd2, [%rd0+248];\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": "('ld.param.u64', 'view', 248, 8)"
+    },
+    {
+      "case": "vector-out-of-range",
+      "accepted": false,
+      "expected": false,
+      "PTX": ".visible .entry probe(.param .align 8 .b8 view[248], .param .u64 output) {\n.reg .b64 %rd<10>;\n.reg .f32 %f<2>;\n.reg .pred %p<2>;\nld.param.u64 %rd1, [output];\nmov.b64 %rd0, view;\nld.param.v2.u64 {%rd2,%rd3}, [%rd0+240];\nld.param.u64 %rd2, [%rd0+16];\nld.global.s32 %rd3, [%rd2];\nmul.lo.u64 %rd4, %rd3, 4;\nadd.u64 %rd5, %rd1, %rd4;\nred.global.add.f32 [%rd5], %f0;\nret;\n}",
+      "reason": "('ld.param.v2.u64', 'view', 240, 16)"
+    }
+  ],
+  "case_count": 8,
+  "all_expected": true,
+  "GPU_context_created": false,
+  "analysis_sha256": "af9925b9bf64d1bf9e08165f283983f3443d90d447a30a719dd8c11eddf7421d",
+  "runner_sha256": "c3df46cd60b72f010364dce038ea9c414b9091fe2fc4030b706b49f7603c1d27",
+  "whole_solver_complete": false
+}

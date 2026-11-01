@@ -1,0 +1,57 @@
+{
+  "capture": {
+    "exec_session": 99117,
+    "exit_code": 0,
+    "commands": [
+      [
+        "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+        "-m",
+        "reconstruction.csrc.g1_rolling_capture",
+        "--backend",
+        "original",
+        "--abi",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+        "--frames",
+        "60",
+        "--output",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling/original"
+      ],
+      [
+        "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+        "-m",
+        "reconstruction.csrc.g1_rolling_capture",
+        "--backend",
+        "source",
+        "--abi",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-graph-definition/abi.json",
+        "--frames",
+        "60",
+        "--output",
+        "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling/source"
+      ]
+    ]
+  },
+  "replay": {
+    "exec_session": 81787,
+    "exit_code": 0,
+    "command": [
+      "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+      "-m",
+      "reconstruction.csrc.g1_rolling_replay",
+      "--capture",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling",
+      "--output",
+      "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-38b70dcd-g1-rolling/replay"
+    ]
+  },
+  "independent_cpu": {
+    "exec_session": 14067,
+    "exit_code": 0
+  },
+  "CPU_preflight_final": {
+    "exec_session": 69061,
+    "exit_code": 0
+  },
+  "all_GPU_phase_jobs_closed": true,
+  "whole_solver_complete": false
+}

@@ -1,5 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **G1滚动摩擦force/preconditioner实际严格通过。** 240真实输入、1200完整输出同；17712真实原子操作数同，
+> 107928000非输出after字节、6000重定位指针/13440标量字节CPU直接重核。capture99117/replay81787/CPU14067均0。
+> 新两端整段C仍false、旧23.85未解释；先补最后rolling tangent（rank17455、ABI248/8/8），再核joint/SO3 AL force。
+> 见[滚动摩擦实测](reconstruction/csrc/G1_ROLLING_FORCE_RECOVERY.md)，生产host38/Core7eb及readyFalse不改。
+
 > **G1接触力/对角及切线矩阵已实际严格通过，排队已结束。** 两端各60帧，240真实双输出输入、
 > 五后端2400完整输出全部逐位同；52600真实原子操作数和107294400非输出after字节独立CPU重核同。
 > capture1065/replay47225/CPU18403均实际退出0，勿重复启动旧队列。新两端整段C仍失败，旧23.85未解释，ready=False。
