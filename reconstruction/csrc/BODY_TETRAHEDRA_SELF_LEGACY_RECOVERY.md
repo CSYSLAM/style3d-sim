@@ -2,7 +2,8 @@
 
 当前活动源码 image：`04b46fb0e53d25ed680e724eff346526d688af01bd5f07db51d6e3bd8d9a8fb3`。
 唯一原版对照仍为项目内 SDK64a；源码不登录、不映射原版代算。CUDA176/f0 未改，
-`solver_api_ready=False`。完整替代尚未完成；当前 image 尚未收集完整74回归。
+`solver_api_ready=False`。完整替代尚未完成；当前 image 的74回归为71严格，三个particles首次差异
+固定C10均通过，CPU复算吻合；这不重判旧8f的固定失败。
 
 ## 已完成与当前差异
 
@@ -35,6 +36,8 @@ diagonal-only不写tangent cache计数，已通过真实RHS变化确认接触非
 | self constructor五项 | 全同，117个分配/释放事件 |
 | original/source × 两个diagonal配置的initcheck3 | 四组均0错误 |
 | legacy16、冻结surface16、无contact tet graph、配置246 | 全通过 |
+| 当前完整74回归 | 71严格；三个particles首次失败均通过当前固定C10，CPU复算同 |
+| 独立源码入口＋真实graph＋示例自身test | Dzhanibekov 60帧、plastic bag 3帧均通过，均未映射原版so |
 
 W3/body-block/PD/full的第三步出现body速度最大差`6.876885890960693e-6`，
 首步仅一个particle位置/速度word不同。固定8 original/3 source cohort的full为15/16通过、diagonal-only为16/16通过。
@@ -42,6 +45,19 @@ W3/body-block/PD/full的第三步出现body速度最大差`6.876885890960693e-6`
 但没有替换source0。PCG同步诊断的首差仅numerator 2ULP，实际SDK同输入也产生两端；72个真实lane贡献全同，
 两端六个group目标均由真实GPU atomic次序核实。但source诊断没有复现冻结source0，
 不能仅凭幅度小、首buffer同或原版有波动就宣称一致。
+
+预先固定的3个独立原版holdout完成，未加入原8份基线。其中3/48条轨迹超原C范围；
+`holdout1`的W3/PD/body-block **graph** 轨迹，其全部`body_q/body_qd`与失败源码 **eager**
+source0整段60步逐位相同，包含第三步起那条较大的刚体分支。两条完整粒子轨迹仅剩
+`particle[39].y`和`particle[53].x`分量有差异，位置最大`2.3283064365386963e-10`，
+速度最大`2.9802322387695312e-8`；所有其它粒子分量均逐位相同。
+CPU复算逐项核实。它是实际SDK能产生这条刚体结果的完整见证；跨eager/graph比较不重判原eager C8。
+原source0 SHA为`f9a5c8ae01abb377fba3c856ad4d4783d834dcbd534a4a77e2df68789b21a1e8`，
+原版见证NPZ SHA为`00041d2b273d73eb9719dc60945fba5629843846c55a6aba1f055095cc050590`。
+
+第三步公开state强制回放也已完成：实际SDK和源码都没有重现冻结source0的第三步输出，
+双端新trace首差又是PCG numerator。该干预没有恢复旧候选私有状态，也改变执行调度，
+因此只保留为诊断，不能据此认定原因或替代旧失败。
 
 ## 文件与证据
 
@@ -63,10 +79,13 @@ W3/body-block/PD/full的第三步出现body速度最大差`6.876885890960693e-6`
 若不复现则只能作为诊断。若点操作数不同，回实际so/反汇编；若atomic输出不同，
 抓实际贡献并用真实F32 atomic验证，不改数学、不加容差。
 
-当前image完整74回归及首次失败固定C10正在串行采集；后续继续定位self固定失败、剩余组合及正式demo。
+当前image完整74回归及首次失败固定C10已完成；后续继续定位self固定失败、剩余组合及正式demo。
 不要沿用旧image验收结论。
 self+external contact、hard/rigid-only、drag/fluid、body constraints等未捕获混合范围仍有guard。
 Windows按根交接用WSL2，不用随行Windows pyd替换Linux固定参考。
+下一项实际host缺口是PD body constraints；当前已抓到原版revolute/prismatic × W1/W3四组，
+含有效armature、drive、限位和派生速度，全部finite且body实际运动。新fixture为`joint_pd_scene.py`，
+原版完整owned调用1698/1902次；此检查点仍未开放相应源码guard。
 
 ```bash
 source scripts/reconstruction_env.sh
@@ -90,3 +109,29 @@ recon_root=build/reconstruction-csrc/affine-particle-material-host
 
 完整owned调用检查与constructor检查只覆盖各报告明确的字段，不代表所有opaque view、
 library geometry、CUDA copy/clear语义都已证明。完整源码solver与正式大demo的旧固定失败仍须继续。
+
+## 直接用源码 solver 跑例子
+
+新增`reconstruction/source_demo.py`，校验活动源码构建provenance后装入源码模块，随后运行未改示例的
+真实`__main__`。不替换capture、不改数学，不调用登录；兼容入口与A/B共用已验证的source loader。
+运行前后均检查原版`_core.so`未映射，报告保留实际image、示例SHA、参数、source调用计数与退出结果。
+计数是各solver实例已观察到的最大累计数，包含graph捕获，graph重放不重复计数。
+这验证独立运行和示例物理检查，不等于对原版整段轨迹的A/B验收。未捕获混合范围仍会明确报错。
+
+```bash
+source scripts/reconstruction_env.sh
+.venv/bin/python -m reconstruction.source_demo --report build/NEW-source-bag.json \
+  examples/example_plastic_bag.py --viewer null --num-frames 3 --test
+.venv/bin/python -m reconstruction.source_demo --report build/NEW-source-dzhanibekov.json \
+  examples/example_basic_dzhanibekov.py --viewer null --num-frames 60 --test
+```
+
+不传`--viewer null`可按示例默认交互方式运行。新报告不覆盖旧文件。
+本轮证据在self continuation的`standalone-frontends/`，两例退出0，分别记录11530/3734次源码调用计数。
+
+实际SDK跨模式见证的CPU核对（输出必须是新文件）：
+
+```bash
+.venv/bin/python "$recon_root/continuation-20261031-131c9873-self/self-original-holdouts3/audit-source0.py" \
+  --output build/NEW-self-body-witness-audit.json
+```

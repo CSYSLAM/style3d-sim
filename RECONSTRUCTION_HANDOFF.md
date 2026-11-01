@@ -3,7 +3,9 @@
 > **继续开发更新：活动源码image为04b46fb0，新增SO3/tet legacy软接触及无external contact的self组合。**
 > legacy在131c9873的16组/64项graph全严格；当前04的self W1八组严格、W3八组状态有差异，
 > 首buffer、完整owned ABI/geometry、constructor五项均同，四组initcheck3零错误。
-> 正在保留首次失败核对固定cohort与PCG，当前完整74尚未采，不继承旧image结论，ready=False。
+> self固定C8为full15/16、diagonal16/16；唯一失败source0保留并继续定位。
+> 当前完整74为71严格，三个particles首次失败均通过当前固定C10且CPU复算同；ready=False。
+> 直接源码入口已跑通真实graph与自身test：Dzhanibekov60帧、plastic bag3帧，未映射原版so。
 > 方法、原始证据和接续命令见[BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md](reconstruction/csrc/BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md)。
 > 粒子旧失败完整路径204 packet及84归约的实际回放已闭合，原固定C10仍false；见
 > [PARTICLE_FIXED_PATH_RECOVERY.md](reconstruction/csrc/PARTICLE_FIXED_PATH_RECOVERY.md)。
@@ -38,7 +40,9 @@
 当前176个CUDA入口已重建并纳入版本清单，host组合场景和正式demo仍需继续验收。
 Git 76facc7的交接只迁移冻结基线；后续25/cc/ff新增host字段和按原版恢复调度，CUDA数学和比较标准未改。
 
-**当前04b46fb0检查点**：self组合的W3状态差异正在定位，完整74尚未采；局部结果以顶部新增文档为准。
+**当前04b46fb0检查点**：self固定full C8的W3/PD/body-block首候选仍失败，diagonal16/16通过。
+完整74为71严格，其三个particles首次失败的当前固定C10均通过、CPU复算同；局部结果与直接源码运行命令
+以顶部新增文档为准。新增`reconstruction.source_demo`可运行未改示例的真实入口，不需A/B worker或原版so代算。
 CUDA176/f0及参考64a始终不改，不把任何历史image结果直接计为当前验收。
 
 **历史8f4127f0检查点**：body+tet+full-surface软接触16组与64项60步比较全部逐位同，构造五项同，initcheck零错误。

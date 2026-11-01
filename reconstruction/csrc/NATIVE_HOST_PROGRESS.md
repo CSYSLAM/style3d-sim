@@ -3,7 +3,9 @@
 > **活动04b46fb0：SO3/tet legacy接触已严格验证，新增self组合继续定位W3差异。**
 > 131的legacy16、graph64/64全严格；04的self W1八组严格，W3八组状态不同，首buffer及完整owned调用同。
 > constructor五项同，四组initcheck3零错误；legacy16、surface16、无contact graph32及配置246仍通过。
-> 当前完整74尚未采，ready=False；证据、命令、待办见BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md。
+> 当前完整74为71严格，三个particles首次失败的固定C10全过且CPU复核同；self固定C8为full15/16、diagonal16/16。
+> 独立源码入口的真实graph/test：Dzhanibekov60帧、plastic bag3帧均通过且未映射原版。ready=False，
+> 证据、命令、待办见BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md。
 > 8f固定particles路径全部102次算子与84归约已实际回放核对，原固定C10失败仍保留；见PARTICLE_FIXED_PATH_RECOVERY.md。
 > 下列各image结果均为对应历史，不能直接计为04验收。
 >

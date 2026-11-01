@@ -19,6 +19,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cohort', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--suite', choices=('surface', 'tetrahedron_self'), default='surface')
+    parser.add_argument('--diagonal-only', action='store_true')
     args = parser.parse_args()
     args.output = args.output.resolve()
     args.output.mkdir(parents=True, exist_ok=False)
@@ -27,6 +29,17 @@ def main():
     frozen = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in originals}
     baseline_runtime = json.loads((args.cohort / 'original0/original.runtime.json').read_text())
     assert baseline_runtime['image_sha256'] == REFERENCE_SHA and baseline_runtime['frames'] == 60
+    module = 'reconstruction.csrc.affine_surface_graph_ab'
+    extra = []
+    if args.suite == 'tetrahedron_self':
+        module = 'reconstruction.csrc.affine_tetrahedron_graph_ab'
+        extra = ['--fixture', str(ROOT / 'reconstruction/csrc/affine_tetrahedron_self_scene.py'),
+                 '--particles-per-world', '24']
+        assert baseline_runtime['diagonal_only'] == args.diagonal_only
+        if args.diagonal_only:
+            extra.append('--diagonal-only')
+    else:
+        assert not args.diagonal_only
     state = {'planned_holdout_workers': 3, 'completed': [], 'complete': False,
              'baseline_originals': 8, 'baseline_expanded': False, 'source_candidates_reclassified': False}
     (args.output / 'status.json').write_text(json.dumps(state, indent=2) + '\n')
@@ -36,8 +49,8 @@ def main():
     for i in range(3):
         folder = args.output / f'holdout{i}'
         folder.mkdir()
-        command = [sys.executable, '-m', 'reconstruction.csrc.affine_surface_graph_ab', '--worker', 'original',
-                   '--frames', '60', '--output', str(folder)]
+        command = [sys.executable, '-m', module, '--worker', 'original',
+                   '--frames', '60', '--output', str(folder), *extra]
         (folder / 'command.json').write_text(json.dumps(command, indent=2) + '\n')
         with (folder / 'run.log').open('w') as log:
             subprocess.run(command, check=True, timeout=1200, env=env, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
@@ -51,11 +64,13 @@ def main():
         case = path.stem.removeprefix('original-')
         with ExitStack() as stack:
             base = [stack.enter_context(np.load(args.cohort / f'original{i}/original-{case}.npz')) for i in range(8)]
+            source0 = stack.enter_context(np.load(args.cohort / f'source0/source-{case}.npz'))
             rows = []
             for i in range(3):
                 value = stack.enter_context(np.load(args.output / f'holdout{i}/original-{case}.npz'))
                 statistics = spread_report(base, [value], checkpoints=60)
                 rows.append({'holdout': i, 'against_original0': compare(base[0], value), 'statistics': statistics,
+                             'against_frozen_source0': compare(source0, value),
                              'within_saved_spread': all(s['substeps_within_spread'] == s['substeps']
                                                         for s in statistics.values())})
         results[case] = rows
@@ -63,7 +78,7 @@ def main():
     state['complete'] = True
     (args.output / 'status.json').write_text(json.dumps(state, indent=2) + '\n')
     (args.output / 'report.json').write_text(json.dumps({
-        **state, 'cases': results, 'baseline_npz_sha256': frozen, 'reference_sha256': REFERENCE_SHA,
+        **state, 'cases': results, 'suite': args.suite, 'baseline_npz_sha256': frozen, 'reference_sha256': REFERENCE_SHA,
         'no_launch_or_memory_observer': True, 'whole_solver_complete': False,
         'harness_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}, indent=2) + '\n')
     print('reference holdouts outside saved C', sum(not row['within_saved_spread']

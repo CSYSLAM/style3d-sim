@@ -5418,3 +5418,32 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   全量diff --check仅指出新归档的原始PTX/生成头/旧源码及raw TSV原有空白；保持其字节与旧hash，
   不为格式化破坏证据。当前维护源码与文档范围的diff --check通过。正在运行的regression原始输出
   暂不纳入此检查点，待完整后单独提交；失败与未完成状态均明确保留。
+
+### 当前完整回归、独立源码入口
+
+- 检查点4955a9726b77738a341bdae825dcbd6d0a256e23已推csy指定分支，ls-remote逐SHA确认。
+  对应快照43355文件校验0失败；后续继续工作，没有把goal或完整solver标为完成。
+- 04完整74完成：71严格，三个particles seed严格失败；固定source0不换，各10份实际原版的C10均过，
+  独立CPU复算完全同。旧8f seed1 C10和其它image旧固定失败原样保留，不因新image结果重判。
+- self两套graph cohort额外CPU复算各48份source/case统计全部吻合；唯一full失败的source0最早超C
+  在step2的body2 quaternion分量5及angular qd分量5、particle69的x。原8个body轨迹完全同，
+  source1/2与实际原版整段同；原candidate SHA f9a5c8ae01abb377fba3c856ad4d4783d834dcbd534a4a77e2df68789b21a1e8。
+- 新增reconstruction.source_demo仅选择并逐SHA校验source module，复用bridge后runpy运行原示例main，
+  不改Example/capture/物理参数。原版so运行前后均不得映射，记录source_only、ready=False、image和
+  example SHA、原始args、最大实例源码计数（graph capture计数、重放不重新计数）、退出值；不覆盖报告。
+- 真实入口首验证：Dzhanibekov60帧和plastic bag3帧，均保持真实CUDA graph，--test自身物理检查通过，
+  退出0，无原版so映射、无登录；计数分别3734/11530。此结果是独立运行证明，不代替轨迹A/B。
+- 针对固定self source0继续一次明确的state replay：保留完整worker前序，第三步前把公开四state数组
+  强制设为冻结source0的第二步输出，再交给实际SDK/源码；私有persistent状态未从旧候选恢复，
+  明确只作传播诊断，不能算原始轨迹复现、不能扩cohort或替换失败。正在串行执行，生产image未动。
+- state replay结束：强制相同冻结公开输入后，实际SDK/源码均未复现旧source0第三步，双端新trace
+  首差为000029 PCG numerator；保留干预诊断，不认定为旧失败的因果定位。随后仅预先安排3次独立
+  unchanged SDK full-worker holdout，未扩原8基线、未重判source0；原版holdout共有3/48条超旧C。
+- 新实际见证：holdout1/w3-pd-b1 graph的body_q/body_qd全部60步与旧失败source0/eager逐位相同。
+  全部其它粒子只在39.y、53.x有小差，位置最大2.3283064365386963e-10，速度2.9802322387695312e-8；
+  其余分量全同。不是把不同mode并入C8，旧eager C8仍false。跨模式见证NPZ SHA
+  00041d2b273d73eb9719dc60945fba5629843846c55a6aba1f055095cc050590。
+  CPU独立复核6份cross比较、逐world比较和剩余坐标全同，audit-source0.py及receipt保留可复现命令。
+- 下一已明确拒绝的host缺口PD body constraints：新增继承既有joint fixture的PD配置，不改原fixture。
+  原版revolute/prismatic × W1/W3（armature=.007，drive/限位/派生速度均启用）四组三步全部finite且
+  body实际运动，owned调用分别1698/1902。原版已固定，source guard尚未改，生产仍04b46fb0。

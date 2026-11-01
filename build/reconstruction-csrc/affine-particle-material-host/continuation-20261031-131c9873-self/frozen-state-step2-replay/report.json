@@ -1,0 +1,2005 @@
+{
+  "launches": 102,
+  "first_difference": {
+    "launch": "000029.23precondition_and_reduceIN3glm.json",
+    "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+    "buffers": [
+      {
+        "buffer": "after.numerator",
+        "bytes": 12,
+        "different_bytes": 1,
+        "different_words": 1,
+        "first_old_bits": 730771348,
+        "first_new_bits": 730771349,
+        "max_abs_float32": 1.0842021724855044e-19
+      }
+    ]
+  },
+  "launch_metadata_equal": true,
+  "differences": [
+    {
+      "launch": "000029.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 1,
+          "different_words": 1,
+          "first_old_bits": 730771348,
+          "first_new_bits": 730771349,
+          "max_abs_float32": 1.0842021724855044e-19
+        }
+      ]
+    },
+    {
+      "launch": "000030.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 4,
+          "different_words": 4,
+          "first_old_bits": 721974098,
+          "first_new_bits": 721974099,
+          "max_abs_float32": 3.469446951953614e-18
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 1,
+          "different_words": 1,
+          "first_old_bits": 730771348,
+          "first_new_bits": 730771349,
+          "max_abs_float32": 1.0842021724855044e-19
+        }
+      ]
+    },
+    {
+      "launch": "000031.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 4,
+          "different_words": 4,
+          "first_old_bits": 919500755,
+          "first_new_bits": 919500757,
+          "max_abs_float32": 9.094947017729282e-13
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 4,
+          "different_words": 4,
+          "first_old_bits": 721974098,
+          "first_new_bits": 721974099,
+          "max_abs_float32": 3.469446951953614e-18
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 4,
+          "different_words": 4,
+          "first_old_bits": 919500755,
+          "first_new_bits": 919500757,
+          "max_abs_float32": 9.094947017729282e-13
+        }
+      ]
+    },
+    {
+      "launch": "000032.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 6,
+          "different_words": 6,
+          "first_old_bits": 858967285,
+          "first_new_bits": 858967286,
+          "max_abs_float32": 9.094947017729282e-13
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 4,
+          "different_words": 4,
+          "first_old_bits": 919500755,
+          "first_new_bits": 919500757,
+          "max_abs_float32": 9.094947017729282e-13
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 4,
+          "different_words": 4,
+          "first_old_bits": 721974098,
+          "first_new_bits": 721974099,
+          "max_abs_float32": 3.469446951953614e-18
+        }
+      ]
+    },
+    {
+      "launch": "000033.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 84,
+          "different_words": 51,
+          "first_old_bits": 789845536,
+          "first_new_bits": 789845356,
+          "max_abs_float32": 7.815970093361102e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 6,
+          "different_words": 6,
+          "first_old_bits": 858967285,
+          "first_new_bits": 858967286,
+          "max_abs_float32": 9.094947017729282e-13
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 1,
+          "different_words": 1,
+          "first_old_bits": 730771348,
+          "first_new_bits": 730771349,
+          "max_abs_float32": 1.0842021724855044e-19
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 4,
+          "different_words": 4,
+          "first_old_bits": 721974098,
+          "first_new_bits": 721974099,
+          "max_abs_float32": 3.469446951953614e-18
+        }
+      ]
+    },
+    {
+      "launch": "000050.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 879317057,
+          "first_new_bits": 879317055,
+          "max_abs_float32": 2.842170943040401e-14
+        }
+      ]
+    },
+    {
+      "launch": "000051.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 139,
+          "different_words": 120,
+          "first_old_bits": 3043444019,
+          "first_new_bits": 3043444005,
+          "max_abs_float32": 1.4901161193847656e-08
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 35,
+          "different_words": 35,
+          "first_old_bits": 3030213831,
+          "first_new_bits": 3030213832,
+          "max_abs_float32": 2.2737367544323206e-13
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 879317057,
+          "first_new_bits": 879317055,
+          "max_abs_float32": 2.842170943040401e-14
+        }
+      ]
+    },
+    {
+      "launch": "000052.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 819729095,
+          "first_new_bits": 819729098,
+          "max_abs_float32": 5.551115123125783e-16
+        },
+        {
+          "buffer": "after.z",
+          "bytes": 864,
+          "different_bytes": 166,
+          "different_words": 120,
+          "first_old_bits": 2905397986,
+          "first_new_bits": 2905397974,
+          "max_abs_float32": 1.8587241121248432e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 139,
+          "different_words": 120,
+          "first_old_bits": 3043444019,
+          "first_new_bits": 3043444005,
+          "max_abs_float32": 1.4901161193847656e-08
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 166,
+          "different_words": 120,
+          "first_old_bits": 2905397986,
+          "first_new_bits": 2905397974,
+          "max_abs_float32": 1.8587241121248432e-12
+        }
+      ]
+    },
+    {
+      "launch": "000053.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 180,
+          "different_words": 120,
+          "first_old_bits": 2906033135,
+          "first_new_bits": 2906033123,
+          "max_abs_float32": 1.8587249794865812e-12
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 819729095,
+          "first_new_bits": 819729098,
+          "max_abs_float32": 5.551115123125783e-16
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 166,
+          "different_words": 120,
+          "first_old_bits": 2905397986,
+          "first_new_bits": 2905397974,
+          "max_abs_float32": 1.8587241121248432e-12
+        }
+      ]
+    },
+    {
+      "launch": "000054.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 81,
+          "different_words": 42,
+          "first_old_bits": 832646321,
+          "first_new_bits": 832646418,
+          "max_abs_float32": 2.928172762040049e-07
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 180,
+          "different_words": 120,
+          "first_old_bits": 2906033135,
+          "first_new_bits": 2906033123,
+          "max_abs_float32": 1.8587249794865812e-12
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 45,
+          "different_words": 18,
+          "first_old_bits": 3110801935,
+          "first_new_bits": 3110801625,
+          "max_abs_float32": 2.928172762040049e-07
+        }
+      ]
+    },
+    {
+      "launch": "000055.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 163,
+          "different_words": 120,
+          "first_old_bits": 3045253503,
+          "first_new_bits": 3045253498,
+          "max_abs_float32": 2.9281818569870666e-07
+        },
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 819817208,
+          "first_new_bits": 819817211,
+          "max_abs_float32": 5.551115123125783e-16
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 160,
+          "different_words": 111,
+          "first_old_bits": 3014183973,
+          "first_new_bits": 3014184019,
+          "max_abs_float32": 2.928172762040049e-07
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 180,
+          "different_words": 120,
+          "first_old_bits": 2906033135,
+          "first_new_bits": 2906033123,
+          "max_abs_float32": 1.8587249794865812e-12
+        }
+      ]
+    },
+    {
+      "launch": "000056.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 162,
+          "different_words": 118,
+          "first_old_bits": 870790937,
+          "first_new_bits": 870790970,
+          "max_abs_float32": 2.9106877263984643e-07
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 64,
+          "different_words": 53,
+          "first_old_bits": 3028716789,
+          "first_new_bits": 3028716787,
+          "max_abs_float32": 1.847522135278723e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 163,
+          "different_words": 120,
+          "first_old_bits": 3045253503,
+          "first_new_bits": 3045253498,
+          "max_abs_float32": 2.9281818569870666e-07
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 819817208,
+          "first_new_bits": 819817211,
+          "max_abs_float32": 5.551115123125783e-16
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 819729095,
+          "first_new_bits": 819729098,
+          "max_abs_float32": 5.551115123125783e-16
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 180,
+          "different_words": 120,
+          "first_old_bits": 2906033135,
+          "first_new_bits": 2906033123,
+          "max_abs_float32": 1.8587249794865812e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 139,
+          "different_words": 120,
+          "first_old_bits": 3043444019,
+          "first_new_bits": 3043444005,
+          "max_abs_float32": 1.4901161193847656e-08
+        },
+        {
+          "buffer": "before.x",
+          "bytes": 864,
+          "different_bytes": 35,
+          "different_words": 35,
+          "first_old_bits": 3030213831,
+          "first_new_bits": 3030213832,
+          "max_abs_float32": 2.2737367544323206e-13
+        }
+      ]
+    },
+    {
+      "launch": "000057.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 753055528,
+          "first_new_bits": 753055627,
+          "max_abs_float32": 4.2934406030425976e-17
+        },
+        {
+          "buffer": "after.z",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 119,
+          "first_old_bits": 732917743,
+          "first_new_bits": 732917767,
+          "max_abs_float32": 2.0984080358749102e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 162,
+          "different_words": 118,
+          "first_old_bits": 870790937,
+          "first_new_bits": 870790970,
+          "max_abs_float32": 2.9106877263984643e-07
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 119,
+          "first_old_bits": 732917743,
+          "first_new_bits": 732917767,
+          "max_abs_float32": 2.0984080358749102e-12
+        }
+      ]
+    },
+    {
+      "launch": "000058.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 169,
+          "different_words": 119,
+          "first_old_bits": 732532604,
+          "first_new_bits": 732532626,
+          "max_abs_float32": 2.094584922174292e-12
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 753055528,
+          "first_new_bits": 753055627,
+          "max_abs_float32": 4.2934406030425976e-17
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 180,
+          "different_words": 120,
+          "first_old_bits": 2906033135,
+          "first_new_bits": 2906033123,
+          "max_abs_float32": 1.8587249794865812e-12
+        },
+        {
+          "buffer": "before.previous_numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 819729095,
+          "first_new_bits": 819729098,
+          "max_abs_float32": 5.551115123125783e-16
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 119,
+          "first_old_bits": 732917743,
+          "first_new_bits": 732917767,
+          "max_abs_float32": 2.0984080358749102e-12
+        }
+      ]
+    },
+    {
+      "launch": "000059.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 75,
+          "different_words": 41,
+          "first_old_bits": 801144897,
+          "first_new_bits": 801144900,
+          "max_abs_float32": 2.798303739837138e-07
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 169,
+          "different_words": 119,
+          "first_old_bits": 732532604,
+          "first_new_bits": 732532626,
+          "max_abs_float32": 2.094584922174292e-12
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 51,
+          "different_words": 18,
+          "first_old_bits": 3096449054,
+          "first_new_bits": 3096463310,
+          "max_abs_float32": 2.798303739837138e-07
+        }
+      ]
+    },
+    {
+      "launch": "000060.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 163,
+          "different_words": 117,
+          "first_old_bits": 870918490,
+          "first_new_bits": 870918524,
+          "max_abs_float32": 2.7982969186268747e-07
+        },
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 2,
+          "first_old_bits": 751089548,
+          "first_new_bits": 751089664,
+          "max_abs_float32": 5.0306980803327406e-17
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 195,
+          "different_words": 119,
+          "first_old_bits": 832170764,
+          "first_new_bits": 832170849,
+          "max_abs_float32": 2.798303739837138e-07
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 169,
+          "different_words": 119,
+          "first_old_bits": 732532604,
+          "first_new_bits": 732532626,
+          "max_abs_float32": 2.094584922174292e-12
+        }
+      ]
+    },
+    {
+      "launch": "000061.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 223,
+          "different_words": 120,
+          "first_old_bits": 2996175482,
+          "first_new_bits": 2996175339,
+          "max_abs_float32": 1.8276523405802436e-07
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 71,
+          "different_words": 55,
+          "first_old_bits": 3028704817,
+          "first_new_bits": 3028704815,
+          "max_abs_float32": 1.4690471061840071e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 163,
+          "different_words": 117,
+          "first_old_bits": 870918490,
+          "first_new_bits": 870918524,
+          "max_abs_float32": 2.7982969186268747e-07
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 2,
+          "first_old_bits": 751089548,
+          "first_new_bits": 751089664,
+          "max_abs_float32": 5.0306980803327406e-17
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 753055528,
+          "first_new_bits": 753055627,
+          "max_abs_float32": 4.2934406030425976e-17
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 169,
+          "different_words": 119,
+          "first_old_bits": 732532604,
+          "first_new_bits": 732532626,
+          "max_abs_float32": 2.094584922174292e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 162,
+          "different_words": 118,
+          "first_old_bits": 870790937,
+          "first_new_bits": 870790970,
+          "max_abs_float32": 2.9106877263984643e-07
+        },
+        {
+          "buffer": "before.x",
+          "bytes": 864,
+          "different_bytes": 64,
+          "different_words": 53,
+          "first_old_bits": 3028716789,
+          "first_new_bits": 3028716787,
+          "max_abs_float32": 1.847522135278723e-12
+        }
+      ]
+    },
+    {
+      "launch": "000062.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 5,
+          "different_words": 2,
+          "first_old_bits": 640702867,
+          "first_new_bits": 640763235,
+          "max_abs_float32": 3.195855309990475e-18
+        },
+        {
+          "buffer": "after.z",
+          "bytes": 864,
+          "different_bytes": 229,
+          "different_words": 120,
+          "first_old_bits": 2858659089,
+          "first_new_bits": 2858658871,
+          "max_abs_float32": 7.611716161884385e-13
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 223,
+          "different_words": 120,
+          "first_old_bits": 2996175482,
+          "first_new_bits": 2996175339,
+          "max_abs_float32": 1.8276523405802436e-07
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 229,
+          "different_words": 120,
+          "first_old_bits": 2858659089,
+          "first_new_bits": 2858658871,
+          "max_abs_float32": 7.611716161884385e-13
+        }
+      ]
+    },
+    {
+      "launch": "000063.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 237,
+          "different_words": 120,
+          "first_old_bits": 2858650648,
+          "first_new_bits": 2858650386,
+          "max_abs_float32": 7.609704966854425e-13
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 5,
+          "different_words": 2,
+          "first_old_bits": 640702867,
+          "first_new_bits": 640763235,
+          "max_abs_float32": 3.195855309990475e-18
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 169,
+          "different_words": 119,
+          "first_old_bits": 732532604,
+          "first_new_bits": 732532626,
+          "max_abs_float32": 2.094584922174292e-12
+        },
+        {
+          "buffer": "before.previous_numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 2,
+          "first_old_bits": 753055528,
+          "first_new_bits": 753055627,
+          "max_abs_float32": 4.2934406030425976e-17
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 229,
+          "different_words": 120,
+          "first_old_bits": 2858659089,
+          "first_new_bits": 2858658871,
+          "max_abs_float32": 7.611716161884385e-13
+        }
+      ]
+    },
+    {
+      "launch": "000064.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 87,
+          "different_words": 42,
+          "first_old_bits": 2946947039,
+          "first_new_bits": 2946946833,
+          "max_abs_float32": 1.8893297237809747e-07
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 237,
+          "different_words": 120,
+          "first_old_bits": 2858650648,
+          "first_new_bits": 2858650386,
+          "max_abs_float32": 7.609704966854425e-13
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 52,
+          "different_words": 18,
+          "first_old_bits": 927167476,
+          "first_new_bits": 927276267,
+          "max_abs_float32": 1.8893297237809747e-07
+        }
+      ]
+    },
+    {
+      "launch": "000065.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 227,
+          "different_words": 120,
+          "first_old_bits": 2996180660,
+          "first_new_bits": 2996180486,
+          "max_abs_float32": 1.889325176307466e-07
+        },
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 5,
+          "different_words": 2,
+          "first_old_bits": 640712475,
+          "first_new_bits": 640769629,
+          "max_abs_float32": 3.0257075667107676e-18
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 236,
+          "different_words": 120,
+          "first_old_bits": 2906709557,
+          "first_new_bits": 2906708716,
+          "max_abs_float32": 1.8893297237809747e-07
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 237,
+          "different_words": 120,
+          "first_old_bits": 2858650648,
+          "first_new_bits": 2858650386,
+          "max_abs_float32": 7.609704966854425e-13
+        }
+      ]
+    },
+    {
+      "launch": "000066.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 367,
+          "different_words": 120,
+          "first_old_bits": 2897938238,
+          "first_new_bits": 2869156859,
+          "max_abs_float32": 1.6432006200162164e-08
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 77,
+          "different_words": 61,
+          "first_old_bits": 2997775505,
+          "first_new_bits": 2997775506,
+          "max_abs_float32": 1.5555334798023068e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 227,
+          "different_words": 120,
+          "first_old_bits": 2996180660,
+          "first_new_bits": 2996180486,
+          "max_abs_float32": 1.889325176307466e-07
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 5,
+          "different_words": 2,
+          "first_old_bits": 640712475,
+          "first_new_bits": 640769629,
+          "max_abs_float32": 3.0257075667107676e-18
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 5,
+          "different_words": 2,
+          "first_old_bits": 640702867,
+          "first_new_bits": 640763235,
+          "max_abs_float32": 3.195855309990475e-18
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 237,
+          "different_words": 120,
+          "first_old_bits": 2858650648,
+          "first_new_bits": 2858650386,
+          "max_abs_float32": 7.609704966854425e-13
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 223,
+          "different_words": 120,
+          "first_old_bits": 2996175482,
+          "first_new_bits": 2996175339,
+          "max_abs_float32": 1.8276523405802436e-07
+        },
+        {
+          "buffer": "before.x",
+          "bytes": 864,
+          "different_bytes": 71,
+          "different_words": 55,
+          "first_old_bits": 3028704817,
+          "first_new_bits": 3028704815,
+          "max_abs_float32": 1.4690471061840071e-12
+        }
+      ]
+    },
+    {
+      "launch": "000067.20apply_nonlinear_stepE.json",
+      "kernel": "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+      "buffers": [
+        {
+          "buffer": "before.dx",
+          "bytes": 864,
+          "different_bytes": 77,
+          "different_words": 61,
+          "first_old_bits": 2997775505,
+          "first_new_bits": 2997775506,
+          "max_abs_float32": 1.5555334798023068e-12
+        }
+      ]
+    },
+    {
+      "launch": "000075.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 1,
+          "different_words": 1,
+          "first_old_bits": 832948021,
+          "first_new_bits": 832948022,
+          "max_abs_float32": 4.440892098500626e-16
+        }
+      ]
+    },
+    {
+      "launch": "000076.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 1,
+          "different_words": 1,
+          "first_old_bits": 832948021,
+          "first_new_bits": 832948022,
+          "max_abs_float32": 4.440892098500626e-16
+        }
+      ]
+    },
+    {
+      "launch": "000079.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 69,
+          "different_words": 60,
+          "first_old_bits": 3062622422,
+          "first_new_bits": 3062622392,
+          "max_abs_float32": 3.259629011154175e-09
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 60,
+          "different_words": 60,
+          "first_old_bits": 2964367447,
+          "first_new_bits": 2964367448,
+          "max_abs_float32": 1.4210854715202004e-14
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 1,
+          "different_words": 1,
+          "first_old_bits": 832948021,
+          "first_new_bits": 832948022,
+          "max_abs_float32": 4.440892098500626e-16
+        }
+      ]
+    },
+    {
+      "launch": "000080.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 1,
+          "first_old_bits": 762544642,
+          "first_new_bits": 762542501,
+          "max_abs_float32": 1.857021481033172e-15
+        },
+        {
+          "buffer": "after.z",
+          "bytes": 864,
+          "different_bytes": 81,
+          "different_words": 60,
+          "first_old_bits": 2924755979,
+          "first_new_bits": 2924755934,
+          "max_abs_float32": 3.407218951423374e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 69,
+          "different_words": 60,
+          "first_old_bits": 3062622422,
+          "first_new_bits": 3062622392,
+          "max_abs_float32": 3.259629011154175e-09
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 81,
+          "different_words": 60,
+          "first_old_bits": 2924755979,
+          "first_new_bits": 2924755934,
+          "max_abs_float32": 3.407218951423374e-12
+        }
+      ]
+    },
+    {
+      "launch": "000081.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 101,
+          "different_words": 60,
+          "first_old_bits": 2925858371,
+          "first_new_bits": 2925858178,
+          "max_abs_float32": 3.4154346018056003e-12
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 1,
+          "first_old_bits": 762544642,
+          "first_new_bits": 762542501,
+          "max_abs_float32": 1.857021481033172e-15
+        },
+        {
+          "buffer": "before.previous_numerator",
+          "bytes": 12,
+          "different_bytes": 1,
+          "different_words": 1,
+          "first_old_bits": 832948021,
+          "first_new_bits": 832948022,
+          "max_abs_float32": 4.440892098500626e-16
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 81,
+          "different_words": 60,
+          "first_old_bits": 2924755979,
+          "first_new_bits": 2924755934,
+          "max_abs_float32": 3.407218951423374e-12
+        }
+      ]
+    },
+    {
+      "launch": "000082.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 44,
+          "different_words": 21,
+          "first_old_bits": 3014191306,
+          "first_new_bits": 3014191163,
+          "max_abs_float32": 2.6984489522874355e-06
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 101,
+          "different_words": 60,
+          "first_old_bits": 2925858371,
+          "first_new_bits": 2925858178,
+          "max_abs_float32": 3.4154346018056003e-12
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 23,
+          "different_words": 9,
+          "first_old_bits": 3130491000,
+          "first_new_bits": 3130494687,
+          "max_abs_float32": 2.6984489522874355e-06
+        }
+      ]
+    },
+    {
+      "launch": "000083.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 100,
+          "different_words": 60,
+          "first_old_bits": 3063348743,
+          "first_new_bits": 3063348616,
+          "max_abs_float32": 2.698507159948349e-06
+        },
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 1,
+          "first_old_bits": 763285185,
+          "first_new_bits": 763280376,
+          "max_abs_float32": 4.171142597986233e-15
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 120,
+          "different_words": 60,
+          "first_old_bits": 2933965702,
+          "first_new_bits": 2933969053,
+          "max_abs_float32": 2.6984489522874355e-06
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 101,
+          "different_words": 60,
+          "first_old_bits": 2925858371,
+          "first_new_bits": 2925858178,
+          "max_abs_float32": 3.4154346018056003e-12
+        }
+      ]
+    },
+    {
+      "launch": "000084.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 156,
+          "different_words": 60,
+          "first_old_bits": 873226462,
+          "first_new_bits": 873270100,
+          "max_abs_float32": 2.4801393010420725e-06
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 98,
+          "different_words": 60,
+          "first_old_bits": 2964815750,
+          "first_new_bits": 2964815814,
+          "max_abs_float32": 3.142375248899043e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 100,
+          "different_words": 60,
+          "first_old_bits": 3063348743,
+          "first_new_bits": 3063348616,
+          "max_abs_float32": 2.698507159948349e-06
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 1,
+          "first_old_bits": 763285185,
+          "first_new_bits": 763280376,
+          "max_abs_float32": 4.171142597986233e-15
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 1,
+          "first_old_bits": 762544642,
+          "first_new_bits": 762542501,
+          "max_abs_float32": 1.857021481033172e-15
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 101,
+          "different_words": 60,
+          "first_old_bits": 2925858371,
+          "first_new_bits": 2925858178,
+          "max_abs_float32": 3.4154346018056003e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 69,
+          "different_words": 60,
+          "first_old_bits": 3062622422,
+          "first_new_bits": 3062622392,
+          "max_abs_float32": 3.259629011154175e-09
+        },
+        {
+          "buffer": "before.x",
+          "bytes": 864,
+          "different_bytes": 60,
+          "different_words": 60,
+          "first_old_bits": 2964367447,
+          "first_new_bits": 2964367448,
+          "max_abs_float32": 1.4210854715202004e-14
+        }
+      ]
+    },
+    {
+      "launch": "000085.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 696278941,
+          "first_new_bits": 696231397,
+          "max_abs_float32": 2.4401663957680786e-16
+        },
+        {
+          "buffer": "after.z",
+          "bytes": 864,
+          "different_bytes": 164,
+          "different_words": 60,
+          "first_old_bits": 735379284,
+          "first_new_bits": 735445481,
+          "max_abs_float32": 9.024783524658186e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 156,
+          "different_words": 60,
+          "first_old_bits": 873226462,
+          "first_new_bits": 873270100,
+          "max_abs_float32": 2.4801393010420725e-06
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 164,
+          "different_words": 60,
+          "first_old_bits": 735379284,
+          "first_new_bits": 735445481,
+          "max_abs_float32": 9.024783524658186e-12
+        }
+      ]
+    },
+    {
+      "launch": "000086.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 60,
+          "first_old_bits": 733400841,
+          "first_new_bits": 733475268,
+          "max_abs_float32": 9.030948731891808e-12
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 696278941,
+          "first_new_bits": 696231397,
+          "max_abs_float32": 2.4401663957680786e-16
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 101,
+          "different_words": 60,
+          "first_old_bits": 2925858371,
+          "first_new_bits": 2925858178,
+          "max_abs_float32": 3.4154346018056003e-12
+        },
+        {
+          "buffer": "before.previous_numerator",
+          "bytes": 12,
+          "different_bytes": 2,
+          "different_words": 1,
+          "first_old_bits": 762544642,
+          "first_new_bits": 762542501,
+          "max_abs_float32": 1.857021481033172e-15
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 164,
+          "different_words": 60,
+          "first_old_bits": 735379284,
+          "first_new_bits": 735445481,
+          "max_abs_float32": 9.024783524658186e-12
+        }
+      ]
+    },
+    {
+      "launch": "000087.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 64,
+          "different_words": 21,
+          "first_old_bits": 822496327,
+          "first_new_bits": 822551173,
+          "max_abs_float32": 2.5037988962139934e-06
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 60,
+          "first_old_bits": 733400841,
+          "first_new_bits": 733475268,
+          "max_abs_float32": 9.030948731891808e-12
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 29,
+          "different_words": 9,
+          "first_old_bits": 933076673,
+          "first_new_bits": 933378969,
+          "max_abs_float32": 2.5037988962139934e-06
+        }
+      ]
+    },
+    {
+      "launch": "000088.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 167,
+          "different_words": 60,
+          "first_old_bits": 871483451,
+          "first_new_bits": 871581587,
+          "max_abs_float32": 2.503793439245783e-06
+        },
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 694099969,
+          "first_new_bits": 694031524,
+          "max_abs_float32": 2.3190068029928235e-16
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 148,
+          "different_words": 60,
+          "first_old_bits": 801524153,
+          "first_new_bits": 801528129,
+          "max_abs_float32": 2.5037988962139934e-06
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 60,
+          "first_old_bits": 733400841,
+          "first_new_bits": 733475268,
+          "max_abs_float32": 9.030948731891808e-12
+        }
+      ]
+    },
+    {
+      "launch": "000089.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 178,
+          "different_words": 60,
+          "first_old_bits": 815965308,
+          "first_new_bits": 813851401,
+          "max_abs_float32": 3.937373094231589e-07
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 86,
+          "different_words": 60,
+          "first_old_bits": 2964802287,
+          "first_new_bits": 2964802262,
+          "max_abs_float32": 9.487521879236738e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 167,
+          "different_words": 60,
+          "first_old_bits": 871483451,
+          "first_new_bits": 871581587,
+          "max_abs_float32": 2.503793439245783e-06
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 694099969,
+          "first_new_bits": 694031524,
+          "max_abs_float32": 2.3190068029928235e-16
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 696278941,
+          "first_new_bits": 696231397,
+          "max_abs_float32": 2.4401663957680786e-16
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 60,
+          "first_old_bits": 733400841,
+          "first_new_bits": 733475268,
+          "max_abs_float32": 9.030948731891808e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 156,
+          "different_words": 60,
+          "first_old_bits": 873226462,
+          "first_new_bits": 873270100,
+          "max_abs_float32": 2.4801393010420725e-06
+        },
+        {
+          "buffer": "before.x",
+          "bytes": 864,
+          "different_bytes": 98,
+          "different_words": 60,
+          "first_old_bits": 2964815750,
+          "first_new_bits": 2964815814,
+          "max_abs_float32": 3.142375248899043e-12
+        }
+      ]
+    },
+    {
+      "launch": "000090.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 627384046,
+          "first_new_bits": 627131834,
+          "max_abs_float32": 3.3379980264515875e-18
+        },
+        {
+          "buffer": "after.z",
+          "bytes": 864,
+          "different_bytes": 175,
+          "different_words": 60,
+          "first_old_bits": 678866193,
+          "first_new_bits": 675659345,
+          "max_abs_float32": 1.2514492480492079e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 178,
+          "different_words": 60,
+          "first_old_bits": 815965308,
+          "first_new_bits": 813851401,
+          "max_abs_float32": 3.937373094231589e-07
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 175,
+          "different_words": 60,
+          "first_old_bits": 678866193,
+          "first_new_bits": 675659345,
+          "max_abs_float32": 1.2514492480492079e-12
+        }
+      ]
+    },
+    {
+      "launch": "000091.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 176,
+          "different_words": 60,
+          "first_old_bits": 681844580,
+          "first_new_bits": 680223953,
+          "max_abs_float32": 1.2268634459050576e-12
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 627384046,
+          "first_new_bits": 627131834,
+          "max_abs_float32": 3.3379980264515875e-18
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 168,
+          "different_words": 60,
+          "first_old_bits": 733400841,
+          "first_new_bits": 733475268,
+          "max_abs_float32": 9.030948731891808e-12
+        },
+        {
+          "buffer": "before.previous_numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 696278941,
+          "first_new_bits": 696231397,
+          "max_abs_float32": 2.4401663957680786e-16
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 175,
+          "different_words": 60,
+          "first_old_bits": 678866193,
+          "first_new_bits": 675659345,
+          "max_abs_float32": 1.2514492480492079e-12
+        }
+      ]
+    },
+    {
+      "launch": "000092.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 67,
+          "different_words": 21,
+          "first_old_bits": 773912855,
+          "first_new_bits": 772721906,
+          "max_abs_float32": 3.8810230762464926e-07
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 176,
+          "different_words": 60,
+          "first_old_bits": 681844580,
+          "first_new_bits": 680223953,
+          "max_abs_float32": 1.2268634459050576e-12
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 30,
+          "different_words": 9,
+          "first_old_bits": 906299268,
+          "first_new_bits": 906026845,
+          "max_abs_float32": 3.8810230762464926e-07
+        }
+      ]
+    },
+    {
+      "launch": "000093.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 177,
+          "different_words": 60,
+          "first_old_bits": 819327335,
+          "first_new_bits": 817188193,
+          "max_abs_float32": 3.8810117075627204e-07
+        },
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 628959254,
+          "first_new_bits": 628722165,
+          "max_abs_float32": 3.1378467879933565e-18
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 170,
+          "different_words": 60,
+          "first_old_bits": 2912648859,
+          "first_new_bits": 2912813495,
+          "max_abs_float32": 3.8810230762464926e-07
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 176,
+          "different_words": 60,
+          "first_old_bits": 681844580,
+          "first_new_bits": 680223953,
+          "max_abs_float32": 1.2268634459050576e-12
+        }
+      ]
+    },
+    {
+      "launch": "000094.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 186,
+          "different_words": 60,
+          "first_old_bits": 2943870728,
+          "first_new_bits": 2944738154,
+          "max_abs_float32": 4.507329975922403e-08
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 77,
+          "different_words": 58,
+          "first_old_bits": 2964802138,
+          "first_new_bits": 2964802136,
+          "max_abs_float32": 8.43414227347239e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 177,
+          "different_words": 60,
+          "first_old_bits": 819327335,
+          "first_new_bits": 817188193,
+          "max_abs_float32": 3.8810117075627204e-07
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 628959254,
+          "first_new_bits": 628722165,
+          "max_abs_float32": 3.1378467879933565e-18
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 627384046,
+          "first_new_bits": 627131834,
+          "max_abs_float32": 3.3379980264515875e-18
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 176,
+          "different_words": 60,
+          "first_old_bits": 681844580,
+          "first_new_bits": 680223953,
+          "max_abs_float32": 1.2268634459050576e-12
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 178,
+          "different_words": 60,
+          "first_old_bits": 815965308,
+          "first_new_bits": 813851401,
+          "max_abs_float32": 3.937373094231589e-07
+        },
+        {
+          "buffer": "before.x",
+          "bytes": 864,
+          "different_bytes": 86,
+          "different_words": 60,
+          "first_old_bits": 2964802287,
+          "first_new_bits": 2964802262,
+          "max_abs_float32": 9.487521879236738e-12
+        }
+      ]
+    },
+    {
+      "launch": "000095.23precondition_and_reduceIN3glm.json",
+      "kernel": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "buffers": [
+        {
+          "buffer": "after.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 564210618,
+          "first_new_bits": 563717635,
+          "max_abs_float32": 5.0973247489778655e-20
+        },
+        {
+          "buffer": "after.z",
+          "bytes": 864,
+          "different_bytes": 183,
+          "different_words": 60,
+          "first_old_bits": 2805744310,
+          "first_new_bits": 2806657769,
+          "max_abs_float32": 1.3404967240393528e-13
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 186,
+          "different_words": 60,
+          "first_old_bits": 2943870728,
+          "first_new_bits": 2944738154,
+          "max_abs_float32": 4.507329975922403e-08
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 183,
+          "different_words": 60,
+          "first_old_bits": 2805744310,
+          "first_new_bits": 2806657769,
+          "max_abs_float32": 1.3404967240393528e-13
+        }
+      ]
+    },
+    {
+      "launch": "000096.19update_cg_directionE.json",
+      "kernel": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "buffers": [
+        {
+          "buffer": "after.p",
+          "bytes": 864,
+          "different_bytes": 184,
+          "different_words": 60,
+          "first_old_bits": 2805271431,
+          "first_new_bits": 2806268344,
+          "max_abs_float32": 1.411446372105718e-13
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 564210618,
+          "first_new_bits": 563717635,
+          "max_abs_float32": 5.0973247489778655e-20
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 176,
+          "different_words": 60,
+          "first_old_bits": 681844580,
+          "first_new_bits": 680223953,
+          "max_abs_float32": 1.2268634459050576e-12
+        },
+        {
+          "buffer": "before.previous_numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 627384046,
+          "first_new_bits": 627131834,
+          "max_abs_float32": 3.3379980264515875e-18
+        },
+        {
+          "buffer": "before.z",
+          "bytes": 864,
+          "different_bytes": 183,
+          "different_words": 60,
+          "first_old_bits": 2805744310,
+          "first_new_bits": 2806657769,
+          "max_abs_float32": 1.3404967240393528e-13
+        }
+      ]
+    },
+    {
+      "launch": "000097.28multiply_tetrahedron_tangentE.json",
+      "kernel": "_ZN7synreal6kernel28multiply_tetrahedron_tangentEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKNS2_ILi4EiLS3_0EEEPKNS1_3matILi3ELi3EfLS3_0EEES6_PKffPS4_mmm",
+      "buffers": [
+        {
+          "buffer": "after.product",
+          "bytes": 864,
+          "different_bytes": 64,
+          "different_words": 21,
+          "first_old_bits": 2891510969,
+          "first_new_bits": 2892908753,
+          "max_abs_float32": 4.8596263013678254e-08
+        },
+        {
+          "buffer": "before.direction",
+          "bytes": 864,
+          "different_bytes": 184,
+          "different_words": 60,
+          "first_old_bits": 2805271431,
+          "first_new_bits": 2806268344,
+          "max_abs_float32": 1.411446372105718e-13
+        },
+        {
+          "buffer": "before.product",
+          "bytes": 864,
+          "different_bytes": 28,
+          "different_words": 9,
+          "first_old_bits": 874543871,
+          "first_new_bits": 874625306,
+          "max_abs_float32": 4.8596263013678254e-08
+        }
+      ]
+    },
+    {
+      "launch": "000098.26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm.json",
+      "kernel": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "buffers": [
+        {
+          "buffer": "after.ap",
+          "bytes": 864,
+          "different_bytes": 186,
+          "different_words": 60,
+          "first_old_bits": 2942999612,
+          "first_new_bits": 2944317906,
+          "max_abs_float32": 4.859656854705463e-08
+        },
+        {
+          "buffer": "after.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 565212373,
+          "first_new_bits": 564684158,
+          "max_abs_float32": 5.461615090746219e-20
+        },
+        {
+          "buffer": "before.extra",
+          "bytes": 864,
+          "different_bytes": 182,
+          "different_words": 60,
+          "first_old_bits": 746737310,
+          "first_new_bits": 746609138,
+          "max_abs_float32": 4.8596263013678254e-08
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 184,
+          "different_words": 60,
+          "first_old_bits": 2805271431,
+          "first_new_bits": 2806268344,
+          "max_abs_float32": 1.411446372105718e-13
+        }
+      ]
+    },
+    {
+      "launch": "000099.28update_solution_and_residualEP.json",
+      "kernel": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "buffers": [
+        {
+          "buffer": "after.r",
+          "bytes": 864,
+          "different_bytes": 186,
+          "different_words": 60,
+          "first_old_bits": 2919659036,
+          "first_new_bits": 2919723020,
+          "max_abs_float32": 2.6563764521370103e-09
+        },
+        {
+          "buffer": "after.x",
+          "bytes": 864,
+          "different_bytes": 62,
+          "different_words": 49,
+          "first_old_bits": 2964802159,
+          "first_new_bits": 2964802158,
+          "max_abs_float32": 8.304468224196171e-12
+        },
+        {
+          "buffer": "before.ap",
+          "bytes": 864,
+          "different_bytes": 186,
+          "different_words": 60,
+          "first_old_bits": 2942999612,
+          "first_new_bits": 2944317906,
+          "max_abs_float32": 4.859656854705463e-08
+        },
+        {
+          "buffer": "before.denominator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 565212373,
+          "first_new_bits": 564684158,
+          "max_abs_float32": 5.461615090746219e-20
+        },
+        {
+          "buffer": "before.numerator",
+          "bytes": 12,
+          "different_bytes": 3,
+          "different_words": 1,
+          "first_old_bits": 564210618,
+          "first_new_bits": 563717635,
+          "max_abs_float32": 5.0973247489778655e-20
+        },
+        {
+          "buffer": "before.p",
+          "bytes": 864,
+          "different_bytes": 184,
+          "different_words": 60,
+          "first_old_bits": 2805271431,
+          "first_new_bits": 2806268344,
+          "max_abs_float32": 1.411446372105718e-13
+        },
+        {
+          "buffer": "before.r",
+          "bytes": 864,
+          "different_bytes": 186,
+          "different_words": 60,
+          "first_old_bits": 2943870728,
+          "first_new_bits": 2944738154,
+          "max_abs_float32": 4.507329975922403e-08
+        },
+        {
+          "buffer": "before.x",
+          "bytes": 864,
+          "different_bytes": 77,
+          "different_words": 58,
+          "first_old_bits": 2964802138,
+          "first_new_bits": 2964802136,
+          "max_abs_float32": 8.43414227347239e-12
+        }
+      ]
+    },
+    {
+      "launch": "000100.20apply_nonlinear_stepE.json",
+      "kernel": "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+      "buffers": [
+        {
+          "buffer": "before.dx",
+          "bytes": 864,
+          "different_bytes": 62,
+          "different_words": 49,
+          "first_old_bits": 2964802159,
+          "first_new_bits": 2964802158,
+          "max_abs_float32": 8.304468224196171e-12
+        }
+      ]
+    }
+  ],
+  "bitwise_equal": false
+}
