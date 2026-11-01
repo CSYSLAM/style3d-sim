@@ -18,9 +18,10 @@ from reconstruction.demo_ab import compare, spread_report
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--suite', choices=('surface', 'cloth', 'surface_rolling'), required=True)
+    parser.add_argument('--suite', choices=('surface', 'cloth', 'surface_rolling', 'tetrahedron_self'), required=True)
     parser.add_argument('--baseline', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--diagonal-only', action='store_true')
     args = parser.parse_args()
     args.output = args.output.resolve()
     args.output.mkdir(parents=True, exist_ok=False)
@@ -28,10 +29,21 @@ def main():
         from .affine_surface_ab import cases
     elif args.suite == 'surface_rolling':
         from .affine_surface_rolling_ab import cases
+    elif args.suite == 'tetrahedron_self':
+        from .affine_tetrahedron_ab import cases
     else:
         from .affine_cloth_ab import cases
     expected = {f'{case[0]}-{mode}' for case in cases() for mode in (0, 1)}
     module = f'reconstruction.csrc.affine_{args.suite}_graph_ab'
+    worker_extra = []
+    if args.suite == 'tetrahedron_self':
+        module = 'reconstruction.csrc.affine_tetrahedron_graph_ab'
+        worker_extra = ['--fixture', str(ROOT / 'reconstruction/csrc/affine_tetrahedron_self_scene.py'),
+                        '--particles-per-world', '24']
+        if args.diagonal_only:
+            worker_extra.append('--diagonal-only')
+    else:
+        assert not args.diagonal_only, 'This switch is specific to the tetrahedron/self fixture'
     build = ROOT / 'build/reconstruction-csrc/host-particles/build.json'
     saved = build.read_bytes()
     metadata = json.loads(saved)
@@ -43,6 +55,10 @@ def main():
         runtime = json.loads((args.baseline / (backend + '.runtime.json')).read_text())
         assert runtime['image_sha256'] == (REFERENCE_SHA if backend == 'original' else metadata['extension_sha256'])
         assert runtime['frames'] == 60
+        if args.suite == 'tetrahedron_self':
+            assert runtime['diagonal_only'] == args.diagonal_only and runtime['particles_per_world'] == 24
+            fixture = str(ROOT / 'reconstruction/csrc/affine_tetrahedron_self_scene.py')
+            assert fixture in runtime['sha256']
         assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest() == h for p, h in runtime['sha256'].items())
         baseline_runtime[backend] = runtime
         folder = args.output / (backend + '0')
@@ -67,7 +83,8 @@ def main():
         assert build.read_bytes() == saved
         folder = args.output / f'{backend}{index}'
         folder.mkdir()
-        command = [sys.executable, '-m', module, '--worker', backend, '--frames', '60', '--output', str(folder)]
+        command = [sys.executable, '-m', module, '--worker', backend, '--frames', '60', '--output', str(folder),
+                   *worker_extra]
         (folder / 'command.json').write_text(json.dumps(command, indent=2) + '\n')
         with (folder / 'run.log').open('w') as log:
             code = subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,
@@ -99,6 +116,7 @@ def main():
             results[case] = {'sources': rows,
                              'primary_c_passed': all(all(row['all_steps_within'].values()) for row in rows.values())}
     report = {'source_sha256': metadata['extension_sha256'], 'suite': args.suite, 'originals': 8, 'sources': 3,
+              'diagonal_only': args.diagonal_only,
               'cases': results, 'primary_c_passed': all(row['primary_c_passed'] for row in results.values()),
               'source0_replaced': False, 'full_worker_context_preserved': True, 'full_solver_complete': False}
     (args.output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')

@@ -1,0 +1,15 @@
+[
+  "c++",
+  "-std=c++17",
+  "-O2",
+  "-shared",
+  "-fPIC",
+  "-I/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/include",
+  "-I/home/oem/code/agent/style3d-sim/reconstruction/csrc/native",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-8f4127f0-pcg/complete-packets-v2/host_trace_packets.cpp",
+  "-L/home/oem/code/agent/style3d-sim/build/toolchains/cuda-12.4/lib/stubs",
+  "-lcuda",
+  "-ldl",
+  "-o",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-8f4127f0-pcg/complete-packets-v2/host_trace_packets.so"
+]

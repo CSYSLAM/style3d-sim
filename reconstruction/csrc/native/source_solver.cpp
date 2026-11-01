@@ -2208,8 +2208,9 @@ public:
                                   cable_count_ || fluid_rows_ || drag_count_ ||
                                   config.rigid_contact_hard))
             throw std::runtime_error("Requested affine-body scheduling branch has not been implemented");
-        if (bodies && tetrahedron_count_ && (!so3 || self || drag_count_ || fluid_rows_ ||
-                ((contact.max_count || contact.soft_max_count) && (!surface || config.rigid_contact_hard))))
+        if (bodies && tetrahedron_count_ && (!so3 || drag_count_ || fluid_rows_ ||
+                ((contact.max_count || contact.soft_max_count) &&
+                 (self || !contact.soft_max_count || config.rigid_contact_hard))))
             throw std::runtime_error("This affine tetrahedron/contact/material combination has not been captured");
         if (bodies && !so3 && (spring_count_ || triangle_count_ || edge_count_ || body_spring_total_ ||
                               distance_total_ || point_line_total_ || drive_total_ ||
@@ -2802,6 +2803,10 @@ PYBIND11_MODULE(_source_solver, module)
                                                      "affine_body_tetrahedra_newton", "affine_body_tetrahedra_pd_newton",
                                                      "affine_body_tetrahedra_surface_contact_newton",
                                                      "affine_body_tetrahedra_surface_contact_pd_newton",
+                                                     "affine_body_tetrahedra_particle_contact_newton",
+                                                     "affine_body_tetrahedra_particle_contact_pd_newton",
+                                                     "affine_body_tetrahedra_self_collision_newton",
+                                                     "affine_body_tetrahedra_self_collision_pd_newton",
                                                      "triangle_drag_newton", "triangle_drag_pd_newton",
                                                      "static_surface_contact_newton", "static_surface_contact_pd_newton",
                                                      "affine_body_surface_contact_newton",

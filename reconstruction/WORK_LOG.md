@@ -5322,3 +5322,99 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   按该提交从GitHub raw下载参考so、源码so及快照，三者均与本机逐字节同，参考64a、源码8f4127f0。
   published-89064f7-verification.json保存发布核对，也明确71/74、C10两过一失败和ready=False。
   随后只补发布记录/下一步和快照，不修改生产代码、候选、数学或比较结果。
+
+### 持续核对8f4127f0固定粒子失败的完整路径
+
+- 用户要求目标未达到前持续推进，不以发布检查点作为停止点。以09d868c干净状态接续，参考64a、
+  host8f4127f0、CUDA176/f0不变。先补start/RHS/invert三个文本不同入口的实际同输入回放。
+- 检查旧host_trace实际dump发现缺少模板和完整标量，不能按当前cpp源码假定旧binary已记录这些值。
+  新particle_packet_capture保留base observer源码、生成独立packet observer，按固定ABI记录每个参数字节，
+  补实际gravity/world、templates、mass/flags/ELL。旧observer和生产so均不覆盖。
+  继续使用完整worker顺序抓取原版/源码，只在目标case打开observer；保持固定source0/10原版不变。
+- 生成器首轮锚点同时命中snapshot与metadata两个位置，唯一性断言在编译/GPU前拒绝；旧生成器/日志保留。
+  改为带snapshot上下文的唯一锚点，在新complete-packets-v2目录重做，不覆盖失败记录。
+- 新完整参数observer抓取完成，但其同步时序使目标original/source均只与冻结目标8/15数组同，不能替代旧轨迹。
+  实际同输入回放保留旧轨迹动态数组，补同一固定模型新抓的静态/标量参数并逐项核对mass/flags/host diagonal。
+  18个packet（两种capture×三步×三入口）各runtime/原PTX/源码8次，共432次调用、864份输出逐位同；
+  保留实际pointer alias，特别是invert的blocks与inverse原地别名，不猜dt/alpha/gravity。
+- 继续核对整条PCG路径。CPU检查84次归约，发现1280个subnormal dot operand；不能直接用普通CPU加法
+  验证global atomic。按NVIDIA PTX说明核查FTZ语义，并准备以真实PTX操作数和GPU逐次atomic证书验证，
+  不改生产算法、不把新GPU诊断加入固定cohort。两份三入口helper已存versions后再扩展。
+- 完整固定路径同输入回放完成：204/204 packet均通过（两种实际轨迹各102次调用），actual SDK runtime/
+  原版PTX/源码PTX各4次共2448次核调用，所有已记录pointwise输出同；apply清零dx未在旧dump保存，
+  此额外输出由首次actual SDK runtime测得后与其余后端逐位核对，未反向灌入生产执行。
+- 84/84次归约已闭合：原版/源码instrumented PTX的257-lane真实red操作数逐位同，共168次instrumented调用。
+  每个冻结counter目标都找到精确F32加法次序证书，并由GPU单lane真实global atomic逐次重放，最终bits及
+  全部before-history完全同。包括1280个subnormal operand；只在CPU验证器按官方global atomic语义建模FTZ，
+  用真实GPU atomic核实，不修改生产数学。证书不是实际生产调度顺序，不扩充原cohort。
+  固定seed1 C10仍false，但此固定路径的所有已捕获算子输出及归约目标已得到实际SDK/精确次序证据。
+  活动host8f4127f0、CUDA176/f0、原SDK64a始终没改。继续捕获body/tet legacy particle contact组合。
+- 补查新102次完整参数抓取：原/源码每个实际标量字节、grid/block、跨调用pointer相等/空值模式全同。
+  不声称比较了外部allocation parent身份或所有指针内容；逐算子同输入回放覆盖已保存的动态值。
+
+### body/tetrahedron legacy particle contact
+
+- 不改冻结full-surface fixture，新增相同deformed/damped tet与moving SO3 box的legacy CollisionPipeline。
+  三份contact harness的旧版本先存legacy/versions，只加--contact-kind，默认surface行为/场景保持，
+  复用同一16组和strict/ABI/buffer协议。历史surface_*报告字段在legacy模式仍保留，contact_kind明确区分。
+- 原版16组全部finite、真实接触计数W1=2/W3=6，两侧RHS及tet弹性实际变化。PD+diagonal-only确实只调用
+  legacy force，其它模式另加system/preconditioner调用；与现有条件相符，不因tet存在就乱改PD条件。
+- 生产修改前27文件与435个原版capture文件SHA保存tetrahedron-legacy-before-8f4127f0。
+  仅开放有soft contact capacity的SO3/tet legacy分支，保留self/hard/rigid-only/drag/fluid等未捕获guard，
+  CUDA数学与176/f0未动，接下来编译并核对固定16个原版。
+- legacy窄guard已编译为131c987393bb78a10ae84a2705147a9c2d24f4d4bc31aae745bc0b7ef57dd7af，CUDA176/f0不变。
+  新队列串行核对legacy source16/graph60、冻结surface原版的source16及新graph、完整constructor、
+  无接触tet graph和双backend initcheck3。本批先完成相关组合，完整74将在后续必要生产变更合并后再跑，
+  不把8f的71/74结果继承到131。为后续复查旧8f，新增逐SHA验证27文件的独立checkpoint加载选项，
+  不覆盖当前生产文件；204-path已验证的旧runner先归档，加载选项待队列结束后实际验证。
+- 131 legacy队列已全部complete且退出0：legacy16状态/8428完整调用/152buffer全严格，legacy graph64/64；
+  冻结surface原版复验16/16、surface graph64/64，无接触tet graph32/32；constructor五项96/29/57/634/699同。
+  original/source各32条×3步legacy initcheck零错误。本image尚未采完整74，不继承8f结果。
+- 独立checkpoint加载已实测：活动131保持不动、归档27文件逐SHA核对后加载8f，18 packet/432次调用全同。
+  为self组合扩展self_material_ab的可选body-block及tet graph的可选fixture/layout/diagonal参数，旧版本先存档；
+  原默认fixture不改。新self场景沿既有mesh/particle五通道布置，加入SO3 body和实际初始tet形变，
+  共24 solver particles/world。预先固定16个组合，正抓真实原版；生产self guard尚未开放。
+- self原版16组已全finite，tet及四个首self kernel均真实改变RHS；第二VF的输出也通过首VF post→PP pre差异
+  证实生效，五个通道都非空。full cache W1计数沿0→3→5→6→7→8，W3沿0→9→15→18→21→24；
+  diagonal-only不写tangent counter但五个RHS变化都在，不能把counter0误读为空接触。
+- 实际顺序self forces→SO3→tet，preconditioner tet→self diagonal，CG SO3→tet→full/diagonal self tangent，
+  均与现有调度相符。保存131的27文件及全部self原版SHA后，仅开放无external-contact的SO3/tet/self guard；
+  self+external contact、hard/rigid-only/drag/fluid等仍保护，未修改数学或归约。开始编译新image验证。
+
+### 04b46fb0 self/tetrahedron 局部验证与固定失败保留
+
+- 当前image 04b46fb0e53d25ed680e724eff346526d688af01bd5f07db51d6e3bd8d9a8fb3。
+  原版/源码16组三步中W1八组全严格，W3八组状态不同；所有完整owned ABI、geometry、coverage及
+  已定义首buffer均同。B1/W3/PD/full的body差异始于第三步，最大body速度差6.8768859e-6，
+  不能未经核对就把它归为普通原子波动。
+- self graph d0为24/32严格，d1为30/32严格，包含原版自身eager/graph差异。构造五项全同，
+  117个allocation/release事件；original/source × diagonal开关的四次initcheck3均0错误。
+  legacy16、surface16、无contact tet graph32、self配置246均通过；完整74未采，不继承旧image结果。
+- affine_graph_cohort仅扩展tetrahedron_self及diagonal开关，保留原baseline original0/source0全部文件，
+  固定8 original/3 source，完整fixture顺序与60步保留。旧helper先存versions。
+  初次driver误用系统python（不可用），随后直接脚本缺root sys.path在GPU前退出；已修正为项目venv且
+  显式加入root。没有运行或替换任何失败trajectory；正式串行cohort输出在graph-cohort-d0/d1。
+- 为定位B1/W3/PD/full首差，独立编译诊断host_trace.so，不覆盖生产或旧observer。
+  唯一诊断改动是precomputed=true时抓取实际z输入、跳过不贡献的inverse读取；保留基文件、生成源码、
+  编译命令、二进制及SHA。诊断同步会改变调度，后续必须先与冻结first candidate核对，不能代替首候选。
+- self固定graph cohort结束：full为15/16通过、diagonal-only为16/16通过。唯一失败w3-pd-b1 eager
+  的source0从step2起四数组均超C（仅2/60步在范围），8个原版body轨迹完全相同；source1/2各60/60，
+  并与original0/2/4/5整段逐位同。不能用source1/2替换source0或把此整段C重判通过。
+  新tetrahedron_full_worker_trace保留graph worker全部8fixture、eager/graph及60步顺序，仅同步抓目标
+  eager前三步；将逐字节比较是否复现冻结目标，随后再解释首个实际buffer差异。
+- 全worker同步trace已完成：原版整段60步与冻结original0逐位同；source未复现冻结source0，已明确保存
+  reproduction=false。诊断首差000019 precondition_and_reduce仅numerator world1差2ULP，r、z和counter初值同。
+  扩展same-buffer probe支持实际precomputed=true（旧helper已归档），实际SDK/original PTX/source PTX
+  同一buffer/stream轮换各16次，逐点z全同，三backend各自都产生原版/源码两端counter模式。
+- 新pcg_grouped_atomic_certificate抓原/源码实际每lane贡献与地址：72个live lane各1次、其余无写入，
+  24粒子/world分到3个真实counter地址；72个operand逐位同。两端共6个group目标均找到精确F32次序，
+  由真实单lane atom.global.add.f32逐步history核实，1至4次CPU搜索、无负数或subnormal。
+  只解释本次诊断首差，不宣称复现旧source0或整段C通过。
+- 按预定单次额外诊断，只在第三步开启observer；原/source都未完整复现冻结目标，首差已在第三步输入，
+  所以不能把第三步initialize_step列作原因，也不继续反复抽样直到碰到旧状态。
+- 当前04完整74和其首次失败固定C10已启动串行runner，期间生产image不动；旧image结果不继承。
+  本批证明与失败均写BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md并更新根交接当前image。
+- 发布前构建provenance两套均吻合，360个既有pyc和SDK64a未变；快照43355文件校验0失败。
+  全量diff --check仅指出新归档的原始PTX/生成头/旧源码及raw TSV原有空白；保持其字节与旧hash，
+  不为格式化破坏证据。当前维护源码与文档范围的diff --check通过。正在运行的regression原始输出
+  暂不纳入此检查点，待完整后单独提交；失败与未完成状态均明确保留。

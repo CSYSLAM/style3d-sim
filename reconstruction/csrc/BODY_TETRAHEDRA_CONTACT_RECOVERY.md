@@ -1,6 +1,8 @@
 # SO3 body + tetrahedra实际full-surface接触
 
-当前host image：`8f4127f0f2f3b90fed919ca87f94ff3e5e38fa251b4e24992e065b2f62ac02d2`。
+本文件记录历史host image：`8f4127f0f2f3b90fed919ca87f94ff3e5e38fa251b4e24992e065b2f62ac02d2`。
+当前活动04及后续legacy/self工作见[BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md](BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md)，
+固定粒子完整路径核对见[PARTICLE_FIXED_PATH_RECOVERY.md](PARTICLE_FIXED_PATH_RECOVERY.md)。
 唯一参考仍为项目内处理版64a0be7f；源码不登录，不映射原版so代算。
 CUDA数学未改：176唯一入口，digest `f0e0137a1eef9e603495dd9fe04f89f285d0723380099d7ce16951c8a267c79a`。
 完整solver仍未验收，`solver_api_ready=False`。此前b945阶段见

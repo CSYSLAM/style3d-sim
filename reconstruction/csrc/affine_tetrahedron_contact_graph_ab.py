@@ -10,7 +10,7 @@ import sys
 import numpy as np
 
 from reconstruction.demo_ab import compare
-from .affine_tetrahedron_contact_ab import cases, clean_env
+from .affine_tetrahedron_contact_ab import cases, clean_env, fixture_path
 from .demo_source_ab import ROOT
 from .host_api_probe import REFERENCE_SHA
 
@@ -27,12 +27,16 @@ def worker(args):
         core = native_source()
         assert core.source_only
         bridge(core)
-    from .affine_tetrahedron_contact_scene import Example
-    paths = (Path(__file__), ROOT / 'reconstruction/csrc/affine_tetrahedron_contact_scene.py',
+    if args.contact_kind == 'surface':
+        from .affine_tetrahedron_contact_scene import Example
+    else:
+        from .affine_tetrahedron_legacy_contact_scene import Example
+    paths = (Path(__file__), fixture_path(args.contact_kind),
              ROOT / 'reconstruction/csrc/affine_tetrahedron_contact_ab.py')
     (args.output / (args.worker + '.runtime.json')).write_text(json.dumps({
         'backend': args.worker, 'image_sha256': hashlib.sha256(Path(core.__file__).read_bytes()).hexdigest(),
-        'frames': args.frames, 'sha256': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}},
+        'frames': args.frames, 'contact_kind': args.contact_kind,
+        'sha256': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}},
         indent=2) + '\n')
     for name, worlds, extra in cases():
         for graph in (False, True):
@@ -63,8 +67,11 @@ def worker(args):
             np.savez_compressed(args.output / f'{args.worker}-{name}-{int(graph)}.npz', **arrays)
             if args.worker == 'source':
                 counts = dict(scene.solver._native_solver.source_launch_counts)
-                assert all(counts.get(key, 0) > 0 for key in ('tetrahedron_force', 'tetrahedron_tangent',
-                                                            'surface_force', 'surface_tangent'))
+                required = ['tetrahedron_force', 'tetrahedron_tangent']
+                required += (['surface_force', 'surface_tangent'] if args.contact_kind == 'surface' else ['soft_contact'])
+                if args.contact_kind == 'legacy' and '--diagonal-only' not in extra:
+                    required.append('soft_contact_product')
+                assert all(counts.get(key, 0) > 0 for key in required)
     if args.worker == 'source':
         assert '_core.cpython-' not in Path('/proc/self/maps').read_text()
 
@@ -74,6 +81,7 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--frames', type=int, default=60)
     parser.add_argument('--worker', choices=('original', 'source'))
+    parser.add_argument('--contact-kind', choices=('surface', 'legacy'), default='surface')
     args = parser.parse_args()
     assert args.frames > 0
     args.output = args.output.resolve()
@@ -86,7 +94,7 @@ def main():
     for backend in ('original', 'source'):
         assert build.read_bytes() == saved
         command = [sys.executable, '-m', 'reconstruction.csrc.affine_tetrahedron_contact_graph_ab', '--worker', backend,
-                   '--frames', str(args.frames), '--output', str(args.output)]
+                   '--frames', str(args.frames), '--output', str(args.output), '--contact-kind', args.contact_kind]
         (args.output / (backend + '.command.json')).write_text(json.dumps(command, indent=2) + '\n')
         with (args.output / (backend + '.log')).open('w') as log:
             subprocess.run(command, cwd=ROOT, env=clean_env(), stdout=log, stderr=subprocess.STDOUT,

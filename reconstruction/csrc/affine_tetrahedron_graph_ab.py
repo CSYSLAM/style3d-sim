@@ -2,6 +2,7 @@
 import argparse
 from contextlib import ExitStack
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -27,14 +28,20 @@ def worker(args):
         from .host_bodies_ab import bridge
         core = native_source()
         bridge(core)
-    from .affine_tetrahedron_scene import Example
-    inputs = [Path(__file__), ROOT / 'reconstruction/csrc/affine_tetrahedron_scene.py',
+    spec = importlib.util.spec_from_file_location('tetrahedron_graph_fixture', args.fixture)
+    fixture = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(fixture)
+    Example = fixture.Example
+    inputs = [Path(__file__), args.fixture,
               ROOT / 'reconstruction/csrc/affine_tetrahedron_ab.py']
     (args.output / (args.worker + '.runtime.json')).write_text(json.dumps({
         'backend': args.worker, 'image_sha256': hashlib.sha256(Path(core.__file__).read_bytes()).hexdigest(),
-        'frames': args.frames, 'sha256': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}},
+        'frames': args.frames, 'particles_per_world': args.particles_per_world, 'diagonal_only': args.diagonal_only,
+        'sha256': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}},
         indent=2) + '\n')
     for name, worlds, extra in cases():
+        if args.diagonal_only:
+            extra = [*extra, '--diagonal-only']
         for graph in (False, True):
             scene = Example(None, Example.create_parser().parse_args(extra))
             graphs = []
@@ -54,12 +61,15 @@ def worker(args):
                 for key in record:
                     record[key].append(getattr(scene.state_0, key).numpy().copy())
             arrays = {key: np.asarray(value) for key, value in record.items()}
-            assert arrays['particle_q'].shape == (args.frames, 8 * worlds, 3)
+            assert arrays['particle_q'].shape == (args.frames, args.particles_per_world * worlds, 3)
             assert all(np.isfinite(value).all() for value in arrays.values())
             np.savez_compressed(args.output / f'{args.worker}-{name}-{int(graph)}.npz', **arrays)
             if args.worker == 'source':
                 counts = dict(scene.solver._native_solver.source_launch_counts)
                 assert counts['tetrahedron_force'] > 0 and counts['tetrahedron_tangent'] > 0
+                if scene.solver.config.enable_self_collision:
+                    assert all(counts.get(key, 0) > 0 for key in ('self_accumulate_pp', 'self_accumulate_vf',
+                                                                'self_accumulate_ee', 'self_accumulate_ef'))
     if args.worker == 'source':
         assert '_core.cpython-' not in Path('/proc/self/maps').read_text()
 
@@ -69,8 +79,13 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--frames', type=int, default=60)
     parser.add_argument('--worker', choices=('original', 'source'))
+    parser.add_argument('--fixture', type=Path, default=ROOT / 'reconstruction/csrc/affine_tetrahedron_scene.py')
+    parser.add_argument('--particles-per-world', type=int, default=8)
+    parser.add_argument('--diagonal-only', action='store_true')
     args = parser.parse_args()
     args.output = args.output.resolve()
+    args.fixture = args.fixture.resolve(strict=True)
+    assert args.frames > 0 and args.particles_per_world > 0
     if args.worker:
         return worker(args)
     args.output.mkdir(parents=True, exist_ok=False)
@@ -83,7 +98,10 @@ def main():
     for backend in ('original', 'source'):
         assert build.read_bytes() == saved
         command = [sys.executable, '-m', 'reconstruction.csrc.affine_tetrahedron_graph_ab', '--worker', backend,
-                   '--frames', str(args.frames), '--output', str(args.output)]
+                   '--frames', str(args.frames), '--output', str(args.output), '--fixture', str(args.fixture),
+                   '--particles-per-world', str(args.particles_per_world)]
+        if args.diagonal_only:
+            command.append('--diagonal-only')
         (args.output / (backend + '.command.json')).write_text(json.dumps(command, indent=2) + '\n')
         with (args.output / (backend + '.log')).open('w') as log:
             subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=1200)

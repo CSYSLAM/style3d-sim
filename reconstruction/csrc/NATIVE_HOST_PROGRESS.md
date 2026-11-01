@@ -1,6 +1,13 @@
 # 新版基准与 C++ host 进度
 
-> **活动8f4127f0：新增SO3 body/tetrahedra实际full-surface软接触。**
+> **活动04b46fb0：SO3/tet legacy接触已严格验证，新增self组合继续定位W3差异。**
+> 131的legacy16、graph64/64全严格；04的self W1八组严格，W3八组状态不同，首buffer及完整owned调用同。
+> constructor五项同，四组initcheck3零错误；legacy16、surface16、无contact graph32及配置246仍通过。
+> 当前完整74尚未采，ready=False；证据、命令、待办见BODY_TETRAHEDRA_SELF_LEGACY_RECOVERY.md。
+> 8f固定particles路径全部102次算子与84归约已实际回放核对，原固定C10失败仍保留；见PARTICLE_FIXED_PATH_RECOVERY.md。
+> 下列各image结果均为对应历史，不能直接计为04验收。
+>
+> **历史8f4127f0：新增SO3 body/tetrahedra实际full-surface软接触。**
 > 16组状态/160buffer/8824次完整owned调用全同；64项60步eager/graph逐位同。
 > 构造96/29/57/634/699五项同，original/source各32条×3步initcheck均零错误。
 > 无contact tet graph32/32、246配置同；74回归71严格，三particles固定C10两过一失败，CPU复核同。

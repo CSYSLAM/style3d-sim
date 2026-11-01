@@ -1,0 +1,78 @@
+{
+  "case": "tet-w3-newton-d1",
+  "worker_exit": 0,
+  "finite": true,
+  "states": {
+    "body_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 3,
+      "first_diff_substep": null,
+      "max_abs": 0.0,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 1,
+      "first_diff_substep": 1,
+      "max_abs": 4.547473508864641e-13,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 3,
+      "length_match": true,
+      "bitwise_substeps": 1,
+      "first_diff_substep": 1,
+      "max_abs": 1.1641532182693481e-10,
+      "nonfinite": false
+    },
+    "bitwise": false
+  },
+  "metadata": {
+    "left_launches": 546,
+    "right_launches": 546,
+    "different_launches": 0,
+    "examples": [],
+    "arguments_equal": true,
+    "geometry_and_shared_memory_complete": true,
+    "equal": true
+  },
+  "coverage": true,
+  "buffers": {
+    "15initialize_step/post/22": true,
+    "14initialize_rhs/post/9": true,
+    "22accumulate_vertex_face/pre/6": true,
+    "22accumulate_vertex_face/post/11": true,
+    "22accumulate_vertex_face/post/12": true,
+    "22accumulate_vertex_face/post/14": true,
+    "20accumulate_edge_edge/pre/6": true,
+    "20accumulate_edge_edge/post/9": true,
+    "20accumulate_edge_edge/post/10": true,
+    "20accumulate_edge_edge/post/12": true,
+    "20accumulate_edge_face/pre/7": true,
+    "20accumulate_edge_face/post/10": true,
+    "20accumulate_edge_face/post/11": true,
+    "20accumulate_edge_face/post/13": true,
+    "25accumulate_particle_pairs/pre/5": true,
+    "25accumulate_particle_pairs/post/7": true,
+    "25accumulate_particle_pairs/post/8": true,
+    "25accumulate_particle_pairs/post/10": true,
+    "22evaluate_stretch_force/post/5": true,
+    "26evaluate_tetrahedron_force/post/8": true,
+    "20add_hessian_diagonal/post/1": true,
+    "30add_tetrahedron_preconditioner/post/6": true,
+    "25multiply_hessian_diagonal/post/2": true,
+    "28multiply_tetrahedron_tangent/post/7": true
+  },
+  "reference": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261031-131c9873-self/original-b0/tet-w3-newton-d1",
+  "passed": false
+}

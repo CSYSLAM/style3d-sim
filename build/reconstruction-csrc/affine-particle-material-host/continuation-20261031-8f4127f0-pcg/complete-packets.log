@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/particle_packet_capture.py", line 91, in <module>
+    main()
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/particle_packet_capture.py", line 45, in main
+    replace('        if (group_ == "15initialize_stepE") {', ''.join(extra) +
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/particle_packet_capture.py", line 32, in replace
+    assert text.count(old) == 1, old
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError:         if (group_ == "15initialize_stepE") {

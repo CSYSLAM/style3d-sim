@@ -1,0 +1,51 @@
+{
+  "target": "w3-pd-b1",
+  "observed_steps": 3,
+  "baseline": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/validation-04b46fb0-self-tet/self-graph60-d0",
+  "frozen_target_reproduction": {
+    "body_q": {
+      "substeps": 60,
+      "length_match": true,
+      "bitwise_substeps": 2,
+      "first_diff_substep": 2,
+      "max_abs": 4.559755325317383e-06,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 60,
+      "length_match": true,
+      "bitwise_substeps": 2,
+      "first_diff_substep": 2,
+      "max_abs": 9.266287088394165e-05,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 60,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 8.970499038696289e-06,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 60,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 9.298324584960938e-05,
+      "nonfinite": false
+    },
+    "bitwise": false
+  },
+  "first_three_reproduction": {
+    "particle_q": false,
+    "particle_qd": false,
+    "body_q": false,
+    "body_qd": false,
+    "bitwise": false
+  },
+  "synchronizing_diagnostic": true,
+  "frozen_candidate_replaced": false,
+  "whole_solver_complete": false,
+  "runner_sha256": "d2c363f57e096ce4260d6ffe9da73b07da68e3e9d9ce955e9804ed2f2cf20f01"
+}

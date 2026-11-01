@@ -20,13 +20,15 @@ class Dim3(c.Structure):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--trace', type=Path, required=True)
+    locations = parser.add_mutually_exclusive_group(required=True)
+    locations.add_argument('--trace', type=Path)
+    locations.add_argument('--directory', type=Path, help='Use an explicit native packet directory')
     parser.add_argument('--launch', required=True)
     parser.add_argument('--trials', type=int, default=64)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
-    directory = args.trace/'legacy/actual'
+    directory = args.directory if args.directory else args.trace/'legacy/actual'
     prefix = args.launch.removesuffix('.json')+'.'
     meta = json.loads((directory/(prefix+'json')).read_text())
     name = meta['name']
@@ -48,8 +50,11 @@ def main():
     initial = np.frombuffer(payload('before.'+aggregate), dtype='f4').copy()
     world = payload('before.world', True)
     per_group = struct.unpack('<I', payload('before.per_group'))[0]
+    precomputed = False
     if precondition:
-        assert payload('before.precomputed') == b'\0'
+        raw = payload('before.precomputed')
+        assert raw in (b'\0', b'\1')
+        precomputed = raw == b'\1'
     assert np.all(initial == 0)
     n = len(expected_output)//12
     driver = k.Driver()
@@ -73,12 +78,17 @@ def main():
             data = payload(label, optional)
             return driver.upload(np.frombuffer(data, dtype=dtype)) if data is not None else c.c_void_p()
 
-        z_initial = np.zeros((n, 3), dtype='f4')
+        z_initial = (np.frombuffer(payload('before.z'), dtype='f4').reshape(n, 3).copy()
+                     if precomputed else np.zeros((n, 3), dtype='f4'))
         pz = driver.upload(z_initial)
         pw = driver.upload(np.frombuffer(world, dtype='i4')) if world is not None else c.c_void_p()
         pn = driver.upload(initial)
         if precondition:
-            parameters = [captured_pointer('before.inverse'), captured_pointer('before.r'), pz, c.c_bool(False),
+            inverse = captured_pointer('before.inverse', optional=precomputed)
+            if precomputed and not inverse.value:
+                # Both PTX entries branch past inverse reads for the recorded precomputed=true scalar.
+                inverse = driver.upload(np.zeros((n, 9), dtype='f4'))
+            parameters = [inverse, captured_pointer('before.r'), pz, c.c_bool(precomputed),
                           pw, c.c_uint(per_group), pn, k.u64(n)]
         else:
             maximum = struct.unpack('<Q', payload('before.max_count'))[0]
@@ -116,6 +126,8 @@ def main():
                   'method': 'Identical buffers and nonblocking stream; rotate actual runtime/original PTX/source PTX order',
                   'kernel': name, 'pointwise_output': pointwise, 'atomic_output': aggregate,
                   'particles': n, 'groups': len(initial), 'trials_per_backend': args.trials, 'checks': checks,
+                  'precomputed': precomputed,
+                  'captured_atomic_output_bits': np.frombuffer(payload('after.'+aggregate), dtype='u4').tolist(),
                   'patterns': {backend: sorted({tuple(v['scalar_bits']) for v in checks if v['backend'] == backend})
                                for backend in backends},
                   'all_pointwise_equal': all(v['pointwise_equal'] for v in checks),

@@ -50,6 +50,7 @@ def main():
     parser.add_argument('--frames', type=int, default=3)
     parser.add_argument('--fixture', type=Path, default=ROOT/'reconstruction/csrc/self_material_scene.py')
     parser.add_argument('--particles-per-world', type=int, default=20, help='Exact fixture layout for bounded buffer dumps')
+    parser.add_argument('--body-block', action='store_true', help='Pass the body-block switch to a body/material fixture')
     args = parser.parse_args()
     assert args.particles_per_world > 0
     assert args.backend == 'original' or args.references is not None
@@ -71,6 +72,8 @@ def main():
     for name, extra, total in cases():
         if args.only_case and name not in args.only_case:
             continue
+        if args.body_block:
+            extra = [*extra, '--body-block']
         total = total//20 * args.particles_per_world
         assert manifest.read_bytes() == saved
         assert hashlib.sha256(fixture.read_bytes()).hexdigest() == hashes['fixture']
