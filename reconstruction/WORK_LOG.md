@@ -6563,3 +6563,28 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - atomic prepare/AST/128实际0，驱动45158实际0，GPU2718125/CPU2718174均0；CPU核5233024 after、5097792 guard、5652 ABI字节。
   外部2704714已不在表，退出未知；本轮自有全部GPU已结束。生产/SDK/pyc不改、未冗余重复74，readyFalse/goal活动。
 - 证据和方法见G1_FOURTH_NL2_LINEAR_RECOVERY.md；下一步实际SDK核未覆盖host组合支持/调度，继续补功能范围。
+
+### 2026-11-01：实际发现颗粒＋刚体的source host缺口，隔离候选验证
+
+- 上一阶段3470071652bbb62c09203f77d6da603d6ae3f11d已推送，远端精确HEAD及当时clean确认；253211快照全量校验0。
+- 新granular_affine_scene.py：单世界8真实颗粒＋1 SO3刚体（4代理），Newton/PD×body block开关共4组、每组3步。
+  两类物体都实际演化，颗粒触点force确有改变，body代理实际8..11、granular ids0..7；无外部contact/self/其它材料。
+- support prepare实际0；驱动62982原版4组均实际0、源码4组均实际1，原文guard明确拒绝混合材料/刚体。
+  原CPU/驱动1是新审计误按8行检查state，实际Newton状态含proxy共12行；旧v1脚本/log/plan保留。
+  v2只改12行检查和实际前8普通粒子演化检查，另输出新json；无GPU重采、全部原始数据不变，独立CPU实际0。
+- 这证明该组合是实际SDK支持且当前源码缺少的范围，不把20处静态guard当20个已证明缺陷。
+- 新build-candidate.py从冻结38源码复制一份，仅删除granular guard的has_bodies子项，单独编译，不写生产路径。
+  编译session83104实际0，候选SHA d9f2c328bf6f032cda86eb5b4914558029077abccf977fb26b17f636a5fdf6d6。
+  同27输入/176 CUDA/全部数学与生产host38/Core7eb不变；此为诊断试验，未推广支持范围或提升ready。
+- candidate-worker使用校验过的隔离源码image和既有host bridge，无SDK代算；4输入预先冻结，对照固定原版state/完整buffer/owned元数据。
+  维护脚本AST/128格式检查两次发现新文件131列和候选runner137列，均在相应计划冻结前修格式，未改渲染数学或原数据。
+  candidate prepare实际0；驱动85554等待实际外部GPU PID2727055，未终止外部任务；终态须继续核实际session/status。
+- support前曾观察短暂外部PID2720784，随后不在表，退出未知。当前证据目录continuation-20261101-38b70dcd-granular-affine-support。
+  完整solver仍未验收，所有G1/布料/粒子固定失败与阈值保持。接续候选4组、必要的constructor/graph/initcheck，再决定是否推广生产。
+- GPU等待期间准备check-constructors.py：仅在候选4/4完整严格后才执行，固定Newt/body-block案例的真实allocation/upload/typed initializer/owned pointer审计。
+  当前仅CPU脚本AST/128通过，尚未启动constructor GPU；不能把准备当结果。候选85554仍等待实际外部2727055。
+- 后续graph-worker.py/check-graphs.py已准备60步四组eager/真实graph独立核对；尚未执行，不能记通过。
+  AST/128列检查通过（graph adapter初稿129列在冻结执行前折行）；构造与graph脚本都要求候选4/4严格才能启动。
+- 发布不可变支持发现/隔离构建检查点：原8 worker已终态，v1审计失败与v2修复保留；候选85554仍经工具确认存活等待外部2727055。
+  只纳入不可变代码、原始SDK/guard数据和候选构建，排除candidate.run.status.json及正在/未来生成的候选输出。
+  这是未完阶段检查点，不声明候选通过或全部GPU终态，后续结果另行追加。

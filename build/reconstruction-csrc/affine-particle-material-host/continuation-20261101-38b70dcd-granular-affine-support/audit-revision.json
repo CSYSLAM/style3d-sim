@@ -1,0 +1,16 @@
+{
+  "first_driver_session": 62982,
+  "first_driver_actual_exit": 1,
+  "first_CPU_actual_exit": 1,
+  "reason": "Newton expands recorded particle state to include four affine proxies; actual shape is 3x12x3",
+  "raw_eight_worker_inputs_and_outputs_unchanged": true,
+  "v1_sha256": "190a845e1e2135d9b163b48df874412b4d1a812e6ddd64851cc96e9e2f19b5a8",
+  "v2_sha256": "187fddbcdc4ff6a82c31147ffb762d803d077ec0411234022dc92400d896dc99",
+  "exact_replacements": {
+    "states['particle_q'].shape == (3, 8, 3)": "states['particle_q'].shape == (3, 12, 3)",
+    "states['particle_q'][0].tobytes() != before['particle_q'].tobytes()": "states['particle_q'][0, :8].tobytes() != before['particle_q'].tobytes()",
+    "output = BASE / 'independent-cpu-audit.json'": "output = BASE / 'independent-cpu-audit-v2.json'"
+  },
+  "production_changed": false,
+  "whole_solver_complete": false
+}
