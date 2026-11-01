@@ -5844,3 +5844,31 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   C10失败分支n257_w1_it5_f0最早差异在记录1/in.particle_q，particle251.x，source 0x3f37f4dd、original0 0x3f37f4de，
   十份实际原版均无该完整数组匹配；其它分支的严格差异不都造成C失败，不能混淆最早全worker严格差异与失败分支首差。
   下一诊断应保留seed2完整worker顺序和it5目标上下文，先确认observer是否复现固定251.x，再做同输入算子回放；旧seed1/it1证据不直接继承。
+- 完整回归及C10/CPU/前端数据已提交并推送40f7540ef509a3bf5239c664b1ab30dfa7ca6a3a，远端SHA确认一致；186830快照文件零失败。
+- 接触C8首两组soft surface SO3/W3/Newton b0/b1均失败，新增worker完整owned metadata同；不补采或替换失败。
+  对首组11份实际buffer做CPU字节审计，first-contact-C8-buffer-audit.json保存各SHA及首差bits：
+  首surface force的RHS pre全部逐位相同；post八份原版逐位同，三份源码各有同一个分量与之不同。
+  这是明确后续同输入replay目标，但只验证了RHS pre，尚未验证整个contact view及其它输入同，不能据此认定核数学或原子次序根因。
+  下次GPU空闲后先捕获该actual packet，保持完整worker顺序并核对observer是否复现原post，再比较runtime/原PTX/源码及实际red操作数。
+- 新增driven_cloth_surface_capture.py，完整输入大小从固定原版首view的实际scalar words及首contact布局打印推导，
+  CPU核对33个active contact、local12/total36、shape2/body2，共25指针字段3372字节，不补造几何或读取active之外的contact tail。
+  保留原全部九轮RHS dump，并额外抓输入；只解释call000，逐字节导出旧same-buffer replay可读packet。
+  要求完整owned metadata与固定原版相同，报告RHS pre/post及完整state是否复现冻结候选，不把插桩改变后的轨迹算原失败路径。
+  run-first-surface-diagnosis.py准备原版/source抓取和各自runtime/原PTX/源码同buffer回放，要求现有after-regression队列complete才可运行。
+  目前仅完成CPU规划/语法/宽度核对，GPU尚未执行；生产source230、核数学、SDK和固定接受cohort均未改。
+- 对当前bundle先校验build sources SHA，再静态提取首surface force：规范化原PTX3251行、源码2006行，文本不同；
+  原module SHA f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14，
+  源module SHA 5158c91039677002a51ce4e55c5efbd601f007a17493bc74442763902b292039。
+  first-surface-static-ptx-audit.json及.diff保留结果；这是静态诊断，不证明数值不等价，也不证明原子次序根因。
+- 确认旧session93855已结束且无对应GPU进程，after-regression队列状态complete：短C8为10/26，长程soft37/64、rigid-soft39/64。
+  短26独立CPU重算全同；新增audit-graph-fixed-C8.py对长128个case重算全同，仍保留16短和52长失败。
+- 实际运行run-first-surface-diagnosis.py，四任务全部退出0。两端25个pointer输入及RHS pre（26文件）逐字节同，完整owned metadata同；
+  首RHS pre/post各自复现固定候选，source完整state复现，original完整state未复现，证明范围只到该首force。
+  33接触逐个三端输出全同，两PTX真实原子操作数/目标同；原runtime/原PTX aggregate复现原值，源码PTX复现源码值。
+  108scalar的旧CPU累加存在性检查通过，不把CPU候选等同真实GPU证书。
+- verify-first-surface-atomic-order.py另验scalar84：9线程18实际写入，保留每线程同目标ordinal顺序，原/源目标分别搜1/12次即找到合并。
+  用SERIAL_PTX真实global F32 atomic重新逐次执行，目标及全history均严格同，原0xc1fbdc24、源0xc1fbdc25。
+  证明该scalar合法累计可产生两值；不推断实际生产调度，不证明跨所有目标的一条统一线程执行，不改数学或C8失败结论。
+- 已串行完成seed2/it5完整worker内部trace两端，复用已验证SHA的all-entry-packets observer，生产source230不变。
+  两端各只有8/15目标state数组匹配冻结候选，因此不把这份动态trace当原失败路径；original/source raw各8348文件保留。
+  对两native目录做lossless SHA-content archive并逐文件roundtrip检查，后续WSL用unpack_reconstruction_trace.py还原。

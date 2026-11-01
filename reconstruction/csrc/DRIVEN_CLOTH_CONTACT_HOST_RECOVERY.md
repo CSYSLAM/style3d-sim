@@ -51,7 +51,8 @@ affine-build的模板/行数和PCG的稀疏类型；membrane/spring等仍保留�
 - 38/64状态及九轮force buffer严格；全部32组W1严格，另6组W3严格。
   剩余26份严格差异原样保留，尚未全部归因，不能统一称为原子波动。
 - 16种W3 constructor五项全部相同；真实graph60比较为soft 71/128、rigid-soft 74/128严格。
-  所有worker均结束且状态finite，未通过项全部保留；长程固定C尚未采集。
+  所有worker均结束且状态finite，未通过项全部保留；长程固定C8为soft 37/64、rigid-soft 39/64通过。
+  26份短程首次失败固定C8为10通过、16失败；独立CPU重算短26和长128份统计全部一致。
 - 两组场景的original/source共四个initcheck3 worker均为零错误，覆盖256条eager/graph轨迹各三步。
 - 本image完整74已结束，70严格通过；particles seed1/2/3和pd_mixed_cloth seed3首次差异均保留。
   四份固定C10为seed1/seed3/PD mixed通过、seed2失败，CPU重算四份报告完全相同；seed2仍未解决。
@@ -106,3 +107,14 @@ source scripts/reconstruction_env.sh
 ```
 
 输出用新目录，GPU worker串行，源码和夹具在队列运行期间保持不变。
+
+首个短C8失败已有独立完整输入抓取器`driven_cloth_surface_capture.py`，两端抓取及同输入回放已全部结束。
+实际首packet有33 contacts、12 local/36 total particles、2 shapes、2 bodies；25个指针字段大小来自原view。
+`run-first-surface-diagnosis.py`两端完整pointer输入及RHS pre逐字节同，首RHS post均复现各自冻结值。
+源码完整state亦复现；原版完整state未复现，不能外推成原版整段路径证明。
+33个接触逐个计算三端全同，真实原子贡献及目标地址序列同；同buffer aggregate仍重现原/源1 ULP差异。
+scalar84的9线程18次真实贡献，保持各线程同目标顺序的合并，经单lane真实GPU global F32 atomic，
+分别精确得到原版`0xc1fbdc24`和源码`0xc1fbdc25`，history也一致。
+这是该scalar的F32累计存在性证明，未推断原实际调度，也未证明跨目标完整执行顺序；原C8失败仍保留。
+数据为`first-surface-diagnosis-23012dc5/`、`first-surface-ordered-atomic-certificates/`。
+粒子seed2/it5完整worker trace两端各仅8/15目标数组匹配冻结值，不能解释原固定失败，需继续定位。

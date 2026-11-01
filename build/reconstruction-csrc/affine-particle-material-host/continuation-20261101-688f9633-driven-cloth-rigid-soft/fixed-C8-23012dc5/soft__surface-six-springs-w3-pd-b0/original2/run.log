@@ -1,0 +1,21 @@
+Warp 1.16.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 5090 D v2" (23 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     /home/oem/code/agent/style3d-sim/build/reconstruction-warp/1.16.0
+Module newton._src.utils.mesh 3a50b9a load on device 'cpu' took 1.27 ms  (cached)
+Module validate_and_correct_inertia_kernel_5e18b3cd 5e18b3c load on device 'cuda:0' took 0.70 ms  (cached)
+Module newton._src.geometry.bvh cca3a6c load on device 'cuda:0' took 0.69 ms  (cached)
+Module newton._src.sim.articulation daa0137 load on device 'cuda:0' took 5.93 ms  (cached)
+Module newton._src.sim.collide 4a8a6d9 load on device 'cuda:0' took 0.56 ms  (cached)
+Module narrow_phase_primitive_write_contact dd23331 load on device 'cuda:0' took 1.02 ms  (cached)
+Module narrow_phase_gjk_mpr_True_write_contact_support_map_lean_post_process_minkowski_only dc14230 load on device 'cuda:0' took 1.92 ms  (cached)
+Module newton._src.geometry.narrow_phase a137686 load on device 'cuda:0' took 2.72 ms  (cached)
+Module newton._src.geometry.kernels 4af6fcd load on device 'cuda:0' took 2.99 ms  (cached)
+Module newton._src.geometry.soft_contacts_sdf 0ba3ff0 load on device 'cuda:0' took 3.57 ms  (cached)
+driven_cloth_contact_layout {"count": 33, "proxy_indices": [4, 5, 6, 7, 8, 9, 10, 11, 16, 17, 18, 19, 20, 21, 22, 23, 28, 29, 30, 31, 32, 33, 34, 35], "free_indices": [0, 1, 2, 3, 12, 13, 14, 15, 24, 25, 26, 27]}
+Module style3d_sim.joint_drive_effort 0d968fe load on device 'cuda:0' took 0.99 ms  (cached)
+Module style3d_sim.newton_solver 6521420 load on device 'cuda:0' took 7.43 ms  (cached)
+demo_source_ab_complete
