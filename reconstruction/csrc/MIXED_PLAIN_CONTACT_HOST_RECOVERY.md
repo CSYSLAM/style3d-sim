@@ -33,15 +33,16 @@
 SHA `7eb6e847ad6f100b51f2bc89db0a88744f93878077c318c91288d2f595116b53`，host38/CUDA176/f0。
 正常包入口Dzhanibekov60、plastic bag3、G1真实graph60及各自--test均退出0，source_only/public_core_abi true，
 无bridge、无原版求解器映射。`public-core-validation.json`保存已结束任务的不可变收据。
-本轮`run-broad-validation.py`已进入38自己的完整74/C10/CPU。
-用`validation-38b70dcd/broad-validation/status.json`与实际进程核对，在运行就等同一任务，不覆盖首输出。
-本轮完整74尚未结束，不能继承eb/141/230结论。
+本轮`run-broad-validation.py`已全部结束：38自己的完整74为71项逐位同，三个particles首差保留。
+逐字节保留首次源码、各10次真实原版的C10为seed1/seed3通过、seed2失败；独立CPU重算全同。
+回归/C10各退出1，CPU审计退出0；失败不改判，不继承eb/141/230结果。
+当前公共Core的G1完整60帧固定原版对比仍未通过，见[当前G1](CURRENT_G1_CORE_7EB6.md)。
 
 WSL恢复与环境固定沿用根交接；新Bash先`source scripts/reconstruction_env.sh`，使用`.venv/bin/python`。
 后续图核对工具为`reconstruction.csrc.plain_body_mixed_contact_graph_ab`，完整collision pipeline纳入graph，
 不是固定contacts后只捕获solver。所有新增执行使用新目录，GPU任务串行。
 
-当前机器的运行中regression/status/log不在本次局部快照中；新机器不应重复执行输出目录已存在的阶段driver。
+38完整回归/C10均已结束，新机器不应重复执行输出目录已存在的阶段driver。
 如需自行收集38整套回归，使用全新目录并按顺序运行下列命令；strict/C10退出1表示保存了数值差异，
 先确认74项全部结束，再执行C10及CPU审计，不修改失败或扩大原版样本到通过。
 

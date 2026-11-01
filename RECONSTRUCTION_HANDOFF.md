@@ -3,8 +3,13 @@
 > **当前候选38b70dcd：混合普通约束＋实际rigid/rolling接触。** 固定SDK32全部有效，旧eb两条guard拒绝基线已保存；
 > 改前27文件与2643原版文件SHA有检查点。只扩展普通约束种类组合，数学/CUDA176/f0不变。
 > 首次源码32/32严格，18624完整调用及2448力buffer同；八constructor五项全同、graph128/128、双端initcheck零错误，CPU重核同。
-> 匹配Core7eb三个独立正常入口graph/test过，无原版映射；本轮完整74正在执行，不能继承下列历史结论。
+> 匹配Core7eb三个独立正常入口graph/test过，无原版映射；本轮完整74为71严格，粒子C10 seed1/3过、seed2失败，CPU同。
 > 见[混合约束接触恢复](reconstruction/csrc/MIXED_PLAIN_CONTACT_HOST_RECOVERY.md)，ready=False。
+
+> **当前G1正常Core7eb固定原版C8仍false。** 八原版逐字节保留，三源码graph/test均退出0；三份均存在越界帧，CPU重算同。
+> source1帧31速度字段误差23.8513、原版spread1.2091，不能解释成普遍末位误差。
+> 双端initcheck各8项已定位为结束后NaN扫描的BVH未用容量尾部；有效前缀控制无报错，原报告保留。
+> 三次独立SDK控制同样被固定C8拒绝，源码大尖峰仍待定位；见[当前G1](reconstruction/csrc/CURRENT_G1_CORE_7EB6.md)。
 
 > **前一eb661284：单一普通约束＋实际rigid/rolling接触。** 固定SDK24的状态/九轮force buffer/13488完整调用全严格同。
 > 六种constructor五项同，graph96/96严格、双端initcheck零错误。匹配Core8797三个独立入口graph/test过。
@@ -315,7 +320,9 @@ source1/source2通过并与多条真实原版完整轨迹逐位相同，但不�
 1. 校验快照，读取顶部当前image文档及WORK_LOG末尾；历史章节和历史image结果不能直接计为当前验收。
    保持SDK64a、CUDA176/f0和360个pyc固定，不先升级库或覆盖已有结果。
 2. 当前38b70dcd混合plain/contact的source32/32、八构造、graph128/128及双端initcheck已全过，CPU重核同。
-   本轮匹配Core7eb及三正常入口已过、完整74正执行，先检查本阶段broad-validation/status与实际进程；不继承eb结果。
+   本轮匹配Core7eb及三正常入口已过；完整74为71严格，三粒子C10 seed1/3过、seed2失败，CPU同。
+   当前G1固定原版8/新源码3完整60帧C仍false；initcheck来源已查明，下一项实际graph节点/依赖/参数核对。
+   独立SDK控制也未全部通过固定C，不能据C失败猜测源算术错误，源码23.85尖峰仍需定位；不继承旧G1结果。
    前一eb661284的单一plain约束＋rigid/rolling已24/24严格、六constructor五项同、graph96/96、双端initcheck零错误。
    先检查`continuation-20261101-141c18f6-plain-contact/validation-eb661284/broad-validation/status.json`及真实进程，
    队列已complete：74项中70逐位同；三个particles固定C10过，pd_mixed_cloth seed3的7个数组记录仍越界，CPU复核同。

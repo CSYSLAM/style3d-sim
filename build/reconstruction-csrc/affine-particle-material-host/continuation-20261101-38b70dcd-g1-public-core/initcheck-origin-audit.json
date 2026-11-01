@@ -1,0 +1,44 @@
+{
+  "reports": [
+    {
+      "side": "original",
+      "pointer": "0xeb8568600",
+      "field": "bvh_shape_enabled",
+      "active_count": 54,
+      "capacity": 105,
+      "unused_tail_entries": 51,
+      "observed_host_copy_reports": 8,
+      "device_kernel_uninitialized_reports_in_this_log": 0,
+      "log_sha256": "c3975c2291b6a9ebf39930a4229b8a52c59840664c56e00d99c4de0adfb12827"
+    },
+    {
+      "side": "source",
+      "pointer": "0xeb8568600",
+      "field": "bvh_shape_enabled",
+      "active_count": 54,
+      "capacity": 105,
+      "unused_tail_entries": 51,
+      "observed_host_copy_reports": 8,
+      "device_kernel_uninitialized_reports_in_this_log": 0,
+      "log_sha256": "870e356caab7e6a4d159fee24e3410c7a887b40c23972ec0bab6f5a8470672be"
+    }
+  ],
+  "array_field_exactly_identified_on_both_backends": true,
+  "prefix_control_bytes": 216,
+  "prefix_control_no_reports_between_markers": true,
+  "prefix_control_before_full_invalid_copy": true,
+  "unused_capacity_read_by_post_run_model_nan_scanner": true,
+  "original_full_error_reports_suppressed": false,
+  "initcheck_still_reports_8_per_backend": true,
+  "can_explain_prior_frozen_G1_physics_divergence": false,
+  "production_changed": false,
+  "GPU_used_by_this_audit": false,
+  "dependency_source_sha256": {
+    "newton/tests/unittest_utils.py": "84cd1cbaaa0166656643229dae6e0e67a4702f2f5ace57755e00adf4d42ebcae",
+    "newton/_src/sim/model.py": "9c743bce9e86421ee3aec1bb82794941e964581afc5925453e2d8075548306d0",
+    "newton/_src/geometry/bvh.py": "135e5c1d66ca80d20a9d6b3f3f5ef977e9828112f9ff78219c99d2d21b5adda3",
+    "newton/examples/__init__.py": "84447ef10f53991ca97c72ef6964330e4ac9cbd78bcb8bacce094ec01b0c6833"
+  },
+  "whole_solver_complete": false,
+  "runner_sha256": "517e77396d90be3d507a331364e290fb37351a87031faf62bba7bba866c578b3"
+}

@@ -6041,3 +6041,30 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   对应host38/CUDA176/f0。独立核27项Core来源与扩展SHA均同；Dzhanibekov60、bag3、G1真实graph60正常入口及--test退出0，
   source_only/public_core_abi true、bridge false、无原版映射。不可变public-core-validation.json只记已结束四任务。
   当前队列已进入38的完整74；先同步已结束的模块/源码/Core，运行中regression及其status/log不提前纳入快照。
+- 38的run-broad-validation已全部结束（session84952确认退出0）：完整74为71严格，particles seed1/2/3首次差异不改。
+  固定三份C10为seed1/seed3过、seed2失败，CPU重算全部报告同；回归/C10实际退出1，CPU退出0不代表整体通过。
+  已发布模块/Core检查点40fda25a，244818文件完整快照核验零失败，固定SDK64a和360个pyc字节均同。
+- 新Core7eb的正式G1真实graph60固定对比，采用旧八份实际SDK数据原字节，当前版本预先固定3次新源码，不补原版。
+  原版旧runner原始字节及203资产全部SHA锁定，三source的runtime除backend/image/maps外与原版完全同，且自身--test/graph均退出0。
+  当前C8 false，CPU独立重算相同；source0四字段within51/51/54/51、source1为58/54/58/54、source2为58/57/58/58（共60帧）。
+  58字段/帧越界均导出；source1帧31body_qd误差23.851294673979282、spread1.2091027029923032、ratio19.726442274053134，
+  flattened76。此大差异不能以之前首步逐粒子/单个原子证书概括解释，原C8失败仍保留。
+- 新G1首启动因Python无os.pidfd_open在任何GPU worker前退出，保存startup-failed目录/脚本/日志；随后读取本机UAPI头确认syscall434，
+  使用实际pidfd或确认原进程已消失及完整终态后才进入新GPU队列，没有超时重启或并行GPU worker。
+  session27752确认退出1是当前真实C失败，不是工作进程异常；三源码均成功保存60帧。
+- 接着启动双端正常Core真实graph完整60帧initcheck（session10137，run-initcheck60.py），当前原版诊断尚在运行。
+  不预判未初始化是否为根因，诊断轨迹不替换冻结失败。下一步核正常G1 graph节点/依赖/参数；SDK heldout只能独立校准，不能扩大固定基准。
+- G1 initcheck60已结束，session10137确认退出0是driver记录完成；两个sanitizer实际各退出99、8项Host API memory access错误。
+  图与例程test自身退出0；原始错误未屏蔽、未记成全零。实际8项均为420字节D2H源0xeb8568600，warp.so的wp_memcpy_d2h。
+- 新g1_numpy_origin仅记录420字节numpy调用来源，不改数组或物理。首探针误用Warp无nbytes属性在mesh惯性阶段退出，
+  failed目录/脚本/日志保留；按本机Warp源码核准size*wp.types.type_size_in_bytes后继续，所有无效诊断不当成功。
+  两端显式字段标签确认bvh_shape_enabled：uint32容量105、有效54。新prefix-control先复制有效216字节（无报告），
+  后执行原样420字节复制（仍8项）。记录54个实际有效ID，未读取尾部来编造有效数据。
+  Newton源码显示wp.empty容量、compact kernel只写有效prefix，通用NaN检查在viewer.close之后遍历Model并下载全部array。
+  四依赖源按as-run保留并SHA核验；audit-initcheck-origin通过，原始60帧日志没有device-kernel未初始化读报告。
+  这些最终扫描不能导致此前速度分歧；未改NaN检查、模型容量、缓冲区初值或source数学，不把该解释外推到所有路径。
+- 预先固定SDK-heldout3独立控制研究，采用同一旧runner/相同SDK64a及参数，三次原版各60真实graph/自身test通过。
+  三控制都被旧固定C8拒绝，within为60/56/60/56、57/56/57/57、59/53/59/54，CPU独立重算完全同。
+  控制不加入基准，源码C8报告SHA全程不变，也没有改判源码false。三个SDK控制最大速度字段偏差约2.10545，
+  没复现源码23.8513尖峰；C失败本身不能证明算术有错，G1根因仍需正常graph节点/依赖/参数证据。
+  所有测试均已结束，下一项graph只读诊断尚未实现，不记成已验证；生产仍host38/Core7eb/CUDA176f0/readyFalse。

@@ -1,0 +1,62 @@
+========= COMPUTE-SANITIZER
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/g1_numpy_origin.py", line 56, in <module>
+    main()
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/g1_numpy_origin.py", line 44, in main
+    exec(compile(runner.read_bytes(), str(runner), 'exec'),
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-rigid-soft/official-g1-public-core-graph60/worker-as-run.py", line 102, in <module>
+    main()
+  File "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-688f9633-driven-cloth-rigid-soft/official-g1-public-core-graph60/worker-as-run.py", line 76, in main
+    runpy.run_path(str(example), run_name='__main__')
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/oem/code/agent/style3d-sim/examples/example_robot_g1.py", line 190, in <module>
+    newton.examples.run(Example(viewer, args), args)
+                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/examples/example_robot_g1.py", line 47, in __init__
+    g1.add_usd(
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/sim/builder.py", line 3581, in add_usd
+    return parse_usd(
+           ^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/utils/import_usd.py", line 2859, in parse_usd
+    b = add_body(**body_data[parent])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/utils/import_usd.py", line 1525, in add_body
+    _load_visual_shape_children(b, prim, xform, articulation_root_xform, load_visual_shapes)
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/utils/import_usd.py", line 1269, in _load_visual_shape_children
+    _load_visual_shapes_impl(parent_body_id, child, body_xform, articulation_root_xform, allow_visual_shapes)
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/utils/import_usd.py", line 1470, in _load_visual_shapes_impl
+    mesh = _get_mesh_with_visual_material(prim, path_name=path_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/utils/import_usd.py", line 940, in _get_mesh_with_visual_material
+    physics_mesh = _get_mesh_cached(prim)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/utils/import_usd.py", line 688, in _get_mesh_cached
+    mesh = usd.get_mesh(prim, load_uvs=load_uvs, load_normals=load_normals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/usd/utils.py", line 1724, in get_mesh
+    mesh_out = Mesh(
+               ^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/geometry/types.py", line 238, in __init__
+    self.mass, self.com, self.inertia, _ = compute_inertia_mesh(1.0, vertices, indices, is_solid=is_solid)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/.venv/lib/python3.12/site-packages/newton/_src/geometry/inertia.py", line 525, in compute_inertia_mesh
+    V_tot = float(vol_warp.numpy()[0])  # signed volume
+                  ^^^^^^^^^^^^^^^^
+  File "/home/oem/code/agent/style3d-sim/reconstruction/csrc/g1_numpy_origin.py", line 25, in observed_numpy
+    if array.nbytes == 420 and array.device.is_cuda:
+       ^^^^^^^^^^^^
+AttributeError: 'array' object has no attribute 'nbytes'
+Warp 1.16.0 initialized:
+   CUDA Toolkit 12.9, Driver 13.2
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 5090 D v2" (23 GiB, sm_120, mempool enabled)
+   Kernel cache:
+     /home/oem/.cache/warp/1.16.0
+Module newton._src.geometry.inertia f54b3d2 load on device 'cuda:0' took 1.39 ms  (cached)
+========= Target application returned an error
+========= ERROR SUMMARY: 0 errors
