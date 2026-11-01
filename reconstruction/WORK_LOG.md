@@ -6193,3 +6193,26 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 交接静态检查首次误把继承的精确worker-as-run源码纳入128列格式检查而退出，未启动GPU。
   改为所有Python核语法、维护代码核128列，as-run原字节保留；handoff-preflight.json保存原因和通过范围。
   新增命令/真实终态汇总及逐文件manifest，固定SDK/当前host/Core SHA再次核对不变。
+
+### 2026-11-01：G1接触力/矩阵双输出捕获预检及等待实际GPU空闲
+
+- 上轮23ec2760已完成向量路径证据、交接、247136文件快照核验0失败及远端SHA精确确认，属于progress。
+  本轮继续目标；生产SDK64a、host38/Core7eb、CUDA176f0、固定失败和阈值全部不改。
+- 新g1_contact_rhs_capture.py准备同一正常graph的rank14576 force和rank14587 matrix；前者26 before+2 after、
+  后者25 before+2 after，共209800字节/55节点，预计17522节点/17525边。原版/源码旧图CPU检查均同；
+  各字段完整尺寸、两输出非空、matrix方向/乘积NULL及全部输出与输入/输出之间无重叠均通过。
+  真正GPU捕获仍需重新查询/核拓扑，不能以CPU预检代替实际结果。
+- 新g1_contact_rhs_replay.py保留两完整输出、真实before初值、指针alias/mod256、完整after和每线程真实原子记录。
+  force两端各96静态site，matrix各75，实际entry只有red.global.add.f32；矩阵单线程上限144超过旧128容量，
+  新诊断PTX按原探针精确扩stride4096/256 records，生产和旧工具不动。force动态上限64，尚未GPU执行这些探针。
+- CPU preflight session83689实际退出0；新维护/计划Python语法和128列均过，一条129列断言在执行前拆行。
+  新independent-cpu-audit.py已写完静态检查，准备从全部输出/after/真实操作数重核240个双输出packet及固定C，未提前执行/宣称通过。
+- 启动GPU前nvidia-smi发现其它项目实际compute PID2460294（world-particles，360帧stretch验证），
+  核/proc cwd、父/子命令与日志仍在运行，没有停止它，也未并行GPU对照。
+  新wait-and-capture.py以实际nvidia-smi进程观测每10秒等待，空闲后仅一次调用run-captures.py。
+  已启动并确认活着的exec session1065、PID2467807，GPU-queue-launch.json保存/proc stat/命令/UTC；
+  观察超时必须继续poll同一句柄，不能因为队列状态旧而重启。真正终态以句柄/进程和实际命令exit为准。
+- continuation-20261101-38b70dcd-g1-contact-rhs-matrix保存冻结预检、输入SHA、as-run工具、原版/源码entry和诊断PTX。
+  运行中的GPU-queue-status/observations及未来capture输出尚未闭合，不纳入本次静态快照；完成后补审计、manifest和原始数据发布。
+  当前没有新增GPU通过结论、没有扩大旧基准。接续步骤见csrc/G1_CONTACT_RHS_MATRIX_QUEUE.md。
+  源码完整替代仍未通过，goal保持活动；不把GPU等待解释为失败或重跑已闭合的74项。

@@ -1,5 +1,9 @@
 # 新版基准与 C++ host 进度
 
+> **后续contact force及矩阵输出：CPU预检已过，GPU排队中，尚无新GPU结论。**
+> 计划每端60帧、两阶段、每帧209800字节/55快照；实际排队句柄1065/PID2467807，勿并行重复启动。
+> 见[G1接触力与矩阵排队](G1_CONTACT_RHS_MATRIX_QUEUE.md)，生产host38/Core7eb及readyFalse不变。
+
 > **最新刚体接触切线向量路径严格通过，完整替代仍未通过。** SDK64a/host38/Core7eb/CUDA176f0不改；
 > 120份真实before/after、五后端600份完整输出全部逐位同，53次有效，11904实际原子操作数和54280800非输出字节CPU重核同。
 > system/preconditioner为NULL，不能外推矩阵分支；旧G1 C8失败和23.85尖峰未解释，ready=False。
