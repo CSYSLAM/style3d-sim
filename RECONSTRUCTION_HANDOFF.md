@@ -1,5 +1,12 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> 最新[驱动self＋颗粒组合候选f07/Core aa与正常H1](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)：
+> 旧SDK实证三hunk移植到ae，12短程10严格、9243调用同，四构造五项同；两个W3/PD固定C8仍全false。
+> H1正常公开API的8SDK/3source固定C8为true/false/false，原版held-out为true/true/false；首source0保留。
+> 完整6120节点及typed参数/指针对应同；两端7 initcheck错定位到仿真后的BVH无效uint32尾部读取，失败不改判。
+> 本批68 GPU任务闭合；接续当前H1真实首子步/构造buffer，不能拿旧7ca或本批graph相同当完整轨迹证明。
+> 生产d09/Core55、固定SDK及360pyc/default保持；新候选实际.so同仓库，Windows用WSL2，具体命令/限制见链接。
+
 > 最新[颗粒/刚体外部接触ae候选与Core5688](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-granular-contacts/README.md)：
 > 四构造/四initcheck/两短C8通过；牛肉正常公开API三帧三source C8全过，无SDK/bridge，原test_final通过。
 > W3长程仍8/12，候选未合入；SDK自控也失败，PD首失败完整两帧前缀有真实原版逐位匹配，未修改任何旧判定。

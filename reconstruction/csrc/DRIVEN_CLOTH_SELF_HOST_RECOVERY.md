@@ -1,5 +1,12 @@
 # 驱动关节、布料与自碰撞：隔离候选7ca67172
 
+当前已在ae基线重新应用本页SDK实证的三hunk，得到f07 host／公开Core aa；生产仍d09/Core55。
+当前12短程10严格、四构造五项同，两个短C8全失败；H1正常公开API已跑固定8/3但仍两source越界。
+H1完整6120 graph参数同；post-run BVH uint32尾部引起的双端7个initcheck错误已定位，未抹除错误或改判轨迹。
+当前版本、所有实际so/数据和准确继续位置见
+[新组合候选及H1](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)。
+下文0dab/7ca及“正常H1尚未执行”等描述均为旧阶段，不代替当前候选结果。
+
 当前完整输入回放及三个body-block算子已核完：1188/3564和198/594均全严格；完整轨迹失败不改。
 本页后续排队描述保留为历史。最新实测与继续点见[结果及继续点](DRIVEN_CLOTH_SELF_RESULTS_20261101.md)。
 

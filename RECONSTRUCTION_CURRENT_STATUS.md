@@ -4,7 +4,20 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
-最新颗粒/SO3/外部接触隔离候选ae3a5997，公开候选Core5688f23b，生产仍d09/Core55。
+最新组合候选host f07b35a4、公开Core aa3466ef，生产仍d09/Core55，尚未合入或切换默认后端。
+在ae基线上按旧SDK实证恢复驱动布料/self范围和self force调用顺序；12短程10项严格，
+两项W3/PD/surface对固定8SDK的三source检查全部失败，三个独立原版控制也全部失败，均保留。
+四类构造五项全同；颗粒外部接触六项回归4项严格，原有两个W3差异仍在。
+真实H1 free正常公开API固定8SDK/3source、4帧（capture＋3replay），原test_final均退出0、源码未映射SDK。
+三source固定C8为[true,false,false]，三个独立SDK控制为[true,true,false]；所有初始状态同、首source0原字节保留。
+完整6120节点/6119边、有效参数及270指针对应全同，含8 alloc/8 free；设备pointee内容仍需实采。
+四类self/drive initcheck零错；H1两端各7错已定位为仿真后NaN扫描读取BVH uint32缓存的未用尾部（有效50/容量99）。
+该host只读不写回仿真，原actual97和完整轨迹失败均保留，不能据此改判H1或候选通过。
+本阶段68个GPU诊断/对照任务和独立CPU已闭合；下一步当前H1首native子步/构造缓存完整输入及原子操作数。
+源码、实际so、原始失败和WSL命令见
+[当前组合候选与H1](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)。
+
+上一阶段颗粒/SO3/外部接触隔离候选ae3a5997，公开候选Core5688f23b，生产仍d09/Core55。
 四类构造五项全同、四initcheck零错、两短C8通过；正常公开Core的牛肉低分辨率3帧三source固定C8全过、原测试通过。
 W3长程12组只有首source9/12、全部三source8/12，候选未合入；三个相同SDK控制也仅10/12、9/12、9/12。
 PD/eager/source0最早失败的前两帧六数组，与同一个真实SDK控制完整前缀逐位同；不据此改判整段失败。

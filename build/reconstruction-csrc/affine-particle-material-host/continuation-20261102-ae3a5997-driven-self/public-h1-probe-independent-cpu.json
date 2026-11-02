@@ -1,0 +1,196 @@
+{
+  "input_sha256": {
+    "original/before.npz": "6f59ffd2f39ce694d6291f81ab64052179699b9433c3e5d5955ea17556e285f3",
+    "original/states.npz": "fc8da978abe439d5fe6d50ff86ffb75e0af3c802b18bb46166855ea384adf8cc",
+    "original/runtime.json": "72386cc66c364fe51d444517595e4d3213ad2e944ff34b2ce8a1e64846cdcd0b",
+    "original/model-counts.json": "c2116f7354df823df8d8255521ff63d9b4b7c13cad7947ceca7b6c67ece6e789",
+    "source/before.npz": "6f59ffd2f39ce694d6291f81ab64052179699b9433c3e5d5955ea17556e285f3",
+    "source/states.npz": "ae555cbfd9aa27a126bacdb5295d918de0d734889c21cec146433e4483a557fd",
+    "source/runtime.json": "ab479c87e256e4ce5f40f05582b42316c66930ebd17b668d7ace846e0d54dcb6",
+    "source/model-counts.json": "c2116f7354df823df8d8255521ff63d9b4b7c13cad7947ceca7b6c67ece6e789"
+  },
+  "initial_states": {
+    "particle_q": {
+      "shape": [
+        33887,
+        3
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        }
+      ]
+    },
+    "particle_qd": {
+      "shape": [
+        33887,
+        3
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        }
+      ]
+    },
+    "body_q": {
+      "shape": [
+        46,
+        7
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        }
+      ]
+    },
+    "body_qd": {
+      "shape": [
+        46,
+        6
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        }
+      ]
+    }
+  },
+  "frame_states": {
+    "particle_q": {
+      "shape": [
+        4,
+        33887,
+        3
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 101322,
+          "max_abs_error": 0.0035088956356048584
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 101516,
+          "max_abs_error": 0.005836039781570435
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 101579,
+          "max_abs_error": 0.006930351257324219
+        }
+      ]
+    },
+    "particle_qd": {
+      "shape": [
+        4,
+        33887,
+        3
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 101283,
+          "max_abs_error": 0.417484013363719
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 101473,
+          "max_abs_error": 0.7846891209483147
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 101539,
+          "max_abs_error": 0.4771613497287035
+        }
+      ]
+    },
+    "body_q": {
+      "shape": [
+        4,
+        46,
+        7
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 301,
+          "max_abs_error": 8.033215999603271e-05
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 304,
+          "max_abs_error": 0.00011762615758925676
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 308,
+          "max_abs_error": 0.00011400878429412842
+        }
+      ]
+    },
+    "body_qd": {
+      "shape": [
+        4,
+        46,
+        6
+      ],
+      "dtype": "float32",
+      "frames": [
+        {
+          "bitwise_equal": true,
+          "different_words": 0,
+          "max_abs_error": 0.0
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 276,
+          "max_abs_error": 0.007284879684448242
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 276,
+          "max_abs_error": 0.019147394225001335
+        },
+        {
+          "bitwise_equal": false,
+          "different_words": 276,
+          "max_abs_error": 0.021007388830184937
+        }
+      ]
+    }
+  },
+  "whole_solver_complete": false,
+  "all_initial_bitwise_equal": true,
+  "all_recorded_frames_bitwise_equal": false,
+  "scope": "One original/source pair, four example.step calls: first captures without replay; three graph replays follow. No fixed C8 or long-run acceptance is claimed."
+}

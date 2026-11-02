@@ -7865,3 +7865,91 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   本批完整候选/公开API验证阶段集中提交一次；main d09/Core55不改，长程四项仍未闭合，最终目标继续。
 - staged whitespace86494e实际2，仅一份真实kernel-layout.tsv的CUB EmptyKernel零参数行尾tab；
   该tab是保留空参数列的实际分隔符，不编辑原始证据，仅从代码空白门禁排除此精确文件；其余staged校验通过。
+
+### 2026-11-02：当前ae基线上接续驱动布料/self的SDK实证范围与调用顺序
+
+- 上轮实质进展：当前ae host/Core5688、四构造/短C8/initcheck及正常public牛肉C8完成，535404文件全量零失败。
+  ea487bbb746cd0ac4fd33d044405913a8eeef149集中提交，71d37a push0、55cd71远端同SHA、707ff6及本轮bb7df4 git clean。
+- 新目录continuation-20261102-ae3a5997-driven-self；仅把旧7ca SDK实证的两个范围条件和self force位置
+  三个完整context hunk移植到当前ae C++，保持早期stiffness scale位置及ae的granular外部接触条件，不改生产d09/Core55。
+- 9fe600核旧force-order-proof全部26输入SHA仍完全一致；旧discovery审计只有main C++/build.json版本不同，
+  新验证以当前候选input SHA为准，原SDK样本、原反汇编和旧失败均保存，不删除旧SHA断言或继承旧7ca通过。
+- 当前prospective C++ SHA01ce801480362f1273be35ee3ae18cf1b63b888435a51e477f0abc957e337744，
+  596176新builder AST/128列全过，正向三个hunk唯一匹配、逆向完整还原ae，编译尚未视作GPU验收。
+- 初余17483MiB，外部worldparticle PID564568允许共用；自己GPU仍严格串行、每次free>=4096并记apps/时间。
+  sole SDK64a、CUDA176/f0、数学/容差/固定队列/失败/default/readyFalse均保持；本完整阶段完成后集中提交。
+- 当前组合候选86000/f9c055实际编译0，host f07b35a4733a3196cf66bc22617bfbe1bd23a03ce16772f3df9b18e2819a3b20。
+- 首12case driver c9b732在GPU启动前被旧host build.json SHA拒绝，确认零子worker/零新数值样本。
+  原脚本与plan/status保留before-build-guard；98fb20归档旧build原字节SHA efa8a530...与旧审计完全同。
+  新计划同时锁归档0dab元数据及当前d09 build.json，版本对应明确，不删旧SHA守卫、不用旧source代替新候选。
+  正在用同一12组固定SDK首样本运行当前f07源码，实际首source0尚未替换。
+- 当前self根57740/51e46f实际0：12 source worker全0、9243 owned调用metadata/geometry全同，10/12完整严格。
+  两个W3/PD/surface（SO3与SIX）状态严格失败保留；4e1d8e独立CPU核三hunk可逆、真实ELF六依赖、12对完整状态/ABI全通过。
+- 构造根34050/6f0693实际0，四类12个source GPU＋4CPU均0，五项全同，SDK原件逐primary bytes/SHA核准后复制。
+- ff934f初次生成short-C8 driver在写入前宽度断言1；分行worker command后c1a8d6 AST/128门禁0才执行。
+  根59400/4fea96实际1，4个新增source child全0，两个当前首source0＋固定8SDK＋source1/2全部false。
+  未新采SDK、未更换当前首失败；该结果不计通过，接续独立CPU核统计及SDK held-out控制。
+- 另预先固定六个granular外部接触回归，用新f07完整scope确认ae支持未丢失；不会继承上一候选的通过结果。
+- 0057e9独立CPU逐帧/统计重算当前两个C8全false不改；六granular回归81926/5c5549实际1，
+  六source child均0，owned参数/geometry同、4/6整项严格，两个W3原始状态/buffer差异继续保留，未收窄ae范围。
+- SDK held-out55722/39d654实际0，六个实际SDK child均0，两个组各三控制C8也全部false；7747a2独立CPU全统计同。
+  控制不加进固定8、不替代当前source0；数学/容差/launch资源不改，不因native也false就把源码改判通过。
+- 已确认真实H1 free使用self/drive，缓存当前pinned Newton assets ref261cd1f429619d8ef4f546bd788ab9dea906b5e1。
+  依据库的实际MD5缓存身份解析unitree_h1/style3d，核各缓存git HEAD及全部文件SHA后冻结manifest，无下载/TTL刷新。
+  接下来通过独立公开Core跑原H1示例的实际graph/test，不修改示例物理、原test_final或使用A/B bridge。
+- 用户询问总体进度，本轮先查实际状态；上次启动工具输出丢失，但public-h1-probe/status.json已完整结束，
+  原版PID615295/source PID615488各实际0，精确进程核对均不再运行；未重复启动，也不伪造丢失的根工具退出码。
+  两端原H1 graph/test_final各4帧均正常返回，源码Core aa3466ef未映射SDK，不使用A/B bridge；默认仍原版。
+  第一帧仅capture、随后三次实际graph replay，不能将这次记录称为4次物理graph replay或完整601帧验收。
+- 新audit-public-h1-probe.py经35f496 AST/128列通过，d9f206独立CPU实际0：
+  两端初始四数组逐位同，但完整记录不逐位同；后三次replay粒子q最大差0.0069303513m，
+  qd最大差0.784689121m/s，body q/qd也不同。原始状态及失败原样保留，结果存public-h1-probe-independent-cpu.json。
+  当前仅一对原/源，未形成固定C8，不能把这些差异直接归因为归约顺序或把CLI0写成数值通过。
+- 已将当前f07/Core aa、短程/构造和H1的真实限制写回根状态页；源码独立编译可用，但完整替换目标仍未完成。
+  后续优先固定H1原版重复与当前source0，再沿首个实际子步核输入/调用；本阶段继续积累后集中提交，不逐笔提交。
+- 上一goal turn属于实质进展：H1首对初始状态同、三个实际replay不同的独立CPU结果已改变下一步，非仅状态汇报。
+- H1固定队列52129/78ba0a真实1，九新增GPU child全0；原有original0/source0逐原字节复制保留，
+  补7原版及2源码形成8/3，四帧（capture＋3replay）C8为[true,false,false]。
+  a0c07c独立CPU真实0核11份初始状态全逐位同、每帧全部统计同；后两份首越界均frame1。
+- H1原版held-out23643/977094实际0，三个SDK child全0、固定C8为[true,true,false]；
+  975592独立CPU逐帧统计同；第三原版首越界frame2/body_q，控制不加入固定8、不重判源码失败。
+- 80765/c3e433首次只读graph两GPU实际0，双端各6120节点/6119边；未改节点或读device pointee。
+  CPU旧Warp schema配方发现同名函数在多个生成模块出现，仅在完整签名同才接受多个来源，原失败配方/部分制品保留。
+  后续实际发现外部Warp CUB2.8.2三入口、2D launch bounds和GlobalContactReducerData结构；按真实声明逐项补齐，
+  四个失败CPU配方和各自warp-as-run-before-*均原样保存，不改GPU输入或用不完整schema宣布一致。
+- CUB外部类型按真实mangled CUB_200802版本取NVIDIA官方v2.8.2源归档，SHA141801ddddf5b911f64f97be66a7c75f98374bebca60f275bedec75b8eeab345。
+  下载首guard拒绝根目录无斜杠；解压第二次由data filter拒绝devcontainer越界链接，未运行外部脚本或生产代码。
+  保留归档及失败部分目录，第三次只提取1675份regular头文件成功；四声明原件/完整归档随本批保存。
+  54041/87b909实际编译0、c8dbf2实际执行0验证2.8.2 InputValue两活动union布局、strided iterator及TileState；
+  只作host类型诊断、无GPU context。真实节点全部断言immediate模式，不将inactive union/empty class/padding误当数据。
+- 9a327b当前schema真实0，24个外部入口/52份实际模块与类型制品；旧共享graph工具未改。
+  首完整比较b37ea8因未支持16个alloc/free节点拒绝，未产生虚假的完整通过；首原始graph仍保留。
+- 新只读CUDA API helper174394编译0，42991/748a4d第二对观察两GPU实际0，保留原始graph＋alloc/free完整typed sidecar。
+  f6b536实际0：6120节点/6119边、5458 kernel、518 memset、128 copy、8 alloc＋8 free两端完全同序；
+  typed scalar及270 pointer alias全部同，排除3576已按声明核准的非语义字节；设备pointee/相对分配偏移仍未核。
+- 83213/5dcaa0初始化检查根实际1：当前f07四self/drive类全0且zero errors；正常H1两端各实际97、均7 errors。
+  两端都是同一396-byte cudaMemcpy source范围的7次未初始化读取，Python示例及原test_final仍正常返回。
+  这不计H1 initcheck通过，也不据此认定轨迹差异根因；接续只读numpy调用定位具体数组/阶段。
+- 42786/9991f3两端D2H只读诊断各actual97，均39个396-byte numpy调用，全部7错落在同一个uint32读。
+  names版生成da16a1先宽度guard拒绝；99c56d随后的依赖命令因脚本尚未写入退出2，确认零GPU children。
+  修成132列命令分行后49f791门禁0，70368/19ae6a两实际GPU各97；没有重复启动旧队列或更换C8数据。
+- 557c1e实证错误数组bvh_shape_enabled，容量99/有效50；不是猜测array名。
+  52b512独立CPU真实0，完整核两端7错误都位于read35、post-run find_nan_members(example.model)内，
+  unsigned integer NaN结果为false，未用尾部没有被该测试写回仿真；每端actual97原样保留。
+  原Newton test/model/BVH源码随本批保存：实际generic scan在仿真结束及viewer.close之后，不是初始化或首物理子步。
+- f7a238独立CPU核六granular回归当前4/6严格、完整初始model/actual-layout、metadata及全部buffer差异，
+  原SDK每件原始文件对primary snapshot逐bytes/SHA确认；W3状态/RHS失败继续保留。
+- e960bd独立真实ELF复核本批f07/Core aa及生产d09/Core55四image，完整SHA/唯一PyInit及六系统依赖正确。
+- 63268d闭合独立CPU真实0：68 GPU任务/四构造CPU全终态，392份冻结SDK构造原件和副本逐字节同，
+  源码12短程10严格/9243调用、两短C8全false、六granular4严格、H1 C8 true/false/false及控制true/true/false均复核。
+  当前H1 graph有效参数同不包括pointee内容；原版SDK/360冻结pyc/默认/生产Cpp及176 CUDA不改，候选未合入。
+  根CURRENT_STATUS、两层HANDOFF、self恢复页及本批README已写明确命令/Windows WSL限制及首native子步继续点。
+- 0635ea冻结2271份本批代码/原始结果/真实候选.so，primary355335＋indexed182341＝537676；
+  根JSON101092188字节。全量verifier90037/2ddab9实际0：537676 frozen files、zero failures。
+  当前自己的GPU worker已全部终态；c886eb复查无本批活进程、360份pyc仍真实Git tracked，SDK为普通100644 blob。
+  两候选.so的filter明确unset，按完整阶段集中提交实际二进制及原始证据，不用LFS pointer或外置bin仓库。
+- git add54740/45a96a真实0，6d2bef独立读Git index实证三份so均ELF且完整SHA正确：
+  SDK7657288 bytes、候选host7777376、公开Core7786752；2278 staged文件含2272本批文件（含manifest）。
+  staged whitespace0002d8实际2仅原始sanitizer日志/生成CUDA/PTX/空参数TSV/原始iterator段的空白。
+  初分类186d68遗漏raw .cu类别而拒绝；fcf7b1按原生成模块SHA核全部raw警告文件，1582项/91文件均有明确来源。
+  自有维护代码/文档53文件门禁0，原始证据未编辑；全量校验后的末尾receipt只刷新WORK_LOG单项SHA后集中提交。

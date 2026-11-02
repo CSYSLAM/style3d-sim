@@ -1,5 +1,12 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新[组合候选f07/Core aa及H1真实API](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)：
+> SDK实证self三hunk在ae基线重建，12短程10严格/9243调用同、四构造五项同、两W3/PD C8全false。
+> 正常H1固定C8为true/false/false，SDK控制true/true/false；6120节点完整有效参数同，不含device pointee证明。
+> 四self类initcheck过，H1两端各7错误为post-run NaN扫描的BVH uint32尾部，actual97及旧判定均保留。
+> 68 GPU任务与独立CPU闭合；下一步当前H1首native子步/构造缓存完整输入，不用旧G1 n176布局套H1 n33887。
+> 生产仍d09/Core55，候选未合入；WSL正常Core入口可用相对metadata，历史绝对路径诊断不可直接盲跑。
+
 > 最新[颗粒/SO3/外部接触ae＋公开Core5688](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-granular-contacts/README.md)：
 > 四构造、四initcheck、短C8及正常public牛肉3帧C8过；长程8/12，仍隔离，不改生产d09/Core55或旧失败。
 > SDK held-out也失败；source0的首PD失败两帧六数组与同一真实SDK完整前缀逐位同，不能扩成整段等价。
