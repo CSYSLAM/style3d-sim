@@ -1,5 +1,12 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新接续以根CURRENT_STATUS/HANDOFF及本批
+> [ANYmal全50轮CG](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/README.md)
+> 为准：430完整输入、1290三端调用，全部向量/矩阵同输入严格；198packet仅归约系数不同。
+> 108800真实贡献相同，1017差异word/2303目标有GPU证书及独立CPU；完整轨迹未过。
+> 下一步补matrix.extra六类生产者；显存>=4096MiB且自己的worker串行即可，不要求外部GPU空闲。
+> 以下旧阶段的“排队/正在运行/必须隔离”是历史，不能据此重启已结束队列或恢复独占等待。
+
 > **新增驱动布料/self候选7ca，生产仍0dab/Core715。** SDK12支持，候选9243调用同、10短程严格、两固定C8未过。
 > 四类构造五项全同；首表面力逐接触/操作数一致，后续大响应尚未解释，候选未合入。
 > 首次593标量GPU调用因设备非空闲不计隔离验收；现有隔离重跑及CPU接续器勿重复启动。

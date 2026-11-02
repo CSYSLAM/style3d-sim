@@ -7324,3 +7324,65 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   已补手工命令等价argv/env、六个首CG真实历史节点及size注意事项，避免下一agent把shared68误当global544。
   实测首inverse23/precond24/direction25/matrix32/update33/apply524，50轮CG之间不得省略因果阶段。
   本批自己的GPU任务全部真实终态，后续按README抓RHS/CG；完整一步和长程仍失败，目标继续active。
+
+
+### 2026-11-02：接续a5313d00，核ANYmal接触后首CG完整输入
+
+- 上一goal turn为progress：a5313d00d12123d69e509856f3bd328de87100af已推，远端精确同HEAD，311150冻结文件全核0失败。
+  本轮起始tracked clean，GPU实查余20153MiB，继续允许外部任务、自己的worker串行。
+- 先读实际build provenance，发现旧kernels/pcg.cu的泛化归约ABI并非当前调用；真实覆盖来自revisions/pcg_23fb797.cu。
+  当前按每粒子原子累加到8个world系数，不能按3个CUDA block的partial长度抓scalar。
+  质量/flags明确按i%68共享，inverse输入272字节；逐world矩阵/状态为544粒子。
+  实际matrix参数ELL slots19、rows544，entries544*19*40=413440字节，row_count544*4，不误抓68行。
+- 新阶段continuation-20261102-0dabbaa7-anymal-first-CG，离线恢复20固定资产工具7fb0e1实际0，网络/GPU/solver均未用。
+  使用本阶段独立asset-cache避免修改旧冻结缓存，运行前逐字节核20 SHA。
+- capture.py八类核全部非空flat pointer按实际参数类型核准：force/tangent、inverse、precond、direction、matrix、update、apply。
+  计划两端共16完整packet，真实public初值仍用同一冻结SDK state；source仍Core715独立无SDK映射。
+  inverse的0/3原址alias必须保留，scalar长度8，first apply在50轮CG后，不能与first update错误直接相连。
+  根工具88755实际启动，后续另记真正终态；当前代码AST/128列预检实际0，生产/阈值/旧失败保持。
+
+- 两端完整capture88755实际0，16packet/48三端回放34652实际1，子GPU1/独立CPU0：8严格。
+  全部inverse/direction/update/apply同输入严格；contact散射及precond/matrix scalar有差，完整原失败保留。
+  独立CPU核1770实际参数字节、679296输出字节、4400688保护字节及2个inverse原址alias。
+- context CPU366e71实际0，18对生产消费观测14值同；force之后尚有body spring/joint drive/angular/SO3力，
+  所以不能把force.post RHS直接当precond residual；contact矩阵后也还有附加预条件器，两个间隙按实记录。
+  两端inverse前后这次全同，precond residual已差1.14440918e-5，首update delta差4.65661e-10。
+  first apply前delta差0.0002454068，中间49轮尚未捕获，不能跨过它们宣称因果链已闭合。
+- 原子追踪33796实际0，8packet/16真实PTX调用，35456项实际操作数原源同，CPU d27713实际0。
+  明确核PCG每个544 active thread一次原子，bin=tid//68，224 padding thread无写；不是按3block求和。
+- 本批全部58个回放差异word有122个真实GPU target证书f71352实际0，3952历史word及实际ABI/guard CPU499cb5全核0。
+  <=8项保存同线程目标内顺序约束；68项用固定seed实际操作数排列搜索，再由真实GPU原子验证。
+  CPU独立重读全部16packet和三端输出，重建58word/122target全集，防止仅验证自选可达target。
+  第一次生成cbfac3在落盘前因132列失败，未运行GPU；缩进换行修复后b597e3验证通过，数学/目标未改。
+- 首33个实际owned节点表显示contact force8后还有9..15力、17后还有18..22矩阵处理；相关代码与新数据均保留。
+  接续将抓全首50轮CG并用原始完整packet容器保存，避免把first update直接连first apply。
+
+- 全50核心捕获48269实际0，两端各215完整阶段，raw4456个bin保留；完整包装4769实际0，430packet/1290次真实三端调用。
+  full50回放63344实际1，子GPU1/独立CPU0：232/430严格；全部向量/矩阵输出同输入严格，198packet仅世界系数归约不同。
+  CPU核28460真实参数字节、10986240输出字节、152537112保护字节、10个inverse原址alias；未删旧失败。
+- 全50 context CPU59c675实际0：1096真实字节观测链接全同，包括SO3最后RHS→初残差、各轮r/p/delta/prevNum递推及末update→首apply。
+  新上下文delta差从第0轮3.49246e-10到第49轮0.0003192377；不是先前部分捕获的0.0002454，不能混用或冒充旧history。
+  Matrix.extra的六类上游并未全部同输入复核，本批只证明核心观测链，未宣布整个solver因果完整。
+- 全50 dot追踪30233实际0，400真实PTX调用、200packet的108800项原源操作数同。
+  复用4份完全相同的instrumented module和NPZ只读句柄，避免400模块及重复6MB PTX；不改数学/launch/resource参数。
+  独立CPU60231实际0，重读ABI/guard/readonly/每thread world=tid//68，另核instrumented完整z/Ap也等于原捕获。
+- 全50归约证书V1准备9f8c17实际1：packet14(precond call003)的world3一个真实target在10000随机排列中未找到，未跑该批GPU证书。
+  b3dad0独立诊断实际0：相同68个正真实操作数，固定SDK target998498792；52个合法大小/warp分组排列已覆盖所有原target。
+  原数据/目标不改，V1脚本及失败记录保留；V2仅加大小/warp排列候选，仍最多10000次搜索，再要求真实GPU原子验证。
+  V2实际启动根41112，待另记真实终态；标量搜索调整不是修改原版/源码核、容差或冻结目标。
+
+- 用户再次指出其他程序只占12G、单demo串行应可运行；本轮实际GPU为24455总/6389已用/17554MiB余，
+  保持共享显存准入，不等外部程序退出，也未操作外部worldparticle任务。
+- V2准备旧handle41112跨压缩后返回Unknown process id，未补造退出码、未重跑；完整plan实际1017word/2303target。
+  新run-full50-folds-v2.py工具64165真实0，实际GPU全部2303目标/历史精确，启动余17553MiB且外部程序仍在。
+  独立audit工具63358真实0，重建全部430输入三端差异覆盖全集，156604历史word、5969376保护字节、82908参数字节全核。
+  V1随机搜索失败原样保留，大小/warp候选仅用于合法排列证书，不修改操作数、目标、原核、阈值或生产顺序。
+- 本阶段新增README及三份交接/状态页，明确matrix.extra六类生产者尚未全回放，1096链接只是观测值连接。
+  实际静态span确认shared17body/56shape/12drive/18DOF，soft capacity30464与rigid1000分开。
+  所有本阶段GPU worker已真实终态，无新数学修复、无旧C8/C10改判、无ready/default切换；接续补extra生产者。
+
+- freeze-checkpoint.py实际0，冻结5557证据文件；根snapshot扩展316708文件/98983982字节，全量校验6071实际0、零失败。
+  另直接读取独立CPU全部失败项，只存在precond arg6的299次、matrix arg9的261次backend差异，向量/矩阵无失败。
+- staged whitespace检查首次除20份原始instrumented PTX外，还报告固定资产anymal_d.usda原始EOF空行，门禁实际1保留。
+  复核只涉及固定raw资产/原始PTX，精确排除这些21份原始证据后git diff --cached --check实际0；未改运行证据字节。
+  本批生产、SDK、360pyc保持，继续位置为matrix.extra六类生产者，完整替代目标仍active。

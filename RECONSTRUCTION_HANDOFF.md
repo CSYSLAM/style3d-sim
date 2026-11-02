@@ -1,5 +1,13 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **ANYmal首NL全50轮CG核心已完成实际核对，完整替代尚未通过。** 430完整输入/1290三端调用，232严格；
+> 其余198份只差世界系数归约，同输入全部向量/矩阵严格。108800实际贡献相同，1017差异word的2303目标
+> 经真实GPU复现、156604历史word经独立CPU全核，1096个观测链相同，含末update→首apply。
+> 已共享GPU实跑，无须等外部程序退出；接下来补六类matrix.extra生产者，不能据本批改判旧轨迹。
+> V1排列搜索失败和V2旧工具退出码unknown均保留，实际GPU/CPU终态0；SDK/源码/阈值未改。
+> 命令、边界及WSL接续见
+> [首轮与完整50轮CG](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/README.md)。
+
 > **ANYmal接触进一步核准，完整轨迹仍未过。** 两端脚球均实穿透3.4至3.6cm，静态几何/材质相同。
 > 同一冻结状态的真实一步不同，但首次接触前160条记录仅排列不同；按记录对应的真实贡献同。
 > force/tangent12三端调用2packet严格，33280真实操作数同，剩余12word有24次真实GPU顺序证书。

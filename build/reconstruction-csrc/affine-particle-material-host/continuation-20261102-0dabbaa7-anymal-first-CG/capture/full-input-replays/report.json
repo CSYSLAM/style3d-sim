@@ -1,0 +1,2216 @@
+{
+  "packets": [
+    {
+      "number": 0,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0008-22evaluate_contact_force",
+      "kind": "22evaluate_contact_force",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-32": true,
+            "arg-33": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-32": false,
+            "arg-33": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-32": false,
+            "arg-33": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12920982016,
+          "bytes": 68,
+          "labels": [
+            "arg-23"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12920983040,
+          "bytes": 272,
+          "labels": [
+            "arg-24"
+          ],
+          "prefix": 256,
+          "device_base": 131524701717504
+        },
+        {
+          "start": 12920991744,
+          "bytes": 204,
+          "labels": [
+            "arg-25"
+          ],
+          "prefix": 256,
+          "device_base": 131524701718528
+        },
+        {
+          "start": 12921040384,
+          "bytes": 224,
+          "labels": [
+            "arg-11"
+          ],
+          "prefix": 256,
+          "device_base": 131524701719552
+        },
+        {
+          "start": 12921040896,
+          "bytes": 224,
+          "labels": [
+            "arg-12"
+          ],
+          "prefix": 256,
+          "device_base": 131524701720576
+        },
+        {
+          "start": 12921041408,
+          "bytes": 1568,
+          "labels": [
+            "arg-13"
+          ],
+          "prefix": 256,
+          "device_base": 131524701721600
+        },
+        {
+          "start": 12921043456,
+          "bytes": 672,
+          "labels": [
+            "arg-14"
+          ],
+          "prefix": 256,
+          "device_base": 131524701724160
+        },
+        {
+          "start": 12921044480,
+          "bytes": 224,
+          "labels": [
+            "arg-15"
+          ],
+          "prefix": 256,
+          "device_base": 131524701725696
+        },
+        {
+          "start": 12921044992,
+          "bytes": 224,
+          "labels": [
+            "arg-16"
+          ],
+          "prefix": 256,
+          "device_base": 131524701726720
+        },
+        {
+          "start": 12921045504,
+          "bytes": 224,
+          "labels": [
+            "arg-17"
+          ],
+          "prefix": 256,
+          "device_base": 131524701727744
+        },
+        {
+          "start": 12921046016,
+          "bytes": 224,
+          "labels": [
+            "arg-18"
+          ],
+          "prefix": 256,
+          "device_base": 131524701728768
+        },
+        {
+          "start": 12921051648,
+          "bytes": 6528,
+          "labels": [
+            "arg-28"
+          ],
+          "prefix": 256,
+          "device_base": 131524701729792
+        },
+        {
+          "start": 12921058304,
+          "bytes": 6528,
+          "labels": [
+            "arg-29"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 12921407488,
+          "bytes": 4,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701744128
+        },
+        {
+          "start": 12921412608,
+          "bytes": 4000,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701745152
+        },
+        {
+          "start": 12921416704,
+          "bytes": 4000,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701749760
+        },
+        {
+          "start": 12921420800,
+          "bytes": 12000,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701754368
+        },
+        {
+          "start": 12921433088,
+          "bytes": 12000,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524701767168
+        },
+        {
+          "start": 12921445376,
+          "bytes": 12000,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701779968
+        },
+        {
+          "start": 12921457664,
+          "bytes": 12000,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 131524701792768
+        },
+        {
+          "start": 12921469952,
+          "bytes": 12000,
+          "labels": [
+            "arg-8"
+          ],
+          "prefix": 256,
+          "device_base": 131524701805568
+        },
+        {
+          "start": 12921482240,
+          "bytes": 4000,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 131524701818368
+        },
+        {
+          "start": 12921486336,
+          "bytes": 4000,
+          "labels": [
+            "arg-10"
+          ],
+          "prefix": 256,
+          "device_base": 131524701822976
+        },
+        {
+          "start": 129315243039744,
+          "bytes": 6528,
+          "labels": [
+            "arg-32"
+          ],
+          "prefix": 256,
+          "device_base": 131524701827584
+        },
+        {
+          "start": 129315243046400,
+          "bytes": 6528,
+          "labels": [
+            "arg-30"
+          ],
+          "prefix": 256,
+          "device_base": 131524701834752
+        },
+        {
+          "start": 129315243063808,
+          "bytes": 2176,
+          "labels": [
+            "arg-33"
+          ],
+          "prefix": 256,
+          "device_base": 131524701841920
+        }
+      ],
+      "pointers": {
+        "arg-23": 131524701716736,
+        "arg-24": 131524701717760,
+        "arg-25": 131524701718784,
+        "arg-11": 131524701719808,
+        "arg-12": 131524701720832,
+        "arg-13": 131524701721856,
+        "arg-14": 131524701724416,
+        "arg-15": 131524701725952,
+        "arg-16": 131524701726976,
+        "arg-17": 131524701728000,
+        "arg-18": 131524701729024,
+        "arg-28": 131524701730048,
+        "arg-29": 131524701737216,
+        "arg-0": 131524701744384,
+        "arg-2": 131524701745408,
+        "arg-3": 131524701750016,
+        "arg-4": 131524701754624,
+        "arg-5": 131524701767424,
+        "arg-6": 131524701780224,
+        "arg-7": 131524701793024,
+        "arg-8": 131524701805824,
+        "arg-9": 131524701818624,
+        "arg-10": 131524701823232,
+        "arg-32": 131524701827840,
+        "arg-30": 131524701835008,
+        "arg-33": 131524701842176
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0000-w0-f00-0008-22evaluate_contact_force.npz",
+      "output_sha256": "f7a89bdcd14494d44615ada0997e8f612467335568275996d08e7f19f31aadf5"
+    },
+    {
+      "number": 1,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0017-24evaluate_contact_tangent",
+      "kind": "24evaluate_contact_tangent",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-33": true,
+            "arg-34": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-33": false,
+            "arg-34": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-33": true,
+            "arg-34": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12920982016,
+          "bytes": 68,
+          "labels": [
+            "arg-23"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12920983040,
+          "bytes": 272,
+          "labels": [
+            "arg-24"
+          ],
+          "prefix": 256,
+          "device_base": 131524701717504
+        },
+        {
+          "start": 12920991744,
+          "bytes": 204,
+          "labels": [
+            "arg-25"
+          ],
+          "prefix": 256,
+          "device_base": 131524701718528
+        },
+        {
+          "start": 12921040384,
+          "bytes": 224,
+          "labels": [
+            "arg-11"
+          ],
+          "prefix": 256,
+          "device_base": 131524701719552
+        },
+        {
+          "start": 12921040896,
+          "bytes": 224,
+          "labels": [
+            "arg-12"
+          ],
+          "prefix": 256,
+          "device_base": 131524701720576
+        },
+        {
+          "start": 12921041408,
+          "bytes": 1568,
+          "labels": [
+            "arg-13"
+          ],
+          "prefix": 256,
+          "device_base": 131524701721600
+        },
+        {
+          "start": 12921043456,
+          "bytes": 672,
+          "labels": [
+            "arg-14"
+          ],
+          "prefix": 256,
+          "device_base": 131524701724160
+        },
+        {
+          "start": 12921044480,
+          "bytes": 224,
+          "labels": [
+            "arg-15"
+          ],
+          "prefix": 256,
+          "device_base": 131524701725696
+        },
+        {
+          "start": 12921044992,
+          "bytes": 224,
+          "labels": [
+            "arg-16"
+          ],
+          "prefix": 256,
+          "device_base": 131524701726720
+        },
+        {
+          "start": 12921045504,
+          "bytes": 224,
+          "labels": [
+            "arg-17"
+          ],
+          "prefix": 256,
+          "device_base": 131524701727744
+        },
+        {
+          "start": 12921046016,
+          "bytes": 224,
+          "labels": [
+            "arg-18"
+          ],
+          "prefix": 256,
+          "device_base": 131524701728768
+        },
+        {
+          "start": 12921051648,
+          "bytes": 6528,
+          "labels": [
+            "arg-27"
+          ],
+          "prefix": 256,
+          "device_base": 131524701729792
+        },
+        {
+          "start": 12921407488,
+          "bytes": 4,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 12921412608,
+          "bytes": 4000,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701737984
+        },
+        {
+          "start": 12921416704,
+          "bytes": 4000,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701742592
+        },
+        {
+          "start": 12921420800,
+          "bytes": 12000,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701747200
+        },
+        {
+          "start": 12921433088,
+          "bytes": 12000,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524701760000
+        },
+        {
+          "start": 12921445376,
+          "bytes": 12000,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701772800
+        },
+        {
+          "start": 12921457664,
+          "bytes": 12000,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 131524701785600
+        },
+        {
+          "start": 12921469952,
+          "bytes": 12000,
+          "labels": [
+            "arg-8"
+          ],
+          "prefix": 256,
+          "device_base": 131524701798400
+        },
+        {
+          "start": 12921482240,
+          "bytes": 4000,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 131524701811200
+        },
+        {
+          "start": 12921486336,
+          "bytes": 4000,
+          "labels": [
+            "arg-10"
+          ],
+          "prefix": 256,
+          "device_base": 131524701815808
+        },
+        {
+          "start": 129315243046400,
+          "bytes": 6528,
+          "labels": [
+            "arg-28"
+          ],
+          "prefix": 256,
+          "device_base": 131524701820416
+        },
+        {
+          "start": 129315243071488,
+          "bytes": 19584,
+          "labels": [
+            "arg-33"
+          ],
+          "prefix": 256,
+          "device_base": 131524701827584
+        },
+        {
+          "start": 129315243091456,
+          "bytes": 19584,
+          "labels": [
+            "arg-34"
+          ],
+          "prefix": 256,
+          "device_base": 131524701848064
+        }
+      ],
+      "pointers": {
+        "arg-23": 131524701716736,
+        "arg-24": 131524701717760,
+        "arg-25": 131524701718784,
+        "arg-11": 131524701719808,
+        "arg-12": 131524701720832,
+        "arg-13": 131524701721856,
+        "arg-14": 131524701724416,
+        "arg-15": 131524701725952,
+        "arg-16": 131524701726976,
+        "arg-17": 131524701728000,
+        "arg-18": 131524701729024,
+        "arg-27": 131524701730048,
+        "arg-0": 131524701737216,
+        "arg-2": 131524701738240,
+        "arg-3": 131524701742848,
+        "arg-4": 131524701747456,
+        "arg-5": 131524701760256,
+        "arg-6": 131524701773056,
+        "arg-7": 131524701785856,
+        "arg-8": 131524701798656,
+        "arg-9": 131524701811456,
+        "arg-10": 131524701816064,
+        "arg-28": 131524701820672,
+        "arg-33": 131524701827840,
+        "arg-34": 131524701848320
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0001-w0-f00-0017-24evaluate_contact_tangent.npz",
+      "output_sha256": "33ef150ab7cadc55f91c8e7eb4ef429608964e253718857477561bd52adbed58"
+    },
+    {
+      "number": 2,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0023-27invert_block_preconditioner",
+      "kind": "27invert_block_preconditioner",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12920963584,
+          "bytes": 272,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12920973824,
+          "bytes": 272,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701717504
+        },
+        {
+          "start": 129315243091456,
+          "bytes": 19584,
+          "labels": [
+            "arg-0",
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701718528
+        }
+      ],
+      "pointers": {
+        "arg-2": 131524701716736,
+        "arg-1": 131524701717760,
+        "arg-0": 131524701718784,
+        "arg-3": 131524701718784
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0002-w0-f00-0023-27invert_block_preconditioner.npz",
+      "output_sha256": "6c99a1a2dd69fb240bcd2c50cc2f0ce0886545f4d7e4afb24d5ffec92bcbf2f8"
+    },
+    {
+      "number": 3,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0024-23precondition_and_reduce",
+      "kind": "23precondition_and_reduce",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 129315243091456,
+          "bytes": 19584,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 129315244154368,
+          "bytes": 6528,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 129315244167680,
+          "bytes": 6528,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701744128
+        },
+        {
+          "start": 129315244219904,
+          "bytes": 32,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701751296
+        }
+      ],
+      "pointers": {
+        "arg-0": 131524701716736,
+        "arg-1": 131524701737216,
+        "arg-2": 131524701744384,
+        "arg-6": 131524701751552
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0003-w0-f00-0024-23precondition_and_reduce.npz",
+      "output_sha256": "035aa2e3b1435f13a5e40a1391a7b41c0f9ef06ebeeb442cf06fc5b461dec89e"
+    },
+    {
+      "number": 4,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0025-19update_cg_direction",
+      "kind": "19update_cg_direction",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 129315244161024,
+          "bytes": 6528,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 129315244167680,
+          "bytes": 6528,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701723648
+        },
+        {
+          "start": 129315244219904,
+          "bytes": 32,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701730816
+        }
+      ],
+      "pointers": {
+        "arg-6": 131524701716736,
+        "arg-1": 131524701723904,
+        "arg-4": 131524701731072
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0004-w0-f00-0025-19update_cg_direction.npz",
+      "output_sha256": "481e8224c2caf11ea1d291dcef1596afc975025f3ea701115319293bf92d1937"
+    },
+    {
+      "number": 5,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0032-26multiply_matrix_and_reduce",
+      "kind": "26multiply_matrix_and_reduce",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 129315243071488,
+          "bytes": 19584,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 129315243209216,
+          "bytes": 2176,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 129315243740672,
+          "bytes": 413440,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701740032
+        },
+        {
+          "start": 129315244161024,
+          "bytes": 6528,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524702154240
+        },
+        {
+          "start": 129315244174336,
+          "bytes": 6528,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524702161408
+        },
+        {
+          "start": 129315244180992,
+          "bytes": 6528,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524702168576
+        },
+        {
+          "start": 129315244187648,
+          "bytes": 32,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 131524702175744
+        }
+      ],
+      "pointers": {
+        "arg-3": 131524701716736,
+        "arg-0": 131524701737216,
+        "arg-1": 131524701740288,
+        "arg-4": 131524702154496,
+        "arg-6": 131524702161664,
+        "arg-5": 131524702168832,
+        "arg-9": 131524702176000
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0005-w0-f00-0032-26multiply_matrix_and_reduce.npz",
+      "output_sha256": "b8252bdd1d283fa4b0d7a84a99826b6212f1d86ac9478a6c708f07a5168357d3"
+    },
+    {
+      "number": 6,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0033-28update_solution_and_residual",
+      "kind": "28update_solution_and_residual",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 129315243033088,
+          "bytes": 6528,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 129315244154368,
+          "bytes": 6528,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 131524701723648
+        },
+        {
+          "start": 129315244161024,
+          "bytes": 6528,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701730816
+        },
+        {
+          "start": 129315244174336,
+          "bytes": 6528,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524701737984
+        },
+        {
+          "start": 129315244187648,
+          "bytes": 32,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701745152
+        },
+        {
+          "start": 129315244219904,
+          "bytes": 32,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701746176
+        }
+      ],
+      "pointers": {
+        "arg-6": 131524701716736,
+        "arg-7": 131524701723904,
+        "arg-4": 131524701731072,
+        "arg-5": 131524701738240,
+        "arg-3": 131524701745408,
+        "arg-2": 131524701746432
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0006-w0-f00-0033-28update_solution_and_residual.npz",
+      "output_sha256": "f2f0c85e5760f543d7e40accf227d7ed886818be9ee58f5b17d0dba42f9e68d3"
+    },
+    {
+      "number": 7,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0524-20apply_nonlinear_step",
+      "kind": "20apply_nonlinear_step",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12921051648,
+          "bytes": 6528,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12921084928,
+          "bytes": 6528,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701723648
+        },
+        {
+          "start": 129315243033088,
+          "bytes": 6528,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701730816
+        }
+      ],
+      "pointers": {
+        "arg-0": 131524701716736,
+        "arg-1": 131524701723904,
+        "arg-2": 131524701731072
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0007-w0-f00-0524-20apply_nonlinear_step.npz",
+      "output_sha256": "da057d35daaa1b93fff0d31bbb46b683087d5d2ab89da355e5cff6ac5c0ed3a3"
+    },
+    {
+      "number": 8,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0008-22evaluate_contact_force",
+      "kind": "22evaluate_contact_force",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-32": false,
+            "arg-33": true
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-32": false,
+            "arg-33": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-32": false,
+            "arg-33": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12920982016,
+          "bytes": 68,
+          "labels": [
+            "arg-23"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12920983040,
+          "bytes": 272,
+          "labels": [
+            "arg-24"
+          ],
+          "prefix": 256,
+          "device_base": 131524701717504
+        },
+        {
+          "start": 12920991744,
+          "bytes": 204,
+          "labels": [
+            "arg-25"
+          ],
+          "prefix": 256,
+          "device_base": 131524701718528
+        },
+        {
+          "start": 12921040384,
+          "bytes": 224,
+          "labels": [
+            "arg-11"
+          ],
+          "prefix": 256,
+          "device_base": 131524701719552
+        },
+        {
+          "start": 12921040896,
+          "bytes": 224,
+          "labels": [
+            "arg-12"
+          ],
+          "prefix": 256,
+          "device_base": 131524701720576
+        },
+        {
+          "start": 12921041408,
+          "bytes": 1568,
+          "labels": [
+            "arg-13"
+          ],
+          "prefix": 256,
+          "device_base": 131524701721600
+        },
+        {
+          "start": 12921043456,
+          "bytes": 672,
+          "labels": [
+            "arg-14"
+          ],
+          "prefix": 256,
+          "device_base": 131524701724160
+        },
+        {
+          "start": 12921044480,
+          "bytes": 224,
+          "labels": [
+            "arg-15"
+          ],
+          "prefix": 256,
+          "device_base": 131524701725696
+        },
+        {
+          "start": 12921044992,
+          "bytes": 224,
+          "labels": [
+            "arg-16"
+          ],
+          "prefix": 256,
+          "device_base": 131524701726720
+        },
+        {
+          "start": 12921045504,
+          "bytes": 224,
+          "labels": [
+            "arg-17"
+          ],
+          "prefix": 256,
+          "device_base": 131524701727744
+        },
+        {
+          "start": 12921046016,
+          "bytes": 224,
+          "labels": [
+            "arg-18"
+          ],
+          "prefix": 256,
+          "device_base": 131524701728768
+        },
+        {
+          "start": 12921051648,
+          "bytes": 6528,
+          "labels": [
+            "arg-28"
+          ],
+          "prefix": 256,
+          "device_base": 131524701729792
+        },
+        {
+          "start": 12921058304,
+          "bytes": 6528,
+          "labels": [
+            "arg-29"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 12921407488,
+          "bytes": 4,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701744128
+        },
+        {
+          "start": 12921412608,
+          "bytes": 4000,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701745152
+        },
+        {
+          "start": 12921416704,
+          "bytes": 4000,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701749760
+        },
+        {
+          "start": 12921420800,
+          "bytes": 12000,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701754368
+        },
+        {
+          "start": 12921433088,
+          "bytes": 12000,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524701767168
+        },
+        {
+          "start": 12921445376,
+          "bytes": 12000,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701779968
+        },
+        {
+          "start": 12921457664,
+          "bytes": 12000,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 131524701792768
+        },
+        {
+          "start": 12921469952,
+          "bytes": 12000,
+          "labels": [
+            "arg-8"
+          ],
+          "prefix": 256,
+          "device_base": 131524701805568
+        },
+        {
+          "start": 12921482240,
+          "bytes": 4000,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 131524701818368
+        },
+        {
+          "start": 12921486336,
+          "bytes": 4000,
+          "labels": [
+            "arg-10"
+          ],
+          "prefix": 256,
+          "device_base": 131524701822976
+        },
+        {
+          "start": 133579239595008,
+          "bytes": 6528,
+          "labels": [
+            "arg-32"
+          ],
+          "prefix": 256,
+          "device_base": 131524701827584
+        },
+        {
+          "start": 133579239601664,
+          "bytes": 6528,
+          "labels": [
+            "arg-30"
+          ],
+          "prefix": 256,
+          "device_base": 131524701834752
+        },
+        {
+          "start": 133579239619072,
+          "bytes": 2176,
+          "labels": [
+            "arg-33"
+          ],
+          "prefix": 256,
+          "device_base": 131524701841920
+        }
+      ],
+      "pointers": {
+        "arg-23": 131524701716736,
+        "arg-24": 131524701717760,
+        "arg-25": 131524701718784,
+        "arg-11": 131524701719808,
+        "arg-12": 131524701720832,
+        "arg-13": 131524701721856,
+        "arg-14": 131524701724416,
+        "arg-15": 131524701725952,
+        "arg-16": 131524701726976,
+        "arg-17": 131524701728000,
+        "arg-18": 131524701729024,
+        "arg-28": 131524701730048,
+        "arg-29": 131524701737216,
+        "arg-0": 131524701744384,
+        "arg-2": 131524701745408,
+        "arg-3": 131524701750016,
+        "arg-4": 131524701754624,
+        "arg-5": 131524701767424,
+        "arg-6": 131524701780224,
+        "arg-7": 131524701793024,
+        "arg-8": 131524701805824,
+        "arg-9": 131524701818624,
+        "arg-10": 131524701823232,
+        "arg-32": 131524701827840,
+        "arg-30": 131524701835008,
+        "arg-33": 131524701842176
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0008-w1-f00-0008-22evaluate_contact_force.npz",
+      "output_sha256": "1a420b214ae6d049eefa54775fddc4abe0951bb1d03236e7898d28a828760382"
+    },
+    {
+      "number": 9,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0017-24evaluate_contact_tangent",
+      "kind": "24evaluate_contact_tangent",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-33": true,
+            "arg-34": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-33": true,
+            "arg-34": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-33": false,
+            "arg-34": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12920982016,
+          "bytes": 68,
+          "labels": [
+            "arg-23"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12920983040,
+          "bytes": 272,
+          "labels": [
+            "arg-24"
+          ],
+          "prefix": 256,
+          "device_base": 131524701717504
+        },
+        {
+          "start": 12920991744,
+          "bytes": 204,
+          "labels": [
+            "arg-25"
+          ],
+          "prefix": 256,
+          "device_base": 131524701718528
+        },
+        {
+          "start": 12921040384,
+          "bytes": 224,
+          "labels": [
+            "arg-11"
+          ],
+          "prefix": 256,
+          "device_base": 131524701719552
+        },
+        {
+          "start": 12921040896,
+          "bytes": 224,
+          "labels": [
+            "arg-12"
+          ],
+          "prefix": 256,
+          "device_base": 131524701720576
+        },
+        {
+          "start": 12921041408,
+          "bytes": 1568,
+          "labels": [
+            "arg-13"
+          ],
+          "prefix": 256,
+          "device_base": 131524701721600
+        },
+        {
+          "start": 12921043456,
+          "bytes": 672,
+          "labels": [
+            "arg-14"
+          ],
+          "prefix": 256,
+          "device_base": 131524701724160
+        },
+        {
+          "start": 12921044480,
+          "bytes": 224,
+          "labels": [
+            "arg-15"
+          ],
+          "prefix": 256,
+          "device_base": 131524701725696
+        },
+        {
+          "start": 12921044992,
+          "bytes": 224,
+          "labels": [
+            "arg-16"
+          ],
+          "prefix": 256,
+          "device_base": 131524701726720
+        },
+        {
+          "start": 12921045504,
+          "bytes": 224,
+          "labels": [
+            "arg-17"
+          ],
+          "prefix": 256,
+          "device_base": 131524701727744
+        },
+        {
+          "start": 12921046016,
+          "bytes": 224,
+          "labels": [
+            "arg-18"
+          ],
+          "prefix": 256,
+          "device_base": 131524701728768
+        },
+        {
+          "start": 12921051648,
+          "bytes": 6528,
+          "labels": [
+            "arg-27"
+          ],
+          "prefix": 256,
+          "device_base": 131524701729792
+        },
+        {
+          "start": 12921407488,
+          "bytes": 4,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 12921412608,
+          "bytes": 4000,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701737984
+        },
+        {
+          "start": 12921416704,
+          "bytes": 4000,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701742592
+        },
+        {
+          "start": 12921420800,
+          "bytes": 12000,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701747200
+        },
+        {
+          "start": 12921433088,
+          "bytes": 12000,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524701760000
+        },
+        {
+          "start": 12921445376,
+          "bytes": 12000,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701772800
+        },
+        {
+          "start": 12921457664,
+          "bytes": 12000,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 131524701785600
+        },
+        {
+          "start": 12921469952,
+          "bytes": 12000,
+          "labels": [
+            "arg-8"
+          ],
+          "prefix": 256,
+          "device_base": 131524701798400
+        },
+        {
+          "start": 12921482240,
+          "bytes": 4000,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 131524701811200
+        },
+        {
+          "start": 12921486336,
+          "bytes": 4000,
+          "labels": [
+            "arg-10"
+          ],
+          "prefix": 256,
+          "device_base": 131524701815808
+        },
+        {
+          "start": 133579239601664,
+          "bytes": 6528,
+          "labels": [
+            "arg-28"
+          ],
+          "prefix": 256,
+          "device_base": 131524701820416
+        },
+        {
+          "start": 133579239626752,
+          "bytes": 19584,
+          "labels": [
+            "arg-33"
+          ],
+          "prefix": 256,
+          "device_base": 131524701827584
+        },
+        {
+          "start": 133579239646720,
+          "bytes": 19584,
+          "labels": [
+            "arg-34"
+          ],
+          "prefix": 256,
+          "device_base": 131524701848064
+        }
+      ],
+      "pointers": {
+        "arg-23": 131524701716736,
+        "arg-24": 131524701717760,
+        "arg-25": 131524701718784,
+        "arg-11": 131524701719808,
+        "arg-12": 131524701720832,
+        "arg-13": 131524701721856,
+        "arg-14": 131524701724416,
+        "arg-15": 131524701725952,
+        "arg-16": 131524701726976,
+        "arg-17": 131524701728000,
+        "arg-18": 131524701729024,
+        "arg-27": 131524701730048,
+        "arg-0": 131524701737216,
+        "arg-2": 131524701738240,
+        "arg-3": 131524701742848,
+        "arg-4": 131524701747456,
+        "arg-5": 131524701760256,
+        "arg-6": 131524701773056,
+        "arg-7": 131524701785856,
+        "arg-8": 131524701798656,
+        "arg-9": 131524701811456,
+        "arg-10": 131524701816064,
+        "arg-28": 131524701820672,
+        "arg-33": 131524701827840,
+        "arg-34": 131524701848320
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0009-w1-f00-0017-24evaluate_contact_tangent.npz",
+      "output_sha256": "ed060a89f4af2a5bbbad9ade9838ed1b0f1b8deb6f4d0d081ae66264336b0605"
+    },
+    {
+      "number": 10,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0023-27invert_block_preconditioner",
+      "kind": "27invert_block_preconditioner",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12920963584,
+          "bytes": 272,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12920973824,
+          "bytes": 272,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701717504
+        },
+        {
+          "start": 133579239646720,
+          "bytes": 19584,
+          "labels": [
+            "arg-0",
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701718528
+        }
+      ],
+      "pointers": {
+        "arg-2": 131524701716736,
+        "arg-1": 131524701717760,
+        "arg-0": 131524701718784,
+        "arg-3": 131524701718784
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0010-w1-f00-0023-27invert_block_preconditioner.npz",
+      "output_sha256": "e0aad73c41b55ef476277c33eccf241ce2dbb46c7e708a2eaa71e4f3720d452a"
+    },
+    {
+      "number": 11,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0024-23precondition_and_reduce",
+      "kind": "23precondition_and_reduce",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 133579239646720,
+          "bytes": 19584,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 133579240709632,
+          "bytes": 6528,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 133579240722944,
+          "bytes": 6528,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701744128
+        },
+        {
+          "start": 133579240775168,
+          "bytes": 32,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701751296
+        }
+      ],
+      "pointers": {
+        "arg-0": 131524701716736,
+        "arg-1": 131524701737216,
+        "arg-2": 131524701744384,
+        "arg-6": 131524701751552
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0011-w1-f00-0024-23precondition_and_reduce.npz",
+      "output_sha256": "93c23e19b89d73c2b9eda24d310a75f530d6b6c0c09843e118cea2b07bded7d9"
+    },
+    {
+      "number": 12,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0025-19update_cg_direction",
+      "kind": "19update_cg_direction",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 133579240716288,
+          "bytes": 6528,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 133579240722944,
+          "bytes": 6528,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701723648
+        },
+        {
+          "start": 133579240775168,
+          "bytes": 32,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701730816
+        }
+      ],
+      "pointers": {
+        "arg-6": 131524701716736,
+        "arg-1": 131524701723904,
+        "arg-4": 131524701731072
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0012-w1-f00-0025-19update_cg_direction.npz",
+      "output_sha256": "e97eb44abc921dc0970527162416b63fd053dc5f4bb602bb0831769191411445"
+    },
+    {
+      "number": 13,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0032-26multiply_matrix_and_reduce",
+      "kind": "26multiply_matrix_and_reduce",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 133579239626752,
+          "bytes": 19584,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 133579239764480,
+          "bytes": 2176,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701736960
+        },
+        {
+          "start": 133579240295936,
+          "bytes": 413440,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701740032
+        },
+        {
+          "start": 133579240716288,
+          "bytes": 6528,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524702154240
+        },
+        {
+          "start": 133579240729600,
+          "bytes": 6528,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524702161408
+        },
+        {
+          "start": 133579240736256,
+          "bytes": 6528,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524702168576
+        },
+        {
+          "start": 133579240742912,
+          "bytes": 32,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 131524702175744
+        }
+      ],
+      "pointers": {
+        "arg-3": 131524701716736,
+        "arg-0": 131524701737216,
+        "arg-1": 131524701740288,
+        "arg-4": 131524702154496,
+        "arg-6": 131524702161664,
+        "arg-5": 131524702168832,
+        "arg-9": 131524702176000
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0013-w1-f00-0032-26multiply_matrix_and_reduce.npz",
+      "output_sha256": "943d51747973ce0d6b61f6d38a8df65e2da198f2be882d2e8a3905af7078401f"
+    },
+    {
+      "number": 14,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0033-28update_solution_and_residual",
+      "kind": "28update_solution_and_residual",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 133579239588352,
+          "bytes": 6528,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 133579240709632,
+          "bytes": 6528,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 131524701723648
+        },
+        {
+          "start": 133579240716288,
+          "bytes": 6528,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 131524701730816
+        },
+        {
+          "start": 133579240729600,
+          "bytes": 6528,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 131524701737984
+        },
+        {
+          "start": 133579240742912,
+          "bytes": 32,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 131524701745152
+        },
+        {
+          "start": 133579240775168,
+          "bytes": 32,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701746176
+        }
+      ],
+      "pointers": {
+        "arg-6": 131524701716736,
+        "arg-7": 131524701723904,
+        "arg-4": 131524701731072,
+        "arg-5": 131524701738240,
+        "arg-3": 131524701745408,
+        "arg-2": 131524701746432
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0014-w1-f00-0033-28update_solution_and_residual.npz",
+      "output_sha256": "431ab29e6a64959ae62b519102abe28c4319a74c6a6a81232d35ef96dc1757a0"
+    },
+    {
+      "number": 15,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0524-20apply_nonlinear_step",
+      "kind": "20apply_nonlinear_step",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12921051648,
+          "bytes": 6528,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 131524701716480
+        },
+        {
+          "start": 12921084928,
+          "bytes": 6528,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 131524701723648
+        },
+        {
+          "start": 133579239588352,
+          "bytes": 6528,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 131524701730816
+        }
+      ],
+      "pointers": {
+        "arg-0": 131524701716736,
+        "arg-1": 131524701723904,
+        "arg-2": 131524701731072
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/capture/full-input-replays/packets/0015-w1-f00-0524-20apply_nonlinear_step.npz",
+      "output_sha256": "43dcb667353d986c3ef191cb62b998109cc204b88d534c2fdb7d4aace5547fbe"
+    }
+  ],
+  "actual_calls": 48,
+  "error": null,
+  "complete": true,
+  "strict_packets": 8,
+  "all_unwritten_and_guards_equal": true,
+  "original_frozen_failure_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}
