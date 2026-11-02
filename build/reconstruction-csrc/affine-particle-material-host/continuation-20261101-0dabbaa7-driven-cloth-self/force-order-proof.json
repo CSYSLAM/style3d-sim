@@ -1,0 +1,146 @@
+{
+  "cases": [
+    {
+      "case": "so3-w1-newton-b0-none-d0",
+      "owned_calls": 655,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w1-pd-b1-none-d0",
+      "owned_calls": 742,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w3-newton-b1-none-d0",
+      "owned_calls": 754,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w3-pd-b0-none-d0",
+      "owned_calls": 643,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w1-newton-b0-legacy-d0",
+      "owned_calls": 844,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w1-newton-b1-surface-d0",
+      "owned_calls": 952,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w3-pd-b1-legacy-d0",
+      "owned_calls": 931,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w3-pd-b0-surface-d0",
+      "owned_calls": 841,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w1-newton-b1-none-d1",
+      "owned_calls": 754,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "so3-w3-pd-b0-none-d1",
+      "owned_calls": 643,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "six-springs-w1-newton-b0-none-d0",
+      "owned_calls": 598,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    },
+    {
+      "case": "six-springs-w3-pd-b1-surface-d0",
+      "owned_calls": 886,
+      "self_force_blocks": 9,
+      "all_normalized_parameters_equal_after_only_this_permutation": true
+    }
+  ],
+  "assembly": [
+    {
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--start-address=0xfc800",
+        "--stop-address=0xfcf20",
+        "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/SDK-step-before-joints.asm",
+      "sha256": "045a60f76ad54ebd4fcfd643d2cedf9d72a82e4b77180b32683625655afe11d7"
+    },
+    {
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--start-address=0xfec60",
+        "--stop-address=0xfed40",
+        "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/SDK-step-self-call.asm",
+      "sha256": "c235209b3ae9b11dd878a8e7c861c6d746c208de2e1f141b302f09b6cfc332a6"
+    },
+    {
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--start-address=0xffe20",
+        "--stop-address=0xffef0",
+        "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/SDK-step-surface-scale.asm",
+      "sha256": "3eeceb6d0fde93b9e5e44a632b7546bf89d7529e7e2bd98ce903163bd73c164b"
+    }
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/audit-force-order.py": "8fb30477d2848d38c4f1302bd6f04d1c02f365ca706e919603cbc454ea0622eb",
+    "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w1-newton-b0-none-d0/original/launches.txt": "bd1ece63501c0a105e8a236f7e2045d2b87348c0734adc07370bd30fe5959144",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w1-newton-b0-none-d0/launches.txt": "baf2f8e1090034651021035bfee237bcfeceef06fcade6cd57438064786efb31",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w1-pd-b1-none-d0/original/launches.txt": "575ddc77945c3069a2df7555b8fa46ec393aa8ccf8403fb4e0c443c93f4b7080",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w1-pd-b1-none-d0/launches.txt": "b86dc078b59d9f7a7898a5a10525d3cccfdebfb548e2f3bb2fd25a023e191638",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w3-newton-b1-none-d0/original/launches.txt": "a4c813a8c0b5abdc3719cb978c186987487139f037ad1de332e85d44fabd1377",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w3-newton-b1-none-d0/launches.txt": "3e53c517e19788bc7d8a23f2e512534d1b4d1151cd0fcdfd9ff2e2602d5b5308",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w3-pd-b0-none-d0/original/launches.txt": "03ef850cfb683f45cee749b4a56d4e9fd8e8b35151a8aeb918c663a2d1f021e8",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w3-pd-b0-none-d0/launches.txt": "869f18488624c127e09e93e506a8e10cf9e9db033428bf32c64b03e2d4393ba5",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w1-newton-b0-legacy-d0/original/launches.txt": "7d657b18689d158f6a3b7a189f280326f3547818bd3f8fe280bd8e3ccbb79069",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w1-newton-b0-legacy-d0/launches.txt": "5891b916aadd94403d0a35bc5cdd253f59fed8fafbff30f516006563157d76ba",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w1-newton-b1-surface-d0/original/launches.txt": "2e60938291f692f99b2f188a9ca89d0ab37336381247f64e82b772ee21d090f4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w1-newton-b1-surface-d0/launches.txt": "6de9aed27ce3c1ceb08a99e99e82998cf9d35eba750d20518cff49ea154abcb8",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w3-pd-b1-legacy-d0/original/launches.txt": "7c27acb87f8338319da9a3780cd453879cf65b769d292561d71ce3a4b18969f7",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w3-pd-b1-legacy-d0/launches.txt": "a84161a058c65b25325150e48ff88b34374ebf6b48c24c117e8d29fc3473952e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w3-pd-b0-surface-d0/original/launches.txt": "971d446d44102c45591f9e403158dd9a55e4acbf7f6ef98f4a236268e88dd3bf",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w3-pd-b0-surface-d0/launches.txt": "698f7349cae99a0a53062b7c0f816343c367bd66b5bbb74be5e1ff8d67161663",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w1-newton-b1-none-d1/original/launches.txt": "44113ba226c1361357ead8007a21b0593854ba5329671f3c10871508ee947c3f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w1-newton-b1-none-d1/launches.txt": "511bd7e5e6439dc616e34fbf476b6249be133605b908bf858ac32d838b9af2b6",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/so3-w3-pd-b0-none-d1/original/launches.txt": "92cd58d1defc15b9d1d7163d1fad778514a74c72ab96a1de4fa3f7a28014df71",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/so3-w3-pd-b0-none-d1/launches.txt": "9a799987edfd21181939a514302bb6c4092826b83027d5622a07f01e926064cb",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/six-springs-w1-newton-b0-none-d0/original/launches.txt": "f8d0c837f4249e16bf15910ad792e9ae5cd406e2ae8572e62f19ce97ff65b34f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/six-springs-w1-newton-b0-none-d0/launches.txt": "fecc3c161c7698bcb42391b7569562ab0645ad61ff84acc69775cc54991486f5",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/discovery/six-springs-w3-pd-b1-surface-d0/original/launches.txt": "2bb3d9d8d01518a6a5b815152b18177acf5212702e0064d99b2ca31788a9ddbe",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/candidate-captures/six-springs-w3-pd-b1-surface-d0/launches.txt": "752be047647e163a0697a82249034759947b5e76fd6eb11faa43b92bf8b79c31"
+  },
+  "GPU_used": false,
+  "change": "Keep stiffness copy/surface-scale before joints;move only self accumulation after drives/limits",
+  "actual_second_candidate_execution_claimed": false,
+  "whole_solver_complete": false
+}

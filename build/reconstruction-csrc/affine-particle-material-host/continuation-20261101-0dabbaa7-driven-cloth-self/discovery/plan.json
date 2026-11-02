@@ -1,0 +1,256 @@
+{
+  "cases": [
+    {
+      "name": "so3-w1-newton-b0-none-d0",
+      "worlds": 1,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "1",
+        "--seed",
+        "1",
+        "--mode",
+        "newton",
+        "--contact-kind",
+        "none"
+      ]
+    },
+    {
+      "name": "so3-w1-pd-b1-none-d0",
+      "worlds": 1,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "1",
+        "--seed",
+        "1",
+        "--mode",
+        "pd",
+        "--contact-kind",
+        "none",
+        "--body-block"
+      ]
+    },
+    {
+      "name": "so3-w3-newton-b1-none-d0",
+      "worlds": 3,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "3",
+        "--seed",
+        "3",
+        "--mode",
+        "newton",
+        "--contact-kind",
+        "none",
+        "--body-block"
+      ]
+    },
+    {
+      "name": "so3-w3-pd-b0-none-d0",
+      "worlds": 3,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "3",
+        "--seed",
+        "3",
+        "--mode",
+        "pd",
+        "--contact-kind",
+        "none"
+      ]
+    },
+    {
+      "name": "so3-w1-newton-b0-legacy-d0",
+      "worlds": 1,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "1",
+        "--seed",
+        "1",
+        "--mode",
+        "newton",
+        "--contact-kind",
+        "legacy"
+      ]
+    },
+    {
+      "name": "so3-w1-newton-b1-surface-d0",
+      "worlds": 1,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "1",
+        "--seed",
+        "1",
+        "--mode",
+        "newton",
+        "--contact-kind",
+        "surface",
+        "--body-block"
+      ]
+    },
+    {
+      "name": "so3-w3-pd-b1-legacy-d0",
+      "worlds": 3,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "3",
+        "--seed",
+        "3",
+        "--mode",
+        "pd",
+        "--contact-kind",
+        "legacy",
+        "--body-block"
+      ]
+    },
+    {
+      "name": "so3-w3-pd-b0-surface-d0",
+      "worlds": 3,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "3",
+        "--seed",
+        "3",
+        "--mode",
+        "pd",
+        "--contact-kind",
+        "surface"
+      ]
+    },
+    {
+      "name": "so3-w1-newton-b1-none-d1",
+      "worlds": 1,
+      "diagonal": true,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "1",
+        "--seed",
+        "1",
+        "--mode",
+        "newton",
+        "--contact-kind",
+        "none",
+        "--body-block",
+        "--diagonal-only"
+      ]
+    },
+    {
+      "name": "so3-w3-pd-b0-none-d1",
+      "worlds": 3,
+      "diagonal": true,
+      "extra": [
+        "--rigidity",
+        "so3",
+        "--worlds",
+        "3",
+        "--seed",
+        "3",
+        "--mode",
+        "pd",
+        "--contact-kind",
+        "none",
+        "--diagonal-only"
+      ]
+    },
+    {
+      "name": "six-springs-w1-newton-b0-none-d0",
+      "worlds": 1,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "six-springs",
+        "--worlds",
+        "1",
+        "--seed",
+        "1",
+        "--mode",
+        "newton",
+        "--contact-kind",
+        "none"
+      ]
+    },
+    {
+      "name": "six-springs-w3-pd-b1-surface-d0",
+      "worlds": 3,
+      "diagonal": false,
+      "extra": [
+        "--rigidity",
+        "six-springs",
+        "--worlds",
+        "3",
+        "--seed",
+        "3",
+        "--mode",
+        "pd",
+        "--contact-kind",
+        "surface",
+        "--body-block"
+      ]
+    }
+  ],
+  "frames": 3,
+  "SDK_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "source_sha256": "0dabbaa7a57b57187549f814632efebdc5612095765932be112c2c9ca1868e3e",
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_cuda.cpp": "f2fbd0aa2e2eb1f8f75f46c2ff5c2cd9177ebd84f610920ba685582346cc23df",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/api_schema.json": "cc08b835369ffdb423ad6f14493a38918235593020955a8af84d883dc862ed69",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/revisions/pcg_23fb797.cu": "108f76405da5745b60e8de0f45420a24be8df35f3df4a49158807059dfceb5cc",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/revisions/tetrahedra_23fb797.cu": "828dab3153417b5bd7ca95aa600a1f1567ac06642b668afa5be77e1c58de6c76",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/revisions/granular_grid_23fb797.cu": "3599cc4bf461d03dc29a011ffd8ded30541805cc92ccbd1f4b03537e0eb5aee9",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/kernel_symbols_23fb797.json": "aaf97925badaa2a0df180fca6dbf105e9185212244bcf398b6db831e3a1c7222",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp": "69736aabe5bc04e3c2f25c0881424a58295d4fab46a3defdd5945a2d23baa064",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/build_host.py": "cd2f5325e97a26ad4d7c09a6602c6a159a5499abc802101021eefd375dc9a48c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/native/source_ptx_bundle.h": "88934c91d4abc3df5e212c9e699fef8c308daf1a1241ff89c8f4891097768231",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_api.h": "a9060e26a5c3feaac242cd142fc371e50ac5165342a817b626bae9fcf4b84f64",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_driver.h": "54aa8bc2816a8b08e1a32308f13e4dac9b20433ac056ecd412e0bddd04e1542c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_ptx_bundle.h": "0b99741035a1bb95da92ed30456219fff9faf642e0e36a4d114356e45233293c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/pcg_23fb797.ptx": "06f1350d5f728ee07b57d0af9a15b2bf1aa766d71824eca46cb032082dcd7d70",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/tetrahedra_23fb797.ptx": "8eaf3d9effba9e0e95f8a1335652c32744e6ca3deab7d8bedccfa612c45e018f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/granular_grid_23fb797.ptx": "fd036938b1785fa14bdf6baa1b8122d17876421f91712f377480d56c90952c1a",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/surface_view.h": "959e66fe05c29e0522b7920d703f86e268e407b6d4c94bf024b05759499aa6f9",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/bvh_library.cu": "0e5d8e1aed36a84b54d6e228aab7d0ce191829cca8963a92ea51d68c84906b7b",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/bvh_library.h": "df29b51f5f6ad5d813a3e88db0593a20e8a6518c9d7e611424b2bae427c4cffc",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/library/reduction_functors.cuh": "4b42c15b8f478bfc9d5d9e05c81b0e7e0316fdda496ba9a6847471d1a23149c8",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/kernels/types.cuh": "2dee46a31ed8f226d3fa549cac7c0afe519e0aa8e23bd96d76bb00ea00bd3d99",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/kernels/common.cuh": "68895790cfd8cffdb96e3cdd95438d134a50a9e1527488be43d24632dbf0c2bb",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/build_bvh_library.py": "147f3b079f529ea203389cc78fdab43a8d5afcaf96901c0e4d3c7000263c6dfc",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/bvh_library.o": "ae7c2b10908fb49b8df924780f7d4758bede75feaafd27b0ab45de5457ac71f8",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/build.json": "8622ea69871662be913c674fd532ce00e2d8ff985cb087230407ddb436b3d158",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/bvh-host-library/936f6e24b061593a/bvh_library.ptx": "369cafc05015374c6eacc8c5654ac0b169ff8e01ea673252c917e86512b65717",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/run-discovery.py": "7f3ead720c5ba1221c0e06bc7430aa851b4604828873fccad79baf88d32dc198",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/worker.py": "0fb3be98285cdbbbd6a2939d48d4993da7679df9ba40a9118944b858cfce4736",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/driven_cloth_self_scene.py": "653f672835739cec5a6cfc14ba26ede0911fdf31efbbc15acb72e8e9f751f98a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/full-owned-hook-129/cudahook.so": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/build.json": "efa8a5301c2c3478c157d7d17285733727a924a8278fc230897030a90d680774",
+    "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py": "dd83610440b73267fe526eeaea1c60e69caed74db7884f4f31fe5e005253e2ea",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/host_bodies_ab.py": "ad583287ca2443de50adf4a99a8d220b3d82ddc551266bc1b6225035c1aa986d"
+  },
+  "production_changed": false,
+  "whole_solver_complete": false
+}

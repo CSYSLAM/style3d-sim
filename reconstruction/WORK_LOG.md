@@ -6967,3 +6967,41 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   旧PD路径缺少完整私有状态时必须明示，不能把这批新路径的局部证书当旧失败已经解释。
 - write-completion实际0，封存3959个数据/脚本/日志文件及独立完成清单；旧准备open记录原样保留为历史。
   补核46份read-proof实际entry SHA与当前原版/source文本完全对应，SDK64a/当前生产构建/冻结360pyc保持。
+
+### 2026-11-01：驱动布料与self碰撞范围/顺序恢复，隔离证书排队
+
+- 上一goal turn为progress：完整PD所选213阶段固定四帧3408输入、10224回放/1048证书，271343冻结文件校验0失败，
+  f3be8fa6b0f6d7bb332939b66ff2d7f464028738已推送并核远端精确HEAD。本轮起始tracked clean，生产0dab/Core715不改。
+- 只读对照source_solver的guards与实际demo，确认example_cloth_h1_free.py启用驱动关节/布料/self组合。
+  新driven_cloth_self_scene用两个近邻布料片和驱动关节，预定12个SO3/SIX、W1/W3、Newton/PD、block/contacts/diagonal组合。
+  discovery/session3333实际0：SDK12组全0，生产12组均1且精确报constrained cloth/body guard；source均无SDK映射。
+  独立CPU验证布局相同，VF/EE实际RHS改变且full计数正；EF首轮无实际力，不冒称有效EF覆盖。
+- build-candidate/session10760实际0，只移除两处范围限制，隔离image c243042e；生产源码/数学未动。
+  candidate/session86792实际0表示12 worker均结束，但完整检查0/12，状态10/12严格，所有调用顺序不一致。
+  保留首候选全部结果，没有把finite或程序退出0当作通过。
+- force-order CPU实际0：12份真实SDK/候选日志只需移动每NL的VF/EE/EF三段，全部参数即可对应。
+  固定SDK反汇编fed26调用SelfCollision::accumulate，surface scale的ffeca返回joint前fc9be；相关asm及SHA保存。
+  只挪accumulate，stiffness copy/scale仍保留joint之前，不能整个准备块一起移动。
+- build-force-order/session55699实际0，隔离image7ca67172；run-force-order/session86196实际0，
+  9243完整owned调用/geometry/覆盖计数全部同；10组状态和首self缓冲严格，两W3/PD/surface严格失败保留。
+  short-fixed-C8/session88422实际1：两例固定8SDK/3source，原SDK0/源码0逐字节采用，三source均false。
+  SO3第二步速度误差约7.01/三步最大18.28，SIX三步最大21.13，后续大响应尚未完整解释。
+- 四类constructor/session90263实际0：24实际GPU worker及4独立CPU均0，五项分配/上传/typed/flat身份/内核次序检查全同。
+  两端每类107 allocation events、37 uploads、61 typed初始化，owned/library完整timeline同，不改原缓冲区。
+- 首表面力采集/session59096实际0，四worker全0；实际capacity180/active66，local16/total48，local shapes/body各2。
+  25个完整指针容量保存，跨端只比有效66条前缀，不排序输入。两端所有有意义输入、惯性RHS及surface前RHS逐字节同。
+  原/源码四条扩展观察轨迹均未复现整段原冻结轨迹，未替换首失败。
+- first-surface-replays/session20735实际0，四worker全0：792次SDK/PTX/source逐contact完整输出同；
+  每端8496真实原子操作数序列同，12次aggregate均不复现捕获after，包括SDK自身。首kernel定位不外推后续大响应已解释。
+  first-surface独立CPU实际0，核完整输入、首RHS、逐contact完整结果及原子序列。
+- CPU short-audit v1仅因int checkpoint键与JSON string键直接比较退出1，原脚本/失败receipt保留；
+  v2规范化JSON键后实际0，重核12调用/状态及两组全部C8统计完全一致，未改变统计或阈值。
+  pointer-effects v1不识别SurfaceView的param+8 alias而退出1；v2按真实mov/add定义、entry支配和296字节界限核准。
+  两端surface只F32 red写RHS、无RHS读取/跨线程barrier，执行PTX完全未改；v1保留，v2独立CPU实际0。
+- CPU联合全局顺序试探16份均有拓扑环，保存失败输出，没有写成全局联合证明。
+  首次GPU标量/session10773实际0：593结果和13788 history均同，独立CPU0覆盖2304来源标量及每线程同目标先后。
+  但启动前实际GPU查询已有外部PID3268879，编排误放行；向用户说明，原结果/notice保留，不计隔离验收，未杀外部任务。
+- 隔离同输入重跑session67261/PID3272557已启动，GPU context前内置等待；boot/start_ticks保存，当前真实进程再核仍在等待。
+  新session2752/PID3280049仅等同一原进程并自动执行独立CPU审计，不重启/替换它；GPU实际退出仍需根工具session确认。
+  生产、CUDA176/f0、SDK64a、360pyc及旧失败保持，候选未合入。默认/readyFalse和其它未验收范围不改。
+  新DRIVEN_CLOTH_SELF_HOST_RECOVERY记录已做内容、两次审计问题、GPU编排失误、真实等待及Windows/WSL命令。

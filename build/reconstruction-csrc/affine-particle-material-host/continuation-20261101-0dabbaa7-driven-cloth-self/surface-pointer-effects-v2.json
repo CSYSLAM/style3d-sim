@@ -1,0 +1,4772 @@
+{
+  "proofs": [
+    {
+      "side": "original",
+      "actual_parameter_alias_proof": {
+        "definition": "add.s64 %rd4, %rd105, 8;",
+        "base_definition": "mov.b64 %rd105, _ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0;",
+        "unpredicated_entry_prefix_dominates_all_uses": true,
+        "rewrites": [
+          {
+            "actual": "ld.param.u64 %rd116, [%rd4+24];",
+            "analysis": "ld.param.u64 %rd116, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+32];",
+            "offset": 32,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd9, [%rd4+64];",
+            "analysis": "ld.param.u64 %rd9, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+72];",
+            "offset": 72,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd117, [%rd4+8];",
+            "analysis": "ld.param.u64 %rd117, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+16];",
+            "offset": 16,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd118, [%rd4+16];",
+            "analysis": "ld.param.u64 %rd118, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+24];",
+            "offset": 24,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd13, [%rd4+56];",
+            "analysis": "ld.param.u64 %rd13, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+64];",
+            "offset": 64,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd15, [%rd4+112];",
+            "analysis": "ld.param.u64 %rd15, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+120];",
+            "offset": 120,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd16, [%rd4+192];",
+            "analysis": "ld.param.u64 %rd16, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+200];",
+            "offset": 200,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd17, [%rd4+200];",
+            "analysis": "ld.param.u64 %rd17, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+208];",
+            "offset": 208,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd18, [%rd4+208];",
+            "analysis": "ld.param.u64 %rd18, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+216];",
+            "offset": 216,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd120, [%rd4+72];",
+            "analysis": "ld.param.u64 %rd120, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+80];",
+            "offset": 80,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd21, [%rd4+96];",
+            "analysis": "ld.param.u64 %rd21, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+104];",
+            "offset": 104,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd121, [%rd4+264];",
+            "analysis": "ld.param.u64 %rd121, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+272];",
+            "offset": 272,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.f32 %f1, [%rd4+280];",
+            "analysis": "ld.param.f32 %f1, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+288];",
+            "offset": 288,
+            "bytes": 4
+          },
+          {
+            "actual": "ld.param.u64 %rd24, [%rd4+272];",
+            "analysis": "ld.param.u64 %rd24, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+280];",
+            "offset": 280,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd122, [%rd4+80];",
+            "analysis": "ld.param.u64 %rd122, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+88];",
+            "offset": 88,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd27, [%rd4+88];",
+            "analysis": "ld.param.u64 %rd27, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+96];",
+            "offset": 96,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd123, [%rd4+120];",
+            "analysis": "ld.param.u64 %rd123, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+128];",
+            "offset": 128,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd124, [%rd4+232];",
+            "analysis": "ld.param.u64 %rd124, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+240];",
+            "offset": 240,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd31, [%rd4+256];",
+            "analysis": "ld.param.u64 %rd31, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+264];",
+            "offset": 264,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd125, [%rd4+32];",
+            "analysis": "ld.param.u64 %rd125, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+40];",
+            "offset": 40,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd126, [%rd4+128];",
+            "analysis": "ld.param.u64 %rd126, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+136];",
+            "offset": 136,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd127, [%rd4+48];",
+            "analysis": "ld.param.u64 %rd127, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+56];",
+            "offset": 56,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd128, [%rd4+240];",
+            "analysis": "ld.param.u64 %rd128, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+248];",
+            "offset": 248,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd36, [%rd4+104];",
+            "analysis": "ld.param.u64 %rd36, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+112];",
+            "offset": 112,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd129, [%rd4+248];",
+            "analysis": "ld.param.u64 %rd129, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+256];",
+            "offset": 256,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd130, [%rd4+136];",
+            "analysis": "ld.param.u64 %rd130, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+144];",
+            "offset": 144,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd131, [%rd4+40];",
+            "analysis": "ld.param.u64 %rd131, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+48];",
+            "offset": 48,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd132, [%rd4+144];",
+            "analysis": "ld.param.u64 %rd132, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+152];",
+            "offset": 152,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd133, [%rd4+152];",
+            "analysis": "ld.param.u64 %rd133, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+160];",
+            "offset": 160,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.v2.f32 {%f406, %f407}, [%rd4+216];",
+            "analysis": "ld.param.v2.f32 {%f406, %f407}, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+224];",
+            "offset": 224,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd134, [%rd4+160];",
+            "analysis": "ld.param.u64 %rd134, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+168];",
+            "offset": 168,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd135, [%rd4+168];",
+            "analysis": "ld.param.u64 %rd135, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+176];",
+            "offset": 176,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.v2.f32 {%f408, %f409}, [%rd4+224];",
+            "analysis": "ld.param.v2.f32 {%f408, %f409}, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+232];",
+            "offset": 232,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd136, [%rd4+184];",
+            "analysis": "ld.param.u64 %rd136, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+192];",
+            "offset": 192,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 %rd137, [%rd4+176];",
+            "analysis": "ld.param.u64 %rd137, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+184];",
+            "offset": 184,
+            "bytes": 8
+          }
+        ],
+        "actual_entry_sha256": "cf6500491d518d4cd5313fd107b3ed83575c5354fb5b30e9e3f65b5c5ae55e22"
+      },
+      "store_proof": {
+        "parameter_count": 2,
+        "store_instructions": [
+          {
+            "instruction": "red.global.add.f32 [%rd316], %f1423;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd317], %f1424;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd318], %f1425;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd320], %f1430;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd321], %f1431;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd322], %f1432;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd324], %f1437;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd325], %f1438;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd326], %f1439;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd328], %f1444;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd329], %f1445;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd330], %f1446;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd333], %f1451;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd334], %f1452;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd335], %f1453;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd337], %f1458;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd338], %f1459;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd339], %f1460;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd341], %f1465;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd342], %f1466;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd343], %f1467;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd347], %f1472;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd348], %f1473;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd349], %f1474;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd351], %f1479;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd352], %f1480;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd353], %f1481;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd355], %f1486;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd356], %f1487;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd357], %f1488;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd359], %f1493;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd360], %f1494;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd361], %f1495;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd365], %f1500;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd366], %f1501;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd367], %f1502;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd369], %f1507;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd370], %f1508;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd371], %f1509;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd373], %f1514;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd374], %f1515;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd375], %f1516;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 %rd83, [%rd215];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd83"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd49, [%rd48];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd49"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd57, [%rd48];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd57"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "fc6d78e0d049cf932bdac5ba010d6f07427ba74307ce0303f872976fb36868ff",
+        "canonical_analysis_entry_sha256": "fc6d78e0d049cf932bdac5ba010d6f07427ba74307ce0303f872976fb36868ff"
+      },
+      "global_read_base_proof": {
+        "parameter_count": 2,
+        "store_instructions": [
+          {
+            "instruction": "ld.global.u32 %r460, [%rd111];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r600, [%rd153];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                104
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f464, [%rd156];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                80
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f466, [%rd159];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f467, [%rd159+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f468, [%rd159+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f469, [%rd160];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f471, [%rd160+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f473, [%rd160+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f47, [%rd162];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                88
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r602, [%rd165];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                96
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r770, [%rd172];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                104
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f540, [%rd174];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                80
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f541, [%rd184];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f542, [%rd184+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f543, [%rd184+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f544, [%rd185];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f546, [%rd185+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f548, [%rd185+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f65, [%rd187];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                88
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r776, [%rd189];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                96
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r944, [%rd195];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                104
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f614, [%rd197];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                80
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f615, [%rd207];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f616, [%rd207+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f617, [%rd207+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f618, [%rd208];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f620, [%rd208+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f622, [%rd208+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f84, [%rd210];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                88
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r951, [%rd212];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                96
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd83, [%rd215];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                128
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1036, [%rd217];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                240
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1037, [%rd220];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                240
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1841, [%rd222];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                40
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1842, [%rd222+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                40
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1843, [%rd222+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                40
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r95, [%rd224];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                136
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1126, [%rd226];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1127, [%rd226+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1128, [%rd226+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1129, [%rd226+12];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f95, [%rd228];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                56
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f96, [%rd228+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                56
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f97, [%rd228+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                56
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f697, [%rd230];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f700, [%rd230+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f703, [%rd230+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f705, [%rd234];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f706, [%rd234+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f707, [%rd234+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f708, [%rd232];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f710, [%rd232+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f712, [%rd232+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f714, [%rd236];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f715, [%rd236+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f716, [%rd236+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f720, [%rd238];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f721, [%rd238+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f722, [%rd238+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1844, [%rd240];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                144
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1845, [%rd240+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                144
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1846, [%rd240+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                144
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f727, [%rd242];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f730, [%rd242+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f733, [%rd242+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f735, [%rd246];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f736, [%rd246+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f737, [%rd246+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f738, [%rd244];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f740, [%rd244+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f742, [%rd244+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f744, [%rd248];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f745, [%rd248+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f746, [%rd248+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f750, [%rd250];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f751, [%rd250+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f752, [%rd250+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f109, [%rd252];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                152
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f116, [%rd258+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f117, [%rd256+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f118, [%rd258+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f119, [%rd256+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f121, [%rd258];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f122, [%rd256];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f125, [%rd254];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f126, [%rd254+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f127, [%rd254+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1848, [%rd260];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                48
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1847, [%rd260+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                48
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r1849, [%rd260+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                48
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1002, [%rd92];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1005, [%rd92+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1008, [%rd92+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1020, [%rd87];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1022, [%rd87+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1023, [%rd87+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1024, [%rd89];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1027, [%rd89+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1029, [%rd89+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1034, [%rd91];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1036, [%rd91+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1037, [%rd91+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1038, [%rd92];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1039, [%rd92+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1040, [%rd92+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1041, [%rd389];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1042, [%rd301];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1044, [%rd389+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1045, [%rd301+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1047, [%rd389+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1048, [%rd301+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1050, [%rd96];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1051, [%rd392];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1053, [%rd96+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1054, [%rd392+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1056, [%rd96+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1057, [%rd392+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1059, [%rd98];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1060, [%rd395];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1062, [%rd98+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1063, [%rd395+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1065, [%rd98+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1066, [%rd395+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1068, [%rd100];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1069, [%rd376];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1071, [%rd100+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1072, [%rd376+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1074, [%rd100+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1075, [%rd376+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1089, [%rd92];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1090, [%rd92+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1091, [%rd92+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1092, [%rd379];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1093, [%rd303];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1095, [%rd379+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1096, [%rd303+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1098, [%rd379+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1099, [%rd303+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1101, [%rd96];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1102, [%rd381];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1104, [%rd96+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1105, [%rd381+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1107, [%rd96+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1108, [%rd381+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1110, [%rd98];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1111, [%rd383];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1113, [%rd98+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1114, [%rd383+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1116, [%rd98+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1117, [%rd383+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1119, [%rd100];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1120, [%rd385];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1122, [%rd100+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1123, [%rd385+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1125, [%rd100+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1126, [%rd385+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1308, [%rd305];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                160
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1314, [%rd307];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                168
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1315, [%rd308];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                176
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1384, [%rd310];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                192
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f1386, [%rd312];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                184
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd49, [%rd48];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                32
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r467, [%rd140];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                64
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r42, [%rd142+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                16
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r43, [%rd142+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                16
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f21, [%rd143];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                24
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f22, [%rd143+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                24
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 %f23, [%rd143+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                24
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %r44, [%rd142];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                16
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd57, [%rd48];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                32
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            16
+          ],
+          [
+            0,
+            24
+          ],
+          [
+            0,
+            32
+          ],
+          [
+            0,
+            40
+          ],
+          [
+            0,
+            48
+          ],
+          [
+            0,
+            56
+          ],
+          [
+            0,
+            64
+          ],
+          [
+            0,
+            80
+          ],
+          [
+            0,
+            88
+          ],
+          [
+            0,
+            96
+          ],
+          [
+            0,
+            104
+          ],
+          [
+            0,
+            128
+          ],
+          [
+            0,
+            136
+          ],
+          [
+            0,
+            144
+          ],
+          [
+            0,
+            152
+          ],
+          [
+            0,
+            160
+          ],
+          [
+            0,
+            168
+          ],
+          [
+            0,
+            176
+          ],
+          [
+            0,
+            184
+          ],
+          [
+            0,
+            192
+          ],
+          [
+            0,
+            240
+          ],
+          [
+            0,
+            248
+          ],
+          [
+            0,
+            256
+          ],
+          [
+            0,
+            272
+          ],
+          [
+            0,
+            280
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 %rd83, [%rd215];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd83"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd49, [%rd48];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd49"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd57, [%rd48];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd57"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "fc6d78e0d049cf932bdac5ba010d6f07427ba74307ce0303f872976fb36868ff",
+        "canonical_analysis_entry_sha256": "fc6d78e0d049cf932bdac5ba010d6f07427ba74307ce0303f872976fb36868ff"
+      }
+    },
+    {
+      "side": "source",
+      "actual_parameter_alias_proof": {
+        "definition": "add.s64 \t%rd3, %rd104, 8;",
+        "base_definition": "mov.b64 \t%rd104, _ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0;",
+        "unpredicated_entry_prefix_dominates_all_uses": true,
+        "rewrites": [
+          {
+            "actual": "ld.param.u64 \t%rd114, [%rd3+24];",
+            "analysis": "ld.param.u64 \t%rd114, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+32];",
+            "offset": 32,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd9, [%rd3+64];",
+            "analysis": "ld.param.u64 \t%rd9, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+72];",
+            "offset": 72,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd116, [%rd3+8];",
+            "analysis": "ld.param.u64 \t%rd116, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+16];",
+            "offset": 16,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd117, [%rd3+16];",
+            "analysis": "ld.param.u64 \t%rd117, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+24];",
+            "offset": 24,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd12, [%rd3+56];",
+            "analysis": "ld.param.u64 \t%rd12, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+64];",
+            "offset": 64,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd14, [%rd3+112];",
+            "analysis": "ld.param.u64 \t%rd14, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+120];",
+            "offset": 120,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd15, [%rd3+192];",
+            "analysis": "ld.param.u64 \t%rd15, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+200];",
+            "offset": 200,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd16, [%rd3+200];",
+            "analysis": "ld.param.u64 \t%rd16, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+208];",
+            "offset": 208,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd17, [%rd3+208];",
+            "analysis": "ld.param.u64 \t%rd17, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+216];",
+            "offset": 216,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd118, [%rd3+72];",
+            "analysis": "ld.param.u64 \t%rd118, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+80];",
+            "offset": 80,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd20, [%rd3+96];",
+            "analysis": "ld.param.u64 \t%rd20, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+104];",
+            "offset": 104,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd119, [%rd3+264];",
+            "analysis": "ld.param.u64 \t%rd119, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+272];",
+            "offset": 272,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.f32 \t%f1, [%rd3+280];",
+            "analysis": "ld.param.f32 \t%f1, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+288];",
+            "offset": 288,
+            "bytes": 4
+          },
+          {
+            "actual": "ld.param.u64 \t%rd23, [%rd3+272];",
+            "analysis": "ld.param.u64 \t%rd23, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+280];",
+            "offset": 280,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd120, [%rd3+80];",
+            "analysis": "ld.param.u64 \t%rd120, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+88];",
+            "offset": 88,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd26, [%rd3+88];",
+            "analysis": "ld.param.u64 \t%rd26, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+96];",
+            "offset": 96,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd121, [%rd3+120];",
+            "analysis": "ld.param.u64 \t%rd121, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+128];",
+            "offset": 128,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd122, [%rd3+232];",
+            "analysis": "ld.param.u64 \t%rd122, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+240];",
+            "offset": 240,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd30, [%rd3+256];",
+            "analysis": "ld.param.u64 \t%rd30, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+264];",
+            "offset": 264,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd123, [%rd3+240];",
+            "analysis": "ld.param.u64 \t%rd123, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+248];",
+            "offset": 248,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd32, [%rd3+104];",
+            "analysis": "ld.param.u64 \t%rd32, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+112];",
+            "offset": 112,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd124, [%rd3+248];",
+            "analysis": "ld.param.u64 \t%rd124, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+256];",
+            "offset": 256,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd125, [%rd3+48];",
+            "analysis": "ld.param.u64 \t%rd125, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+56];",
+            "offset": 56,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd126, [%rd3+128];",
+            "analysis": "ld.param.u64 \t%rd126, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+136];",
+            "offset": 136,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd127, [%rd3+136];",
+            "analysis": "ld.param.u64 \t%rd127, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+144];",
+            "offset": 144,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd128, [%rd3+32];",
+            "analysis": "ld.param.u64 \t%rd128, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+40];",
+            "offset": 40,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd129, [%rd3+144];",
+            "analysis": "ld.param.u64 \t%rd129, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+152];",
+            "offset": 152,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd130, [%rd3+40];",
+            "analysis": "ld.param.u64 \t%rd130, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+48];",
+            "offset": 48,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd131, [%rd3+152];",
+            "analysis": "ld.param.u64 \t%rd131, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+160];",
+            "offset": 160,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.v2.f32 \t{%f209, %f210}, [%rd3+216];",
+            "analysis": "ld.param.v2.f32 \t{%f209, %f210}, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+224];",
+            "offset": 224,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd132, [%rd3+160];",
+            "analysis": "ld.param.u64 \t%rd132, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+168];",
+            "offset": 168,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd133, [%rd3+168];",
+            "analysis": "ld.param.u64 \t%rd133, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+176];",
+            "offset": 176,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.v2.f32 \t{%f211, %f212}, [%rd3+224];",
+            "analysis": "ld.param.v2.f32 \t{%f211, %f212}, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+232];",
+            "offset": 232,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd134, [%rd3+184];",
+            "analysis": "ld.param.u64 \t%rd134, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+192];",
+            "offset": 192,
+            "bytes": 8
+          },
+          {
+            "actual": "ld.param.u64 \t%rd135, [%rd3+176];",
+            "analysis": "ld.param.u64 \t%rd135, [_ZN7synreal6kernel30evaluate_surface_contact_forceENS0_18SurfaceContactViewEPN3glm3vecILi3EfLNS2_9qualifierE0EEE_param_0+184];",
+            "offset": 184,
+            "bytes": 8
+          }
+        ],
+        "actual_entry_sha256": "39708d8b78b45a33bf4259e4ec2ede70e046ac2fb2b68d3a1a46a64f8fc7cded"
+      },
+      "store_proof": {
+        "parameter_count": 2,
+        "store_instructions": [
+          {
+            "instruction": "red.global.add.f32 \t[%rd276], %f700;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd277], %f701;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd278], %f702;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd280], %f707;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd281], %f708;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd282], %f709;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd284], %f714;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd285], %f715;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd286], %f716;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd288], %f721;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd289], %f722;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd290], %f723;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd292], %f728;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd293], %f729;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd294], %f730;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd296], %f735;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd297], %f736;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd298], %f737;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd300], %f742;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd301], %f743;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd302], %f744;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd304], %f749;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd305], %f750;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd306], %f751;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd310], %f756;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd311], %f757;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd312], %f758;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd314], %f763;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd315], %f764;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd316], %f765;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd318], %f770;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd319], %f771;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd320], %f772;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd322], %f777;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd323], %f778;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd324], %f779;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd327], %f784;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd328], %f785;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd329], %f786;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd331], %f791;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd332], %f792;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd333], %f793;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd335], %f798;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd336], %f799;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd337], %f800;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd340], %f805;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd341], %f806;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd342], %f807;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd344], %f812;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd345], %f813;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd346], %f814;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd348], %f819;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd349], %f820;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd350], %f821;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd352], %f826;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd353], %f827;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd354], %f828;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd358], %f838;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd359], %f839;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd360], %f840;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd362], %f845;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd363], %f846;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd364], %f847;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd366], %f852;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd367], %f853;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd368], %f854;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd370], %f859;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd371], %f860;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd372], %f861;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd374], %f866;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd375], %f867;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd376], %f868;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd378], %f873;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd379], %f874;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd380], %f875;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd382], %f880;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd383], %f881;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd384], %f882;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd386], %f887;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd387], %f888;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd388], %f889;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd392], %f894;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd393], %f895;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd394], %f896;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd396], %f901;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd397], %f902;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd398], %f903;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd400], %f908;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd401], %f909;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd402], %f910;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd404], %f915;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd405], %f916;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd406], %f917;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd408], %f922;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd409], %f923;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd410], %f924;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd412], %f929;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd413], %f930;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd414], %f931;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd416], %f936;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd417], %f937;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd418], %f938;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd422], %f943;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd423], %f944;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd424], %f945;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd426], %f950;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd427], %f951;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd428], %f952;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd430], %f957;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd431], %f958;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd432], %f959;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd434], %f964;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd435], %f965;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd436], %f966;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 \t%rd48, [%rd137];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd48"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd79, [%rd206];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd79"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "b672978b94c38a55ffc45d21a716e93541825c791109078c7f9c3023faedb74f",
+        "canonical_analysis_entry_sha256": "b672978b94c38a55ffc45d21a716e93541825c791109078c7f9c3023faedb74f"
+      },
+      "global_read_base_proof": {
+        "parameter_count": 2,
+        "store_instructions": [
+          {
+            "instruction": "ld.global.u32 \t%r194, [%rd109];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd48, [%rd137];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                32
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r202, [%rd139];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                64
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r2, [%rd141+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                16
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r3, [%rd141+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                16
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f6, [%rd142];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                24
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f7, [%rd142+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                24
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f8, [%rd142+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                24
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r4, [%rd141];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                16
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r223, [%rd152];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                104
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f222, [%rd154];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                80
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f224, [%rd156];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f225, [%rd156+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f226, [%rd156+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f227, [%rd157];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f229, [%rd157+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f231, [%rd157+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f17, [%rd159];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                88
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r227, [%rd161];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                96
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r236, [%rd167];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                104
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f238, [%rd169];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                80
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f239, [%rd177];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f240, [%rd177+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f241, [%rd177+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f242, [%rd178];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f244, [%rd178+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f246, [%rd178+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f35, [%rd180];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                88
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r240, [%rd182];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                96
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r248, [%rd188];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                104
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f252, [%rd190];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                80
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f253, [%rd198];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f254, [%rd198+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f255, [%rd198+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f256, [%rd199];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f258, [%rd199+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f260, [%rd199+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f54, [%rd201];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                88
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r252, [%rd203];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                96
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd79, [%rd206];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                128
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r257, [%rd208];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                240
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r258, [%rd211];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                240
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r266, [%rd213];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r268, [%rd213+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r269, [%rd213+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r270, [%rd213+12];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                248
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f1015, [%rd215];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f1016, [%rd215+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f1017, [%rd215+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                256
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f71, [%rd217+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                56
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f72, [%rd217];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                56
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f73, [%rd217+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                56
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r29, [%rd219];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                136
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r30, [%rd456];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                40
+              ],
+              [
+                0,
+                144
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r31, [%rd455];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                40
+              ],
+              [
+                0,
+                144
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r32, [%rd454];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                40
+              ],
+              [
+                0,
+                144
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f283, [%rd94];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f284, [%rd92];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f286, [%rd94+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f287, [%rd92+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f289, [%rd94+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f290, [%rd92+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f292, [%rd96];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f294, [%rd96+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f296, [%rd96+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f298, [%rd98];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f300, [%rd98+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f302, [%rd98+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f316, [%rd227];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                152
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f91, [%rd92];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f92, [%rd98+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f93, [%rd96+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f94, [%rd98+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f95, [%rd96+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f97, [%rd98];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f98, [%rd96];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f101, [%rd92+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f102, [%rd92+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r456, [%rd229];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                48
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r457, [%rd229+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                48
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%r458, [%rd229+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                48
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f533, [%rd96];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f535, [%rd96+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f536, [%rd96+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f537, [%rd92];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f539, [%rd92+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f540, [%rd92+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f541, [%rd98];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f546, [%rd98+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f550, [%rd98+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f560, [%rd231];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f561, [%rd437];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f563, [%rd231+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f564, [%rd437+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f566, [%rd231+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f567, [%rd437+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                272
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f572, [%rd233];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f574, [%rd233+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f576, [%rd233+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f581, [%rd235];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f583, [%rd235+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f585, [%rd235+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f590, [%rd237];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f592, [%rd237+4];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f594, [%rd237+8];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                280
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f653, [%rd265];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                160
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f659, [%rd267];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                168
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f660, [%rd268];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                176
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f685, [%rd270];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                192
+              ]
+            ]
+          },
+          {
+            "instruction": "ld.global.f32 \t%f687, [%rd272];",
+            "parameter_pointer_origins": [
+              [
+                0,
+                184
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            16
+          ],
+          [
+            0,
+            24
+          ],
+          [
+            0,
+            32
+          ],
+          [
+            0,
+            40
+          ],
+          [
+            0,
+            48
+          ],
+          [
+            0,
+            56
+          ],
+          [
+            0,
+            64
+          ],
+          [
+            0,
+            80
+          ],
+          [
+            0,
+            88
+          ],
+          [
+            0,
+            96
+          ],
+          [
+            0,
+            104
+          ],
+          [
+            0,
+            128
+          ],
+          [
+            0,
+            136
+          ],
+          [
+            0,
+            144
+          ],
+          [
+            0,
+            152
+          ],
+          [
+            0,
+            160
+          ],
+          [
+            0,
+            168
+          ],
+          [
+            0,
+            176
+          ],
+          [
+            0,
+            184
+          ],
+          [
+            0,
+            192
+          ],
+          [
+            0,
+            240
+          ],
+          [
+            0,
+            248
+          ],
+          [
+            0,
+            256
+          ],
+          [
+            0,
+            272
+          ],
+          [
+            0,
+            280
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 \t%rd48, [%rd137];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd48"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd79, [%rd206];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd79"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "b672978b94c38a55ffc45d21a716e93541825c791109078c7f9c3023faedb74f",
+        "canonical_analysis_entry_sha256": "b672978b94c38a55ffc45d21a716e93541825c791109078c7f9c3023faedb74f"
+      }
+    }
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/audit-surface-pointer-effects-v2.py": "feabd7737d9b19ee7d8283233f45faa870ba11938661b7dca2c1fd690e0a2ec2",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/ptx_store_origins_param.py": "af9925b9bf64d1bf9e08165f283983f3443d90d447a30a719dd8c11eddf7421d",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/ptx_store_origins_typed.py": "fe8f63cdb54e27e828b677a03b43ab6e9f64434752dcf6d230a54eb7d8ab7d13",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/build.json": "efa8a5301c2c3478c157d7d17285733727a924a8278fc230897030a90d680774",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/source_ptx_bundle.h": "0b99741035a1bb95da92ed30456219fff9faf642e0e36a4d114356e45233293c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-driven-cloth-self/first-surface-inputs/so3-w3-pd-b0-surface-d0/original/fields.json": "0291c31d900771b5af670769a76b71cb55dee5f1367642210f02d14aa6a2daf5"
+  },
+  "analysis_only_load_checker": "def store_origins(entry, pointer_fields):\n    header, body = entry.split('{', 1)\n    assert not re.search(r'\\bcall(?:\\.|\\s)', body), 'Non-inlined call requires a separate side-effect audit'\n    parameters = re.findall(r'\\.param\\s+(?:\\.align\\s+\\d+\\s+)?\\.\\w+\\s+(\\w+)(?:\\[\\d+\\])?', header)\n    assert parameters\n    parameter_index = {name: i for i, name in enumerate(parameters)}\n    instructions = []\n    for line in body.splitlines():\n        line = line.split('//', 1)[0]\n        match = re.fullmatch(r'\\s*(?:@!?%\\w+\\s+)?(\\w+(?:\\.\\w+)*)\\s+(.+?);\\s*', line)\n        if match:\n            operation, arguments = match[1], operands(match[2])\n            assert not operation.startswith('call'), 'Non-inlined call requires a separate side-effect audit'\n            instructions.append((operation, arguments, line.strip()))\n    narrow_loads, roots = {}, {}\n    for _ in range(len(instructions) + 1):\n        changed = False\n        for operation, arguments, line in instructions:\n            if operation.startswith(('st.', 'red.', 'bra', 'trap', 'membar')):\n                continue\n            destination = re.findall(r'%\\w+', arguments[0])\n            if not destination:\n                continue\n            inherited = set()\n            if operation.startswith('ld.param.'):\n                match = re.fullmatch(r'\\[(\\w+)(?:\\+(\\d+))?\\]', arguments[1])\n                assert match and match[1] in parameter_index\n                width = int(re.search(r'(\\d+)$', operation)[1]) // 8\n                assert width > 0\n                for lane, register in enumerate(destination):\n                    offset = int(match[2] or 0) + lane * width\n                    fields = {(i, start) for i, start in pointer_fields\n                              if i == parameter_index[match[1]] and start <= offset < start + 8}\n                    assert not fields or operation.endswith(('.u64', '.b64', '.u32', '.b32'))\n                    previous = roots.setdefault(register, set())\n                    if not fields.issubset(previous):\n                        previous.update(fields)\n                        changed = True\n                continue\n            if operation.startswith(('ld.', 'ldu.')):\n                bits = int(re.search(r'(\\d+)$', operation)[1])\n                assert bits in (8, 16, 32, 64, 128)\n                wide_registers = [register for register in destination if register.startswith('%rd')]\n                if wide_registers and bits >= 64:\n                    inherited.add((-1, -1))\n                elif wide_registers:\n                    # PTX ld.s32 may sign-extend directly into a b64 register; it is still a scalar index load.\n                    # Arbitrary scalar offsets remain possible: pointer-base provenance never proves bounds.\n                    narrow_loads[line] = {'instruction': line, 'load_bits': bits, 'wide_registers': wide_registers}\n            else:\n                for source in re.findall(r'%\\w+', ','.join(arguments[1:])):\n                    if not source.startswith('%p'):\n                        inherited.update(roots.get(source, set()))\n            for register in destination:\n                previous = roots.setdefault(register, set())\n                if not inherited.issubset(previous):\n                    previous.update(inherited)\n                    changed = True\n        if not changed:\n            break\n    else:\n        raise RuntimeError('Pointer-origin analysis did not reach a fixed point')\n    stores = []\n    for operation, arguments, line in instructions:\n        if operation.startswith(('st.', 'red.', 'atom.')):\n            assert any('.' + space + '.' in operation for space in ('global', 'local', 'shared')), line\n        if not operation.startswith(('ld.global.', 'ldu.global.')):\n            continue\n        addresses = [argument for argument in arguments if argument.startswith('[')]\n        assert len(addresses) == 1\n        origins = set()\n        for register in re.findall(r'%\\w+', addresses[0]):\n            origins.update(roots.get(register, set()))\n        assert origins and (-1, -1) not in origins, ('Unresolved or indirect store address', line, origins)\n        assert origins <= set(pointer_fields)\n        stores.append({'instruction': line, 'parameter_pointer_origins': sorted(origins)})\n    assert stores and len(stores) == len(re.findall(r'\\b(?:ld|ldu)\\.[\\w.]*global[\\w.]*', body))\n    return {'parameter_count': len(parameters), 'store_instructions': stores,\n            'potential_written_pointer_fields': sorted({tuple(field) for row in stores\n                                                        for field in row['parameter_pointer_origins']}),\n            'narrow_loads_into_wide_registers': list(narrow_loads.values()),\n            'indirect_64bit_loaded_store_addresses': False, 'noninlined_calls': False,\n            'bounds_proven_by_this_analysis': False,\n            'source_rule': 'https://docs.nvidia.com/cuda/parallel-thread-execution/'\n                           '#operand-size-exceeding-instruction-type-size'}\n",
+  "RHS_is_not_read_to_form_operands": true,
+  "index_bounds_proven": false,
+  "executed_PTX_changed": false,
+  "GPU_used": false,
+  "whole_solver_complete": false
+}
