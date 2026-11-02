@@ -4,10 +4,20 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+已确认并修复隔离检查器的pageable上传/非阻塞流竞态：同顺序同地址控制无fence6/750错误，有fence750/750严格。
+原始带rotation控制另有13/750错误，也完整保留；不据此改判正常demo或旧C8/C10。
+修正后的ANYmal同一次完整步覆盖35类/2608调用、5NL/250CG：5216输入/15648三端调用，3756严格。
+余1460份的2071168真实贡献同，6054差异word/12885目标均经fenced GPU复现，708910历史word经独立CPU核准。
+500份SO3 tangent全严格；12298个实际值连接及88个初始化完整buffer跨端相同，8个CSR输出CPU独立重算相同。
+只改诊断上传屏障和同仓库证据索引，生产host/Core/SDK/数学不改；每scalar证书不证明联合全局次序或完整轨迹通过。
+本批已补全同一上下文，接续回到正常demo及固定失败；旧无fence隔离回放需先复核，不用于猜改生产数学。
+原始数据、控制、fenced命令和Windows接续见
+[完整native step及同步修复](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-full-native-step/README.md)。
+
 ANYmal五NL完整RHS/预条件器及outer状态已补查：222完整输入/666三端调用，181严格。
 余41份的175840项真实原子贡献同，全部726差异word/1477目标由真实GPU复现，19004历史word经独立CPU核准。
 298个实际值连接及4个public particle输出相同；所有状态更新、inverse、末位置/速度更新等同输入严格。
-本批只抓CG首/末，下一步在同一新捕获补全五NL内循环；现有首NL完整证据属于其他上下文，整段及旧失败不改。
+该阶段只抓CG首/末，完整五NL已由上述新捕获补齐；各批中间数据仍不能混用，整段及旧失败不改。
 选择copy的独立诊断hook保留全部2608个launch和原ordinal，原hook/生产未改；两端各3098个raw文件全集精确匹配。
 结果、尺寸区别及命令见
 [五NL组装与状态](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-RHS-preconditioners/README.md)。

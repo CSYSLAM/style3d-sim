@@ -7477,3 +7477,100 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   根snapshot增至352131文件/100200537字节，全量校验30044实际0、零失败；原SDK/360pyc/生产provenance保持。
   13份原始instrumented PTX/固定USD共93处历史空白精确排除后，其他staged diff格式检查实际0；运行字节未改。
   当前无自己的live GPU worker；下一步同一新捕获的全部五NL完整CG，旧轨迹及整体目标仍未通过。
+
+
+### 2026-11-02：接续f1e95214，同一上下文完整native step
+
+- 上一goal turn为progress：f1e95214e06e7211a6e2062d014f812ae9cc7a37已推，精确远端同HEAD、tracked clean。
+  本轮余17429MiB，外部worldparticle保持；自己的GPU任务串行，无独占等待。
+- 新阶段continuation-20261102-0dabbaa7-anymal-full-native-step，合并旧RHS/extra输入描述并补7初始化入口。
+  不猜CSR ids长度，先actual prefix discovery75018实际0，双端各真实step子0；三前缀全字节同、pre/post未变。
+  两ELL列表末offset实际102/102、body diagonal列表51；offsets长度1293/1293/69个u64，ids据真实尾值定义完整extent。
+- 新schema全2608节点/35kind/5NL/250CG preflight4373c6实际0，flat/view类型、各尺寸标量、所有真实输出及call ordinal均核准。
+  合并时继承tuple换行在执行前纠正，未产生失败GPU；原step/pcg源码仅阅读，不作数学改动。
+- 真实全步capture启动：使用原full-owned-hook129，不需额外copy选择，limit260覆盖最大angular260和contact255。
+  所有35类/2608实际owned调用均抓，含7初始化、全部5NL/250CG及final状态；待记真实捕获终态，不能先宣称已通过。
+- 根snapshot已近100MiB。新增可选evidence_file_manifests解析，新增大批证据将通过同仓库内已冻结manifest索引核齐，
+  保留原352131项、SDK/360pyc及已有校验；本改动将先做CPU正/负控制和真实全量校验，未用于绕过失败。
+
+- Full capture62292实际0，原/源真实worker均0：各完整2608 owned调用、35类，public输出有限，source无SDK映射。
+  所有输入来自同一次各自真实step，未拼接旧first-CG/extra/assembly历史。
+- 新snapshot索引10组actual CLI控制ae83d0实际0：indexed/旧flat有效均过；缺失/损坏member、manifest hash/count异常、
+  未由primary冻结、重复覆盖路径与越界路径均拒绝；reference-only仍只核SDK、不依赖evidence可用。
+  测试在临时目录，fixture ELF/pyc从未加载，未替代真实snapshot或生产验证。
+- 三次5216装包脚本生成1829c5/516d50/95700d在写入前因158列失败，均无GPU。
+  完整分行字符串链、结果字典及其继承suffix后AST/128通过；未改数值、输入字段或目标。
+  开始5216完整输入装包，52份按initial及每NL每10CG分段NPZ，计划15648次三端调用。
+  原始dump仍完整保留，装包将逐字节核全部non-NULL flat/view字段及runtime/driver全部raw文件集合。
+
+- 全装包3083实际0：5216完整输入，原/源各74076 raw文件全集精确匹配；input plan67309022字节，148266哈希路径。
+  全部生成Python AST/128实际0；新三端replay45824根实际1，GPU1/独立CPU0，15648真实调用、3718/5216严格。
+  CPU核808216实际参数字节、119291520完整输出字节、3376632336保护字节、10个inverse alias；14份初始化全严格。
+- full same-context CPU54406实际0：12298值连接全同、4个public particle输出同，覆盖初始化和全部250CG/outer递推。
+  每轮零num/den/extra、首delta、每条r/p/delta/prevnum递推及所有extra producer链均实际核准。
+  block ELL模板到全部matrix的真实字节同，matrix rows按shared68重复8份独立核准；copy仍仅作值观测，不推断API顺序。
+- 余1498非严格packet除已有散射/标量外，新出现一份SO3 tangent的3次backend输出差，先独立定位，
+  不先归因原子顺序，不改生产核/阈值，不把新整步或旧长程判为通过。
+
+- 进一步定位full回放SO3失败实际是3份packet876(NL1/CG33)、1826(NL3/CG24)、2306(NL4/CG20)，均worker0。
+  分别source PTX、original PTX、original PTX输出局部432/1034/674word为0，其他两端同capture；不能先归因数学。
+- 阅读actual Driver/engine发现cuMemcpyHtoD_v2的pageable复制后直接发非阻塞stream1，缺复制完成屏障。
+  NVIDIA Driver API sync文档明确pageable HtoD可在DMA未完成时返回，因此存在诊断copy/launch竞态风险；尚待实际对照确认。
+  文档：https://docs.nvidia.com/cuda/cuda-driver-api/api-sync-behavior.html
+- 新upload-sync-control以完全相同三个原始输入、全部35module、相同geometry/参数/alias交替旧流程及新增cuCtxSynchronize。
+  每输入每条件250次，1500 packet/4500实际调用计划；只在诊断上传后加可选fence，不改求解器或核资源。
+  全部原始旧回放失败保留，control54687已启动，后记真实终态，不先改判旧证据或长程失败。
+
+- upload-sync-control54687真实1（GPU1/独立CPU0）：无fence750输入737严格、13失败；fenced750全部严格。
+  每条件2250真实三端调用，相同三组输入、同35modules/alias/geometry，条件交替；旧流程错误同时出现在原/源PTX。
+  独立CPU核102000参数字节、29376000输出字节、64458000保护字节。真实13次复现确认是诊断上传/launch同步问题。
+- 保存3份改前canonical helper到本阶段before-upload-fence-*，再只补各1条cuCtxSynchronize：
+  pd_contact_full_replay、g1_contact_rhs_replay、particle_reduction_certificates.launch。
+  未改CUDA核、launch/resource参数、生产source image或数学；已核这3个文件不在当前capture输入锁或生产build sources内。
+  历史as-run/报告不改；旧渲染器若hash固定旧canonical，应使用原as-run或git旧版本，不能绕过SHA断言。
+- 新capture-synchronized保留相同5216完整输入/archive与capture before/after，只在每次pageable reset后加入完成屏障。
+  新plan固定新helper SHA，原unsafe回放和所有失败完整保留；完整15648调用重跑已启动，后记真实终态。
+  此修复只作用诊断检查器；原demo/C8长程失败没有据此改判。
+
+- 首upload control的per-packet rotation使一对条件的backend顺序也改变；750对实际GPU pointer全同。
+  为去除此混杂，新增upload-sync-control-balanced：每对同repeat%3顺序，原条件/数据不改，旧控制保留。
+  balanced82484根实际1（GPU1/CPU0），具体计数另见报告；fenced750组仍全部严格，实际逐对同顺序/地址已核。
+- 全5216同步回放9339根真实1（GPU1/独立CPU0），15648调用、3756严格，全部500 SO3 tangent同输入严格。
+  余1460仅已有contact/joint/drive/rolling散射与PCG标量，所有其余完整向量/矩阵输出严格；原unsafe3718/失败不删。
+  独立CPU全核真实ABI/guard/readonly及10个inverse alias，生产/图/数学没有修改。
+- 准备对同步回放1460份差异输入做2920次真实追踪，新的trace也在所有reset后先cuCtxSynchronize。
+  此修复避免将DMA覆盖误作求解差；旧as-run和历史失败完整保留，当前长程与整体验收仍未完成。
+
+- 平衡控制82484实际1：同顺序/同地址750对中，无fence744严格/6失败，fenced750全部严格；逐对backend顺序也独立断言同。
+  与第一控制13失败分开保留，不混用数目。该平衡控制移除rotation混杂，确认诊断同步修复。
+- 同步trace98935实际0：1460非严格packet/2920实际调用，2071168项真实target/F32/线程内序原源全同；独立CPU审计10278已启动。
+- 额外核生产Driver.upload确用pageable HtoD，但源码solver precompute_matrices尾source_solver.cpp1117有driver_->synchronize；
+  粒子/材料构造路径267/342也有同步，不据诊断竞态猜改生产代码。源码header只是阅读，仍固定0dab/Core715。
+  直接_KernelDriver诊断使用非阻塞自建stream时必须显式fence，新生成trace/后续证书同样补齐。
+
+- 同步原子独立CPU10278实际0，2071168真实贡献全部核准，guard/readonly/ABI及P.z/M.Ap非归约向量也严格。
+  新fold脚本生成b7a14c因print132列写入前失败，随后误启动不存在文件实际2，原错误日志保留，均无GPU。
+  缩短输出文案并显式检查生成终态后再启动实际完整target搜索；serial GPU fold也加上传完成fence。
+  原数学/操作数/目标均不改，尚不先声明所有当前整步target证书已通过。
+
+- 全部6054个同步回放差异word/12885真实目标准备69449实际0，55.17MB计划没有超100MiB；未修改值或目标。
+  实GPU serial fold60641实际0，全部目标/历史精确，上传完成fence生效；完整覆盖独立CPU已启动。
+- 另逐字段比原/源相同7个初始化节点（各before及after），全部非空完整buffer均逐字节同，包括CSR、质量ELL、
+  初预测/previous/target/diag、SO3初态、joint初态、combined ELL及全block模板；没有构造缓存差异需猜改。
+  该直接CPU检查尚待保存独立脚本/报告，之后将纳入冻结证据；不据此把完整轨迹改判通过。
+
+- 全同步fold独立CPU53241真实0，12885实GPU目标/6054差异word覆盖全5216输入，708910历史word、
+  32059760保护字节、463860实际参数字节核准；每scalar顺序不外推生产联合全局顺序。
+- 独立initial-cache脚本a7fcf9真实0：88份跨原/源初始完整buffer全同，8完整CSR输出按真实offset/ids重算F32/FTZ全同。
+  snapshot-index10控制、原子/控制/状态/完整回放均已真实终态；自己的GPU无live worker，外部任务未动。
+- 已补完整阶段README、三交接/状态入口和真实工具终态。清楚区分unsafe3718、fenced3756及原正常C8/C10失败，
+  不改历史as-run、不绕过模板SHA；下一步回到当前Newton mixed/G1/复杂布料与4f/7ca固定失败，诊断必须fence。
+  生产0dab/Core715、SDK64a、360pyc、数学/阈值/预算/默认/readyFalse均保持。
+
+- freeze83258实际0，164712证据文件/51228825字节manifest冻结；新文件最大67.31MB，全部小于100MiB。
+  通过同仓库已冻结manifest索引增加文件，不删原352131条；primary352132+indexed164712=516844。
+  根primary100202461字节仍小于100MiB，真实全量verifier5002实际0：516844文件、零失败；旧gzip和构建provenance也核过。
+- 原始PTX/固定USD的空白精确排除后staged code/docs格式门禁实际0，运行证据字节不改。
+  自己GPU全部终态，下一步正常demo固定失败；不能据局部证书或checker修复改判已有C8/C10。
+- 额外阅读initialize发现precompute之后仍有CG/self/fluid/granular缓存分配。已有1117/267/342同步只能证明对应段，
+  不将带hook的pre-copy同步冒充未插桩初始化的全程安全证明；正常首步/显式stream路径可继续核此契约，暂不猜改生产。

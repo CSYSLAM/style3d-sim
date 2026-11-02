@@ -12,29 +12,63 @@ ROOT = Path(__file__).resolve().parents[1]
 LFS_POINTER = b'version https://git-lfs.github.com/spec/v1'
 
 
+def frozen_files(snapshot, root=ROOT, include_evidence=True):
+    """Resolve extra immutable file manifests without exceeding GitHub's per-file limit or shadowing entries."""
+    seen = set()
+
+    def entries(files):
+        if not isinstance(files, dict):
+            raise ValueError('file manifest must contain an object named files')
+        for name, entry in files.items():
+            path = Path(name)
+            if path.is_absolute() or '..' in path.parts or name in seen:
+                raise ValueError(f'unsafe or duplicate frozen path: {name}')
+            seen.add(name)
+            yield name, entry
+
+    yield from entries(snapshot['files'])
+    if not include_evidence:
+        return
+    for descriptor in snapshot.get('evidence_file_manifests', []):
+        name = descriptor['path']
+        if name not in snapshot['files']:
+            raise ValueError(f'evidence manifest is not frozen by the primary snapshot: {name}')
+        raw = (root / name).read_bytes()
+        if len(raw) != descriptor['bytes'] or hashlib.sha256(raw).hexdigest() != descriptor['sha256']:
+            raise ValueError(f'evidence file manifest hash or length mismatch: {name}')
+        files = json.loads(raw)['files']
+        if len(files) != descriptor['file_count']:
+            raise ValueError(f'evidence file manifest count mismatch: {name}')
+        yield from entries(files)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reference-only', action='store_true', help='Check only the frozen SDK binaries')
     args = parser.parse_args()
     snapshot = json.loads((ROOT / 'RECONSTRUCTION_SNAPSHOT.json').read_text(encoding='utf-8'))
-    failures, count = [], 0
-    for name, entry in snapshot['files'].items():
-        if args.reference_only and not name.startswith('style3d-sim-bin/'):
-            continue
-        path = ROOT / name
-        if not path.is_file():
-            failures.append((name, 'missing'))
-            continue
-        data = path.read_bytes()
-        if data.startswith(LFS_POINTER):
-            failures.append((name, 'LFS pointer instead of actual content'))
-        elif len(data) != entry['bytes'] or hashlib.sha256(data).hexdigest() != entry['sha256']:
-            failures.append((name, 'hash or length mismatch'))
-        elif path.suffix == '.so' and not data.startswith(b'\x7fELF'):
-            failures.append((name, 'not ELF'))
-        elif path.suffix == '.pyd' and not data.startswith(b'MZ'):
-            failures.append((name, 'not PE'))
-        count += 1
+    failures, count, frozen_names = [], 0, set()
+    try:
+        for name, entry in frozen_files(snapshot, root=ROOT, include_evidence=not args.reference_only):
+            frozen_names.add(name)
+            if args.reference_only and not name.startswith('style3d-sim-bin/'):
+                continue
+            path = ROOT / name
+            if not path.is_file():
+                failures.append((name, 'missing'))
+                continue
+            data = path.read_bytes()
+            if data.startswith(LFS_POINTER):
+                failures.append((name, 'LFS pointer instead of actual content'))
+            elif len(data) != entry['bytes'] or hashlib.sha256(data).hexdigest() != entry['sha256']:
+                failures.append((name, 'hash or length mismatch'))
+            elif path.suffix == '.so' and not data.startswith(b'\x7fELF'):
+                failures.append((name, 'not ELF'))
+            elif path.suffix == '.pyd' and not data.startswith(b'MZ'):
+                failures.append((name, 'not PE'))
+            count += 1
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        failures.append(('evidence_file_manifests', str(error)))
     if not args.reference_only:
         for entry in snapshot.get('compressed_evidence', []):
             packed = ROOT / entry['compressed_path']
@@ -50,7 +84,7 @@ def main():
                 failures.append((entry['path'], f'compressed evidence unreadable: {error}'))
         for name in ('build/third_party/glm-1.0.1/glm/glm.hpp',
                      'build/toolchains/cuda_nvcc-linux-x86_64-12.4.131-archive.tar.xz'):
-            if name not in snapshot['files'] or not (ROOT / name).is_file():
+            if name not in frozen_names or not (ROOT / name).is_file():
                 failures.append((name, 'required build dependency missing from snapshot'))
         for folder, extension in [('host-particles', '_source_solver'), ('native', '_source_cuda')]:
             base = ROOT / 'build/reconstruction-csrc' / folder

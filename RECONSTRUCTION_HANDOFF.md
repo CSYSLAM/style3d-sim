@@ -1,5 +1,14 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **ANYmal同一完整步已核，发现并修复了诊断上传竞态。** 相同顺序/地址控制无fence6次错误，有fence750组全严格。
+> 仅修检查器：旧unsafe/失败保留，生产host0dab/Core715/SDK64a及数学不改，旧正常demo/C8/C10不改判。
+> 新同步全步35类/2608调用、5NL/250CG：5216输入/15648回放、3756严格；余1460的2071168贡献同。
+> 全部6054差异word/12885实GPU目标及708910历史CPU全核，12298观测链接同，500 SO3 tangent全严格。
+> 正常长程仍未过；接续固定失败。所有新隔离回放须先完成上传，旧渲染器SHA锁不能绕过。
+> 同仓库大批证据通过primary冻结的manifest索引全核，不删原文件或SDK/360pyc；Windows仍WSL2。
+> 命令、边界和版本说明见
+> [完整步与同步修复](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-full-native-step/README.md)。
+
 > **ANYmal五NL组装和outer状态已补查。** 222输入/666三端调用，181严格；41非严格的175840贡献相同。
 > 726差异word/1477实GPU目标及19004历史CPU全核，298值连接和4个public particle输出相同。
 > 原hook/生产未改；独立选择copy hook保留全2608 launch/ordinal，两端各3098 raw文件选择全集精确匹配。

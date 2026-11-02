@@ -138,6 +138,8 @@ def main():
                                 value = group['upload']
                                 driver.check(driver.cu.cuMemcpyHtoD_v2(group['device'],
                                              ct.c_void_p(value.ctypes.data), value.nbytes))
+                            # Complete all pageable uploads before the independent nonblocking launch stream.
+                            driver.check(driver.cu.cuCtxSynchronize())
                             arguments = [*parameters, *extra]
                             holders = (ct.c_void_p * len(arguments))(*[ct.cast(ct.byref(value), ct.c_void_p)
                                                                        for value in arguments])

@@ -159,6 +159,8 @@ def execute(phase):
             for backend in order:
                 for device, before, _ in raw_groups:
                     driver.check(driver.cu.cuMemcpyHtoD_v2(device, ct.c_void_p(before.ctypes.data), before.nbytes))
+                # Pageable H2D may return before DMA; the nonblocking launch stream does not order that copy.
+                driver.check(driver.cu.cuCtxSynchronize())
                 gx, gy, gz, bx, by, bz, shared = node['geometry']
                 function = functions[node['name']][backend]
                 if backend == 'SDK-runtime':

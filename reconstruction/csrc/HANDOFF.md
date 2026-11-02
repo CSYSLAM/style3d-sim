@@ -1,5 +1,11 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新为[ANYmal同一完整步及检查器同步修复](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-full-native-step/README.md)。
+> 35类/2608调用、5NL/250CG、5216输入/15648回放；1460非严格的2071168贡献同，6054word/12885GPU目标全核。
+> 已用同顺序/同地址控制复现旧检查器pageable H2D竞态，无fence6错/fenced750全严格；新回放均fence。
+> 原数学/生产/旧正常轨迹失败不改，旧unsafe as-run保留但需复核；旧模板SHA锁不得绕过，应生成版本化fenced副本。
+> 根snapshot索引仍核全部实际文件与SDK/360pyc。接续固定demo失败，不能据本批宣布全部solver替代完成。
+
 > 最新为[ANYmal五NL组装/outer状态](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-RHS-preconditioners/README.md)：
 > 222输入/666调用，181严格；41份175840贡献同，726word/1477目标及19004历史实核，298值连接同。
 > 只选择pre/post copy的独立hook已实测两端raw全集精确、全2608 metadata不变；不改原hook或生产。

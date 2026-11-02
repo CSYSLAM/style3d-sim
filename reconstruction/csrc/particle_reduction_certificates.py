@@ -55,6 +55,8 @@ class Certificates:
 
     def launch(self, function, parameters, grid, block):
         args = (ct.c_void_p * len(parameters))(*[ct.cast(ct.byref(v), ct.c_void_p) for v in parameters])
+        # Resets use pageable H2D copies outside this nonblocking stream; wait for their DMA completion.
+        self.driver.check(self.driver.cu.cuCtxSynchronize())
         self.driver.check(self.driver.cu.cuLaunchKernel(function, grid, 1, 1, block, 1, 1, 0, self.stream, args, None))
         self.driver.check(self.driver.cu.cuStreamSynchronize(self.stream))
 
