@@ -11,6 +11,8 @@
 源码、原始数据、编排失误记录及WSL接续见[驱动布料自碰撞](reconstruction/csrc/DRIVEN_CLOTH_SELF_HOST_RECOVERY.md)。
 接续CPU已核两个失败组合144对surface视图，以及四类场景每端258次设备复制/396次byte fill，记录范围内全同。
 后续RHS/self/CG数据流采集已据实际分配准备，28份PTX写域静态核准；四worker仍等待旧隔离任务，不计GPU实测。
+真实CUPTI/hook同运行6272调用、68440参数、737758字节全同；1188完整输入/3564三端回放已串行排队。
+这是参数传输核准，未新增数值通过项；见[驱动self完整输入回放](reconstruction/csrc/DRIVEN_CLOTH_SELF_REPLAY.md)。
 
 完整PD tangent本批已结束：51120阶段实采/CPU核准，固定四帧2112输入的6336次三端调用全严格。
 其余1296输入/3888调用为1165严格、131份仅CG标量归约差异，逐粒子完整向量全同；

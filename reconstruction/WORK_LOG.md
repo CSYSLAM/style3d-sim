@@ -7035,3 +7035,24 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   新audit-linear-flow-v2用显式CapturedState适配器；两组真实冻结原版/源码轨迹的完整统计与既有报告全同，CPU实际0。
   v2改用独立输出目录，工具session37865/PID3301837真实等待同一旧scalar进程，boot/start_ticks及命令已保存。
   新GPU worker计数仍0；后续从37865取得真实终态，并读取linear-independent-cpu-v2.json，不能继承v1或旧场景通过项。
+
+### 2026-11-01：驱动self的原始ABI核准与完整输入三端回放接续
+
+- 上一goal turn为progress：host流核对及修正队列已提交668d3b8dcf96d79bb08d848a21784b4ad8e17035并核远端同HEAD，
+  273920文件完整快照校验0失败。起始tracked clean；本轮实际再核3272557/3280049/3301837均live，外部GPU仍占用。
+  未重启或中断任何既有队列，没有把等待文件或观测超时当成进程结束。
+- 在四类constructor已完成的initializers捕获中找到每个owned调用的原始CUPTI参数字节。
+  新hook_parameter_bytes从既有日志恢复完整ABI，保留by-value视图每个word及padding；无法保留NaN payload时明确拒绝。
+  audit-hook-raw-ABI实际0：八份同运行hook/CUPTI共6272调用、68440参数、737758字节完全同，gzip另存节点及实际参数。
+  无GPU调用；pointee内容未由这项核对证明，CUPTI该记录仅核x维geometry，未扩大为完整仿真一致。
+- 新driven_self_flow_replay请求准备实际0：固定四worker全部三步、九次NL、五轮CG，各297个full-input阶段，
+  共1188实际输入packet/计划3564次SDK runtime、SDK PTX及源码PTX回放。14种入口的28份写域静态证据沿用已核原始PTX。
+  实际捕获未完成时不生成或虚构packet；prepare必须先读取flow真实终态及29844快照的独立CPU审计。
+- 回放实现保留全部指针别名、原相对偏移及mod256对齐，按实际geometry执行，记录完整输出/ABI/readonly/guards。
+  独立CPU复核会重读实际NPZ与原始输入重建buffer及write区间。接触记录不排序，严格失败原样保留。
+  执行器退出0仅表示诊断执行结束，strict_packets及完整三端输出结果另记；不能据此改判旧C8或默认ready。
+- 新pipeline工具session97272/Python3311307，经实际/proc核boot/start_ticks/命令一致，当前等同一3301837。
+  顺序是旧scalar67261及CPU2752、flow37865、实际packet准备、3564调用、独立CPU；各前置工具真实退出仍需根线程取得。
+  pipeline自身只在设备空闲后启动GPU子进程；当前新GPU调用0，未声称动态通过，生产0dab/Core715、SDK64a及360pyc均保持。
+- 新DRIVEN_CLOTH_SELF_REPLAY写清已完成字节核准、排队范围、原机器身份、WSL CPU复核命令及失败后的定位步骤。
+  主状态/Windows交接链接同步；未改变生产数学、容差、原失败样本或候选未合入状态。
