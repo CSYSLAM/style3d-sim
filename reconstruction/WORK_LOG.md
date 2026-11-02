@@ -7428,3 +7428,52 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   全量snapshot校验96545实际0、零失败，生产构建来源、固定so/360pyc均保持；实际所有GPU任务终态。
   staged格式门禁仅精确排除原始instrumented PTX与固定USD的历史空白，运行字节不改；其余代码文档须通过。
   接续RHS/预条件器组装及后续NL，未声明整个求解器或原固定C8/C10通过。
+
+
+### 2026-11-02：接续2bd99038，补五NL的RHS/预条件器组装与outer状态
+
+- 上一goal turn为progress：2bd9903863e5910e7556b973ce7aaae922c18b48已推，精确远端同HEAD、tracked clean。
+  本轮实查余18068MiB，外部worldparticle保持；自己的GPU任务串行，不要求GPU空闲。
+- 实际metadata确认angular_limits共260调用、contact_tangent255、soft_force10；关节AL state只更新4次，末NL无该更新。
+  源码/真实ABI明确RHS的ELL mass rows按shared68粒子、entries68*19*8；不是CG的544*19*40 block ELL。
+  drive load的18DOF/target外力和目标通道按8world共144项，angle/qd按96drive；shared模式/刚度等仍18项。
+- 新阶段continuation-20261102-0dabbaa7-anymal-RHS-preconditioners。111个实际节点CPU preflight7daeef实际0，
+  类型/完整flat及view长度/所有相关标量/模式/输出均核准；初稿tuple解包在执行前已纠正，未启动失败GPU。
+- 原hook源SHA与旧build匹配；独立复制新hook，仅增加CUDAHOOK_DUMP_OWNED按完整log已记owned rank选择copy。
+  全部per-key ordinal照常增长、log及真实kernel调用不改，四条继承超长formatter只改空白至128列。
+  编译62e50e实际0，原hook源/so及生产镜像保持；后续要求新两端2608条metadata与原log同，dump文件集合精确匹配选择。
+- 资产离线恢复46995e实际0、20固定SHA；schema/capture/pack全部AST/128通过。
+  实际捕获52084根0、两端各step子worker0、public输出有限、source无SDK映射。
+  准备装包每端111阶段：5轮RHS/预条件器、CG首/末bookend、apply、AL状态及最后velocity/drive angle；不声称中间全CG已抓。
+
+- 装包422433实际0：222完整输入/666计划调用，两端各3098个raw dump文件集合精确等于所选字段，无漏抓/多抓。
+  全2608条normalized metadata原/源同，另新SDK与原hook抓取metadata同；该比较仍只含pointer NULL状态，不替代pointee检查。
+- 回放59017根实际1、GPU1/独立CPU0；181/222严格，余41仅散射/归约输出差。
+  五轮全部inertialRHS、soft两mode、body spring、angular两mode、SO3 force、blocks、SO3/drive/rolling prec、
+  inverse、末update、apply、SO3state、jointstate、最后velocity/drive-angle等同输入均严格。
+  failures为jointAL30、drive RHS17、precond scalar30、contact RHS9、contact两矩阵9、rolling RHS3次backend。
+  CPU核33902参数字节、9192000完整输出字节、104056896保护字节、10个inverse原址alias。
+- 独立context240606实际0：298条真实值连接全部同、4个public particle q/qd与末native输出逐字节同。
+  含所有RHS/scale/preconditioner累积、copy观测、inverse→首precond、末update→apply、四次AL递推及最后velocity。
+  初inertialRHS跨端同，首完整RHS差1.1444e-5、首precond before同；首NL末delta差2.790516e-5，
+  后续NL的输入/状态已变，未跨越未抓的中间49CG直接宣称完整因果。新捕获不替换旧样本。
+- 原子脚本生成5c3a50因docstring130列在写入前失败，未启动GPU；缩短文本后精确生成并启动41非严格输入追踪。
+  没有生产源码改动、资源参数变化或旧失败改判。
+
+- 实际原子追踪24181真实0：41非严格packet/82调用，175840项target/F32/线程内序原源全同。
+  独立CPU51768真实0，view/ABI/guard/readonly/raw记录全核，precond instrumented完整z也等于原捕获。
+  单目标jointAL实际最多8贡献，沿用<=8受限搜索、68项world归约候选，再要求真实GPU验证。
+- prepare-folds工具1c9dd5实际0，完整准备；随后启动真实GPU标量证书，另记实际终态。
+  当前只核本次新输入，不把局部证书外推旧C8/C10或未抓的中间CG/完整轨迹。
+
+- 全部726个真实回放差异word/1477目标：jointAL611、drive17、precond64、contact RHS25/矩阵8、rolling1。
+  实GPU证书a70d18实际0；独立CPU28767实际0，从全部222输入/三端结果重建完整覆盖并核19004历史word、
+  3176928保护字节、53172参数字节；没有推断联合全局顺序，也没有改原始严格失败。
+- 已补README、三交接/状态入口和完整真实终态。精确说明：下一新捕获须覆盖全部五NL完整CG，
+  现有完整首NL属于其他上下文，不得直接拼接本批首/末或省略自己的首NL；后四NL完整循环尚未实测。
+  当前所有自己的GPU worker已真实终态，生产host/Core、SDK/pyc、原hook、固定C8/C10和默认均保持。
+
+- freeze-checkpoint4eda32实际0，6596证据文件冻结，6196原始bin及全NPZ/trace/证书保存。
+  根snapshot增至352131文件/100200537字节，全量校验30044实际0、零失败；原SDK/360pyc/生产provenance保持。
+  13份原始instrumented PTX/固定USD共93处历史空白精确排除后，其他staged diff格式检查实际0；运行字节未改。
+  当前无自己的live GPU worker；下一步同一新捕获的全部五NL完整CG，旧轨迹及整体目标仍未通过。

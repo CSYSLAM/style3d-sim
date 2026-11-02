@@ -1,5 +1,12 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **ANYmal五NL组装和outer状态已补查。** 222输入/666三端调用，181严格；41非严格的175840贡献相同。
+> 726差异word/1477实GPU目标及19004历史CPU全核，298值连接和4个public particle输出相同。
+> 原hook/生产未改；独立选择copy hook保留全2608 launch/ordinal，两端各3098 raw文件选择全集精确匹配。
+> CG本批只有首/末，下一步同一上下文补完整内循环，不能跨批拼接或改判旧轨迹。
+> WSL命令、尺寸及边界见
+> [五NL完整组装](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-RHS-preconditioners/README.md)。
+
 > **ANYmal首NL50轮extra生产者已补齐。** 800完整输入/2400三端调用，552严格；248非严格的真实贡献545056项同。
 > 全部892差异word/1785目标有真实GPU证书、62940历史word经独立CPU核准，1300个地址+字节连接全同。
 > 计数须区分CG前force/preconditioner模式，抓52次再选真实50轮；view指针完整重定位。

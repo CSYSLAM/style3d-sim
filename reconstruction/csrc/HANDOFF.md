@@ -1,5 +1,10 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新为[ANYmal五NL组装/outer状态](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-RHS-preconditioners/README.md)：
+> 222输入/666调用，181严格；41份175840贡献同，726word/1477目标及19004历史实核，298值连接同。
+> 只选择pre/post copy的独立hook已实测两端raw全集精确、全2608 metadata不变；不改原hook或生产。
+> 后续补同一上下文完整CG内循环；旧固定轨迹仍未通过，下方先前“RHS待补”是历史。
+
 > 最新接续为[ANYmal首NL50轮extra链](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-CG-extra/README.md)：
 > 800完整输入/2400三端调用，552严格，余248的545056贡献同；892差异word/1785实GPU目标与62940历史CPU全核。
 > 1300地址+字节连接全同；下一步RHS/预条件器组装及后续NL，完整轨迹及默认切换仍未通过。

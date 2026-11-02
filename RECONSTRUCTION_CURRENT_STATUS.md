@@ -4,10 +4,18 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+ANYmal五NL完整RHS/预条件器及outer状态已补查：222完整输入/666三端调用，181严格。
+余41份的175840项真实原子贡献同，全部726差异word/1477目标由真实GPU复现，19004历史word经独立CPU核准。
+298个实际值连接及4个public particle输出相同；所有状态更新、inverse、末位置/速度更新等同输入严格。
+本批只抓CG首/末，下一步在同一新捕获补全五NL内循环；现有首NL完整证据属于其他上下文，整段及旧失败不改。
+选择copy的独立诊断hook保留全部2608个launch和原ordinal，原hook/生产未改；两端各3098个raw文件全集精确匹配。
+结果、尺寸区别及命令见
+[五NL组装与状态](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-RHS-preconditioners/README.md)。
+
 ANYmal首NL的六类matrix.extra生产者及direction/matrix已补齐50轮：800完整输入/2400三端调用，552严格。
 248份非严格输入的545056项真实原子贡献同，全部892个差异word/1785目标由真实GPU复现、62940历史word经独立CPU核准。
 1300个真实地址与字节连接全同，包括六算子累积到matrix.arg5；soft/limit此上下文未改输出，不外推一般分支。
-原严格失败及完整轨迹失败不改；接下来补RHS、预条件器组装及后续NL状态传播。
+原严格失败及完整轨迹失败不改；本批之后的RHS/预条件器和outer状态已由上述新上下文补查，完整CG传播仍未闭合。
 范围、计数陷阱、实际终态和命令见
 [完整50轮extra生产者](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-CG-extra/README.md)。
 
