@@ -1,9 +1,9 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **完整PD tangent队列已准备，GPU仍待空闲，尚无本批运行结论。**
-> 213阶段的实际ABI/八DAG及23类/46 PTX写指针检查已过；原采集与后续流水线均在等待现有GPU任务。
-> 只发布不可变准备代码/CPU证据；勿据准备检查点判验收，勿重复启动原目录。
-> 实际PID、boot身份、新Windows/WSL接续见[完整tangent队列](reconstruction/csrc/PD_CONTACT_FULL_TANGENT_QUEUE.md)。
+> **完整PD阶段本批核对已结束。** 51120实采阶段；固定四帧10224次三端回放，3277输入严格、131仅CG标量归约差异。
+> 131份原始操作数同，262份完整标量向量有真实GPU证书；独立CPU及三个实际首差关联均过。
+> 新原版/三源码对旧C8均false；旧长程失败不改，候选未合入，默认/readyFalse保持。
+> 原始数据、实际终态及WSL接续见[完整PD阶段核对](reconstruction/csrc/PD_CONTACT_FULL_TANGENT_QUEUE.md)。
 
 > **PD接触RHS/CG接续：三处新增首差及第一步向量传播已实测核准。**
 > 21600真实阶段、72次三端/18个F32原子顺序证书、后续更新36次完整同输入回放，独立CPU均过。

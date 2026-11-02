@@ -1,7 +1,78 @@
-# 完整PD接触/tangent：准备完成，GPU验证排队
+# 完整PD接触/tangent：实采与同输入核对记录
+
+## 本批实际终态
+
+准备检查点为49960939，本轮起始tracked clean；此前turn为progress。
+外部GPU任务自行结束后，原采集session12388及流水线session81124自动接续，均已真实结束0。
+唯一原版SDK64a、生产host0dab/Core715、隔离候选4f及360份冻结pyc未改，无需账号。
+本批只新增诊断、原始数据及审计，没有调整求解数学、接触次序、资源属性或阈值，没有合入候选。
+
+- 四worker均0：1SDK和3独立source，各60目标帧、每帧选定213阶段；三source均未映射原版SDK。
+  八份实际图保留原276节点/275边；已审计类型化参数和跨图129指针身份模式同。
+- 51120阶段、240末轮位置/公开位置对应检查通过；3600条extra链、21600相邻累加衔接、3600最终extra、
+  25200方向、72000私有cache、314400接触输入稳定及1440公开接触计数检查均通过。
+- 预定四帧0/31/32/59，新增/补全的132阶段每帧，共2112完整输入、6336次SDK runtime/原版PTX/source PTX全严格。
+  完整输出、225699264字节原始group及221614272保护字节独立CPU复核0。
+- 同四帧补余81阶段每帧，共1296输入、3888调用：1165输入全严格，131仅标量归约不同。
+  包括93份CG-product分母和38份CG-precondition分子；全部逐粒子向量严格，全部只读/guard同。
+  各端失败调用为SDK125、原版PTX128、源码PTX129，均原样保留，不能写成全严格。
+- 这131输入实际记录每lane一个操作数，原版/源码各4716原始F32字完全同；
+  393次SDK/原版PTX/source受控映射调用的14148个有效贡献字同，实际map读回14148字也完整保存并独立复核。
+  262个完整三组标量目标均由真实单lane GPU原子程序联合复现，含9432步history；本子批共1048实际调用，CPU独立0。
+  只证明这些目标可由相同操作数的合法F32顺序产生，不推断旧运行的实际全局调度。
+- 本轮三个轨迹首差均在frame0、CG-product第三组1 ULP，rank79/43/91；
+  七份完整before及完整Ap都同。已逐一连接到相同完整输入的GPU联合证书，两端完整三标量目标都有证据。
+  独立bridge检查0；这三处是新诊断路径，不是旧source0/frame32的私有状态。
+- 静态CPU读指针补核：46原版/源码入口、1704实际阶段ABI，读取基址均对应已捕获或NULL字段。
+  NULL分支控制和索引界限没有据此证明；实际GPU回放及guard结果单独记录。
+
+本批选定213阶段在固定四帧的3408输入中，3277严格、131有上述归约证书，共10224次未修改入口调用。
+这只覆盖所选阶段/实际输入，不代表图内其它阶段、所有host组合或整段仿真已验收。
+本批新原版及三源码轨迹对既有C8全部false；固定旧source0/frame32、SDK八份cohort、所有旧失败均保持。
+
+`remaining-prepare.log`中`Prepared2112`为继承文案；实际plan/执行/独立审计都是1296输入及3888调用。
+生成脚本、实际as-run及diff均保留，没有覆盖该日志。`execution-receipts.json`记录实际工具终态。
+完成封存以`completion-manifest.json`为准；原`preparation-manifest.json`保留准备时的open状态作为历史。
+
+## 接续与命令
+
+先依根Windows交接进入WSL2及固定依赖，在固定工程路径校验快照；不要把Linux so放到原生Windows Python里运行。
+本phase已结束，所有旧输出目录均不能直接重跑覆盖。可先只读查看已保存报告：
+
+```bash
+source scripts/reconstruction_env.sh
+phase_root=build/reconstruction-csrc/affine-particle-material-host
+tangent_phase=$phase_root/continuation-20261101-4f638b4b-pd-tangent-full
+.venv/bin/python scripts/verify_reconstruction_snapshot.py
+.venv/bin/python -c 'import json,sys;d=json.load(open(sys.argv[1]));print(d["actual_calls"],d["strict_packets"])' \
+  "$tangent_phase/full-input-replays/report.json"
+.venv/bin/python -c 'import json,sys;d=json.load(open(sys.argv[1]));print(d["actual_calls"],d["strict_packets"])' \
+  "$tangent_phase/remaining-input-replays/report.json"
+.venv/bin/python -c 'import json,sys;print(json.load(open(sys.argv[1]))["metrics"])' \
+  "$tangent_phase/reduction-independent-cpu-audit.json"
+```
+
+实际GPU/CPU命令及退出码见execution-receipts；原6336调用由run-pipeline执行，补余及证书为：
+
+```text
+run-remaining-replays.py --phase <本phase> --prepare       0，session49615
+run-remaining-replays.py --phase <本phase> --execute       1，session52924，131原始严格失败保留
+audit-remaining-replays.py                               0，session80352
+python -m reconstruction.csrc.pd_contact_reduction_replay --phase <本phase> --prepare   0
+python -m reconstruction.csrc.pd_contact_reduction_replay --phase <本phase> --execute   0，session4793
+audit-reduction-differences.py                           0，session91470
+audit-first-difference-bridge.py                         0
+```
+
+补余脚本和131份证书脚本绑定本批冻结数据；不能把131/1165硬编码断言当新机器新采集的预期结果。
+要复采先建新兄弟phase，依下方原采集命令保留新失败和原始数据，再根据实际report准备定位。
+下一步优先核当前生产镜像的G1/复杂布料长程及尚未覆盖host组合；
+若回到旧PD失败，须明确能否取得旧路径私有状态，不能把新局部证书拼成旧轨迹通过或继续重复相同输入补采。
+
+## 以下为准备检查点49960939的历史记录
 
 主host仍为0dab/Core715，接触候选仍为4f，原版仍为项目内SDK64a；旧固定失败、阈值及readyFalse均保持。
-本阶段尚未验收，不能把下述准备工作写成GPU一致性已通过。
+准备时尚无GPU结果；以下进程/排队描述仅为当时记录，本批当前终态见上方。
 
 证据目录：
 `build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-4f638b4b-pd-tangent-full/`。

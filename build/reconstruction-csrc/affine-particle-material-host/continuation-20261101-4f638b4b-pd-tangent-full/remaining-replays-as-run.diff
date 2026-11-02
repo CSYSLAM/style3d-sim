@@ -1,0 +1,104 @@
+--- /home/oem/code/agent/style3d-sim/reconstruction/csrc/pd_contact_full_replay.py
++++ /home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-4f638b4b-pd-tangent-full/remaining-replays-as-run.py
+@@ -1,4 +1,4 @@
+-"""Replay every newly captured contact/tangent stage at the four preplanned early/late PD frames."""
++"""Replay every complementary RHS/preconditioner/CG stage at the four preplanned early/late PD frames."""
+ import argparse
+ import ctypes as ct
+ import hashlib
+@@ -11,9 +11,19 @@
+ from .demo_source_ab import ROOT
+ 
+ 
+-KINDS = {'rigid-force', 'rolling-force', 'soft-force', 'block-initialize', 'rigid-matrix', 'soft-matrix',
+-         'SO3-preconditioner', 'grain-diagonal', 'rolling-preconditioner', 'SO3-tangent', 'grain-tangent',
+-         'authored-tangent', 'dynamic-tangent', 'rigid-tangent', 'soft-tangent', 'rolling-tangent'}
++KINDS = {
++    'CG-direction',
++    'CG-precondition',
++    'CG-product',
++    'CG-solution',
++    'SO3-force',
++    'apply',
++    'authored-bonds',
++    'dynamic-bonds',
++    'grain-contacts',
++    'inverse-block',
++    'rhs-initialize',
++}
+ 
+ 
+ def sha(path):
+@@ -51,28 +61,28 @@
+             folder = capture / str(worker) / f'tangent-graph-{frame % 2}'
+             layout = json.loads((folder / 'snapshot-layout.json').read_text())
+             selected = [stage for stage in layout['stages'] if stage['kind'] in KINDS]
+-            assert len(selected) == 132 and all(s['all_flat_pointer_inputs_captured'] for s in selected)
++            assert len(selected) == 81 and all(s['all_flat_pointer_inputs_captured'] for s in selected)
+             for stage in selected:
+                 kernels.add(stage['node']['name'])
+                 packets.append({'worker': worker, 'frame': frame, 'stage': stage,
+                                 'input': str(folder / f'frames/frame-{frame:02d}.npz')})
+-    assert len(packets) == 2112
++    assert len(packets) == 1296
+     build_path = ROOT / 'build/reconstruction-csrc/host-particles/build.json'
+     build = json.loads(build_path.read_text())
+     for name in kernels:
+         _, original = kernel_texts(build, name)
+         hashes[str(original)] = sha(original)
+     hashes[str(build_path)] = sha(build_path)
+-    output = phase / 'full-input-replays'
++    output = phase / 'remaining-input-replays'
+     output.mkdir(exist_ok=False)
+     plan = {'input_sha256': hashes, 'packets': packets, 'frames': frames, 'kernel_names': sorted(kernels),
+             'candidate_image': str(image), 'candidate_sha256': sha(image),
+-            'backends': ['SDK-runtime', 'original-ptx', 'source-ptx'], 'expected_unmodified_calls': 6336,
++            'backends': ['SDK-runtime', 'original-ptx', 'source-ptx'], 'expected_unmodified_calls': 3888,
+             'original_frozen_failure_replaced': False, 'cohort_expanded': False,
+             'production_changed': False, 'whole_solver_complete': False}
+     verify(hashes)
+     (output / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
+-    print('Prepared2112 complete input packets at preplanned frames0/31/32/59;6336 actual calls planned', flush=True)
++    print('Prepared2112 complete input packets at preplanned frames0/31/32/59;3888 actual calls planned', flush=True)
+ 
+ 
+ def execute(phase):
+@@ -82,7 +92,7 @@
+     from .pcg_alias_replay import span_groups
+     from .pcg_same_buffer_probe import Dim3
+ 
+-    output = phase / 'full-input-replays'
++    output = phase / 'remaining-input-replays'
+     plan = json.loads((output / 'plan.json').read_text())
+     verify(plan['input_sha256'])
+     assert sha(REFERENCE) == REFERENCE_SHA
+@@ -184,7 +194,7 @@
+                          'kind': stage['kind'], 'checks': checks, 'groups': metadata, 'pointers': pointers,
+                          'output': str(target), 'output_sha256': sha(target)})
+             driver.free()
+-            if number % 132 == 0:
++            if number % 81 == 0:
+                 print('Full contact/tangent packet', number + 1, '/', len(plan['packets']), flush=True)
+         verify(plan['input_sha256'])
+     except BaseException as problem:
+@@ -194,16 +204,16 @@
+         if loaded_arrays is not None:
+             loaded_arrays.close()
+         result = {'packets': rows, 'actual_calls': calls, 'error': error,
+-                  'complete': len(rows) == 2112 and error is None,
++                  'complete': len(rows) == 1296 and error is None,
+                   'strict_packets': sum(all(c['all_complete_outputs_strict'] for c in r['checks']) for r in rows),
+                   'all_unwritten_and_guards_equal': all(c['all_unwritten_and_guards_equal'] for r in rows for c in r['checks']),
+                   'original_frozen_failure_reclassified': False, 'production_changed': False, 'whole_solver_complete': False}
+         (output / 'report.json').write_text(json.dumps(result, indent=2) + '\n')
+         driver.free()
+         driver.check(driver.cu.cuStreamDestroy_v2(stream))
+-    assert result['complete'] and calls == 6336 and result['all_unwritten_and_guards_equal']
+-    print('Full contact/tangent complete:', result['strict_packets'], '/2112 strict;6336 actual calls', flush=True)
+-    return int(result['strict_packets'] != 2112)
++    assert result['complete'] and calls == 3888 and result['all_unwritten_and_guards_equal']
++    print('Full contact/tangent complete:', result['strict_packets'], '/1296 strict;3888 actual calls', flush=True)
++    return int(result['strict_packets'] != 1296)
+ 
+ 
+ def main():

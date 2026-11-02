@@ -1,0 +1,18 @@
+.version 8.4
+.target sm_52
+.address_size 64
+.visible .entry audit_joint_atomic(
+ .param .u64 values, .param .u64 order, .param .u64 groups,
+ .param .u64 total, .param .u64 history, .param .u32 count) {
+ .reg .pred %p; .reg .b32 %r<5>; .reg .b64 %d<15>; .reg .f32 %f<2>;
+ ld.param.u64 %d0, [values]; ld.param.u64 %d1, [order]; ld.param.u64 %d2, [groups];
+ ld.param.u64 %d3, [total]; ld.param.u64 %d4, [history]; ld.param.u32 %r0, [count];
+ mov.u32 %r1, 0;
+LOOP:
+ mul.wide.u32 %d5, %r1, 4; add.u64 %d6, %d1, %d5; ld.global.u32 %r2, [%d6];
+ mul.wide.u32 %d7, %r2, 4; add.u64 %d8, %d0, %d7; ld.global.f32 %f0, [%d8];
+ add.u64 %d9, %d2, %d7; ld.global.u32 %r3, [%d9]; mul.wide.u32 %d10, %r3, 4;
+ add.u64 %d11, %d3, %d10; atom.global.add.f32 %f1, [%d11], %f0;
+ add.u64 %d12, %d4, %d5; st.global.f32 [%d12], %f1; membar.gl;
+ add.u32 %r1, %r1, 1; setp.lt.u32 %p, %r1, %r0; @%p bra LOOP; ret;
+}

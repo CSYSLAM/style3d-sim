@@ -1,0 +1,58 @@
+{
+  "recorded_UTC": "2026-11-02T00:13:19.650885+00:00",
+  "reported_from_actual_tool_terminal_results": true,
+  "runs": [
+    {
+      "script": "run-tangent.py",
+      "session": 12388,
+      "actual_exit": 0
+    },
+    {
+      "script": "run-pipeline.py",
+      "session": 81124,
+      "actual_exit": 0
+    },
+    {
+      "script": "static-read-coverage.py",
+      "session": 98631,
+      "actual_exit": 0
+    },
+    {
+      "script": "run-remaining-replays.py --phase <this phase> --prepare",
+      "session": 49615,
+      "actual_exit": 0
+    },
+    {
+      "script": "run-remaining-replays.py --phase <this phase> --execute",
+      "session": 52924,
+      "actual_exit": 1,
+      "runtime_error": null,
+      "strict_difference_packets": 131
+    },
+    {
+      "script": "audit-remaining-replays.py",
+      "session": 80352,
+      "actual_exit": 0
+    },
+    {
+      "script": "python -m reconstruction.csrc.pd_contact_reduction_replay --phase <this phase> --prepare",
+      "terminal_tool_chunk": "840384",
+      "actual_exit": 0
+    },
+    {
+      "script": "python -m reconstruction.csrc.pd_contact_reduction_replay --phase <this phase> --execute",
+      "session": 4793,
+      "actual_exit": 0
+    },
+    {
+      "script": "audit-reduction-differences.py",
+      "session": 91470,
+      "actual_exit": 0
+    },
+    {
+      "script": "audit-first-difference-bridge.py",
+      "terminal_tool_chunk": "4e6b56",
+      "actual_exit": 0
+    }
+  ]
+}

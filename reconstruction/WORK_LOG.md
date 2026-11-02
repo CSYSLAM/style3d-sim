@@ -6934,3 +6934,36 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   自动等待原driver终态后做实际graph、完整CPU数据流审计、6336次同输入GPU及独立CPU复核，不替换或重启采集。
   原子差异将保留为需定位项，不以流水线结束当验收。当前GPU外部PID3104143仍在运行，未杀任何外部任务。
   PD_CONTACT_FULL_TANGENT_QUEUE写明已有CPU证据、未开始的GPU结论、实际进程与新机器迁移步骤。
+
+### 2026-11-01：完整PD接触/tangent实采、补余CG及全部差异证书
+
+- 上轮为progress：准备代码、46写/20原子静态证明及267404文件快照已实际校验0失败，
+  49960939862760481a3c32ab62a39be24b11334e已推送并核远端精确HEAD；本轮起始tracked clean。
+  先向用户如实汇报当前能独立编译/部分demo、74项69严格和剩余长程问题，未把局部通过写成总体完成率。
+- 重核外部PID3104143、采集PID3118261和流水线PID3167336均真实运行，未重启/终止任何进程。
+  等待时新增static-read-coverage，session98631实际CPU0：46原版/源码读取基址与8图/1704实际阶段ABI对应已采集或NULL字段。
+  不据此证明NULL分支或索引界限；执行PTX完全未变。
+- 外部GPU任务自行结束后原session12388自动完成，SDK及三source四worker均实际0；各两模板30帧、三source无SDK映射。
+  原pipeline/session81124实际0：八实际图及跨图129指针identity同；完整51120阶段/240公开q核准。
+  extra流CPU0：3600链、21600相邻/3600末端、25200方向、72000cache、314400常量接触输入、1440公开计数对应同。
+- 采集前固定frames0/31/32/59，新增/补全132阶段每帧，共2112输入及6336真实三端调用全严格。
+  独立CPU核354816 ABI字节、4084992完整输出字节、225699264原始group/221614272保护字节，实际0。
+- 新prepare-remaining-scripts只替换已验收回放的kind集合、计数/输出目录，保存原模板及as-run diff；求解数学未动。
+  同四帧补余81阶段每帧，1296输入/3888调用真实完成；session52924实际1，1165严格、131仅标量归约不同。
+  93份CG-product/38份CG-precondition；SDK125、原PTX128、源码129次输出差异全部保留，其余完整向量全严格。
+  session80352独立CPU0，重核271152 ABI字节、4084992输出字节、20908800原始group及192别名组。
+  prepare输出中的Prepared2112是继承文案，实际plan/execute/audit始终1296，不改旧日志。
+- pd_contact_reduction_replay针对全部131差异输入，冻结选择/完整参数及所有捕获和三端回放目标，不扩旧cohort。
+  prepare实际0，session4793实际GPU0：原版/源码各4716实际F32操作数字同；
+  SDK runtime/原PTX/源码三端每lane受控映射14148有效贡献字同，新增保存真实map读回14148字。
+  262份完整三组目标由单lane GPU F32原子程序联合复现，9432步history同；总计1048实际调用。
+  session91470独立CPU0，重读全部原始trace、ABI、只读/guard、实际map、完整标量目标和联合history；不推断实际全局调度。
+- 独立first-difference-bridge实际CPU0：三条新轨迹首差均frame0/rank79/43/91的第三组分母1 ULP，
+  七份完整before及完整Ap全同，并与上述相同完整输入的实际GPU证书连接，两端完整三组目标都已覆盖。
+- 本批所选213阶段在四worker/固定四帧共3408输入，3277全严格、131有真实归约证书；10224次未修改入口调用。
+  新原版及三source完整60帧对旧C8全部false，旧source0/frame32、SDK八份及旧失败均不替换或重判。
+  生产host0dab/Core715、候选4f、SDK64a及360pyc保持，候选未合入、默认原版/readyFalse，未重复无关74回归。
+- 根状态及Windows/csrc交接同步记录实际终态、命令、精确范围和继续点。下一步回到当前镜像G1/复杂布料长程及未覆盖host组合；
+  旧PD路径缺少完整私有状态时必须明示，不能把这批新路径的局部证书当旧失败已经解释。
+- write-completion实际0，封存3959个数据/脚本/日志文件及独立完成清单；旧准备open记录原样保留为历史。
+  补核46份read-proof实际entry SHA与当前原版/source文本完全对应，SDK64a/当前生产构建/冻结360pyc保持。

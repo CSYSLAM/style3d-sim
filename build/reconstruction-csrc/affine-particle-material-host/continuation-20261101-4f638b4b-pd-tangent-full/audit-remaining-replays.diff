@@ -1,0 +1,30 @@
+--- /home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-4f638b4b-pd-tangent-full/audit-replays.py
++++ /home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-4f638b4b-pd-tangent-full/audit-remaining-replays.py
+@@ -6,10 +6,10 @@
+ import numpy as np
+ 
+ BASE = Path(__file__).resolve().parent
+-output = BASE / 'full-input-replays'
++output = BASE / 'remaining-input-replays'
+ plan = json.loads((output / 'plan.json').read_text())
+ report = json.loads((output / 'report.json').read_text())
+-assert report['complete'] and report['actual_calls'] == 6336 and len(report['packets']) == len(plan['packets']) == 2112
++assert report['complete'] and report['actual_calls'] == 3888 and len(report['packets']) == len(plan['packets']) == 1296
+ hashes = dict(plan['input_sha256'])
+ hashes[str(output / 'report.json')] = hashlib.sha256((output / 'report.json').read_bytes()).hexdigest()
+ counts = {'actual_calls': 0, 'actual_parameter_bytes': 0, 'complete_output_bytes': 0,
+@@ -91,11 +91,11 @@
+ finally:
+     if saved is not None:
+         saved.close()
+-assert counts['actual_calls'] == 6336 and sum(checked) == report['strict_packets']
++assert counts['actual_calls'] == 3888 and sum(checked) == report['strict_packets']
+ for path, expected in hashes.items():
+     assert hashlib.sha256(Path(path).read_bytes()).hexdigest() == expected, path
+ record = {'counts': counts, 'strict_packets': sum(checked), 'packets': len(checked), 'failures': failures,
+           'input_sha256': hashes, 'GPU_used_for_this_audit': False, 'original_frozen_failure_reclassified': False,
+           'whole_solver_complete': False}
+-(BASE / 'replay-independent-cpu-audit.json').write_text(json.dumps(record, indent=2) + '\n')
+-print('Independent CPU replay checks:', counts, 'strict packets', sum(checked), '/2112;failed backend calls', len(failures))
++(BASE / 'remaining-independent-cpu-audit.json').write_text(json.dumps(record, indent=2) + '\n')
++print('Independent CPU replay checks:', counts, 'strict packets', sum(checked), '/1296;failed backend calls', len(failures))
