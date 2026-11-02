@@ -7719,3 +7719,43 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 首次git add普通build路径被ignore拒绝（46263b实际1），随后明确force加入二进制/完整证据，232532/15a66c实际0。
   仅对原样保存的checkpoint及两份零参数TSV排除空白检查，最终staged门禁6bdbeb实际0，没有编辑原始证据字节。
   自己所有GPU进程已结束，外部程序未动；验证后仅追加此收据并刷新其primary SHA，随后按用户要求集中提交本完整阶段。
+
+### 2026-11-02：当前 d09/Core55 的 G1 固定八原版长程核对
+
+- 上一完整 cable 阶段集中提交3472074ffeb4feb73d223870e17c2c0f0b1192f2，远端csy同SHA；本轮起点git clean。
+- 按用户要求继续按完整阶段集中提交；过程持续记日志，不逐次改动提交。
+- 新目录continuation-20261102-d09d4be9-g1-current-core；保留旧host38/Core7eb的3份失败，
+  当前新版本预先固定3份源码真实graph60；原8 SDK轨迹、runner字节、203资产/example逐SHA核准，不新增SDK。
+- 只读核对当前host d09/Core55，GPU初余16266MiB；每次运行记录free/apps，free>=4096、自有GPU严格串行。
+  新driver先AST/128列门禁，移除旧已结束PID等待，添加-B/禁pyc及共享GPU准入；物理、阈值、步数均不改。
+- 当前G1固定C8根9291/3bad71实际1；三个真实公共Core/source worker均退出0，无SDK映射。
+  source0四字段各59/60，source1为60/55/60/56，source2为35/30/34/31；严格全false。
+- CPU4ac92a逐统计重算同；6fcbe6导出123个field/frame越界，首次4/18/4，最大ratio约1.026/1.341/2.677。
+  没复现旧23.85尖峰，不把新图运行成功当作等价，也不重判旧host38失败。
+- 新g1_nl2_full_cg.py把原受控NL2首末核对扩到完整50轮：每端202调用、1413实际D2D快照、9107836字节。
+  预计双端404 packet、1212三端回放、2112完整输出；保持inverse全别名及真实ABI，source用当前Core55。
+- 预检da2027实际0，独立核两份旧实际图全部202位置；新replay在nonblocking launch前fence上传。
+  两次driver生成前128列断言退出1均发生在GPU前，随后直接写分行driver并全部AST/128列通过，未执行错误版。
+- 仍用原source1 frame30公共检查点，只作算子诊断；不声称恢复旧隐藏缓存，也不加入旧或当前C8队列。
+- 完整CG根62083/1d1678实际0：SDK/source各1帧、CPU拓扑/指针链、三端回放/完整after CPU均真实0。
+  f9aec2只读统计：每端202核、双端404packet、1212回放；1512份非归约完整输出全严格，
+  scalar600仅222严格、378失败保持。CPU核54819456 after字节、51598368只读/guard字节、81540实际ABI字节。
+- 实际新增快照两端18215672字节，565200个实际copy descriptor字节、1290条实际指针/完整payload链全核准。
+  两份受控NL2 body12增量约0.010793/0.001186，差异已在完整向量之前的实际两端输入和归约结果中，
+  不能因同输入算子全同就宣称长程已经等价。接续固定全部200份实际归约输入作贡献/SDK隔离/证书核对。
+- 原子预备尝试00651a先在写入新prepare前触发128列断言；后续6287d8仍用旧prepare冻结了计划，
+  尚无GPU执行，故原plan/prepare以before-template-guard保存，补模板SHA/字节锁后4fb6ed重新冻结真实200输入。
+- 原子根29569/27a06a真实0：400探针、1200 SDK/PTX/source独立隔离、511硬件证书全过；
+  两端70400实际原子记录逐位同，211200隔离贡献同，最大负贡献75、无subnormal，固定预算100000/实际最大544。
+  CPU独立核89936硬件before、130825600完整after字节、127444800只读/guard字节、140796实际ABI字节。
+- CPU ea21a0核当前两端全部图定义：17467节点/17466边/15672 kernel名称/geometry/ABI/类型化标量及指针身份同。
+  仍有14类/7812调用的资源属性不同，原报告完整保留；图定义本身不证明所有pointee内容或联合调度。
+- 汇总5cb7a4真实0核本批全部image/固定8+3队列/终态/完整CG及证书；脚本一行129列在GPU外先拆行。
+  新维护说明CURRENT_G1_CORE_55D6及根交接均明确范围、失败、下一步和Windows/WSL绝对路径限制。
+  当前生产/SDK/360pyc/default/readyFalse均未改，没有额外重跑无关74；准备冻结本完整验证阶段。
+- 本批8942d9冻结1132份实际phase文件，primary355330＋indexed172950＝528280；根JSON101085726字节。
+  全量verifier96263/91d3e2真实0：528280文件零失败，固定SDK和360pyc全核。
+- git diff --check实际0，最后GPU查询仅外部worldparticle，自有GPU任务均结束、外部未中断。
+  本轮完整验证阶段结束后只集中提交一次；整段G1/C8和完整solver替代目标仍未通过。
+- 最终staged whitespace门禁c8b605实际2，仅四份实际instrumented PTX末尾原始空行；
+  保留as-run/PTX/SHA完整字节，只从代码/docs空白门禁排除这四份原始证据，不修改捕获输入或验收。

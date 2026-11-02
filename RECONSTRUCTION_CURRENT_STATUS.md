@@ -4,6 +4,12 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+当前 d09/Core55 的 G1 另固定三次真实 graph60，对照原八份 SDK，C8 仍失败，123 个字段/帧越界。
+本批补齐一个受控 NL2 的全部50轮 CG：1512份非归约输出全严格，378份标量严格失败保留；
+200份真实归约输入的全部贡献相同，1200次SDK/PTX/source隔离及511份硬件F32证书全部通过。
+原子证书不证明联合调度或完整轨迹等价，当前没有改生产数学或重判旧失败。
+见[当前G1完整结果和接续范围](reconstruction/csrc/CURRENT_G1_CORE_55D6.md)。
+
 当前主源码/host为d09d4be9，匹配公开Core为55d626f0（`source-core/9cb2fcaa1082d1df`）。
 已修复六块cable缓存typed-zero/位置及distance/point-line的weight上传顺序；176 kernel specs和CUDA digest保持。
 新生产104个cable组合全部严格；新image独立74回归为71严格，三个粒子首source0的固定C10均在原版波动范围内。
