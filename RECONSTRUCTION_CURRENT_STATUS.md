@@ -4,11 +4,18 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+ANYmal首NL的六类matrix.extra生产者及direction/matrix已补齐50轮：800完整输入/2400三端调用，552严格。
+248份非严格输入的545056项真实原子贡献同，全部892个差异word/1785目标由真实GPU复现、62940历史word经独立CPU核准。
+1300个真实地址与字节连接全同，包括六算子累积到matrix.arg5；soft/limit此上下文未改输出，不外推一般分支。
+原严格失败及完整轨迹失败不改；接下来补RHS、预条件器组装及后续NL状态传播。
+范围、计数陷阱、实际终态和命令见
+[完整50轮extra生产者](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-CG-extra/README.md)。
+
 ANYmal同一public起点的首NL全部50轮CG核心已补查：430份完整输入/1290次三端调用，232份严格。
 198份非严格仅世界系数归约差，所有向量/矩阵输出同输入逐位一致；原失败退出1保留。
 108800对真实原子贡献相同，全部1017个差异word的2303个实际目标已由真实GPU累加排列复现，
 独立CPU核156604历史word；1096个观测生产/消费字节连接全同，包含末update→首apply。
-每标量可达排列不证明全局联合次序，matrix.extra六类生产者尚未全部逐项回放，完整轨迹仍未通过。
+每标量可达排列不证明全局联合次序；该阶段未全回放的六类extra生产者已由上述新上下文补查，完整轨迹仍未通过。
 本批2303次GPU证书在外部任务运行、余17553MiB时已完成；继续显存准入和自己的worker串行。
 结果、失败搜索、命令及准确接续见
 [完整50轮CG核对](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/README.md)。

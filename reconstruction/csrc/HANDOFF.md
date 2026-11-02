@@ -1,5 +1,10 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新接续为[ANYmal首NL50轮extra链](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-CG-extra/README.md)：
+> 800完整输入/2400三端调用，552严格，余248的545056贡献同；892差异word/1785实GPU目标与62940历史CPU全核。
+> 1300地址+字节连接全同；下一步RHS/预条件器组装及后续NL，完整轨迹及默认切换仍未通过。
+> 根CURRENT_STATUS优先；下方“extra仍待补齐”属于上一阶段历史，不需重跑已结束队列。
+
 > 最新接续以根CURRENT_STATUS/HANDOFF及本批
 > [ANYmal全50轮CG](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/README.md)
 > 为准：430完整输入、1290三端调用，全部向量/矩阵同输入严格；198packet仅归约系数不同。

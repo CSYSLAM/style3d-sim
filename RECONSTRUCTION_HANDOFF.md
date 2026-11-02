@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **ANYmal首NL50轮extra生产者已补齐。** 800完整输入/2400三端调用，552严格；248非严格的真实贡献545056项同。
+> 全部892差异word/1785目标有真实GPU证书、62940历史word经独立CPU核准，1300个地址+字节连接全同。
+> 计数须区分CG前force/preconditioner模式，抓52次再选真实50轮；view指针完整重定位。
+> 首NL局部核准不改判整段；下一步RHS/预条件器组装及后续NL传播。原始数据、失误和WSL命令见
+> [完整extra链](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-CG-extra/README.md)。
+
 > **ANYmal首NL全50轮CG核心已完成实际核对，完整替代尚未通过。** 430完整输入/1290三端调用，232严格；
 > 其余198份只差世界系数归约，同输入全部向量/矩阵严格。108800实际贡献相同，1017差异word的2303目标
 > 经真实GPU复现、156604历史word经独立CPU全核，1096个观测链相同，含末update→首apply。

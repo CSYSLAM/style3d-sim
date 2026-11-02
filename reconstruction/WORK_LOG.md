@@ -7386,3 +7386,45 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - staged whitespace检查首次除20份原始instrumented PTX外，还报告固定资产anymal_d.usda原始EOF空行，门禁实际1保留。
   复核只涉及固定raw资产/原始PTX，精确排除这些21份原始证据后git diff --cached --check实际0；未改运行证据字节。
   本批生产、SDK、360pyc保持，继续位置为matrix.extra六类生产者，完整替代目标仍active。
+
+
+### 2026-11-02：接续5149d4ec，补ANYmal首NL全50轮matrix.extra生产者
+
+- 上一goal turn为progress：5149d4ec638e639cf69809aea7404cf23e08cfd6已推，精确远端同HEAD、tracked clean。
+  本轮实查余17503MiB，外部worldparticle仍在；自己的GPU任务串行，无独占等待。
+- 新阶段continuation-20261102-0dabbaa7-anymal-CG-extra。资产离线恢复84ba36实际0、20固定文件逐SHA；独立cache。
+  schema从固定真实参数、demangle、source struct及实际span核齐flat/view指针：17body/56shape/12drive/18DOF、
+  68共享粒子/544状态，rolling sizeof248、joint120、limit32；权重12*16、angle/initialized96*4。
+- 发现contact_tangent和angular_limits入口在CG前还有矩阵/force模式，不能抓前50次冒充50轮。
+  抓前52次，准备按首direction owned25到首apply524选全50轮；contact ordinal偏移1、limit偏移2，均独立断言。
+  仅新诊断schema/capture/pack脚本；生产数学、阈值、迭代数、旧C8/C10均不改。
+- capture根5675实际0，原/源各真实step一次子worker均0、输出有限、source无SDK映射；未继承前一捕获的private history。
+  pack实际启动，后记真实终态；完整8类核含六extra生产者及direction/matrix，预计800输入/2400三端调用。
+
+- prepare根22803真实0，按真实owned25..523装包800份/2400调用，52次抓取的其他模式原始bin完整保留。
+  十份每十轮NPZ避免单文件过100MiB；所有生成Python AST/128列实际0。
+- 三端回放根43026真实1，GPU子1/独立CPU0；552/800严格，余248。
+  failures仅contact product193次backend、drive product117次、rolling product1次、matrix denominator286次。
+  direction/SO3/soft/angular各100严格、drive51、rolling99、contact2；matrix完整向量均严格。
+  CPU核142800实际参数字节、15676800完整输出字节、641205888保护字节，0alias组。
+- 独立context工具1a9614实际0：1300个真实地址+字节连接全部同，100个每轮初extra清零。
+  active rigid160/soft296/rolling160；soft及angular100packet输出均未改，不能把这些路径外推一般公式一致。
+- 原子追踪根4552真实0：全部248非严格输入、496实际调用，545056项真实原子贡献target/F32/线程序原源同。
+  per-packet JSON保存实际原始记录，避免超100MiB单体报告；8个相同instrumented module只复用句柄，不改数学/launch。
+  CPU审计26690真实0，完整view offsetof重定位、actual参数、guard/readonly和实际trace全部核准。
+- 首次证书脚本生成b25b93在写任何脚本前因替换次数断言失败实际1；后续误启动不存在脚本实际2，日志保留，均无GPU。
+  改用精确整行替换并检查生成终态后依次执行；4a82c9生成AST/128全过，再启动准备45438。
+  实际contact每目标最多8贡献、drive/rolling最多4、CG68；继续用同线程目标内受限排列及真实GPU证书，不改冻结目标。
+
+- 证书准备45438实际0：全部892word（contact407/drive73/rolling1/denominator411），1785真实目标。
+  run30082实际0，真实GPU全部精确；独立CPU78683实际0，重读全部800输入/三端结果重建覆盖全集。
+  共核62940历史word、4159200保护字节、64260实际参数字节；不推断每标量排列的联合生产全局次序。
+- 已补README、三个handoff/status入口及实际首26节点，下一步RHS与预条件器全部写入、后续NL状态传播。
+  不重复已结束首NL50轮extra队列，不将soft/limit无输出变化外推一般分支。
+  本阶段所有自己的GPU worker均已真实终态，生产镜像、SDK、360pyc、旧C8/C10、readyFalse均保持。
+
+- freeze-checkpoint.py680ec0实际0，冻结28825证据文件；全部原始bin/完整NPZ/贡献JSON保留，单文件最大约11.6MB。
+  根snapshot仅压紧JSON空白、不删除条目或SHA，增至345534文件/98332363字节；反解析结构全同。
+  全量snapshot校验96545实际0、零失败，生产构建来源、固定so/360pyc均保持；实际所有GPU任务终态。
+  staged格式门禁仅精确排除原始instrumented PTX与固定USD的历史空白，运行字节不改；其余代码文档须通过。
+  接续RHS/预条件器组装及后续NL，未声明整个求解器或原固定C8/C10通过。
