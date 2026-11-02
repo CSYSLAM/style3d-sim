@@ -1,5 +1,9 @@
 # 当前 d09 / Core55 的 G1 长程及完整 NL2 CG 核对
 
+> 后续已补[同一次第4子步全部五NL及250CG](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-g1-fourth-five-nl/README.md)：
+> 7620份非归约严格，1704标量失败保留，1000真实归约输入贡献同，2633硬件证书全过。
+> 当前C8仍失败，生产未改；下文单一NL2是上一完整阶段，下一步转接未完成host/复杂布料。
+
 最终源码替代目标仍未完成，`solver_api_ready=False`，默认后端不变。
 当前源码 host 为 d09d4be9，公开 Core 为 55d626f0；本阶段没有修改生产数学、SDK、pyc 或原 demo。
 旧 host38/Core7eb 的失败仍是旧版本结果，本次另建当前版本证据，不覆盖旧轨迹。

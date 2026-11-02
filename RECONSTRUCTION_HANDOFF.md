@@ -2,8 +2,9 @@
 
 > 当前 d09/Core55 的[G1长程及完整NL2 CG](reconstruction/csrc/CURRENT_G1_CORE_55D6.md)已补查：
 > 固定八SDK／三当前源码的C8仍失败，123字段/帧越界，正常Core运行成功不等于轨迹通过。
-> 单一受控NL2全部50轮、1512非归约输出严格；378标量失败保留，200真实输入贡献同，511硬件证书全过。
-> 接续上游跨NL/子步输入与累计力，不重做这批首末或声称六子步全部CG已证；本批生产/SDK/pyc未改。
+> 最新同一次第4子步全部5NL/250CG及apply、7620非归约严格；1704标量失败保留，2633硬件证书全过。
+> [本批及接续范围](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-g1-fourth-five-nl/README.md)：
+> 接续当前d09的未完成host组合/4f/7ca及布料；不重做本范围首末或声称六子步全部CG已证，生产/SDK/pyc未改。
 > 过程写日志，完整阶段集中提交；Windows仍用WSL2，历史诊断绝对路径限制详见该批README。
 
 > **当前已合入d09 host，公开Core为55d626f0／9cb2fcaa1082d1df。** 恢复六块cable typed-zero缓存和weight上传顺序。

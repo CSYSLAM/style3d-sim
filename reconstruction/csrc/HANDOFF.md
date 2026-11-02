@@ -1,8 +1,8 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
-> 最新[当前Core55 G1](CURRENT_G1_CORE_55D6.md)：固定C8仍false；单一NL2的全部50轮向量已补齐。
-> 1512份非归约全严格，378标量失败保留，200真实输入贡献同、1200次隔离/511硬件证书全过。
-> 不是六子步全部CG或长程等价证明；接续上游实际输入/累计力及复杂布料，生产数学/SDK/pyc不变。
+> 最新[Core55 G1同次五NL](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-g1-fourth-five-nl/README.md)：
+> 固定C8仍false；第4子步5NL/250CG/apply共7620非归约严格，1704标量失败保留，2633硬件证书全过。
+> 不是六子步全部CG或长程等价证明；接续d09未完成host/4f/7ca及布料，生产数学/SDK/pyc不变。
 > 按完整阶段集中提交，全部实际命令/终态及新WSL正常入口命令保存在本批证据README。
 
 > 当前[缆绳修复已合入并完成本批验证](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-b82ecd80-cable-closure/README.md)：
