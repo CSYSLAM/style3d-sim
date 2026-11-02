@@ -1,0 +1,11 @@
+label initialize_block_diagonal
+ptx initialize_block_diagonal.ptx
+cubin cubins/initialize_block_diagonal.cubin
+name_ptx _ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m
+name_cubin _Z25initialize_block_diagonalPKfP4Mat3S2_m
+grid 1 1 1
+block 256 1 1
+ptr randf 1024
+ptr zero 9216
+ptr zero 9216
+u64 256

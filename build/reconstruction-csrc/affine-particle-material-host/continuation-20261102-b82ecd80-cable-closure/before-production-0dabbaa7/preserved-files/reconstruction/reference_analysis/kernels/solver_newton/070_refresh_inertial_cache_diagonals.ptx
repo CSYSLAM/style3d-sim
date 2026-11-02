@@ -1,0 +1,128 @@
+// [solver_newton.cu] kernel 70/97   PTX 121 行   SASS 236 条指令
+// 签名: synreal::kernel::refresh_inertial_cache_diagonals(float const*, unsigned long const*, int const*, float*, float*, unsigned long)
+// 归一化原型: synreal::kernel::refresh_inertial_cache_diagonals(float const*, size_t const*, int const*, float*, float*, size_t)
+// maxntid: (未指定)   ptxas: REG=32 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=7
+
+_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m(
+.param .u64 _ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_0,
+.param .u64 _ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_1,
+.param .u64 _ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_2,
+.param .u64 _ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_3,
+.param .u64 _ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_4,
+.param .u64 _ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_5
+)
+{
+.reg .pred %p<8>;
+.reg .f32 %f<26>;
+.reg .b32 %r<9>;
+.reg .b64 %rd<59>;
+
+
+ld.param.u64 %rd24, [_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_0];
+ld.param.u64 %rd21, [_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_1];
+ld.param.u64 %rd25, [_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_2];
+ld.param.u64 %rd22, [_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_3];
+ld.param.u64 %rd23, [_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_4];
+ld.param.u64 %rd26, [_ZN7synreal6kernel32refresh_inertial_cache_diagonalsEPKfPKmPKiPfS7_m_param_5];
+cvta.to.global.u64 %rd1, %rd24;
+cvta.to.global.u64 %rd2, %rd25;
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mul.wide.u32 %rd27, %r1, %r2;
+mov.u32 %r3, %tid.x;
+cvt.u64.u32 %rd28, %r3;
+add.s64 %rd3, %rd27, %rd28;
+setp.ge.u64 %p1, %rd3, %rd26;
+@%p1 bra $L__BB9_10;
+
+cvta.to.global.u64 %rd29, %rd21;
+shl.b64 %rd30, %rd3, 3;
+add.s64 %rd31, %rd29, %rd30;
+ld.global.u64 %rd4, [%rd31+8];
+ld.global.u64 %rd5, [%rd31];
+setp.eq.s64 %p2, %rd4, %rd5;
+@%p2 bra $L__BB9_10;
+
+setp.le.u64 %p3, %rd4, %rd5;
+mov.f32 %f25, 0f00000000;
+@%p3 bra $L__BB9_9;
+
+sub.s64 %rd32, %rd4, %rd5;
+and.b64 %rd6, %rd32, 3;
+setp.eq.s64 %p4, %rd6, 0;
+mov.f32 %f25, 0f00000000;
+mov.u64 %rd56, %rd5;
+@%p4 bra $L__BB9_6;
+
+shl.b64 %rd33, %rd5, 2;
+add.s64 %rd54, %rd2, %rd33;
+neg.s64 %rd53, %rd6;
+mov.f32 %f25, 0f00000000;
+mov.u64 %rd56, %rd5;
+
+$L__BB9_5:
+.pragma "nounroll";
+ld.global.u32 %r4, [%rd54];
+mul.wide.s32 %rd34, %r4, 4;
+add.s64 %rd35, %rd1, %rd34;
+ld.global.f32 %f12, [%rd35];
+add.f32 %f25, %f25, %f12;
+add.s64 %rd56, %rd56, 1;
+add.s64 %rd54, %rd54, 4;
+add.s64 %rd53, %rd53, 1;
+setp.ne.s64 %p5, %rd53, 0;
+@%p5 bra $L__BB9_5;
+
+$L__BB9_6:
+not.b64 %rd36, %rd5;
+add.s64 %rd37, %rd4, %rd36;
+setp.lt.u64 %p6, %rd37, 3;
+@%p6 bra $L__BB9_9;
+
+shl.b64 %rd38, %rd56, 2;
+add.s64 %rd39, %rd2, %rd38;
+add.s64 %rd57, %rd39, 8;
+
+$L__BB9_8:
+ld.global.u32 %r5, [%rd57+-8];
+mul.wide.s32 %rd40, %r5, 4;
+add.s64 %rd41, %rd1, %rd40;
+ld.global.f32 %f13, [%rd41];
+add.f32 %f14, %f25, %f13;
+ld.global.u32 %r6, [%rd57+-4];
+mul.wide.s32 %rd42, %r6, 4;
+add.s64 %rd43, %rd1, %rd42;
+ld.global.f32 %f15, [%rd43];
+add.f32 %f16, %f14, %f15;
+ld.global.u32 %r7, [%rd57];
+mul.wide.s32 %rd44, %r7, 4;
+add.s64 %rd45, %rd1, %rd44;
+ld.global.f32 %f17, [%rd45];
+add.f32 %f18, %f16, %f17;
+ld.global.u32 %r8, [%rd57+4];
+mul.wide.s32 %rd46, %r8, 4;
+add.s64 %rd47, %rd1, %rd46;
+ld.global.f32 %f19, [%rd47];
+add.f32 %f25, %f18, %f19;
+add.s64 %rd57, %rd57, 16;
+add.s64 %rd56, %rd56, 4;
+setp.lt.u64 %p7, %rd56, %rd4;
+@%p7 bra $L__BB9_8;
+
+$L__BB9_9:
+cvta.to.global.u64 %rd48, %rd22;
+shl.b64 %rd49, %rd3, 2;
+add.s64 %rd50, %rd48, %rd49;
+mul.f32 %f20, %f25, 0f40400000;
+st.global.f32 [%rd50], %f20;
+cvta.to.global.u64 %rd51, %rd23;
+add.s64 %rd52, %rd51, %rd49;
+st.global.f32 [%rd52], %f25;
+
+$L__BB9_10:
+ret;
+
+}
+//
+

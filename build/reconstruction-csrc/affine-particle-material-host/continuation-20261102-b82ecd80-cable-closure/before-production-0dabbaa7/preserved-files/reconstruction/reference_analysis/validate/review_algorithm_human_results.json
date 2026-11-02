@@ -1,0 +1,2076 @@
+{
+  "binary": "/home/oem/code/agent/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so",
+  "binary_sha256": "4c223854a5a554140ed6cf0e99d5687aa5846bbe49465a85a5819079f3db34e6",
+  "seed": 20261027,
+  "gpu": "NVIDIA GeForce RTX 5090 D v2, 595.71.05",
+  "scope": "original binary PTX vs independent CPU formulas; not full solver equivalence",
+  "entries": {
+    "solver_newton/evaluate_spring_force": {
+      "ptx_file": "kernels/solver_newton/040_evaluate_spring_force.ptx",
+      "entry_sha256": "d0f150946585f2244e775f2c6a1eab312e21c74ca71d2b898ac6ac3f495e61ba",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "readable_cuda",
+      "source": "reconstructed/evaluate_spring_force.cu",
+      "source_sha256": "e51f0113473930897e46d7249096dd966cb6a76f09eeb4f861c25728fb7eaf49"
+    },
+    "solver_newton/evaluate_stretch_force": {
+      "ptx_file": "kernels/solver_newton/041_evaluate_stretch_force.ptx",
+      "entry_sha256": "03d84e18894122e983acc52d516efdf58c829f40009fe531a8d69ff38b36e445",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/evaluate_bending_force": {
+      "ptx_file": "kernels/solver_newton/026_evaluate_bending_force.ptx",
+      "entry_sha256": "598462c91844b4879f90eb0d4b9da59410a3ed78b667eba1838106d81ad755ce",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/evaluate_tetrahedron_force": {
+      "ptx_file": "kernels/solver_newton/043_evaluate_tetrahedron_force.ptx",
+      "entry_sha256": "42e13a9a89f7e1662b31b0dabffed1625714c5a7aed053c286a948ed7feb2eab",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force": {
+      "ptx_file": "kernels/solver_newton/023_evaluate_affine_body_so3_augmented_lagrangian_force.ptx",
+      "entry_sha256": "5697d903e24921323007afc01eaa4efe5204099725fa154bd0c7eb6c18715c01",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/evaluate_triangle_drag": {
+      "ptx_file": "kernels/solver_newton/044_evaluate_triangle_drag.ptx",
+      "entry_sha256": "d6749f5e62d60a5fd8d0850cb96af45113df1d42ddeb455631393db617bfe309",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/add_spring_gauss_newton_hessian": {
+      "ptx_file": "kernels/solver_newton/012_add_spring_gauss_newton_hessian.ptx",
+      "entry_sha256": "cf55dd404ebb68e9240afe45fdd8d611954ce4dc6573c127a74583ab8fbab7d6",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "solver_newton/add_cloth_membrane_gauss_newton_hessian": {
+      "ptx_file": "kernels/solver_newton/007_add_cloth_membrane_gauss_newton_hessian.ptx",
+      "entry_sha256": "72d7f4885dbe6e00dd79ba09d1ba542c83fe404d53a5275d2787f64ebb12dacb",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "granular/commit_bonds": {
+      "ptx_file": "kernels/granular/005_commit_bonds.ptx",
+      "entry_sha256": "01ab8005dc731a062da3877347eceb7ecc8d2d7b53374a23827e407712fa2580",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "readable_cuda",
+      "source": "recover/human/commit_bonds.cu",
+      "source_sha256": "ab807503759e8efd3f99b8c78cc3bc7fbc88408714c8aaef4c93f73742490d56"
+    },
+    "pcg_solver/update_solution_and_residual": {
+      "ptx_file": "kernels/pcg_solver/002_update_solution_and_residual.ptx",
+      "entry_sha256": "31c8a5f6679f173f8b5e9cadcfddb1effc1ec22af3df5692c85e15e039eea9d2",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "readable_cuda",
+      "source": "recover/human/update_solution_and_residual.cu",
+      "source_sha256": "c68bed67a435efd2a6ab810efeec4125cbaf4128ae824c5ce7caba65ce38a728"
+    },
+    "solver_newton/invert_block_preconditioner": {
+      "ptx_file": "kernels/solver_newton/056_invert_block_preconditioner.ptx",
+      "entry_sha256": "925326fb0e7967b2d65534553c7cd9dfe9de10e0470e02d24f069bf04b2e39ce",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "readable_cuda",
+      "source": "recover/human/invert_block_preconditioner.cu",
+      "source_sha256": "76a2cbe4c95ab3abfb4dade1ed0d95e7f75c0918894f1e785d03c8f8939ce0e6"
+    },
+    "pcg_solver/update_preconditioned_cg_direction": {
+      "ptx_file": "kernels/pcg_solver/001_update_preconditioned_cg_direction.ptx",
+      "entry_sha256": "9da2e4e3a4f3406d596afb3005b48a3b2ddd8a035b78d3965447dca4d4e0f557",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "readable_cuda",
+      "source": "recover/human/update_preconditioned_cg_direction.cu",
+      "source_sha256": "28b7224295b53754e0b17c5691a282996696fa6b722469911a5c2c378cf07dcd"
+    },
+    "pcg_solver/update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >": {
+      "ptx_file": "kernels/pcg_solver/015_update_cg_direction<glm::mat<3__3__float___glm::qualifier_0>_>.ptx",
+      "entry_sha256": "96b3fe8b3f784027a41078b3252f17ec7bffe627b5e5dd8d8788c24a04849f2c",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "readable_cuda",
+      "source": "recover/human/update_cg_direction_blockjacobi.cu",
+      "source_sha256": "56becf6d489cd646c2860950579ee93c3ce6e17460a1210590d368c8267a4d72"
+    },
+    "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >": {
+      "ptx_file": "kernels/pcg_solver/016_update_solution_residual_and_reduce<256u__glm::mat<3__3__float___glm::qualifier_0>_>.ptx",
+      "entry_sha256": "0606c2e6f82c713595780bde118317aaf6d98675a2c64c93be9b37d84e741675",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "readable_cuda",
+      "source": "recover/human/update_solution_residual_and_reduce.cu",
+      "source_sha256": "c2d4f7496dd87234fd360f6306fd7a0ebee298476910fecbecb0c64a89c908f3"
+    },
+    "fluid/bound_scale": {
+      "ptx_file": "kernels/fluid/003_bound_scale.ptx",
+      "entry_sha256": "c90041f62826bc32ade3b044facc6dc49f0e9cd91b8398a0a56722c1b5e22867",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "fluid/build_grid": {
+      "ptx_file": "kernels/fluid/004_build_grid.ptx",
+      "entry_sha256": "0c98014682f3bc6a93cfbfe9b26607d094950d646fc2087e87ec017d2ccd1d92",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    },
+    "fluid/evaluate_rows": {
+      "ptx_file": "kernels/fluid/005_evaluate_rows.ptx",
+      "entry_sha256": "51ff02d21f2aa6ec462511675eaf62bff7a1912f39d0c70ede016318020cfd45",
+      "fresh_binary_matches_snapshot": true,
+      "implementation": "original_binary_ptx"
+    }
+  },
+  "checks": [
+    {
+      "case": "spring/0",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 1.0922826260140184e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/0",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 7.988038488483673e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/0",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.511736761969587e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/0",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 9.826591554684683e-06,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/0",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.871194597631188e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/0",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 9.313225746154785e-10,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/0",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1256512430501964e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/1",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 5.42499357658599e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/1",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 7.387448555107312e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/1",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.0409479571649172e-06,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/1",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.465621109199901e-06,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/1",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.8531077528602964e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/1",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 9.313225746154785e-10,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/1",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.154570582195813e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/2",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 3.5176947577042483e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/2",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.431420542681195e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/2",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.502401169086511e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/2",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 6.4891378883658035e-06,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/2",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 9.008680397215585e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/2",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 7.275957614183426e-11,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/2",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.687482114794749e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/3",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 3.727029129763082e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/3",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.867156118137927e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/3",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 9.286538409369882e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/3",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.0805054451168417e-05,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/3",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.113930168221259e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/3",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 9.313225746154785e-10,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/3",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.344836408900818e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/4",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 1.0649560655551227e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/4",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.3077149375060344e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/4",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.142698264431033e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/4",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.524098620109271e-05,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/4",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.5465254849830217e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/4",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.862645149230957e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/4",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 6.1915994692407494e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/5",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 1.6429916582794135e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/5",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.681448195180792e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/5",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.498525488256689e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/5",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.6216787983580616e-05,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/5",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.2961955948328523e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/5",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.3969838619232178e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/5",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.3359160833115169e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/6",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 1.664099444909084e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/6",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.345742716793666e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/6",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.6340944242188016e-06,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/6",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.6450147933610992e-05,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/6",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.2212443107072488e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/6",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.862645149230957e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/6",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.4277992121947136e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/7",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 2.1251186055337712e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/7",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.782772540703803e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/7",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.2989800935467883e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/7",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.8757091509467045e-06,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/7",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.5518643081691152e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/7",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.7939677238464355e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/7",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.2652285080738679e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/8",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 3.0221852398426563e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/8",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.455350429173222e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/8",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 8.517774032767989e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/8",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.384072089649635e-05,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/8",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.500363661146366e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/8",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1368683772161603e-12,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/8",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.0719128691372435e-10,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/9",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 2.145861897062673e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/9",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.253450923170533e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/9",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.5857992724809264e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/9",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.213382396121233e-05,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/9",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 7.641522543622159e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/9",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/9",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.4469585796781388e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/10",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 6.441342326191091e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/10",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.798760532802703e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/10",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.962427846422202e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/10",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 7.257110739011807e-07,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/10",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.842773684288204e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/10",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 9.313225746154785e-10,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/10",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.05723978321981e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/11",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 2.6187698731749975e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane/11",
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 6.610071592305644e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "bending/11",
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 8.902172048408374e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "tetrahedron/11",
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.201256984970314e-06,
+      "rtol": 8e-05,
+      "atol": 2e-05
+    },
+    {
+      "case": "so3_force/11",
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.505498818474507e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_force/11",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1641532182693481e-10,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "drag_tangent_weight/11",
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.7918105558317743e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring/multiworld",
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/0/diagonal",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/0/offdiag_0_1",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/0/offdiag_1_0",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/1/diagonal",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/1/offdiag_0_1",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/1/offdiag_1_0",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/2/diagonal",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/2/offdiag_0_1",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/2/offdiag_1_0",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/3/diagonal",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/3/offdiag_0_1",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "spring_delta/3/offdiag_1_0",
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/0/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/0/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.5762786865234375e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/0/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/0/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.5762786865234375e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/0/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.725290298461914e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/0/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/0/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.725290298461914e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/1/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 7.152557373046875e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/1/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/1/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/1/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/1/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/1/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/1/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/2/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.5762786865234375e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/2/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/2/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/2/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/2/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.725290298461914e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/2/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/2/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.725290298461914e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/3/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.76837158203125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/3/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/3/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/3/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/3/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.9802322387695312e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/3/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/3/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.9802322387695312e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/4/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.5762786865234375e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/4/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.980232238769531e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/4/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/4/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.980232238769531e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/4/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.2817403078079224e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/4/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/4/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.2817403078079224e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/5/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.980232238769531e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/5/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/5/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.7881393432617188e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/5/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/5/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.725290298461914e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/5/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.7881393432617188e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/5/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.725290298461914e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/6/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 7.152557373046875e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/6/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/6/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/6/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/6/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.470348358154297e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/6/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/6/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.470348358154297e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/7/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.76837158203125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/7/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/7/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/7/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/7/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/7/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/7/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 5.960464477539063e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/8/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/8/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/8/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/8/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/8/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.9802322387695312e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/8/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/8/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.9802322387695312e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/9/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.76837158203125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/9/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/9/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/9/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/9/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.470348358154297e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/9/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/9/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.470348358154297e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/10/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 4.76837158203125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/10/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.5762786865234375e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/10/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/10/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.5762786865234375e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/10/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.3527612686157227e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/10/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/10/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 3.3527612686157227e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/11/diagonal",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/11/offdiag_0_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/11/offdiag_0_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/11/offdiag_1_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.384185791015625e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/11/offdiag_1_2",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.421438694000244e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/11/offdiag_2_0",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "membrane_delta/11/offdiag_2_1",
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 2.421438694000244e-08,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "commit_bonds/history",
+      "kernel": "granular/commit_bonds",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "commit_bonds/active",
+      "kernel": "granular/commit_bonds",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 0,
+      "atol": 0
+    },
+    {
+      "case": "cg/tiny_valid/solution",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "cg/tiny_valid/residual",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "cg/below_threshold/solution",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "cg/below_threshold/residual",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "cg/nan_numerator/solution",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "cg/nan_numerator/residual",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "cg/nan_denominator/solution",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "cg/nan_denominator/residual",
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "inverse/tiny_determinant",
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.03743736690375954,
+      "rtol": 3e-06,
+      "atol": 0.1
+    },
+    {
+      "case": "inverse/singular",
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 9.934107481068821e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "inverse/negative_det",
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 9.934107481068821e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "inverse/inactive",
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "inverse/zero_scale",
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "inverse/nan_det",
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 9.934107481068821e-09,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/preconditioned/first",
+      "kernel": "pcg_solver/update_preconditioned_cg_direction",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/preconditioned/tiny",
+      "kernel": "pcg_solver/update_preconditioned_cg_direction",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/preconditioned/nan",
+      "kernel": "pcg_solver/update_preconditioned_cg_direction",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/preconditioned/zero",
+      "kernel": "pcg_solver/update_preconditioned_cg_direction",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/block/first",
+      "kernel": "pcg_solver/update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 3.8146972691777137e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/block/tiny",
+      "kernel": "pcg_solver/update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 2.9206275975468543e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/block/nan",
+      "kernel": "pcg_solver/update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 3.8146972691777137e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "direction/block/zero",
+      "kernel": "pcg_solver/update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 3.8146972691777137e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "fused/False/solution",
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "fused/False/residual",
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 1.7881393432617188e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "fused/False/quadratic",
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 0.0001
+    },
+    {
+      "case": "fused/True/solution",
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "fused/True/residual",
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 1.1920928955078125e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "fused/True/quadratic",
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "pass": true,
+      "max_abs_error": 0.00010284915015290608,
+      "rtol": 4e-05,
+      "atol": 0.0001
+    },
+    {
+      "case": "fluid/world_min",
+      "kernel": "fluid/bound_scale",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 0,
+      "atol": 0
+    },
+    {
+      "case": "fluid/grid_floor",
+      "kernel": "fluid/build_grid",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 0,
+      "atol": 0
+    },
+    {
+      "case": "fluid/grid_chain_membership",
+      "kernel": "fluid/build_grid",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 0.0,
+      "rtol": 0,
+      "atol": 0
+    },
+    {
+      "case": "fluid/poly6_residual",
+      "kernel": "fluid/evaluate_rows",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.8325275785713302e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    },
+    {
+      "case": "fluid/poly6_gradient",
+      "kernel": "fluid/evaluate_rows",
+      "implementation": "original_binary_ptx",
+      "pass": true,
+      "max_abs_error": 1.4324526986797537e-07,
+      "rtol": 4e-05,
+      "atol": 3e-06
+    }
+  ],
+  "passed": 216,
+  "failed": 0,
+  "mode": "readable_cuda_and_original_ptx",
+  "readable_cuda_entries": 7,
+  "readable_cuda_checks": 43
+}

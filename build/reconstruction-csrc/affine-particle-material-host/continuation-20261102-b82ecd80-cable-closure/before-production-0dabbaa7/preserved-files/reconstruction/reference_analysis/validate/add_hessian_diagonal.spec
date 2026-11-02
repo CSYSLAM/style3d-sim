@@ -1,0 +1,10 @@
+label add_hessian_diagonal
+ptx add_hessian_diagonal.ptx
+cubin cubins/add_hessian_diagonal.cubin
+name_ptx _ZN7synreal21self_collision_kernel20add_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_m
+name_cubin _Z20add_hessian_diagonalPK4Mat3PS_m
+grid 1 1 1
+block 256 1 1
+ptr randf 9216
+ptr randf 9216
+u64 256

@@ -4,6 +4,15 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+当前主源码/host为d09d4be9，匹配公开Core为55d626f0（`source-core/9cb2fcaa1082d1df`）。
+已修复六块cable缓存typed-zero/位置及distance/point-line的weight上传顺序；176 kernel specs和CUDA digest保持。
+新生产104个cable组合全部严格；新image独立74回归为71严格，三个粒子首source0的固定C10均在原版波动范围内。
+严格失败原样保留，这不是74项全逐位同；旧0dab的Newton mixed C10失败也没有被重新判成通过。
+当前Core的八个正常入口运行全0、无SDK映射，含用户五例各60帧；接口成功不证明其完整轨迹/物理验收通过。
+旧0dab完整checkpoint已保存；过程、实际so、结果和新WSL命令见
+[本批合入及验证](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-b82ecd80-cable-closure/README.md)。
+以下“生产仍0dab/Core715”和b82段落为历史阶段；当前image结论以本段及WORK_LOG最新终态为准。
+
 新增缆绳＋plain刚体约束隔离候选b82ecd80，生产仍0dab/Core715。
 实际发现并修复六块缆绳缓存的晚分配/五块未初始化问题；原SDK为提前typed-zero，原构造失败保留。
 24短程及10680 owned调用一致，六构造五项同，459完整CableView对核准；60步96/96严格，双端12份initcheck均零错。
@@ -139,8 +148,8 @@ W3/subset/mixed/PD的eager/graph仍未通过全部长程门禁，候选未合入
 
 ## 仍需完成
 
-1. 当前0dab的Newton mixed仍须完整轨迹验收；首差已有实际GPU累加顺序证据，不能据此将固定失败改判。
-   五项C10及其独立CPU复核已完成，三类constructor五项全同。
+1. 当前d09仍须相关正常demo的完整轨迹验收；本次71/74及三个粒子固定C10不能外推全部范围。
+   旧0dab Newton mixed固定失败保持，新image本次mixed短程严格通过不能改判旧source0。
 2. 继续解决G1及复杂布料的长程固定对照失败；G1旧速度误差约23.85的尖峰尚未完整解释。
    已有大量同输入核对及归约顺序证据，不能据此把完整轨迹失败改判为通过。
 3. 继续颗粒/刚体加外部接触隔离候选的PD多世界长程首差；其余未验证host组合仍需逐一实测。

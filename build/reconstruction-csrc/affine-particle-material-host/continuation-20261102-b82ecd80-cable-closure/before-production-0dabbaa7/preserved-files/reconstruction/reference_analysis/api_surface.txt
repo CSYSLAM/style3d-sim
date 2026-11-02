@@ -1,0 +1,606 @@
+MODULE DOC: 
+Native bindings for Synreal Solver.
+
+Array fields are represented by non-owning Span objects that refer to CUDA
+device memory. The caller is responsible for keeping every referenced device
+allocation alive for as long as native code may access it.
+
+
+===== NAMES =====
+
+### AffineBodyRigidityModel  [pybind11_type]
+Members:
+
+  CO_ROTATED
+
+  ABD_ORTHOGONALITY
+
+  SIX_SPRINGS
+
+  SO3_AUGMENTED_LAGRANGIAN
+  .ABD_ORTHOGONALITY: Members:
+
+  CO_ROTATED
+
+  ABD_ORTHOGONALITY
+
+  SIX_SPRINGS
+
+  SO3_AUGMENTED_LAGRANGIAN
+  .CO_ROTATED: Members:
+
+  CO_ROTATED
+
+  ABD_ORTHOGONALITY
+
+  SIX_SPRINGS
+
+  SO3_AUGMENTED_LAGRANGIAN
+  .SIX_SPRINGS: Members:
+
+  CO_ROTATED
+
+  ABD_ORTHOGONALITY
+
+  SIX_SPRINGS
+
+  SO3_AUGMENTED_LAGRANGIAN
+  .SO3_AUGMENTED_LAGRANGIAN: Members:
+
+  CO_ROTATED
+
+  ABD_ORTHOGONALITY
+
+  SIX_SPRINGS
+
+  SO3_AUGMENTED_LAGRANGIAN
+  .__init__: __init__(self: _core.AffineBodyRigidityModel, value: typing.SupportsInt | typing.SupportsIndex) -> None
+
+  .name: name(self: object, /) -> str
+
+
+### Config  [pybind11_type]
+
+Runtime configuration for a Synreal solver.
+
+Changes made through ``solver.config`` affect subsequent direct step calls.
+Previously captured CUDA graphs must be rebuilt after a configuration change.
+
+  .__init__: __init__(self: _core.Config) -> None
+
+Create the default solver configuration.
+
+  .affine_body_block_preconditioner: Use a full affine-body block inverse as the PCG preconditioner.
+  .affine_body_contact_block_preconditioner: Include hard-contact cross terms in affine-body PCG blocks without changing the contact operator.
+  .affine_body_rigidity_model: Rigidity law used for affine bodies: co-rotated, original ABD orthogonality, six springs, or SO(3) AL.
+  .affine_body_rigidity_primal_iterations: Primal Newton iterations performed with a fixed affine-body SO(3) AL state before each update.
+  .air_density: Ambient air density in kg/m^3; zero disables aerodynamic drag.
+  .cable_angular_beta: Cable bend/twist penalty ramp per nonlinear iteration; zero uses authored stiffness.
+  .cable_angular_k_start: Initial cable bend/twist penalty when the angular penalty ramp is enabled.
+  .cable_linear_beta: Cable stretch/shear penalty ramp per nonlinear iteration; zero uses authored stiffness.
+  .cable_linear_k_start: Initial cable stretch/shear penalty when the linear penalty ramp is enabled.
+  .cable_penalty_gamma: Cable penalty decay per step, clamped to its initial floor and authored cap.
+  .constraint_alpha: Shared dimensionless mass-normalized penalty for affine rigidity, generated joint constraints and hard distance constraints. Zero disables all three.
+  .enable_collision_hessian_non_diagonal: Include coupled contact tangents for rigid, particle-shape, and all self-collision contacts, False keeps their diagonal approximation; full-surface and angular-friction tangents remain coupled.
+  .enable_self_collision: Whether deformable self-collision is enabled.
+  .fluid_max_step_ratio: Bound fluid Newton increments relative to kernel radius; zero disables.
+  .fluid_relaxation: Global Newton step scale in fluid scenes, in (0, 1].
+  .inertia_mode: ABD inertia construction and velocity recovery mode; NONE selects the free-particle path.
+  .joint_constraint_mode: Joint-constraint enforcement method; PENALTY preserves the legacy behavior.
+  .joint_constraint_primal_iterations: Primal Newton iterations performed with a fixed augmented-Lagrangian dual before each multiplier update.
+  .linear_iterations: PCG iterations per nonlinear iteration.
+  .nonlinear_iterations: Nonlinear iterations per step.
+  .nonlinear_solver: Implicit-Euler nonlinear method: NEWTON or the legacy PD_NEWTON method.
+  .rigid_contact_alpha: Hard-contact C0 stabilization in [0, 1].
+  .rigid_contact_beta: Hard-contact penalty ramp per iteration.
+  .rigid_contact_friction_epsilon: VBD-style rigid Coulomb smoothing speed [m/s]; zero preserves the native secant law.
+  .rigid_contact_gamma: Hard-contact history decay in [0, 1].
+  .rigid_contact_hard: Use augmented-Lagrangian normal contact and displacement-based Coulomb friction.
+  .rigid_contact_history: Warm-start hard-contact multipliers through Contact.match_index.
+  .rigid_contact_k_start: Initial hard-contact penalty when the penalty ramp is enabled.
+  .rigid_contact_sliding_tangent: Differentiate the hard-contact Coulomb disk at fixed normal load; False keeps the legacy tangent.
+  .rolling_friction_velocity_epsilon: Positive contact angular-speed regularization for rolling and torsional friction [rad/s].
+  .self_collision_edge_edge_stiffness: Dimensionless stiffness scale for edge-edge self-collision penalties.
+  .self_collision_edge_face_stiffness: Dimensionless stiffness scale for edge-face untangling penalties.
+  .self_collision_particle_particle_stiffness: Dimensionless stiffness scale for free-particle pair collision penalties.
+  .self_collision_radius: Radius used to thicken deformable collision primitives.
+  .self_collision_vertex_face_stiffness: Dimensionless stiffness scale for vertex-face self-collision penalties.
+  .wind_velocity: Ambient air velocity as a world-coordinate (x, y, z) tuple in m/s.
+
+### Contact  [pybind11_type]
+
+Non-owning views of Newton rigid- and soft-contact buffers consumed by the native solver.
+
+  .__init__: __init__(self: _core.Contact) -> None
+
+Create an empty contact view.
+
+  .count: Device span containing the active rigid-contact count.
+  .history_refresh: False reuses current contact rows between collision refreshes.
+  .margin0: Device span containing the first shape contact margin.
+  .margin1: Device span containing the second shape contact margin.
+  .match_index: Optional current-to-previous collision row correspondence for contact warm starts.
+  .max_count: Maximum number of rigid contacts stored in the arrays.
+  .normal: Device span containing world-space normals from shape zero to shape one.
+  .offset0: Body-local first-shape friction surface offsets.
+  .offset1: Body-local second-shape friction surface offsets.
+  .point0: Device span containing body-frame points on the first shape.
+  .point1: Device span containing body-frame points on the second shape.
+  .shape0: Device span containing the first shape index.
+  .shape1: Device span containing the second shape index.
+  .soft_barycentric: Optional barycentric weights for soft_indices; replaces the single-particle contact view.
+  .soft_body_pos: Device span containing body-local contact points on collision shapes.
+  .soft_body_vel: Device span containing body-local surface velocities at soft contacts.
+  .soft_count: Device span containing the active soft-contact count.
+  .soft_indices: Optional particle, edge, or face contact ids as -1-padded triples; paired with soft_barycentric.
+  .soft_max_count: Maximum number of soft contacts stored in the arrays.
+  .soft_normal: Device span containing world-space normals from shapes to particles.
+  .soft_particle: Device span containing the particle index of each soft contact.
+  .soft_particle_only_shapes: Optional per-original-shape flags selecting legacy particle contacts instead of full-surface contacts.
+  .soft_shape: Device span containing the shape index of each soft contact.
+
+### Control  [pybind11_type]
+
+Non-owning views of Newton joint-control buffers consumed by the native solver.
+
+  .__init__: __init__(self: _core.Control) -> None
+
+Create an empty control view.
+
+  .joint_drive_velocities: Optional device span containing pre-prediction velocity per joint drive state.
+  .joint_f: Device span containing generalized feedforward joint forces.
+  .joint_target_q: Device span containing generalized joint-position targets.
+  .joint_target_qd: Device span containing generalized joint-velocity targets.
+  .tetrahedron_activations: Device span containing optional per-tetrahedron volumetric activations.
+
+### InertiaMode  [pybind11_type]
+Members:
+
+  EXPLICIT_EULER
+
+  IMPLICIT_EULER
+
+  LIE_GROUP_MIDPOINT
+
+  MIDPOINT_CAYLEY
+
+  NONE
+
+  VBD_SEMI_IMPLICIT
+  .EXPLICIT_EULER: Members:
+
+  EXPLICIT_EULER
+
+  IMPLICIT_EULER
+
+  LIE_GROUP_MIDPOINT
+
+  MIDPOINT_CAYLEY
+
+  NONE
+
+  VBD_SEMI_IMPLICIT
+  .IMPLICIT_EULER: Members:
+
+  EXPLICIT_EULER
+
+  IMPLICIT_EULER
+
+  LIE_GROUP_MIDPOINT
+
+  MIDPOINT_CAYLEY
+
+  NONE
+
+  VBD_SEMI_IMPLICIT
+  .LIE_GROUP_MIDPOINT: Members:
+
+  EXPLICIT_EULER
+
+  IMPLICIT_EULER
+
+  LIE_GROUP_MIDPOINT
+
+  MIDPOINT_CAYLEY
+
+  NONE
+
+  VBD_SEMI_IMPLICIT
+  .MIDPOINT_CAYLEY: Members:
+
+  EXPLICIT_EULER
+
+  IMPLICIT_EULER
+
+  LIE_GROUP_MIDPOINT
+
+  MIDPOINT_CAYLEY
+
+  NONE
+
+  VBD_SEMI_IMPLICIT
+  .NONE: Members:
+
+  EXPLICIT_EULER
+
+  IMPLICIT_EULER
+
+  LIE_GROUP_MIDPOINT
+
+  MIDPOINT_CAYLEY
+
+  NONE
+
+  VBD_SEMI_IMPLICIT
+  .VBD_SEMI_IMPLICIT: Members:
+
+  EXPLICIT_EULER
+
+  IMPLICIT_EULER
+
+  LIE_GROUP_MIDPOINT
+
+  MIDPOINT_CAYLEY
+
+  NONE
+
+  VBD_SEMI_IMPLICIT
+  .__init__: __init__(self: _core.InertiaMode, value: typing.SupportsInt | typing.SupportsIndex) -> None
+
+  .name: name(self: object, /) -> str
+
+
+### JointConstraintMode  [pybind11_type]
+Members:
+
+  PENALTY
+
+  AUGMENTED_LAGRANGIAN
+  .AUGMENTED_LAGRANGIAN: Members:
+
+  PENALTY
+
+  AUGMENTED_LAGRANGIAN
+  .PENALTY: Members:
+
+  PENALTY
+
+  AUGMENTED_LAGRANGIAN
+  .__init__: __init__(self: _core.JointConstraintMode, value: typing.SupportsInt | typing.SupportsIndex) -> None
+
+  .name: name(self: object, /) -> str
+
+
+### LogLevel  [pybind11_type]
+Members:
+
+  INFO
+
+  ERROR
+
+  DEBUG
+
+  WARNING
+  .DEBUG: Members:
+
+  INFO
+
+  ERROR
+
+  DEBUG
+
+  WARNING
+  .ERROR: Members:
+
+  INFO
+
+  ERROR
+
+  DEBUG
+
+  WARNING
+  .INFO: Members:
+
+  INFO
+
+  ERROR
+
+  DEBUG
+
+  WARNING
+  .WARNING: Members:
+
+  INFO
+
+  ERROR
+
+  DEBUG
+
+  WARNING
+  .__init__: __init__(self: _core.LogLevel, value: typing.SupportsInt | typing.SupportsIndex) -> None
+
+  .name: name(self: object, /) -> str
+
+
+### Model  [pybind11_type]
+
+Simulation topology and physical parameters consumed by a Solver.
+
+All array properties are non-owning views of CUDA device memory. Their device
+allocations must remain valid while the solver uses this model.
+
+  .__init__: __init__(self: _core.Model) -> None
+
+Create an empty model with no referenced device data.
+
+  .affine_body_ids: Device span mapping affine bodies to Newton body indices.
+  .affine_body_indices: Device span containing the four direct-ABD coordinate indices of each affine body.
+  .body_centers_of_mass: Device span containing each affine body's body-frame center of mass.
+  .body_count: Number of affine bodies in one static world template.
+  .body_distance_constraint_count: Number of augmented-Lagrangian hard distance constraints between affine bodies.
+  .body_distance_constraint_indices: Device span containing the two affine-body indices of each hard distance constraint.
+  .body_distance_constraint_mass_scales: Device span containing one mass-normalization scale per hard distance constraint.
+  .body_distance_constraint_points0: Device span containing the first body-local point of each hard distance constraint.
+  .body_distance_constraint_points1: Device span containing the second body-local point of each hard distance constraint.
+  .body_distance_constraint_rest_lengths: Device span containing one rest length per hard distance constraint.
+  .body_distance_constraint_weights0: Device span containing the first affine-body interpolation weights of each hard distance constraint.
+  .body_distance_constraint_weights1: Device span containing the second affine-body interpolation weights of each hard distance constraint.
+  .body_inertia_tensors: Device span containing one inertia tensor per affine body.
+  .body_local_transforms: Device span containing one local transform per affine body.
+  .body_masses: Device span containing one mass value per affine body.
+  .body_point_line_count: Number of point-to-line-segment constraints between affine bodies.
+  .body_point_line_dampings: Device span containing one damping value per point-line constraint.
+  .body_point_line_endpoints0: Device span containing the first body-local line endpoint of each point-line constraint.
+  .body_point_line_endpoints1: Device span containing the second body-local line endpoint of each point-line constraint.
+  .body_point_line_indices: Device span containing the point-body and line-body indices of each point-line constraint.
+  .body_point_line_points: Device span containing the constrained body-local point of each point-line constraint.
+  .body_point_line_stiffnesses: Device span containing one stiffness value per point-line constraint.
+  .body_spring_count: Number of point-to-point springs between affine bodies.
+  .body_spring_indices: Device span containing the two affine-body indices of each body spring.
+  .body_spring_points0: Device span containing the first body-local point of each body spring.
+  .body_spring_points1: Device span containing the second body-local point of each body spring.
+  .body_spring_rest_lengths: Device span containing one rest length per body spring.
+  .body_spring_stiffnesses: Device span containing one stiffness value per body spring.
+  .body_state_count: Number of affine bodies in all dynamic world states.
+  .cable_angular_bias: Per-state angular Dahl stress.
+  .cable_angular_hessian: Per-state Dahl tangent.
+  .cable_body_indices: Cable affine-body pairs.
+  .cable_child_transforms: Child joint frames.
+  .cable_count: Number of Cosserat cable joints in one world.
+  .cable_dampings: Stretch/shear/bend/twist damping.
+  .cable_enabled: Optional per-joint enabled flags.
+  .cable_parent_transforms: Parent joint frames.
+  .cable_rest_bend_twist: Rest bend x/y and twist.
+  .cable_stiffnesses: Stretch/shear/bend/twist stiffness.
+  .collision_edge_count: Number of collision surface edges in one static world template.
+  .collision_edge_indices: Device span containing collision edge adjacency and endpoint particle indices.
+  .collision_particle_count: Number of active free particles in one static world template.
+  .collision_particle_indices: Device span containing active unconstrained particle indices.
+  .collision_triangle_count: Number of collision surface triangles in one static world template.
+  .collision_triangle_indices: Device span containing collision surface triangle particle indices.
+  .edge_bending_cots: Device span containing four rest-pose cotangents per bending edge.
+  .edge_bending_properties: Device span containing stiffness and damping for each bending edge.
+  .edge_count: Number of Style3D bending edges in the model.
+  .edge_indices: Device span containing one four-particle bending stencil per edge.
+  .edge_rest_areas: Device span containing the summed rest area adjacent to each bending edge.
+  .fluid_boundary_positions: Fixed boundary quadrature positions; these are not collision shapes.
+  .fluid_boundary_volumes: Positive boundary quadrature volumes in cubic meters.
+  .fluid_particle_indices: Active fluid particle indices; distinct from elastic and affine topology.
+  .granular_bond_indices: Initial cohesive bond endpoint particle indices; fracture is irreversible within a solver.
+  .granular_bond_rest_lengths: Initial bond rest lengths in meters; plastic history is owned by the solver.
+  .granular_particle_indices: Granular particle indices; disjoint from fluid, elastic, and affine selections.
+  .gravity: Device span containing one gravity vector per world.
+  .hinge_count: Number of bending hinges in the model.
+  .hinge_indices: Device span containing the four particle indices of each hinge.
+  .hinge_rest_angles: Device span containing one rest angle per hinge.
+  .hinge_stiffnesses: Device span containing one bending stiffness value per hinge.
+  .joint_armature: Device span containing reflected inertia per joint DOF.
+  .joint_body_point_line_count: Number of joint-generated constraints at the end of the point-line arrays.
+  .joint_body_spring_count: Number of joint-generated springs at the end of the body spring arrays.
+  .joint_constraint_mass_scale: Mass-normalization scale shared by generated joint constraints.
+  .joint_dof_count: Number of generalized joint-velocity coordinates.
+  .joint_drive_body_indices: Device span containing each drive's parent and child affine-body indices.
+  .joint_drive_child_origins: Device span containing child-frame joint origins.
+  .joint_drive_child_reference_points: Device span containing child-frame angular reference points.
+  .joint_drive_count: Number of single-axis joint drives.
+  .joint_drive_dof_indices: Device span mapping drives to generalized force and velocity coordinates.
+  .joint_drive_parent_axis_points: Device span containing parent-frame unit-axis points.
+  .joint_drive_parent_origins: Device span containing parent-frame joint origins.
+  .joint_drive_parent_reference_points: Device span containing parent-frame angular reference points.
+  .joint_drive_target_indices: Device span mapping drives to generalized position targets.
+  .joint_drive_types: Device span containing each joint drive type.
+  .joint_effort_limits: Device span containing symmetric joint effort magnitude limits.
+  .joint_limit_dampings: Optional per-DOF angular stop parameter.
+  .joint_limit_lower: Optional per-DOF angular stop parameter.
+  .joint_limit_stiffnesses: Optional per-DOF angular stop parameter.
+  .joint_limit_upper: Optional per-DOF angular stop parameter.
+  .joint_passive_dampings: Device span containing passive damping values per joint DOF.
+  .joint_target_count: Number of generalized joint-position targets.
+  .joint_target_dampings: Device span containing joint target damping values.
+  .joint_target_modes: Device span containing Newton joint target modes.
+  .joint_target_stiffnesses: Device span containing joint target stiffness values.
+  .particle_count: Number of particles in one static world template.
+  .particle_flags: Device span containing Newton particle flags.
+  .particle_indices: Device span containing the index of each particle.
+  .particle_mass_non_diagonal_count: Number of symmetric off-diagonal particle mass entries.
+  .particle_mass_non_diagonal_indices: Device span containing one particle-index pair per symmetric off-diagonal mass entry.
+  .particle_mass_non_diagonal_values: Device span containing symmetric off-diagonal particle mass values.
+  .particle_masses: Device span containing diagonal entries of the particle mass matrix.
+  .particle_radii: Device span containing particle collision radii.
+  .particle_rest_positions: Device span containing initial particle positions for all dynamic world states.
+  .particle_state_count: Number of particles in all dynamic world states.
+  .particle_world: Device span containing the world index of each particle.
+  .shape_bodies: Device span mapping collision shapes to Newton body indices.
+  .shape_contact_dampings: Device span containing shape contact damping values.
+  .shape_contact_friction_gains: Device span containing tangential friction gains [N s/m].
+  .shape_contact_stiffnesses: Device span containing shape contact stiffness values.
+  .shape_count: Number of collision shapes in the model.
+  .shape_frictions: Device span containing shape Coulomb-friction coefficients.
+  .shape_margins: Device span containing shape collision margins.
+  .shape_replicated_count: Number of collision shapes replicated in each world.
+  .shape_rolling_frictions: Optional dimensionless rolling-resistance coefficients; an empty span disables rolling resistance.
+  .shape_scales: Device span containing collision geometry scales.
+  .shape_torsional_frictions: Optional dimensionless contact spin-resistance coefficients; an empty span disables torsional friction.
+  .shape_transforms: Device span containing body-local or world collision shape transforms.
+  .shape_types: Device span containing Newton collision geometry types.
+  .soft_contact_damping: Particle contact damping.
+  .soft_contact_friction: Particle contact Coulomb-friction coefficient.
+  .soft_contact_friction_gain: Particle tangential friction gain [N s/m].
+  .soft_contact_stiffness: Particle contact stiffness.
+  .spring_count: Number of distance springs in the model.
+  .spring_indices: Device span containing the two particle indices of each spring.
+  .spring_rest_lengths: Device span containing one rest length per spring.
+  .spring_stiffnesses: Device span containing one stiffness value per spring.
+  .tetrahedron_count: Number of volumetric tetrahedra in one static world template.
+  .tetrahedron_indices: Device span containing the four particle indices of each tetrahedron.
+  .tetrahedron_inverse_dms: Device span containing one inverse rest-shape matrix per tetrahedron.
+  .tetrahedron_materials: Device span containing k_mu, k_lambda, and k_damp per tetrahedron.
+  .triangle_aniso_stiffnesses: Device span containing one Style3D anisotropic stiffness vector per triangle.
+  .triangle_count: Number of surface triangles in the model.
+  .triangle_drag_coefficients: Optional nonnegative normal-drag Cd per collision triangle, or elastic triangle when collision topology is absent.
+  .triangle_indices: Device span containing the three particle indices of each triangle.
+  .triangle_inv_dms: Device span containing one inverse rest-shape matrix per triangle.
+  .triangle_masses: Device span containing one mass value per triangle.
+  .triangle_rest_areas: Device span containing one rest-area value per triangle.
+  .world_count: Number of simulation worlds in the model.
+
+### NonlinearSolver  [pybind11_type]
+Members:
+
+  NEWTON
+
+  PD_NEWTON
+  .NEWTON: Members:
+
+  NEWTON
+
+  PD_NEWTON
+  .PD_NEWTON: Members:
+
+  NEWTON
+
+  PD_NEWTON
+  .__init__: __init__(self: _core.NonlinearSolver, value: typing.SupportsInt | typing.SupportsIndex) -> None
+
+  .name: name(self: object, /) -> str
+
+
+### Solver  [pybind11_type]
+
+Time-step solver for a Synreal simulation model.
+
+Call initialize() once with a configured Model before calling step().
+
+  .__init__: __init__(self: _core.Solver) -> None
+
+Create the default solver implementation.
+
+  .config: Mutable runtime solver configuration. Captured CUDA graphs must be rebuilt after changes.
+  .copy_cable_penalties: copy_cable_penalties(self: _core.Solver, output: _core.Span, stream: object = None) -> None
+
+Copy cable penalties to a caller-owned Vec4f device buffer in flattened cable state order.
+
+  .initialize: initialize(self: _core.Solver, model: _core.Model) -> None
+
+
+Initialize the solver for a model.
+
+The model's device allocations must remain valid while the solver uses them.
+Call this method before the first call to step().
+
+
+  .reserve_rigid_contact_capacity: reserve_rigid_contact_capacity(self: _core.Solver, capacity: typing.SupportsInt | typing.SupportsIndex) -> None
+
+Reserve contact state before CUDA graph capture.
+
+  .reset_cable_penalty_state: reset_cable_penalty_state(self: _core.Solver, stream: object = None, mask: _core.Span = Span(ptr=0, size=0)) -> None
+
+Restore selected cable penalties to their initial floors; an empty mask resets all cables.
+
+  .reset_joint_drive_state: reset_joint_drive_state(self: _core.Solver, stream: object = None, mask: _core.Span = Span(ptr=0, size=0)) -> None
+
+Reset persistent joint-coordinate branches after an external state reset.
+
+  .step: step(*args, **kwargs)
+Overloaded function.
+
+1. step(self: _core.Solver, state_in: _core.State, state_out: _core.State, dt: typing.SupportsFloat | typing.SupportsIndex, stream: object = None) -> None
+
+Advance without collision contacts or joint controls.
+
+2. step(self: _core.Solver, state_in: _core.State, state_out: _core.State, contact: _core.Contact, dt: typing.SupportsFloat | typing.SupportsIndex, stream: object = None) -> None
+
+Advance with collision contacts but without joint controls.
+
+3. step(self: _core.Solver, state_in: _core.State, state_out: _core.State, control: _core.Control, contact: _core.Contact, dt: typing.SupportsFloat | typing.SupportsIndex, stream: object = None) -> None
+
+
+Advance the simulation by one time step.
+
+Parameters:
+	state_in: State containing the input particle data.
+	state_out: State whose referenced device memory receives the output data.
+	control: Non-owning views of Newton's generalized joint-control buffers.
+	contact: Non-owning views of the active Newton rigid-contact buffers.
+	dt: Time-step duration.
+	stream: CUDA Stream Protocol object, integer CUDA stream handle, or None for
+		the default stream. All asynchronous work is submitted to this stream.
+
+initialize() must be called before this method. All referenced device
+allocations must remain valid until the solver work finishes.
+
+
+
+### Span  [pybind11_type]
+
+A non-owning view of a contiguous CUDA device-memory range.
+
+Span stores an opaque device address and an element count. It does not allocate,
+free, or dereference the referenced memory. Construction and field assignment
+reject a null address paired with a nonzero element count.
+
+  .__init__: __init__(*args, **kwargs)
+Overloaded function.
+
+1. __init__(self: _core.Span) -> None
+
+Create an empty span with a null address and zero elements.
+
+2. __init__(self: _core.Span, ptr: typing.SupportsInt | typing.SupportsIndex, size: typing.SupportsInt | typing.SupportsIndex) -> None
+
+Create a non-owning span from a device address and an element count.
+
+  .ptr: Integer address of the first element in CUDA device memory.
+  .size: Number of elements in the range, not its size in bytes.
+
+### State  [pybind11_type]
+
+Particle positions and velocities used as solver input or output.
+
+Both properties are non-owning views of mutable CUDA device memory. Their
+device allocations must remain valid until the associated solver work finishes.
+
+  .__init__: __init__(self: _core.State) -> None
+
+Create an empty state with no referenced device data.
+
+  .particle_f: Device span containing one external-force vector per particle.
+  .particle_q: Device span containing one position vector per particle.
+  .particle_qd: Device span containing one velocity vector per particle.
+
+### is_logged_in  [builtin_function_or_method]
+is_logged_in() -> bool
+
+Return whether the session is authenticated.
+
+
+### login  [builtin_function_or_method]
+login(name: str, password: str, force_signin: bool) -> bool
+
+Authenticate the SynReal client.
+
+
+### set_log_callback  [builtin_function_or_method]
+set_log_callback(callback: collections.abc.Callable[[str, str, int, _core.LogLevel, str], None]) -> None
+
+Register a callback invoked for each native log message.

@@ -1,0 +1,172 @@
+[
+ {
+  "kernel": "initialize_scale",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/4096 | max rel=0.000e+00 | \u5199\u5165 4079/4096"
+ },
+ {
+  "kernel": "update_velocity",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/9216 | max rel=0.000e+00 | \u5199\u5165 3046/9216"
+ },
+ {
+  "kernel": "apply_nonlinear_step",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/9216 | max rel=0.000e+00 | \u5199\u5165 5931/9216"
+ },
+ {
+  "kernel": "add_diagonal_mat3",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/18432 | max rel=0.000e+00 | \u5199\u5165 8501/18432"
+ },
+ {
+  "kernel": "add_hessian_diagonal",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/18432 | max rel=0.000e+00 | \u5199\u5165 8501/18432"
+ },
+ {
+  "kernel": "multiply_hessian_diagonal",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/15360 | max rel=0.000e+00 | \u5199\u5165 3060/15360"
+ },
+ {
+  "kernel": "initialize_joint_body_spring_state",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 1 | \u4e0d\u540c\u5b57\u8282 0/3072 | max rel=0.000e+00 | \u5199\u5165 3062/3072"
+ },
+ {
+  "kernel": "reset_selected_joint_drive_state",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/2048 | max rel=0.000e+00 | \u5199\u5165 511/2048"
+ },
+ {
+  "kernel": "build_primitive_leaf_nodes",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/2048 | max rel=0.000e+00 | \u5199\u5165 510/2048"
+ },
+ {
+  "kernel": "update_preconditioned_cg_direction",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/7168 | max rel=0.000e+00 | \u5199\u5165 2839/7168"
+ },
+ {
+  "kernel": "add_triangle_drag_preconditioner",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 842/16384 | max rel=5.751e-05 | \u5199\u5165 8589/16384"
+ },
+ {
+  "kernel": "evaluate_spring_force",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/8192 | max rel=0.000e+00 | \u5199\u5165 3054/8192"
+ },
+ {
+  "kernel": "combine_system_non_diagonal",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/16384 | max rel=0.000e+00 | \u5199\u5165 1276/16384"
+ },
+ {
+  "kernel": "initialize_block_diagonal",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 1416/19456 | max rel=0.000e+00 | \u5199\u5165 7524/19456"
+ },
+ {
+  "kernel": "prepare_inverse_preconditioner",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/4096 | max rel=0.000e+00 | \u5199\u5165 474/4096"
+ },
+ {
+  "kernel": "multiply_bonds",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/18432 | max rel=0.000e+00 | \u5199\u5165 2297/18432"
+ },
+ {
+  "kernel": "update_solution_and_residual",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 0/14336 | max rel=0.000e+00 | \u5199\u5165 5970/14336"
+ },
+ {
+  "kernel": "initialize_zero_solution_and_reduce",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 1/19456 | max rel=9.576e-07 | \u5199\u5165 3066/19456"
+ },
+ {
+  "kernel": "build_particle_aabbs",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/11264 | max rel=0.000e+00 | \u5199\u5165 6109/11264"
+ },
+ {
+  "kernel": "refresh_inertial_cache_diagonals",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 0/10240 | max rel=0.000e+00 | \u5199\u5165 2038/10240"
+ },
+ {
+  "kernel": "update_cg_direction_blockjacobi",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 0/16384 | max rel=0.000e+00 | \u5199\u5165 3060/16384"
+ },
+ {
+  "kernel": "update_solution_residual_and_reduce",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 1/24576 | max rel=1.028e-07 | \u5199\u5165 5981/24576"
+ },
+ {
+  "kernel": "refresh_inertial_cache_nonzeros",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 0/20480 | max rel=0.000e+00 | \u5199\u5165 2039/20480"
+ },
+ {
+  "kernel": "scale_step",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 2 | \u4e0d\u540c\u5b57\u8282 0/4096 | max rel=0.000e+00 | \u5199\u5165 1033/4096"
+ },
+ {
+  "kernel": "commit_bonds",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 5 | \u4e0d\u540c\u5b57\u8282 5/8192 | max rel=1.401e-33 | \u5199\u5165 127/8192"
+ },
+ {
+  "kernel": "build_escape_nodes",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/4096 | max rel=0.000e+00 | \u5199\u5165 283/4096"
+ },
+ {
+  "kernel": "multiply_matrix",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 6 | \u4e0d\u540c\u5b57\u8282 46/4352 | max rel=2.332e-05 | \u5199\u5165 762/4352"
+ },
+ {
+  "kernel": "evaluate_residual",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 30/5120 | max rel=9.950e-07 | \u5199\u5165 768/5120"
+ },
+ {
+  "kernel": "multiply_matrix_and_reduce",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 7 | \u4e0d\u540c\u5b57\u8282 16/12800 | max rel=3.741e-07 | \u5199\u5165 769/12800"
+ },
+ {
+  "kernel": "initialize_block_non_diagonal",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 48/3328 | max rel=0.000e+00 | \u5199\u5165 256/3328"
+ },
+ {
+  "kernel": "build_edge_aabbs",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/13312 | max rel=0.000e+00 | \u5199\u5165 6123/13312"
+ },
+ {
+  "kernel": "initialize_rhs",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 8 | \u4e0d\u540c\u5b57\u8282 6/13824 | max rel=1.226e-06 | \u5199\u5165 384/13824"
+ },
+ {
+  "kernel": "invert_block_preconditioner",
+  "status": "PASS_TOL",
+  "detail": "RESULT PASS_TOL | \u7f13\u51b2 4 | \u4e0d\u540c\u5b57\u8282 127/20480 | max rel=7.111e-06 | \u5199\u5165 2799/20480"
+ },
+ {
+  "kernel": "apply_block_diagonal_preconditioner",
+  "status": "PASS",
+  "detail": "RESULT PASS | \u7f13\u51b2 3 | \u4e0d\u540c\u5b57\u8282 0/15360 | max rel=0.000e+00 | \u5199\u5165 3060/15360"
+ }
+]

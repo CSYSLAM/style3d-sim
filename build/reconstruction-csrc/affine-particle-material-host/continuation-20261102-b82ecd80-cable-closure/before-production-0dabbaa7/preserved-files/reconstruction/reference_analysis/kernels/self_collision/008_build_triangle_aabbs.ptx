@@ -1,0 +1,119 @@
+// [self_collision.cu] kernel 8/21   PTX 112 行   SASS 236 条指令
+// 签名: synreal::self_collision_kernel::build_triangle_aabbs(glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, int, (glm::qualifier)0> const*, synreal::Aabb*, float, unsigned long, unsigned long, unsigned long)
+// 归一化原型: synreal::self_collision_kernel::build_triangle_aabbs(glm::vec3 const*, glm::ivec3 const*, synreal::Aabb*, float, size_t, size_t, size_t)
+// maxntid: (未指定)   ptxas: REG=22 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=3
+
+_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm(
+.param .u64 _ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_0,
+.param .u64 _ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_1,
+.param .u64 _ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_2,
+.param .f32 _ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_3,
+.param .u64 _ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_4,
+.param .u64 _ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_5,
+.param .u64 _ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_6
+)
+{
+.reg .pred %p<3>;
+.reg .f32 %f<29>;
+.reg .b32 %r<16>;
+.reg .b64 %rd<35>;
+
+
+ld.param.u64 %rd8, [_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_0];
+ld.param.u64 %rd9, [_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_1];
+ld.param.u64 %rd10, [_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_2];
+ld.param.f32 %f1, [_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_3];
+ld.param.u64 %rd13, [_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_4];
+ld.param.u64 %rd11, [_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_5];
+ld.param.u64 %rd12, [_ZN7synreal21self_collision_kernel20build_triangle_aabbsEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPNS_4AabbEfmmm_param_6];
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mul.wide.u32 %rd14, %r1, %r2;
+mov.u32 %r3, %tid.x;
+cvt.u64.u32 %rd15, %r3;
+add.s64 %rd1, %rd14, %rd15;
+setp.ge.u64 %p1, %rd1, %rd13;
+@%p1 bra $L__BB0_5;
+
+or.b64 %rd16, %rd1, %rd11;
+and.b64 %rd17, %rd16, -4294967296;
+setp.eq.s64 %p2, %rd17, 0;
+@%p2 bra $L__BB0_3;
+
+div.u64 %rd33, %rd1, %rd11;
+mul.lo.s64 %rd18, %rd33, %rd11;
+sub.s64 %rd34, %rd1, %rd18;
+bra.uni $L__BB0_4;
+
+$L__BB0_3:
+cvt.u32.u64 %r4, %rd11;
+cvt.u32.u64 %r5, %rd1;
+div.u32 %r6, %r5, %r4;
+mul.lo.s32 %r7, %r6, %r4;
+sub.s32 %r8, %r5, %r7;
+cvt.u64.u32 %rd33, %r6;
+cvt.u64.u32 %rd34, %r8;
+
+$L__BB0_4:
+cvta.to.global.u64 %rd19, %rd8;
+mul.lo.s64 %rd20, %rd33, %rd12;
+cvt.u32.u64 %r9, %rd20;
+cvta.to.global.u64 %rd21, %rd9;
+mul.lo.s64 %rd22, %rd34, 12;
+add.s64 %rd23, %rd21, %rd22;
+ld.global.u32 %r10, [%rd23];
+add.s32 %r11, %r10, %r9;
+mul.wide.s32 %rd24, %r11, 12;
+add.s64 %rd25, %rd19, %rd24;
+ld.global.u32 %r12, [%rd23+4];
+add.s32 %r13, %r12, %r9;
+mul.wide.s32 %rd26, %r13, 12;
+add.s64 %rd27, %rd19, %rd26;
+ld.global.u32 %r14, [%rd23+8];
+add.s32 %r15, %r14, %r9;
+mul.wide.s32 %rd28, %r15, 12;
+add.s64 %rd29, %rd19, %rd28;
+ld.global.f32 %f2, [%rd29];
+ld.global.f32 %f3, [%rd27];
+min.f32 %f4, %f3, %f2;
+ld.global.f32 %f5, [%rd29+4];
+ld.global.f32 %f6, [%rd27+4];
+min.f32 %f7, %f6, %f5;
+ld.global.f32 %f8, [%rd29+8];
+ld.global.f32 %f9, [%rd27+8];
+min.f32 %f10, %f9, %f8;
+ld.global.f32 %f11, [%rd25];
+min.f32 %f12, %f11, %f4;
+ld.global.f32 %f13, [%rd25+4];
+min.f32 %f14, %f13, %f7;
+ld.global.f32 %f15, [%rd25+8];
+min.f32 %f16, %f15, %f10;
+max.f32 %f17, %f3, %f2;
+max.f32 %f18, %f6, %f5;
+max.f32 %f19, %f9, %f8;
+max.f32 %f20, %f11, %f17;
+max.f32 %f21, %f13, %f18;
+max.f32 %f22, %f15, %f19;
+sub.f32 %f23, %f12, %f1;
+sub.f32 %f24, %f14, %f1;
+sub.f32 %f25, %f16, %f1;
+add.f32 %f26, %f20, %f1;
+add.f32 %f27, %f21, %f1;
+add.f32 %f28, %f22, %f1;
+cvta.to.global.u64 %rd30, %rd10;
+mul.lo.s64 %rd31, %rd1, 24;
+add.s64 %rd32, %rd30, %rd31;
+st.global.f32 [%rd32], %f23;
+st.global.f32 [%rd32+4], %f24;
+st.global.f32 [%rd32+8], %f25;
+st.global.f32 [%rd32+12], %f26;
+st.global.f32 [%rd32+16], %f27;
+st.global.f32 [%rd32+20], %f28;
+
+$L__BB0_5:
+ret;
+
+}
+//
+

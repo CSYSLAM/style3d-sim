@@ -1,0 +1,9 @@
+label v
+ptx _v.ptx
+cubin auto_cubins/synreal__kernel__add_surface_contact_preconditioner.cubin
+name_ptx _ZN7synreal6kernel34add_surface_contact_preconditionerENS0_18SurfaceContactViewEPN3glm3matILi3ELi3EfLNS2_9qualifierE0EEE
+name_cubin synreal__kernel__add_surface_contact_preconditioner
+grid 1 1 1
+block 64 1 1
+byvalptr 296
+ptr zero 2048

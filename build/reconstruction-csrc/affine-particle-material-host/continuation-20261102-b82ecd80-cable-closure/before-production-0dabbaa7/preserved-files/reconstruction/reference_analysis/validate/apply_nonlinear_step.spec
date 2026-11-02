@@ -1,0 +1,11 @@
+label apply_nonlinear_step
+ptx apply_nonlinear_step.ptx
+cubin cubins/apply_nonlinear_step.cubin
+name_ptx _ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m
+name_cubin _Z20apply_nonlinear_stepPK4Vec3PS_S2_m
+grid 1 1 1
+block 256 1 1
+ptr randf 3072
+ptr randf 3072
+ptr randf 3072
+u64 256

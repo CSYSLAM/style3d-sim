@@ -1,5 +1,10 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 当前[缆绳修复已合入并完成本批验证](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-b82ecd80-cable-closure/README.md)：
+> host d09／公开Core55（9cb2fcaa1082d1df）；104 cable严格、74为71严格、三个粒子固定C10均within，八正常API入口0。
+> SDK/360pyc及全部旧失败保持，readyFalse/default未变；旧0dab保存在完整checkpoint，下方“生产0dab”属于历史。
+> 下一步当前主线接续G1/复杂布料及未捕获host；正常demo CLI成功不代替完整轨迹验收。
+
 > 最新[缆绳＋plain约束及缓存恢复](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/README.md)：
 > 隔离b82修复SDK实证的六缓存typed-zero/顺序，24短程、六构造、96项60步及12 initcheck全过；生产仍0dab/Core715。
 > 先补混合plain约束和penalty/reset，再保存checkpoint合入重验；旧正常demo/C8/C10失败不改，完整替代仍未完成。

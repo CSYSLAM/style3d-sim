@@ -1,0 +1,93 @@
+// [solver_newton.cu] kernel 69/97   PTX 86 行   SASS 212 条指令
+// 签名: synreal::kernel::prepare_inverse_preconditioner(float const*, float const*, int const*, float*, unsigned long, unsigned long)
+// 归一化原型: synreal::kernel::prepare_inverse_preconditioner(float const*, float const*, int const*, float*, size_t, size_t)
+// maxntid: (未指定)   ptxas: REG=20 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=6
+
+_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm(
+.param .u64 _ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_0,
+.param .u64 _ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_1,
+.param .u64 _ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_2,
+.param .u64 _ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_3,
+.param .u64 _ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_4,
+.param .u64 _ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_5
+)
+{
+.reg .pred %p<13>;
+.reg .f32 %f<7>;
+.reg .b32 %r<9>;
+.reg .b64 %rd<28>;
+
+
+ld.param.u64 %rd5, [_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_0];
+ld.param.u64 %rd6, [_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_1];
+ld.param.u64 %rd7, [_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_2];
+ld.param.u64 %rd8, [_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_3];
+ld.param.u64 %rd10, [_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_4];
+ld.param.u64 %rd9, [_ZN7synreal6kernel30prepare_inverse_preconditionerEPKfS2_PKiPfmm_param_5];
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mul.wide.u32 %rd11, %r1, %r2;
+mov.u32 %r3, %tid.x;
+cvt.u64.u32 %rd12, %r3;
+add.s64 %rd1, %rd11, %rd12;
+setp.ge.u64 %p3, %rd1, %rd10;
+@%p3 bra $L__BB49_10;
+
+or.b64 %rd13, %rd1, %rd9;
+and.b64 %rd14, %rd13, -4294967296;
+setp.eq.s64 %p4, %rd14, 0;
+@%p4 bra $L__BB49_3;
+
+rem.u64 %rd27, %rd1, %rd9;
+bra.uni $L__BB49_4;
+
+$L__BB49_3:
+cvt.u32.u64 %r4, %rd9;
+cvt.u32.u64 %r5, %rd1;
+rem.u32 %r6, %r5, %r4;
+cvt.u64.u32 %rd27, %r6;
+
+$L__BB49_4:
+cvta.to.global.u64 %rd15, %rd5;
+shl.b64 %rd16, %rd1, 2;
+add.s64 %rd17, %rd15, %rd16;
+ld.global.f32 %f1, [%rd17];
+cvta.to.global.u64 %rd18, %rd6;
+shl.b64 %rd19, %rd27, 2;
+add.s64 %rd20, %rd18, %rd19;
+ld.global.f32 %f4, [%rd20];
+setp.leu.f32 %p6, %f4, 0f00000000;
+mov.pred %p12, 0;
+@%p6 bra $L__BB49_7;
+
+setp.eq.s64 %p8, %rd7, 0;
+mov.pred %p12, -1;
+@%p8 bra $L__BB49_7;
+
+cvta.to.global.u64 %rd21, %rd7;
+add.s64 %rd23, %rd21, %rd19;
+ld.global.u32 %r7, [%rd23];
+and.b32 %r8, %r7, 1;
+setp.eq.b32 %p12, %r8, 1;
+
+$L__BB49_7:
+setp.leu.f32 %p9, %f1, 0f00000000;
+mov.f32 %f6, 0f00000000;
+not.pred %p10, %p12;
+or.pred %p11, %p9, %p10;
+@%p11 bra $L__BB49_9;
+
+rcp.rn.f32 %f6, %f1;
+
+$L__BB49_9:
+cvta.to.global.u64 %rd24, %rd8;
+add.s64 %rd26, %rd24, %rd16;
+st.global.f32 [%rd26], %f6;
+
+$L__BB49_10:
+ret;
+
+}
+//
+

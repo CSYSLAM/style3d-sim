@@ -1,0 +1,987 @@
+{
+  "reference_binary_sha256": "4c223854a5a554140ed6cf0e99d5687aa5846bbe49465a85a5819079f3db34e6",
+  "original_analysis_directory": "/home/oem/code/agent/style3d-sim-bin/Linux/Release/_re_analysis",
+  "reference_public_revision": "e654fb9",
+  "scope": "Imported numerical kernel evidence. Not complete solver or demo equivalence. No binary included.",
+  "mechanical_sources": 46,
+  "readable_sources": 34,
+  "files_sha256": {
+    "ALGORITHM_ANALYSIS_ZH.md": "b34b9add673427cfa392277d72757db5a0029c569749a4260b5366ed4eba0294",
+    "CONFIG_DEFAULTS.md": "f6895cb77dc2bba41404074713a98fb677967d249022ce94b0d956481bb540da",
+    "PTX_CODE_VERIFICATION_ZH.md": "38ceef3909ec82f5c4a43d6a6f70dd76b1ce9874500fa68148a3b9f1e543ee82",
+    "host/VERIFIED_ARGUMENTS_ZH.md": "1c71d010377383eae225ace54bdfd4aefbb685b865810ccc31b7c59e646e4d2f",
+    "reconstructed/evaluate_spring_force.cu": "e51f0113473930897e46d7249096dd966cb6a76f09eeb4f861c25728fb7eaf49",
+    "reconstructed/initialize_scale.cu": "a500aa48974b60594aef1d46ae6eccd913d9fb4d7579771891168a2615152f5a",
+    "recover/human/add_diagonal_mat3.cu": "a0e44582a50f36aea99724942edd86b8cd08f4182ef164af1257648f51cd5774",
+    "recover/human/add_hessian_diagonal.cu": "054def2041db7da2cee084defccd9aaea80b45408d8dd0fe916f055b15b119bc",
+    "recover/human/add_triangle_drag_preconditioner.cu": "75461d38f7ffba4dd57484306e9ca107ea0ce3a4fcdf3efb09d67018d8d8c7fc",
+    "recover/human/apply_block_diagonal_preconditioner.cu": "af0d37b28ee6772e7e7ad7931ef1c6eb69b798779e76bd0f484386617ea1fbed",
+    "recover/human/apply_nonlinear_step.cu": "13558ee311954703bdae51db160d6eb09c097508c0b415c379f19988f7739467",
+    "recover/human/build_edge_aabbs.cu": "cb55f7335fe81c36389ba7837d3b15509dab6e8b4cc645c57bd04f52de95a376",
+    "recover/human/build_escape_nodes.cu": "1bc9dc862c5baa5ab7fdcacfe706993cce02aa3d65c9ebaf1771e718cdc1d1cf",
+    "recover/human/build_particle_aabbs.cu": "1cdbad6129d2d72eba884d8eeaffd8169dfb1387c269d0b14876c0235d3d473c",
+    "recover/human/build_primitive_leaf_nodes.cu": "ba2dadfd172492e105c122e3709ddd86db7fd56879ec43d9c70690455f213a92",
+    "recover/human/combine_system_non_diagonal.cu": "b131a3fd277ff53e4c5c0bd5d49f3e7be3e5211df11ca9ffb786de11e4254618",
+    "recover/human/commit_bonds.cu": "ab807503759e8efd3f99b8c78cc3bc7fbc88408714c8aaef4c93f73742490d56",
+    "recover/human/evaluate_residual.cu": "74b46de9a444f3356525abd52f401fec827ad4dccef21a8890d80ba7476888c8",
+    "recover/human/initialize_block_diagonal.cu": "9c9bff54531ad25367706d0fc6fb0b5c10317b9cb912a6bd251f391360c8d50a",
+    "recover/human/initialize_block_non_diagonal.cu": "d4fc5c70b6c54a5b42fdd00c7fca58326a641a0f14b6e99d80289ccbb4f00191",
+    "recover/human/initialize_joint_body_spring_state.cu": "feee3030b7e108db01f6c903c960397f3580aacd99adf558e67247013372c8c0",
+    "recover/human/initialize_rhs.cu": "a658f8317cbfb4a40fbc6e93d92f06d7d96284c0b5a7b601106f975a168b88b7",
+    "recover/human/initialize_zero_solution_and_reduce.cu": "7fb50c4899d7bffe83541bd9217c5c9e6a75a9203c8ce188ec0ad4bfdfb0ef25",
+    "recover/human/invert_block_preconditioner.cu": "76a2cbe4c95ab3abfb4dade1ed0d95e7f75c0918894f1e785d03c8f8939ce0e6",
+    "recover/human/multiply_bonds.cu": "3afcad054a73b6fa8db54614fb0bc81c3f1ce11b9aea5305f1f5af529766840e",
+    "recover/human/multiply_hessian_diagonal.cu": "1d24421d74cdedc679db08ef9b71d12576578c3750a1de159666c2b2fb5dcfb7",
+    "recover/human/multiply_matrix.cu": "9ee38d2d6ce3cfa7e284bf626a6b8ba72ade8c5efd55b83a454714dc675645f6",
+    "recover/human/multiply_matrix_and_reduce.cu": "5c4da3f89176c53d857a77fe9f2e2642c0d320d7c7bb69621d7633d8cdeb9465",
+    "recover/human/prepare_inverse_preconditioner.cu": "acf6f4605deccd4d92bd80d9500b8258833e1d586d2c9ef8fa0d9089a5ff0db1",
+    "recover/human/refresh_inertial_cache_diagonals.cu": "7ac58cb41cc610cb2ef0970c97216e04588954df50a82635bb24642a1f2e9f24",
+    "recover/human/refresh_inertial_cache_nonzeros.cu": "e536a79d8a579f1b2e4e82df780fa1d9a636ebde8e5ab7e83a9696d5eb82155b",
+    "recover/human/reset_selected_joint_drive_state.cu": "67782b360db1c89c05d01f94a6e854c0c80f9f70bbb9506645807b0f17f07e3f",
+    "recover/human/scale_step.cu": "1242bfa43464ee7d95aeb3bb7dc118352e350379613cf358e19e48e9a7ae9bd9",
+    "recover/human/update_cg_direction_blockjacobi.cu": "56becf6d489cd646c2860950579ee93c3ce6e17460a1210590d368c8267a4d72",
+    "recover/human/update_preconditioned_cg_direction.cu": "28b7224295b53754e0b17c5691a282996696fa6b722469911a5c2c378cf07dcd",
+    "recover/human/update_solution_and_residual.cu": "c68bed67a435efd2a6ab810efeec4125cbaf4128ae824c5ce7caba65ce38a728",
+    "recover/human/update_solution_residual_and_reduce.cu": "c2d4f7496dd87234fd360f6306fd7a0ebee298476910fecbecb0c64a89c908f3",
+    "recover/human/update_velocity.cu": "7f9dad33a76fa5a524d1548e69ecf10bf6f4ff728189e4c000f58e0f9ca7ce43",
+    "recover/human/vec3.h": "0cc57a1a0d08c9b653305f03d1cb0ae7dc0368f1f634aaaf3b4613fa1d7ddbd5",
+    "recover/px_common.h": "b955fe55262163ae0c03eec66acc7a4d127c45026d5f27cc2fbb074d9b11f4c6",
+    "recover/src/fluid/synreal__fluid_kernel__accumulate_rows.cu": "6165c08bcee14ebe14e6ef136da33c8c18fd47bb2a5dc7f1fc532bc8498613b8",
+    "recover/src/fluid/synreal__fluid_kernel__add_diagonal.cu": "f7e5a7bdf7f760b4c15d53da90242fb9a1c44dcd2fbb6bb255abf261fc616796",
+    "recover/src/fluid/synreal__fluid_kernel__bound_scale.cu": "c6e316ba7c87bcdb40e1e29f948904a15163b53b89cda8c9b14149187be18df2",
+    "recover/src/fluid/synreal__fluid_kernel__build_grid.cu": "5a6aff73780946015b9b8f84b1054cb9c7fa907030d8ff2938dbdeca127cb0ad",
+    "recover/src/fluid/synreal__fluid_kernel__evaluate_rows.cu": "aca304fc8828466eeee4279923172cebc1f37e0036590a09ae8b0642707354f3",
+    "recover/src/fluid/synreal__fluid_kernel__initialize_scale.cu": "5de40871358c033965fdaa251299daf5c10929b986d8b5a1aef82186fde4e08f",
+    "recover/src/fluid/synreal__fluid_kernel__multiply_rows.cu": "1a834ce217dbc5a55ea47f8b7c0fd67634e01ba7712fe16ec832b6e8f010e4cc",
+    "recover/src/fluid/synreal__fluid_kernel__scale_step.cu": "90b60c19fb45e1a791ecc68653df335eb646a36e8f3e2456e16c502cf35c7aa6",
+    "recover/src/granular/synreal__granular_kernel__commit_bonds.cu": "bc1aba182e4c4597802c5381a571564b58721ece31726711aa9db2600d6de0d9",
+    "recover/src/granular/synreal__granular_kernel__multiply_bonds.cu": "f13be27b78d8e20adcab857635399ff3f4e12861390f1d58e641aced33cf9c8e",
+    "recover/src/lbvh_builder/synreal__kernel__build_escape_nodes.cu": "d7cab14bd1731ce483c46019e8d7fcc2dc32cf92ef406dffce63bb791f351f34",
+    "recover/src/lbvh_builder/synreal__kernel__build_primitive_leaf_nodes.cu": "a2db87962c0b40956cf78ade04f6e9db048d7813863a9b1b614a047d9d79efd7",
+    "recover/src/pcg_solver/ernel__multiply_matrix_and_reduce_256u__synreal__BlockNonZeroEntry__glm__mat_3__3__float__.cu": "c346f3d9f66e852f48d5559b41cb904b6c5dd3acaa3725c3db45ec8ee1a06ecd",
+    "recover/src/pcg_solver/synreal__kernel__evaluate_residual_synreal__NonZeroEntry__float_.cu": "d2d8da03b7b4d95e4b121db00bcc96bf0a1cbfe45b0d85ac7fc5b2dcbb552f4f",
+    "recover/src/pcg_solver/synreal__kernel__initialize_zero_solution_and_reduce_256u__glm__mat_3__3__float__.cu": "dcfbc58d5e605528afeceb3805d2a14373040acae654902904d1cd57248391e2",
+    "recover/src/pcg_solver/synreal__kernel__multiply_matrix_synreal__NonZeroEntry__float_.cu": "882fecce3fca4dadea81fc70fceb6feb2d707ab3f5fcb5e55787f53c37d234eb",
+    "recover/src/pcg_solver/synreal__kernel__update_cg_direction_glm__mat_3__3__float__.cu": "0627bf9dd54c6d52daa83ff31bd9f838469615bb01eaba9776c777f4d3e6b5e5",
+    "recover/src/pcg_solver/synreal__kernel__update_preconditioned_cg_direction.cu": "2ca87962431ec756208a67f2401eb9e070ebbdfba81e357ed902bcc8889074c1",
+    "recover/src/pcg_solver/synreal__kernel__update_solution_and_residual.cu": "b05d00f86d1e1e4d67ddeb736cef33414a3f92294da48efc695d7b2ddd30b36a",
+    "recover/src/pcg_solver/synreal__kernel__update_solution_residual_and_reduce_256u__glm__mat_3__3__float__.cu": "ee2d51c6ddf22303f481bd6bee83411bdce1ccf526a13a4cfebccbace4cdf1b4",
+    "recover/src/self_collision/synreal__self_collision_kernel__add_hessian_diagonal.cu": "0d231f89269d2f760fef0b878a5570b87207c9f0335a42debcd67b00d5a41b9f",
+    "recover/src/self_collision/synreal__self_collision_kernel__build_edge_aabbs.cu": "b50573a5c912ba8a0548c48cf6575beb292365395b6d21412dcce8e716720496",
+    "recover/src/self_collision/synreal__self_collision_kernel__build_particle_aabbs.cu": "931d4f69a8897bb655f83efa084b1d1f5fb5eee315dff545cb04c5d763b2dd6c",
+    "recover/src/self_collision/synreal__self_collision_kernel__multiply_hessian_diagonal.cu": "bafd00cc68da85d7fbbd420243b38a8c7ed3cae1ff08d05c8c7fad438b6612d7",
+    "recover/src/solver_newton/synreal__kernel__add_cloth_membrane_gauss_newton_hessian.cu": "a1a5e13474fcdf9829915f0bc844c655eac64ecea95b1949d035de2cb4bc765a",
+    "recover/src/solver_newton/synreal__kernel__add_spring_gauss_newton_hessian.cu": "1dcdaa798a3567843fd1028789de4de041b12b6fb1bae42e786b96f8fef71329",
+    "recover/src/solver_newton/synreal__kernel__add_triangle_drag_preconditioner.cu": "35cb7f12cddd77db864d3004cd42195ac04b7981e8ad7c16743eea6179fa3b97",
+    "recover/src/solver_newton/synreal__kernel__apply_block_diagonal_preconditioner.cu": "8599645824fc588a1d2b71d29d413413523f79c42d5ca63544ba446fb06dba52",
+    "recover/src/solver_newton/synreal__kernel__apply_nonlinear_step.cu": "7f2a6afaeceb9046cc53bd6a8440192842751673c4c15d98c2b8ac78a726f245",
+    "recover/src/solver_newton/synreal__kernel__combine_system_non_diagonal.cu": "2e7af8ba5e2a6241f88097068a74f3fd846d3a99d1cf1503b3bdd5fcd71a9655",
+    "recover/src/solver_newton/synreal__kernel__evaluate_affine_body_so3_augmented_lagrangian_force.cu": "6ffeaa3e20a5903f18af8a1dcc966572ffdb3ed1f3c43cefcb96d2c59a84792d",
+    "recover/src/solver_newton/synreal__kernel__evaluate_bending_force.cu": "5c1c3b25d290ca1e430125ed5459d94b5831553f4bd463b53228c58c1aaaa2fc",
+    "recover/src/solver_newton/synreal__kernel__evaluate_spring_force.cu": "da318bad045de411a311b7cb77f4540a1d1560cff6dcc40ab05eaca9758c86f5",
+    "recover/src/solver_newton/synreal__kernel__evaluate_stretch_force.cu": "ed906e4f1f0113d4b04ef711e0f3d858af867711090f75be55575beb8fc19b49",
+    "recover/src/solver_newton/synreal__kernel__evaluate_tetrahedron_force.cu": "19dc6f2c20169edbd90d1ed0e8028db866d0d5337d1a099e50bb7334e4d20466",
+    "recover/src/solver_newton/synreal__kernel__evaluate_triangle_drag.cu": "ed30fec5798b45afcfff451af047ec881fd3e77f8b5978325fb39ddb7c4de047",
+    "recover/src/solver_newton/synreal__kernel__initialize_block_diagonal.cu": "94da90aba8a72ad85bf55b29ba6672a2dd3bb2ea2db9d01d8055f657e8fcb86d",
+    "recover/src/solver_newton/synreal__kernel__initialize_block_non_diagonal.cu": "7d2344f824f095b9681c3e5fb16d9da362430b505fb032ea55ad0a0aa0376067",
+    "recover/src/solver_newton/synreal__kernel__initialize_joint_body_spring_state.cu": "766808e53c6fdbae52369a015f1df03ffa2a3b196239666629148dc3d1e394e3",
+    "recover/src/solver_newton/synreal__kernel__initialize_rhs.cu": "4f129a230637e6b061831cf5eb6bf0cabf0359d1e0338d4bf60648da05e9eb18",
+    "recover/src/solver_newton/synreal__kernel__invert_block_preconditioner.cu": "fc9440386714a7f60e09a01cfbadae38abb3fe8e80f59d33e0fa061930479182",
+    "recover/src/solver_newton/synreal__kernel__prepare_inverse_preconditioner.cu": "fa167204b512502c950248571c0564108af16eecb96708932b69d2474ec79931",
+    "recover/src/solver_newton/synreal__kernel__refresh_inertial_cache_diagonals.cu": "2b48e8bc68b5d097198e1395f90db11f35ee96850c25673c43bafd94a805eb3e",
+    "recover/src/solver_newton/synreal__kernel__refresh_inertial_cache_nonzeros.cu": "4850f6a201eddaae9839742d00d92f3bd3e972a1296e5ab408e11bf0c138cb3b",
+    "recover/src/solver_newton/synreal__kernel__reset_selected_joint_drive_state.cu": "cb5ec604745e19d8306e23274a15155f3ff8023062b9c3986eb19ec3781e01d4",
+    "recover/src/solver_newton/synreal__kernel__update_velocity.cu": "07c2290c99db85bc7f5e6e8f08809fa14877799fd12e10391ac3d1a1bfd08d9b",
+    "validate/fluid_mechanical_results.json": "4d383c08a601935ac428d13c9ebf58ec46909e01f680c46079dabe73ac0fca5c",
+    "validate/readable_human_results.json": "341c8e971288c6ca550f91ea749044cc9c96b6ea3ce1b3640bd0701dbeabc731",
+    "validate/readable_mechanical_results.json": "4d472341b2089213a2be980ce85d261318f44c5a0e63c75580d743397ce8cd7a",
+    "validate/review_algorithm_human_results.json": "3d8486ef1d0d6c55e4899e4274f605e2d0952061a6a905542b5fca364343bf24",
+    "validate/review_algorithm_mechanical_results.json": "14a4dc7b183958c86da05efb303d505f840329160c0ac71f019e994ab53e5341"
+  },
+  "sources": {
+    "reconstructed/evaluate_spring_force.cu": {
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "readable_cuda",
+      "source_sha256": "e51f0113473930897e46d7249096dd966cb6a76f09eeb4f861c25728fb7eaf49",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_human_results.json",
+          "passing_output_checks": 13
+        }
+      ]
+    },
+    "reconstructed/initialize_scale.cu": {
+      "kernel": "fluid/initialize_scale",
+      "implementation": "readable_cuda",
+      "source_sha256": "a500aa48974b60594aef1d46ae6eccd913d9fb4d7579771891168a2615152f5a",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/add_diagonal_mat3.cu": {
+      "kernel": "fluid/add_diagonal",
+      "implementation": "readable_cuda",
+      "source_sha256": "a0e44582a50f36aea99724942edd86b8cd08f4182ef164af1257648f51cd5774",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/add_hessian_diagonal.cu": {
+      "kernel": "self_collision/add_hessian_diagonal",
+      "implementation": "readable_cuda",
+      "source_sha256": "054def2041db7da2cee084defccd9aaea80b45408d8dd0fe916f055b15b119bc",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/add_triangle_drag_preconditioner.cu": {
+      "kernel": "solver_newton/add_triangle_drag_preconditioner",
+      "implementation": "readable_cuda",
+      "source_sha256": "75461d38f7ffba4dd57484306e9ca107ea0ce3a4fcdf3efb09d67018d8d8c7fc",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/apply_block_diagonal_preconditioner.cu": {
+      "kernel": "solver_newton/apply_block_diagonal_preconditioner",
+      "implementation": "readable_cuda",
+      "source_sha256": "af0d37b28ee6772e7e7ad7931ef1c6eb69b798779e76bd0f484386617ea1fbed",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/apply_nonlinear_step.cu": {
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "implementation": "readable_cuda",
+      "source_sha256": "13558ee311954703bdae51db160d6eb09c097508c0b415c379f19988f7739467",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/human/build_edge_aabbs.cu": {
+      "kernel": "self_collision/build_edge_aabbs",
+      "implementation": "readable_cuda",
+      "source_sha256": "cb55f7335fe81c36389ba7837d3b15509dab6e8b4cc645c57bd04f52de95a376",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/build_escape_nodes.cu": {
+      "kernel": "lbvh_builder/build_escape_nodes",
+      "implementation": "readable_cuda",
+      "source_sha256": "1bc9dc862c5baa5ab7fdcacfe706993cce02aa3d65c9ebaf1771e718cdc1d1cf",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/build_particle_aabbs.cu": {
+      "kernel": "self_collision/build_particle_aabbs",
+      "implementation": "readable_cuda",
+      "source_sha256": "1cdbad6129d2d72eba884d8eeaffd8169dfb1387c269d0b14876c0235d3d473c",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/build_primitive_leaf_nodes.cu": {
+      "kernel": "lbvh_builder/build_primitive_leaf_nodes",
+      "implementation": "readable_cuda",
+      "source_sha256": "ba2dadfd172492e105c122e3709ddd86db7fd56879ec43d9c70690455f213a92",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/combine_system_non_diagonal.cu": {
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "implementation": "readable_cuda",
+      "source_sha256": "b131a3fd277ff53e4c5c0bd5d49f3e7be3e5211df11ca9ffb786de11e4254618",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/human/commit_bonds.cu": {
+      "kernel": "granular/commit_bonds",
+      "implementation": "readable_cuda",
+      "source_sha256": "ab807503759e8efd3f99b8c78cc3bc7fbc88408714c8aaef4c93f73742490d56",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_human_results.json",
+          "passing_output_checks": 2
+        }
+      ]
+    },
+    "recover/human/evaluate_residual.cu": {
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "implementation": "readable_cuda",
+      "source_sha256": "74b46de9a444f3356525abd52f401fec827ad4dccef21a8890d80ba7476888c8",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/human/initialize_block_diagonal.cu": {
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "implementation": "readable_cuda",
+      "source_sha256": "9c9bff54531ad25367706d0fc6fb0b5c10317b9cb912a6bd251f391360c8d50a",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/human/initialize_block_non_diagonal.cu": {
+      "kernel": "solver_newton/initialize_block_non_diagonal",
+      "implementation": "readable_cuda",
+      "source_sha256": "d4fc5c70b6c54a5b42fdd00c7fca58326a641a0f14b6e99d80289ccbb4f00191",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 2
+        }
+      ]
+    },
+    "recover/human/initialize_joint_body_spring_state.cu": {
+      "kernel": "solver_newton/initialize_joint_body_spring_state",
+      "implementation": "readable_cuda",
+      "source_sha256": "feee3030b7e108db01f6c903c960397f3580aacd99adf558e67247013372c8c0",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/initialize_rhs.cu": {
+      "kernel": "solver_newton/initialize_rhs",
+      "implementation": "readable_cuda",
+      "source_sha256": "a658f8317cbfb4a40fbc6e93d92f06d7d96284c0b5a7b601106f975a168b88b7",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 5
+        }
+      ]
+    },
+    "recover/human/initialize_zero_solution_and_reduce.cu": {
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "source_sha256": "7fb50c4899d7bffe83541bd9217c5c9e6a75a9203c8ce188ec0ad4bfdfb0ef25",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/human/invert_block_preconditioner.cu": {
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "readable_cuda",
+      "source_sha256": "76a2cbe4c95ab3abfb4dade1ed0d95e7f75c0918894f1e785d03c8f8939ce0e6",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_human_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/human/multiply_bonds.cu": {
+      "kernel": "granular/multiply_bonds",
+      "implementation": "readable_cuda",
+      "source_sha256": "3afcad054a73b6fa8db54614fb0bc81c3f1ce11b9aea5305f1f5af529766840e",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/multiply_hessian_diagonal.cu": {
+      "kernel": "self_collision/multiply_hessian_diagonal",
+      "implementation": "readable_cuda",
+      "source_sha256": "1d24421d74cdedc679db08ef9b71d12576578c3750a1de159666c2b2fb5dcfb7",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/multiply_matrix.cu": {
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "implementation": "readable_cuda",
+      "source_sha256": "9ee38d2d6ce3cfa7e284bf626a6b8ba72ade8c5efd55b83a454714dc675645f6",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/human/multiply_matrix_and_reduce.cu": {
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "source_sha256": "5c4da3f89176c53d857a77fe9f2e2642c0d320d7c7bb69621d7633d8cdeb9465",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/human/prepare_inverse_preconditioner.cu": {
+      "kernel": "solver_newton/prepare_inverse_preconditioner",
+      "implementation": "readable_cuda",
+      "source_sha256": "acf6f4605deccd4d92bd80d9500b8258833e1d586d2c9ef8fa0d9089a5ff0db1",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/refresh_inertial_cache_diagonals.cu": {
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "implementation": "readable_cuda",
+      "source_sha256": "7ac58cb41cc610cb2ef0970c97216e04588954df50a82635bb24642a1f2e9f24",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/human/refresh_inertial_cache_nonzeros.cu": {
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "implementation": "readable_cuda",
+      "source_sha256": "e536a79d8a579f1b2e4e82df780fa1d9a636ebde8e5ab7e83a9696d5eb82155b",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 16
+        }
+      ]
+    },
+    "recover/human/reset_selected_joint_drive_state.cu": {
+      "kernel": "solver_newton/reset_selected_joint_drive_state",
+      "implementation": "readable_cuda",
+      "source_sha256": "67782b360db1c89c05d01f94a6e854c0c80f9f70bbb9506645807b0f17f07e3f",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/scale_step.cu": {
+      "kernel": "fluid/scale_step",
+      "implementation": "readable_cuda",
+      "source_sha256": "1242bfa43464ee7d95aeb3bb7dc118352e350379613cf358e19e48e9a7ae9bd9",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 3
+        }
+      ]
+    },
+    "recover/human/update_cg_direction_blockjacobi.cu": {
+      "kernel": "pcg_solver/update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "source_sha256": "56becf6d489cd646c2860950579ee93c3ce6e17460a1210590d368c8267a4d72",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/update_preconditioned_cg_direction.cu": {
+      "kernel": "pcg_solver/update_preconditioned_cg_direction",
+      "implementation": "readable_cuda",
+      "source_sha256": "28b7224295b53754e0b17c5691a282996696fa6b722469911a5c2c378cf07dcd",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/human/update_solution_and_residual.cu": {
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "readable_cuda",
+      "source_sha256": "c68bed67a435efd2a6ab810efeec4125cbaf4128ae824c5ce7caba65ce38a728",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_human_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/human/update_solution_residual_and_reduce.cu": {
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "readable_cuda",
+      "source_sha256": "c2d4f7496dd87234fd360f6306fd7a0ebee298476910fecbecb0c64a89c908f3",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_human_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/human/update_velocity.cu": {
+      "kernel": "solver_newton/update_velocity",
+      "implementation": "readable_cuda",
+      "source_sha256": "7f9dad33a76fa5a524d1548e69ecf10bf6f4ff728189e4c000f58e0f9ca7ce43",
+      "evidence": [
+        {
+          "report": "validate/readable_human_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__accumulate_rows.cu": {
+      "kernel": "fluid/accumulate_rows",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "6165c08bcee14ebe14e6ef136da33c8c18fd47bb2a5dc7f1fc532bc8498613b8",
+      "evidence": [
+        {
+          "report": "validate/fluid_mechanical_results.json",
+          "passing_output_checks": 10
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__add_diagonal.cu": {
+      "kernel": "fluid/add_diagonal",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "f7e5a7bdf7f760b4c15d53da90242fb9a1c44dcd2fbb6bb255abf261fc616796",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__bound_scale.cu": {
+      "kernel": "fluid/bound_scale",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "c6e316ba7c87bcdb40e1e29f948904a15163b53b89cda8c9b14149187be18df2",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 1
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__build_grid.cu": {
+      "kernel": "fluid/build_grid",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "5a6aff73780946015b9b8f84b1054cb9c7fa907030d8ff2938dbdeca127cb0ad",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 2
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__evaluate_rows.cu": {
+      "kernel": "fluid/evaluate_rows",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "aca304fc8828466eeee4279923172cebc1f37e0036590a09ae8b0642707354f3",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 2
+        },
+        {
+          "report": "validate/fluid_mechanical_results.json",
+          "passing_output_checks": 25
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__initialize_scale.cu": {
+      "kernel": "fluid/initialize_scale",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "5de40871358c033965fdaa251299daf5c10929b986d8b5a1aef82186fde4e08f",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__multiply_rows.cu": {
+      "kernel": "fluid/multiply_rows",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "1a834ce217dbc5a55ea47f8b7c0fd67634e01ba7712fe16ec832b6e8f010e4cc",
+      "evidence": [
+        {
+          "report": "validate/fluid_mechanical_results.json",
+          "passing_output_checks": 5
+        }
+      ]
+    },
+    "recover/src/fluid/synreal__fluid_kernel__scale_step.cu": {
+      "kernel": "fluid/scale_step",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "90b60c19fb45e1a791ecc68653df335eb646a36e8f3e2456e16c502cf35c7aa6",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 3
+        }
+      ]
+    },
+    "recover/src/granular/synreal__granular_kernel__commit_bonds.cu": {
+      "kernel": "granular/commit_bonds",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "bc1aba182e4c4597802c5381a571564b58721ece31726711aa9db2600d6de0d9",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 2
+        }
+      ]
+    },
+    "recover/src/granular/synreal__granular_kernel__multiply_bonds.cu": {
+      "kernel": "granular/multiply_bonds",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "f13be27b78d8e20adcab857635399ff3f4e12861390f1d58e641aced33cf9c8e",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/lbvh_builder/synreal__kernel__build_escape_nodes.cu": {
+      "kernel": "lbvh_builder/build_escape_nodes",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "d7cab14bd1731ce483c46019e8d7fcc2dc32cf92ef406dffce63bb791f351f34",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/lbvh_builder/synreal__kernel__build_primitive_leaf_nodes.cu": {
+      "kernel": "lbvh_builder/build_primitive_leaf_nodes",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "a2db87962c0b40956cf78ade04f6e9db048d7813863a9b1b614a047d9d79efd7",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/pcg_solver/ernel__multiply_matrix_and_reduce_256u__synreal__BlockNonZeroEntry__glm__mat_3__3__float__.cu": {
+      "kernel": "pcg_solver/multiply_matrix_and_reduce<256u, BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "c346f3d9f66e852f48d5559b41cb904b6c5dd3acaa3725c3db45ec8ee1a06ecd",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/src/pcg_solver/synreal__kernel__evaluate_residual_synreal__NonZeroEntry__float_.cu": {
+      "kernel": "pcg_solver/evaluate_residual<NonZeroEntry, float>",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "d2d8da03b7b4d95e4b121db00bcc96bf0a1cbfe45b0d85ac7fc5b2dcbb552f4f",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/src/pcg_solver/synreal__kernel__initialize_zero_solution_and_reduce_256u__glm__mat_3__3__float__.cu": {
+      "kernel": "pcg_solver/initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "dcfbc58d5e605528afeceb3805d2a14373040acae654902904d1cd57248391e2",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/src/pcg_solver/synreal__kernel__multiply_matrix_synreal__NonZeroEntry__float_.cu": {
+      "kernel": "pcg_solver/multiply_matrix<NonZeroEntry, float>",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "882fecce3fca4dadea81fc70fceb6feb2d707ab3f5fcb5e55787f53c37d234eb",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/src/pcg_solver/synreal__kernel__update_cg_direction_glm__mat_3__3__float__.cu": {
+      "kernel": "pcg_solver/update_cg_direction<glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "0627bf9dd54c6d52daa83ff31bd9f838469615bb01eaba9776c777f4d3e6b5e5",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/pcg_solver/synreal__kernel__update_preconditioned_cg_direction.cu": {
+      "kernel": "pcg_solver/update_preconditioned_cg_direction",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "2ca87962431ec756208a67f2401eb9e070ebbdfba81e357ed902bcc8889074c1",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/pcg_solver/synreal__kernel__update_solution_and_residual.cu": {
+      "kernel": "pcg_solver/update_solution_and_residual",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "b05d00f86d1e1e4d67ddeb736cef33414a3f92294da48efc695d7b2ddd30b36a",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/src/pcg_solver/synreal__kernel__update_solution_residual_and_reduce_256u__glm__mat_3__3__float__.cu": {
+      "kernel": "pcg_solver/update_solution_residual_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "ee2d51c6ddf22303f481bd6bee83411bdce1ccf526a13a4cfebccbace4cdf1b4",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/src/self_collision/synreal__self_collision_kernel__add_hessian_diagonal.cu": {
+      "kernel": "self_collision/add_hessian_diagonal",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "0d231f89269d2f760fef0b878a5570b87207c9f0335a42debcd67b00d5a41b9f",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/self_collision/synreal__self_collision_kernel__build_edge_aabbs.cu": {
+      "kernel": "self_collision/build_edge_aabbs",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "b50573a5c912ba8a0548c48cf6575beb292365395b6d21412dcce8e716720496",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/self_collision/synreal__self_collision_kernel__build_particle_aabbs.cu": {
+      "kernel": "self_collision/build_particle_aabbs",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "931d4f69a8897bb655f83efa084b1d1f5fb5eee315dff545cb04c5d763b2dd6c",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/self_collision/synreal__self_collision_kernel__multiply_hessian_diagonal.cu": {
+      "kernel": "self_collision/multiply_hessian_diagonal",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "bafd00cc68da85d7fbbd420243b38a8c7ed3cae1ff08d05c8c7fad438b6612d7",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__add_cloth_membrane_gauss_newton_hessian.cu": {
+      "kernel": "solver_newton/add_cloth_membrane_gauss_newton_hessian",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "a1a5e13474fcdf9829915f0bc844c655eac64ecea95b1949d035de2cb4bc765a",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 84
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__add_spring_gauss_newton_hessian.cu": {
+      "kernel": "solver_newton/add_spring_gauss_newton_hessian",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "1dcdaa798a3567843fd1028789de4de041b12b6fb1bae42e786b96f8fef71329",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__add_triangle_drag_preconditioner.cu": {
+      "kernel": "solver_newton/add_triangle_drag_preconditioner",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "35cb7f12cddd77db864d3004cd42195ac04b7981e8ad7c16743eea6179fa3b97",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__apply_block_diagonal_preconditioner.cu": {
+      "kernel": "solver_newton/apply_block_diagonal_preconditioner",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "8599645824fc588a1d2b71d29d413413523f79c42d5ca63544ba446fb06dba52",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__apply_nonlinear_step.cu": {
+      "kernel": "solver_newton/apply_nonlinear_step",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "7f2a6afaeceb9046cc53bd6a8440192842751673c4c15d98c2b8ac78a726f245",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__combine_system_non_diagonal.cu": {
+      "kernel": "solver_newton/combine_system_non_diagonal",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "2e7af8ba5e2a6241f88097068a74f3fd846d3a99d1cf1503b3bdd5fcd71a9655",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__evaluate_affine_body_so3_augmented_lagrangian_force.cu": {
+      "kernel": "solver_newton/evaluate_affine_body_so3_augmented_lagrangian_force",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "6ffeaa3e20a5903f18af8a1dcc966572ffdb3ed1f3c43cefcb96d2c59a84792d",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__evaluate_bending_force.cu": {
+      "kernel": "solver_newton/evaluate_bending_force",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "5c1c3b25d290ca1e430125ed5459d94b5831553f4bd463b53228c58c1aaaa2fc",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__evaluate_spring_force.cu": {
+      "kernel": "solver_newton/evaluate_spring_force",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "da318bad045de411a311b7cb77f4540a1d1560cff6dcc40ab05eaca9758c86f5",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 13
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__evaluate_stretch_force.cu": {
+      "kernel": "solver_newton/evaluate_stretch_force",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "ed906e4f1f0113d4b04ef711e0f3d858af867711090f75be55575beb8fc19b49",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__evaluate_tetrahedron_force.cu": {
+      "kernel": "solver_newton/evaluate_tetrahedron_force",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "19dc6f2c20169edbd90d1ed0e8028db866d0d5337d1a099e50bb7334e4d20466",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 12
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__evaluate_triangle_drag.cu": {
+      "kernel": "solver_newton/evaluate_triangle_drag",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "ed30fec5798b45afcfff451af047ec881fd3e77f8b5978325fb39ddb7c4de047",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 24
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__initialize_block_diagonal.cu": {
+      "kernel": "solver_newton/initialize_block_diagonal",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "94da90aba8a72ad85bf55b29ba6672a2dd3bb2ea2db9d01d8055f657e8fcb86d",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__initialize_block_non_diagonal.cu": {
+      "kernel": "solver_newton/initialize_block_non_diagonal",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "7d2344f824f095b9681c3e5fb16d9da362430b505fb032ea55ad0a0aa0376067",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 2
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__initialize_joint_body_spring_state.cu": {
+      "kernel": "solver_newton/initialize_joint_body_spring_state",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "766808e53c6fdbae52369a015f1df03ffa2a3b196239666629148dc3d1e394e3",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__initialize_rhs.cu": {
+      "kernel": "solver_newton/initialize_rhs",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "4f129a230637e6b061831cf5eb6bf0cabf0359d1e0338d4bf60648da05e9eb18",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 5
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__invert_block_preconditioner.cu": {
+      "kernel": "solver_newton/invert_block_preconditioner",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "fc9440386714a7f60e09a01cfbadae38abb3fe8e80f59d33e0fa061930479182",
+      "evidence": [
+        {
+          "report": "validate/review_algorithm_mechanical_results.json",
+          "passing_output_checks": 6
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__prepare_inverse_preconditioner.cu": {
+      "kernel": "solver_newton/prepare_inverse_preconditioner",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "fa167204b512502c950248571c0564108af16eecb96708932b69d2474ec79931",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__refresh_inertial_cache_diagonals.cu": {
+      "kernel": "solver_newton/refresh_inertial_cache_diagonals",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "2b48e8bc68b5d097198e1395f90db11f35ee96850c25673c43bafd94a805eb3e",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 8
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__refresh_inertial_cache_nonzeros.cu": {
+      "kernel": "solver_newton/refresh_inertial_cache_nonzeros",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "4850f6a201eddaae9839742d00d92f3bd3e972a1296e5ab408e11bf0c138cb3b",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 16
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__reset_selected_joint_drive_state.cu": {
+      "kernel": "solver_newton/reset_selected_joint_drive_state",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "cb5ec604745e19d8306e23274a15155f3ff8023062b9c3986eb19ec3781e01d4",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    },
+    "recover/src/solver_newton/synreal__kernel__update_velocity.cu": {
+      "kernel": "solver_newton/update_velocity",
+      "implementation": "mechanical_cuda",
+      "source_sha256": "07c2290c99db85bc7f5e6e8f08809fa14877799fd12e10391ac3d1a1bfd08d9b",
+      "evidence": [
+        {
+          "report": "validate/readable_mechanical_results.json",
+          "passing_output_checks": 4
+        }
+      ]
+    }
+  }
+}

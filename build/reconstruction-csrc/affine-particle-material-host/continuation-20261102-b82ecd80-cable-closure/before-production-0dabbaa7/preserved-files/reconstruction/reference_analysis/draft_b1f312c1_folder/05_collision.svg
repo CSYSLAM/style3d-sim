@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="430" viewBox="0 0 1000 430">
+<rect x="0" y="0" width="1000" height="430" rx="16" fill="#f8fafc"/>
+<text x="32" y="40" font-family="Noto Sans CJK SC, sans-serif" font-size="24" fill="#0f172a" text-anchor="start">图 5｜自碰撞：搜索结构、几何判断与物理响应</text>
+<rect x="30" y="80" width="280" height="78" rx="12" fill="#e0e7ff" stroke="#818cf8" stroke-width="2"/>
+<text x="170.0" y="110" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#334155" text-anchor="middle">包围盒与编码</text>
+<text x="170.0" y="138" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#334155" text-anchor="middle">AABB → Morton 排序</text>
+<rect x="360" y="80" width="280" height="78" rx="12" fill="#e0e7ff" stroke="#818cf8" stroke-width="2"/>
+<text x="500.0" y="110" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#334155" text-anchor="middle">LBVH</text>
+<text x="500.0" y="138" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#334155" text-anchor="middle">基数树 / refit / escape</text>
+<rect x="690" y="80" width="280" height="78" rx="12" fill="#e0e7ff" stroke="#818cf8" stroke-width="2"/>
+<text x="830.0" y="110" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#334155" text-anchor="middle">候选查询</text>
+<text x="830.0" y="138" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#334155" text-anchor="middle">缩小可能相交的组合</text>
+<polyline points="310,119 360,119" fill="none" stroke="#64748b" stroke-width="2.5"/>
+<polygon points="360,119 350.0,114.0 350.0,124.0" fill="#64748b"/>
+<polyline points="640,119 690,119" fill="none" stroke="#64748b" stroke-width="2.5"/>
+<polygon points="690,119 680.0,114.0 680.0,124.0" fill="#64748b"/>
+<polyline points="830,158 830,250" fill="none" stroke="#64748b" stroke-width="2.5"/>
+<polygon points="830,250 835.0,240.0 825.0,240.0" fill="#64748b"/>
+<rect x="690" y="250" width="280" height="78" rx="12" fill="#e0e7ff" stroke="#818cf8" stroke-width="2"/>
+<text x="830.0" y="280" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#334155" text-anchor="middle">精确几何判断</text>
+<text x="830.0" y="308" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#334155" text-anchor="middle">点面 / 边边 / 粒子对 / 边面</text>
+<rect x="360" y="250" width="280" height="78" rx="12" fill="#e0e7ff" stroke="#818cf8" stroke-width="2"/>
+<text x="500.0" y="280" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#334155" text-anchor="middle">局部响应</text>
+<text x="500.0" y="308" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#334155" text-anchor="middle">力 / 切线 / 对角贡献</text>
+<rect x="30" y="250" width="280" height="78" rx="12" fill="#e0e7ff" stroke="#818cf8" stroke-width="2"/>
+<text x="170.0" y="280" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#334155" text-anchor="middle">接入全局求解</text>
+<text x="170.0" y="308" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#334155" text-anchor="middle">PCG 算子与预条件</text>
+<polyline points="690,289 640,289" fill="none" stroke="#64748b" stroke-width="2.5"/>
+<polygon points="640,289 650.0,294.0 650.0,284.0" fill="#64748b"/>
+<polyline points="360,289 310,289" fill="none" stroke="#64748b" stroke-width="2.5"/>
+<polygon points="310,289 320.0,294.0 320.0,284.0" fill="#64748b"/>
+<text x="32" y="390" font-family="Noto Sans CJK SC, sans-serif" font-size="18" fill="#334155" text-anchor="start">BVH 只加速搜索；这些入口本身不构成 CCD、严格无穿透或全局可行性的证明。</text>
+</svg>

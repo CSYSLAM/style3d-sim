@@ -699,7 +699,7 @@ class Solver {
         std::map<int, PendingWeightUpload> pending_weights;
         const bool plain_distance_before_line = model_.body_distance_constraint_count &&
             model_.body_point_line_count && !model_.joint_body_spring_count && !model_.joint_body_point_line_count &&
-            !model_.joint_drive_count && !model_.cable_count && !model_.fluid_particle_count;
+            !model_.joint_drive_count && !model_.fluid_particle_count;
         auto upload_weight = [&](std::uint64_t& target, const auto& values, int order) {
             // Actual plain-mixture allocation identities put distance weights before point-line weights.
             if (plain_distance_before_line) {
@@ -1233,13 +1233,25 @@ class Solver {
                 model_.cable_count, cable_count_, per_world_};
     }
 
+    void initialize_cable_caches()
+    {
+        cable_count_ = model_.cable_count * (count_ / per_world_);
+        if (!cable_count_) return;
+        // SDK initialize creates these typed zero vectors before drag/diagonal/matrix caches.
+        cable_linear_ = initialized_cache(cable_count_ * 8, 36, SourceCacheType::Matrix3);
+        cable_angular_ = initialized_cache(cable_count_ * 8, 36, SourceCacheType::Matrix3);
+        cable_indices_ = initialized_cache(cable_count_ * 8, 4, SourceCacheType::Integer);
+        cable_sizes_ = initialized_cache(cable_count_, 4, SourceCacheType::Integer);
+        cable_penalty_ = initialized_cache(cable_count_, 16, SourceCacheType::Vector4);
+        cable_initialized_ = initialized_cache(cable_count_, 4, SourceCacheType::Integer);
+    }
+
     void precompute_cables()
     {
         cable_count_ = model_.cable_count * (count_ / per_world_);
         if (!cable_count_) return;
-        if (model_.body_spring_count || model_.body_point_line_count || model_.body_distance_constraint_count ||
-            model_.joint_drive_count)
-            throw std::runtime_error("Cable mixed with body constraints has not been captured");
+        if (model_.joint_body_spring_count || model_.joint_body_point_line_count || model_.joint_drive_count)
+            throw std::runtime_error("Cable mixed with joint constraints has not been captured");
         const std::size_t n = model_.cable_count;
         for (auto field : {std::make_pair(model_.cable_body_indices, "cable_body_indices"),
                 std::make_pair(model_.cable_parent_transforms, "cable_parent_transforms"),
@@ -1257,13 +1269,6 @@ class Solver {
         for (const auto& pair : pairs) for (int b : pair)
             if (b < -1 || (b >= 0 && static_cast<std::size_t>(b) >= body_count_))
                 throw py::value_error("cable references an invalid body");
-        cable_penalty_ = driver_->allocate(cable_count_ * 16);
-        cable_initialized_ = driver_->allocate(cable_count_ * 4);
-        check(cuMemsetD8(cable_initialized_, 0, cable_count_ * 4), "cuMemsetD8 cable initialized");
-        cable_linear_ = driver_->allocate(cable_count_ * 8 * 36);
-        cable_angular_ = driver_->allocate(cable_count_ * 8 * 36);
-        cable_indices_ = driver_->allocate(cable_count_ * 8 * 4);
-        cable_sizes_ = driver_->allocate(cable_count_ * 4);
         load("cable_penalty_prepare", "kernel23prepare_cable_penaltiesE");
         load("cable_prepare", "kernel22prepare_cable_tangentsE");
         load("cable_evaluate", "kernel15evaluate_cablesE");
@@ -2133,6 +2138,7 @@ public:
         previous_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
         target_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
         initialize_drive_caches();
+        initialize_cable_caches();
         // initialize 10db31..10dbce creates drag geometry/cache before the four scalar diagonal caches.
         precompute_drag();
         base_diagonal_ = initialized_cache(count_, 4, SourceCacheType::Scalar);
@@ -2331,6 +2337,12 @@ public:
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
             !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
             !triangle_count_ && !edge_count_;
+        // Plain constraints and cables share the captured SO3 block/tangent schedule.
+        const bool cable_plain = cable_count_ && so3 && joint_al &&
+            (plain_spring_count_ || plain_line_count_ || distance_total_) &&
+            !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !fluid_rows_ &&
+            !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+            !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
         const bool isolated_plain =
             (plain_spring_count_ || plain_line_count_ || distance_total_) &&
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
@@ -2342,6 +2354,7 @@ public:
             !drag_count_ && !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&
             !contact.max_count && !contact.soft_max_count;
         if (body_block && !driven_cloth && !isolated_plain && !plain_contact && !isolated_undriven_joint &&
+            !cable_plain &&
             (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             (plain_spring_count_ || plain_line_count_ || distance_total_ || !drive_total_ || cable_count_ ||
              fluid_rows_ || contact.max_count || contact.soft_max_count))
@@ -2354,7 +2367,7 @@ public:
             throw py::value_error("hard-contact history requires collision match indices");
         // Captured isolated plain PD routes omit Gauss-Newton blocks; undriven-line joint routes remain guarded.
         if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
-            !isolated_plain && !plain_contact && !isolated_undriven_joint &&
+            !isolated_plain && !plain_contact && !isolated_undriven_joint && !cable_plain &&
             pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
             throw std::runtime_error("Plain or undriven body constraints with PD_NEWTON have not been captured");
         if ((plain_spring_count_ || plain_line_count_ || distance_total_) &&

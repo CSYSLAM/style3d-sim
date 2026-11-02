@@ -1,0 +1,1493 @@
+<title>Synreal / Style3D CUDA 仿真核心｜算法、公式与实现图解</title>
+
+<p>文档状态：基于用户提供的 ALGORITHM_ANALYSIS_ZH.md 整理的内部技术分析。分析日期：2026-10-27；适用对象为原稿记录的二进制版本。适读人群：仿真算法、GPU 实现与复现验证工程师。</p>
+
+<callout background-color="light-blue" border-color="blue"><p><b>核心结论：</b>多类物理对象通过力、残差、切线和预条件贡献接入统一的位置／广义坐标求解。Newton 负责非线性外迭代，PCG 求解当前线性增量；接触、颗粒和线缆还需要独立解释历史状态。</p></callout>
+
+<p>阅读方法：先读第 1–6 节建立证据与求解框架，再按第 7–18 节查局部物理模型，最后用第 19–23 节核对布局、配置、数值边界与验证范围。原稿的 23 章、公式、36 项配置及验证记录完整保留。</p>
+
+<p>关键边界：131 个自研入口已完成语句核对与编译加载；其中 46 个入口有独立公式运行场景。局部通过不代表完整调度、所有条件分支或长期轨迹均已验证。本次仅整理文档，未重新执行这些 GPU 实验。</p>
+
+<p>公式说明：使用飞书原生 LaTeX；独立公式居中。图示根据原稿绘制，作为概念与依赖关系的辅助说明，不新增实现证据。正文中“工作区路径”是源码定位信息，不是飞书网页链接。</p>
+
+<hr />
+
+<p>分析日期：2026-10-27。分析范围：当前 <span>_re_analysis/</span> 目录对应的 <span>_core.cpython-312-x86_64-linux-gnu.so</span>，以及提取的 PTX、机械还原代码、人工还原代码、API 反射和主机侧分析记录。</p>
+
+<p>这是一份<b>实现导向的算法分析</b>：先解释系统在解什么问题，再把物理模型、离散公式、Newton/PCG、碰撞搜索与 GPU 数据结构接起来。它不是原始源码的逐行注释，也不把尚未完成的逆向工作包装成已经验证的结论。</p>
+
+<p>配套文档：全部 131 个自研 kernel 的签名、作用与代码入口（工作区路径：ALGORITHM_KERNEL_CATALOG_ZH.md）、PTX 与代码验证报告（工作区路径：PTX_CODE_VERIFICATION_ZH.md）、主机实参与字段对应（工作区路径：host/VERIFIED_ARGUMENTS_ZH.md）。附录逐项列出所有 kernel，包括模板特化，避免只介绍几个大模块而遗漏具体算子。</p>
+
+<h1 seq="auto">证据等级与分析口径</h1>
+
+<h2 seq="auto">哪些内容能当作实现事实</h2>
+
+<p>本文使用以下标记，避免把数学常识、接口意图和二进制行为混为一谈。</p>
+
+<table><thead><tr><th background-color="light-gray"><p>标记</p></th><th background-color="light-gray"><p>含义</p></th><th background-color="light-gray"><p>使用范围</p></th></tr></thead><tbody><tr><td><p><b>[直接]</b></p></td><td><p>已检查原始 PTX 及对应算术数据流</p></td><td><p>明确的更新公式、符号、系数、布局</p></td></tr><tr><td><p><b>[接口]</b></p></td><td><p><span>api_surface.txt</span> 的类型、字段或 docstring 明确说明</p></td><td><p>模型支持范围、参数单位、配置意图</p></td></tr><tr><td><p><b>[推导]</b></p></td><td><p>从已读出的力/算子推导其能量、梯度或矩阵形式</p></td><td><p>能量与切线解释；不等于原作者写过该能量表达式</p></td></tr><tr><td><p><b>[模型解释]</b></p></td><td><p>解释该模块的一般数学框架</p></td><td><p>复杂接触、线缆等未完整展开的分支</p></td></tr><tr><td><p><b>[未定]</b></p></td><td><p>缺少完整实参追踪、数据契约或运行验证</p></td><td><p>精确时序、部分 View 字段、全部分支的等价性</p></td></tr></tbody></table>
+
+<p>关键局部公式已通过直接运行二进制中提取的 PTX 进行 GPU 对照，验证方法、输入范围和结果见第 21、23 节。完整求解器的主机调度和端到端轨迹尚未完成运行验证。</p>
+
+<h2 seq="auto">实际模块数量</h2>
+
+<p>根据 <span>kernels.json</span> 过滤含 <span>synreal::</span> 且不含 <span>_kernel_agent</span> 的条目，并与 <span>recover/src/*/*.cu</span> 对照：</p>
+
+<table><thead><tr><th background-color="light-gray"><p>模块</p></th><th background-color="light-gray"><p>自研 kernel 数</p></th><th background-color="light-gray"><p>主要职责</p></th></tr></thead><tbody><tr><td><p><span>solver_newton</span></p></td><td><p><b>83</b></p></td><td><p>非线性步、弹性、仿射刚体、关节、接触、线缆、装配与预条件</p></td></tr><tr><td><p><span>pcg_solver</span></p></td><td><p><b>12</b></p></td><td><p>稀疏乘法、残差、搜索方向、解更新、归约</p></td></tr><tr><td><p><span>fluid</span></p></td><td><p><b>8</b></p></td><td><p>哈希网格、密度约束、Jacobian 行、步长控制</p></td></tr><tr><td><p><span>granular</span></p></td><td><p><b>8</b></p></td><td><p>颗粒接触、黏结、塑性、断裂、新键形成</p></td></tr><tr><td><p><span>self_collision</span></p></td><td><p><b>15</b></p></td><td><p>几何 AABB、候选查询、接触装配、切线作用</p></td></tr><tr><td><p><span>lbvh_builder</span></p></td><td><p><b>5</b></p></td><td><p>Morton 编码、基数树、叶子映射、逃逸节点、AABB 回传</p></td></tr><tr><td><p>合计</p></td><td><p><b>131</b></p></td><td><p /></td></tr></tbody></table>
+
+<p>全部 CUDA entry 为 206，其中 131 个属于上述自研算法，另外 75 个为第三方/运行支持实例。</p>
+
+<h2 seq="auto">源文件与调用记录的使用方式</h2>
+
+<ol><li><span>kernels/</span> 中的原始 PTX 是设备侧实现的主要依据；<span>recover/src</span> 提供寄存器数据流阅读辅助，<span>recover/human</span> 和 <span>reconstructed</span> 提供局部可读表达。公式判断以 PTX 的实际运算类型、控制分支和内存访问为准。</li><li><span>host/LAUNCH_ORDER.md</span> 给出 <b>call 指令地址顺序</b>。实际执行顺序还受跳转、回边和分支影响，需结合控制流图分析。</li><li>PCG 预条件分支使用 <latex>r^TPr</latex> 类型的量。不同模板的标量数组角色须按各自的初始化、归约和更新入口确认。</li><li>设备 kernel 直接计算 <latex>\alpha</latex>、<latex>\beta</latex>；主机 <span>cudaMemcpyAsync</span> 的用途与同步影响需要结合流、事件和后续依赖确认。</li><li>指令识别、编译加载、数值一致、分支覆盖、整步轨迹分别是不同的证据层次，第 21 节给出验证口径。</li></ol>
+
+<h1 seq="auto">系统架构、对象与自由度</h1>
+
+<h2 seq="auto">系统的核心思想</h2>
+
+<p>这个核心把多类对象的运动写成一个位置/广义坐标更新问题。不同模块提供力、切线作用和预条件贡献，由 Newton 外迭代和 PCG 内迭代组织计算。</p>
+
+<p>可将结构概括为：</p>
+
+<whiteboard type="svg" path="@./draft_b1f312c1_folder/01_architecture.svg" />
+
+<p>图 1：依赖关系图，不是已恢复的逐分支运行轨迹。</p>
+
+<p>这是<b>依赖关系图</b>，不是已经恢复的逐分支运行轨迹。</p>
+
+<h2 seq="auto">对外对象</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>对象</p></th><th background-color="light-gray"><p>角色</p></th><th background-color="light-gray"><p>需要注意的实现细节</p></th></tr></thead><tbody><tr><td><p><span>Model</span></p></td><td><p>静态拓扑与物理参数</p></td><td><p>数组属性是非拥有型 CUDA 设备内存视图；调用方须保持分配有效</p></td></tr><tr><td><p><span>State</span></p></td><td><p>动态状态</p></td><td><p>包括粒子坐标、速度、力等；并非所有动态历史都在 State 中</p></td></tr><tr><td><p><span>Control</span></p></td><td><p>施加控制</p></td><td><p>广义力、目标及可选四面体体积激活等</p></td></tr><tr><td><p><span>Contact</span></p></td><td><p>外部接触数据</p></td><td><p>接触匹配、法线、局部点、材料/形状映射等；传入接触不意味着本库负责生成所有刚体碰撞</p></td></tr><tr><td><p><span>Config</span></p></td><td><p>求解配置</p></td><td><p>影响后续 step；已捕获 CUDA Graph 在配置改变后需要重新构建</p></td></tr><tr><td><p><span>Solver</span></p></td><td><p>内部缓存与历史的拥有者</p></td><td><p>PCG 工作区、约束对偶、颗粒塑性历史、线缆罚参数等</p></td></tr></tbody></table>
+
+<p>依据：API 反射（工作区路径：api_surface.txt）、运行时布局（工作区路径：LAYOUT_RUNTIME.md）、Contact 访问（工作区路径：CONTACT_USAGE.md）。</p>
+
+<h2 seq="auto">粒子与仿射刚体坐标</h2>
+
+<p>自由粒子坐标为 <latex>x_i\in\mathbb R^3</latex>。整体未知量可写为 <latex>x\in\mathbb R^{3N}</latex>，但其中的“三维条目”不一定都是物理空间里的独立质点。</p>
+
+<p>仿射刚体的等价表示是：</p>
+
+<p align="center"><latex>\displaystyle x(X)=t+A X,\qquad t\in\mathbb R^3,\ A\in\mathbb R^{3\times3}.</latex></p>
+
+<p>一个仿射刚体因此有 12 个标量自由度。接口 <span>affine_body_indices</span> 明确提供四个 direct-ABD 坐标索引；SO(3) 力 kernel 对第一组三维坐标写零，对后三组施加矩阵列上的力，也支持“平移 + 三列仿射矩阵”的解释。</p>
+
+<p>仿射坐标允许使用统一的三维向量数组和块矩阵乘法。刚性通过额外能量/约束实现，而不是在每一步把所有自由度直接限制成 6 维。</p>
+
+<h2 seq="auto">多世界批处理</h2>
+
+<p>大量 kernel 使用：</p>
+
+<p align="center"><latex>\displaystyle b=\left\lfloor i/n_c\right\rfloor,\qquad k=i\bmod n_c,\qquad
+\mathrm{offset}=b\,n_p.</latex></p>
+
+<p>然后从第 <latex>k</latex> 个模板约束读取局部索引，再加世界偏移。这里 <latex>n_c</latex> 是每个世界的约束数，<latex>n_p</latex> 是粒子/坐标步幅。</p>
+
+<p>因此静态拓扑和材料可以在世界之间复用，动态位置分块存储。<span>particle_count</span> 与 <span>particle_state_count</span> 分别描述模板数量与动态状态总量；非复制模式还可能通过 <span>particle_world</span> 查询所属世界。不同 kernel 的三个 <span>size_t</span> 参数顺序并不统一，不能只凭名字猜其位置。</p>
+
+<h2 seq="auto">全文记号与单位</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>记号</p></th><th background-color="light-gray"><p>含义</p></th><th background-color="light-gray"><p>单位/约定</p></th></tr></thead><tbody><tr><td><p><latex>h</latex></p></td><td><p>物理时间步长</p></td><td><p>秒；与流体核半径 <latex>h_f</latex> 区分</p></td></tr><tr><td><p><latex>x_i,v_i</latex></p></td><td><p>自由粒子位置、速度</p></td><td><p>通常 m、m/s</p></td></tr><tr><td><p><latex>q</latex></p></td><td><p>通用广义坐标，或弯曲章节的局部向量</p></td><td><p>以所在章节定义为准</p></td></tr><tr><td><p><latex>M</latex></p></td><td><p>质量/广义惯性矩阵</p></td><td><p>可含非对角项；ABD 平移与仿射列的量纲不同</p></td></tr><tr><td><p><latex>P</latex></p></td><td><p>第 6 节为逆预条件器，第 10 节为应力矩阵</p></td><td><p>必须按章节区分，不能把应力矩阵当 PCG 预条件</p></td></tr><tr><td><p><latex>J_c</latex></p></td><td><p>约束 Jacobian</p></td><td><p>映射位移到残差变化</p></td></tr><tr><td><p><latex>J=\det F</latex></p></td><td><p>第 10 节的体积比</p></td><td><p>标量，与 <latex>J_c</latex> 区分</p></td></tr><tr><td><p><latex>A</latex></p></td><td><p>线性系统矩阵或仿射变换矩阵</p></td><td><p>由所在公式的维数区分</p></td></tr><tr><td><p><latex>A_0,A_e</latex></p></td><td><p>三角形/弯曲参考面积权重</p></td><td><p>通常 m²；精确调用实参仍需核对</p></td></tr><tr><td><p><latex>s</latex></p></td><td><p>尚未完整追踪来源的标量形参</p></td><td><p>不因人工代码命名 <span>dt</span> 就擅自认定为 <latex>h</latex></p></td></tr><tr><td><p><latex>\mathcal H</latex></p></td><td><p>历史与局部状态集合</p></td><td><p>对偶、旋转、塑性长度、接触匹配、线缆状态等</p></td></tr></tbody></table>
+
+<p>对自由粒子，质量项和位置的量纲容易辨认；对仿射广义坐标，三个矩阵列可以是无量纲量，其广义质量块会吸收相应几何尺度。因而不能给所有三维数组条目无差别地赋予“粒子位置，单位 m”的物理解释。</p>
+
+<h1 seq="auto">单个时间步的算法流程</h1>
+
+<whiteboard type="svg" path="@./draft_b1f312c1_folder/02_solver.svg" />
+
+<p>图 2：外层更新非线性状态，内层求当前线性子问题。保留原伪代码便于对照。</p>
+
+<h2 seq="auto">初始化阶段</h2>
+
+<p>从 API 和主机记录可确认，使用方式是先对配置好的 Model 调用 <span>initialize()</span>，再调用 <span>step()</span>。初始化至少涉及：</p>
+
+<ul><li>根据拓扑准备稀疏结构与内部设备缓冲；</li><li>缓存质量、预计算弹性或惯性项；</li><li>初始化颗粒键、约束历史及可用的模块状态；</li><li>预留接触、候选和 PCG 的工作空间。</li></ul>
+
+<p>主机侧记录能识别一批设备缓冲槽，但并未恢复完整的“成员名—长度公式—使用者”映射，不能把报告里所有成员偏移直接当作完整 Solver 类定义。</p>
+
+<h2 seq="auto">一个 step 的逻辑阶段</h2>
+
+<p>下面伪代码按数据依赖组织，<b>不是原始 C++ 控制流的逐行还原</b>。</p>
+
+<pre lang="plaintext"><code>step(state_in, state_out, control, contact, h):
+    建立活动自由度与惯性/外力预测
+    初始化或刷新本步接触、约束、线缆和刚体局部状态
+    按需要准备自碰撞几何与搜索结构
+
+    对每次非线性迭代:
+        在当前坐标上计算各物理模块的力/残差
+        更新相应的接触/流体/颗粒局部线性化数据
+        按配置装配稀疏块与预条件器
+        构造当前线性算子 A 与右端 b
+        用 Newton 或 PD-Newton 路径求增量 Δx
+            内部使用 PCG 迭代
+        流体场景执行步长缩放/上界限制
+        x ← x + Δx，清零增量缓冲
+        在相应的 primal 周期更新对偶/罚参数/局部旋转
+
+    提交颗粒等不可逆历史
+    根据惯性模式恢复速度
+    写出状态</code></pre>
+
+<p>模块没有对应对象时可能跳过；不同求解分支可能改变装配和状态更新位置。“所有模块每步必执行一遍”不成立。</p>
+
+<h2 seq="auto">已直接确认的末端操作</h2>
+
+<p><span>apply_nonlinear_step</span> 的计算是：</p>
+
+<p align="center"><latex>\displaystyle x_i^{out}=x_i^{in}+\Delta x_i,\qquad \Delta x_i\leftarrow0.</latex></p>
+
+<p>这个 kernel 本身没有能量比较或 Armijo 回溯逻辑。不能仅因其位于 Newton 循环尾部，就称项目实现了完整线搜索。</p>
+
+<p><span>update_velocity</span> 的局部计算是：</p>
+
+<p align="center"><latex>\displaystyle v_i=(b_i-a_i)s.</latex></p>
+
+<p>自由粒子路径通常对应 <latex>s=1/h</latex>。ABD 的惯性模式还涉及自身的速度构造/恢复，不能把这一条式子当作全部刚体分支的完整速度算法。</p>
+
+<p>依据：位置更新（工作区路径：recover/human/apply_nonlinear_step.cu）、速度更新（工作区路径：recover/human/update_velocity.cu）、主机调用记录（工作区路径：host/LAUNCH_ORDER.md）、循环分析（工作区路径：host/STEP_STRUCTURE.md）。</p>
+
+<h1 seq="auto">隐式积分与统一非线性方程</h1>
+
+<h2 seq="auto">自由粒子路径的基本离散化</h2>
+
+<p>记时间步长为 <latex>h</latex>，质量矩阵为 <latex>M</latex>，外力为 <latex>f_{ext}</latex>，弹性势能为 <latex>E(x)</latex>。隐式 Euler 的标准形式是：</p>
+
+<p align="center"><latex>\displaystyle x_{n+1}=x_n+h v_{n+1},</latex></p>
+
+<p align="center"><latex>\displaystyle M(v_{n+1}-v_n)=h\left[f_{ext}-\nabla E(x_{n+1})\right].</latex></p>
+
+<p>消去速度得到：</p>
+
+<p align="center"><latex>\displaystyle \frac{M}{h^2}(x_{n+1}-x_n-hv_n)-f_{ext}+\nabla E(x_{n+1})=0.</latex></p>
+
+<p>对于可并入预测的恒定外力，可定义：</p>
+
+<p align="center"><latex>\displaystyle \hat x=x_n+h v_n+h^2M^{-1}f_{ext}.</latex></p>
+
+<p>如果只有重力，<latex>M^{-1}f_{ext}=g</latex>。<span>initialize_step</span> 的活动分支实际出现了：</p>
+
+<p align="center"><latex>\displaystyle \hat x_i=x_i+h v_i+h^2g_w,</latex></p>
+
+<p>并将预测写入状态/工作缓冲。它同时形成含 <latex>1/h^2</latex> 的对角组合量。</p>
+
+<h2 seq="auto">增量势能</h2>
+
+<p>对保守力部分，可解释成最小化：</p>
+
+<p align="center"><latex>\displaystyle \Phi(x)=\frac{1}{2h^2}(x-\hat x)^TM(x-\hat x)
++E_{elastic}(x)+E_{constraint}(x)+E_{contact}(x).</latex></p>
+
+<p>这不是宣称所有摩擦、历史变量与阻尼都来自同一个全局光滑势能。对它们更稳妥的总表达是非线性残差：</p>
+
+<p align="center"><latex>\displaystyle R(x;\mathcal H)=0,</latex></p>
+
+<p>其中 <latex>\mathcal H</latex> 包含固定在当前线性化中的历史、接触状态、旋转和对偶变量。</p>
+
+<p>残差对应惯性平衡，切线对应 <latex>\partial R/\partial x</latex> 或其稳定近似。力 kernel 常写 <latex>-\nabla E</latex>，而线性系统通常写 <latex>A\Delta x=-R</latex>；二者符号不同是表示约定，不是矛盾。</p>
+
+<h2 seq="auto">质量矩阵并非只能是对角阵</h2>
+
+<p>接口有 <span>particle_mass_non_diagonal_indices/values</span>，并且 <span>initialize_rhs</span>、惯性缓存刷新和稀疏组合都处理非对角项。因此不能把整个项目概括为只有逐粒子质量的显式质量-弹簧算法。</p>
+
+<p><span>initialize_rhs</span> 的可确认算术是：</p>
+
+<p align="center"><latex>\displaystyle b_i=s\left[m_i(u_i-v_i)+\sum_j a_{ij}(u_j-v_j)\right]+b_i^{base}.</latex></p>
+
+<p><span>SolverNewton::step</span> 在主机上计算 <latex>s=1/h^2</latex>，并在 <span>0xfc4b5</span> 调用此入口。因此当前调用的右端为质量算子作用于两组位置差后乘 <latex>1/h^2</latex>，再加传入的 base。时间步的数据链见 主机实参对应表（工作区路径：host/VERIFIED_ARGUMENTS_ZH.md）。</p>
+
+<p>当 <span>max_nnz=0</span> 时，设备直接跳过稀疏部分，不读取行计数或非对角条目；质量索引仍使用模板周期，因此这个入口要求有效的非零 <span>tile</span>。它与允许 <span>tile=0</span> 的部分 PCG 矩阵乘入口具有不同契约。</p>
+
+<p>质量不为正，或可选 flags 的最低位未置位时，该 kernel 写零右端。其他约束、运动学状态与固定自由度也必须保持一致处理。</p>
+
+<p>依据：initialize_step（工作区路径：recover/src/solver_newton/synreal__kernel__initialize_step.cu）、initialize_rhs（工作区路径：recover/human/initialize_rhs.cu）。</p>
+
+<h1 seq="auto">Newton、Gauss–Newton 与 PD-Newton</h1>
+
+<h2 seq="auto">Newton 外迭代</h2>
+
+<p>在当前状态 <latex>x^{(k)}</latex> 线性化：</p>
+
+<p align="center"><latex>\displaystyle A_k\Delta x_k=-R(x^{(k)}),\qquad x^{(k+1)}=x^{(k)}+\eta_k\Delta x_k.</latex></p>
+
+<p>对于势能问题，<latex>R=\nabla\Phi</latex>，<latex>A=\nabla^2\Phi</latex>。实际项目有精确切线、Gauss–Newton 块、冻结几何的切线以及模块级矩阵乘法；因此这里的 <latex>A</latex> 不能默认等于所有项的完整精确 Hessian。</p>
+
+<p>外迭代重新评估几何与非线性物理量，内层 PCG 在当前线性化下求一个近似增量。增加外迭代和增加 PCG 迭代解决的是不同误差：前者减少非线性线性化误差，后者减少当前线性系统误差。</p>
+
+<h2 seq="auto">Gauss–Newton 与稳定化切线</h2>
+
+<p>若一个约束的能量为：</p>
+
+<p align="center"><latex>\displaystyle E(x)=\frac12 c(x)^TWc(x),\qquad J=\frac{\partial c}{\partial x},</latex></p>
+
+<p>则：</p>
+
+<p align="center"><latex>\displaystyle \nabla E=J^TWc,</latex></p>
+
+<p align="center"><latex>\displaystyle \nabla^2E=J^TWJ+\sum_a(Wc)_a\nabla^2c_a.</latex></p>
+
+<p>Gauss–Newton 保留：</p>
+
+<p align="center"><latex>\displaystyle H_{GN}=J^TWJ.</latex></p>
+
+<p>若 <latex>W\succeq0</latex>，则 <latex>H_{GN}\succeq0</latex>。被省略的第二项包含约束曲率，可能使系统不定。这个取舍有利于使用 CG/PCG，但并不自动证明整个混合系统始终正定。</p>
+
+<p>项目使用多个名为 <span>add_*_gauss_newton_hessian</span> 的入口。具体矩阵必须按各入口的算术确定：普通弹簧和布料膜内两个入口包含截断横向刚度，并累加相对各向同性基准的矩阵增量，详见第 7、8 节。函数名本身不保证其输出就是完整的 <latex>J^TWJ</latex>。</p>
+
+<h2 seq="auto">装配矩阵与算子式计算并存</h2>
+
+<p>可以把线性算子写为：</p>
+
+<p align="center"><latex>\displaystyle Ap=A_{stored}p+\sum_m A_m p.</latex></p>
+
+<p>其中 <latex>A_{stored}</latex> 是已存储的稀疏/块对角部分，<latex>A_m p</latex> 由 <span>multiply_*_tangent</span>、<span>multiply_rows</span>、<span>multiply_contacts</span> 等局部算子提供。这解释了为什么同一物理模块通常同时出现“力”“预条件”“乘切线”三类 kernel。</p>
+
+<p>不能把 <span>add_*_preconditioner</span> 等同于把该模块完整 Hessian 装入系统矩阵。预条件器可以只使用对角或对象内块，而实际 <latex>Ap</latex> 仍保留耦合项。</p>
+
+<h2 seq="auto">PD-Newton 分支的确认边界</h2>
+
+<p>接口和主机符号确认存在 <span>NEWTON</span> 与 <span>PD_NEWTON</span> 两条路径，后者被接口称为 legacy。现有主机记录尚不足以给出其完整分裂公式、投影变量和缓存更新条件。</p>
+
+<p><span>solve_pd_newton_system</span> 的函数体已确认两种线性分派：布尔参数为 false 时使用标量 ELL、标量对角与标量逆预条件；为 true 时仍使用标量 ELL，但对角和逆预条件为 <span>mat3</span>，并构造 affine-body 预条件回调。<span>solve_newton_system</span> 则传入块 ELL 和 <span>mat3</span> 对角/逆预条件。具体对象偏移及调用地址见 线性求解分派（工作区路径：host/VERIFIED_ARGUMENTS_ZH.md#4-newton-与-pd-newton-的线性求解分派）。</p>
+
+<p>这些证据确认了存储和调用关系，尚不能把 PD 外层直接等同于某一种教科书 local-global 公式；其局部投影、缓存缩放和外层更新条件需要分别恢复。</p>
+
+<h1 seq="auto">PCG、预条件与稀疏矩阵布局</h1>
+
+<h2 seq="auto">统一记号</h2>
+
+<p>线性系统记为 <latex>Az=b</latex>。用 <latex>P\approx A^{-1}</latex> 表示<b>逆预条件器</b>，避免与质量矩阵 <latex>M</latex> 混淆。代码中某些参数也叫 <span>M</span>，实际执行的是逆预条件矩阵作用。</p>
+
+<p>PCG 的数学迭代为：</p>
+
+<p align="center"><latex>\displaystyle r_0=b-Az_0,\quad w_0=Pr_0,\quad p_0=w_0,\quad \rho_0=r_0^Tw_0,</latex></p>
+
+<p align="center"><latex>\displaystyle q_k=Ap_k,\qquad \alpha_k=\frac{\rho_k}{p_k^Tq_k},</latex></p>
+
+<p align="center"><latex>\displaystyle z_{k+1}=z_k+\alpha_kp_k,\qquad r_{k+1}=r_k-\alpha_kq_k,</latex></p>
+
+<p align="center"><latex>\displaystyle w_{k+1}=Pr_{k+1},\quad \rho_{k+1}=r_{k+1}^Tw_{k+1},</latex></p>
+
+<p align="center"><latex>\displaystyle \beta_k=\frac{\rho_{k+1}}{\rho_k},\qquad p_{k+1}=w_{k+1}+\beta_kp_k.</latex></p>
+
+<p><latex>P=I</latex> 时，<latex>\rho=r^Tr</latex>；一般预条件分支采用 <latex>\rho=r^TPr</latex>。块预条件路径的融合 kernel 明确计算这一二次型。</p>
+
+<h2 seq="auto">实际 kernel 的分工</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>操作</p></th><th background-color="light-gray"><p>对应实现</p></th><th background-color="light-gray"><p>直接可见行为</p></th></tr></thead><tbody><tr><td><p>残差</p></td><td><p><span>evaluate_residual&lt;...&gt;</span></p></td><td><p><latex>r=b-Az</latex></p></td></tr><tr><td><p>矩阵乘法</p></td><td><p><span>multiply_matrix&lt;...&gt;</span></p></td><td><p>块对角 + ELL 稀疏项，部分入口还有额外向量项</p></td></tr><tr><td><p>预条件方向</p></td><td><p><span>update_cg_direction&lt;float/mat3&gt;</span></p></td><td><p><latex>w_i=P_i r_i</latex>，随后方向递推</p></td></tr><tr><td><p>另一方向入口</p></td><td><p><span>update_preconditioned_cg_direction</span></p></td><td><p>从传入向量直接递推；其名字不能代替输入语义分析</p></td></tr><tr><td><p>更新解与残差</p></td><td><p><span>update_solution_and_residual</span></p></td><td><p>从数组读标量比值，在 GPU 内更新</p></td></tr><tr><td><p>融合矩阵乘/归约</p></td><td><p><span>multiply_matrix_and_reduce</span></p></td><td><p>同时形成 <latex>Ap</latex> 与块内 <latex>p^TAp</latex> 部分和</p></td></tr><tr><td><p>融合更新/归约</p></td><td><p><span>update_solution_residual_and_reduce</span></p></td><td><p>更新后可选计算 <latex>r^TPr</latex></p></td></tr><tr><td><p>初始化融合入口</p></td><td><p><span>initialize_zero_solution_and_reduce</span></p></td><td><p>复制一个向量、清零另一个向量，并计算输入的二次型；角色必须按调用点确认</p></td></tr></tbody></table>
+
+<p>源码入口：方向更新（工作区路径：recover/human/update_cg_direction_blockjacobi.cu）、融合更新（工作区路径：recover/human/update_solution_residual_and_reduce.cu）、矩阵乘法（工作区路径：recover/human/multiply_matrix.cu）。</p>
+
+<h2 seq="auto">3×3 块 Jacobi 预条件</h2>
+
+<p>每个三维自由度对应一个局部块 <latex>D_i</latex>。装配完成后先做：</p>
+
+<p align="center"><latex>\displaystyle S_i=\frac12(D_i+D_i^T).</latex></p>
+
+<p>然后通过余子式计算 <latex>S_i^{-1}</latex>。对于对称矩阵：</p>
+
+<p align="center"><latex>\displaystyle S=\begin{bmatrix}a&amp;b&amp;c\\b&amp;d&amp;e\\c&amp;e&amp;f\end{bmatrix},</latex></p>
+
+<p>其第一行余子式为：</p>
+
+<p align="center"><latex>\displaystyle C_{00}=df-e^2,\quad C_{01}=ce-bf,\quad C_{02}=be-cd,</latex></p>
+
+<p align="center"><latex>\displaystyle \det S=aC_{00}+bC_{01}+cC_{02}.</latex></p>
+
+<p>当 <latex>\det S\le\tau</latex>、行列式为 NaN，或 <latex>|\det S|\ge+\infty</latex> 时，进入回退，其中 <latex>\tau=\mathrm{float32}(10^{-30})</latex>（位模式 <span>0x0DA24260</span>）：</p>
+
+<p align="center"><latex>\displaystyle P_i=\operatorname{diag}\left(a&gt;0?1/a:0,\ d&gt;0?1/d:0,\ f&gt;0?1/f:0\right).</latex></p>
+
+<p>这是<b>对角倒数回退</b>，不是一般矩阵的 Moore–Penrose 伪逆。对称化加行列式阈值也不是严格的正定性检验；例如正行列式并不能排除两个负特征值。</p>
+
+<p>依据：块逆（工作区路径：recover/human/invert_block_preconditioner.cu）。另外存在 affine-body 级别的块预条件，可将一个身体内部多个三维自由度的耦合一起处理；完整块装配分支仍未全部还原。</p>
+
+<h2 seq="auto">ELL 与块 ELL</h2>
+
+<p>可读实现确认：</p>
+
+<pre lang="cpp"><code>struct NonZeroEntry      { int col; float val; };   // 8 bytes
+struct BlockNonZeroEntry { int col; float m[9]; };  // 40 bytes</code></pre>
+
+<p>设每个模板有 <latex>T</latex> 行，当前全局行 <latex>i</latex> 的局部行号为 <latex>r=i\bmod T</latex>，世界/分块基址为 <latex>b=i-r</latex>。第 <latex>e</latex> 个非零条目放在：</p>
+
+<p align="center"><latex>\displaystyle \mathrm{entries}[eT+r].</latex></p>
+
+<p>访问向量时用 <latex>x_{b+col}</latex>。这让同一 warp 中相邻行读取同一非零序号时，条目在内存中连续。</p>
+
+<p>标量条目对应 <latex>a_{ij}I_3</latex>；块条目存一般 <latex>3\times3</latex> 矩阵。矩阵乘法可统一写为：</p>
+
+<p align="center"><latex>\displaystyle y_i=D_ix_i+\sum_e B_{ie}x_{b+col_{ie}}.</latex></p>
+
+<p>必须同时检查 <span>row_nnz</span>、容量、列号和全局下标。所核对的标量 <span>multiply_matrix</span>、<span>evaluate_residual</span> 和块融合 <span>multiply_matrix_and_reduce</span> 均在 <span>max_nnz=0</span> 时跳过稀疏数组；<span>tile=0</span> 时使用局部行号 <span>i</span>，列号上界为零，所有非对角列都被排除。可选额外向量非空时加到矩阵乘结果上；残差入口再计算 <span>rhs−结果</span>。</p>
+
+<p><span>initialize_block_non_diagonal</span> 将标量条目扩成标量乘单位阵，输出总范围是 <span>group*max_nnz</span>。每个有效槽增加对应世界/分块列偏移，无效槽保留原值。浮点非对角分量在 PTX 中通过 <span>val*0</span> 构造，涉及 NaN 或无穷时不能简单等同于常量零。</p>
+
+<p>惯性缓存刷新也区分空行与非空行：<span>refresh_inertial_cache_diagonals</span> 的空 CSR 行保留两个输出；<span>refresh_inertial_cache_nonzeros</span> 对两组 CSR 分别判断，哪一组为空就保留哪一组对应条目。仅用全零初始输出无法区分“保留”与“写零”，数值对照使用非零哨兵初值。</p>
+
+<h2 seq="auto">系统组合公式</h2>
+
+<p><span>combine_system_non_diagonal</span> 的精确组合是：</p>
+
+<p align="center"><latex>\displaystyle out=e_0+s_0(e_1+s_1e_2+s_2e_3+s_3e_4+s_4e_5+s_5e_6).</latex></p>
+
+<p>列号复制自 <latex>e_0</latex>。它不是七个任意稀疏结构的合并器：参与数组的拓扑必须已对齐。各 <latex>e_k</latex> 对应哪个物理缓存仍需主机实参确定。</p>
+
+<h2 seq="auto">迭代次数、归约和保护</h2>
+
+<p>默认配置为每个时间步 5 次非线性迭代、每次 50 次线性迭代。按完整执行默认循环估算，是约 250 次 PCG 迭代，<b>不是 250 次 kernel launch</b>；每次 PCG 内还有算子、向量更新和归约。</p>
+
+<p>已分析的主机路径呈现按配置次数迭代，记录中未找到基于残差容差的浮点退出条件。该结论应限定于已检查路径，不能仅凭某个函数缺少浮点比较证明所有模板与异常分支都没有提前退出。</p>
+
+<p>融合归约使用 warp shuffle、共享内存和块内归约，之后再汇总各块的部分和。模板中的 <span>256u</span> 与每块 8 个 warp 有关联；手工版本若写死 8 个 warp，就不能随意换 block 大小。</p>
+
+<p>比值更新使用阈值 <latex>\tau=\mathrm{float32}(10^{-30})</latex>，位模式 <span>0x0DA24260</span> 对应约 <latex>1.0000000031710769\times10^{-30}</latex>。对分子 <latex>a</latex>、分母 <latex>b</latex>，更新系数可写为：</p>
+
+<p align="center"><latex>\displaystyle \operatorname{ratio}(a,b)=\begin{cases}
+0,&amp; |b|\le\tau\ \text{或}\ a,b\ \text{中有 NaN},\\
+a/b,&amp;\text{其他情况}.
+\end{cases}</latex></p>
+
+<p><latex>\alpha</latex> 使用当前分子/分母，<latex>\beta</latex> 在首轮取零，随后使用当前与上一轮分子之比。原 PTX 中“绝对值严格大于无穷”的 unordered 比较会拒绝 NaN，但无穷本身通过比较，因此这里并不是完整的有限性过滤；例如 <latex>\infty/\infty</latex> 仍可能产生 NaN。该保护是绝对阈值，受问题的数值尺度影响。</p>
+
+<h1 seq="auto">距离弹簧</h1>
+
+<h2 seq="auto">力的精确公式</h2>
+
+<p>对连接 <latex>a,b</latex> 的弹簧，令：</p>
+
+<p align="center"><latex>\displaystyle d=x_b-x_a,\quad l=\|d\|,\quad n=d/l,\quad L=\text{rest length}.</latex></p>
+
+<p><span>evaluate_spring_force</span> 计算：</p>
+
+<p align="center"><latex>\displaystyle f_a=k(d-Ln)=k(l-L)n,\qquad f_b=-f_a.</latex></p>
+
+<p>对应的能量为：</p>
+
+<p align="center"><latex>\displaystyle E_s=\frac12k(l-L)^2.</latex></p>
+
+<p>伸长时 <latex>l&gt;L</latex>，<latex>a</latex> 受到朝向 <latex>b</latex> 的力；压缩时方向反转。两个端点分别进行三个分量的 <span>atomicAdd</span>，因此单根弹簧保持作用力与反作用力配对。</p>
+
+<p>当长度不大于零时，代码使用零单位方向，避免直接除零。长度为零时的连续模型梯度本身有方向不唯一的问题；实现的零向量回退是一种离散选择，并非该点存在唯一光滑梯度。</p>
+
+<h2 seq="auto">精确 Hessian、稳定化矩阵与实际装配增量</h2>
+
+<p>对于相对位移 <latex>d</latex>，从弹簧能量求导得到：</p>
+
+<p align="center"><latex>\displaystyle K_s^{exact}=k\left[nn^T+\frac{l-L}{l}(I-nn^T)\right],\qquad l&gt;0.</latex></p>
+
+<p>轴向特征值为 <latex>k</latex>，两个横向特征值均为 <latex>k(1-L/l)</latex>。压缩时横向特征值为负。若只做标准长度残差 Gauss–Newton，会得到 <latex>K_s^{GN}=knn^T</latex>。</p>
+
+<p><b>[直接]</b> <span>add_spring_gauss_newton_hessian</span> 对有限、合法输入且 <latex>k&gt;0,L&gt;0</latex> 的弹簧采用以下矩阵：</p>
+
+<p align="center"><latex>\displaystyle Q(d,L)=\begin{cases}
+I,&amp;l\le10^{-8},\\
+nn^T+t(I-nn^T),&amp;l&gt;10^{-8},
+\end{cases}\qquad t=\max(0,1-L/l).</latex></p>
+
+<p>非退化情形下 <latex>kQ</latex> 将精确 Hessian 的负横向特征值截为零；拉伸时保留正横向刚度，压缩时退化为轴向 GN 块。零长度附近采用 <latex>Q=I</latex> 的独立回退。有限输入下，刚度或静止长度不大于零时，该入口直接跳过相应弹簧。其刚度检查使用 unordered 比较，静止长度及长度阈值检查使用 ordered 比较，因此不应把这些分支统一当作任意 NaN 输入的安全回退。</p>
+
+<p>该 kernel <b>实际向输出数组累加</b>的是：</p>
+
+<p align="center"><latex>\displaystyle \Delta K_s=k(Q-I),\qquad \Delta H_s=\begin{bmatrix}\Delta K_s&amp;-\Delta K_s\\ -\Delta K_s&amp;\Delta K_s\end{bmatrix}.</latex></p>
+<p>两个对角块写入块对角数组，两个非对角块写入已有 ELL 拓扑中的对应列。它不在这里创建稀疏结构；列号与容量需要调用方预先准备。</p>
+
+<p>若输入系统已经包含各向同性弹簧基准块</p>
+
+<p align="center"><latex>\displaystyle H_s^0=k\begin{bmatrix}I&amp;-I\\ -I&amp;I\end{bmatrix},</latex></p>
+<p>则叠加结果为 <latex>H_s^0+\Delta H_s=\begin{bmatrix}kQ&amp;-kQ\\ -kQ&amp;kQ\end{bmatrix}</latex>。这是由装配增量得到的条件式；完整求解路径中基准数组的来源和时间缩放仍须结合主机实参确认。直接把这个入口的输出当作完整刚度矩阵会遗漏基准项。</p>
+<p>例如 <latex>k=2,L=1,d=(2,0,0)</latex>，有 <latex>kQ=\operatorname{diag}(2,1,1)</latex>，而实际累加的对角增量为 <latex>\operatorname{diag}(0,-1,-1)</latex>。当 <latex>d=(0.5,0,0)</latex> 时，<latex>kQ=\operatorname{diag}(2,0,0)</latex>，增量为 <latex>\operatorname{diag}(0,-2,-2)</latex>。<b>增量自身不需要半正定</b>，需要考察的是最终系统矩阵。</p>
+
+<p>原始 PTX 的 GPU 检查覆盖零长度、压缩、静止长度和拉伸四种输入，逐块比较了两个对角块和两个非对角块。</p>
+
+<h2 seq="auto">批处理索引</h2>
+
+<p>弹簧 kernel 明确从模板 <span>springs[slot]</span>、<span>k[slot]</span>、<span>rest[slot]</span> 读取数据，对位置索引加世界偏移。这意味着不同世界可共享弹簧静止长度与刚度，而位置和输出力属于各自的动态状态。</p>
+
+<p>原始 ABI 的末三个参数依次为：总弹簧数、每个世界的弹簧数、每个世界的坐标步幅。全局弹簧编号先除以第二个计数得到世界编号，再按第三个步幅偏移位置索引。</p>
+
+<p>依据：逐条还原的弹簧力（工作区路径：reconstructed/evaluate_spring_force.cu）、矩阵装配 PTX（工作区路径：kernels/solver_newton/012_add_spring_gauss_newton_hessian.ptx）。</p>
+
+<h1 seq="auto">布料膜内伸长与剪切</h1>
+
+<whiteboard type="svg" path="@./draft_b1f312c1_folder/03_membrane.svg" />
+
+<p>图 3：两个材料方向对应伸长与剪切；这是形函数模型，不是三条边弹簧的替代画法。</p>
+
+<h2 seq="auto">三角形上的两个材料方向</h2>
+
+<p>该实现不是仅在三角形边上放三根弹簧。<span>evaluate_stretch_force</span> 读取 <span>triangle_inv_dms</span>，从三角形的当前边构造两个材料方向。</p>
+
+<p>为避免把 GLM 存储转置和数学记号混在一起，直接用代码读出的系数定义：</p>
+
+<p align="center"><latex>\displaystyle a=u_0x_0+u_1x_1+u_2x_2,\qquad b=v_0x_0+v_1x_1+v_2x_2,</latex></p>
+
+<p align="center"><latex>\displaystyle u_0=-u_1-u_2,\qquad v_0=-v_1-v_2.</latex></p>
+
+<p>在 kernel 中，<latex>u_1,u_2</latex> 来自单个 <span>mat2</span> 的字节偏移 0、8；<latex>v_1,v_2</latex> 来自偏移 4、12。数学上它们是参考三角形形函数导数。把 <latex>F=[a\ b]</latex> 看作从二维材料坐标到三维空间的变形梯度即可。</p>
+
+<p>若用传统 <latex>F=D_sD_m^{-1}</latex> 记号复现，必须先统一 <span>inverse_dm</span> 在本项目中的矩阵约定，不能直接将这四个内存数按自己的行列顺序填入。</p>
+
+<h2 seq="auto">三个残差</h2>
+
+<p>代码计算两个长度残差：</p>
+
+<p align="center"><latex>\displaystyle c_u=\|a\|-1,\qquad c_v=\|b\|-1.</latex></p>
+
+<p>剪切项使用归一化方向的点积，而非未归一化的 <latex>a\cdot b</latex>：</p>
+
+<p align="center"><latex>\displaystyle l_a^\epsilon=\sqrt{a\cdot a+\epsilon},\qquad l_b^\epsilon=\sqrt{b\cdot b+\epsilon},</latex></p>
+
+<p align="center"><latex>\displaystyle \bar a=a/l_a^\epsilon,\quad\bar b=b/l_b^\epsilon,\qquad c_s=\bar a\cdot\bar b.</latex></p>
+
+<p>PTX 常数 <span>0x2B8CBCCC</span> 解码约为 <latex>10^{-12}</latex>。该常数在这里加在平方长度内部，不能理解成直接给长度加 <latex>10^{-12}</latex>。</p>
+
+<p>经向/纬向的材料目标长度均为 1；剪切目标是归一化点积为 0，即材料方向正交。</p>
+
+<h2 seq="auto">可从力恢复出的能量</h2>
+
+<p>记 <span>triangle_aniso_stiffnesses</span> 的三个分量为 <latex>k_u,k_v,k_s</latex>，几何权重记为 <latex>A_0</latex>。可读出的力对应：</p>
+
+<p align="center"><latex>\displaystyle E_{mem}=\frac{A_0}{2}\left[k_uc_u^2+k_vc_v^2+k_sc_s^2\right].</latex></p>
+
+<p>接口将面积字段命名为 <span>triangle_rest_areas</span>，与该逐三角形标量权重的使用一致；完整主机实参追踪未完成时，以“几何权重 <latex>A_0</latex>”保留其调用层语义。</p>
+
+<p>这三个参数控制不同方向的响应：<latex>k_u\ne k_v</latex> 可以表达织物经纬向差异，<latex>k_s</latex> 控制剪切角变化。对单位正交材料坐标，纯刚体旋转不会改变两个长度与点积，因此膜内能量对空间旋转不敏感。</p>
+
+<h2 seq="auto">梯度的具体表达</h2>
+
+<p>长度项在非退化处有：</p>
+
+<p align="center"><latex>\displaystyle \frac{\partial c_u}{\partial x_i}=u_i\frac{a}{\|a\|},\qquad
+\frac{\partial c_v}{\partial x_i}=v_i\frac{b}{\|b\|}.</latex></p>
+
+<p>剪切项的两个方向导数为：</p>
+
+<p align="center"><latex>\displaystyle q_a=\frac{\bar b-c_s\bar a}{l_a^\epsilon},\qquad q_b=\frac{\bar a-c_s\bar b}{l_b^\epsilon},</latex></p>
+<p align="center"><latex>\displaystyle g_{s,i}=u_iq_a+v_iq_b.</latex></p>
+
+<p>于是逐顶点力是：</p>
+
+<p align="center"><latex>\displaystyle f_i=-A_0\left[k_uc_u g_{u,i}+k_vc_v g_{v,i}+k_sc_s g_{s,i}\right].</latex></p>
+
+<p>这与 <span>evaluate_stretch_force</span> 后半段的三组梯度、三种刚度加权、乘负几何权重、向三个顶点原子累加的结构一致。</p>
+
+<h2 seq="auto">膜内稳定化矩阵与装配增量</h2>
+
+<p>先从残差模型写出标准 Gauss–Newton 块，作为数学参照：</p>
+
+<p align="center"><latex>\displaystyle H_{ij}^{GN}=A_0\left[k_u g_{u,i}g_{u,j}^T+k_vg_{v,i}g_{v,j}^T+k_sg_{s,i}g_{s,j}^T\right].</latex></p>
+
+<p><b>[直接]</b> <span>add_cloth_membrane_gauss_newton_hessian</span> 的长度项采用第 7 节的截断横向刚度形式。令：</p>
+
+<p align="center"><latex>\displaystyle Q_a=Q(a,1),\qquad Q_b=Q(b,1),</latex></p>
+
+<p>其中长度大于 <latex>10^{-8}</latex> 时，<latex>Q(a,1)=n_an_a^T+\max(0,1-1/\|a\|)(I-n_an_a^T)</latex>；近零长度分支返回 <latex>I</latex>。剪切梯度仍为第 8.4 节含 <latex>10^{-12}</latex> 平方长度正则项的 <latex>g_{s,i}</latex>。</p>
+
+<p>稳定化局部块可写成：</p>
+
+<p align="center"><latex>\displaystyle \widehat H_{ij}=A_0\left[k_u u_i u_j Q_a+k_v v_i v_j Q_b+k_sg_{s,i}g_{s,j}^T\right].</latex></p>
+
+<p>该入口同时减去各向同性基准：</p>
+
+<p align="center"><latex>\displaystyle B_{ij}=A_0\left[(k_u+k_s)u_i u_j+(k_v+k_s)v_i v_j\right]I,</latex></p>
+
+<p>因此<b>输出累加值</b>是：</p>
+
+<p align="center"><latex>\displaystyle \boxed{\Delta H_{ij}=\widehat H_{ij}-B_{ij}}.</latex></p>
+
+<p>注意基准里也含剪切刚度 <latex>k_s</latex>，它同时进入 <latex>u_i u_j</latex> 和 <latex>v_i v_j</latex> 的系数。只根据长度能量写 <latex>k_u u_i u_j I+k_v v_i v_j I</latex> 不能得到这个入口的实际增量。</p>
+
+<p>若装配前已有 <latex>B</latex>，叠加后得到 <latex>\widehat H</latex>；这个条件关系并不代替对主机基准缓存和缩放系数的追踪。对合法几何权重、非负刚度及有限数据，<latex>\widehat H</latex> 是半正定的：两个长度方向的 <latex>Q</latex> 半正定，剪切部分是梯度外积。单独的 <latex>\Delta H</latex> 不具有这一保证。</p>
+
+<p>由于 <latex>\sum_i u_i=\sum_i v_i=0</latex>，局部模型对整体平移不变，三个顶点的内力之和为零；<latex>\widehat H</latex>、<latex>B</latex> 与 <latex>\Delta H</latex> 均应保留平移零空间。块矩阵满足 <latex>H_{ji}=H_{ij}^T</latex>，但某个非对角 <latex>3\times3</latex> 块本身不一定对称。复现时需同时保持 ELL 列号和 GLM 列主序矩阵布局。</p>
+
+<p>GPU 对照使用 12 组非退化三角形、非单位参考矩阵和三种非零各向异性系数，检查每组三个对角块与六个非对角块。完整退化几何、非法参考拓扑和所有容量分支未包含在这些样本中。</p>
+
+<p>依据：膜内力 PTX（工作区路径：kernels/solver_newton/041_evaluate_stretch_force.ptx）、膜内矩阵装配 PTX（工作区路径：kernels/solver_newton/007_add_cloth_membrane_gauss_newton_hessian.ptx）、材料字段（工作区路径：api_surface.txt）。</p>
+
+<h1 seq="auto">布料四点弯曲与阻尼</h1>
+
+<h2 seq="auto">静止余切系数形成四点模板</h2>
+
+<p>接口明确说明 <span>edge_bending_cots</span> 是每条弯曲边的四个静止姿态余切系数。记为 <latex>c_0,c_1,c_2,c_3</latex>，四个顶点按 <span>edge_indices</span> 顺序记为 <latex>x_0,x_1,x_2,x_3</latex>。</p>
+
+<p>从 <span>evaluate_bending_force</span> 可组合出：</p>
+
+<p align="center"><latex>\displaystyle w_0=-c_0-c_2,\quad w_1=-c_1-c_3,\quad w_2=c_2+c_3,\quad w_3=c_0+c_1.</latex></p>
+
+<p>显然 <latex>\sum_iw_i=0</latex>。定义离散弯曲向量：</p>
+
+<p align="center"><latex>\displaystyle q=\sum_{i=0}^{3}w_ix_i.</latex></p>
+
+<p>实际代码以相对 <latex>x_0</latex> 的三条边线性组合构造 <latex>q</latex>，与上式相同。该表达避免显式求二面角、反三角函数及其导数。</p>
+
+<h2 seq="auto">弯曲能量、力与常量 Hessian</h2>
+
+<p>记相邻参考面积之和为 <latex>A_e</latex>，弯曲刚度为 <latex>k_b</latex>。代码中的缩放系数为 <latex>3/A_e</latex>，可对应：</p>
+
+<p align="center"><latex>\displaystyle E_b=\frac{3k_b}{2A_e}\|q\|^2,</latex></p>
+
+<p align="center"><latex>\displaystyle f_i^{elastic}=-\frac{3k_b}{A_e}w_iq,</latex></p>
+
+<p align="center"><latex>\displaystyle H_{ij}^{elastic}=\frac{3k_b}{A_e}w_iw_jI_3.</latex></p>
+
+<p>如果参考系数与拓扑固定，这一弹性项的 Hessian 不依赖当前位置，适合预计算并入稀疏缓存。这也解释了为什么当前 kernel 列表更突出单独的弯曲<b>阻尼</b>切线，而不是另设一个同名弹性弯曲切线。</p>
+
+<p>“适合预计算”是由公式推导的结构性质；具体哪个缓存槽保存该项，还需主机实参确认。</p>
+
+<h2 seq="auto">弯曲阻尼是方向投影</h2>
+
+<p>令另一组输入位置生成 <latex>q_{ref}</latex>，标量形参记为 <latex>s</latex>。代码构造：</p>
+
+<p align="center"><latex>\displaystyle \dot q_{disc}=s(q-q_{ref}),\qquad n_q=q/\|q\|.</latex></p>
+
+<p>阻尼贡献为：</p>
+
+<p align="center"><latex>\displaystyle f_q^{damp}=-\frac{3k_d}{A_e}n_q(n_q^T\dot q_{disc}),</latex></p>
+
+<p align="center"><latex>\displaystyle f_i=w_i\left[-\frac{3k_b}{A_e}q+f_q^{damp}\right].</latex></p>
+
+<p>主机 <span>0xfeaa8</span> 调用点明确传入 <latex>s=1/h</latex>，因此这里计算的是相对于另一组输入坐标的离散变化率 <latex>(q-q_{ref})/h</latex>。参考缓冲的完整生命周期仍须与状态管理一起解释。</p>
+
+<p>这不是 <latex>-k_d\dot q</latex> 的各向同性阻尼，而是沿当前弯曲向量方向的投影。冻结方向后，阻尼切线包含 <latex>w_iw_jn_qn_q^T</latex>。<span>multiply_bending_damping_tangent</span> 与 <span>add_bending_damping_preconditioner</span> 负责相应算子/对角块。</p>
+
+<h2 seq="auto">退化与不变量</h2>
+
+<p>代码检查部分无效索引、四个顶点重复、非正面积等条件；方向长度太小时采用零方向。索引的负值判定按 PTX 指令的有符号类型执行。</p>
+
+<p>由 <latex>\sum_iw_i=0</latex> 可知平移不变、弹性内力总和为零。由于能量含 <latex>\|q\|^2</latex>，整体旋转保持能量不变。这里的参考量是余切系数和面积；不能未经检查就再添加一个 <span>rest dihedral angle</span> 到这条已读出的公式中。</p>
+
+<p>依据：弯曲力 PTX（工作区路径：kernels/solver_newton/026_evaluate_bending_force.ptx）、属性接口（工作区路径：api_surface.txt）。传入的逐边 <span>vec2</span> 两个分量分别表示刚度与阻尼系数。</p>
+
+<h1 seq="auto">四面体体积材料与应变阻尼</h1>
+
+<h2 seq="auto">形函数梯度与变形梯度</h2>
+
+<p>四面体有四个节点。用参考形函数梯度 <latex>g_i</latex> 表示：</p>
+
+<p align="center"><latex>\displaystyle F=\sum_{i=0}^{3}x_i g_i^T,\qquad \sum_i g_i=0.</latex></p>
+
+<p>等价的常见写法是 <latex>F=D_sD_m^{-1}</latex>，但复现时必须统一 <span>tetrahedron_inverse_dms</span> 的行列约定。该 kernel 的具体读取可写成：若原 <span>mat3</span> 九个连续 float 为 <latex>B_0,\ldots,B_8</latex>，则三个非基点的梯度是 <latex>(B_0,B_1,B_2)</latex>、<latex>(B_3,B_4,B_5)</latex>、<latex>(B_6,B_7,B_8)</latex>，基点梯度为三者之和取负。</p>
+
+<p>令 <latex>J=\det F</latex>。代码通过交叉乘积/余子式计算 <latex>\operatorname{cof}F</latex>，无需在此力公式中直接求 <latex>F^{-1}</latex>。</p>
+
+<h2 seq="auto">实际读出的弹性应力</h2>
+
+<p>材料参数来自 <span>tetrahedron_materials</span>，接口称其为 <latex>(k_\mu,k_\lambda,k_{damp})</latex>。记：</p>
+
+<p align="center"><latex>\displaystyle \mu=k_\mu,\qquad K=k_\mu+k_\lambda.</latex></p>
+
+<p>对正常 <latex>K&gt;0</latex> 分支，代码设置：</p>
+
+<p align="center"><latex>\displaystyle J_*=1+\frac{\mu}{K}.</latex></p>
+
+<p>可选体积激活量为 <latex>a</latex>，未提供激活数组时 <latex>a=0</latex>。弹性一阶 Piola 型矩阵为：</p>
+
+<p align="center"><latex>\displaystyle P(F)=\mu F+K(J-J_*+a)\operatorname{cof}F.</latex></p>
+
+<p>若 <latex>K\le0</latex>，代码把 <latex>J_*</latex> 置为 1，不能继续使用上面的除法表达。</p>
+
+<p>由这一应力可积分出一个等价的弹性能量密度：</p>
+
+<p align="center"><latex>\displaystyle \psi(F)=\frac{\mu}{2}\|F\|_F^2+\frac K2(J-J_*+a)^2+\mathrm{const}.</latex></p>
+
+<p>它是关于 <latex>F</latex> 与 <latex>\det F</latex> 的多项式形式；不要未经核对换成带 <latex>\log J</latex> 的另一种材料公式。这样会改变翻转、强压缩以及体积激活时的行为。</p>
+
+<h2 seq="auto">为什么 <latex>J_*</latex> 不直接等于 1</h2>
+
+<p>当 <latex>F=I,a=0,K&gt;0</latex>：</p>
+
+<p align="center"><latex>\displaystyle P(I)=\mu I+K\left(1-1-\mu/K\right)I=0.</latex></p>
+
+<p>偏移 <latex>\mu/K</latex> 正好抵消第一项在静止构型产生的应力。因此 <latex>J_*</latex> 不是“模型希望静止体积变成 <latex>1+\mu/K</latex>”的简单目标，而是整个能量组合达到静止无应力所需的偏移。</p>
+
+<h2 seq="auto">节点力与精确方向导数</h2>
+
+<p>设 kernel 传入的逐单元几何权重为 <latex>w_t</latex>，则弹性节点力为：</p>
+
+<p align="center"><latex>\displaystyle f_i=-w_t P g_i.</latex></p>
+
+<p>标准有限元中 <latex>w_t</latex> 通常是参考体积；本目录尚缺完整主机实参映射，因此这里保留“几何权重”的名称。</p>
+
+<p>对扰动 <latex>\delta F=\sum_i\delta x_i g_i^T</latex>，有：</p>
+
+<p align="center"><latex>\displaystyle \delta J=\operatorname{cof}F:\delta F,</latex></p>
+
+<p align="center"><latex>\displaystyle \delta P=\mu\delta F+K\left[(\delta J)\operatorname{cof}F+(J-J_*+a)\,\delta(\operatorname{cof}F)\right].</latex></p>
+
+<p>若 <latex>F=[f_1\ f_2\ f_3]</latex>，余子式列为 <latex>f_2\times f_3,f_3\times f_1,f_1\times f_2</latex>，例如：</p>
+
+<p align="center"><latex>\displaystyle \delta(f_2\times f_3)=\delta f_2\times f_3+f_2\times\delta f_3.</latex></p>
+
+<p>这给出无需显式形成 <latex>12\times12</latex> 矩阵的切线乘法。项目有 <span>multiply_tetrahedron_tangent</span>；完整实现是否对某些项采用稳定化，需要逐分支比对此式，不能只凭函数名称为“精确 Hessian”。</p>
+
+<h2 seq="auto">应变变化阻尼</h2>
+
+<p>该 kernel 还从另一组坐标构造 <latex>F_{ref}</latex>，计算：</p>
+
+<p align="center"><latex>\displaystyle C=F^TF,\qquad C_{ref}=F_{ref}^TF_{ref},\qquad Q=s(C-C_{ref}).</latex></p>
+
+<p>代码中对称张量的非对角分量出现两倍权重，对应 Frobenius 内积对上下三角的共同贡献。对节点梯度 <latex>g_i</latex>，其收缩结构可写为：</p>
+
+<p align="center"><latex>\displaystyle f_i^{damp}=-2w_tk_{damp}FQg_i.</latex></p>
+
+<p>主机 <span>0xfeba7</span> 调用点明确传入 <latex>s=1/h</latex>，所以 <latex>Q=(C-C_{ref})/h</latex>，即相对于参考坐标所形成张量的离散变化率。</p>
+
+<p>纯刚体旋转满足 <latex>F^TF</latex> 不变，因此这类阻尼不会像直接对世界速度施加粘性那样阻碍整体旋转。非正阻尼参数时有跳过分支。</p>
+
+<p>依据：四面体力（工作区路径：recover/src/solver_newton/synreal__kernel__evaluate_tetrahedron_force.cu）、四面体切线（工作区路径：recover/src/solver_newton/synreal__kernel__multiply_tetrahedron_tangent.cu）、对角预条件（工作区路径：recover/src/solver_newton/synreal__kernel__add_tetrahedron_preconditioner.cu）。</p>
+
+<h1 seq="auto">仿射刚体与 SO(3) 刚性约束</h1>
+
+<whiteboard type="svg" path="@./draft_b1f312c1_folder/04_affine.svg" />
+
+<p>图 4：仿射自由度统一接入力与切线；额外刚性约束抑制形变。</p>
+
+<h2 seq="auto">仿射映射为什么适合统一求解</h2>
+
+<p>对 body-local 点 <latex>X</latex>，<latex>x=t+AX</latex> 对 12 维仿射坐标是线性的。其 Jacobian 为一个由常数 <latex>1,X_x,X_y,X_z</latex> 组成的 <latex>3\times12</latex> 矩阵 <latex>J_X</latex>。</p>
+
+<p>空间力与切线可以映射回广义坐标：</p>
+
+<p align="center"><latex>\displaystyle f_q=J_X^Tf_x,\qquad H_q=J_X^TH_xJ_X.</latex></p>
+
+<p>连接两个仿射体的弹簧、接触和点线约束因此可统一通过局部点位置与插值权重组装。该映射也会产生同一刚体四组三维坐标之间的非对角块，解释了 body 级预条件的必要性。</p>
+
+<h2 seq="auto">四种刚性模型的边界</h2>
+
+<p>接口列出：<span>CO_ROTATED</span>、<span>ABD_ORTHOGONALITY</span>、<span>SIX_SPRINGS</span>、<span>SO3_AUGMENTED_LAGRANGIAN</span>。默认是最后一种。</p>
+
+<p>作为模型解释，正交性约束常写 <latex>A^TA-I=0</latex>，共旋模型通过局部旋转 <latex>R</latex> 衡量 <latex>A</latex> 的变形，六弹簧模型通过若干方向长度约束抑制形变。但本文没有把其他三个分支的全部系数和投影过程恢复出来，因此这些说明不替代它们的精确实现。</p>
+
+<h2 seq="auto">SO(3) 力 kernel 的具体投影</h2>
+
+<p>SO(3) 力采用固定参考旋转下的对称投影形式。设局部旋转/正交参考为 <latex>R</latex>，另一矩阵状态为 <latex>U</latex>，定义：</p>
+
+<p align="center"><latex>\displaystyle B=A-R+U,</latex></p>
+
+<p align="center"><latex>\displaystyle \operatorname{sym}(Z)=\frac12(Z+Z^T),\qquad
+\mathcal P_R(B)=R\operatorname{sym}(R^TB).</latex></p>
+
+<p><span>evaluate_affine_body_so3_augmented_lagrangian_force</span> 的九个仿射分量对应：</p>
+
+<p align="center"><latex>\displaystyle f_A=-\kappa\mathcal P_R(A-R+U).</latex></p>
+
+<p>其中 <latex>\kappa</latex> 是逐 body 标量与函数标量形参的乘积；平移坐标的该项贡献为零。</p>
+
+<p>这可以从“先与 <latex>R</latex> 的列做点积，合并对称分量，再乘回 <latex>R</latex>，最后乘负系数”的数据流直接辨认。<span>U</span> 的物理解释与其是否已缩放仍需结合状态更新；这里不擅自称其为未缩放的拉格朗日乘子 <latex>\lambda</latex>。</p>
+
+<h2 seq="auto">冻结旋转后的切线</h2>
+
+<p>对应切线 kernel 计算：</p>
+
+<p align="center"><latex>\displaystyle \delta A\longmapsto\kappa\mathcal P_R(\delta A).</latex></p>
+
+<p>当 <latex>R</latex> 正交时，<latex>\mathcal P_R</latex> 是投影到共旋坐标系中对称变形方向的算子：</p>
+
+<p align="center"><latex>\displaystyle \langle\delta A,\mathcal P_R(\delta A)\rangle
+=\|\operatorname{sym}(R^T\delta A)\|_F^2\ge0.</latex></p>
+
+<p>若 <latex>\delta A=R\Omega</latex> 且 <latex>\Omega^T=-\Omega</latex>，则该切线为零。这说明冻结局部状态后，它主要惩罚拉伸/剪切方向，保留瞬时旋转方向。</p>
+
+<p>在固定 <latex>R,U</latex> 下，可对应二次能量：</p>
+
+<p align="center"><latex>\displaystyle E_R=\frac\kappa2\|\operatorname{sym}(R^T(A-R+U))\|_F^2.</latex></p>
+
+<p>这是从 kernel 推导的局部能量，不意味着更新 <latex>R,U</latex> 后仍在优化完全相同的二次函数。</p>
+
+<h2 seq="auto">局部旋转更新与惯性模式</h2>
+
+<p><span>initialize_affine_body_so3_state</span>、<span>update_affine_body_so3_augmented_lagrangian_state</span> 包含归一化、交叉乘积、方向调整与退化回退。现有代码不支持直接断言其就是一次标准 SVD 极分解；需要继续恢复全部分支才能命名精确投影算法。</p>
+
+<p>更新周期由 <span>affine_body_rigidity_primal_iterations</span> 控制，含义是固定 SO(3) AL 状态进行若干 primal Newton 迭代，再更新局部状态。</p>
+
+<p>惯性模式独立于刚性材料模型，接口提供 <span>EXPLICIT_EULER</span>、<span>IMPLICIT_EULER</span>、<span>LIE_GROUP_MIDPOINT</span>、<span>MIDPOINT_CAYLEY</span>、<span>NONE</span>、<span>VBD_SEMI_IMPLICIT</span>。默认 <span>MIDPOINT_CAYLEY</span> 描述 ABD 惯性构造/速度恢复；它不等于整个多物理求解器全部使用同一种中点时间离散。</p>
+
+<p>对于 Cayley 方法的数学背景，常用旋转增量是 <latex>(I-\Omega/2)^{-1}(I+\Omega/2)</latex>，<latex>\Omega</latex> 为反对称角增量矩阵。<b>该式在此仅解释枚举名，不作为已恢复的主机实现公式。</b></p>
+
+<p>依据：SO(3) 力（工作区路径：recover/src/solver_newton/synreal__kernel__evaluate_affine_body_so3_augmented_lagrangian_force.cu）、SO(3) 切线（工作区路径：recover/src/solver_newton/synreal__kernel__multiply_affine_body_so3_augmented_lagrangian_tangent.cu）、SO(3) 状态更新（工作区路径：recover/src/solver_newton/synreal__kernel__update_affine_body_so3_augmented_lagrangian_state.cu）。</p>
+
+<h1 seq="auto">关节、驱动、硬距离与角度限位</h1>
+
+<h2 seq="auto">罚函数与增广拉格朗日的统一解释</h2>
+
+<p>对等式约束 <latex>c(q)=0</latex>，罚函数形式为：</p>
+
+<p align="center"><latex>\displaystyle E_{pen}=\frac\kappa2\|c(q)\|^2.</latex></p>
+
+<p>增广拉格朗日的解释形式为：</p>
+
+<p align="center"><latex>\displaystyle \mathcal L(q,\lambda)=E(q)+\lambda^Tc(q)+\frac\kappa2\|c(q)\|^2,</latex></p>
+
+<p align="center"><latex>\displaystyle g_c=J_c^T(\lambda+\kappa c),\qquad H_c^{GN}=\kappa J_c^TJ_c,</latex></p>
+
+<p align="center"><latex>\displaystyle \lambda^{new}=\lambda+\kappa c(q^{new}).</latex></p>
+
+<p>实际程序可存缩放对偶 <latex>u=\lambda/\kappa</latex>，并可能引入质量归一化、更新周期、投影和历史衰减。因此上面是解释框架，不是各个 <span>update_*_state</span> 的逐指令替代。</p>
+
+<p>AL 的目的在于让累积的约束反力帮助减少误差，而不是只靠无限增大罚刚度。罚刚度过大会恶化线性系统条件数；即使使用 AL，有限迭代下也不意味着约束误差必为零。</p>
+
+<h2 seq="auto">点到点与硬距离</h2>
+
+<p>两个 body-local 点变换到世界后记为 <latex>p_a(q),p_b(q)</latex>。距离残差可写：</p>
+
+<p align="center"><latex>\displaystyle c_d=\|p_a-p_b\|-L.</latex></p>
+
+<p>其空间梯度为 <latex>n</latex> 和 <latex>-n</latex>，再用 body 点的 Jacobian 映射到仿射坐标。项目区分普通 body spring、joint-generated spring 与 hard distance constraint；它们可能共享几何，但状态管理、罚参数与约束方式不同。</p>
+
+<p>硬距离具有 <span>initialize_body_distance_constraint_state</span>、<span>evaluate_body_distance_constraint_force</span>、<span>update_body_distance_constraint_state</span> 三段生命周期，并有逐约束 mass scale。</p>
+
+<h2 seq="auto">点到线段</h2>
+
+<p>几何原理是找点 <latex>p</latex> 在端点 <latex>a,b</latex> 定义线段上的最近点：</p>
+
+<p align="center"><latex>\displaystyle t=\operatorname{clamp}\left(\frac{(p-a)^T(b-a)}{\|b-a\|^2},0,1\right),\qquad r=p-[a+t(b-a)].</latex></p>
+<p>这是接口“point-to-line-segment”含义对应的几何公式。端点区域、零长度线段、是否冻结投影参数 <latex>t</latex>、是否对 <latex>t</latex> 求导会改变切线；不同 force/GN/AL kernel 的精确取舍尚未逐分支展开，不能一律假设相同。</p>
+
+<h2 seq="auto">驱动、角度历史与限位</h2>
+
+<p>接口支持目标位置、目标模式、刚度、阻尼、广义力/速度坐标和 effort limit。一个典型驱动解释式是：</p>
+
+<p align="center"><latex>\displaystyle \tau=\operatorname{clip}\left[k_p(q_{target}-q)+k_d(v_{target}-\dot q),-\tau_{max},\tau_{max}\right].</latex></p>
+
+<p>具体 target mode 的公式、某些通道是否使用目标速度，必须查对应分支；本文不把这个示例当作所有驱动模式的精确公式。</p>
+
+<p><span>update_joint_drive_angle_state</span> 表明角驱动保留角度状态，可能用于跨周期的连续角度解释；确切 unwrap 与重置条件需进一步核对。<span>reset_selected_joint_drive_state</span> 的直接行为是按掩码清零。</p>
+
+<p>角度限位可以通过下/上界的单边残差理解：</p>
+
+<p align="center"><latex>\displaystyle c_l=\min(q-q_{min},0),\qquad c_u=\max(q-q_{max},0).</latex></p>
+
+<p>限位刚度、阻尼、激活方向和切线由 <span>evaluate_angular_limits</span> 处理，不能把不等式限位当作始终开启的双边弹簧。</p>
+
+<h2 seq="auto">关节 armature</h2>
+
+<p><span>joint_armature</span> 表示关节 DOF 的反射惯量。若广义速度为 <latex>\dot q=J_v v</latex>，额外动能的解释是：</p>
+
+<p align="center"><latex>\displaystyle T_a=\frac12(J_vv)^TM_a(J_vv),\qquad M_{eff}=J_v^TM_aJ_v.</latex></p>
+
+<p>因此 armature 改变的是有效惯性，不是另一种位置弹性。项目单独有 <span>initialize_joint_coordinate_velocities</span> 与 <span>evaluate_joint_armature</span>，说明其计算依赖关节速度映射。</p>
+
+<p>相关入口全部列在 kernel 附录（工作区路径：ALGORITHM_KERNEL_CATALOG_ZH.md）。</p>
+
+<h1 seq="auto">接触、摩擦、表面接触与滚动阻力</h1>
+
+<h2 seq="auto">接触几何与单边性</h2>
+
+<p>采用“分离距离为正”的解释约定，记法向间隙为 <latex>g(q)</latex>，不穿透条件是：</p>
+
+<p align="center"><latex>\displaystyle g\ge0,\qquad \lambda_n\ge0,\qquad \lambda_n g=0.</latex></p>
+
+<p>这里 <latex>\lambda_n</latex> 是压缩方向接触反力大小。代码内部法线方向与距离符号可能采用相反约定，因此复现时应先用一个两物体相向运动的简单场景确认符号。</p>
+
+<p>普通罚接触的解释能量为：</p>
+
+<p align="center"><latex>\displaystyle E_n=\frac{k_n}{2}\min(g,0)^2.</latex></p>
+
+<p>冻结法线和接触插值后，其 GN 型切线是：</p>
+
+<p align="center"><latex>\displaystyle H_n=k_nJ_g^TJ_g.</latex></p>
+
+<p>完整切线还可能含距离/法线随位置变化的二阶项，或采用截断、冻结几何与阻尼贡献。项目分别有普通接触、soft contact、surface contact、hard contact 的路径，不能只用一个标量弹簧公式覆盖所有分支。</p>
+
+<h2 seq="auto">硬接触的生命周期</h2>
+
+<p>接口明确说明 <span>rigid_contact_hard=True</span> 使用法向增广拉格朗日与基于位移的 Coulomb 摩擦。相关入口为：</p>
+
+<pre lang="plaintext"><code>initialize_hard_contacts
+    → evaluate_hard_contacts
+    → update_hard_contact_duals
+    → snapshot_hard_contacts / 历史匹配</code></pre>
+
+<p>这是功能依赖顺序，具体 snapshot 位于何次循环由主机分支决定。</p>
+
+<p>采用上述间隙约定，一个投影 AL 更新的解释式为：</p>
+
+<p align="center"><latex>\displaystyle \lambda_n^{new}=\max(0,\lambda_n-\kappa g).</latex></p>
+
+<p>程序还具有 C0 稳定化参数 <span>alpha</span>、罚参数递增 <span>beta</span>、历史衰减 <span>gamma</span>、初始刚度与接触匹配。<b>本次没有恢复这几个参数在每个硬接触分支的精确组合式</b>，上面的公式只用于解释“单边投影 + 对偶积累”。</p>
+
+<h2 seq="auto">摩擦圆盘与滑动切线</h2>
+
+<p>令 <latex>n</latex> 为单位法线，切向投影为：</p>
+
+<p align="center"><latex>\displaystyle P_t=I-nn^T.</latex></p>
+
+<p>切向相对速度/位移经过 <latex>P_t</latex> 投影。Coulomb 约束是：</p>
+
+<p align="center"><latex>\displaystyle \|\lambda_t\|\le\mu\lambda_n.</latex></p>
+
+<p>常见的试算再投影可以写成：</p>
+
+<p align="center"><latex>\displaystyle \lambda_t^{trial}=\lambda_t^{old}-k_t\Delta u_t,</latex></p>
+
+<p align="center"><latex>\displaystyle \lambda_t=\Pi_{\|z\|\le\mu\lambda_n}(\lambda_t^{trial}).</latex></p>
+
+<p>如果试算值在圆盘内部，则处于粘着区；超出圆盘时进入滑动区并限制摩擦大小。这与接口所述位移摩擦相符，但程序精确的历史、符号和增量定义仍需按 kernel 核对。</p>
+
+<p>接口 <span>rigid_contact_sliding_tangent</span> 明确表示是否在固定法向载荷下对 Coulomb disk 求导。对固定半径 <latex>R</latex> 的圆盘投影，滑动区 <latex>\|z\|&gt;R</latex> 的导数是：</p>
+
+<p align="center"><latex>\displaystyle D\Pi(z)=\frac R{\|z\|}\left(I-\hat z\hat z^T\right).</latex></p>
+
+<p>这解释了该开关为什么会改变线性算子，而不仅仅改变摩擦力大小。默认 <span>False</span> 保留旧切线；不能假设开启后就是对包括法向载荷变化在内的全部摩擦模型求完整导数。</p>
+
+<p><span>rigid_contact_friction_epsilon</span> 的单位为 m/s，用于摩擦速度平滑；零值保留 native secant law。由于具体平滑函数尚未读完，本文不擅自替换为 <latex>\sqrt{v^2+\epsilon^2}</latex> 或其他常见函数。</p>
+
+<h2 seq="auto">接触的非对角块与预条件块</h2>
+
+<p>对于两个自由点的相对位移，冻结几何的局部切线常有：</p>
+
+<p align="center"><latex>\displaystyle H_{pair}=\begin{bmatrix}K&amp;-K\\ -K&amp;K\end{bmatrix}.</latex></p>
+<p>两个对角块与两个非对角块共同决定相对运动。只保留对角块会弱化耦合，改变迭代性质。</p>
+
+<p><span>enable_collision_hessian_non_diagonal</span> 控制 rigid、particle-shape、自碰撞的耦合切线是否纳入；接口明确说 full-surface 与 angular-friction 切线保持耦合。<span>affine_body_contact_block_preconditioner</span> 则控制<b>预条件器</b>中接触交叉项的纳入，接口说明它不改变接触算子本身。两个开关不能混同。</p>
+
+<h2 seq="auto">full-surface 与滚动/扭转阻力</h2>
+
+<p>surface 接触具有独立的 force、tangent、preconditioner 和 stiffness-scale kernel，表明它使用比一个简单点对法向弹簧更复杂的几何与材料权重。精确接触面采样和权重定义未完整恢复，应查其 View 的数据契约后再推导。</p>
+
+<p>滚动/扭转摩擦使用相对角速度：</p>
+
+<p align="center"><latex>\displaystyle \omega_t=(I-nn^T)\omega_{rel},\qquad \omega_n=n^T\omega_{rel}.</latex></p>
+
+<p>前者对应切平面内的滚动，后者对应绕接触法线的自旋。接口提供 <span>shape_rolling_frictions</span>、<span>shape_torsional_frictions</span> 和正的角速度正则化量，单位 rad/s。相应反扭矩通过 body 的角速度/仿射坐标映射参与力和切线。</p>
+
+<p>这一节给出的是角分解与模块作用。精确载荷、有效半径、截断和平滑函数不能由参数名唯一确定，本文未把它们写成已确认公式。</p>
+
+<h2 seq="auto">碰撞能力不能过度推断</h2>
+
+<p>存在接触力、自碰撞查询和防解缠项，并不自动意味着有连续碰撞检测、严格无穿透保证、IPC barrier 或全局可行线搜索。本次未找到足以确认这些保证的完整链路。默认还关闭了自碰撞与硬刚体接触。</p>
+
+<p>依据：接触接口（工作区路径：api_surface.txt）、接触字段访问（工作区路径：CONTACT_USAGE.md）、<span>recover/src/solver_newton/*contact*.cu</span>。</p>
+
+<h1 seq="auto">自碰撞与 LBVH</h1>
+
+<whiteboard type="svg" path="@./draft_b1f312c1_folder/05_collision.svg" />
+
+<p>图 5：将搜索、几何判断和响应分开阅读，避免从加速结构推断碰撞保证。</p>
+
+<h2 seq="auto">搜索与响应是两层算法</h2>
+
+<p>LBVH 负责缩小可能相交的几何组合；自碰撞 narrow phase 负责具体距离/相交关系；接触力与切线负责物理响应。BVH 本身不决定接触刚度和摩擦模型。</p>
+
+<p>相关 primitive 包括粒子、边、三角形。自碰撞查询/装配有四类：vertex-face、edge-edge、particle-particle、edge-face。edge-face 接口配置指向 untangling penalty，不能与普通 edge-edge 距离项完全混同。</p>
+
+<h2 seq="auto">AABB 构建</h2>
+
+<p>对半径为 <latex>r</latex> 的点：</p>
+
+<p align="center"><latex>\displaystyle b_{min}=x-r\mathbf1,\qquad b_{max}=x+r\mathbf1.</latex></p>
+
+<p>对一条边或一个三角形，先逐坐标求顶点的最小/最大值，再按厚度向两侧扩展。</p>
+
+<p>可读 <span>build_edge_aabbs</span> 显示四元边拓扑的 <b>.z/.w</b> 才是该处用于包围盒的两个端点，不能误用 .x/.y。弯曲四点顺序与碰撞边端点顺序也不能无条件当成相同含义。</p>
+
+<h2 seq="auto">Morton 编码</h2>
+
+<p><span>generate_morton_codes</span> 将 primitive 中心相对场景 AABB 归一化到 <latex>[0,1)</latex>。每个轴乘 1024 再转整数，即每轴约 10 bit、组合约 30 bit。</p>
+
+<p>设量化坐标为 <latex>q_x,q_y,q_z</latex>，Morton 码通过各轴二进制位交错构成。其作用是将三维邻近性大致映射成一维排序邻近性，不保证欧氏距离单调。</p>
+
+<p>归一化轴长度非正时有回退；归一化值夹在 0 与小于 1 的最大 float 之间，避免产生 1024 这个超出十位编码范围的端点。</p>
+
+<h2 seq="auto">基数树构建</h2>
+
+<p>排序后的 Morton 码用于构造二叉 radix tree。<span>build_radix_tree</span> 中的 <span>clz</span> 对应公共前缀长度：</p>
+
+<p align="center"><latex>\displaystyle \delta(i,j)=\operatorname{clz}(m_i\oplus m_j).</latex></p>
+
+<p>若码相同，需要进一步利用索引区别。根据与两侧公共前缀长度的差异选择范围方向，再搜索区间与分割位置。节点的具体数组编号、同码 tie-break 和边界处理以 PTX 为准。</p>
+
+<p><span>build_primitive_leaf_nodes</span> 的直接映射是：</p>
+
+<p align="center"><latex>\displaystyle leaf[primitive\char95 id_i]=i+N-1.</latex></p>
+<p>这是常见的“前 <latex>N-1</latex> 个槽放内部节点、之后放叶子”的数组布局，<b>不是仅凭该式就能称为一基堆或推导孩子为 <latex>2i,2i+1</latex> 的堆布局</b>。</p>
+
+<h2 seq="auto">AABB 回传与 escape 节点</h2>
+
+<p>内部节点的盒子是子节点盒子的并集：</p>
+
+<p align="center"><latex>\displaystyle B_{parent}=B_{left}\cup B_{right}.</latex></p>
+
+<p><span>refit_aabbs</span> / <span>refit_bvh</span> 用当前几何刷新包围盒。refit 通常不改变树拓扑；但何时重新排序重建，必须看主机调度，不能仅由函数列表判断每步都重建。</p>
+
+<p><span>build_escape_nodes</span> 的明确逻辑是：从当前节点沿父链上升，跳过“当前节点是父的右子”的情况，找到第一个可以转向右兄弟的位置；找不到则返回 -1。</p>
+
+<p>这样 traversal 可在某节点不相交或子树处理完时直接跳到 escape，无需保存完整递归栈。</p>
+
+<p>粒子盒和边盒入口的最后三个整型实参依次为总数 <span>n</span>、每世界拓扑数 <span>tile</span>、每世界坐标步幅 <span>stride</span>。输入索引和半径可以按模板共享，而坐标必须增加世界偏移。<span>multiply_hessian_diagonal</span> 执行 <span>out += H*p</span>，会保留其他模块已积累的向量贡献。</p>
+
+<h2 seq="auto">narrow phase 与局部约束</h2>
+
+<p>点-面接触可用最近点重心坐标表示：</p>
+
+<p align="center"><latex>\displaystyle d=x_p-(\beta_0x_0+\beta_1x_1+\beta_2x_2),\qquad \sum_i\beta_i=1.</latex></p>
+
+<p>边-边接触可写：</p>
+
+<p align="center"><latex>\displaystyle d=(1-s)x_a+s x_b-[(1-t)x_c+t x_d],\qquad s,t\in[0,1].</latex></p>
+
+<p>冻结最近点权重和法线时，约束梯度为“插值权重 × 法线”，GN 块是这些梯度外积。完整分区切换、共拓扑过滤、退化边/面与解缠符号需检查对应 query/accumulate 分支；本文不声称上面的距离模型已穷尽 edge-face 的解缠行为。</p>
+
+<p><span>multiply_contact_tangents</span> 和对角 Hessian 的 add/multiply 入口，使自碰撞可以作为局部线性算子接入 PCG。</p>
+
+<p>依据：粒子盒（工作区路径：recover/human/build_particle_aabbs.cu）、边盒（工作区路径：recover/human/build_edge_aabbs.cu）、escape（工作区路径：recover/human/build_escape_nodes.cu）、Morton PTX（工作区路径：kernels/lbvh_builder/004_generate_morton_codes.ptx）。</p>
+
+<h1 seq="auto">流体密度约束、空间哈希与步长限制</h1>
+
+<whiteboard type="svg" path="@./draft_b1f312c1_folder/06_fluid.svg" />
+
+<p>图 6：密度约束以 Jacobian 行参与统一求解；固定边界只贡献采样，不获得动态自由度。</p>
+
+<h2 seq="auto">模块链路</h2>
+
+<p>八个流体 kernel 的功能依赖为：</p>
+
+<pre lang="plaintext"><code>build_grid → evaluate_rows → accumulate_rows / multiply_rows / add_diagonal
+                               ↓
+                 initialize_scale → bound_scale → scale_step</code></pre>
+
+<p>它不是“先单独求一个传统压力 Poisson 方程”的唯一可能架构。这里可见的是密度约束残差、Jacobian 行、力/预条件积累及矩阵作用，并作为 Newton 系统的一部分工作。</p>
+
+<h2 seq="auto">空间哈希网格</h2>
+
+<p>网格边长来自 <span>fluid_smoothing_radius</span>，记为 <latex>h_f</latex>。网格坐标为：</p>
+
+<p align="center"><latex>\displaystyle c=\left\lfloor x/h_f\right\rfloor.</latex></p>
+
+<p>PTX 使用向负无穷取整。坐标为负时，floor 与向零截断不同，这是复现时的关键细节。</p>
+
+<p>哈希函数的实际常数为：</p>
+
+<p align="center"><latex>\displaystyle H(c)=\big[(c_x\cdot73856093)\oplus(c_y\cdot19349663)\oplus(c_z\cdot83492791)\big]\ \mathbin{\mathrm{AND}}\ (S-1).</latex> 其中 AND 表示按位与。</p>
+<p>此处使用位掩码；若希望它等价于对槽数取模，需要 <latex>S</latex> 为适当的二次幂。槽中通过原子交换插入链表头，将旧头写成该元素的 <span>next</span>。</p>
+
+<p>查询枚举周围 <latex>3^3=27</latex> 个网格。哈希碰撞之后还要验证实际网格坐标；不能把同一个哈希槽的全部元素当成同一格子。还要检查世界编号，避免不同世界粒子相互作用。</p>
+
+<h2 seq="auto">流体粒子与固定边界的统一体积权重</h2>
+
+<p><span>build_grid</span> 对流体粒子计算：</p>
+
+<p align="center"><latex>\displaystyle V_j=m_j/\rho_0.</latex></p>
+
+<p>固定边界采样点使用接口提供的 <span>fluid_boundary_volumes</span>。它们是固定位置的体积积分采样点，接口明确说不是 collision shape。</p>
+
+<p>因此密度估计可写成归一化量：</p>
+
+<p align="center"><latex>\displaystyle \bar\rho_i=\sum_j V_jW(x_i-x_j).</latex></p>
+
+<p>该表达包含流体粒子和相容的边界采样点。边界提供密度贡献，但不能像动态粒子一样分配未知位移。</p>
+
+<h2 seq="auto">实际核函数：poly6 形式</h2>
+
+<p>从 <span>evaluate_rows</span> 的常数与乘法链可确认：</p>
+
+<p align="center"><latex>\displaystyle W(r)=\frac{315}{64\pi h_f^3}\left[\max\left(1-\frac{\|r\|^2}{h_f^2},0\right)\right]^3.</latex></p>
+
+<p>记 <latex>z=\max(1-\|r\|^2/h_f^2,0)</latex>，其内部梯度是：</p>
+
+<p align="center"><latex>\displaystyle \nabla W(r)=-\frac{945}{32\pi h_f^5}z^2r.</latex></p>
+
+<p>PTX 常数解码为 1.566681385… 和 -9.400088310…，分别匹配 <latex>315/(64\pi)</latex> 与 <latex>-945/(32\pi)</latex> 的 float 近似。</p>
+
+<h2 seq="auto">只对过密激活的残差</h2>
+
+<p><span>evaluate_rows</span> 最终写入：</p>
+
+<p align="center"><latex>\displaystyle c_i=\max(\bar\rho_i-1,0).</latex></p>
+
+<p>因此这条密度项主要抑制过度压缩；在欠密区域不会以同一项继续产生对称的拉回力。不能将它解释成无条件的 <latex>(\bar\rho_i-1)^2</latex> 双边约束。</p>
+
+<p>令 <latex>a_i</latex> 为网格点 <latex>i</latex> 对应的物理粒子编号。活动区的 Jacobian 为：</p>
+
+<p align="center"><latex>\displaystyle J_{i,a_i}=\sum_{j\ne i}V_j\nabla W(x_i-x_j),\qquad J_{i,a_j}=-V_j\nabla W(x_i-x_j).</latex></p>
+
+<p>中心项的和包含相容边界采样点；第二式只对动态邻居成立。世界编号等于当前世界或为 <span>-1</span> 的采样点可参与查询；物理粒子编号为负的边界不进入动态邻居缓存，不接收力、矩阵乘输出或自由度。</p>
+
+<p>每行活动权重为：</p>
+
+<p align="center"><latex>\displaystyle k_i=\begin{cases}K V_i,&amp;\bar\rho_i&gt;1,\\0,&amp;\bar\rho_i\le1.\end{cases}</latex></p>
+
+<p><latex>K</latex> 来自 <span>fluid_bulk_modulus</span>。残差、中心梯度和权重按流体行编号存储，邻居缓存存的是<b>网格点编号</b>；写入最终力和矩阵输出前，必须再通过 <span>particle_ids</span> 映射到物理粒子编号。</p>
+
+<h2 seq="auto">行式 GN 装配</h2>
+
+<p>用 <latex>J_i</latex> 表示一个密度残差的稀疏 Jacobian 行，<latex>k_i</latex> 表示活动权重。<span>accumulate_rows</span> 的结构对应：</p>
+
+<p align="center"><latex>\displaystyle f\mathrel{+}=-k_i c_iJ_i^T,</latex></p>
+
+<p align="center"><latex>\displaystyle D_j\mathrel{+}=k_iJ_{ij}^TJ_{ij}.</latex></p>
+
+<p>矩阵作用可以按两步完成：</p>
+
+<p align="center"><latex>\displaystyle s_i=J_ip,\qquad y\mathrel{+}=k_iJ_i^Ts_i.</latex></p>
+
+<p>这样无需把该约束涉及的所有邻居两两耦合块都显式存入大稀疏矩阵。它仍然表示耦合算子 <latex>J_i^Tk_iJ_i</latex>，并不是只保留了对角项。</p>
+
+<h3 seq="auto">邻居配对黏性项</h3>
+
+<p>记 <latex>r_{ij}=x_i-x_j</latex>，时间步为 <latex>h</latex>，平滑半径为 <latex>h_f</latex>，黏性系数为 <latex>\mu</latex>。对于支撑半径内的动态邻居，只有网格编号 <latex>j&gt;i</latex> 的一侧生成非零配对系数，避免重复装配：</p>
+
+<p align="center"><latex>\displaystyle \nu_{ij}=\frac{-2\mu V_iV_j\,[r_{ij}\cdot\nabla W(r_{ij})]}{(\|r_{ij}\|^2+0.01h_f^2)h}.</latex></p>
+
+<p>当 <latex>\mu\le0</latex> 或不满足配对方向时，缓存标量为零。正常正体积、正时间步下，<latex>r\cdot\nabla W\le0</latex>，因而 <latex>\nu_{ij}\ge0</latex>。缓存 <span>vec4.xyz</span> 为 <latex>-V_j\nabla W</latex>，<span>vec4.w</span> 为 <latex>\nu_{ij}</latex>。主机将 <span>fluid_viscosity</span> 和时间步分别放入 View 的 <span>+104</span> 和 <span>+108</span> 字节位置，明确了系数中的时间缩放。</p>
+
+<p>令 <latex>y</latex> 为 <span>accumulate_rows</span> 的参考坐标实参，定义相对位移差：</p>
+
+<p align="center"><latex>\displaystyle d_{ij}=(x_{a_i}-x_{a_j})-(y_{a_i}-y_{a_j}).</latex></p>
+
+<p>则黏性对力、对角块和矩阵作用的贡献分别是：</p>
+
+<p align="center"><latex>\displaystyle f_{a_i}\mathrel{+}=-\nu_{ij}d_{ij},\qquad f_{a_j}\mathrel{+}=\nu_{ij}d_{ij},</latex></p>
+
+<p align="center"><latex>\displaystyle D_{a_i}\mathrel{+}=\nu_{ij}I_3,\qquad D_{a_j}\mathrel{+}=\nu_{ij}I_3,</latex></p>
+
+<p align="center"><latex>\displaystyle (Ap)_{a_i}\mathrel{+}=\nu_{ij}(p_{a_i}-p_{a_j}),\qquad (Ap)_{a_j}\mathrel{+}=-\nu_{ij}(p_{a_i}-p_{a_j}).</latex></p>
+
+<p>这表示冻结当前配对系数后的图 Laplacian 作用。系数本身依赖当前几何，而矩阵乘入口没有对 <latex>\nu_{ij}(x)</latex> 再求导，不能把它写成包含全部系数导数的精确 Hessian。相应冻结系数二次型是 <latex>\frac12\nu_{ij}\|d_{ij}\|^2</latex>。</p>
+
+<p>黏性项独立于压力激活条件：即使 <latex>\bar\rho_i\le1</latex>、<latex>k_i=0</latex>，满足条件的动态配对仍可产生黏性贡献。固定边界会影响压力的中心梯度，但上述黏性配对不为负粒子编号的固定边界生成。</p>
+
+<h2 seq="auto">64 邻居缓存与回退</h2>
+
+<p><span>evaluate_rows</span> 只有在邻居槽编号不大于 63 时才写入固定邻居缓存，但实际计数继续增长。<span>accumulate_rows</span> 又对计数小于 65 与更大的情况区分路径，后者包含重新遍历逻辑。</p>
+
+<p>设行的动态邻居数为 <latex>N_i</latex>。当 <latex>N_i\le64</latex> 时，<span>accumulate_rows</span> 和 <span>multiply_rows</span> 使用缓存；当 <latex>N_i\ge65</latex> 时，它们重新查询 27 个网格，重新计算邻居梯度与黏性系数，而不是只保留缓存前 64 个邻居。边界不计入这个动态邻居数，自身也不计入。</p>
+
+<p>独立 GPU 场景分别使用 65 与 66 个紧密分布的动态粒子，使每行恰有 64 与 65 个动态邻居，同时加入全局边界、同世界边界和应被排除的另一世界边界。原始 PTX 与机械翻译分别对照完整稠密公式；残差、权重、中心梯度、计数、缓存系数、力、块对角和矩阵作用均通过。该验证还使用非单位体积、非零黏性、非单位时间步及非恒等粒子编号映射，见 流体专项脚本（工作区路径：validate/review_fluid_paths.py）。</p>
+
+<h2 seq="auto">Newton 位移的世界级缩放</h2>
+
+<p>令初始 relaxation 为 <latex>\eta_0</latex>，最大允许位移尺度为 <latex>d_{max}</latex>。单个流体粒子提供：</p>
+
+<p align="center"><latex>\displaystyle \eta_i=\begin{cases}
+\eta_0,&amp;d_{max}\le0\ \text{或}\ \|\Delta x_i\|\le d_{max},\\
+\min(\eta_0,d_{max}/\|\Delta x_i\|),&amp;\text{其他情况}.
+\end{cases}</latex></p>
+
+<p>主机先把每个世界的尺度初始化为 <latex>1</latex>，再对该世界的流体粒子取原子最小值：</p>
+
+<p align="center"><latex>\displaystyle \eta_w=\min\left(\{1\}\cup\{\eta_i:world(i)=w\}\right).</latex></p>
+
+<p>因此没有流体粒子参与归约的世界保留 <latex>1</latex>。随后相应坐标更新量统一缩放：</p>
+
+<p align="center"><latex>\displaystyle \Delta x_j\leftarrow\eta_{world(j)}\Delta x_j.</latex></p>
+
+<p><span>Fluid::limit_step</span> 在 <span>0x120fa4</span> 直接计算 <latex>d_{max}=\texttt{fluid\char95 max\char95 step\char95 ratio}\cdot h_f</latex>，随后调用 <span>bound_scale</span>。默认 relaxation=0.5、max-step-ratio=0.25。后者为零表示关闭额外位移上界；有流体参与的世界仍会合并 relaxation 限制。</p>
+<p>原 PTX 对非负 float 的位表示使用整数原子 min。此技巧依赖正数 float 的位序与数值顺序一致；不能扩展到任意负数、NaN。</p>
+
+<p>步长归约使用原子最小值，建网插入使用原子交换；两者分别对应全局约束合并和链表结构更新。</p>
+
+<p>依据：流体核/行（工作区路径：kernels/fluid/005_evaluate_rows.ptx）、网格（工作区路径：kernels/fluid/004_build_grid.ptx）、步长限制（工作区路径：kernels/fluid/003_bound_scale.ptx）、步长缩放（工作区路径：recover/human/scale_step.cu）。</p>
+
+<h2 seq="auto">112 字节 View 的字段契约</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>字节偏移</p></th><th background-color="light-gray"><p>类型</p></th><th background-color="light-gray"><p>数据含义</p></th></tr></thead><tbody><tr><td><p>0 / 8</p></td><td><p><span>int* / int*</span></p></td><td><p>哈希头 <span>head</span> / 网格点链表 <span>next</span></p></td></tr><tr><td><p>16 / 24</p></td><td><p><span>int* / int*</span></p></td><td><p>网格点到物理粒子编号 / 世界编号</p></td></tr><tr><td><p>32 / 40</p></td><td><p><span>int3* / float3*</span></p></td><td><p>网格点格号 / 网格点坐标</p></td></tr><tr><td><p>48</p></td><td><p><span>float*</span></p></td><td><p>每个网格点的体积权重</p></td></tr><tr><td><p>56</p></td><td><p><span>int*</span></p></td><td><p>每个流体行的实际动态邻居数</p></td></tr><tr><td><p>64</p></td><td><p><span>int*</span></p></td><td><p>每行 64 个网格点编号的缓存</p></td></tr><tr><td><p>72</p></td><td><p><span>float4*</span></p></td><td><p>每行 64 个梯度与黏性系数的缓存</p></td></tr><tr><td><p>80</p></td><td><p><span>int</span></p></td><td><p>哈希槽数 <latex>S</latex></p></td></tr><tr><td><p>84</p></td><td><p><span>int</span></p></td><td><p>每世界网格点步幅 <latex>P</latex>，包括边界采样</p></td></tr><tr><td><p>88</p></td><td><p><span>int</span></p></td><td><p>每世界流体粒子数 <latex>F</latex></p></td></tr><tr><td><p>92</p></td><td><p><span>int</span></p></td><td><p>总流体行数 <latex>N_f</latex></p></td></tr><tr><td><p>96 / 100 / 104 / 108</p></td><td><p>四个 <span>float</span></p></td><td><p><latex>h_f,K,\mu,h</latex></p></td></tr></tbody></table>
+
+<p>流体行 <latex>i</latex> 对应中心网格点 <latex>q=\lfloor i/F\rfloor P+(i\bmod F)</latex>，再读取 <span>particle_ids[q]</span> 得到输出自由度编号。这里的 <latex>F</latex>、<latex>P</latex>、总流体行数是三个不同量；缓存按流体行分配，而网格几何和体积按网格点分配。</p>
+
+<p>主机来源见 实参数据链（工作区路径：host/VERIFIED_ARGUMENTS_ZH.md），专项结果见 原始 PTX（工作区路径：validate/fluid_original_results.json） 与 机械 CUDA（工作区路径：validate/fluid_mechanical_results.json）。上述局部场景的通过不替代多世界完整流体 step 的轨迹验证。</p>
+
+<h1 seq="auto">颗粒接触、黏结、塑性与断裂</h1>
+
+<h2 seq="auto">接触与键是两个不同的机制</h2>
+
+<p>颗粒通过空间网格搜索邻居，接触项处理粒子靠近/重叠的排斥与相关耗散；bond 项处理已连接颗粒之间的黏结。两者分别有 accumulate 和 multiply kernel。</p>
+
+<p>接口明确说颗粒集合与流体、弹性、仿射对象选择分离；黏结的塑性历史属于 Solver；初始键断裂在同一 Solver 内不可逆。存在 <span>form_bonds</span> 表示还支持按条件形成动态键，但不能据此假定断裂的同一初始键会自动复活。</p>
+
+<h2 seq="auto">键的力评估中的有效长度</h2>
+
+<p><span>accumulate_bonds</span> 同时读取一个原始长度数组与一个历史长度数组。记原始尺度为 <latex>L_0</latex>，当前历史长度为 <latex>L_h</latex>，当前几何长度为 <latex>l</latex>，最大压实参数为 <latex>c</latex>，yield 参数为 <latex>y</latex>。</p>
+
+<p>从算术可读出有效长度：</p>
+
+<p align="center"><latex>\displaystyle L_{eff}=\max\left[(1-c)L_0,\ \min(L_h,l+yL_0)\right].</latex></p>
+
+<p>这同时包含相对原始长度的下限、历史长度上限和随当前长度变化的内部塑性区间。弹性标量力是 <latex>-k(l-L_{eff})</latex>，沿 <latex>n=(x_a-x_b)/l</latex> 施加。</p>
+
+<p>阻尼分支计算当前长度与另一组坐标长度 <latex>l_{ref}</latex> 的差，形式为：</p>
+
+<p align="center"><latex>\displaystyle f_a=\left[-k(l-L_{eff})-d_s(l-l_{ref})\right]n,\qquad f_b=-f_a.</latex></p>
+
+<p>其中 <latex>d_s</latex> 由 bond damping 与函数的时间尺度参数相除形成。这里保留该代数系数，不假定传入量一定是 <latex>h</latex>。</p>
+
+<p>超过 <span>granular_break_strain</span> 对应阈值的键不提供当前装配贡献。活动状态最终如何提交要结合 <span>commit_bonds</span>。</p>
+
+<h2 seq="auto">键切线的稳定结构</h2>
+
+<p>令轴向项 <latex>k_a</latex> 在有效长度严格处于两端夹紧边界之间时为 0，否则为 <latex>k</latex>；再定义：</p>
+
+<p align="center"><latex>\displaystyle k_t=\frac{k\max(l-L_{eff},0)}{\max(l,10^{-8})}.</latex></p>
+
+<p>代码存储的键矩阵具有：</p>
+
+<p align="center"><latex>\displaystyle B=k_tI+(d_s+k_a-k_t)nn^T.</latex></p>
+
+<p>横向刚度使用了正部，避免把压缩时可能为负的几何刚度直接带入这一矩阵。内部塑性区间轴向弹性切线置零，与 <latex>L_{eff}</latex> 随 <latex>l</latex> 一起变化的分段结构一致。</p>
+
+<p>这段公式来自 <span>accumulate_bonds</span> 的实际算术；它与简单的全程线性弹簧不同。</p>
+
+<h2 seq="auto">键矩阵作用</h2>
+
+<p><span>multiply_bonds</span> 的精确操作是：</p>
+
+<p align="center"><latex>\displaystyle z=B(p_a-p_b),\qquad y_a\mathrel{+}=z,\qquad y_b\mathrel{-}=z.</latex></p>
+
+<p>这正是局部 <latex>\begin{bmatrix}B&amp;-B\\ -B&amp;B\end{bmatrix}</latex> 对向量的作用。输入 <latex>p</latex> 是求解器向量，不能因为 kernel 变量叫 <span>x</span> 就把这个乘法入口误认为又算了一次实际位置上的物理力。</p>
+<h2 seq="auto">提交阶段：历史长度与断裂状态</h2>
+
+<p><span>commit_bonds</span> 将当前几何状态提交到每条键的历史长度和活动标记。非活动键直接跳过。</p>
+
+<p>原 PTX 的参数/字段对应为：</p>
+
+<table><thead><tr><th background-color="light-gray"><p>来源</p></th><th background-color="light-gray"><p>作用</p></th></tr></thead><tbody><tr><td><p><span>param_3</span> 的只读 float 数组</p></td><td><p>原始长度尺度 <latex>L_0</latex></p></td></tr><tr><td><p><span>param_4</span> 的可写 float 数组</p></td><td><p>当前历史长度 <latex>L_h</latex>，并写回更新值</p></td></tr><tr><td><p><span>Model+324</span></p></td><td><p><span>granular_break_strain</span>，记为 <latex>b</latex></p></td></tr><tr><td><p><span>Model+320</span></p></td><td><p><span>granular_max_compaction</span>，记为 <latex>c</latex></p></td></tr><tr><td><p><span>Model+316</span></p></td><td><p><span>granular_yield_strain</span>，记为 <latex>y</latex></p></td></tr></tbody></table>
+
+<p>断裂判定是：</p>
+
+<p align="center"><latex>\displaystyle l&gt;L_h(1+b)\quad\Longrightarrow\quad active=0.</latex></p>
+
+<p>未断裂时，提交公式是：</p>
+
+<p align="center"><latex>\displaystyle L_h^{new}=\max\left[L_0(1-c),\ \min(L_h,l+yL_0)\right].</latex></p>
+
+<p>这与前面 <span>accumulate_bonds</span> 的有效长度表达一致。主机已确认初始键累积与提交均使用 <span>Granular+0x930</span> 的原始长度和 <span>+0x950</span> 的历史长度；动态键两处均使用 <span>+0xa10</span> 与 <span>+0xa30</span>。两个入口的形参排列不同，但实际设备缓冲相同，见 颗粒绑定表（工作区路径：host/VERIFIED_ARGUMENTS_ZH.md#3-颗粒原始长度与历史长度的跨入口绑定）。</p>
+
+<p>在通常的初值 <latex>L_h=L_0</latex> 和合法历史 <latex>L_h\ge L_0(1-c)</latex> 下，该更新使历史长度只缩不涨，并保留相对原始长度的压实下限：</p>
+
+<p align="center"><latex>\displaystyle L_0(1-c)\le L_h^{new}\le L_h.</latex></p>
+
+<p>已有默认值为 <latex>y=0.03,c=0.4,b=0.1</latex>。其含义是：压实下限为原始长度的 60%；塑性长度相对当前几何长度保留 <latex>0.03L_0</latex> 的屈服带；断裂阈值相对当前历史长度为 10% 拉伸。</p>
+
+<p>例如 <latex>L_0=1,L_h=1</latex>：</p>
+
+<ul><li><latex>l=0.8</latex>：<latex>L_h^{new}=\max(0.6,\min(1,0.83))=0.83</latex>；</li><li><latex>l=0.5</latex>：<latex>L_h^{new}=\max(0.6,\min(1,0.53))=0.6</latex>；</li><li><latex>l=1.11</latex>：超过 <latex>1\times1.1</latex>，断裂且不再执行长度更新。</li></ul>
+
+<p>这里的 <latex>y</latex> 定义屈服带宽，<latex>c</latex> 定义相对原始长度的最大压实比例，<latex>b</latex> 定义相对当前历史长度的断裂应变。三个参数的参考长度和作用阶段不同。</p>
+
+<h2 seq="auto">动态键形成</h2>
+
+<p><span>form_bonds</span> 使用空间邻居、已有邻接/活动记录、距离间隙、相对运动速度和容量约束。字段明确包括 <span>granular_bond_formation_gap</span>、<span>granular_bond_formation_speed</span>、<span>granular_max_dynamic_bonds</span>。</p>
+
+<p>几何上可以理解为“足够靠近、相对运动足够小、没有重复键且容量允许时形成连接”。确切的 gap 是否加在半径和上、速度是否经过时间尺度换算、候选择优与 tie-break 的全部细节，本次未完整归一化，不应仅用一句距离阈值代码替代该 kernel 的所有分支。</p>
+
+<p>依据：键力/切线装配（工作区路径：recover/src/granular/synreal__granular_kernel__accumulate_bonds.cu）、键乘法（工作区路径：recover/human/multiply_bonds.cu）、键提交原始 PTX（工作区路径：kernels/granular/005_commit_bonds.ptx）、动态键形成（工作区路径：recover/src/granular/synreal__granular_kernel__form_bonds.cu）。</p>
+
+<h1 seq="auto">Cosserat 线缆与历史状态</h1>
+
+<h2 seq="auto">线缆模块覆盖什么</h2>
+
+<p>API 将线缆称为 Cosserat cable joints，并提供 body pairs、parent/child frames、stretch/shear/bend/twist stiffness 与 damping、rest bend/twist、可选 enabled 标记，以及 angular Dahl stress/tangent。</p>
+
+<p>因此它描述的是带方向和转动的杆/线缆连接，而不只是两个端点之间的长度弹簧。</p>
+
+<h2 seq="auto">原理层面的应变分解</h2>
+
+<p>设相邻段的局部坐标架为 <latex>(t_p,R_p)</latex>、<latex>(t_c,R_c)</latex>。平移差转到材料坐标系后描述伸长/剪切，相对旋转描述弯曲/扭转。</p>
+
+<p>用 <latex>e_s\in\mathbb R^3</latex> 和 <latex>e_\kappa\in\mathbb R^3</latex> 分别表示它们，可写解释能量：</p>
+
+<p align="center"><latex>\displaystyle E_{cable}=\frac12e_s^TK_se_s+\frac12e_\kappa^TK_\kappa e_\kappa.</latex></p>
+
+<p>理想杆的轴向分量对应 stretch，横向分量对应 shear；相对旋转的两个横向分量对应 bend，轴向分量对应 twist。</p>
+
+<p><b>这不是已恢复的离散应变定义</b>：具体使用何种旋转参数、长度归一化、parent/child frame 顺序、三角函数分支及局部 Jacobian，不能从接口唯一推出。<span>evaluate_cables</span> 本身体量很大，本文不假称已逐分支恢复。</p>
+
+<h2 seq="auto">四个专用 kernel 的职责</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>kernel</p></th><th background-color="light-gray"><p>已能确认的职责</p></th><th background-color="light-gray"><p>未完全确认的细节</p></th></tr></thead><tbody><tr><td><p><span>prepare_cable_penalties</span></p></td><td><p>生成/延续每条线缆四种罚参数，施加初始下限、材料上限与跨步衰减</p></td><td><p>各布尔状态在每个调用点的来源</p></td></tr><tr><td><p><span>prepare_cable_tangents</span></p></td><td><p>准备线缆的几何/旋转切线数据</p></td><td><p>完整旋转映射、所有退化处理</p></td></tr><tr><td><p><span>evaluate_cables</span></p></td><td><p>伸长、剪切、弯曲、扭转及相关历史项的评估</p></td><td><p>每种模式对应的输出/标志含义</p></td></tr><tr><td><p><span>update_cable_penalties</span></p></td><td><p>根据当前非线性状态更新罚参数</p></td><td><p>精确残差度量与每个 beta 分支</p></td></tr></tbody></table>
+
+<h2 seq="auto">已读出的罚参数夹紧</h2>
+
+<p><span>prepare_cable_penalties</span> 后半段对各通道执行同一类结构：</p>
+
+<p align="center"><latex>\displaystyle k_{new}=\min(k_{authored},\max(k_{floor},\gamma_{eff}k_{old})).</latex></p>
+
+<p>新建/重置时使用初始值；是否应用衰减取决于标志，未应用时 <latex>\gamma_{eff}=1</latex>。线性与角度通道的 floor 可能由不同 start 参数与 beta 是否启用决定。</p>
+
+<p>接口说明 linear/ angular beta 为零时使用 authored stiffness；gamma 是跨步衰减且被 floor 和 cap 夹紧。因此不能写成“所有线缆每次迭代无条件乘 gamma”。</p>
+
+<h2 seq="auto">Dahl 历史的意义</h2>
+
+<p><span>cable_angular_bias</span> 和 <span>cable_angular_hessian</span> 表明角度响应可带历史应力和其切线。这意味着同样的当前几何，在不同加载历史下可能产生不同响应。</p>
+
+<p>本次没有恢复确切 Dahl 更新微分方程、离散化和饱和参数，因此不把通用 Dahl 摩擦模型的某个版本填入文档冒充实现。</p>
+
+<h2 seq="auto">编译常量与数值验证</h2>
+
+<p>线缆的三角函数慢路径依赖 <span>__cudart_i2opi_f</span> 等常量表。独立加载相应 PTX 时，需要同时提供这些全局常量数据，以及符合布局和容量约束的 <span>CableView</span> 与状态数组。</p>
+
+<p>依据：API（工作区路径：api_surface.txt）、准备罚参数（工作区路径：recover/src/solver_newton/synreal__kernel__prepare_cable_penalties.cu）、现有验证状态（工作区路径：FINAL_SUMMARY.md）。</p>
+
+<h1 seq="auto">空气阻力</h1>
+
+<h2 seq="auto">三角形法向阻力</h2>
+
+<p><span>initialize_triangle_drag</span> 准备几何方向与面积相关量；<span>evaluate_triangle_drag</span> 使用三角形三个节点的位移差，平均后乘时间尺度，再减风速。</p>
+
+<p>记：</p>
+
+<p align="center"><latex>\displaystyle v_c=\frac{s}{3}\sum_{i=0}^2(x_i-x_i^{ref}),\qquad u=(v_c-v_{wind})\cdot n.</latex></p>
+
+<p>主机 <span>0xfc5c9</span> 调用明确传入 <latex>s=1/h</latex>，因此 <latex>v_c</latex> 是两组输入坐标间三角形质心的离散速度。代码中三个节点得到相同的力：</p>
+
+<p align="center"><latex>\displaystyle f_i=-\frac{\rho_{air}C_dA}{6}u|u|n.</latex></p>
+
+<p>总三角形力为：</p>
+
+<p align="center"><latex>\displaystyle F=-\frac12\rho_{air}C_dA\,u|u|n.</latex></p>
+
+<p>这就是法向速度平方阻力，方向始终与法向相对运动相反；风切换方向时 <latex>u|u|</latex> 的符号也改变。</p>
+
+<h2 seq="auto">冻结几何后的切线</h2>
+
+<p>在固定 <latex>n,A</latex> 时，<latex>d(u|u|)/du=2|u|</latex>，各节点之间的正切线块具有：</p>
+
+<p align="center"><latex>\displaystyle H_{ij}^{drag}=\frac{\rho_{air}C_dA|u|s}{9}nn^T.</latex></p>
+
+<p>代码存储的标量系数与这一结构一致。<span>multiply_triangle_drag_tangent</span> 提供完整三点耦合作用；<span>add_triangle_drag_preconditioner</span> 对三个顶点分别累加相应 <latex>w nn^T</latex> 对角块。</p>
+
+<p>这里没有对法线和面积求完整位置导数，因此更准确的描述是当前几何冻结后的速度阻力切线。</p>
+
+<p>默认空气密度约 1.225 kg/m³，风速为零；<span>air_density=0</span> 禁用空气阻力。材料 <span>Cd</span> 为非负可选值，碰撞表面不存在时接口允许回退使用弹性三角形拓扑。</p>
+
+<p>依据：阻力评估（工作区路径：recover/src/solver_newton/synreal__kernel__evaluate_triangle_drag.cu）、阻力预条件（工作区路径：recover/human/add_triangle_drag_preconditioner.cu）。</p>
+
+<h1 seq="auto">GPU 实现、内存与复杂度</h1>
+
+<h2 seq="auto">约束并行与原子散射</h2>
+
+<p>弹簧、三角形、四面体、接触等通常按约束并行。一个线程计算局部几何与力，再向多个顶点散射。不同约束共享顶点，所以输出使用 <span>atomicAdd</span>。</p>
+
+<p>例如一个三角形膜内力有三个顶点 × 三个分量，即 9 次标量累加；一个四面体力有 12 次。原子数量可辅助识别散射规模，但有分支、零值原子、多个输出数组和展开时，不能据总数唯一推断物理含义。</p>
+
+<p>浮点加法不满足严格结合律，线程调度变化会改变累加次序。因此物理等价实现也可能有微小舍入差异；反之，一次测试逐字节一致也不覆盖未执行分支。</p>
+
+<h2 seq="auto">为什么算子乘法常比完整装配节省空间</h2>
+
+<p>一个约束涉及 <latex>m</latex> 个三维点。如果显式存所有两两 <latex>3\times3</latex> 块，空间可能与 <latex>m^2</latex> 成正比。若约束是少数标量残差，使用 <latex>Jp</latex>、再 <latex>J^T(Jp)</latex>，代价通常与 Jacobian 非零数量成正比。</p>
+
+<p>流体密度约束是明显例子：一个粒子关联多个邻居，显式邻居两两块很昂贵；按行存梯度再作用可以保留耦合同时减少存储。bond/contact 的二点块则可以直接用相对向量差避免存四个重复带符号块。</p>
+
+<h2 seq="auto">融合 kernel 与归约</h2>
+
+<p>PCG 的融合 kernel 把矩阵乘法与点积，或解/残差更新与能量归约结合，减少一次全局数组遍历和部分 launch 开销。</p>
+
+<p>这不代表“完全没有同步成本”：全局内积仍需要跨 block 汇总，相关 CUDA/CUB 调用可能造成依赖。真实性能需测 stream、Graph、归约和主机读回的完整轨迹；仅从 <span>cudaMemcpyAsync</span> 字样不能量化每次迭代延迟。</p>
+
+<h2 seq="auto">基础数据类型</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>类型/布局</p></th><th background-color="light-gray"><p>观测尺寸</p></th><th background-color="light-gray"><p>解释</p></th></tr></thead><tbody><tr><td><p><span>vec3</span></p></td><td><p>12 B</p></td><td><p>3 个 float；不能默认按 16 B 步幅</p></td></tr><tr><td><p><span>mat3</span></p></td><td><p>36 B</p></td><td><p>9 个 float，GLM 风格列主序需按使用核对</p></td></tr><tr><td><p><span>NonZeroEntry</span></p></td><td><p>8 B</p></td><td><p>列号 + 标量</p></td></tr><tr><td><p><span>BlockNonZeroEntry</span></p></td><td><p>40 B</p></td><td><p>列号 + 9 个 float</p></td></tr><tr><td><p><span>Span&lt;T&gt;</span></p></td><td><p>16 B</p></td><td><p>指针 + 元素个数；size 是元素数，不是字节数</p></td></tr><tr><td><p><span>Aabb</span></p></td><td><p>24 B</p></td><td><p>3 个 min + 3 个 max</p></td></tr><tr><td><p><span>fluid::View</span></p></td><td><p>112 B</p></td><td><p>一组指针、计数与标量</p></td></tr><tr><td><p><span>granular::View</span></p></td><td><p>120 B</p></td><td><p>与其他同尺寸 View 不能混用</p></td></tr><tr><td><p><span>CableView</span></p></td><td><p>160 B</p></td><td><p>不能仅凭一个已知偏移构造合法对象</p></td></tr><tr><td><p><span>RollingContactView</span></p></td><td><p>248 B</p></td><td><p>按值结构，部分字段经 local 拷贝访问</p></td></tr><tr><td><p><span>SurfaceContactView</span></p></td><td><p>296 B</p></td><td><p>同上</p></td></tr><tr><td><p><span>HardContactView</span></p></td><td><p>312 B</p></td><td><p>同上</p></td></tr><tr><td><p><span>Model</span></p></td><td><p>1864 B</p></td><td><p>kernel 按值传递的大结构</p></td></tr></tbody></table>
+
+<p><span>VIEW_LAYOUT.md</span> 某些表按 sizeof 聚类，而不是按完整类型名隔离。例如 120 B 同时涉及颗粒 View 与 joint View。<b>同尺寸不是同类型；u64 读写也不自动等于指针</b>，它还可能是 size、打包数值或其他 64 位字段。</p>
+
+<h2 seq="auto">数量级复杂度</h2>
+
+<p>记自由度条目数为 <latex>N</latex>，存储矩阵非零块数为 <latex>Z</latex>，物理约束数为 <latex>C</latex>，候选/真实邻居总量为 <latex>Q</latex>，外迭代数为 <latex>I_N</latex>，PCG 次数为 <latex>I_L</latex>。</p>
+
+<p>粗略成本可写：</p>
+
+<p align="center"><latex>\displaystyle T_{step}\approx T_{search}+I_N\left[T_{force}+T_{preconditioner}+I_L(T_{Ap}+T_{vector}+T_{reduce})\right].</latex></p>
+
+<p>其中存储矩阵乘法约 <latex>O(Z)</latex>，逐约束计算约 <latex>O(C)</latex>，邻居相关部分约 <latex>O(Q)</latex>。空间哈希在分布合理时可接近线性，但极端聚集、槽冲突和邻居爆炸会使代价显著上升。BVH 同样只提供加速结构，不能保证任何场景都稳定为固定的对数访问量。</p>
+
+<p>性能热点既可能是大寄存器/局部数组 kernel，也可能是高冲突的 atomic scatter 或频繁全局归约。SASS 指令数和 PTX 行数不能直接当作运行时间排序。</p>
+
+<h2 seq="auto">预条件效果与病态系统</h2>
+
+<p>刚度大、质量尺度差异大、接触耦合强、近退化单元和各向异性比值大，都可能使条件数恶化。较好的对象块预条件可降低迭代误差，但不会修改原始物理模型；禁用非对角碰撞切线则可能直接修改当前线性化模型。</p>
+
+<p>若 <latex>A</latex> 为 SPD，PCG 的经典收敛性质与预条件后的谱分布有关。但本项目有摩擦、分段历史与近似切线，不能不检查对称性/正定性就引用 SPD 的收敛保证。</p>
+
+<h1 seq="auto">配置逐项说明</h1>
+
+<p>以下默认值取自仓库 CONFIG_DEFAULTS.md（工作区路径：CONFIG_DEFAULTS.md），不是本次重新 import 导出。浮点值保留导出精度，避免把单精度误差误解成特殊参数。说明结合 <span>api_surface.txt</span>；配置影响的是随后执行的 step，已捕获 CUDA Graph 需要重建。</p>
+
+<table><thead><tr><th background-color="light-gray"><p>配置项</p></th><th background-color="light-gray"><p>默认值</p></th><th background-color="light-gray"><p>含义与边界</p></th></tr></thead><tbody><tr><td><p><span>affine_body_block_preconditioner</span></p></td><td><p><span>False</span></p></td><td><p>是否使用完整 affine-body 块逆作为 PCG 预条件器。</p></td></tr><tr><td><p><span>affine_body_contact_block_preconditioner</span></p></td><td><p><span>True</span></p></td><td><p>是否把硬接触交叉项纳入 affine-body 预条件块；不改变接触算子。</p></td></tr><tr><td><p><span>affine_body_rigidity_model</span></p></td><td><p><span>&lt;AffineBodyRigidityModel.SO3_AUGMENTED_LAGRANGIAN: 3&gt;</span></p></td><td><p>仿射体刚性模型；默认 SO(3) 增广拉格朗日。</p></td></tr><tr><td><p><span>affine_body_rigidity_primal_iterations</span></p></td><td><p><span>1</span></p></td><td><p>固定 SO(3) AL 状态的 primal Newton 迭代数，之后更新局部状态。</p></td></tr><tr><td><p><span>air_density</span></p></td><td><p><span>1.225000023841858</span></p></td><td><p>环境空气密度，kg/m³；零禁用空气阻力。</p></td></tr><tr><td><p><span>cable_angular_beta</span></p></td><td><p><span>0.0</span></p></td><td><p>每次非线性迭代的弯曲/扭转罚参数增长控制；零使用 authored stiffness。</p></td></tr><tr><td><p><span>cable_angular_k_start</span></p></td><td><p><span>10.0</span></p></td><td><p>启用 angular ramp 时的初始弯曲/扭转罚参数。</p></td></tr><tr><td><p><span>cable_linear_beta</span></p></td><td><p><span>0.0</span></p></td><td><p>每次非线性迭代的伸长/剪切罚参数增长控制；零使用 authored stiffness。</p></td></tr><tr><td><p><span>cable_linear_k_start</span></p></td><td><p><span>100.0</span></p></td><td><p>启用 linear ramp 时的初始伸长/剪切罚参数。</p></td></tr><tr><td><p><span>cable_penalty_gamma</span></p></td><td><p><span>0.9990000128746033</span></p></td><td><p>线缆罚参数跨步衰减；受初始下限与材料上限夹紧。</p></td></tr><tr><td><p><span>constraint_alpha</span></p></td><td><p><span>100.0</span></p></td><td><p>质量归一化无量纲公共罚参数；零关闭仿射刚性、生成关节约束与硬距离约束。</p></td></tr><tr><td><p><span>enable_collision_hessian_non_diagonal</span></p></td><td><p><span>True</span></p></td><td><p>纳入刚体、粒子-形状与自碰撞的耦合切线；surface/angular friction 有独立耦合规则。</p></td></tr><tr><td><p><span>enable_self_collision</span></p></td><td><p><span>False</span></p></td><td><p>是否启用可变形物体自碰撞。</p></td></tr><tr><td><p><span>fluid_max_step_ratio</span></p></td><td><p><span>0.25</span></p></td><td><p>流体 Newton 位移相对核半径的上界比例；零关闭该限制。</p></td></tr><tr><td><p><span>fluid_relaxation</span></p></td><td><p><span>0.5</span></p></td><td><p>流体场景的全局 Newton 步长缩放，取值 (0,1]。</p></td></tr><tr><td><p><span>inertia_mode</span></p></td><td><p><span>&lt;InertiaMode.MIDPOINT_CAYLEY: 3&gt;</span></p></td><td><p>ABD 惯性构造和速度恢复模式；NONE 选择自由粒子路径。</p></td></tr><tr><td><p><span>joint_constraint_mode</span></p></td><td><p><span>&lt;JointConstraintMode.AUGMENTED_LAGRANGIAN: 1&gt;</span></p></td><td><p>关节采用罚函数或增广拉格朗日；默认 AL。</p></td></tr><tr><td><p><span>joint_constraint_primal_iterations</span></p></td><td><p><span>1</span></p></td><td><p>在更新关节乘子前，固定对偶执行的 primal Newton 迭代数。</p></td></tr><tr><td><p><span>linear_iterations</span></p></td><td><p><span>50</span></p></td><td><p>每次非线性迭代的 PCG 迭代数。</p></td></tr><tr><td><p><span>nonlinear_iterations</span></p></td><td><p><span>5</span></p></td><td><p>每个 step 的非线性迭代数。</p></td></tr><tr><td><p><span>nonlinear_solver</span></p></td><td><p><span>&lt;NonlinearSolver.NEWTON: 0&gt;</span></p></td><td><p>隐式 Euler 的非线性求解分支，NEWTON 或 legacy PD_NEWTON。</p></td></tr><tr><td><p><span>rigid_contact_alpha</span></p></td><td><p><span>0.949999988079071</span></p></td><td><p>硬接触 C0 稳定化参数，范围 [0,1]。</p></td></tr><tr><td><p><span>rigid_contact_beta</span></p></td><td><p><span>0.0</span></p></td><td><p>硬接触罚参数的逐迭代增长控制。</p></td></tr><tr><td><p><span>rigid_contact_friction_epsilon</span></p></td><td><p><span>0.0</span></p></td><td><p>刚体 Coulomb 摩擦的平滑速度，m/s；零保留 native secant law。</p></td></tr><tr><td><p><span>rigid_contact_gamma</span></p></td><td><p><span>0.9990000128746033</span></p></td><td><p>硬接触历史衰减，范围 [0,1]。</p></td></tr><tr><td><p><span>rigid_contact_hard</span></p></td><td><p><span>False</span></p></td><td><p>使用 AL 法向接触与基于位移的 Coulomb 摩擦。</p></td></tr><tr><td><p><span>rigid_contact_history</span></p></td><td><p><span>False</span></p></td><td><p>通过 Contact.match_index 热启动硬接触乘子。</p></td></tr><tr><td><p><span>rigid_contact_k_start</span></p></td><td><p><span>100.0</span></p></td><td><p>启用罚参数 ramp 时的硬接触初始刚度。</p></td></tr><tr><td><p><span>rigid_contact_sliding_tangent</span></p></td><td><p><span>False</span></p></td><td><p>在固定法向载荷下对 Coulomb disk 求导；False 保留 legacy tangent。</p></td></tr><tr><td><p><span>rolling_friction_velocity_epsilon</span></p></td><td><p><span>0.10000000149011612</span></p></td><td><p>滚动/扭转摩擦的正角速度正则化，rad/s。</p></td></tr><tr><td><p><span>self_collision_edge_edge_stiffness</span></p></td><td><p><span>0.10000000149011612</span></p></td><td><p>边-边自碰撞罚刚度的无量纲缩放。</p></td></tr><tr><td><p><span>self_collision_edge_face_stiffness</span></p></td><td><p><span>1.0</span></p></td><td><p>边-面解缠罚刚度的无量纲缩放。</p></td></tr><tr><td><p><span>self_collision_particle_particle_stiffness</span></p></td><td><p><span>1.0</span></p></td><td><p>自由粒子对碰撞罚刚度的无量纲缩放。</p></td></tr><tr><td><p><span>self_collision_radius</span></p></td><td><p><span>0.003000000026077032</span></p></td><td><p>可变形碰撞 primitive 的增厚半径。</p></td></tr><tr><td><p><span>self_collision_vertex_face_stiffness</span></p></td><td><p><span>0.5</span></p></td><td><p>点-面自碰撞罚刚度的无量纲缩放。</p></td></tr><tr><td><p><span>wind_velocity</span></p></td><td><p><span>(0.0, 0.0, 0.0)</span></p></td><td><p>世界坐标风速 (x,y,z)，m/s。</p></td></tr></tbody></table>
+
+<h2 seq="auto">枚举的精确数值</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>枚举</p></th><th background-color="light-gray"><p>名称与值</p></th></tr></thead><tbody><tr><td><p><span>InertiaMode</span></p></td><td><p><span>EXPLICIT_EULER=0</span>，<span>IMPLICIT_EULER=1</span>，<span>LIE_GROUP_MIDPOINT=2</span>，<span>MIDPOINT_CAYLEY=3</span>，<span>NONE=4</span>，<span>VBD_SEMI_IMPLICIT=5</span></p></td></tr><tr><td><p><span>JointConstraintMode</span></p></td><td><p><span>PENALTY=0</span>，<span>AUGMENTED_LAGRANGIAN=1</span></p></td></tr><tr><td><p><span>NonlinearSolver</span></p></td><td><p><span>NEWTON=0</span>，<span>PD_NEWTON=1</span></p></td></tr><tr><td><p><span>AffineBodyRigidityModel</span></p></td><td><p><span>CO_ROTATED=0</span>，<span>ABD_ORTHOGONALITY=1</span>，<span>SIX_SPRINGS=2</span>，<span>SO3_AUGMENTED_LAGRANGIAN=3</span></p></td></tr></tbody></table>
+
+<p>这些数值是该二进制版本的接口事实，不应不经版本检查就用于另一版本 ABI。</p>
+
+<h2 seq="auto">参数之间的关系</h2>
+
+<ul><li>增大 <span>linear_iterations</span> 主要提高当前线性系统的解精度；增大 <span>nonlinear_iterations</span> 主要提高非线性状态自洽程度。</li><li><span>constraint_alpha</span> 是质量归一化后的无量纲公共罚参数，不能把它直接当成 N/m 的材料弹簧刚度；接口说零会关闭 affine rigidity、generated joints 和 hard distance 三类共享约束。</li><li><span>rigid_contact_hard=False</span> 时，硬接触历史/罚参数设置不应被当作当前普通接触路径必然生效的参数。</li><li><span>enable_self_collision=False</span> 时，radius 与各自碰撞 stiffness 的非零默认值不代表自碰撞已经开启。</li><li><span>fluid_relaxation&lt;1</span> 会缩小步长，即使额外最大位移限制被关闭。</li><li><span>*_primal_iterations</span> 调整固定局部/对偶状态的内层迭代周期，不是简单再增加若干物理时间子步。</li><li>接触/线缆 <span>gamma</span> 是各自历史或罚参数的衰减语义；不能因为同名就假设其公式和执行频率完全相同。</li></ul>
+
+<h1 seq="auto">数值边界、指令语义与验证方法</h1>
+
+<h2 seq="auto">验证的层次</h2>
+
+<p>实现核对分为六层：指令识别、编译加载、有效执行、数值一致、分支/状态覆盖、完整系统轨迹。当前文档对局部公式使用原始 PTX 算术与独立 GPU 对照，对完整调度和未展开的物理分支保留第 23 节列出的范围说明。</p>
+
+<p>验证脚本（工作区路径：validate/review_algorithm_claims.py） 从实际 <span>.so</span> 重新提取 entry，并逐一检查它与 <span>kernels/</span> 快照在忽略空白后的完整函数体一致。随后使用 CUDA Driver API JIT 原始 PTX，在 GPU 上执行，用独立 NumPy 公式计算期望输出。该过程不使用机械翻译器或既有 A/B 驱动来产生参考答案。</p>
+
+<p>输出检查按真实类型区分：整型索引和活动状态精确比较；浮点数据按明确的绝对与相对容差比较；不把 NaN 视为普通数值相等。位模式、矩阵存储、参数顺序、有效数组长度和输出初始化均由单个用例明确设置。</p>
+
+<h2 seq="auto">世界步长的原子最小值</h2>
+
+<p>bound_scale PTX（工作区路径：kernels/fluid/003_bound_scale.ptx） 的关键指令为：</p>
+
+<pre lang="plaintext"><code>mov.b32 %r19, %f21;
+red.global.min.s32 [%rd25], %r19;</code></pre>
+
+<p>先把非负浮点候选步长按位解释成整数，再进行原子最小值归约。对于参与算法的非负有限单精度值，位模式随数值单调递增，因此这个操作实现逐世界取最小步长。初始世界步长必须具有合理的非负值。多个粒子竞争同一世界槽时，原子操作保留所有限制中最严格的一项。</p>
+
+<h2 seq="auto">哈希桶链表与有符号终止标记</h2>
+
+<p>build_grid PTX（工作区路径：kernels/fluid/004_build_grid.ptx） 使用：</p>
+
+<pre lang="plaintext"><code>atom.global.exch.b32 %r49, [%rd52], %r1;</code></pre>
+
+<p>其语义为：</p>
+
+<pre lang="cpp"><code>int previous = atomicExch(head + bucket, particle);
+next[particle] = previous;</code></pre>
+<p>每个桶的 <span>head</span> 初始化为 -1；新粒子成为表头，同时保存原表头为下一节点。并发插入次序可以变化，因此验证应检查成员集合、终止性、索引范围与无环性，而不是要求唯一的链表排列。</p>
+
+<p>遍历时 <span>setp.lt.s32</span> 按<b>有符号 32 位</b>解释寄存器，能够识别 -1 终止标记。PTX 虚拟寄存器的 <span>.b32</span> 表示位容器；具体 signed/unsigned 语义由当前指令决定。</p>
+
+<h2 seq="auto">空间格号的取整</h2>
+
+<p>负坐标必须与正坐标使用相同的空间划分规则：</p>
+
+<p align="center"><latex>\displaystyle c=\lfloor x/h_f\rfloor.</latex></p>
+
+<p>原 PTX 先执行 <span>cvt.rmi.f32.f32</span>，向负无穷取整并保持浮点表示，再执行 <span>cvt.rzi.s32.f32</span> 转为有符号整数。例如 <latex>x/h_f=-0.2</latex> 对应格号 -1，<latex>x/h_f=-0.8</latex> 也对应 -1。格号、世界编号和哈希值分别承担不同的过滤作用，哈希碰撞不能直接视为几何邻接。</p>
+
+<h2 seq="auto">单精度常数与边界分支</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>位模式</p></th><th background-color="light-gray"><p>数值尺度</p></th><th background-color="light-gray"><p>在已分析路径中的用途</p></th></tr></thead><tbody><tr><td><p><span>0x0DA24260</span></p></td><td><p><latex>10^{-30}</latex></p></td><td><p>CG 比值分母保护、块求逆行列式保护</p></td></tr><tr><td><p><span>0x2B8CBCCC</span></p></td><td><p><latex>10^{-12}</latex></p></td><td><p>膜内剪切平方长度正则项</p></td></tr><tr><td><p><span>0x322BCC77</span></p></td><td><p><latex>10^{-8}</latex></p></td><td><p>弹簧/膜内稳定化矩阵的长度分支</p></td></tr></tbody></table>
+
+<p>同一阈值必须结合比较对象的量纲理解：平方长度、长度、行列式和内积的量纲与缩放都不同。阈值不能脱离所在表达式当作统一物理容差。</p>
+
+<p>PTX 浮点比较中的 unordered 形式在任一操作数为 NaN 时为真。例如 <span>setp.leu.f32</span> 包含“小于等于或无序”两种情形。第 6 节分别给出了 CG 比值与块求逆的实际保护式；它们对无穷的处理不同。</p>
+
+<p>FMA 将 <latex>ab+c</latex> 合为一次舍入，独立乘法再加法则舍入两次。原子累加的次序也可能随调度变化。因此普通浮点用例使用有单位含义的绝对容差和相对容差，并记录每个输出的最大绝对差；整数索引不使用浮点容差。</p>
+
+<h2 seq="auto">合法输入与测试判据</h2>
+
+<p>各入口必须满足其数据契约：计数与容量一致、索引指向合法对象、ELL 列号匹配已有拓扑、View 中的指针分别指向对应类型的数组、跨世界偏移正确。</p>
+
+<p>对比两种实现时，两侧应拥有独立的可写缓冲，包括按值传入结构里的指针；需要比较所有相关输出，并确认测试确实执行了目标分支。零输入一致、kernel 能加载或执行后没有报错，都不自动说明物理公式得到验证。</p>
+
+<p>归约模板的 <span>256u</span> 与 8 个 warp 的块内布局相关，PCG 对照使用 256 线程块。流体主机调用使用 128 线程块；流体专项对照也使用 128，以匹配其实际 launch。GPU 对照的覆盖单位是“具体内核、输入、输出与判据”，而非单独的通过百分比。</p>
+
+<h1 seq="auto">一个时间步的公式串联与阅读路线</h1>
+
+<h2 seq="auto">从局部物理到全局求解</h2>
+
+<p>假设场景包含布料、颗粒、流体和仿射障碍物，并启用相应接触。一个逻辑时间步可以按下列层次理解。</p>
+
+<p><b>第一层：预测与惯性。</b> 自由粒子预测 <latex>\hat x=x_n+hv_n+h^2g</latex>；ABD 根据配置构造其惯性项。当前坐标偏离预测产生恢复到惯性轨迹的残差。</p>
+
+<p><b>第二层：物理误差。</b> 布料计算 <latex>\|a\|-1</latex>、<latex>\|b\|-1</latex> 与材料方向夹角；弯曲计算 <latex>q=\sum w_ix_i</latex>；流体计算 <latex>\max(\bar\rho-1,0)</latex>；接触计算穿透/切向历史；颗粒计算键伸长与塑性有效长度。</p>
+
+<p><b>第三层：局部微分。</b> 每类误差生成力 <latex>-J^TWc</latex> 或相应应力散射，以及矩阵作用 <latex>J^TWJp</latex> 或其他稳定切线。仿射点通过自身 Jacobian 把空间作用变回 12 维 body 坐标。</p>
+
+<p><b>第四层：线性系统。</b> 惯性、弹性、阻尼与接触线性化组成 <latex>A</latex> 和 <latex>b</latex>，预条件器由相应对角/对象块构造。PCG 只需要能计算 <latex>Ap</latex> 和 <latex>Pr</latex>，不要求全局所有项都显式存成一个矩阵。</p>
+
+<p><b>第五层：更新与历史。</b> 流体缩放增量，随后 <latex>x\leftarrow x+\Delta x</latex>。按各模块周期更新局部旋转、对偶、罚参数；完成时间步后提交不可逆颗粒历史并恢复速度。</p>
+
+<h2 seq="auto">数学对象与文件对应</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>要理解的对象</p></th><th background-color="light-gray"><p>优先阅读</p></th></tr></thead><tbody><tr><td><p>Python 调用方式与物理参数含义</p></td><td><p><span>api_surface.txt</span></p></td></tr><tr><td><p>总体数据流与分支入口</p></td><td><p><span>host/LAUNCH_ORDER.md</span>、<span>host/STEP_STRUCTURE.md</span>；注意只看地址顺序不够</p></td></tr><tr><td><p>真实 kernel 算术</p></td><td><p><span>kernels/&lt;module&gt;/*.ptx</span></p></td></tr><tr><td><p>可读的小算子</p></td><td><p><span>recover/human/*.cu</span>、<span>reconstructed/evaluate_spring_force.cu</span></p></td></tr><tr><td><p>大 kernel 的寄存器数据流</p></td><td><p>原始 PTX 与 <span>recover/src/&lt;module&gt;/*.cu</span> 对照阅读</p></td></tr><tr><td><p>全部入口与签名</p></td><td><p>kernel 附录（工作区路径：ALGORITHM_KERNEL_CATALOG_ZH.md）、<span>kernel_prototypes.h</span></p></td></tr><tr><td><p>局部公式的独立 GPU 验证</p></td><td><p>验证脚本（工作区路径：validate/review_algorithm_claims.py）、逐项结果（工作区路径：validate/review_algorithm_results.json）</p></td></tr><tr><td><p>配置默认值</p></td><td><p><span>CONFIG_DEFAULTS.md</span></p></td></tr></tbody></table>
+
+<p>建议先从 <span>evaluate_spring_force → add_spring_gauss_newton_hessian → multiply_matrix → PCG → apply_nonlinear_step</span> 走通最小闭环，再读膜内、弯曲、四面体和复杂接触。这样每个新增物理项都能定位到“残差、线性化、预条件、状态”的其中一环。</p>
+
+<h2 seq="auto">几个容易混淆的概念</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>概念对</p></th><th background-color="light-gray"><p>区别</p></th></tr></thead><tbody><tr><td><p>物理力与右端向量</p></td><td><p>力通常为负梯度；右端还混合惯性、缩放与当前残差</p></td></tr><tr><td><p>Hessian 与预条件器</p></td><td><p>前者决定线性化方程；后者近似其逆以加速求解</p></td></tr><tr><td><p>Newton 与 PCG</p></td><td><p>前者处理非线性；后者求当前线性子问题</p></td></tr><tr><td><p>罚函数与 AL</p></td><td><p>AL 额外携带对偶/历史，而不仅是提高刚度</p></td></tr><tr><td><p>刚性模型与惯性模式</p></td><td><p>一个约束形变，一个决定运动惯性构造/速度恢复</p></td></tr><tr><td><p>接触生成与接触求解</p></td><td><p>外部输入 Contact 可已有接触；内部力求解不等于完整碰撞检测管线</p></td></tr><tr><td><p>本构历史与当前几何</p></td><td><p>颗粒、硬接触、线缆的响应依赖历史，不能只由位置重建全部状态</p></td></tr><tr><td><p>原始 PTX 与机械 CUDA</p></td><td><p>前者是二进制实现证据；后者用 CUDA 表达控制流与访存，并用内联 PTX 保留标量指令语义；逐句对应不等于全场景证明</p></td></tr></tbody></table>
+
+<h1 seq="auto">未确认事项与复现检查清单</h1>
+
+<whiteboard type="svg" path="@./draft_b1f312c1_folder/07_validation.svg" />
+
+<p>图 7：蓝色区域表示加入独立公式运行对照的入口数量，不能解释成分支覆盖率。</p>
+
+<h2 seq="auto">本文的完整性边界</h2>
+
+<p>本文覆盖六个模块、所有 131 个自研 kernel 的索引、核心求解流程、主要物理公式、配置及证据范围。<b>这不等于 131 个 kernel 的每条条件分支都已经完成语义还原或数值验证。</b></p>
+
+<p>为避免静默遗漏，下面把仍需深入的事项逐项列出：</p>
+
+<table><thead><tr><th background-color="light-gray"><p>未完成项</p></th><th background-color="light-gray"><p>已有证据</p></th><th background-color="light-gray"><p>仍需要的工作</p></th></tr></thead><tbody><tr><td><p><span>step()</span> 完整动态控制流</p></td><td><p>地址序列、回边、配置访问</p></td><td><p>CFG 与逐分支数据流；不能只按地址排列表</p></td></tr><tr><td><p><span>PD_NEWTON</span> 精确数学分裂</p></td><td><p>三种线性存储/预条件分派已确认</p></td><td><p>外层投影变量、缓存与缩放</p></td></tr><tr><td><p>其他装配项的时间与缓存缩放</p></td><td><p>右端已确认 <span>1/h²</span>，弯曲/四面体阻尼和空气阻力已确认 <span>1/h</span></p></td><td><p>其余分支、预计算系数及缓存合成中的尺度</p></td></tr><tr><td><p>全部 PCG 特化的标量数组角色</p></td><td><p>update/reduce kernel 算术</p></td><td><p><span>reduce_inner_product</span> 实参配对与所有初始化路径</p></td></tr><tr><td><p>affine-body 完整块预条件</p></td><td><p>两种入口与大体装配结构</p></td><td><p>每块坐标排序、接触交叉项、求逆回退</p></td></tr><tr><td><p>其他三种刚性模型</p></td><td><p>API 模型枚举与 constitutive kernel</p></td><td><p>各分支能量、切线稳定化与参考数据</p></td></tr><tr><td><p>SO(3) 局部旋转与对偶更新</p></td><td><p>归一化、叉积、对称投影</p></td><td><p>所有退化分支及 U 的精确缩放/累计语义</p></td></tr><tr><td><p>硬接触全部参数公式</p></td><td><p>AL/Coulomb 接口与多阶段入口</p></td><td><p>alpha/beta/gamma、匹配、激活与历史的完整关系</p></td></tr><tr><td><p>surface 与 rolling 接触</p></td><td><p>独立力、切线与预条件</p></td><td><p>几何积分、载荷/半径、平滑与截断函数</p></td></tr><tr><td><p>自碰撞过滤与解缠</p></td><td><p>query/accumulate 配对</p></td><td><p>邻接排除、退化几何、edge-face 的有向行为</p></td></tr><tr><td><p>颗粒新键形成</p></td><td><p>网格、gap/speed/capacity 参数</p></td><td><p>精确择优、重复检测、容量溢出与重新形成规则</p></td></tr><tr><td><p>颗粒完整跨步生命周期</p></td><td><p>初始/动态键评估与提交的 <span>L0/Lh/active</span> 缓冲绑定已确认</p></td><td><p>新键形成、提交顺序及多步历史轨迹</p></td></tr><tr><td><p>Cosserat/Dahl 完整模型</p></td><td><p>API、四个专用 kernel</p></td><td><p>精确离散应变、旋转分支、历史更新与 Jacobian</p></td></tr><tr><td><p>其余 View 数据契约</p></td><td><p>流体 112 字节 View 已形成字段表并做合法场景验证；其他 View 有 sizeof 与部分偏移</p></td><td><p>其他模块的数组类型、索引与容量契约</p></td></tr><tr><td><p>完整数值保真</p></td><td><p>131 个入口逐句审计、编译与加载；46 个入口执行独立公式对照</p></td><td><p>其余 85 个入口的合法场景、全部分支与完整多步轨迹</p></td></tr></tbody></table>
+
+<h2 seq="auto">按优先级组织复现验证</h2>
+
+<ol><li>对每个待复现入口逐项确认原子操作、signed 运算、舍入转换、unordered 比较及全局常量依赖，并对边界输入执行数值对照。</li><li>明确每个 View 的数组所有权、元素数、容量、世界映射、有效索引与无效 sentinel。</li><li>验证单个局部模型的力与能量导数，特别是膜内剪切归一化、弯曲四点顺序、四面体激活符号。</li><li>验证各 <span>multiply_*</span> 与已确认局部切线的一致性；区分精确 Hessian、GN、冻结几何和投影后的切线。</li><li>对每个 PCG 特化用已知 SPD 小系统检验残差下降、预条件方向及标量比值；额外检查固定/运动学自由度。</li><li>构造真实多世界场景，验证不会跨世界相互作用，模板索引与状态索引不会混用。</li><li>再验证历史型模型：粘着到滑动、接触消失/重匹配、颗粒压实/断裂/动态键、线缆罚参数跨步保持。</li><li>最后跑完整 step，比较轨迹、能量/动量指标、约束误差与容差范围，并测实际 GPU 时间。</li></ol>
+
+<h2 seq="auto">可用的数学不变量</h2>
+
+<table><thead><tr><th background-color="light-gray"><p>模块</p></th><th background-color="light-gray"><p>有价值的检查</p></th><th background-color="light-gray"><p>前提</p></th></tr></thead><tbody><tr><td><p>弹簧/键</p></td><td><p>两端作用和为零</p></td><td><p>未叠加外力、局部数据合法</p></td></tr><tr><td><p>膜内</p></td><td><p>平移不变、整体旋转不改变能量</p></td><td><p>材料坐标与参考系数一致</p></td></tr><tr><td><p>弯曲</p></td><td><p><latex>\sum_iw_i=0</latex>，平移不变</p></td><td><p>四点拓扑顺序正确</p></td></tr><tr><td><p>四面体</p></td><td><p><latex>F=I,a=0</latex> 时弹性应力为零</p></td><td><p><latex>K&gt;0</latex> 且参数符合上述形式</p></td></tr><tr><td><p>SO(3) 投影</p></td><td><p>刚体无穷小旋转方向不受对称投影惩罚</p></td><td><p>当前 R 为正交矩阵</p></td></tr><tr><td><p>流体</p></td><td><p>支撑半径外 <latex>W=0</latex>，欠密时该压力残差为零</p></td><td><p>使用本节已确认核与单边定义</p></td></tr><tr><td><p>PCG</p></td><td><p>对正确 SPD 系统得到正确线性解</p></td><td><p>预条件器与算子满足算法假设</p></td></tr><tr><td><p>BVH</p></td><td><p>父盒包含所有子盒，escape 遍历终止</p></td><td><p>树拓扑与 sentinel 合法</p></td></tr></tbody></table>
+
+<p>这些检查用于核对符号、索引、转置和状态一致性，但它们仍然不能代替对原 PTX 的数值对照。</p>
+
+<h2 seq="auto">文档与公式一致性检查</h2>
+
+<p>文档核对包括：</p>
+
+<ul><li>131 个自研元数据条目逐一匹配到 131 个机械源文件，签名全部匹配；附录编号连续、无缺号。</li><li>36 个 Config 默认项全部有独立说明，未只选常用参数。</li><li>两份文档的本地链接、显式章节锚点、代码围栏与显示公式分隔符进行完整性检查。</li><li>对膜内、四点弯曲、四面体弹性、冻结旋转的 SO(3) 四组“本文能量—本文梯度”做双精度中心有限差分自检。固定随机种子 20261027，每组 8 个非退化样本，差分步长 <latex>10^{-6}</latex>。</li></ul>
+
+<p>差分最大相对误差采用 <latex>\|g-g_{FD}\|_\infty/\max(1,\|g\|_\infty)</latex>：</p>
+
+<table><thead><tr><th background-color="light-gray"><p>公式</p></th><th background-color="light-gray"><p>检查值</p></th></tr></thead><tbody><tr><td><p>膜内能量与梯度</p></td><td><p><latex>3.251\times10^{-10}</latex></p></td></tr><tr><td><p>四点弯曲能量与梯度</p></td><td><p><latex>4.120\times10^{-10}</latex></p></td></tr><tr><td><p>四面体弹性能量与应力</p></td><td><p><latex>4.216\times10^{-10}</latex></p></td></tr><tr><td><p>固定旋转 SO(3) 局部能量与梯度</p></td><td><p><latex>3.341\times10^{-10}</latex></p></td></tr></tbody></table>
+
+<p>上述有限差分检查说明所测非退化点的能量与导数在代数上自洽。与实际设备内核的数值比较采用下面的独立 GPU 验证，两者提供不同层次的证据。</p>
+
+<h2 seq="auto">原始 PTX 的 GPU 公式对照</h2>
+
+<p>验证环境为 NVIDIA GeForce RTX 5090 D v2，驱动 595.71.05，随机种子 20261027。对当前二进制重新提取的 <b>17 个内核</b>执行了 <b>216 项输出检查，全部通过</b>。</p>
+
+<p>这里的“一项”指一次输出数组或矩阵块比较；同一输入可以对应多个输出检查，不能将其等同于 216 个互相独立的物理场景。原始 PTX 经当前 CUDA 驱动 JIT 后执行，验证对象是设备算法的 PTX 语义，而非完整宿主程序或所有架构下的现成 SASS 轨迹。</p>
+
+<table><thead><tr><th background-color="light-gray"><p>内核</p></th><th background-color="light-gray"><p>输出检查数</p></th></tr></thead><tbody><tr><td><p><span>evaluate_spring_force</span></p></td><td><p>13</p></td></tr><tr><td><p><span>evaluate_stretch_force</span></p></td><td><p>12</p></td></tr><tr><td><p><span>evaluate_bending_force</span></p></td><td><p>12</p></td></tr><tr><td><p><span>evaluate_tetrahedron_force</span></p></td><td><p>12</p></td></tr><tr><td><p><span>evaluate_affine_body_so3_augmented_lagrangian_force</span></p></td><td><p>12</p></td></tr><tr><td><p><span>evaluate_triangle_drag</span></p></td><td><p>24</p></td></tr><tr><td><p><span>add_spring_gauss_newton_hessian</span></p></td><td><p>12</p></td></tr><tr><td><p><span>add_cloth_membrane_gauss_newton_hessian</span></p></td><td><p>84</p></td></tr><tr><td><p><span>commit_bonds</span></p></td><td><p>2</p></td></tr><tr><td><p><span>update_solution_and_residual</span></p></td><td><p>8</p></td></tr><tr><td><p><span>invert_block_preconditioner</span></p></td><td><p>6</p></td></tr><tr><td><p><span>update_preconditioned_cg_direction</span></p></td><td><p>4</p></td></tr><tr><td><p><span>update_cg_direction&lt;glm::mat&lt;3, 3, float, (glm::qualifier)0&gt; &gt;</span></p></td><td><p>4</p></td></tr><tr><td><p><span>update_solution_residual_and_reduce&lt;256u, glm::mat&lt;3, 3, float, (glm::qualifier)0&gt; &gt;</span></p></td><td><p>6</p></td></tr><tr><td><p><span>bound_scale</span></p></td><td><p>1</p></td></tr><tr><td><p><span>build_grid</span></p></td><td><p>2</p></td></tr><tr><td><p><span>evaluate_rows</span></p></td><td><p>2</p></td></tr></tbody></table>
+
+<p>输入与比较重点如下：</p>
+
+<ul><li>弹簧力：12 组随机位置，以及总数、每世界数量、坐标步幅各不相同的双世界实例。</li><li>膜内、弯曲、四面体：非单位参考数据、非轴对齐几何，以及非零阻尼和体积激活；各 12 组输入。</li><li>SO(3)：12 个非单位正交参考旋转下的对称投影力；此测试固定局部状态，不覆盖旋转生成与对偶提交。</li><li>空气阻力：12 组非轴对齐法线、非零风速，分别检查力与切线权重。</li><li>弹簧矩阵：零长度、压缩、静止长度、拉伸；逐一比较对角和非对角增量块。</li><li>膜内矩阵：12 组材料方向和几何，比较三个对角块与六个非对角块。</li><li>颗粒提交：非活动、屈服压实、压实下限、无塑性更新与断裂，分别比较长度和整型活动标记。</li><li>CG：小而有效的 <latex>10^{-20}</latex> 分母、低于阈值的分母、NaN、首轮方向；融合入口还比较跨两个线程块的 300 个元素和可选 <latex>r^TPr</latex> 归约。</li><li>块逆：行列式约 <latex>10^{-18}</latex> 的非对角矩阵、奇异矩阵、负行列式、无效掩码、零缩放及 NaN 行列式。</li><li>流体：同世界多粒子步长最小值、负坐标 floor、共享哈希桶链表成员，以及真实建网输出上的 poly6 密度和梯度。</li></ul>
+
+<p>大部分浮点比较采用 <span>rtol=4e-5, atol=3e-6</span>；四面体使用 <span>rtol=8e-5, atol=2e-5</span>，极小行列式的逆矩阵因值约为 <latex>10^6</latex> 使用 <span>rtol=3e-6, atol=0.1</span>，融合归约使用 <span>atol=1e-4</span>。完整判据和每项最大绝对差均保存在 JSON 结果（工作区路径：validate/review_algorithm_results.json）。整数检查的两种容差均为零。</p>
+
+<p>另外，可读实现验证结果（工作区路径：validate/review_algorithm_human_results.json） 中有 7 个 CUDA 文件对应的 43 项检查；编译后使用同一组输入与独立公式，均通过。该模式其余 173 项仍执行原始 PTX，因此两份报告不能相加为 432 项不同覆盖。</p>
+
+<p>在当前目录复现：</p>
+
+<pre lang="bash"><code>python3 validate/review_algorithm_claims.py
+python3 validate/review_algorithm_claims.py --human</code></pre>
+
+<p>第一条需要 NumPy、<span>cuobjdump</span>、CUDA 驱动及可用 GPU；第二条额外需要 <span>nvcc</span>。脚本记录二进制 SHA-256、每个原始 entry 的 SHA-256、GPU/驱动信息及可读实现源文件摘要。结果对应的二进制 SHA-256 为：</p>
+
+<pre lang="plaintext"><code>4c223854a5a554140ed6cf0e99d5687aa5846bbe49465a85a5819079f3db34e6</code></pre>
+
+<p>验证范围为上述局部模型和分支。完整碰撞几何、全部历史状态、所有 View 布局、整个 Newton/PCG 调度和长时间仿真仍按第 23.1 节列出的范围分别处理，不能从局部样本推出全部 131 个内核或整个程序的等价性。</p>
+
+<h2 seq="auto">全入口语句核对与扩展数值覆盖</h2>
+
+<p>完整对照清单见 PTX 与代码验证报告（工作区路径：PTX_CODE_VERIFICATION_ZH.md），主机实参见 主机数据对应（工作区路径：host/VERIFIED_ARGUMENTS_ZH.md）。当前证据分层如下：</p>
+
+<table><thead><tr><th background-color="light-gray"><p>层次</p></th><th background-color="light-gray"><p>覆盖</p></th><th background-color="light-gray"><p>结果</p></th></tr></thead><tbody><tr><td><p>二进制重新提取的 PTX 与目录快照</p></td><td><p>131 个自研入口</p></td><td><p>全部函数体一致，忽略空白</p></td></tr><tr><td><p>原始语句、标签与机械源文件逐项映射</p></td><td><p>106,114 条语句，131 个入口</p></td><td><p>全部计入，包含 15 个内嵌 shuffle 复合块</p></td></tr><tr><td><p>机械 CUDA 编译与模块加载</p></td><td><p>131 个入口</p></td><td><p>全部通过；原始 PTX 也全部 JIT 加载通过</p></td></tr><tr><td><p>原始 PTX 与独立 CPU 公式</p></td><td><p>46 个不同入口、408 项输出检查</p></td><td><p>全部通过</p></td></tr><tr><td><p>机械 CUDA 与相同独立公式</p></td><td><p>同 46 个入口、408 项输出检查</p></td><td><p>全部通过</p></td></tr><tr><td><p>人工可读实现与独立公式</p></td><td><p>全部 34 个文件、195 项实际人工实现检查</p></td><td><p>全部通过</p></td></tr><tr><td><p>机械版本 GPU 内存检查</p></td><td><p>三套数值测试</p></td><td><p>均报告 0 个错误</p></td></tr><tr><td><p>机械版本同步检查</p></td><td><p>可读内核对应测试，含融合块归约</p></td><td><p>报告 0 个错误</p></td></tr></tbody></table>
+
+<p>机械版以 CUDA 表达参数、控制流、访存和原子操作，标量算术使用小段内联 PTX 保留 signed/unsigned、位宽、转换舍入、FMA 和近似指令。因此它是可编译、带原始行号的混合表达，不是已经将全部物理意义命名完毕的纯高级源码。无法识别的指令会终止生成，不以占位表达式继续生成。</p>
+
+<p>408 项由基础公式 216 项、可读内核对应场景 152 项、流体专项 40 项组成；其入口数分别为 17、27、3，流体 <span>evaluate_rows</span> 重叠一次，因此去重为 46。人工模式中的基础套件只有 43 项执行人工 CUDA，其余执行原始 PTX；加上另一个套件的 152 项，实际人工覆盖为 195，不能把回退执行的检查算成人工实现证据。</p>
+
+<p>本轮扩展覆盖了非零初始输出、两世界不同模板与坐标步幅、300 元素的非整块尾部、空 CSR 行、零 ELL 容量、可选空指针、活动掩码、负列索引，以及流体黏性和邻居回退。检查完整输出数组可以观察未触达槽是否保持原值。整数和结构体列号按真实整数类型比较；浮点先区分 NaN/正负无穷，再在有限值上使用明确容差。</p>
+
+<p>上述结果确认所执行场景中的公式与逻辑。131 个入口均完成语句和编译加载核对，其中 85 个尚未加入独立公式运行场景；此外，已测试的 46 个入口也不代表其每条分支都已穷举。完整求解器的端到端轨迹继续按第 23.1 节的范围处理。</p>
+
+<hr />
+
+<p>文档来源均为当前工作区。没有引用外部论文替代实现证据；文中通用数学框架和从力恢复的能量已明确区分。完整入口清单见 ALGORITHM_KERNEL_CATALOG_ZH.md（工作区路径：ALGORITHM_KERNEL_CATALOG_ZH.md）。</p>
+
+<hr />
+
+<p>配套附件与追溯：下列文件为当前工作区的原始分析与配套记录，保留完整入口目录和验证依据。其他源码路径需在对应工作区中访问。</p>
+
+<source path="@./ALGORITHM_ANALYSIS_ZH.md" name="ALGORITHM_ANALYSIS_ZH.md" />
+
+<source path="@./ALGORITHM_KERNEL_CATALOG_ZH.md" name="ALGORITHM_KERNEL_CATALOG_ZH.md" />
+
+<source path="@./PTX_CODE_VERIFICATION_ZH.md" name="PTX_CODE_VERIFICATION_ZH.md" />
+
+<source path="@./host/VERIFIED_ARGUMENTS_ZH.md" name="VERIFIED_ARGUMENTS_ZH.md" />

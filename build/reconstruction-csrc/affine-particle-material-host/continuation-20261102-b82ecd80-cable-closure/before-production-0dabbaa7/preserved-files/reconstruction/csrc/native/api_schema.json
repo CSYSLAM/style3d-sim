@@ -1,0 +1,1348 @@
+{
+  "enums": {
+    "NonlinearSolver": {
+      "NEWTON": 0,
+      "PD_NEWTON": 1
+    },
+    "JointConstraintMode": {
+      "PENALTY": 0,
+      "AUGMENTED_LAGRANGIAN": 1
+    },
+    "InertiaMode": {
+      "EXPLICIT_EULER": 0,
+      "IMPLICIT_EULER": 1,
+      "LIE_GROUP_MIDPOINT": 2,
+      "MIDPOINT_CAYLEY": 3,
+      "NONE": 4,
+      "VBD_SEMI_IMPLICIT": 5
+    },
+    "AffineBodyRigidityModel": {
+      "CO_ROTATED": 0,
+      "ABD_ORTHOGONALITY": 1,
+      "SIX_SPRINGS": 2,
+      "SO3_AUGMENTED_LAGRANGIAN": 3
+    },
+    "LogLevel": {
+      "INFO": 0,
+      "ERROR": 1,
+      "DEBUG": 2,
+      "WARNING": 4
+    }
+  },
+  "classes": {
+    "Span": {
+      "ptr": {
+        "type": "int",
+        "default": 0,
+        "readonly": true
+      },
+      "size": {
+        "type": "int",
+        "default": 0,
+        "readonly": true
+      }
+    },
+    "Model": {
+      "affine_body_ids": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "affine_body_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_centers_of_mass": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "body_distance_constraint_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "body_distance_constraint_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_distance_constraint_mass_scales": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_distance_constraint_points0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_distance_constraint_points1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_distance_constraint_rest_lengths": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_distance_constraint_weights0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_distance_constraint_weights1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_inertia_tensors": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_local_transforms": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_masses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_point_line_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "body_point_line_dampings": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_point_line_endpoints0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_point_line_endpoints1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_point_line_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_point_line_points": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_point_line_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_spring_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "body_spring_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_spring_points0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_spring_points1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_spring_rest_lengths": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_spring_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "body_state_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "cable_angular_bias": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_angular_hessian": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_body_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_child_transforms": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "cable_dampings": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_enabled": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_parent_transforms": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_rest_bend_twist": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "cable_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "collision_edge_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "collision_edge_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "collision_particle_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "collision_particle_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "collision_triangle_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "collision_triangle_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "edge_bending_cots": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "edge_bending_properties": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "edge_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "edge_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "edge_rest_areas": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "fluid_boundary_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "fluid_boundary_positions": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "fluid_boundary_volumes": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "fluid_bulk_modulus": {
+        "type": "float",
+        "default": 200000.0
+      },
+      "fluid_particle_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "fluid_particle_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "fluid_rest_density": {
+        "type": "float",
+        "default": 1000.0
+      },
+      "fluid_smoothing_radius": {
+        "type": "float",
+        "default": 0.10000000149011612
+      },
+      "fluid_viscosity": {
+        "type": "float",
+        "default": 0.0
+      },
+      "granular_adhesion": {
+        "type": "float",
+        "default": 0.0
+      },
+      "granular_bond_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "granular_bond_damping": {
+        "type": "float",
+        "default": 0.0
+      },
+      "granular_bond_formation_gap": {
+        "type": "float",
+        "default": 0.0
+      },
+      "granular_bond_formation_speed": {
+        "type": "float",
+        "default": 1.0
+      },
+      "granular_bond_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "granular_bond_rest_lengths": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "granular_break_strain": {
+        "type": "float",
+        "default": 0.10000000149011612
+      },
+      "granular_cohesion": {
+        "type": "float",
+        "default": 200.0
+      },
+      "granular_contact_stiffness": {
+        "type": "float",
+        "default": 2000.0
+      },
+      "granular_friction": {
+        "type": "float",
+        "default": 0.5
+      },
+      "granular_friction_damping": {
+        "type": "float",
+        "default": 20.0
+      },
+      "granular_max_compaction": {
+        "type": "float",
+        "default": 0.4000000059604645
+      },
+      "granular_max_dynamic_bonds": {
+        "type": "int",
+        "default": 12,
+        "cpp_type": "std::uint32_t"
+      },
+      "granular_particle_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "granular_particle_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "granular_yield_strain": {
+        "type": "float",
+        "default": 0.029999999329447746
+      },
+      "gravity": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "hinge_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "hinge_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "hinge_rest_angles": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "hinge_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_armature": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_body_point_line_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "joint_body_spring_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "joint_constraint_mass_scale": {
+        "type": "float",
+        "default": 1.0
+      },
+      "joint_dof_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "joint_drive_body_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_child_origins": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_child_reference_points": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "joint_drive_dof_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_parent_axis_points": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_parent_origins": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_parent_reference_points": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_target_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_drive_types": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_effort_limits": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_limit_dampings": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_limit_lower": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_limit_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_limit_upper": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_passive_dampings": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_target_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "joint_target_dampings": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_target_modes": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_target_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "particle_flags": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_mass_non_diagonal_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "particle_mass_non_diagonal_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_mass_non_diagonal_values": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_masses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_radii": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_rest_positions": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_state_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "particle_world": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_bodies": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_contact_dampings": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_contact_friction_gains": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_contact_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "shape_frictions": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_margins": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_replicated_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "shape_rolling_frictions": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_scales": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_torsional_frictions": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_transforms": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape_types": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_contact_damping": {
+        "type": "float",
+        "default": 0.0
+      },
+      "soft_contact_friction": {
+        "type": "float",
+        "default": 0.0
+      },
+      "soft_contact_friction_gain": {
+        "type": "float",
+        "default": 1000.0
+      },
+      "soft_contact_stiffness": {
+        "type": "float",
+        "default": 1000.0
+      },
+      "spring_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "spring_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "spring_rest_lengths": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "spring_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "tetrahedron_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "tetrahedron_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "tetrahedron_inverse_dms": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "tetrahedron_materials": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "triangle_aniso_stiffnesses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "triangle_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "triangle_drag_coefficients": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "triangle_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "triangle_inv_dms": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "triangle_masses": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "triangle_rest_areas": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "world_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      }
+    },
+    "State": {
+      "particle_f": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_q": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "particle_qd": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      }
+    },
+    "Control": {
+      "joint_drive_velocities": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_f": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_target_q": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "joint_target_qd": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "tetrahedron_activations": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      }
+    },
+    "Contact": {
+      "count": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "history_refresh": {
+        "type": "bool",
+        "default": true
+      },
+      "margin0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "margin1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "match_index": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "max_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "normal": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "offset0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "offset1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "point0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "point1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape0": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "shape1": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_barycentric": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_body_pos": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_body_vel": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_count": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_indices": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_max_count": {
+        "type": "int",
+        "default": 0,
+        "cpp_type": "std::uint32_t"
+      },
+      "soft_normal": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_particle": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_particle_only_shapes": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      },
+      "soft_shape": {
+        "type": "Span",
+        "default": [
+          0,
+          0
+        ]
+      }
+    },
+    "Config": {
+      "affine_body_block_preconditioner": {
+        "type": "bool",
+        "default": false
+      },
+      "affine_body_contact_block_preconditioner": {
+        "type": "bool",
+        "default": true
+      },
+      "affine_body_rigidity_model": {
+        "type": "AffineBodyRigidityModel",
+        "default": 3
+      },
+      "affine_body_rigidity_primal_iterations": {
+        "type": "int",
+        "default": 1,
+        "cpp_type": "int"
+      },
+      "air_density": {
+        "type": "float",
+        "default": 1.225000023841858
+      },
+      "cable_angular_beta": {
+        "type": "float",
+        "default": 0.0
+      },
+      "cable_angular_k_start": {
+        "type": "float",
+        "default": 10.0
+      },
+      "cable_linear_beta": {
+        "type": "float",
+        "default": 0.0
+      },
+      "cable_linear_k_start": {
+        "type": "float",
+        "default": 100.0
+      },
+      "cable_penalty_gamma": {
+        "type": "float",
+        "default": 0.9990000128746033
+      },
+      "constraint_alpha": {
+        "type": "float",
+        "default": 100.0
+      },
+      "enable_collision_hessian_non_diagonal": {
+        "type": "bool",
+        "default": true
+      },
+      "enable_self_collision": {
+        "type": "bool",
+        "default": false
+      },
+      "fluid_max_step_ratio": {
+        "type": "float",
+        "default": 0.25
+      },
+      "fluid_relaxation": {
+        "type": "float",
+        "default": 0.5
+      },
+      "inertia_mode": {
+        "type": "InertiaMode",
+        "default": 3
+      },
+      "joint_constraint_mode": {
+        "type": "JointConstraintMode",
+        "default": 1
+      },
+      "joint_constraint_primal_iterations": {
+        "type": "int",
+        "default": 1,
+        "cpp_type": "int"
+      },
+      "linear_iterations": {
+        "type": "int",
+        "default": 50,
+        "cpp_type": "int"
+      },
+      "nonlinear_iterations": {
+        "type": "int",
+        "default": 5,
+        "cpp_type": "int"
+      },
+      "nonlinear_solver": {
+        "type": "NonlinearSolver",
+        "default": 0
+      },
+      "rigid_contact_alpha": {
+        "type": "float",
+        "default": 0.949999988079071
+      },
+      "rigid_contact_beta": {
+        "type": "float",
+        "default": 0.0
+      },
+      "rigid_contact_friction_epsilon": {
+        "type": "float",
+        "default": 0.0
+      },
+      "rigid_contact_gamma": {
+        "type": "float",
+        "default": 0.9990000128746033
+      },
+      "rigid_contact_hard": {
+        "type": "bool",
+        "default": false
+      },
+      "rigid_contact_history": {
+        "type": "bool",
+        "default": false
+      },
+      "rigid_contact_k_start": {
+        "type": "float",
+        "default": 100.0
+      },
+      "rigid_contact_sliding_tangent": {
+        "type": "bool",
+        "default": false
+      },
+      "rolling_friction_velocity_epsilon": {
+        "type": "float",
+        "default": 0.10000000149011612
+      },
+      "self_collision_edge_edge_stiffness": {
+        "type": "float",
+        "default": 0.10000000149011612
+      },
+      "self_collision_edge_face_stiffness": {
+        "type": "float",
+        "default": 1.0
+      },
+      "self_collision_particle_particle_stiffness": {
+        "type": "float",
+        "default": 1.0
+      },
+      "self_collision_radius": {
+        "type": "float",
+        "default": 0.003000000026077032
+      },
+      "self_collision_vertex_face_stiffness": {
+        "type": "float",
+        "default": 0.5
+      },
+      "wind_velocity": {
+        "type": "vec3",
+        "default": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  }
+}

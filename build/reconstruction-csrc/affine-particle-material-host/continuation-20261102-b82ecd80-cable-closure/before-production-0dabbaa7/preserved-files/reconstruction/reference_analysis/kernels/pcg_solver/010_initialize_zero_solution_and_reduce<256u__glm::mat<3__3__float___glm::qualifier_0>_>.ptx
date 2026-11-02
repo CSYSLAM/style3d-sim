@@ -1,0 +1,156 @@
+// [pcg_solver.cu] kernel 10/20   PTX 149 行   SASS 88 条指令
+// 签名: void synreal::kernel::initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >(glm::vec<3, float, (glm::qualifier)0> const*, glm::mat<3, 3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0>*, glm::vec<3, float, (glm::qualifier)0>*, float*, unsigned long)
+// 归一化原型: void synreal::kernel::initialize_zero_solution_and_reduce<256u, glm::mat<3, 3, float, (glm::qualifier)0> >(glm::vec3 const*, glm::mat3 const*, glm::vec3*, glm::vec3*, float*, size_t)
+// maxntid: (未指定)   ptxas: REG=20 SHARED=44 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=1 local=0 branch=4
+
+_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm(
+.param .u64 _ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_0,
+.param .u64 _ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_1,
+.param .u64 _ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_2,
+.param .u64 _ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_3,
+.param .u64 _ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_4,
+.param .u64 _ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_5
+)
+{
+.reg .pred %p<5>;
+.reg .f32 %f<60>;
+.reg .b32 %r<32>;
+.reg .b64 %rd<24>;
+//
+.shared .align 4 .b8 _ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage[44];
+
+ld.param.u64 %rd3, [_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_0];
+ld.param.u64 %rd4, [_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_1];
+ld.param.u64 %rd5, [_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_2];
+ld.param.u64 %rd6, [_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_3];
+ld.param.u64 %rd7, [_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_4];
+ld.param.u64 %rd8, [_ZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_Pfm_param_5];
+mov.u32 %r2, %ctaid.x;
+cvt.u64.u32 %rd1, %r2;
+mov.u32 %r3, %ntid.x;
+mul.wide.u32 %rd9, %r2, %r3;
+mov.u32 %r1, %tid.x;
+cvt.u64.u32 %rd10, %r1;
+add.s64 %rd2, %rd9, %rd10;
+setp.ge.u64 %p1, %rd2, %rd8;
+mov.f32 %f58, 0f00000000;
+@%p1 bra $L__BB5_2;
+
+cvta.to.global.u64 %rd11, %rd3;
+mul.lo.s64 %rd12, %rd2, 12;
+add.s64 %rd13, %rd11, %rd12;
+ld.global.u32 %r4, [%rd13];
+ld.global.u32 %r5, [%rd13+4];
+ld.global.u32 %r6, [%rd13+8];
+cvta.to.global.u64 %rd14, %rd5;
+add.s64 %rd15, %rd14, %rd12;
+st.global.u32 [%rd15], %r4;
+st.global.u32 [%rd15+4], %r5;
+st.global.u32 [%rd15+8], %r6;
+cvta.to.global.u64 %rd16, %rd6;
+add.s64 %rd17, %rd16, %rd12;
+mov.u32 %r7, 0;
+st.global.u32 [%rd17], %r7;
+st.global.u32 [%rd17+4], %r7;
+st.global.u32 [%rd17+8], %r7;
+cvta.to.global.u64 %rd18, %rd4;
+mul.lo.s64 %rd19, %rd2, 36;
+add.s64 %rd20, %rd18, %rd19;
+mov.b32 %f7, %r4;
+ld.global.f32 %f8, [%rd20];
+mov.b32 %f9, %r5;
+ld.global.f32 %f10, [%rd20+12];
+mul.f32 %f11, %f10, %f9;
+fma.rn.f32 %f12, %f8, %f7, %f11;
+mov.b32 %f13, %r6;
+ld.global.f32 %f14, [%rd20+24];
+fma.rn.f32 %f15, %f14, %f13, %f12;
+ld.global.f32 %f16, [%rd20+4];
+ld.global.f32 %f17, [%rd20+16];
+mul.f32 %f18, %f17, %f9;
+fma.rn.f32 %f19, %f16, %f7, %f18;
+ld.global.f32 %f20, [%rd20+28];
+fma.rn.f32 %f21, %f20, %f13, %f19;
+ld.global.f32 %f22, [%rd20+8];
+ld.global.f32 %f23, [%rd20+20];
+mul.f32 %f24, %f23, %f9;
+fma.rn.f32 %f25, %f22, %f7, %f24;
+ld.global.f32 %f26, [%rd20+32];
+fma.rn.f32 %f27, %f26, %f13, %f25;
+mul.f32 %f28, %f21, %f9;
+fma.rn.f32 %f29, %f15, %f7, %f28;
+fma.rn.f32 %f58, %f27, %f13, %f29;
+
+$L__BB5_2:
+//
+mov.u32 %r8, %laneid;
+//
+mov.u32 %r10, 1;
+mov.u32 %r23, 31;
+mov.u32 %r24, -1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f58, %r10, %r23, %r24; @p add.f32 r0, r0, %f58; mov.f32 %f30, r0;}
+//
+mov.u32 %r13, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f30, %r13, %r23, %r24; @p add.f32 r0, r0, %f30; mov.f32 %f33, r0;}
+//
+mov.u32 %r16, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f33, %r16, %r23, %r24; @p add.f32 r0, r0, %f33; mov.f32 %f36, r0;}
+//
+mov.u32 %r19, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f36, %r19, %r23, %r24; @p add.f32 r0, r0, %f36; mov.f32 %f39, r0;}
+//
+mov.u32 %r22, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f39, %r22, %r23, %r24; @p add.f32 r0, r0, %f39; mov.f32 %f59, r0;}
+//
+setp.ne.s32 %p2, %r8, 0;
+@%p2 bra $L__BB5_4;
+
+shr.s32 %r25, %r1, 31;
+shr.u32 %r26, %r25, 27;
+add.s32 %r27, %r1, %r26;
+shr.s32 %r28, %r27, 5;
+shl.b32 %r29, %r28, 2;
+mov.u32 %r30, _ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage;
+add.s32 %r31, %r30, %r29;
+st.shared.f32 [%r31+8], %f59;
+
+$L__BB5_4:
+bar.sync 0;
+setp.ne.s32 %p3, %r1, 0;
+@%p3 bra $L__BB5_6;
+
+ld.shared.f32 %f45, [_ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage+12];
+add.f32 %f46, %f59, %f45;
+ld.shared.f32 %f47, [_ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage+16];
+add.f32 %f48, %f46, %f47;
+ld.shared.f32 %f49, [_ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage+20];
+add.f32 %f50, %f48, %f49;
+ld.shared.f32 %f51, [_ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage+24];
+add.f32 %f52, %f50, %f51;
+ld.shared.f32 %f53, [_ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage+28];
+add.f32 %f54, %f52, %f53;
+ld.shared.f32 %f55, [_ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage+32];
+add.f32 %f56, %f54, %f55;
+ld.shared.f32 %f57, [_ZZN7synreal6kernel35initialize_zero_solution_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKNS2_3vecILi3EfLS4_0EEEPKT0_PS7_SD_PfmE17reduction_storage+36];
+add.f32 %f59, %f56, %f57;
+
+$L__BB5_6:
+@%p3 bra $L__BB5_8;
+
+cvta.to.global.u64 %rd21, %rd7;
+shl.b64 %rd22, %rd1, 2;
+add.s64 %rd23, %rd21, %rd22;
+st.global.f32 [%rd23], %f59;
+
+$L__BB5_8:
+ret;
+
+}
+//
+

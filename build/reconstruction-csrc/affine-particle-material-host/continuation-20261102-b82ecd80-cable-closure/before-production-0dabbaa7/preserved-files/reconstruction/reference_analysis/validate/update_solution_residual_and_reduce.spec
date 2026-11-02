@@ -1,0 +1,18 @@
+label update_solution_residual_and_reduce
+ptx update_solution_residual_and_reduce.ptx
+cubin cubins/update_solution_residual_and_reduce.cubin
+name_ptx _ZN7synreal6kernel35update_solution_residual_and_reduceILj256EN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKfS7_PKNS2_3vecILi3EfLS4_0EEESB_PKT0_PS9_SF_Pfbm
+name_cubin _Z35update_solution_residual_and_reduceiPKfS0_PK4Vec3S3_PK4Mat3PS1_S7_Pfbm
+grid 1 1 1
+block 256 1 1
+u32 1
+ptr randf 1024
+ptr randf 1024
+ptr randf 3072
+ptr randf 3072
+ptr randf 9216
+ptr randf 3072
+ptr randf 3072
+ptr zero 1024
+u32 1
+u64 256

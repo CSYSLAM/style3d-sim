@@ -1,0 +1,382 @@
+// [solver_newton.cu] kernel 12/97   PTX 375 行   SASS 580 条指令
+// 签名: synreal::kernel::add_spring_gauss_newton_hessian(glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<2, int, (glm::qualifier)0> const*, float const*, float const*, glm::mat<3, 3, float, (glm::qualifier)0>*, int const*, synreal::BlockNonZeroEntry*, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long)
+// 归一化原型: synreal::kernel::add_spring_gauss_newton_hessian(glm::vec3 const*, glm::ivec2 const*, float const*, float const*, glm::mat3*, int const*, synreal::BlockNonZeroEntry*, size_t, size_t, size_t, size_t, size_t)
+// maxntid: (未指定)   ptxas: REG=28 SHARED=0 LOCAL=0
+// 计数: atomic=54 div=4 sqrt=1 barrier=0 local=0 branch=19
+
+_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm(
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_0,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_1,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_2,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_3,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_4,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_5,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_6,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_7,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_8,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_9,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_10,
+.param .u64 _ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_11
+)
+{
+.reg .pred %p<19>;
+.reg .f32 %f<126>;
+.reg .b32 %r<57>;
+.reg .b64 %rd<158>;
+
+
+ld.param.u64 %rd28, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_0];
+ld.param.u64 %rd29, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_1];
+ld.param.u64 %rd30, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_2];
+ld.param.u64 %rd31, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_3];
+ld.param.u64 %rd32, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_4];
+ld.param.u64 %rd37, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_5];
+ld.param.u64 %rd38, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_6];
+ld.param.u64 %rd39, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_8];
+ld.param.u64 %rd34, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_9];
+ld.param.u64 %rd35, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_10];
+ld.param.u64 %rd36, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_11];
+cvta.to.global.u64 %rd1, %rd38;
+cvta.to.global.u64 %rd2, %rd37;
+mov.u32 %r21, %ctaid.x;
+mov.u32 %r22, %ntid.x;
+mul.wide.u32 %rd40, %r21, %r22;
+mov.u32 %r23, %tid.x;
+cvt.u64.u32 %rd41, %r23;
+add.s64 %rd3, %rd40, %rd41;
+setp.ge.u64 %p1, %rd3, %rd39;
+@%p1 bra $L__BB53_23;
+
+or.b64 %rd42, %rd3, %rd34;
+and.b64 %rd43, %rd42, -4294967296;
+setp.eq.s64 %p2, %rd43, 0;
+@%p2 bra $L__BB53_3;
+
+div.u64 %rd150, %rd3, %rd34;
+mul.lo.s64 %rd44, %rd150, %rd34;
+sub.s64 %rd151, %rd3, %rd44;
+bra.uni $L__BB53_4;
+
+$L__BB53_3:
+cvt.u32.u64 %r24, %rd34;
+cvt.u32.u64 %r25, %rd3;
+div.u32 %r26, %r25, %r24;
+mul.lo.s32 %r27, %r26, %r24;
+sub.s32 %r28, %r25, %r27;
+cvt.u64.u32 %rd150, %r26;
+cvt.u64.u32 %rd151, %r28;
+
+$L__BB53_4:
+cvta.to.global.u64 %rd45, %rd28;
+mul.lo.s64 %rd46, %rd150, %rd35;
+cvt.u32.u64 %r29, %rd46;
+cvta.to.global.u64 %rd47, %rd29;
+shl.b64 %rd48, %rd151, 3;
+add.s64 %rd49, %rd47, %rd48;
+ld.global.u32 %r30, [%rd49];
+add.s32 %r31, %r30, %r29;
+ld.global.u32 %r32, [%rd49+4];
+add.s32 %r33, %r32, %r29;
+cvt.s64.s32 %rd10, %r31;
+cvt.s64.s32 %rd11, %r33;
+mul.wide.s32 %rd50, %r33, 12;
+add.s64 %rd51, %rd45, %rd50;
+mul.wide.s32 %rd52, %r31, 12;
+add.s64 %rd53, %rd45, %rd52;
+ld.global.f32 %f16, [%rd53];
+ld.global.f32 %f17, [%rd51];
+sub.f32 %f1, %f17, %f16;
+ld.global.f32 %f18, [%rd53+4];
+ld.global.f32 %f19, [%rd51+4];
+sub.f32 %f2, %f19, %f18;
+ld.global.f32 %f20, [%rd53+8];
+ld.global.f32 %f21, [%rd51+8];
+sub.f32 %f3, %f21, %f20;
+cvta.to.global.u64 %rd54, %rd30;
+shl.b64 %rd55, %rd151, 2;
+add.s64 %rd56, %rd54, %rd55;
+ld.global.f32 %f4, [%rd56];
+setp.leu.f32 %p3, %f4, 0f00000000;
+cvta.to.global.u64 %rd57, %rd31;
+add.s64 %rd58, %rd57, %rd55;
+ld.global.f32 %f5, [%rd58];
+setp.le.f32 %p4, %f5, 0f00000000;
+or.pred %p5, %p4, %p3;
+@%p5 bra $L__BB53_23;
+
+mul.f32 %f22, %f2, %f2;
+fma.rn.f32 %f23, %f1, %f1, %f22;
+fma.rn.f32 %f24, %f3, %f3, %f23;
+sqrt.rn.f32 %f6, %f24;
+setp.le.f32 %p6, %f6, 0f322BCC77;
+mov.u32 %r51, 1065353216;
+mov.u32 %r52, 0;
+mov.u32 %r53, %r52;
+mov.u32 %r54, %r51;
+mov.u32 %r55, %r52;
+mov.u32 %r56, %r51;
+@%p6 bra $L__BB53_7;
+
+div.rn.f32 %f25, %f1, %f6;
+mul.f32 %f26, %f25, %f25;
+div.rn.f32 %f27, %f2, %f6;
+mul.f32 %f28, %f27, %f25;
+div.rn.f32 %f29, %f3, %f6;
+mul.f32 %f30, %f29, %f25;
+mul.f32 %f31, %f27, %f27;
+mul.f32 %f32, %f29, %f27;
+mul.f32 %f33, %f29, %f29;
+div.rn.f32 %f34, %f5, %f6;
+mov.f32 %f35, 0f3F800000;
+sub.f32 %f36, %f35, %f34;
+mov.f32 %f37, 0f00000000;
+max.f32 %f38, %f37, %f36;
+sub.f32 %f39, %f35, %f26;
+sub.f32 %f40, %f37, %f28;
+sub.f32 %f41, %f37, %f30;
+sub.f32 %f42, %f35, %f31;
+sub.f32 %f43, %f37, %f32;
+sub.f32 %f44, %f35, %f33;
+fma.rn.f32 %f45, %f39, %f38, %f26;
+fma.rn.f32 %f46, %f40, %f38, %f28;
+fma.rn.f32 %f47, %f41, %f38, %f30;
+fma.rn.f32 %f48, %f42, %f38, %f31;
+fma.rn.f32 %f49, %f43, %f38, %f32;
+fma.rn.f32 %f50, %f44, %f38, %f33;
+mov.b32 %r56, %f50;
+mov.b32 %r55, %f49;
+mov.b32 %r53, %f47;
+mov.b32 %r54, %f48;
+mov.b32 %r52, %f46;
+mov.b32 %r51, %f45;
+
+$L__BB53_7:
+cvta.to.global.u64 %rd59, %rd32;
+mov.b32 %f51, %r51;
+add.f32 %f52, %f51, 0fBF800000;
+mov.b32 %f53, %r52;
+mov.b32 %f54, %r53;
+mov.b32 %f55, %r52;
+mov.b32 %f56, %r54;
+add.f32 %f57, %f56, 0fBF800000;
+mov.b32 %f58, %r55;
+mov.b32 %f59, %r53;
+mov.b32 %f60, %r55;
+mov.b32 %f61, %r56;
+add.f32 %f62, %f61, 0fBF800000;
+mul.f32 %f63, %f4, %f52;
+mul.f32 %f64, %f4, %f53;
+mul.f32 %f65, %f4, %f54;
+mul.f32 %f66, %f4, %f55;
+mul.f32 %f67, %f4, %f57;
+mul.f32 %f68, %f4, %f58;
+mul.f32 %f69, %f4, %f59;
+mul.f32 %f70, %f4, %f60;
+mul.f32 %f71, %f4, %f62;
+mul.lo.s64 %rd60, %rd10, 36;
+add.s64 %rd12, %rd59, %rd60;
+red.global.add.f32 [%rd12], %f63;
+add.s64 %rd61, %rd12, 4;
+red.global.add.f32 [%rd61], %f64;
+add.s64 %rd62, %rd12, 8;
+red.global.add.f32 [%rd62], %f65;
+add.s64 %rd63, %rd12, 12;
+red.global.add.f32 [%rd63], %f66;
+add.s64 %rd64, %rd12, 16;
+red.global.add.f32 [%rd64], %f67;
+add.s64 %rd65, %rd12, 20;
+red.global.add.f32 [%rd65], %f68;
+add.s64 %rd66, %rd12, 24;
+red.global.add.f32 [%rd66], %f69;
+add.s64 %rd67, %rd12, 28;
+red.global.add.f32 [%rd67], %f70;
+add.s64 %rd68, %rd12, 32;
+red.global.add.f32 [%rd68], %f71;
+mul.lo.s64 %rd69, %rd11, 36;
+add.s64 %rd13, %rd59, %rd69;
+red.global.add.f32 [%rd13], %f63;
+add.s64 %rd70, %rd13, 4;
+red.global.add.f32 [%rd70], %f64;
+add.s64 %rd71, %rd13, 8;
+red.global.add.f32 [%rd71], %f65;
+add.s64 %rd72, %rd13, 12;
+red.global.add.f32 [%rd72], %f66;
+add.s64 %rd73, %rd13, 16;
+red.global.add.f32 [%rd73], %f67;
+add.s64 %rd74, %rd13, 20;
+red.global.add.f32 [%rd74], %f68;
+add.s64 %rd75, %rd13, 24;
+red.global.add.f32 [%rd75], %f69;
+add.s64 %rd76, %rd13, 28;
+red.global.add.f32 [%rd76], %f70;
+add.s64 %rd77, %rd13, 32;
+red.global.add.f32 [%rd77], %f71;
+neg.f32 %f7, %f63;
+neg.f32 %f8, %f64;
+neg.f32 %f9, %f65;
+neg.f32 %f10, %f66;
+neg.f32 %f11, %f67;
+neg.f32 %f12, %f68;
+neg.f32 %f13, %f69;
+neg.f32 %f14, %f70;
+neg.f32 %f15, %f71;
+cvt.u32.u64 %r19, %rd10;
+cvt.u32.u64 %r20, %rd11;
+setp.eq.s32 %p7, %r19, %r20;
+@%p7 bra $L__BB53_14;
+bra.uni $L__BB53_8;
+
+$L__BB53_14:
+red.global.add.f32 [%rd12], %f7;
+red.global.add.f32 [%rd61], %f8;
+red.global.add.f32 [%rd62], %f9;
+red.global.add.f32 [%rd63], %f10;
+red.global.add.f32 [%rd64], %f11;
+red.global.add.f32 [%rd65], %f12;
+red.global.add.f32 [%rd66], %f13;
+red.global.add.f32 [%rd67], %f14;
+red.global.add.f32 [%rd68], %f15;
+bra.uni $L__BB53_15;
+
+$L__BB53_8:
+ld.param.u64 %rd149, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_7];
+shl.b64 %rd79, %rd10, 2;
+add.s64 %rd80, %rd2, %rd79;
+ld.global.s32 %rd81, [%rd80];
+mov.u64 %rd154, 0;
+min.u64 %rd14, %rd81, %rd149;
+setp.eq.s64 %p8, %rd14, 0;
+@%p8 bra $L__BB53_11;
+
+mov.u64 %rd154, 0;
+mov.u64 %rd152, %rd14;
+
+$L__BB53_10:
+sub.s64 %rd83, %rd152, %rd154;
+shr.u64 %rd84, %rd83, 1;
+add.s64 %rd85, %rd84, %rd154;
+mul.lo.s64 %rd86, %rd85, %rd36;
+add.s64 %rd87, %rd86, %rd10;
+mul.lo.s64 %rd88, %rd87, 40;
+add.s64 %rd89, %rd1, %rd88;
+ld.global.u32 %r43, [%rd89];
+setp.lt.s32 %p9, %r43, %r20;
+add.s64 %rd90, %rd85, 1;
+selp.b64 %rd154, %rd90, %rd154, %p9;
+selp.b64 %rd152, %rd152, %rd85, %p9;
+setp.gt.u64 %p10, %rd152, %rd154;
+@%p10 bra $L__BB53_10;
+
+$L__BB53_11:
+setp.ge.u64 %p11, %rd154, %rd14;
+@%p11 bra $L__BB53_15;
+
+mul.lo.s64 %rd91, %rd154, %rd36;
+add.s64 %rd20, %rd91, %rd10;
+mul.lo.s64 %rd92, %rd20, 40;
+add.s64 %rd93, %rd1, %rd92;
+ld.global.u32 %r46, [%rd93];
+setp.ne.s32 %p12, %r46, %r20;
+@%p12 bra $L__BB53_15;
+
+add.s64 %rd96, %rd93, 4;
+red.global.add.f32 [%rd96], %f7;
+add.s64 %rd97, %rd93, 8;
+red.global.add.f32 [%rd97], %f8;
+add.s64 %rd98, %rd93, 12;
+red.global.add.f32 [%rd98], %f9;
+add.s64 %rd99, %rd93, 16;
+red.global.add.f32 [%rd99], %f10;
+add.s64 %rd100, %rd93, 20;
+red.global.add.f32 [%rd100], %f11;
+add.s64 %rd101, %rd93, 24;
+red.global.add.f32 [%rd101], %f12;
+add.s64 %rd102, %rd93, 28;
+red.global.add.f32 [%rd102], %f13;
+add.s64 %rd103, %rd93, 32;
+red.global.add.f32 [%rd103], %f14;
+add.s64 %rd104, %rd93, 36;
+red.global.add.f32 [%rd104], %f15;
+
+$L__BB53_15:
+@%p7 bra $L__BB53_22;
+bra.uni $L__BB53_16;
+
+$L__BB53_22:
+red.global.add.f32 [%rd13], %f7;
+red.global.add.f32 [%rd70], %f8;
+red.global.add.f32 [%rd71], %f9;
+red.global.add.f32 [%rd72], %f10;
+red.global.add.f32 [%rd73], %f11;
+red.global.add.f32 [%rd74], %f12;
+red.global.add.f32 [%rd75], %f13;
+red.global.add.f32 [%rd76], %f14;
+red.global.add.f32 [%rd77], %f15;
+bra.uni $L__BB53_23;
+
+$L__BB53_16:
+ld.param.u64 %rd148, [_ZN7synreal6kernel31add_spring_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi2EiLS3_0EEEPKfSB_PNS1_3matILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm_param_7];
+shl.b64 %rd114, %rd11, 2;
+add.s64 %rd115, %rd2, %rd114;
+ld.global.s32 %rd116, [%rd115];
+mov.u64 %rd157, 0;
+min.u64 %rd21, %rd116, %rd148;
+setp.eq.s64 %p14, %rd21, 0;
+@%p14 bra $L__BB53_19;
+
+mov.u64 %rd157, 0;
+mov.u64 %rd155, %rd21;
+
+$L__BB53_18:
+sub.s64 %rd118, %rd155, %rd157;
+shr.u64 %rd119, %rd118, 1;
+add.s64 %rd120, %rd119, %rd157;
+mul.lo.s64 %rd121, %rd120, %rd36;
+add.s64 %rd122, %rd121, %rd11;
+mul.lo.s64 %rd123, %rd122, 40;
+add.s64 %rd124, %rd1, %rd123;
+ld.global.u32 %r47, [%rd124];
+setp.lt.s32 %p15, %r47, %r19;
+add.s64 %rd125, %rd120, 1;
+selp.b64 %rd157, %rd125, %rd157, %p15;
+selp.b64 %rd155, %rd155, %rd120, %p15;
+setp.gt.u64 %p16, %rd155, %rd157;
+@%p16 bra $L__BB53_18;
+
+$L__BB53_19:
+setp.ge.u64 %p17, %rd157, %rd21;
+@%p17 bra $L__BB53_23;
+
+mul.lo.s64 %rd126, %rd157, %rd36;
+add.s64 %rd27, %rd126, %rd11;
+mul.lo.s64 %rd127, %rd27, 40;
+add.s64 %rd128, %rd1, %rd127;
+ld.global.u32 %r50, [%rd128];
+setp.ne.s32 %p18, %r50, %r19;
+@%p18 bra $L__BB53_23;
+
+add.s64 %rd131, %rd128, 4;
+red.global.add.f32 [%rd131], %f7;
+add.s64 %rd132, %rd128, 8;
+red.global.add.f32 [%rd132], %f8;
+add.s64 %rd133, %rd128, 12;
+red.global.add.f32 [%rd133], %f9;
+add.s64 %rd134, %rd128, 16;
+red.global.add.f32 [%rd134], %f10;
+add.s64 %rd135, %rd128, 20;
+red.global.add.f32 [%rd135], %f11;
+add.s64 %rd136, %rd128, 24;
+red.global.add.f32 [%rd136], %f12;
+add.s64 %rd137, %rd128, 28;
+red.global.add.f32 [%rd137], %f13;
+add.s64 %rd138, %rd128, 32;
+red.global.add.f32 [%rd138], %f14;
+add.s64 %rd139, %rd128, 36;
+red.global.add.f32 [%rd139], %f15;
+
+$L__BB53_23:
+ret;
+
+}
+//
+

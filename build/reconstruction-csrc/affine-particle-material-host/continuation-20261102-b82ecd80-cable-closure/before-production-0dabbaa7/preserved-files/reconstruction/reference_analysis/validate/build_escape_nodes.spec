@@ -1,0 +1,11 @@
+label build_escape_nodes
+ptx build_escape_nodes.ptx
+cubin cubins/build_escape_nodes.cubin
+name_ptx _ZN7synreal6kernel18build_escape_nodesEPiPKiPKN3glm3vecILi2EiLNS4_9qualifierE0EEEj
+name_cubin _Z18build_escape_nodesPiPKiPK5IVec2j
+grid 1 1 1
+block 256 1 1
+ptr zero 1024
+ptr treeparent 1024
+ptr treechildren 2048
+u32 256

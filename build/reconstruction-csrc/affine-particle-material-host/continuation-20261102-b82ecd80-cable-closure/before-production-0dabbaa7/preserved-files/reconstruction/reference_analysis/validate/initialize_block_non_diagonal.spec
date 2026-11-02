@@ -1,0 +1,13 @@
+label initialize_block_non_diagonal
+ptx initialize_block_non_diagonal.ptx
+cubin cubins/initialize_block_non_diagonal.cubin
+name_ptx _ZN7synreal6kernel29initialize_block_non_diagonalEPKNS_12NonZeroEntryEPKimmPNS_17BlockNonZeroEntryEm
+name_cubin _Z29initialize_block_non_diagonalPK12NonZeroEntryPKimmP17BlockNonZeroEntrym
+grid 1 1 1
+block 64 1 1
+ptr pair 512 8
+ptr idx 256 2
+u64 8
+u64 8
+ptr zero 2560
+u64 32

@@ -1,5 +1,12 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **当前已合入d09 host，公开Core为55d626f0／9cb2fcaa1082d1df。** 恢复六块cable typed-zero缓存和weight上传顺序。
+> 新image104个cable组合严格，74回归71严格、三粒子首source0固定C10均在原版波动内，严格失败仍保留。
+> 八次正常Core入口全部0、无SDK映射，含用户五例各60帧；不能据此宣称正常轨迹或全solver已经一致。
+> 本批按完整阶段集中提交，0dab的2130源码/构建文件及旧结果SHA已checkpoint，SDK/360pyc/default/readyFalse保持。
+> 接续G1/复杂布料长程、4f/7ca需在新主线上接续，旧失败不改判；下方0dab/715与b82“未合入”为历史。
+> [当前结果、真实so及WSL命令](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-b82ecd80-cable-closure/README.md)。
+
 > **新增b82缆绳＋plain约束候选，尚未合入生产。** 据实际SDK恢复六块提前typed-zero缓存，旧构造失败保留。
 > 24短程/10680调用同、六构造五项全同、459 view对同、60步96比较同、双端12 initcheck零错。
 > 下一步混合plain约束和penalty/reset，再保存0dab checkpoint并合入、重建公开Core及重新验收。

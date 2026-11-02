@@ -1,0 +1,135 @@
+{
+  "verification_environment": "Linux Ubuntu 22.04 x86_64; relocated checkout; not Windows/WSL GPU validation",
+  "relocated_checkout": "/tmp/style3d-handoff-checkout-7gnhkrn2",
+  "new_environment_python": "3.12.13",
+  "installed_packages": {
+    "pillow": "12.3.0",
+    "typing_extensions": "4.16.0",
+    "glfw": "2.10.2",
+    "zipp": "4.1.0",
+    "pluggy": "1.6.0",
+    "Pygments": "2.20.0",
+    "pytest": "9.1.1",
+    "imgui-bundle": "1.92.801",
+    "numpy": "2.5.2",
+    "packaging": "26.3",
+    "style3d-sim": "2.0.0",
+    "usd-core": "26.3",
+    "warp-lang": "1.16.0",
+    "PyOpenGL": "3.1.10",
+    "scipy": "1.18.0",
+    "mujoco": "3.11.0",
+    "newton": "1.5.0",
+    "pyglet": "2.1.16",
+    "pybind11": "3.1.0",
+    "fsspec": "2026.7.0",
+    "iniconfig": "2.3.0",
+    "etils": "1.14.0",
+    "absl-py": "2.5.0"
+  },
+  "unit_tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_local_credentials.py tests/test_authentication.py",
+    "passed": 16
+  },
+  "frozen_source_sha256": "8fb9d2eec1626aba196a0c6a8665f61c4131189a1452f9f900fdd213fbd6bb31",
+  "relocated_rebuild_sha256": "651d4df798dcbda4f97d67e26a0b1cd340fef180c88dbb4ff53d44f3574774eb",
+  "rebuild_cuda_digest_unchanged": true,
+  "all_176_kernel_specs_identical": true,
+  "generated_inputs_changed": [
+    "build/reconstruction-csrc/host-particles/source_ptx_bundle.h",
+    "build/reconstruction-csrc/pcg_23fb797.ptx"
+  ],
+  "exact_INTERNAL_identifier_substitution_reproduces_files": {
+    "build/reconstruction-csrc/host-particles/source_ptx_bundle.h": true,
+    "build/reconstruction-csrc/pcg_23fb797.ptx": true
+  },
+  "all_other_source_manifest_inputs_identical": true,
+  "rebuild_kernel_count": 176,
+  "solver_api_ready": false,
+  "fixed_cohort_offline_report_reproduced": true,
+  "fixed_cohort_primary_c_passed": false,
+  "frozen_reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "glm_version": "1.0.1",
+  "glm_commit": "0af55ccecd98d4e5a8d1fad7de25ba429d60e863",
+  "build_packaging_failure_fixed": "GLM nested .git caused initial staging omission; actual headers now vendored and rebuild verified",
+  "demos": {
+    "pinned-body-spring": {
+      "example": "examples/example_body_spring.py",
+      "frames": 3,
+      "bitwise": {
+        "body_q": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      }
+    },
+    "rebuilt-body-spring": {
+      "example": "examples/example_body_spring.py",
+      "frames": 3,
+      "bitwise": {
+        "body_q": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "body_qd": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_q": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "particle_qd": {
+          "substeps": 12,
+          "length_match": true,
+          "bitwise_substeps": 12,
+          "first_diff_substep": null,
+          "max_abs": 0.0,
+          "nonfinite": false
+        },
+        "bitwise": true
+      }
+    }
+  }
+}

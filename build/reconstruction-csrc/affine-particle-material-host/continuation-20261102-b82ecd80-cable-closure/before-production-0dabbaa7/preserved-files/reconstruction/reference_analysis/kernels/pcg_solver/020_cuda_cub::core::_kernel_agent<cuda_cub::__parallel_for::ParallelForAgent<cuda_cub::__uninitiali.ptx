@@ -1,0 +1,59 @@
+// [pcg_solver.cu] kernel 20/20   PTX 52 行   SASS 24 条指令
+// 签名: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<unsigned char>, unsigned char>, unsigned long>, thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<unsigned char>, unsigned char>, unsigned long>(thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<unsigned char>, unsigned char>, unsigned long)
+// 归一化原型: void thrust::THRUST_200302_520_NS::cuda_cub::core::_kernel_agent<thrust::THRUST_200302_520_NS::cuda_cub::__parallel_for::ParallelForAgent<thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<unsigned char>, unsigned char>, unsigned long>, thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<unsigned char>, unsigned char>, unsigned long>(thrust::THRUST_200302_520_NS::cuda_cub::__uninitialized_fill::functor<thrust::THRUST_200302_520_NS::device_ptr<unsigned char>, unsigned char>, size_t)
+// maxntid: 256, 1, 1   ptxas: REG=8 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=5
+
+_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIhEEhEEmEESA_mEEvT0_T1_(
+.param .align 8 .b8 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIhEEhEEmEESA_mEEvT0_T1__param_0[16],
+.param .u64 _ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIhEEhEEmEESA_mEEvT0_T1__param_1
+)
+.maxntid 256, 1, 1
+{
+.reg .pred %p<4>;
+.reg .b16 %rs<6>;
+.reg .b32 %r<4>;
+.reg .b64 %rd<12>;
+
+
+ld.param.v4.u8 {%rs2, %rs3, %rs4, %rs5}, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIhEEhEEmEESA_mEEvT0_T1__param_0+8];
+ld.param.u64 %rd4, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIhEEhEEmEESA_mEEvT0_T1__param_1];
+ld.param.u64 %rd5, [_ZN6thrust20THRUST_200302_520_NS8cuda_cub4core13_kernel_agentINS1_14__parallel_for16ParallelForAgentINS1_20__uninitialized_fill7functorINS0_10device_ptrIhEEhEEmEESA_mEEvT0_T1__param_0];
+mov.u32 %r2, %ctaid.x;
+mul.wide.u32 %rd6, %r2, 512;
+sub.s64 %rd1, %rd4, %rd6;
+setp.gt.u64 %p1, %rd1, 511;
+cvta.to.global.u64 %rd7, %rd5;
+mov.u32 %r1, %tid.x;
+cvt.u64.u32 %rd8, %r1;
+add.s64 %rd9, %rd6, %rd8;
+add.s64 %rd2, %rd7, %rd9;
+@%p1 bra $L__BB14_5;
+bra.uni $L__BB14_1;
+
+$L__BB14_5:
+st.global.u8 [%rd2], %rs2;
+st.global.u8 [%rd2+256], %rs2;
+bra.uni $L__BB14_6;
+
+$L__BB14_1:
+cvt.s64.s32 %rd3, %rd1;
+setp.le.u64 %p2, %rd3, %rd8;
+@%p2 bra $L__BB14_3;
+
+st.global.u8 [%rd2], %rs2;
+
+$L__BB14_3:
+add.s32 %r3, %r1, 256;
+cvt.u64.u32 %rd11, %r3;
+setp.le.u64 %p3, %rd3, %rd11;
+@%p3 bra $L__BB14_6;
+
+st.global.u8 [%rd2+256], %rs2;
+
+$L__BB14_6:
+ret;
+
+}
+//
+

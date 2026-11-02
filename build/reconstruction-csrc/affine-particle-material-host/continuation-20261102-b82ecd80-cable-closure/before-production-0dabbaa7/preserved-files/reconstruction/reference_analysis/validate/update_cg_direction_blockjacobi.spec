@@ -1,0 +1,13 @@
+label update_cg_direction_blockjacobi
+ptx update_cg_direction_blockjacobi.ptx
+cubin cubins/update_cg_direction_blockjacobi.cubin
+name_ptx _ZN7synreal6kernel19update_cg_directionIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEviPKT_PKNS2_3vecILi3EfLS4_0EEEPKfPSA_m
+name_cubin _Z31update_cg_direction_blockjacobiiPK4Mat3PK4Vec3PKfPS2_m
+grid 1 1 1
+block 256 1 1
+u32 1
+ptr randf 9216
+ptr randf 3072
+ptr randf 1024
+ptr randf 3072
+u64 256

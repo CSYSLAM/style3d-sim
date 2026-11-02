@@ -1,0 +1,65 @@
+{
+  "binary_sha256": "4c223854a5a554140ed6cf0e99d5687aa5846bbe49465a85a5819079f3db34e6",
+  "ranges": [
+    {
+      "file": "host/verified/step.asm",
+      "start": "0xfb160",
+      "end": "0x102a90",
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--no-show-raw-insn",
+        "--start-address=1028448",
+        "--stop-address=1059472",
+        "../_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "sha256": "1cfb1cd0bc978af5a4d74d3a6fb621e7f8e34f3f23d41eb8e9fe03716a162941"
+    },
+    {
+      "file": "host/verified/fluid.asm",
+      "start": "0x1207c0",
+      "end": "0x121350",
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--no-show-raw-insn",
+        "--start-address=1181632",
+        "--stop-address=1184592",
+        "../_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "sha256": "28d7a391f4aef0f81d302d260303313a45aad6319d9dcdbafb418e81586a08c3"
+    },
+    {
+      "file": "host/verified/granular.asm",
+      "start": "0x126550",
+      "end": "0x1272a0",
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--no-show-raw-insn",
+        "--start-address=1205584",
+        "--stop-address=1208992",
+        "../_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "sha256": "e69f079a86915729d87ca6e3707230e66acfbd86226d50f8791adbcbb0c78695"
+    },
+    {
+      "file": "host/verified/linear_dispatch.asm",
+      "start": "0xf1550",
+      "end": "0xf1840",
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--no-show-raw-insn",
+        "--start-address=988496",
+        "--stop-address=989248",
+        "../_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "sha256": "727724cae3b19c4d445a3ffea82f3744b9625d0bfcfff5f65a8418a6aef59dfa"
+    }
+  ]
+}

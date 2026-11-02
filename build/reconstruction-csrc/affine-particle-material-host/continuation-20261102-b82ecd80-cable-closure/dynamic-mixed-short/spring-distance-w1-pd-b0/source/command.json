@@ -1,0 +1,23 @@
+[
+  "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+  "-B",
+  "-m",
+  "reconstruction.csrc.candidate_demo_worker",
+  "--backend",
+  "source",
+  "--candidate-build",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/candidate-cache-order/build.json",
+  "--example",
+  "/home/oem/code/agent/style3d-sim/reconstruction/csrc/cable_body_mixed_dynamic_scene.py",
+  "--frames",
+  "3",
+  "--output",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-b82ecd80-cable-closure/dynamic-mixed-short/spring-distance-w1-pd-b0/source/actual",
+  "--",
+  "--constraint",
+  "spring-distance",
+  "--worlds",
+  "1",
+  "--mode",
+  "pd"
+]

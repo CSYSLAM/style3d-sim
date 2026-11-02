@@ -1,0 +1,115 @@
+// [lbvh_builder.cu] kernel 11/29   PTX 108 行   SASS 56 条指令
+// 签名: void cub::CUB_200302_520_NS::DeviceRadixSortExclusiveSumKernel<cub::CUB_200302_520_NS::DeviceRadixSortPolicy<unsigned int, unsigned int, unsigned int>::Policy900, unsigned int>(unsigned int*)
+// 归一化原型: void cub::CUB_200302_520_NS::DeviceRadixSortExclusiveSumKernel<cub::CUB_200302_520_NS::DeviceRadixSortPolicy<unsigned int, unsigned int, unsigned int>::Policy900, unsigned int>(unsigned int*)
+// maxntid: (未指定)   ptxas: REG=18 SHARED=1184 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=2 local=0 branch=3
+
+_ZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900EjEEvPT0_(
+.param .u64 _ZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900EjEEvPT0__param_0
+)
+{
+.reg .pred %p<4>;
+.reg .b32 %r<78>;
+.reg .b64 %rd<5>;
+//
+.shared .align 16 .b8 _ZZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900EjEEvPT0_E12temp_storage[1184];
+
+ld.param.u64 %rd2, [_ZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900EjEEvPT0__param_0];
+cvta.to.global.u64 %rd3, %rd2;
+mov.u32 %r6, %ctaid.x;
+shl.b32 %r7, %r6, 8;
+mov.u32 %r1, %tid.x;
+setp.gt.s32 %p1, %r1, 255;
+add.s32 %r8, %r7, %r1;
+mul.wide.s32 %rd4, %r8, 4;
+add.s64 %rd1, %rd3, %rd4;
+@%p1 bra $L__BB33_2;
+
+ld.global.u32 %r77, [%rd1];
+
+$L__BB33_2:
+shr.u32 %r9, %r1, 3;
+add.s32 %r10, %r9, %r1;
+shl.b32 %r11, %r10, 2;
+mov.u32 %r12, _ZZN3cub17CUB_200302_520_NS33DeviceRadixSortExclusiveSumKernelINS0_21DeviceRadixSortPolicyIjjjE9Policy900EjEEvPT0_E12temp_storage;
+add.s32 %r4, %r12, %r11;
+st.shared.u32 [%r4+16], %r77;
+bar.sync 0;
+setp.gt.u32 %p2, %r1, 31;
+@%p2 bra $L__BB33_4;
+
+mad.lo.s32 %r46, %r1, 36, %r12;
+mov.u32 %r23, 2;
+mov.u32 %r41, 16;
+ld.shared.u32 %r47, [%r46+20];
+mov.u32 %r42, 0;
+ld.shared.u32 %r48, [%r46+16];
+add.s32 %r49, %r47, %r48;
+ld.shared.u32 %r50, [%r46+24];
+add.s32 %r51, %r49, %r50;
+ld.shared.u32 %r52, [%r46+28];
+add.s32 %r53, %r51, %r52;
+ld.shared.u32 %r54, [%r46+32];
+add.s32 %r55, %r53, %r54;
+ld.shared.u32 %r56, [%r46+36];
+add.s32 %r57, %r55, %r56;
+ld.shared.u32 %r58, [%r46+40];
+add.s32 %r59, %r57, %r58;
+ld.shared.u32 %r60, [%r46+44];
+add.s32 %r19, %r59, %r60;
+mov.u32 %r17, 1;
+mov.u32 %r44, -1;
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r19, %r17, %r42, %r44; @p add.u32 r0, r0, %r19; mov.u32 %r15, r0;}
+//
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r15, %r23, %r42, %r44; @p add.u32 r0, r0, %r15; mov.u32 %r21, r0;}
+//
+mov.u32 %r29, 4;
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r21, %r29, %r42, %r44; @p add.u32 r0, r0, %r21; mov.u32 %r27, r0;}
+//
+mov.u32 %r35, 8;
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r27, %r35, %r42, %r44; @p add.u32 r0, r0, %r27; mov.u32 %r33, r0;}
+//
+//
+{ .reg .u32 r0; .reg .pred p; shfl.sync.up.b32 r0|p, %r33, %r41, %r42, %r44; @p add.u32 r0, r0, %r33; mov.u32 %r39, r0;}
+//
+sub.s32 %r61, %r39, %r19;
+ld.shared.u32 %r62, [%r46+16];
+add.s32 %r63, %r62, %r61;
+ld.shared.u32 %r64, [%r46+20];
+add.s32 %r65, %r64, %r63;
+ld.shared.u32 %r66, [%r46+24];
+add.s32 %r67, %r66, %r65;
+ld.shared.u32 %r68, [%r46+28];
+add.s32 %r69, %r68, %r67;
+ld.shared.u32 %r70, [%r46+32];
+add.s32 %r71, %r70, %r69;
+ld.shared.u32 %r72, [%r46+36];
+add.s32 %r73, %r72, %r71;
+ld.shared.u32 %r74, [%r46+40];
+add.s32 %r75, %r74, %r73;
+st.shared.u32 [%r46+16], %r61;
+st.shared.u32 [%r46+20], %r63;
+st.shared.u32 [%r46+24], %r65;
+st.shared.u32 [%r46+28], %r67;
+st.shared.u32 [%r46+32], %r69;
+st.shared.u32 [%r46+36], %r71;
+st.shared.u32 [%r46+40], %r73;
+st.shared.u32 [%r46+44], %r75;
+
+$L__BB33_4:
+bar.sync 0;
+@%p1 bra $L__BB33_6;
+
+ld.shared.u32 %r76, [%r4+16];
+st.global.u32 [%rd1], %r76;
+
+$L__BB33_6:
+ret;
+
+}
+//
+

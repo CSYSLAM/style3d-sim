@@ -1,0 +1,390 @@
+// [pcg_solver.cu] kernel 13/20   PTX 383 行   SASS 436 条指令
+// 签名: void synreal::kernel::multiply_matrix_and_reduce<256u, synreal::BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >(int const*, synreal::BlockNonZeroEntry const*, unsigned long, glm::mat<3, 3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0> const*, glm::vec<3, float, (glm::qualifier)0>*, float*, unsigned long, unsigned long)
+// 归一化原型: void synreal::kernel::multiply_matrix_and_reduce<256u, synreal::BlockNonZeroEntry, glm::mat<3, 3, float, (glm::qualifier)0> >(int const*, synreal::BlockNonZeroEntry const*, size_t, glm::mat3 const*, glm::vec3 const*, glm::vec3 const*, glm::vec3*, float*, size_t, size_t)
+// maxntid: (未指定)   ptxas: REG=32 SHARED=44 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=1 local=0 branch=19
+
+_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm(
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_0,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_1,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_2,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_3,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_4,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_5,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_6,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_7,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_8,
+.param .u64 _ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_9
+)
+{
+.reg .pred %p<25>;
+.reg .f32 %f<162>;
+.reg .b32 %r<112>;
+.reg .b64 %rd<71>;
+//
+.shared .align 4 .b8 _ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage[44];
+
+ld.param.u64 %rd21, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_0];
+ld.param.u64 %rd29, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_1];
+ld.param.u64 %rd22, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_2];
+ld.param.u64 %rd23, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_3];
+ld.param.u64 %rd30, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_4];
+ld.param.u64 %rd24, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_5];
+ld.param.u64 %rd25, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_6];
+ld.param.u64 %rd26, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_7];
+ld.param.u64 %rd27, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_8];
+ld.param.u64 %rd28, [_ZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_Pfmm_param_9];
+cvta.to.global.u64 %rd1, %rd29;
+cvta.to.global.u64 %rd2, %rd30;
+mov.u32 %r42, %ctaid.x;
+cvt.u64.u32 %rd3, %r42;
+mov.u32 %r43, %ntid.x;
+mul.wide.u32 %rd31, %r42, %r43;
+mov.u32 %r1, %tid.x;
+cvt.u64.u32 %rd32, %r1;
+add.s64 %rd4, %rd31, %rd32;
+setp.ge.u64 %p1, %rd4, %rd27;
+mov.f32 %f160, 0f00000000;
+@%p1 bra $L__BB8_24;
+
+cvta.to.global.u64 %rd33, %rd23;
+mul.lo.s64 %rd34, %rd4, 36;
+add.s64 %rd35, %rd33, %rd34;
+mul.lo.s64 %rd36, %rd4, 12;
+add.s64 %rd5, %rd2, %rd36;
+ld.global.f32 %f19, [%rd5];
+ld.global.f32 %f20, [%rd35];
+ld.global.f32 %f21, [%rd5+4];
+ld.global.f32 %f22, [%rd35+12];
+mul.f32 %f23, %f22, %f21;
+fma.rn.f32 %f24, %f20, %f19, %f23;
+ld.global.f32 %f25, [%rd5+8];
+ld.global.f32 %f26, [%rd35+24];
+fma.rn.f32 %f1, %f26, %f25, %f24;
+ld.global.f32 %f27, [%rd35+4];
+ld.global.f32 %f28, [%rd35+16];
+mul.f32 %f29, %f28, %f21;
+fma.rn.f32 %f30, %f27, %f19, %f29;
+ld.global.f32 %f31, [%rd35+28];
+fma.rn.f32 %f2, %f31, %f25, %f30;
+ld.global.f32 %f32, [%rd35+8];
+ld.global.f32 %f33, [%rd35+20];
+mul.f32 %f34, %f33, %f21;
+fma.rn.f32 %f35, %f32, %f19, %f34;
+ld.global.f32 %f36, [%rd35+32];
+fma.rn.f32 %f3, %f36, %f25, %f35;
+setp.eq.s64 %p2, %rd22, 0;
+mov.u32 %r106, 0;
+mov.u32 %r107, %r106;
+mov.u32 %r108, %r106;
+@%p2 bra $L__BB8_21;
+
+setp.eq.s64 %p3, %rd28, 0;
+mov.u64 %rd69, %rd4;
+@%p3 bra $L__BB8_6;
+
+or.b64 %rd37, %rd4, %rd28;
+and.b64 %rd38, %rd37, -4294967296;
+setp.eq.s64 %p4, %rd38, 0;
+@%p4 bra $L__BB8_5;
+
+rem.u64 %rd69, %rd4, %rd28;
+bra.uni $L__BB8_6;
+
+$L__BB8_5:
+cvt.u32.u64 %r47, %rd28;
+cvt.u32.u64 %r48, %rd4;
+rem.u32 %r49, %r48, %r47;
+cvt.u64.u32 %rd69, %r49;
+
+$L__BB8_6:
+sub.s64 %rd9, %rd4, %rd69;
+cvta.to.global.u64 %rd39, %rd21;
+shl.b64 %rd40, %rd69, 2;
+add.s64 %rd41, %rd39, %rd40;
+ld.global.u32 %r53, [%rd41];
+mov.u32 %r106, 0;
+max.s32 %r54, %r53, 0;
+cvt.u32.u64 %r55, %rd22;
+min.s32 %r2, %r54, %r55;
+setp.lt.s32 %p5, %r2, 1;
+mov.u32 %r107, %r106;
+mov.u32 %r108, %r106;
+@%p5 bra $L__BB8_21;
+
+and.b32 %r3, %r2, 1;
+setp.eq.s32 %p6, %r2, 1;
+mov.u32 %r108, 0;
+mov.u64 %rd70, 0;
+mov.u32 %r107, %r108;
+mov.u32 %r106, %r108;
+@%p6 bra $L__BB8_17;
+
+sub.s32 %r93, %r2, %r3;
+mov.u32 %r89, 0;
+mov.u32 %r108, %r89;
+mov.u32 %r107, %r89;
+mov.u32 %r106, %r89;
+
+$L__BB8_9:
+cvt.s64.s32 %rd43, %r89;
+mul.lo.s64 %rd44, %rd43, %rd28;
+add.s64 %rd45, %rd44, %rd69;
+mul.lo.s64 %rd46, %rd45, 40;
+add.s64 %rd10, %rd1, %rd46;
+ld.global.s32 %rd11, [%rd10];
+setp.lt.s64 %p7, %rd11, 0;
+setp.ge.u64 %p8, %rd11, %rd28;
+or.pred %p9, %p7, %p8;
+@%p9 bra $L__BB8_12;
+
+add.s64 %rd12, %rd9, %rd11;
+setp.ge.u64 %p10, %rd12, %rd27;
+@%p10 bra $L__BB8_12;
+
+ld.global.f32 %f37, [%rd10+4];
+ld.global.f32 %f38, [%rd10+8];
+ld.global.f32 %f39, [%rd10+12];
+ld.global.f32 %f40, [%rd10+16];
+ld.global.f32 %f41, [%rd10+20];
+ld.global.f32 %f42, [%rd10+24];
+ld.global.f32 %f43, [%rd10+28];
+ld.global.f32 %f44, [%rd10+32];
+ld.global.f32 %f45, [%rd10+36];
+mul.lo.s64 %rd47, %rd12, 12;
+add.s64 %rd48, %rd2, %rd47;
+ld.global.f32 %f46, [%rd48];
+ld.global.f32 %f47, [%rd48+4];
+mul.f32 %f48, %f40, %f47;
+fma.rn.f32 %f49, %f37, %f46, %f48;
+ld.global.f32 %f50, [%rd48+8];
+fma.rn.f32 %f51, %f43, %f50, %f49;
+mul.f32 %f52, %f41, %f47;
+fma.rn.f32 %f53, %f38, %f46, %f52;
+fma.rn.f32 %f54, %f44, %f50, %f53;
+mul.f32 %f55, %f42, %f47;
+fma.rn.f32 %f56, %f39, %f46, %f55;
+fma.rn.f32 %f57, %f45, %f50, %f56;
+mov.b32 %f58, %r106;
+add.f32 %f59, %f51, %f58;
+mov.b32 %f60, %r107;
+add.f32 %f61, %f54, %f60;
+mov.b32 %f62, %r108;
+add.f32 %f63, %f57, %f62;
+mov.b32 %r106, %f59;
+mov.b32 %r107, %f61;
+mov.b32 %r108, %f63;
+
+$L__BB8_12:
+add.s32 %r64, %r89, 1;
+cvt.s64.s32 %rd49, %r64;
+mul.lo.s64 %rd50, %rd49, %rd28;
+add.s64 %rd51, %rd50, %rd69;
+mul.lo.s64 %rd52, %rd51, 40;
+add.s64 %rd13, %rd1, %rd52;
+ld.global.s32 %rd14, [%rd13];
+setp.lt.s64 %p11, %rd14, 0;
+setp.ge.u64 %p12, %rd14, %rd28;
+or.pred %p13, %p11, %p12;
+@%p13 bra $L__BB8_15;
+
+add.s64 %rd15, %rd9, %rd14;
+setp.ge.u64 %p14, %rd15, %rd27;
+@%p14 bra $L__BB8_15;
+
+ld.global.f32 %f64, [%rd13+4];
+ld.global.f32 %f65, [%rd13+8];
+ld.global.f32 %f66, [%rd13+12];
+ld.global.f32 %f67, [%rd13+16];
+ld.global.f32 %f68, [%rd13+20];
+ld.global.f32 %f69, [%rd13+24];
+ld.global.f32 %f70, [%rd13+28];
+ld.global.f32 %f71, [%rd13+32];
+ld.global.f32 %f72, [%rd13+36];
+mul.lo.s64 %rd53, %rd15, 12;
+add.s64 %rd54, %rd2, %rd53;
+ld.global.f32 %f73, [%rd54];
+ld.global.f32 %f74, [%rd54+4];
+mul.f32 %f75, %f67, %f74;
+fma.rn.f32 %f76, %f64, %f73, %f75;
+ld.global.f32 %f77, [%rd54+8];
+fma.rn.f32 %f78, %f70, %f77, %f76;
+mul.f32 %f79, %f68, %f74;
+fma.rn.f32 %f80, %f65, %f73, %f79;
+fma.rn.f32 %f81, %f71, %f77, %f80;
+mul.f32 %f82, %f69, %f74;
+fma.rn.f32 %f83, %f66, %f73, %f82;
+fma.rn.f32 %f84, %f72, %f77, %f83;
+mov.b32 %f85, %r106;
+add.f32 %f86, %f78, %f85;
+mov.b32 %f87, %r107;
+add.f32 %f88, %f81, %f87;
+mov.b32 %f89, %r108;
+add.f32 %f90, %f84, %f89;
+mov.b32 %r106, %f86;
+mov.b32 %r107, %f88;
+mov.b32 %r108, %f90;
+
+$L__BB8_15:
+add.s32 %r89, %r89, 2;
+add.s32 %r93, %r93, -2;
+setp.ne.s32 %p15, %r93, 0;
+@%p15 bra $L__BB8_9;
+
+cvt.s64.s32 %rd70, %r89;
+
+$L__BB8_17:
+setp.eq.s32 %p16, %r3, 0;
+@%p16 bra $L__BB8_21;
+
+mul.lo.s64 %rd55, %rd70, %rd28;
+add.s64 %rd56, %rd55, %rd69;
+mul.lo.s64 %rd57, %rd56, 40;
+add.s64 %rd18, %rd1, %rd57;
+ld.global.s32 %rd19, [%rd18];
+setp.lt.s64 %p17, %rd19, 0;
+setp.ge.u64 %p18, %rd19, %rd28;
+or.pred %p19, %p17, %p18;
+@%p19 bra $L__BB8_21;
+
+add.s64 %rd20, %rd9, %rd19;
+setp.ge.u64 %p20, %rd20, %rd27;
+@%p20 bra $L__BB8_21;
+
+ld.global.f32 %f91, [%rd18+4];
+ld.global.f32 %f92, [%rd18+8];
+ld.global.f32 %f93, [%rd18+12];
+ld.global.f32 %f94, [%rd18+16];
+ld.global.f32 %f95, [%rd18+20];
+ld.global.f32 %f96, [%rd18+24];
+ld.global.f32 %f97, [%rd18+28];
+ld.global.f32 %f98, [%rd18+32];
+ld.global.f32 %f99, [%rd18+36];
+mul.lo.s64 %rd58, %rd20, 12;
+add.s64 %rd59, %rd2, %rd58;
+ld.global.f32 %f100, [%rd59];
+ld.global.f32 %f101, [%rd59+4];
+mul.f32 %f102, %f94, %f101;
+fma.rn.f32 %f103, %f91, %f100, %f102;
+ld.global.f32 %f104, [%rd59+8];
+fma.rn.f32 %f105, %f97, %f104, %f103;
+mul.f32 %f106, %f95, %f101;
+fma.rn.f32 %f107, %f92, %f100, %f106;
+fma.rn.f32 %f108, %f98, %f104, %f107;
+mul.f32 %f109, %f96, %f101;
+fma.rn.f32 %f110, %f93, %f100, %f109;
+fma.rn.f32 %f111, %f99, %f104, %f110;
+mov.b32 %f112, %r106;
+add.f32 %f113, %f105, %f112;
+mov.b32 %f114, %r107;
+add.f32 %f115, %f108, %f114;
+mov.b32 %f116, %r108;
+add.f32 %f117, %f111, %f116;
+mov.b32 %r106, %f113;
+mov.b32 %r107, %f115;
+mov.b32 %r108, %f117;
+
+$L__BB8_21:
+mov.b32 %f118, %r106;
+add.f32 %f159, %f1, %f118;
+mov.b32 %f119, %r107;
+add.f32 %f158, %f2, %f119;
+mov.b32 %f120, %r108;
+add.f32 %f157, %f3, %f120;
+setp.eq.s64 %p21, %rd24, 0;
+@%p21 bra $L__BB8_23;
+
+cvta.to.global.u64 %rd60, %rd24;
+add.s64 %rd62, %rd60, %rd36;
+ld.global.f32 %f121, [%rd62];
+add.f32 %f159, %f159, %f121;
+ld.global.f32 %f122, [%rd62+4];
+add.f32 %f158, %f158, %f122;
+ld.global.f32 %f123, [%rd62+8];
+add.f32 %f157, %f157, %f123;
+
+$L__BB8_23:
+cvta.to.global.u64 %rd63, %rd25;
+add.s64 %rd65, %rd63, %rd36;
+st.global.f32 [%rd65], %f159;
+st.global.f32 [%rd65+4], %f158;
+st.global.f32 [%rd65+8], %f157;
+ld.global.f32 %f124, [%rd5];
+ld.global.f32 %f125, [%rd5+4];
+mul.f32 %f126, %f158, %f125;
+ld.global.f32 %f127, [%rd5+8];
+fma.rn.f32 %f128, %f159, %f124, %f126;
+fma.rn.f32 %f160, %f157, %f127, %f128;
+
+$L__BB8_24:
+//
+mov.u32 %r65, %laneid;
+//
+mov.u32 %r67, 1;
+mov.u32 %r80, 31;
+mov.u32 %r81, -1;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f160, %r67, %r80, %r81; @p add.f32 r0, r0, %f160; mov.f32 %f129, r0;}
+//
+mov.u32 %r70, 2;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f129, %r70, %r80, %r81; @p add.f32 r0, r0, %f129; mov.f32 %f132, r0;}
+//
+mov.u32 %r73, 4;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f132, %r73, %r80, %r81; @p add.f32 r0, r0, %f132; mov.f32 %f135, r0;}
+//
+mov.u32 %r76, 8;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f135, %r76, %r80, %r81; @p add.f32 r0, r0, %f135; mov.f32 %f138, r0;}
+//
+mov.u32 %r79, 16;
+//
+{ .reg .f32 r0; .reg .pred p; shfl.sync.down.b32 r0|p, %f138, %r79, %r80, %r81; @p add.f32 r0, r0, %f138; mov.f32 %f161, r0;}
+//
+setp.ne.s32 %p22, %r65, 0;
+@%p22 bra $L__BB8_26;
+
+shr.s32 %r82, %r1, 31;
+shr.u32 %r83, %r82, 27;
+add.s32 %r84, %r1, %r83;
+shr.s32 %r85, %r84, 5;
+shl.b32 %r86, %r85, 2;
+mov.u32 %r87, _ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage;
+add.s32 %r88, %r87, %r86;
+st.shared.f32 [%r88+8], %f161;
+
+$L__BB8_26:
+bar.sync 0;
+setp.ne.s32 %p23, %r1, 0;
+@%p23 bra $L__BB8_28;
+
+ld.shared.f32 %f144, [_ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage+12];
+add.f32 %f145, %f161, %f144;
+ld.shared.f32 %f146, [_ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage+16];
+add.f32 %f147, %f145, %f146;
+ld.shared.f32 %f148, [_ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage+20];
+add.f32 %f149, %f147, %f148;
+ld.shared.f32 %f150, [_ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage+24];
+add.f32 %f151, %f149, %f150;
+ld.shared.f32 %f152, [_ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage+28];
+add.f32 %f153, %f151, %f152;
+ld.shared.f32 %f154, [_ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage+32];
+add.f32 %f155, %f153, %f154;
+ld.shared.f32 %f156, [_ZZN7synreal6kernel26multiply_matrix_and_reduceILj256ENS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT0_mPKT1_PKNS3_3vecILi3EfLS5_0EEESI_PSG_PfmmE17reduction_storage+36];
+add.f32 %f161, %f155, %f156;
+
+$L__BB8_28:
+@%p23 bra $L__BB8_30;
+
+cvta.to.global.u64 %rd66, %rd26;
+shl.b64 %rd67, %rd3, 2;
+add.s64 %rd68, %rd66, %rd67;
+st.global.f32 [%rd68], %f161;
+
+$L__BB8_30:
+ret;
+
+}
+//
+

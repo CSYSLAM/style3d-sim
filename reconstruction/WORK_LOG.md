@@ -7652,3 +7652,70 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   全量真实verifier18167/b68fa7实际0，520027文件零失败；SDK/360pyc及旧gzip与build provenance均保持。
 - staged格式初查db45d3实际2仅因两份原始kernel-layout.tsv的CUB EmptyKernel零参数行保留末尾tab。
   原始ASM/这两份TSV精确排除后fdb28f实际0，未修改冻结原始字节。现仅追加此收据并刷新WORK_LOG primary SHA。
+
+### 2026-11-02：b82缆绳候选补齐混合约束、penalty/reset并准备生产重验
+
+- 上一turn是实质进展，bf35c4be9af2a8b4faac88df85fbb13dd9f7589b已推送，24df52查远端同SHA。
+  本turn起点git clean/HEAD同，初余17586MiB；继续自己的GPU串行、允许外部应用、free>=4096准入。
+  新证据目录continuation-20261102-b82ecd80-cable-closure，原b82/0dab/SDK64a及旧失败先保持不变。
+- 新增world attachment的spring+distance、point-line+distance夹具；每类W1/W3、Newton/PD、bodyblock开关16组合。
+  根17802/4eaaad实际0：32双端worker全0，16/16状态、实际geometry/已审计ABI及6份force缓存严格。
+  独立CPU b9932a实际0核7416 owned调用、所有状态/完整buffer字节，三个实际force模块均改RHS。
+  混合graph60根56725/783a8c实际0，两个worker0、64/64完整eager/graph比较严格。
+- 依既有cable_host_matrix全部配置，追加bodyblock双模式：两mode×四ramp配置×三seed/world×两block＝48case。
+  根85584/2726ec实际0，96个真实GPU worker全0，48/48三十步状态及reset/masked-reset/ramp开关严格。
+  独立CPU6444b2实际0核全部完整状态及840份penalty数组；所有源码worker SDK未映射，没改阈值或预算。
+- 再覆盖两个端点均为非负body索引、两刚体都运动的新分支；新动态夹具不更改先前固定输入。
+  根30032/3e547c实际0：16/16三步状态/元数据/缓存严格；CPU61058d实际0核7416 owned调用。
+  CPU b3384c实际0确认32份双端捕获中所有128条body位置轨迹确实运动，不以空/静态body冒称覆盖。
+  动态graph60根36368/eabd42实际0，双worker0，64/64严格；CPU885fb2实际0重核两种夹具共128比较完整字节。
+- graph审计生成器在执行前逐行检查发现嵌套runtime SHA循环缩进错误，保留未执行版本，先修缩进再审计。
+  没有运行错误版本或据它计通过；修正记录、SHA及真实CPU结果均保留，不修改求解或采样结果。
+- deea23实际0用既有preserve_host_checkpoint保留0dab的2130个源码/构建文件和3344份结果SHA；
+  补兼容checkpoint.json索引，保存before-production-0dabbaa7，SDK/旧Core715仍原位固定。
+  d93aea仅版本化既有生产验证驱动及bond graph worker，改为共享显存准入/-B，不改原验证预算/门槛。
+- 当前动态混合的两类W3/PD/block constructor正在逐一核五项；完成后才合入与b82逐字节相同的C++，
+  为新host/Core重新执行既有回归及当前固定C10，不把旧image结果当作新image通过。
+- 动态constructor93111/5c91f3实际1：12个GPU子worker全0，spring+distance CPU五项全同，point-line+distance CPU实际1。
+  后者分配67/67、typed35/35、owned+library序列同，但上传/flat身份不同，保持原失败，不因状态全同而忽略。
+  未执行promote-source，生产仍0dab；该未执行脚本的语法问题已在调用前修正并做AST检查。
+- CPU0c3ffb实际0将差异完全定位到五块weight：SDK distance为owned48/49、line为50/51/52，
+  源码line为48/49/50、distance为51/52；固定5身份映射后全部flat目标相同，
+  32份完整上传仅24..28需要精确排列[27,28,24,25,26]，其余字节/顺序全部同。
+- 查到既有plain_distance_before_line谓词仍排除cable；据上述SDK实测只去掉该排除项，不改数学/模板累计或任何核。
+  a2ff0a实际编译0，新隔离候选d09d4be940335764a1e1e7d2f4978366c47e96caf20a3b556d3ac6cfe79e5c68。
+  新candidate/output/status的验证版本保持全部采样数/帧数/门槛，旧b82成功和constructor失败均保留；正在重验两类构造。
+- d09构造50645/1eabc1实际0，12 GPU＋2 CPU子进程全0，两类五项全同；新动态短程87607/a9d9ed实际0，
+  16/16完整状态、owned/geometry及缓存严格，CPU ec895e实际0核7416实际owned调用。
+  新动态graph73613/5120c0实际0，64/64严格；CPU93e6c0实际0核完整字节，不使用旧b82结果冒充新image实测。
+- 用户本turn要求按完整阶段集中提交；本turn截至此处没有新commit，后续记录工作但待整批合入/验证结束再统一提交。
+- 对新编译生产image准备104个cable source worker，固定使用既有首次SDK捕获（24单family、16world mixed、
+  16moving mixed、48penalty），不重采/更换原版参考；其后运行既有当前image验证、正常Core及74/C10。
+  当前开始执行promote-source：严格验证全部旧checkpoint及新候选门禁后，仅将已测d09 C++原字节写入主线并编译。
+- 第一次promote7fc92e实际1，在任何生产写入/编译前拒绝：CPU审计已实际检查64对，但JSON summary遗留旧literal96。
+  保存旧审计脚本/报告，改为len(pairs)派生；CPU eb0a66/3c9b8c重新核全部原始字节实际0，未重采GPU或改任何门槛。
+  第二次promote a4f978已通过全部前置门禁并启动实际编译，后记真实终态；不把开始编译计为验收成功。
+- promote91245/cf8d3d实际0，新生产host完整SHA与d09候选ELF逐字节同：d09d4be940335764a1e1e7d2f4978366c47e96caf20a3b556d3ac6cfe79e5c68。
+  176 kernel specs和CUDA digest均与旧0dab完全同；主C++为已测候选原字节，无额外数学/资源变化。
+  0dab的2130个文件及旧结果均保留，SDK/360pyc/default/readyFalse保持；新Core仍须重新编译，不用旧715冒充匹配。
+- 新生产104组合91814/e2d7e6实际0，全部source worker实际0且104/104完整状态严格；
+  参考为各组首次SDK原件，不增加/更换原版样本。Source worker自身检查原版未映射，penalty/reset状态同。
+  独立CPU abf0bd实际0：完整状态、840份penalty及25512 owned调用核准。上一条worklog追加仅因匹配行前缀不符失败，现已补记。
+  接续71438已启动既有当前image验证（短程/布局/bonds/graph、Core、contracts、74及必要C10），自己的GPU保持串行。
+- 整体验证71438/651672真实0，27阶段实际终态均已收：四短程/六bonds严格、六扩展布局状态/ABI/覆盖同，
+  bonds graph24严格，granular103/fluid57/self246合同零差异；中间buffer旧非严格项保持，不冒称全buffer严格。
+- 新公开Core完整SHA55d626f06c10c7f6cbc48663bf7fde25be1cfcd8edfb4ce8cf57f30fd300dab5，目录9cb2fcaa1082d1df，
+  source_host指向d09；Dzhanibekov60/plastic3/G1 graph60真实0、SDK未映射。
+- 当前74实际完成71严格，只particles seed1/2/3退出1；固定C10每例原首次source0＋10 SDK，三例均within，
+  两个C10阶段实际0、CPU逐项复现同、没有source0替换或额外原版采样。旧0dab Newton mixed false保持，不据新image改旧判定。
+- 用户五例正常Core60根88301/448178实际0，五子worker全0、无SDK映射，没用A/B bridge；
+  这只证明正常图入口可运行，未捕获逐帧图轨迹，不外推数值等价或修复旧ANYmal/G1物理测试lambda问题。
+- 独立CPU f9eef0实际0核当前host/Core、所有终态/合同/回归/固定C10和104 cable：71/74、3C10within、8正常API均核准。
+  当前主线及交接入口已更新d09/Core55，完整solver目标仍未完成；按用户要求待本批冻结/全量校验后只集中提交一次。
+- 冻结脚本c0a7cc实际1，CPU格式门禁发现自身一行129列，尚未写manifest/root Snapshot；保存失败版并拆行。
+  未更改任何运行/数据，仅历史失败原脚本保留129列一行，当前代码遵守128列。
+- 本批freeze2d8238实际0：7106证据文件通过primary冻结的manifest索引携带，primary355326＋indexed171818＝527144。
+  根JSON101083383字节仍小于100MiB，完整真实verifier45431/740a54实际0：527144文件零失败，SDK/360pyc保持。
+- 首次git add普通build路径被ignore拒绝（46263b实际1），随后明确force加入二进制/完整证据，232532/15a66c实际0。
+  仅对原样保存的checkpoint及两份零参数TSV排除空白检查，最终staged门禁6bdbeb实际0，没有编辑原始证据字节。
+  自己所有GPU进程已结束，外部程序未动；验证后仅追加此收据并刷新其primary SHA，随后按用户要求集中提交本完整阶段。

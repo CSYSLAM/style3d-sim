@@ -1,0 +1,41 @@
+// [solver_newton.cu] kernel 51/97   PTX 34 行   SASS 28 条指令
+// 签名: synreal::kernel::initialize_joint_body_spring_state(glm::vec<3, float, (glm::qualifier)0>*, unsigned long)
+// 归一化原型: synreal::kernel::initialize_joint_body_spring_state(glm::vec3*, size_t)
+// maxntid: (未指定)   ptxas: REG=9 SHARED=0 LOCAL=0
+// 计数: atomic=0 div=0 sqrt=0 barrier=0 local=0 branch=1
+
+_ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm(
+.param .u64 _ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm_param_0,
+.param .u64 _ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm_param_1
+)
+{
+.reg .pred %p<2>;
+.reg .b32 %r<5>;
+.reg .b64 %rd<9>;
+
+
+ld.param.u64 %rd2, [_ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm_param_0];
+ld.param.u64 %rd3, [_ZN7synreal6kernel34initialize_joint_body_spring_stateEPN3glm3vecILi3EfLNS1_9qualifierE0EEEm_param_1];
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mul.wide.u32 %rd4, %r1, %r2;
+mov.u32 %r3, %tid.x;
+cvt.u64.u32 %rd5, %r3;
+add.s64 %rd1, %rd4, %rd5;
+setp.ge.u64 %p1, %rd1, %rd3;
+@%p1 bra $L__BB22_2;
+
+cvta.to.global.u64 %rd6, %rd2;
+mul.lo.s64 %rd7, %rd1, 12;
+add.s64 %rd8, %rd6, %rd7;
+mov.u32 %r4, 0;
+st.global.u32 [%rd8], %r4;
+st.global.u32 [%rd8+4], %r4;
+st.global.u32 [%rd8+8], %r4;
+
+$L__BB22_2:
+ret;
+
+}
+//
+
