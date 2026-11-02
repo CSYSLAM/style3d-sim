@@ -1,5 +1,11 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新[H1 stretch/bend及self-Hessian消费](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)：
+> 8 GPU任务闭合，self-add六输出严格；335128实际primitive试验/1005384三端原生调用完整RHS/guard严格，3608484整数步骤同。
+> 两套实际RHS都验过；7216968真实PTX贡献同，但12 aggregate及正常H1 C8失败未重判。
+> 下一步rank75/76/77 VF/EE/EF完整producer和matrix-free消费；不要把self-add或旧watch当全self验证。
+> 生产/SDK/360pyc/候选保持，Windows用WSL2，新诊断需新路径/计划，实际命令和证据见链接。
+
 > 最新[当前H1首NL CG/装配实际输入与原生SDK](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)：
 > 20CG的624非归约输出严格；238标量和36装配aggregate失败保持。22006912真实PTX贡献核准。
 > 8891接触力＋两套矩阵种子各8891＋66930膜三角形，280809三端原生隔离全输出严格，5561038整数F32历史同。

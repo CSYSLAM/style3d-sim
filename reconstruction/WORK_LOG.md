@@ -8026,3 +8026,32 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   实证项目SDK7657288 bytes、f07 host7777376 bytes、Core aa7786752 bytes均真实ELF/SHA同，360 pyc实际Git blob全核。
   2e04c2 staged检查：原始/生成PTX七文件55项空白警告actual2已逐SHA分类保留；自有52代码/文档actual0。
   全量校验后仅追加本receipt并刷新WORK_LOG单项SHA，按完整阶段集中提交，不逐改动提交。
+
+### 2026-11-02：H1首轮stretch/bend及自碰撞Hessian消费接续
+
+- 上阶段实质进展已闭合并集中提交18f021f39238b4753fdb093ed1ecf91f6538ca88；23118 push当前仍在pack，未预先宣称远端成功。
+  538310全量冻结文件零错，13 GPU worker/280809原生隔离/5561038整数历史均实证通过，完整轨迹失败保持。
+- 新目录continuation-20261102-f07b35a4-h1-cloth-forces，canonical h1_first_cloth_layout核79 stretch、80 bend、88 self-add。
+  08f32c CPU守卫六个冻结派生配方：每端18完整快照/13879120 bytes，几何和全部非NULL指针集合逐ABI核准。
+  H1自碰撞producer还会写大contact-tangent数组，其完整producer核验仍待做；本阶段self-add仅是完整消费核输入。
+  没有用buffer watch或consumer同就宣称VF/EE/EF全通过，先快速闭合布料实际force及self-Hessian消费。
+- a52d0e CPU preflight真实0，70412/03435e两正常capture均实际0，未改原默认2substeps/10NL/20CG或原test。
+  6c7fbd捕获独立CPU真实0：36descriptor/27758240bytes、原节点边全核，18跨端payload仅11相同；
+  首stretch之前RHS差395word、之后44528word，不能混用前阶段其他队列统计。
+- 78143/7aa339三端GPU/独立CPU均0，6 packet/18实际调用/18完整输出；self-add六严格，stretch/bend十二aggregate全false保留。
+  23980/e5d76e八PTX探针actual0，5394/d4e496独立CPU真实0：7216968原子记录目标/顺序/F32同，跨端两primitive对应也同。
+- 原生cloth预检745950真实1、零新GPU：未用slot marker的u64+i64被NumPy提升f64，三个marker发生舍入重合。
+  c73ff3实证dtype及值，保留失败配方与CPU-rejection，改纯u64并在新v2目录运行；93507/7b6152真实0，全部有效目标互异。
+  没有改原始record、实际材料/状态、源码数学或检查容差。7f9c76 AST/128列守卫0。
+- 44688/98b44e根实际0，四GPU child均0：SDK/source真实RHS各66930 stretch、100634 bend，全335128 primitive试验，
+  1005384次原生SDK64a/原PTX/f07调用，全RHS/guard严格，原262/394 blocks及count1隔离只更换四个实际primitive metadata字段。
+  原值reset后fence；未用边也核完整不变输出。只用既有冻结PTX helper作诊断整数patch/gather/compare。
+- 63287/603fae独立CPU真实0：3608484整数RNE/FTZ步骤、10825452三端实际写入值同；
+  102465721128完整word GPU比较全部零差，每case九个正/单bit/多bit控制经完整CPU readback及SHA独立核准。
+  dd54aa独立闭合真实0：8 GPU任务/一driver内CPU child终态，SDK/360pyc/default/生产和H1 C8旧失败保持。
+- 首阶段push23118/f5b259真实128（远端断开）；63636/b825d0实查remote仍1fa2fbf，未声称18f已推送成功。
+  本地18f和完整已stage证据安全保留；本阶段闭合后使用SSH keepalive重试集中同步，属于传输问题，不改验证数据。
+- 6a3636冻结本阶段278文件＋manifest，primary355341＋indexed183249＝538590，根JSON101096016 bytes。
+  53539/c322f2全量verifier实际0：538590 frozen files、zero failures。
+  20407/d0bacf stage实际0；5926d5实证279本批文件精确齐全，总286 staged，原PTX四文件36项空白警告actual2原样保留，
+  自有26代码/文档whitespace actual0。全量核后仅追加此receipt并刷新WORK_LOG单项SHA，按完整阶段集中提交。

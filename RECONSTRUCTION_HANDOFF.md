@@ -1,5 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> 最新[当前H1 stretch/bend与self-Hessian消费](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)：
+> self-add六完整输出严格；两套实际RHS、各66930三角形/100634边，1005384三端原生隔离严格，3608484整数F32历史同。
+> 12 aggregate及原H1 C8失败保留。8 GPU任务闭合；下一步VF/EE/EF完整producer大接触表与matrix-free消费，不能冒称self已全证。
+> SDK/候选so/360pyc均保持同仓库固定版本，正常WSL命令与绝对路径诊断限制见链接。
+
 > 最新[当前f07/Core aa的H1首NL完整CG及三个装配核](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)：
 > 20CG的624非归约输出严格，238标量及36 aggregate失败保留；22006912真实PTX原子操作数同。
 > 实际8891条接触力、两套初值接触矩阵、66930三角形，280809次原生SDK/原PTX/f07完整输出严格，5561038整数步骤CPU同。

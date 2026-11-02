@@ -27,6 +27,14 @@
 数据、准确scope、历史命令及新WSL接续见
 [H1首轮CG与三个装配入口](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)。
 
+继续已闭合首NL stretch/bend及self-Hessian diagonal消费：36完整快照/27758240 bytes全核，self-add六完整输出严格。
+stretch/bend的12 aggregate失败保持；7216968条原/source PTX贡献相同，两端对应primitive同。
+进一步两套真实RHS初值、每套66930三角形＋100634弯曲边，1005384次原生SDK/原PTX/f07完整RHS及guard全严格，
+3608484整数F32历史和10825452实际写入值独立CPU同；8 GPU worker及CPU审计闭合。
+VF/EE/EF完整producer接触表仍待做，self-add消费核通过不替代生产核验收。接续其完整输入及matrix-free消费链，
+保留H1 C8失败和生产版本。数据/命令/Windows范围见
+[H1布料力及self-Hessian消费](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)。
+
 上一阶段颗粒/SO3/外部接触隔离候选ae3a5997，公开候选Core5688f23b，生产仍d09/Core55。
 四类构造五项全同、四initcheck零错、两短C8通过；正常公开Core的牛肉低分辨率3帧三source固定C8全过、原测试通过。
 W3长程12组只有首source9/12、全部三source8/12，候选未合入；三个相同SDK控制也仅10/12、9/12、9/12。

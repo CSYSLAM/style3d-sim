@@ -1,5 +1,10 @@
 # 驱动关节、布料与自碰撞：隔离候选7ca67172
 
+接续首NL stretch/bend的两套真实RHS、各66930三角形/100634弯曲边已核：1005384三端原生调用全RHS/guard严格，
+3608484整数F32历史同；self-Hessian diagonal消费六输出严格，8 GPU任务闭合。
+12 aggregate及正常H1 C8失败保持，VF/EE/EF完整producer还待核；不将消费核通过扩大为全self。
+命令和下一步见[布料力与self消费](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)。
+
 当前H1首NL完整20CG及三装配实际输入已补查：624非归约严格、238标量及36 aggregate失败保留；
 原/source PTX的22006912真实原子记录同。8891接触力、两套初值各8891矩阵接触及66930膜三角形，
 280809次原生SDK/原PTX/f07全输出严格，独立CPU5561038整数F32步骤同；13 GPU worker全终态。

@@ -1,0 +1,67 @@
+{
+  "cases": [
+    {
+      "label": "sdk0",
+      "stage": "stretch",
+      "records_per_side": 602370,
+      "actual_original_source_ordered_per_thread_operands_equal": true,
+      "all_record_targets_within_declared_outputs": true,
+      "inactive_and_unused_trace_bytes_zero": true
+    },
+    {
+      "label": "sdk0",
+      "stage": "bend",
+      "records_per_side": 1201872,
+      "actual_original_source_ordered_per_thread_operands_equal": true,
+      "all_record_targets_within_declared_outputs": true,
+      "inactive_and_unused_trace_bytes_zero": true
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "stretch",
+      "records_per_side": 602370,
+      "actual_original_source_ordered_per_thread_operands_equal": true,
+      "all_record_targets_within_declared_outputs": true,
+      "inactive_and_unused_trace_bytes_zero": true
+    },
+    {
+      "label": "rebuilt0",
+      "stage": "bend",
+      "records_per_side": 1201872,
+      "actual_original_source_ordered_per_thread_operands_equal": true,
+      "all_record_targets_within_declared_outputs": true,
+      "inactive_and_unused_trace_bytes_zero": true
+    }
+  ],
+  "cross_endpoint": [
+    {
+      "stage": "stretch",
+      "records": 602370,
+      "corresponding_actual_operands_equal": true,
+      "production_contact_order_changed": false
+    },
+    {
+      "stage": "bend",
+      "records": 1201872,
+      "corresponding_actual_operands_equal": true,
+      "production_contact_order_changed": false
+    }
+  ],
+  "total_actual_records_checked": 7216968,
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/sdk0-stretch-original.npz": "73146007f6f7616fabbdfa8cf8f9c95abe1bbd15ba406c136744447e32871a97",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/sdk0-stretch-source.npz": "f640d205ab77511ec877306e5fc137fa92fbc8bab14d0cdbd200da07f7500ae5",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/sdk0-bend-original.npz": "b4de5a48f5b89ebea1b8bdffde97a79fc248126375d337728a92aaa68649f09a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/sdk0-bend-source.npz": "d7821ea842b0cc2440651918470e483ab6bc6fec8a24fc096b53c32a2dffef7d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/rebuilt0-stretch-original.npz": "f6b0a20da8ce9b9fa244443e13d06fda25e8b8100e7e9967308f536b298baeaf",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/rebuilt0-stretch-source.npz": "4bd809d6d96a78cd83ebd67d6834f6ff427841c0b36739af0a3a81c3f7d34e32",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/rebuilt0-bend-original.npz": "627d5297898049cd31a4493d58101cedd064b3533bd8a2d475469f6a384c68c5",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/producer-operands/rebuilt0-bend-source.npz": "cfb9fe6e8c97b7f3080005ffa831ae67ddc4d8fd086a8b7e7e86ba0fea94b6c9"
+  },
+  "all_packet_PTX_operands_equal": true,
+  "native_SDK_per_primitive_isolation_completed": false,
+  "joint_global_atomic_schedule_proven": false,
+  "full_trajectory_or_C8_rejudged": false,
+  "GPU_runs": 0,
+  "whole_solver_complete": false
+}
