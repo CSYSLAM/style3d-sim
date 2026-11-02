@@ -1,5 +1,15 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **当前正式cable bend已补查。** Newton/PD各60帧独立运行，六源码固定C8均false；六held-out原版也均越界。
+> 门槛/样本和失败均保持，继续核首CG真实输入；[结果及命令](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。
+
+> **驱动self完整输入回放已结束。** 1188输入/3564三端调用全严格，四真实轨迹仍不一致，旧C8不改。
+> 首scale792隔离调用/155 GPU证书通过；body-block198输入/594回放全严格，独立CPU及传播核对通过。
+> 两次诊断错误及实际退出已保存；首CG前RHS已不同，新三步particle_qd仍差14.73692，候选未合入。
+> 旧根工具退出码因boot切换保留unknown；当前事实及接续见[实测结果](reconstruction/csrc/DRIVEN_CLOTH_SELF_RESULTS_20261101.md)。
+
+以下阶段记录按历史保留，旧PID和“正在排队”不代表当前状态；接续以最新结果页及CURRENT_STATUS为准。
+
 > **新增驱动布料/self候选7ca，生产仍0dab/Core715。** SDK12支持，候选9243调用同、10短程严格、两固定C8未过。
 > 四类构造五项全同；792逐接触实测严格、首表面力真实操作数同，但后续大响应尚未解释。
 > 首次593标量调用的GPU空闲检查误放行已留记录，不计隔离验收；同输入重跑及CPU接续器已排队。

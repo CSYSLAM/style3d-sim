@@ -1,5 +1,8 @@
 # Cable、硬接触和完整刚体块：恢复与验证
 
+> 当前0dab正式bend stiffness的Newton/PD60帧已补测：均能独立运行，但六源码固定C8全部未过。
+> 六份held-out原版也越过相同C8，严格失败仍保留；见[当前实测](OFFICIAL_CABLE_BEND_0DABBAA7.md)。
+
 基准仍为项目内 `64a0be7f…` / `23fb797`，不登录、不读凭据、不修改原版。
 只修改 reconstruction/ 和 build/。所有 original worker 严格串行。
 总体目标尚未完成；这些结果不能代表整个 so/全部 demo 已经替代。

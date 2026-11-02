@@ -4,15 +4,22 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+当前正式cable bend stiffness的Newton/PD各60帧均独立运行，但固定8原版/3源码逐步C8两mode全false。
+另六份held-out原版也全false，不能单靠该失败判源码错误；记录和后续首CG核对见
+[cable bend实测](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。
+
 新增驱动布料/self隔离候选7ca67172：实际SDK12组合支持、生产12 guard拒绝；据SDK恢复两处范围条件及self force位置。
 候选9243调用参数/geometry全部同，10短程严格、两W3/PD/surface固定C8均三source false；四类constructor五项全同。
 首表面力25输入/RHS同，792三端逐接触输出严格、每端8496真实操作数同；后续大响应尚未完整解释，候选未合入。
-首次593标量GPU证据因启动时设备非空闲不计隔离验收，同输入隔离重跑已排队；先核实际进程，不能重复启动。
+首次非隔离593证据仍不计隔离验收；隔离重跑已产出593份GPU结果并通过独立CPU，旧根工具退出码unknown保留。
 源码、原始数据、编排失误记录及WSL接续见[驱动布料自碰撞](reconstruction/csrc/DRIVEN_CLOTH_SELF_HOST_RECOVERY.md)。
 接续CPU已核两个失败组合144对surface视图，以及四类场景每端258次设备复制/396次byte fill，记录范围内全同。
-后续RHS/self/CG数据流采集已据实际分配准备，28份PTX写域静态核准；四worker仍等待旧隔离任务，不计GPU实测。
-真实CUPTI/hook同运行6272调用、68440参数、737758字节全同；1188完整输入/3564三端回放已串行排队。
-这是参数传输核准，未新增数值通过项；见[驱动self完整输入回放](reconstruction/csrc/DRIVEN_CLOTH_SELF_REPLAY.md)。
+后续四worker已结束：2376阶段/29844快照及独立CPU过；1188份完整输入的3564次三端调用全部严格。
+新轨迹仍有大响应差异且未复现旧冻结轨迹，两个旧C8均false。首scale792隔离调用同、155份GPU标量证书过。
+contact记录集合相同但16个行位置不同；scale差异落在代理上，首VF/EE/EF Hessian同，不认作大响应根因。
+三个刚体块算子的198实际输入/594回放全部逐位同，独立CPU通过；首CG前RHS已差，完整轨迹仍失败。
+当前结果及继续点见
+[驱动self结果](reconstruction/csrc/DRIVEN_CLOTH_SELF_RESULTS_20261101.md)。
 
 完整PD tangent本批已结束：51120阶段实采/CPU核准，固定四帧2112输入的6336次三端调用全严格。
 其余1296输入/3888调用为1165严格、131份仅CG标量归约差异，逐粒子完整向量全同；

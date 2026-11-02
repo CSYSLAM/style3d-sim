@@ -1,0 +1,4445 @@
+{
+  "reference_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "source_sha256": "7ca67172b329b643102560c83bf3c21a2f7c661e78321ddd5cf83977657c0220",
+  "contacts": 66,
+  "output_scalars": 48,
+  "same_buffers_for_all_backends": true,
+  "grid": 1,
+  "block": 256,
+  "operation": "stiffness",
+  "experimental_source_ptx": null,
+  "experimental_ptx_sha256": null,
+  "isolated_contact_comparisons": [
+    {
+      "backend": "original-runtime",
+      "isolated_contact_outputs_equal": true
+    },
+    {
+      "backend": "original-ptx",
+      "isolated_contact_outputs_equal": true
+    },
+    {
+      "backend": "source-ptx",
+      "isolated_contact_outputs_equal": true
+    }
+  ],
+  "all_isolated_contact_outputs_equal": true,
+  "aggregate_matches_captured": {
+    "original-runtime": true,
+    "original-ptx": true,
+    "source-ptx": true
+  },
+  "all_per_contact_atomic_operand_sequences_identical": true,
+  "actual_atomic_operands": 354,
+  "scalar_exact_atomic_sum_witnesses": {
+    "captured": 48,
+    "original-runtime": 48,
+    "original-ptx": 48,
+    "source-ptx": 48,
+    "original-probe": 48,
+    "source-probe": 48
+  },
+  "witnesses": {
+    "captured": [
+      {
+        "scalar": 0,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 1,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 2,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 3,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 4,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 5,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 6,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 7,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 8,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 9,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 10,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 11,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 12,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 13,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 14,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 15,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 16,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 17,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 18,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 19,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 20,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 21,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 22,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 23,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 24,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 25,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 26,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 27,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 28,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 29,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 30,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 31,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 32,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 33,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 34,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 35,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 36,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 37,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 38,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 39,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 40,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 41,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 42,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 43,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 44,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 45,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 46,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 47,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      }
+    ],
+    "original-runtime": [
+      {
+        "scalar": 0,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 1,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 2,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 3,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 4,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 5,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 6,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 7,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 8,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 9,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 10,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 11,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 12,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 13,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 14,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 15,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 16,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 17,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 18,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 19,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 20,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 21,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 22,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 23,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 24,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 25,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 26,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 27,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 28,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 29,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 30,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 31,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 32,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 33,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 34,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 35,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 36,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 37,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 38,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 39,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 40,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 41,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 42,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 43,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 44,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 45,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 46,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 47,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      }
+    ],
+    "original-ptx": [
+      {
+        "scalar": 0,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 1,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 2,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 3,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 4,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 5,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 6,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 7,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 8,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 9,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 10,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 11,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 12,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 13,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 14,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 15,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 16,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 17,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 18,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 19,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 20,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 21,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 22,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 23,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 24,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 25,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 26,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 27,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 28,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 29,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 30,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 31,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 32,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 33,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 34,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 35,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 36,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 37,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 38,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 39,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 40,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 41,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 42,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 43,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 44,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 45,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 46,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 47,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      }
+    ],
+    "source-ptx": [
+      {
+        "scalar": 0,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 1,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 2,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 3,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 4,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 5,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 6,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 7,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 8,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 9,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 10,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 11,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 12,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 13,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 14,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 15,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 16,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 17,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 18,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 19,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 20,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 21,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 22,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 23,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 24,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 25,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 26,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 27,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 28,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 29,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 30,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 31,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 32,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 33,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 34,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 35,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 36,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 37,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 38,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 39,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 40,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 41,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 42,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 43,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 44,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 45,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 46,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 47,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      }
+    ],
+    "original-probe": [
+      {
+        "scalar": 0,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 1,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 2,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 3,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 4,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 5,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 6,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 7,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 8,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 9,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 10,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 11,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 12,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 13,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 14,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 15,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 16,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 17,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 18,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 19,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 20,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 21,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 22,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 23,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 24,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 25,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 26,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 27,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 28,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 29,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 30,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 31,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 32,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 33,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 34,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 35,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 36,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 37,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 38,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 39,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 40,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 41,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 42,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 43,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 44,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 45,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 46,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 47,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      }
+    ],
+    "source-probe": [
+      {
+        "scalar": 0,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 1,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 2,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 3,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 4,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 5,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 6,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 7,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 8,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 9,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 10,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 11,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 12,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 13,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 14,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 15,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 16,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 17,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 18,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 19,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 20,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 21,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 22,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 23,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 24,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 25,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 26,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 27,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 28,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 29,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 30,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 31,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 32,
+        "target_bits": 1170981038,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 33,
+        "target_bits": 1189280783,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 34,
+        "target_bits": 1187282705,
+        "operand_count": 5,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "scalar": 35,
+        "target_bits": 1186752001,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 36,
+        "target_bits": 1202478291,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 37,
+        "target_bits": 1201474889,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 38,
+        "target_bits": 1201917478,
+        "operand_count": 6,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "scalar": 39,
+        "target_bits": 1201675259,
+        "operand_count": 4,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "scalar": 40,
+        "target_bits": 1199651798,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 41,
+        "target_bits": 1237697365,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 42,
+        "target_bits": 1237696948,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 43,
+        "target_bits": 1237697048,
+        "operand_count": 20,
+        "exact_float32_witness": true,
+        "order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      },
+      {
+        "scalar": 44,
+        "target_bits": 1172708931,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 45,
+        "target_bits": 1237696913,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 46,
+        "target_bits": 1237696852,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      },
+      {
+        "scalar": 47,
+        "target_bits": 1237696839,
+        "operand_count": 0,
+        "exact_float32_witness": true,
+        "order": []
+      }
+    ]
+  },
+  "production_atomic_order_inferred": false,
+  "fixed_candidate_replaced": false,
+  "whole_solver_accepted": false,
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/surface_common_input_replay.py": "6550eb67e591b619dd475bc95e2db1fd259dc3032f01d9861615659cdef24908",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset104.bin": "21d2a5f3171174398424f1bad997005b94fc84f47ae0a732c84f9aa58ee8d527",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset176.bin": "c9bcef673e9be03ece8ed3359f17ec5ac041dd98577832b4f8fe084a8b0d2340",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset184.bin": "8e1a8a5b71136de416b27a6644ea1fd36dd477babbfbccc70d6734663aa9efe5",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset136.bin": "28625f27a2f3d7f965ec406e885f2f1050684660b9941c56e95d96c46bcb42f9",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0.bin": "46f83e3a0dcc4f04f3eecc056ca777afc551ff50c61ae15f1486e3497cd51bfb",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset96.bin": "2773d1eafc1b760d9b6e4db2eeb445b956eb953532c23152d28a1ac09f13142a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset144.bin": "55c7e745cc39daebe3bbe58c34f50f4df604cfa26d912b1517a9f182c66d576b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset24.bin": "483919743c2f145c46e5b322f48ea9fe0061522405ff854db7e7d17aeb8960af",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset256.bin": "4c58d87228003b52098db1b5f899993c6b763d26ed50b1c664f26f86906e1786",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset272.bin": "c7b06f613711091f90a785198163dfd88abe512476f4b331b4bbd4ba1ac782f6",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset160.bin": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset48.bin": "72642567c6d5dfe031174a2690df4f0be1501921e353d923c934ca7f10e07d79",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset240.bin": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset152.bin": "c9e04d53e340e2c9ce2ee157d304bd92abe80aee958a5222213871a549bccf3b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset88.bin": "f628e3ec7992235a0d5f2cdfb3063d74e69403a43fc0f749951bb1c46714a08f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset192.bin": "80b8fd6d60fa85fd14a38b5295cb92abd80dfec5ca406c9f969609a79d36809d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset248.bin": "5f2249a7437dba45cca712f5d97036330145dcf06846ae205a7649b2cc49a456",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset56.bin": "b6a821e8e78500552b7189b1e92b4378fef0da58481119dcf79e94c8884906e8",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset40.bin": "4e38b1b39d464533980fd2e705cc0dc5bfc3ca54a37a7aa40ad7491e4805d458",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_35add_surface_contact_stiffness_scale_pre_arg1.bin": "ea4645da57050b3997819c196893b5b151a0b85ae95942481b3096284c693541",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset280.bin": "99d88db2426ffd5e36c26a726e0e18e742c8e7180087a0dccd667e0efc243650",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset32.bin": "60bf0f66b8942422f61e6fd9952df7ee70375906b922c5efd72fc165123da155",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset16.bin": "98080e312167e8fa67b494c7a442c4136bbbc793f1ec90c92f9c782af9e61800",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset80.bin": "5167704e1626fba1a70f4414ef4ade3ed393adc4f0617de599dc260856d6b698",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset168.bin": "4e739c0e61107eefab02554b2222f8b1a2b77e1f217d7e1f3a306d8db4a0cf30",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-surface-scale/packets/3/dump_30evaluate_surface_contact_force_pre_arg0_offset128.bin": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+  }
+}

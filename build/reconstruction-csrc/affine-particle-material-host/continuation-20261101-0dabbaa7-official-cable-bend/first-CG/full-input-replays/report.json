@@ -1,0 +1,810 @@
+{
+  "packets": [
+    {
+      "number": 0,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0013-27invert_block_preconditioner",
+      "kind": "27invert_block_preconditioner",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935359488,
+          "bytes": 768,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 12935369728,
+          "bytes": 768,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499913728
+        },
+        {
+          "start": 123305610759168,
+          "bytes": 6912,
+          "labels": [
+            "arg-0",
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        }
+      ],
+      "pointers": {
+        "arg-1": 137989499912448,
+        "arg-2": 137989499913984,
+        "arg-0": 137989499915520,
+        "arg-3": 137989499915520
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0000-w0-f00-0013-27invert_block_preconditioner.npz",
+      "output_sha256": "2ea0f34d0ef3473e7f866f1d366ce1bd8baa2d7a7252c9798d7fc64140e98cd1"
+    },
+    {
+      "number": 1,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0014-23precondition_and_reduce",
+      "kind": "23precondition_and_reduce",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 123305610759168,
+          "bytes": 6912,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 123305610877952,
+          "bytes": 2304,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499919872
+        },
+        {
+          "start": 123305610883072,
+          "bytes": 2304,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499922944
+        },
+        {
+          "start": 123305610894848,
+          "bytes": 4,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 137989499926016
+        }
+      ],
+      "pointers": {
+        "arg-0": 137989499912448,
+        "arg-1": 137989499920128,
+        "arg-2": 137989499923200,
+        "arg-6": 137989499926272
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0001-w0-f00-0014-23precondition_and_reduce.npz",
+      "output_sha256": "eccca62413f55d3dd89c4e8ec0f509fd76c08fa8c76fca674eca9878862a25a1"
+    },
+    {
+      "number": 2,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0015-19update_cg_direction",
+      "kind": "19update_cg_direction",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 123305610880512,
+          "bytes": 2304,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 123305610883072,
+          "bytes": 2304,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        },
+        {
+          "start": 123305610894848,
+          "bytes": 4,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 137989499918336
+        }
+      ],
+      "pointers": {
+        "arg-6": 137989499912448,
+        "arg-1": 137989499915520,
+        "arg-4": 137989499918592
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0002-w0-f00-0015-19update_cg_direction.npz",
+      "output_sha256": "4079d193ad0096900dd05c2a056a7ff1cfa234da9bc019890e90b714ca7d53cb"
+    },
+    {
+      "number": 3,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0019-28update_solution_and_residual",
+      "kind": "28update_solution_and_residual",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 123305610707456,
+          "bytes": 2304,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 123305610877952,
+          "bytes": 2304,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        },
+        {
+          "start": 123305610880512,
+          "bytes": 2304,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 137989499918336
+        },
+        {
+          "start": 123305610885632,
+          "bytes": 2304,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 137989499921408
+        },
+        {
+          "start": 123305610890752,
+          "bytes": 4,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 137989499924480
+        },
+        {
+          "start": 123305610894848,
+          "bytes": 4,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499925504
+        }
+      ],
+      "pointers": {
+        "arg-6": 137989499912448,
+        "arg-7": 137989499915520,
+        "arg-4": 137989499918592,
+        "arg-5": 137989499921664,
+        "arg-3": 137989499924736,
+        "arg-2": 137989499925760
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0003-w0-f00-0019-28update_solution_and_residual.npz",
+      "output_sha256": "429c4aefce41063f17cea66352a45e14db2d78db77db3fcd94273851006c63da"
+    },
+    {
+      "number": 4,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0044-20apply_nonlinear_step",
+      "kind": "20apply_nonlinear_step",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935397888,
+          "bytes": 2304,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 12935412224,
+          "bytes": 2304,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        },
+        {
+          "start": 123305610707456,
+          "bytes": 2304,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499918336
+        }
+      ],
+      "pointers": {
+        "arg-0": 137989499912448,
+        "arg-1": 137989499915520,
+        "arg-2": 137989499918592
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0004-w0-f00-0044-20apply_nonlinear_step.npz",
+      "output_sha256": "f22f2dcc6cef855cc468056fc29f6ce1f7c88f3d599028474f96cdc5fd00c3af"
+    },
+    {
+      "number": 5,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0013-27invert_block_preconditioner",
+      "kind": "27invert_block_preconditioner",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935359488,
+          "bytes": 768,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 12935369728,
+          "bytes": 768,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499913728
+        },
+        {
+          "start": 133933809292800,
+          "bytes": 6912,
+          "labels": [
+            "arg-0",
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        }
+      ],
+      "pointers": {
+        "arg-1": 137989499912448,
+        "arg-2": 137989499913984,
+        "arg-0": 137989499915520,
+        "arg-3": 137989499915520
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0005-w1-f00-0013-27invert_block_preconditioner.npz",
+      "output_sha256": "734bbca86a055bcd7e8400b6c133ae0147b8024cf9b73be1f67008236e29b5ef"
+    },
+    {
+      "number": 6,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0014-23precondition_and_reduce",
+      "kind": "23precondition_and_reduce",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 133933809292800,
+          "bytes": 6912,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 133933809441792,
+          "bytes": 2304,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499919872
+        },
+        {
+          "start": 133933809446912,
+          "bytes": 2304,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499922944
+        },
+        {
+          "start": 133933809458688,
+          "bytes": 4,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 137989499926016
+        }
+      ],
+      "pointers": {
+        "arg-0": 137989499912448,
+        "arg-1": 137989499920128,
+        "arg-2": 137989499923200,
+        "arg-6": 137989499926272
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0006-w1-f00-0014-23precondition_and_reduce.npz",
+      "output_sha256": "e580cdf95656fe6f306bdb45503af623afe7ae38a0f2923c486aaf0549b04ad4"
+    },
+    {
+      "number": 7,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0015-19update_cg_direction",
+      "kind": "19update_cg_direction",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 133933809444352,
+          "bytes": 2304,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 133933809446912,
+          "bytes": 2304,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        },
+        {
+          "start": 133933809458688,
+          "bytes": 4,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 137989499918336
+        }
+      ],
+      "pointers": {
+        "arg-6": 137989499912448,
+        "arg-1": 137989499915520,
+        "arg-4": 137989499918592
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0007-w1-f00-0015-19update_cg_direction.npz",
+      "output_sha256": "08ce9af5a5bc46c4de4bbfbe09d18334a54e2f20369fa76f7f0ff2b78f2521c8"
+    },
+    {
+      "number": 8,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0019-28update_solution_and_residual",
+      "kind": "28update_solution_and_residual",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 133933809271296,
+          "bytes": 2304,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 133933809441792,
+          "bytes": 2304,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        },
+        {
+          "start": 133933809444352,
+          "bytes": 2304,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 137989499918336
+        },
+        {
+          "start": 133933809449472,
+          "bytes": 2304,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 137989499921408
+        },
+        {
+          "start": 133933809454592,
+          "bytes": 4,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 137989499924480
+        },
+        {
+          "start": 133933809458688,
+          "bytes": 4,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499925504
+        }
+      ],
+      "pointers": {
+        "arg-6": 137989499912448,
+        "arg-7": 137989499915520,
+        "arg-4": 137989499918592,
+        "arg-5": 137989499921664,
+        "arg-3": 137989499924736,
+        "arg-2": 137989499925760
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0008-w1-f00-0019-28update_solution_and_residual.npz",
+      "output_sha256": "553aba83e1f6a0174dc92a26cd6323e7a876bc58b89c74040c8cc5a25fc10386"
+    },
+    {
+      "number": 9,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0044-20apply_nonlinear_step",
+      "kind": "20apply_nonlinear_step",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935397888,
+          "bytes": 2304,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 137989499912192
+        },
+        {
+          "start": 12935412224,
+          "bytes": 2304,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 137989499915264
+        },
+        {
+          "start": 133933809271296,
+          "bytes": 2304,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 137989499918336
+        }
+      ],
+      "pointers": {
+        "arg-0": 137989499912448,
+        "arg-1": 137989499915520,
+        "arg-2": 137989499918592
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/packets/0009-w1-f00-0044-20apply_nonlinear_step.npz",
+      "output_sha256": "501effa1b5ea6c0272a6c6f626ad6483745ac4084b42802b5e83f8904d1cf839"
+    }
+  ],
+  "actual_calls": 30,
+  "error": null,
+  "complete": true,
+  "strict_packets": 8,
+  "all_unwritten_and_guards_equal": true,
+  "original_frozen_failure_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

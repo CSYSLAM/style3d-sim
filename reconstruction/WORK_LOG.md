@@ -7056,3 +7056,93 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   pipeline自身只在设备空闲后启动GPU子进程；当前新GPU调用0，未声称动态通过，生产0dab/Core715、SDK64a及360pyc均保持。
 - 新DRIVEN_CLOTH_SELF_REPLAY写清已完成字节核准、排队范围、原机器身份、WSL CPU复核命令及失败后的定位步骤。
   主状态/Windows交接链接同步；未改变生产数学、容差、原失败样本或候选未合入状态。
+
+### 2026-11-01：驱动self完整回放实测结束，scale核准及body-block接续
+
+- 上一goal turn为progress：原始ABI6272调用核准及回放接续已提交36ee901f9e33d233dadb68b15e47b259968ba7c4，
+  完整273942文件校验0失败并核远端同HEAD。起始tracked clean，原进程3272557/3280049/3301837/3311307均真实live。
+- 等GPU期间只读回查当前Newton mixed冻结轨迹及原版64a/源码bundle：evaluate_spring_force规范化PTX129行完全同；
+  SELF三个accumulate及surface force仍不同文本，不按文本差异猜数学错误，未改生产代码。
+- 随后环境boot从b285fe0e…变为bc11b920…，旧PID与67261/2752/37865/97272工具句柄均已消失。
+  终端句柄查询返回unknown process id；没有据此重启任何旧任务，旧根退出码保持unknown，绝不从complete文件臆造0。
+  已完成数据及子进程实际wait记录均保留；本环境逐一重核三份独立审计的全部input SHA，实际退出0。
+- 旧隔离scalar已产出593真实结果、13788历史word，独立CPU记录0且空闲入口为真，2304来源标量全覆盖。
+  其根GPU工具真实退出未知单列；首次非隔离593批次仍不计隔离验收，不重写历史notice。
+- flow四GPU worker及独立CPU均记录实际0：2376阶段、29844快照，CG生产/消费及公开q全部衔接；source均无SDK映射。
+  三端回放GPU子进程和独立CPU均记录实际0，1188packet/3564calls全部严格，6318完整输出、104222592保护字节、
+  76248实际ABI字节、6354指针字段全核。根97272退出码unknown不等于子GPU3321093实际0，两者分别记录。
+  四条诊断轨迹都未复现原冻结轨迹；新SO3/SIX粒子速度最大差14.13737/8.87093，两个原C8仍三source全部false。
+- 首scale采用四份flow真实packet，rename-only适配器每字节映射回原输入，生产数学/geometry/资源均不改。
+  prepare/session4972实际0；run/session5193实际0、四worker全0：792三端逐contact完整输出严格，每端1416实际F32操作数同。
+  沿用serial-atomic原GPU指令，仅改48标量布局及目录；155 GPU折叠、768来源标量、1636历史word全部核准，
+  GPU父实际0、独立CPU实际0，5580参数字节和348096保护字节全同；不推断跨目标全局线程顺序。
+- scale CPU首版实际1：误以为contact数组顺序相同，field16比较失败。保留v1 as-run及receipt。
+  实查两例各16行位置不同，但完整contact行多重集合相同；仅CPU Counter分析集合，没有排序或改写任何实际GPU输入。
+  v2实际0：非contact输入/初始scale相同，原始F32按目标的操作数集合同，三端逐contact与实际操作数逐位吻合。
+  scale差异位于SO3代理26/42、SIX代理40；首self顶点0..7，实际VF/EE/EF首Hessian全部同。
+  不把scale差异直接当后续大响应原因，修正该初始假设并保留记录。
+- 新body-block范围：SIX的precomputed=True，z由apply_block/apply_affine提前产生，旧1188未回放这三种kernel。
+  完整抓原版/源码同配置各三步，两GPU实际0、capture/session53045实际0；全flat非空和CableView三个非空pointee均已采。
+  CPU prepare实际0，198输入/594调用计划固定；复用已验证view/alias引擎，只改计数及日志，原引擎SHA与as-run保存。
+  新捕获首矩阵/逆矩阵/六valid标志均同，逆矩阵观测条件数约31122/204656；不以此证明根因或放宽容差。
+- operator工具session85093还在等待新的外部GPU任务33642，未启动GPU子进程，未中断它。
+  第一次查询身份只看argv1，忽略Python -u而断言失败；同工具重poll确认running后正确按脚本参数核身份，未重启。
+  正确PID35658/start_ticks99334/bootbc11b920…及命令已保存，接续必须核同一任务。
+- 更新主状态、Windows交接及结果页，区分实际完成数据、旧根未知退出码、当前594等待和旧完整失败；
+  生产0dab/Core715、SDK64a、CUDA176/f0、冻结360pyc均保持，候选7ca未合入，完整替代目标保持active。
+- 封存五个相关目录共38091文件，明确排除仍运行body operator的status/log及未完成输出。
+  新源码AST全部有效；两份已执行scale CPU审计的首行docstring为130字符，按原始SHA保留as-run证据，不为排版改写已验证输入。
+  其余本批新增源码在128列内；此格式例外不作为数值或功能验收通过项。
+
+### 2026-11-01：刚体块三个算子及传播实测结束，正式cable bend补查
+
+- 用户仅询问粒子/cable bend/ball_cloth/ANYmal/bundle状态，并明确回答后继续原目标。
+  已区分当前粒子三seed固定C10通过但非逐位同，cable相关内核已有证据但当前完整demo未验收，后三个无完整通过证据。
+  不把cloth_balls当ball_cloth，也不把G1当ANYmal。没有宣称五个都解决。
+- 上次stage/session83164现已从原工具取得真实退出0，原封存38091文件保持。
+  原body operator/session85093实际退出1：子48768在import reconstruction时缺仓库PYTHONPATH，未创建GPU上下文。
+  新run-operators-v2只修子进程启动环境和独立status/log名，原engine/输入/alias/阈值未变、无输出覆盖。
+- v2/session7251实际退出0；GPU子54876及独立CPU54940均实际0，198份完整packet/594次三端调用全部逐位同。
+  CPU独立重读14400参数字节、498960输出字节、4075920保护字节及18别名组，零失败。
+- 传播CPU v1实际1：审计错误假设surface diagonal直接进入body build，真实序列中间有drive/limit/rolling更新。
+  失败as-run和receipt保留；v2按真实调用核body build输入到particle inverse输入、inverse输出到block apply，实际0。
+  每端243阶段/2106快照，327个生产消费链接全部同，含combined z到precomputed reduce和末delta到公开q。
+- 同运行首body矩阵/逆矩阵/valid均相同，首CG前RHS已差1.52587890625e-5，首affine apply后z差9.313225746154785e-10。
+  五轮CG末delta差0.0003235340118408203，首次apply公开q同幅差；三步particle_qd最大差14.736923217773438。
+  BODY没有完整捕获首surface force输入，不能借另一FLOW轨迹的证书证明本条首差来源，后续需同运行抓首力及CG传播。
+- body-evidence-manifest已冻结4457文件，CPU重新核上一38091封存文件的每份SHA全同。
+  新旧故障/脚本/实际退出均保留；生产0dab/Core715、CUDA176/f0、SDK64a、360pyc及全部旧固定失败不变。
+- 新正式cable bend检查用未改example_cable_bend_stiffness.py，固定当前0dab与SDK64a、原配置Newton/PD，
+  每mode60帧/600子步原版及源码串行；每worker启动前内置GPU空闲门禁。只补此前缺口，不重跑无关74回归。
+  目录continuation-20261101-0dabbaa7-official-cable-bend，工具session25061；结果未读前不宣称通过。
+  此60帧不是8秒稳态物理测试或全部cable demo验收；默认/readyFalse及候选未合入状态保持。
+
+- 新正式cable bend/session25061已从原工具取得实际退出0，Newton/PD的原版/源码四worker均0。
+  每条60帧600子步，四状态全finite；首次particle_q最大差Newton4.23267e-5、PD4.70690e-5，速度均约5.00679e-4。
+  不能把进程退出0写成数值通过；两mode从substep0均严格不同。
+- 新固定C8/session11983实际0，首次original0/source0按原路径复用且SHA不变，另18worker全部实际0。
+  两mode各8SDK/3source；六源码逐子步固定C8全false，所有600步统计和首次失败保留。
+  独立CPU实际0，24数组、23443200 finite F32及输入/runtime/源kernel计数全部核准。
+- 针对C8稳定性提出并事先固定六条held-out SDK控制，不修改原8样本、源码失败或门槛。
+  run-native-controls/session36553实际0，六SDK子进程均0；六条原版也全部越过原固定C8。
+  独立CPU逐步复算实际0。该事实说明本例C8失败本身不能判定源码错，也不能证明源码完整等价，不能改判验收。
+- 新first-CG采集针对Newton source0的substep0越界：同例同默认profile各一帧，hook每kernel仅首调用。
+  完整输入优先核precondition/direction/update/apply；matrix刻意标注未保存全部ELL entries，不能冒称full replay。
+  工具session4238已启动，每worker内置GPU空闲门禁，诊断新轨迹不替换旧source0。
+- 中途总快照309661文件已实际完整校验0失败；追加正式cable结果后还需刷新清单并核新总快照。
+  refresh第一次错误断言360pyc都在bin目录而退出1，未写快照；实际360在examples/src/reconstruction/tests内，
+  修正为核全部冻结pyc后刷新成功。固定SDK/pyc不改，文档两处130字符as-run docstring格式例外继续保留。
+
+- 首CG/session4238实际0，两端各470 owned调用metadata全同；每端58实际buffer文件及9生产消费链接核准。
+  一次只读查询误用DUMP_LIMIT999的call000文件名而退出1；实际limit1不带call000，改读取路径后实际0，无重跑GPU。
+- 新first-CG十份完整输入packet实际预备0；复用已验证alias/view引擎只改计数10/30和日志，matrix/RHS不完整输入不参与。
+  session84287实际退出1，GPU子1、独立CPU0：8/10严格，其余两份仅precondition numerator归约不严格。
+  共30真实调用、514参数字节、165912输出字节、178248保护字节、2alias组全部核准；5个backend调用仅scalar不同。
+- 两端首inverse/RHS/z/direction/矩阵乘向量及分母均同；首次numerator差1.8189894035458565e-12，
+  已连接首update的delta差7.105427357601002e-14、residual差1.341104507446289e-7。
+  新诊断两端均未复现原冻结首子步或十子步，不据此改判原source0/固定C8。
+- 首PCG输入rename-only映射到既有pcg_grouped_atomic_certificate，预检当前bundle28模块；没有改任何算术或GPU资源。
+  原版/源码PTX真实192个lane操作数全部同；两个捕获scalar均由真实GPU atom.add的具体排列逐位复现。
+  GPU实际0、独立CPU实际0，384硬件历史word逐位核准；不推断原生产线程的实际全局次序。
+- 当前cable结果页及根状态/Windows交接均更新；三新独立CPU审计、原版控制失败及所有原始NPZ/PTX/实际退出完整保留。
+  源码host0dab/Core715、原版64a、CUDA176/f0、360冻结pyc及旧失败保持，完整替代目标仍active。

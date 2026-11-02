@@ -1,0 +1,894 @@
+{
+  "packets": [
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "0013-27invert_block_preconditioner",
+        "kind": "27invert_block_preconditioner",
+        "node": {
+          "name": "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+          "key": "27invert_block_preconditioner",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "00cc205325700000",
+            "00ec010303000000",
+            "0014020303000000",
+            "00cc205325700000",
+            "c000000000000000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 13
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 123305610759168,
+            "bytes": 6912
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935359488,
+            "bytes": 768
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935369728,
+            "bytes": 768
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 123305610759168,
+            "bytes": 6912
+          }
+        ],
+        "outputs": [
+          "arg-0",
+          "arg-3"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-0.npz"
+    },
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "0014-23precondition_and_reduce",
+        "kind": "23precondition_and_reduce",
+        "node": {
+          "name": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+          "key": "23precondition_and_reduce",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            1,
+            8,
+            4,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "00cc205325700000",
+            "009c225325700000",
+            "00b0225325700000",
+            "00",
+            "0000000000000000",
+            "c0000000",
+            "00de225325700000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 14
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 123305610759168,
+            "bytes": 6912
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 123305610877952,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 123305610883072,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 123305610894848,
+            "bytes": 4
+          }
+        ],
+        "outputs": [
+          "arg-2",
+          "arg-6"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-0.npz"
+    },
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "0015-19update_cg_direction",
+        "kind": "19update_cg_direction",
+        "node": {
+          "name": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+          "key": "19update_cg_direction",
+          "parameter_widths": [
+            4,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "00000000",
+            "00b0225325700000",
+            "0000000000000000",
+            "c0000000",
+            "00de225325700000",
+            "0000000000000000",
+            "00a6225325700000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 15
+        },
+        "bindings": [
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 123305610883072,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 123305610894848,
+            "bytes": 4
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 123305610880512,
+            "bytes": 2304
+          }
+        ],
+        "outputs": [
+          "arg-6"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-0.npz"
+    },
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "0019-28update_solution_and_residual",
+        "kind": "28update_solution_and_residual",
+        "node": {
+          "name": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+          "key": "28update_solution_and_residual",
+          "parameter_widths": [
+            8,
+            4,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "0000000000000000",
+            "c0000000",
+            "00de225325700000",
+            "00ce225325700000",
+            "00a6225325700000",
+            "00ba225325700000",
+            "0002205325700000",
+            "009c225325700000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 19
+        },
+        "bindings": [
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 123305610894848,
+            "bytes": 4
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 123305610890752,
+            "bytes": 4
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 123305610880512,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 123305610885632,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 123305610707456,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 123305610877952,
+            "bytes": 2304
+          }
+        ],
+        "outputs": [
+          "arg-6",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-0.npz"
+    },
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "0044-20apply_nonlinear_step",
+        "kind": "20apply_nonlinear_step",
+        "node": {
+          "name": "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+          "key": "20apply_nonlinear_step",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "0082020303000000",
+            "00ba020303000000",
+            "0002205325700000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 44
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12935397888,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935412224,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 123305610707456,
+            "bytes": 2304
+          }
+        ],
+        "outputs": [
+          "arg-1",
+          "arg-2"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-0.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 0,
+      "stage": {
+        "key": "0013-27invert_block_preconditioner",
+        "kind": "27invert_block_preconditioner",
+        "node": {
+          "name": "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+          "key": "27invert_block_preconditioner",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "005620e5cf790000",
+            "00ec010303000000",
+            "0014020303000000",
+            "005620e5cf790000",
+            "c000000000000000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 13
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 133933809292800,
+            "bytes": 6912
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935359488,
+            "bytes": 768
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935369728,
+            "bytes": 768
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 133933809292800,
+            "bytes": 6912
+          }
+        ],
+        "outputs": [
+          "arg-0",
+          "arg-3"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-1.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 0,
+      "stage": {
+        "key": "0014-23precondition_and_reduce",
+        "kind": "23precondition_and_reduce",
+        "node": {
+          "name": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+          "key": "23precondition_and_reduce",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            1,
+            8,
+            4,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "005620e5cf790000",
+            "009c22e5cf790000",
+            "00b022e5cf790000",
+            "00",
+            "0000000000000000",
+            "c0000000",
+            "00de22e5cf790000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 14
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 133933809292800,
+            "bytes": 6912
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 133933809441792,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 133933809446912,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 133933809458688,
+            "bytes": 4
+          }
+        ],
+        "outputs": [
+          "arg-2",
+          "arg-6"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-1.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 0,
+      "stage": {
+        "key": "0015-19update_cg_direction",
+        "kind": "19update_cg_direction",
+        "node": {
+          "name": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+          "key": "19update_cg_direction",
+          "parameter_widths": [
+            4,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "00000000",
+            "00b022e5cf790000",
+            "0000000000000000",
+            "c0000000",
+            "00de22e5cf790000",
+            "0000000000000000",
+            "00a622e5cf790000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 15
+        },
+        "bindings": [
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 133933809446912,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 133933809458688,
+            "bytes": 4
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 133933809444352,
+            "bytes": 2304
+          }
+        ],
+        "outputs": [
+          "arg-6"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-1.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 0,
+      "stage": {
+        "key": "0019-28update_solution_and_residual",
+        "kind": "28update_solution_and_residual",
+        "node": {
+          "name": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+          "key": "28update_solution_and_residual",
+          "parameter_widths": [
+            8,
+            4,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "0000000000000000",
+            "c0000000",
+            "00de22e5cf790000",
+            "00ce22e5cf790000",
+            "00a622e5cf790000",
+            "00ba22e5cf790000",
+            "000220e5cf790000",
+            "009c22e5cf790000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 19
+        },
+        "bindings": [
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 133933809458688,
+            "bytes": 4
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 133933809454592,
+            "bytes": 4
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 133933809444352,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 133933809449472,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 133933809271296,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 133933809441792,
+            "bytes": 2304
+          }
+        ],
+        "outputs": [
+          "arg-6",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-1.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 0,
+      "stage": {
+        "key": "0044-20apply_nonlinear_step",
+        "kind": "20apply_nonlinear_step",
+        "node": {
+          "name": "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+          "key": "20apply_nonlinear_step",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "0082020303000000",
+            "00ba020303000000",
+            "000220e5cf790000",
+            "c000000000000000"
+          ],
+          "geometry": [
+            1,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 44
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12935397888,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935412224,
+            "bytes": 2304
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 133933809271296,
+            "bytes": 2304
+          }
+        ],
+        "outputs": [
+          "arg-1",
+          "arg-2"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-1.npz"
+    }
+  ],
+  "kernel_names": [
+    "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+    "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+    "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+    "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+    "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m"
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so": "0dabbaa7a57b57187549f814632efebdc5612095765932be112c2c9ca1868e3e",
+    "/home/oem/code/agent/style3d-sim/examples/cable/example_cable_bend_stiffness.py": "ef2281351f1f94f8954f785c8e73c813ab6dd3b501a51c2d4614aad021f6ade7",
+    "/home/oem/code/agent/style3d-sim/examples/cable/cable_utils.py": "d9db027286aaec1db73139d45833e050bef63d695e5c8e2230f8d90fdf34fcab",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py": "dd83610440b73267fe526eeaea1c60e69caed74db7884f4f31fe5e005253e2ea",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/native/source_solver.cpp": "69736aabe5bc04e3c2f25c0881424a58295d4fab46a3defdd5945a2d23baa064",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/run.py": "1132eb619bf33091bfdd2005813de8f1e5eccd280fd030fbfe3c27cca0384f31",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/capture-first-CG.py": "207a317c130619757415935d93333be4f1b154a93810e7d84796ddd8744e612a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/full-owned-hook-129/cudahook.so": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/cohort8/independent-cpu.json": "c8b3ada0272167311e46eb47cd52d63042f86da250998c5ac88418222df9b7f7",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/native-controls/independent-cpu.json": "4fb7f25eebe927f0f2b0c3715b2676dee3b60033ffb56626efab156fd57e3f98",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/launches.txt": "5827356585ac109d9bd5369327b442a733af962494a5c3cab9fee23bb33b5764",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_pre_arg0.bin": "c50a9eb36ba2318a35476329ff7ff2d01cc5335849a8efbd37423273091d1d71",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_post_arg0.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_pre_arg1.bin": "c9d4d4f5ceb98d7d8ce4b6c2a7774ba58851f208d49d798ce188dc918067fcc4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_post_arg1.bin": "c9d4d4f5ceb98d7d8ce4b6c2a7774ba58851f208d49d798ce188dc918067fcc4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_pre_arg2.bin": "e7a6088df54b353bba0953266f201f32a8a1eb1f480ba75eae8130f187e90c1b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_post_arg2.bin": "e7a6088df54b353bba0953266f201f32a8a1eb1f480ba75eae8130f187e90c1b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_pre_arg3.bin": "c50a9eb36ba2318a35476329ff7ff2d01cc5335849a8efbd37423273091d1d71",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_27invert_block_preconditioner_post_arg3.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_pre_arg0.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_post_arg0.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_pre_arg1.bin": "b0421dc74b503363073b30039c13201a770c3e211d49c443a6faf7e78c913e0f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_post_arg1.bin": "b0421dc74b503363073b30039c13201a770c3e211d49c443a6faf7e78c913e0f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_pre_arg2.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_post_arg2.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_pre_arg6.bin": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_23precondition_and_reduce_post_arg6.bin": "c981af9798d4722f31f6fc99f72d4002d54376bcd1a6f69dc63f85b24d8eaa41",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_19update_cg_direction_pre_arg1.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_19update_cg_direction_post_arg1.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_19update_cg_direction_pre_arg4.bin": "c981af9798d4722f31f6fc99f72d4002d54376bcd1a6f69dc63f85b24d8eaa41",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_19update_cg_direction_post_arg4.bin": "c981af9798d4722f31f6fc99f72d4002d54376bcd1a6f69dc63f85b24d8eaa41",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_19update_cg_direction_pre_arg6.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_19update_cg_direction_post_arg6.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_pre_arg2.bin": "c981af9798d4722f31f6fc99f72d4002d54376bcd1a6f69dc63f85b24d8eaa41",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_post_arg2.bin": "c981af9798d4722f31f6fc99f72d4002d54376bcd1a6f69dc63f85b24d8eaa41",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_pre_arg3.bin": "1deb6a982c92d73e5b03ae397734f29053406ebcdc1655f649ccfed7c673213f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_post_arg3.bin": "1deb6a982c92d73e5b03ae397734f29053406ebcdc1655f649ccfed7c673213f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_pre_arg4.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_post_arg4.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_pre_arg5.bin": "b734867026a3a9ee1b27493d17066103c9c8e28b2f29a70b720e6af6b8ad0072",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_post_arg5.bin": "b734867026a3a9ee1b27493d17066103c9c8e28b2f29a70b720e6af6b8ad0072",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_pre_arg6.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_post_arg6.bin": "d87b95c194a798f8f813c203f50fdaa4f066b352399c9a217639e59bdc38f9dd",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_pre_arg7.bin": "b0421dc74b503363073b30039c13201a770c3e211d49c443a6faf7e78c913e0f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_28update_solution_and_residual_post_arg7.bin": "f8349c3df54e35ccb01c816ee6d9bea92cce4255f350a4c82ee955c76febc5aa",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_20apply_nonlinear_step_pre_arg0.bin": "4a863f59d1569f933c52928d5693c257f102fbf295889e6bfdb84ce9ea5b4170",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_20apply_nonlinear_step_post_arg0.bin": "4a863f59d1569f933c52928d5693c257f102fbf295889e6bfdb84ce9ea5b4170",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_20apply_nonlinear_step_pre_arg1.bin": "e4396a8b228ef5adfda22d60c62abc97061d7754276068bf2260db21b1d6dd77",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_20apply_nonlinear_step_post_arg1.bin": "7f83173a21ff04514ad4c5b59bbafe5e2c928a31922f1790e8d3ac0536c5f0ef",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_20apply_nonlinear_step_pre_arg2.bin": "63c627af22c18d4ebe38509e5bd83d5990dfd9df374eed9c33a2d414d230b323",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/original/dump_20apply_nonlinear_step_post_arg2.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-0.npz": "0f2f5cf74e881d89e5b42b928ca3923764fbf5daa14781c5fd984668f2676bf9",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/launches.txt": "968a70889c087c3ea003b7bddfdce217b5d9f9267576663a456cfcd92765c385",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_pre_arg0.bin": "c50a9eb36ba2318a35476329ff7ff2d01cc5335849a8efbd37423273091d1d71",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_post_arg0.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_pre_arg1.bin": "c9d4d4f5ceb98d7d8ce4b6c2a7774ba58851f208d49d798ce188dc918067fcc4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_post_arg1.bin": "c9d4d4f5ceb98d7d8ce4b6c2a7774ba58851f208d49d798ce188dc918067fcc4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_pre_arg2.bin": "e7a6088df54b353bba0953266f201f32a8a1eb1f480ba75eae8130f187e90c1b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_post_arg2.bin": "e7a6088df54b353bba0953266f201f32a8a1eb1f480ba75eae8130f187e90c1b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_pre_arg3.bin": "c50a9eb36ba2318a35476329ff7ff2d01cc5335849a8efbd37423273091d1d71",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_27invert_block_preconditioner_post_arg3.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_pre_arg0.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_post_arg0.bin": "2d647846f22927d0d33f9ec39906c86eb676ca19390e2006de1914d677793a33",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_pre_arg1.bin": "b0421dc74b503363073b30039c13201a770c3e211d49c443a6faf7e78c913e0f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_post_arg1.bin": "b0421dc74b503363073b30039c13201a770c3e211d49c443a6faf7e78c913e0f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_pre_arg2.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_post_arg2.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_pre_arg6.bin": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_23precondition_and_reduce_post_arg6.bin": "f526ae1ee665b8920b0192ff77c6e0f44843d799ce9be478a99bcc9fa02ada5e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_19update_cg_direction_pre_arg1.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_19update_cg_direction_post_arg1.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_19update_cg_direction_pre_arg4.bin": "f526ae1ee665b8920b0192ff77c6e0f44843d799ce9be478a99bcc9fa02ada5e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_19update_cg_direction_post_arg4.bin": "f526ae1ee665b8920b0192ff77c6e0f44843d799ce9be478a99bcc9fa02ada5e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_19update_cg_direction_pre_arg6.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_19update_cg_direction_post_arg6.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_pre_arg2.bin": "f526ae1ee665b8920b0192ff77c6e0f44843d799ce9be478a99bcc9fa02ada5e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_post_arg2.bin": "f526ae1ee665b8920b0192ff77c6e0f44843d799ce9be478a99bcc9fa02ada5e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_pre_arg3.bin": "1deb6a982c92d73e5b03ae397734f29053406ebcdc1655f649ccfed7c673213f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_post_arg3.bin": "1deb6a982c92d73e5b03ae397734f29053406ebcdc1655f649ccfed7c673213f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_pre_arg4.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_post_arg4.bin": "09095c180b72a0a9fdc6de2e5c73ddc13a9b6336a35980ece38f9358d09aee52",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_pre_arg5.bin": "b734867026a3a9ee1b27493d17066103c9c8e28b2f29a70b720e6af6b8ad0072",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_post_arg5.bin": "b734867026a3a9ee1b27493d17066103c9c8e28b2f29a70b720e6af6b8ad0072",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_pre_arg6.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_post_arg6.bin": "dd26b996c278227fdd03603cb9115705925a8603321ad9e51fa38b12cd4037bd",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_pre_arg7.bin": "b0421dc74b503363073b30039c13201a770c3e211d49c443a6faf7e78c913e0f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_28update_solution_and_residual_post_arg7.bin": "caf5f20c585d5171253b789d6a4ef1ef951dfad679b89a50b8ca18abf35b2470",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_20apply_nonlinear_step_pre_arg0.bin": "4a863f59d1569f933c52928d5693c257f102fbf295889e6bfdb84ce9ea5b4170",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_20apply_nonlinear_step_post_arg0.bin": "4a863f59d1569f933c52928d5693c257f102fbf295889e6bfdb84ce9ea5b4170",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_20apply_nonlinear_step_pre_arg1.bin": "e4396a8b228ef5adfda22d60c62abc97061d7754276068bf2260db21b1d6dd77",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_20apply_nonlinear_step_post_arg1.bin": "95da53f9a6bcad5a6db36161fbfcbad2093dd7411e010872be5ac9a82d64f378",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_20apply_nonlinear_step_pre_arg2.bin": "2858c02ac7804f0e87663042d8ec8808cab8b0ccb30855143cb9750ec2f7bb71",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/source/dump_20apply_nonlinear_step_post_arg2.bin": "cfc335996cfae29fdf14fd2db7ea853366d350a5d387aa3c322616e81dacd56b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/full-input-replays/worker-1.npz": "81a47ccf562cd74fd163713bd39f8fe1bb71c790b7eff09d6a97e37038674e43",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-body-block/replay-engine-as-run.py": "679aab14d848483e341fb91f5e0c93815e3749a20671cc0f96b15d121a6f29d4",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-body-block/audit-replays.py": "80824d63c46406d6c3a7b763a427f388678eeb8c3551342652b5e8c7cde2342d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/replay-engine-as-run.py": "4620955b8d87e00fcb68746aba0311aeb2b052c3f22424bf537bd86d03120078",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/audit-replays.py": "f1e74e50eda7fd2745208673a671fc7d9ad66f0780b995bf38877e24390eabc6",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/prepare-first-replays.py": "d8281fb88f58aa584c68ea4dbec27068c04105ab7e61f40bfcea326da175dd3d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/plan.json": "744898dcb73f8b457d6a9a2c5cda8241161dfd1def50418f516525aeb8ad1288",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-cable-bend/first-CG/status.json": "be29f0027ea6151e08cb47d10f5d4a5badbb08bfa9d967529871c993d74d8bcb"
+  },
+  "candidate_image": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/_source_solver.cpython-312-x86_64-linux-gnu.so",
+  "candidate_sha256": "0dabbaa7a57b57187549f814632efebdc5612095765932be112c2c9ca1868e3e",
+  "backends": [
+    "SDK-runtime",
+    "original-ptx",
+    "source-ptx"
+  ],
+  "expected_unmodified_calls": 30,
+  "original_fixed_samples_replaced": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

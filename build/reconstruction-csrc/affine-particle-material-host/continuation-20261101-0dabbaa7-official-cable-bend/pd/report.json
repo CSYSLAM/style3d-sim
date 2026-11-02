@@ -1,0 +1,57 @@
+{
+  "workers": [
+    {
+      "mode": "pd",
+      "backend": "original",
+      "pid": 61078,
+      "actual_exit": 0,
+      "capture_exists": true
+    },
+    {
+      "mode": "pd",
+      "backend": "source",
+      "pid": 61141,
+      "actual_exit": 0,
+      "capture_exists": true
+    }
+  ],
+  "default_material_and_solver_profiles_unchanged": true,
+  "frames": 60,
+  "full_8_second_settling_test_run": false,
+  "whole_solver_complete": false,
+  "strict_comparison": {
+    "body_q": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 3.081187605857849e-05,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.0005006790161132812,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 4.7069042921066284e-05,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.0005006790161132812,
+      "nonfinite": false
+    },
+    "bitwise": false
+  }
+}
