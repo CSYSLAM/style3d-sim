@@ -1,5 +1,9 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **四个正式demo接续已启动，准备检查点无新GPU通过项。** 粒子落布/ball_cloth/bundle/ANYmal三帧A/B队列70166，
+> 后继正常公开Core队列99307严格依赖前者；勿重复启动。已核bundle parser真实默认值及ANYmal离线恢复/缓存解析，
+> 20份固定资产随仓库提供；Windows用WSL2，实际命令及等待身份见[四demo接续](reconstruction/csrc/OFFICIAL_DEMO_FOUR_0DABBAA7.md)。
+
 > **当前正式cable bend已补查。** Newton/PD各60帧独立运行，六源码固定C8均false；六held-out原版也均越界。
 > 门槛/样本和失败均保持，继续核首CG真实输入；[结果及命令](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。
 

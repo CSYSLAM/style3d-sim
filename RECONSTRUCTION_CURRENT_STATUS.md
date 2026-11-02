@@ -4,6 +4,10 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+另四个正式demo已启动串行接续：粒子落布、ball_cloth、bundle、ANYmal的三帧A/B，随后跑支持场景的真实Core入口。
+本准备检查点只纳入parser修正及CPU核准、20份固定ANYmal资产/恢复/实际缓存解析和USD拓扑，不计新GPU通过项。
+原队列70166及其后继99307须先核同一进程；见[四demo接续](reconstruction/csrc/OFFICIAL_DEMO_FOUR_0DABBAA7.md)。
+
 当前正式cable bend stiffness的Newton/PD各60帧均独立运行，但固定8原版/3源码逐步C8两mode全false。
 另六份held-out原版也全false，不能单靠该失败判源码错误；记录和后续首CG核对见
 [cable bend实测](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。

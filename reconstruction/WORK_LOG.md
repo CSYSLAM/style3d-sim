@@ -7146,3 +7146,34 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   GPU实际0、独立CPU实际0，384硬件历史word逐位核准；不推断原生产线程的实际全局次序。
 - 当前cable结果页及根状态/Windows交接均更新；三新独立CPU审计、原版控制失败及所有原始NPZ/PTX/实际退出完整保留。
   源码host0dab/Core715、原版64a、CUDA176/f0、360冻结pyc及旧失败保持，完整替代目标仍active。
+
+### 2026-11-01：四个正式demo补测接续、bundle验证入口修正和固定ANYmal资产
+
+- 上一goal turn为progress：ad06d6c40c0df91d94b22f180d5091693157538b已推，远端精确同HEAD、tracked clean；
+  309981文件完整验证0失败。当前源码仍0dab/Core715、SDK64a、CUDA176/f0、360冻结pyc，所有旧失败保留。
+- 对用户列出的粒子/ball_cloth/ANYmal/bundle补查实际文件，粒子明确为example_cloth_particles，
+  不以19类基础particles夹具或G1替代正式例子。四例计划原配置各三帧A/B，再走真实公开_core原例子Graph路径。
+- 发现bundle在A/B中会先被harness参数问题阻挡：_parser_for对所有cable直接走generic parser，
+  bundle构造函数实际读取segments/eps_max/tau/no_dahl。已保存整个旧helper及SHA，只改优先选择Example.create_parser。
+  未改任何场景、profile、迭代或生产数学；旧审计若需重现使用ad06独立checkout，不改旧input SHA去迁就新文件。
+- parser-preflight工具45808实际0：CUDA_VISIBLE_DEVICES为空，加载真实公开Core715类型、实际两个例子和parser。
+  重现旧bundle缺四字段，新默认40/2.0/0.1/False及显式四CLI选项均核准；bend全部默认args与旧helper完全同。
+  原版SDK未映射，CUDA设备0、未构造或step solver；这不是GPU数值验收。
+- 本机ANYmal D缓存有固定Newton引用261cd1f429619d8ef4f546bd788ab9dea906b5e1，git HEAD实查同。
+  从现有缓存逐字节复制20文件/4317058字节到reconstruction/assets/anybotics_anymal_d，原LICENSE/README及目录完整保留。
+  新离线restorer fresh恢复实际0，幂等重验独立工具620d1d实际0，所有SHA相同；已有不同资产拒绝覆盖。
+  早先一次合并shell的末尾rg无匹配返回1，不把其shell退出码冒称restorer终态；随后已单独取得0。
+- OpenUSD CPU v1实际1：OmniPBR.mdl未解析；v2实际1：Stage.Traverse遗漏实例材质库，未找到Shader引用。
+  保留三版脚本及两失败receipt；v3改查所有已解析Sdf.Layer中的AttributeSpec，实际0。
+  组合17刚体/16关节、16本地已解析依赖；唯一未解析MDL有30处且owner全为Shader。
+  不改资产、不声明渲染依赖全齐，不借CPU组合宣称实际Newton构建或GPU仿真已经通过。
+- actual cache resolver工具55454实际0：CUDA隐藏、公开Core715类型、真正Newton download_asset分别测fresh/TTL过期缓存。
+  两次全部20字节SHA正确，Git网络命令显式拒绝；无原版SDK映射、未构造或step solver。
+- run-short工具70166/PID80087已真实启动并由同工具反复poll仍live；当前等外部GPU70741，尚无自己的GPU worker。
+  固定boot/start_ticks/argv保存在short-waiter-identity.json；内部每worker空闲门禁，原版及源码严格串行，不中断外部任务。
+  计划四例各三帧，预计30/6/30/12个记录子步；失败即保留，driver完成0不表示数值通过。
+- run-normal-core工具99307/PID85092已启动，严格依赖同一short进程；只跑短程source成功场景，明确记录skip。
+  它使用匹配0dab的真正Core715，原例子capture不改、无A/B bridge，不将三帧正常运行算成完整demo一致。
+  两队列当前真实退出未知；不从status或观测超时推断结束，不重复启动。两份身份及新接续文档已写。
+- 下一步等原任务真实终态，独立CPU核原始状态/runtime/计数，再跑至少60帧覆盖球/粒子落布接触，继续定位实际差异。
+  本准备检查点排除live status/log和未来NPZ，不声明任何新的GPU数值通过项，完整替代目标仍active。

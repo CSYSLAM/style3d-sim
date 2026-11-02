@@ -24,12 +24,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def _parser_for(module, path):
     import newton.examples
-    if 'cable' in Path(path).parts:
-        from examples.cable.cable_utils import create_cable_parser
-        return create_cable_parser(Path(path).stem)
     example = module.Example
     if hasattr(example, 'create_parser'):
         return example.create_parser()
+    if 'cable' in Path(path).parts:
+        from examples.cable.cable_utils import create_cable_parser
+        return create_cable_parser(Path(path).stem)
     parser = _main_block_parser(module, path)
     return parser if parser is not None else newton.examples.create_parser()
 
