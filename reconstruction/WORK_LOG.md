@@ -7794,3 +7794,74 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   7ca另有两处范围条件和self force位置，均有既有SDK实证；后续需在d09版本重新候选验证，不能直接继承旧通过。
 - 最后自有GPU已全部结束，外部任务未中断；原样instrumented PTX的末尾空行继续从代码空白门禁排除，
   不改原始证据字节。按完整阶段集中提交，当前solver目标仍未完成。
+
+### 2026-11-02：在d09主线上接续颗粒/刚体/外部接触范围
+
+- 上一turn实质进展：同一次五NL/250CG及全部贡献/证书完成；59c69accf7d1672d61f27428a0ed736863dda7a6集中提交。
+  push192664实际0，d7d11f远端同SHA，431448/本轮142a23 git clean；完整533425文件零失败。
+- 新目录continuation-20261102-d09d4be9-granular-contacts；沿既有4f的SDK实证，只去掉SO3 granular guard的
+  contact.max_count/soft_max_count两项；当前d09/旧4f/SDK64a版本分别保存，不把旧结果当新候选验收。
+- 仅隔离候选编译，不改生产；六固定SDK短程捕获、fixture和既有构造证据后续按原SHA复用，来源版本明确。
+  初余17658MiB、外部worldparticle共用，自己GPU仍串行、free>=4096准入；不登录、不改数学/容差/固定失败。
+- 候选编译93465/02e465真实0：ae3a599746804de7218285712a29428138ffe78892d6e28953d77408ed8264e8。
+  a67083独立CPU实际0反向还原唯一guard delta后与d09 C++完整同，PyInit正确、无SDK ELF依赖；六旧发现模型输入同。
+- 1d0614首次生成driver在写入前被128列门禁拒绝；拆出env字段后fe6604门禁0，未执行错误driver或产生GPU样本。
+  新六case driver预先固定旧SDK/新候选SHA，源码进程-B/禁止pyc、free>=4096共享准入，原数学和计划数不改。
+- 六case根66408/a09a56实际1：六source worker均真实0，所有已审计owned参数/geometry和覆盖都同，
+  4/6整项严格；W3 mixed/PD状态差异保留，W3 authored/body-hit仅soft force post_arg36 buffer差，状态本次严格。
+  所有首source0和buffer失败均保存，当前image的固定C8尚未运行，不继承旧4f的通过/失败。
+- 211a6b构造driver先AST/128列0：四类（含旧长程失败PD/mixed）复用584份冻结SDK原始文件，
+  每份核primary bytes/SHA后原字节复制；仅新增12个source GPU观测和4 CPU，不新采SDK，不把缺少C8当通过。
+  构造是独立诊断，完整验收仍保留短程/长程固定C8；不为候选绕过源码SHA或数学门禁。
+- 构造根95129/de9db1实际0：四类共12个source GPU worker、4个独立CPU均0，五项全同；
+  原版584文件逐主snapshot SHA/bytes核准后复制，未新增原版构造样本，旧4f和原版输入均原样保留。
+- 7a44f3生成short-C8独立审计时在写入前发现128列问题，9f2426修为LEGACY路径变量后AST/128列0；
+  没执行错误审计或更换数据。短程根17084/9cb83d真实0：两例4个新增source worker全0，
+  各自首次当前source0＋既有固定8SDK＋新source1/2均within；bf4b49独立CPU全部逐帧统计复现同。
+- 286599在GPU前核graph生成模板和六case/both-mode完整列表，实际worker增加精确模板字节校验。
+  新长程预先固定每组8旧SDK/3当前候选，12组×60步不改，source0为本image第一次长程运行；无新SDK采样。
+  原始长程失败仍保留，等三个当前source完整worker实际终态后独立CPU验收，不以短程/构造代替长程。
+- 当前候选长程根95810/b980e4实际1，三source worker全真实0；首source0为9/12、全部三source为8/12。
+  失败为W3 mixed/PD的eager/graph及W3 authored/body-hit/Newton的eager/graph；source0 graph Newton本次within，source2越界。
+  c035e0独立CPU全部60帧/状态/接触计数及统计复现同；没有改图步长、物理、容差或用新sample覆盖source0。
+- 新PD/eager/source0首越界frame1、world2，SDK8 spread为0，位置误差1.490116e-8、速度3.576279e-6。
+  新Newton/eager/source0首速度越界frame42/world1约4.29153e-5 vs原spread3.67846e-5，需实测而非猜测原因。
+- 候选保留隔离、不合入生产；sdk-heldout3预先固定三次独立SDK64a控制、六case/两mode原顺序，
+  用于检测同一SDK是否被原固定8规则拒绝；控制不加入基准、不替代源码失败，不登录、不为source代算。
+- SDK-heldout根90816/351d64实际0，三个原版独立worker均0；11c578 CPU逐帧/统计全复现，
+  同一SDK相对旧固定8仅通过10/12、9/12、9/12，失败也只在当前四个W3组合；SDK控制不加入基准或改判source。
+- 实际原版control2也在PD/eager/frame1出现同样零spread越界：q误差1.490116e-8、qd3.576279e-6。
+  5ed450独立CPU穷举396个完整source/native轨迹对：24/36源码轨迹有整段60步原版逐位匹配；其余12未匹配，完整失败保留。
+  更强的精确点：当前source0的PD/eager前两帧全部六数组，与同一实际SDK control2的完整前缀逐位相同。
+  Newton/eager/source1和2/frame55全部六数组也与同一SDK control2帧逐位同，但前缀不相同，不能拼接冒称整段证明。
+- 上述事实证明固定C8也会拒绝这些原版输出，不能单凭这四项失败猜改数学；仍不外推源码整体等价或合入资格。
+  继续四类source initcheck，预先声明不更换任何数值cohort；compute-sanitizer为/usr/local/cuda-12.8/bin。
+- source initcheck根84617/33e84c真实0，四类四GPU任务全0且ERROR SUMMARY:0，当前新候选未见未初始化读取。
+- 为确认正常API路径，新增隔离public Core编译，不写生产Cpp/build、默认SDK或main Core55。
+  builder先AST/128列通过，12282/c93655真实0：候选Core5688f23b64d3de2fa01242e31777191820b069e4bdf935675e540d5a1b980417。
+  C++源码为ae候选完整原字节＋现有公开wrapper，编译-H跟踪确认实际include本地候选Cpp；仅PyInit__core，无SDK代算。
+- 新normal public beef计划固定8份既有SDK、3份当前Core，resolution12/substeps1/NL3/CG5/no-capture/3帧，
+  正常newton.examples.run及原test_final不改，只在实际Python solver返回后保存完整state_out；不用A/B bridge。
+  原示例SHA及固定物理参数先核准，新source0为当前public Core首次运行；不替换短程或长程旧失败，不外推默认/长程切割。
+- 正常public Core牛肉根26862/218f58真实0：三source child均0，原test_final日志Beef checks passed，
+  不加载SDK、不用A/B bridge；三条当前Core完整状态对固定8 SDK的C8均true，非只检查CLI退出码。
+  bea572独立CPU实际0逐帧重算全部统计，且8份SDK原件/副本逐primary SHA和bytes核准；3帧/低分辨率范围不扩大。
+- 0a8971汇总独立CPU实际0核当前main d09不变、候选ae及公开Core5688的完整SHA、单guard反向恢复、
+  六例当前初始model/actual-layout与SDK全部字节、四构造/584原件、短C8、长9/12和8/12失败、SDK控制及正常public路径。
+  CUDA176/digest不改；主源码guard/主Core55/SDK64a/360pyc/default/readyFalse仍保持，候选没有生产合入。
+- 本阶段闭合新版候选重验及正常公开API证据；W3长程四组继续活动，后续实际首差/贡献需按新image继续核，
+  并在独立分支候选中接续7ca self/drive的SDK实证顺序，不能把旧4f/7ca的通过当新版本通过。
+- 额外真实ELF检查cc260d先返回needed=[]，6dac2c直接readelf确认本机标签为中文；
+  发现旧审计按英文Shared library匹配，在中文环境依赖列表抽取为空，不能据空列表认定无SDK依赖。
+  两份旧脚本/原结果以before-locale-fix原样保存，改读(NEEDED)条目并明确拒绝空列表，GPU/数据/数学均未重跑或改动。
+- 47301c/4b6512纠正后的Core/候选host独立ELF检查真实0：确有CUDA＋标准系统六依赖，无SDK库。
+  另审四个实际image（main host/Core、candidate host/Core）均核完整SHA、唯一PyInit及相同六标准依赖，
+  全部结果和实际readelf/nm文本保存four-source-images-elf，不把历史空列表当成有效独立性证明。
+- freeze首次48fbe4在任何manifest/root snapshot写入前被自身128列门禁拒绝；
+  失败原脚本保留freeze-checkpoint.py.before-columns-fix，拆分summary筛选行后再冻结，不改变任何输入/运行/判定。
+- 2b8b8e冻结1978份本批文件，primary355334＋indexed180070＝535404；根JSON101090137字节。
+  全量verifier28958/2365cd真实0：535404文件零失败，项目SDK64a/360pyc、全部旧数据及新真实.so均核准。
+- 最后自有GPU任务均结束，未终止外部任务；bacd15跟踪文件git diff --check真实0。
+  本批完整候选/公开API验证阶段集中提交一次；main d09/Core55不改，长程四项仍未闭合，最终目标继续。
+- staged whitespace86494e实际2，仅一份真实kernel-layout.tsv的CUB EmptyKernel零参数行尾tab；
+  该tab是保留空参数列的实际分隔符，不编辑原始证据，仅从代码空白门禁排除此精确文件；其余staged校验通过。

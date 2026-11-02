@@ -1,5 +1,10 @@
 # 颗粒、SO3刚体与外部接触：当前隔离候选
 
+> 当前d09上已重验[ae3a5997／公开Core5688](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-granular-contacts/README.md)：
+> 四构造/四initcheck/两短C8全过，正常公开牛肉3帧三source C8全过；长程8/12、仍未合入。
+> SDK独立控制也在同四组失败，PD首source0失败两帧完整六数组匹配同一个真实SDK前缀，旧判定未改。
+> 下方0dab/4f结果是历史版本，不代表当前ae的新验收；生产仍d09/Core55，完整替代未完成。
+
 主源码仍为host`0dabbaa7`/公开Core`7151054e`，完整替换未通过，默认原版、readyFalse保持。
 唯一原版对照为项目内SDK64a。以下候选尚未合入主源码。
 

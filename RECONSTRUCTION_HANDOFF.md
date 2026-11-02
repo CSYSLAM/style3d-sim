@@ -1,5 +1,10 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> 最新[颗粒/刚体外部接触ae候选与Core5688](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-granular-contacts/README.md)：
+> 四构造/四initcheck/两短C8通过；牛肉正常公开API三帧三source C8全过，无SDK/bridge，原test_final通过。
+> W3长程仍8/12，候选未合入；SDK自控也失败，PD首失败完整两帧前缀有真实原版逐位匹配，未修改任何旧判定。
+> 生产仍d09/Core55、SDK/360pyc固定；上述链接含同仓库真实ELF、相对路径正常WSL命令和绝对路径诊断限制。
+
 > 当前 d09/Core55 的[G1长程及完整NL2 CG](reconstruction/csrc/CURRENT_G1_CORE_55D6.md)已补查：
 > 固定八SDK／三当前源码的C8仍失败，123字段/帧越界，正常Core运行成功不等于轨迹通过。
 > 最新同一次第4子步全部5NL/250CG及apply、7620非归约严格；1704标量失败保留，2633硬件证书全过。

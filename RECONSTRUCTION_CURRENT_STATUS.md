@@ -4,6 +4,13 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+最新颗粒/SO3/外部接触隔离候选ae3a5997，公开候选Core5688f23b，生产仍d09/Core55。
+四类构造五项全同、四initcheck零错、两短C8通过；正常公开Core的牛肉低分辨率3帧三source固定C8全过、原测试通过。
+W3长程12组只有首source9/12、全部三source8/12，候选未合入；三个相同SDK控制也仅10/12、9/12、9/12。
+PD/eager/source0最早失败的前两帧六数组，与同一个真实SDK控制完整前缀逐位同；不据此改判整段失败。
+源码、实际两个.so、原始失败、正常API和WSL命令见
+[当前颗粒外部接触候选](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-granular-contacts/README.md)。
+
 当前 d09/Core55 的 G1 另固定三次真实 graph60，对照原八份 SDK，C8 仍失败，123 个字段/帧越界。
 最新已补同一次受控第4子步全部5NL/250CG及apply：7620份非归约全严格，1704标量严格失败保留；
 1000份实际归约输入贡献同，6000次SDK/PTX/source隔离及2633份硬件F32证书全部通过。

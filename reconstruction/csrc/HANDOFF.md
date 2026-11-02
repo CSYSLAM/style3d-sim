@@ -1,5 +1,10 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新[颗粒/SO3/外部接触ae＋公开Core5688](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-granular-contacts/README.md)：
+> 四构造、四initcheck、短C8及正常public牛肉3帧C8过；长程8/12，仍隔离，不改生产d09/Core55或旧失败。
+> SDK held-out也失败；source0的首PD失败两帧六数组与同一真实SDK完整前缀逐位同，不能扩成整段等价。
+> 接续当前W3实际首差/贡献及独立7ca候选，严守版本、数学、固定队列；真实ELF和WSL命令在链接中。
+
 > 最新[Core55 G1同次五NL](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-g1-fourth-five-nl/README.md)：
 > 固定C8仍false；第4子步5NL/250CG/apply共7620非归约严格，1704标量失败保留，2633硬件证书全过。
 > 不是六子步全部CG或长程等价证明；接续d09未完成host/4f/7ca及布料，生产数学/SDK/pyc不变。
