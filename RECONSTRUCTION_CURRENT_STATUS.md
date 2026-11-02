@@ -10,12 +10,22 @@
 四类构造五项全同；颗粒外部接触六项回归4项严格，原有两个W3差异仍在。
 真实H1 free正常公开API固定8SDK/3source、4帧（capture＋3replay），原test_final均退出0、源码未映射SDK。
 三source固定C8为[true,false,false]，三个独立SDK控制为[true,true,false]；所有初始状态同、首source0原字节保留。
-完整6120节点/6119边、有效参数及270指针对应全同，含8 alloc/8 free；设备pointee内容仍需实采。
+完整6120节点/6119边、有效参数及270指针对应全同，含8 alloc/8 free；本轮已补首NL完整CG及三个装配核的实际完整输入。
 四类self/drive initcheck零错；H1两端各7错已定位为仿真后NaN扫描读取BVH uint32缓存的未用尾部（有效50/容量99）。
 该host只读不写回仿真，原actual97和完整轨迹失败均保留，不能据此改判H1或候选通过。
-本阶段68个GPU诊断/对照任务和独立CPU已闭合；下一步当前H1首native子步/构造缓存完整输入及原子操作数。
+上一阶段68个GPU诊断/对照任务和独立CPU已闭合。
 源码、实际so、原始失败和WSL命令见
 [当前组合候选与H1](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)。
+
+最新H1首NL20CG的166完整输入/498次三端回放：624非归约输出全部严格，240标量仅2严格、238失败保留。
+三个装配入口六完整输入的36个aggregate输出均非严格，包含原SDK自身同输入重放；没有据此改判通过。
+实际22006912原子记录逐一核原/source PTX目标/顺序/F32同；两端8891个44-byte接触记录multiset同而次序不同。
+进一步原生SDK/原PTX/当前f07逐个实际接触及三角形隔离：力8891、两套矩阵初值各8891、膜Hessian66930，
+共280809次完整输出严格，5561038整数F32历史独立CPU同；膜核完整输出/guard比较器先经CPU完整回读破坏控制核准。
+13 GPU任务及独立CPU全部闭合，生产数学/镜像/容差/固定C8保持。这证明本批实际贡献算术，不证明联合全局原子调度。
+下一步继续aggregate硬件证书、自碰撞/其余装配及后续NL/CG extra/子步；没有覆盖全部默认20NL或601帧。
+数据、准确scope、历史命令及新WSL接续见
+[H1首轮CG与三个装配入口](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)。
 
 上一阶段颗粒/SO3/外部接触隔离候选ae3a5997，公开候选Core5688f23b，生产仍d09/Core55。
 四类构造五项全同、四initcheck零错、两短C8通过；正常公开Core的牛肉低分辨率3帧三source固定C8全过、原测试通过。

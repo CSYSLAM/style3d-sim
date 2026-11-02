@@ -1,0 +1,17 @@
+{
+  "actual_exit": 0,
+  "tool_chunk": "aff691",
+  "command": [
+    "/usr/local/cuda/bin/nvcc",
+    "-ptx",
+    "-arch=compute_75",
+    "-std=c++17",
+    "membrane-complete-word-check.cu",
+    "-o",
+    "membrane-complete-word-check.ptx"
+  ],
+  "SHA256": {
+    "membrane-complete-word-check.cu": "a4515d186cb5a95218370e5e117743540e29abb39e965e909966a861454a04f4",
+    "membrane-complete-word-check.ptx": "67c2140ea036139d4efe693120f7e7a6eee06d662ad609270d5590c350313ae4"
+  }
+}

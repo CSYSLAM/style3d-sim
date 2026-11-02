@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> 最新[当前f07/Core aa的H1首NL完整CG及三个装配核](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)：
+> 20CG的624非归约输出严格，238标量及36 aggregate失败保留；22006912真实PTX原子操作数同。
+> 实际8891条接触力、两套初值接触矩阵、66930三角形，280809次原生SDK/原PTX/f07完整输出严格，5561038整数步骤CPU同。
+> 13 GPU任务全终态；这是实际首轮贡献算术证明，H1固定C8仍true/false/false，不是全部NL或联合原子顺序证明。
+> 下一步aggregate硬件证书及自碰撞/其余装配/后续迭代，生产/SDK/360pyc保持；本批完整命令、WSL范围见链接。
+
 > 最新[驱动self＋颗粒组合候选f07/Core aa与正常H1](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)：
 > 旧SDK实证三hunk移植到ae，12短程10严格、9243调用同，四构造五项同；两个W3/PD固定C8仍全false。
 > H1正常公开API的8SDK/3source固定C8为true/false/false，原版held-out为true/true/false；首source0保留。

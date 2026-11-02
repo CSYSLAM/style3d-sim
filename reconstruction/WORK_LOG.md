@@ -7953,3 +7953,76 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   staged whitespace0002d8实际2仅原始sanitizer日志/生成CUDA/PTX/空参数TSV/原始iterator段的空白。
   初分类186d68遗漏raw .cu类别而拒绝；fcf7b1按原生成模块SHA核全部raw警告文件，1582项/91文件均有明确来源。
   自有维护代码/文档53文件门禁0，原始证据未编辑；全量校验后的末尾receipt只刷新WORK_LOG单项SHA后集中提交。
+
+### 2026-11-02：当前f07/Core aa的H1真实首轮完整CG输入
+
+- 上一goal turn属于实质进展：恢复并重验f07组合host/Core aa，68 GPU任务及H1完整graph/7错误定位闭合。
+  1fa2fbf51a45d37329940e4f3c60a24865d5a4b6集中提交；23247/6d609c push真实0，82558/b98050远端同HEAD且git clean。
+  原版SDK64a、生产d09/Core55及360冻结pyc保持；两个当前H1 source C8失败未改判。
+- 本轮4ecbd7复查同分支干净；新目录continuation-20261102-f07b35a4-h1-first-cg。
+  新canonical h1_first_cg_layout按真实6120-node图核首NL83调用/20CG，n33887、ELL最大27，非旧G1 n176。
+  8cf427 CPU双端layout/指针完整集合/唯一inverse alias门禁0；每端578 D2D、929317724快照bytes。
+- 95282c CPU预检0，冻结当前Core aa/f07及同revision资产、旧transport真实SHA和两份actual graph。
+  新transport先按实际Warp声明span或CUDA allocation query核每个完整读取范围，才分配快照buffer并添加D2D。
+  原数学/默认10NL/20CG/2substeps/test均不改；诊断仅capture＋一次实际replay，非固定C8或完整子步验收。
+- 捕获根20483/0e775e真实0：SDK PID672687/source PID673177两child均0，公开API正常、源码未映射SDK。
+  原始节点/边保持，新增快照可能改变原子调度；不替代已固定H1 source0或复用旧轨迹当本次结果。
+- bf5f64/d1b46e新回放配方AST/128列0：明确加载f07 KernelDriver，主d09只提供同digest CUDA schema。
+  使用实际133-block geometry、保留所有相交span/256-byte alignment/guard，reset上传后context fence再非阻塞launch。
+  50447回放根已启动，计划166 packet/498三端实际调用，独立CPU随后核全部864个完整输出，不预先判通过。
+- 50447/bd0f12三端GPU及独立CPU两child均实际0：166 packet/498调用/864完整输出。
+  624非归约输出全部严格；240标量仅2严格、238失败保留，原版自身回放也失败，未修改资源或数学。
+  98530/227644捕获独立CPU实际0：1156 actual copy descriptor、1858635448 bytes全核；
+  跨端578 payload仅78同，首次观察到inverse前block缓存已有63494 words不同，不能把原因统称首CG标量归约。
+- 初始25个assembly watch CPU检查发现遗漏base_blocks；2029c8误取block-init参数2时NULL guard拒绝，零GPU。
+  查实际SO/graph ABI 67e50a确认输出在arg1、arg2是NULL，原错误配方已保留；811d44双端layout核准25stage/70copy/125246352bytes。
+  75155/873c18两watch GPU均0，6ccfac CPU0：RHS/diagonal首差在soft-force rank66（before同，after116/23 words不同），
+  self Hessian首差75、base_blocks首差81、ELL entries首差83。该批仅观察累积buffer，明确不冒充完整输入核验。
+- 接续full-inputs三实际核（rank66 soft force、83 membrane Hessian、86 soft preconditioner）；每端全部非NULL指针/66copy/383580120bytes，
+  按原capacity3354813完整保存contact数组及实际分配边界；未排序输入、未改shader/CG/物理。
+  90242/d89d5c两capture实际0，45825/acac96三端GPU及CPU均0，六完整packet/18实际调用/36完整输出，严格全部false保留。
+  原版runtime自身同输入aggregate也不同；活跃soft contacts均8891，不把这点自动改判源码通过。
+- 8479/86753f CPU逐字段检查：soft-force只有contact记录位置不同，其余数学输入及初始RHS/diagonal同；
+  有效8891条44-byte完整接触记录multiset逐位同、序列不同。membrane唯一区别是继承的before base_blocks，entries/拓扑/几何全同。
+- 75230/610e00真实0，12个original/source PTX实F32探针全完成；bounded trace只限制诊断写入，原red不变，所有launch线程另留计数。
+  所有真实原子均在active范围、每线程<=128；单文件最大40180894 bytes，未丢弃原始全量记录。
+  84295/78cc53独立CPU实际0：22006912真实记录全核，六packet原/source每线程目标、次序、F32值完全同。
+  跨实际SDK/source两端按同一完整contact记录或triangle对应，soft-force21088、membrane5421330、soft-matrix59310操作数也全部同。
+  这是PTX操作数证明，尚非native SDK逐contact隔离或联合全局调度证明，完整H1及固定C8失败仍保持。
+- 接续复查矩阵旧句柄95643已关闭且无残存GPU进程；原根tool输出丢失，不编造该tool exit。
+  其已落盘status与progress真实终态0/8891完成，所有原记录保留，未重跑或覆盖该队列。
+- force逐真实contact隔离56814/f419c8真实0：8891条接触全部运行原生SDK64a、原PTX及当前f07，
+  26673调用、原13105×256 geometry、捕获RHS/diagonal种子及上传后fence均保留；完整输出逐位同。
+  95484/cc1eca独立CPU真实0，用整数RNE/FTZ加法核21088步，重建并核3615471804个完整实际输出word及三端SHA。
+  保存全部8891条原始完整输出的无损seed-relative编码，不只检查非零项，也未用源码代算SDK。
+- SDK种子soft-matrix同样8891条/26673三端实际调用全严格；76304/3aecd0独立CPU真实0，
+  59310整数加法历史及16269623118完整输出word通过。bc1030在AST/128列守卫后生成单独源码种子配方。
+  5987/64e9d3源码种子矩阵根真实0、child PID726000实际0；65233/cccf70独立CPU真实0，
+  另59310整数历史及16269623118输出word全部同。两套不同矩阵初值均已实际SDK隔离，不继承一套结论到另一套。
+- 39b504 CPU核H1全部66930三角形，每个81目标互异；两端membrane初值base_blocks差75word，
+  与303327个实际对角目标word的交集为空，ELL初值全同；无效尾部或三角形顺序均未修改。
+  新prepare-membrane-isolation.py在dd616a实际0，保存全部5421330目标/操作数/前后值为17份分块，
+  证明所有非输出输入和标量同、所有实际写入位置的初值同；完整seed差异和SHA随计划保存。
+- membrane-complete-word-check.cu仅诊断整数patch/gather/compare，aff691 nvcc实际0，cf7fea AST/128列门禁0。
+  30530/950bd2启动66930三角形/200790三端实际调用；逐次恢复完整原种子并比较全部输出和guard，
+  大ELL包含整数列索引，未清零或跳过；先完整CPU readback核刻意单bit及跨buffer边界破坏的比较器控制。
+  当前任务未终态，不能预先记通过；全部固定C8/aggregate失败及生产host/CUDA保持。
+- membrane根30530/89662a实际0，child PID738020实际0：66930三角形/200790三端调用，完整输出和guard全部严格。
+  十组GPU helper正/负控制含两端首/中/末/边界/ELL列/guard，全部完整CPU readback核预期破坏及SHA。
+  51571/ec4e84独立CPU真实0：5421330整数F32步骤和16263990三端实际目标值全核，
+  1898415035910完整output/guard GPU word比较全0。原/source端75个seed差异均不在任一三角形写入目标内。
+- 55132/beb99b真实0，正式记录三producer跨端完整输入：原标量/NULL及非record只读span同，
+  两个soft packet的8891条44-byte完整record multiset同、次序不同；未排序实际输入或将未用capacity当有效记录。
+- 首闭合CPU93407/819c8f实际1：Core metadata没有extension键，发生在只读image校验；未启动GPU或写部分闭合报告。
+  047039保存失败配方和receipt，按实际固定候选目录/真实SHA修正；82836/76b1c3真实0完成独立闭合。
+  本阶段13 GPU jobs/两个driver内CPU child均终态0；280809原生隔离调用严格、5561038整数F32历史同。
+  保留首CG238标量、36aggregate和原H1 C8 false，未宣称联合全局调度/完整子步或全solver通过。
+- 本目录README、根CURRENT_STATUS/两层HANDOFF及driven-self页已更新准确版本、全部实际命令、新WSL正常入口及绝对计划限制。
+  下一步首NL其余self/cloth/rigid装配、aggregate证书及同次后续NL/CG extra/子步；无生产数学、资源或容差修改。
+- 26987/7e3136冻结本批630文件＋manifest，primary355339＋indexed182971＝538310，根JSON101094312 bytes。
+  全量verifier10993/9fe33d实际0：538310 frozen files、zero failures。
+  自己GPU worker均已终态，360冻结pyc和生产/候选/SDK真实so保持。
+- 19023/ad1077集中stage真实0；33e18e独立读Git index核本批631份完整文件，合计640 staged。
+  实证项目SDK7657288 bytes、f07 host7777376 bytes、Core aa7786752 bytes均真实ELF/SHA同，360 pyc实际Git blob全核。
+  2e04c2 staged检查：原始/生成PTX七文件55项空白警告actual2已逐SHA分类保留；自有52代码/文档actual0。
+  全量校验后仅追加本receipt并刷新WORK_LOG单项SHA，按完整阶段集中提交，不逐改动提交。

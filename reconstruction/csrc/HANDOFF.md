@@ -1,5 +1,12 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新[当前H1首NL CG/装配实际输入与原生SDK](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)：
+> 20CG的624非归约输出严格；238标量和36装配aggregate失败保持。22006912真实PTX贡献核准。
+> 8891接触力＋两套矩阵种子各8891＋66930膜三角形，280809三端原生隔离全输出严格，5561038整数F32历史同。
+> 13 GPU任务及独立CPU已闭合；固定H1 C8仍true/false/false，不证明全局联合调度或全部20NL。
+> 接续aggregate证书、自碰撞/其他装配及后续NL/extra/子步；不重做已完成队列，生产数学/SDK/360pyc未改。
+> 诊断绝对路径需在新WSL生成新计划，正常Core相对metadata命令及全部原始证据在链接内。
+
 > 最新[组合候选f07/Core aa及H1真实API](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)：
 > SDK实证self三hunk在ae基线重建，12短程10严格/9243调用同、四构造五项同、两W3/PD C8全false。
 > 正常H1固定C8为true/false/false，SDK控制true/true/false；6120节点完整有效参数同，不含device pointee证明。

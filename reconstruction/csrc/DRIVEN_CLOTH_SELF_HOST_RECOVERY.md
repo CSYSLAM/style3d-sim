@@ -1,5 +1,11 @@
 # 驱动关节、布料与自碰撞：隔离候选7ca67172
 
+当前H1首NL完整20CG及三装配实际输入已补查：624非归约严格、238标量及36 aggregate失败保留；
+原/source PTX的22006912真实原子记录同。8891接触力、两套初值各8891矩阵接触及66930膜三角形，
+280809次原生SDK/原PTX/f07全输出严格，独立CPU5561038整数F32步骤同；13 GPU worker全终态。
+没有重判H1 C8或合入候选；接续aggregate证书、自碰撞/其余装配与后续NL/extra/子步。
+准确范围和命令见[H1首轮实证](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)。
+
 当前已在ae基线重新应用本页SDK实证的三hunk，得到f07 host／公开Core aa；生产仍d09/Core55。
 当前12短程10严格、四构造五项同，两个短C8全失败；H1正常公开API已跑固定8/3但仍两source越界。
 H1完整6120 graph参数同；post-run BVH uint32尾部引起的双端7个initcheck错误已定位，未抹除错误或改判轨迹。
