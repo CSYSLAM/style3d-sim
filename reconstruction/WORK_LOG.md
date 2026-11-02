@@ -7260,3 +7260,27 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   原始git diff --cached --check为2：380处全在原始instrumented PTX/真实生成CUDA/原样USD尾空白，
   没有可编辑代码或文档错误；精确排除这批保真证据后实际0，逐位置登记publication-checks.json，不重写证据。
   原数据147MB的gzip内容及fresh/幂等/拒绝冲突恢复均已实测，Git仓库只存低于100MiB的实体文件。
+
+
+### 2026-11-02：ANYmal Graph/eager排查与真实首预测器定位
+
+- 四demo检查点27e1156d3f3619a14cb732142be104f7bf66917b已推csy目标分支，实际push18324为0，ls-remote32544精确同HEAD。
+  310798文件全快照17516实际0失败；固定SDK/360pyc保持。GitHub只给大于50MB建议警告，所有实体均低于100MiB并成功接收。
+- 追加ANYmal原/源eager500及一次原版Graph500，工具67210实际0、三子worker全0；CPU9a7f9b实际0。
+  双端eager同样约870m/38.45速度，排除仅Graph故障；第一公开子步约135.951，零基子步14超过10m。
+  两份原版Graph最终proxy最大差1.26847，原/源首Graph1.04221；两样本不是C8，旧完整轨迹失败保持。
+- 代码实查sync_affine_body_state明确要求eval_fk后调用；原例子没有这次同步，body已移动但proxy保持旧值。
+  新副本只补现有API调用及合并原lambda的<0.25，原文件字节/SHA保持不动，没有改solver或阈值。
+- 副本真实Graph500工具4777实际0、原/源子worker均1：高度断言各32脚部失败；两端速度已经低于原界限。
+  最低body z -0.0337908/-0.0337073，最大速度0.0573148/0.0767422；保留失败、副本未合入。
+- 为定位真实来源，四worker84159实际0：只观察首个真正WP _predict_affine_body_velocities的输入/输出，
+  位置在native step前。原例子的proxy center z速度135.999939至136.000015，补同步副本全部0。
+  两种情况下原版和源码的全部预测器输入及实际输出均逐位同，CPU b84ab4实际0。
+  因此原版so同样收到Python预测器的伪速度，不能无证据去改恢复内核；后续继续核脚部实际接触。
+- 原样保留27e四份历史根文档及SHA映射，明确旧manifest文档hash对应旧提交，不用后续更新假扮旧文本。
+  更正四demo结果表单位说明：刚体仿射代理含方向轴，整张particle_q最大分量差不能统一作米。
+  本阶段根工具均完成，自己的GPU任务为0，外部任务保持，原例子/so/360pyc及所有旧失败不改。
+
+- 第二阶段60文件/67468974字节已封存，全部新Python AST/128列通过；诊断副本保留原例子CRLF，
+  默认git whitespace将每行CR报尾空白；只启用标准cr-at-eol识别后，全部staged diff实际0，不重写实测文件。
+  本阶段未提升诊断副本、未改原demo，最终高度32失败和旧完整轨迹失败都保留。

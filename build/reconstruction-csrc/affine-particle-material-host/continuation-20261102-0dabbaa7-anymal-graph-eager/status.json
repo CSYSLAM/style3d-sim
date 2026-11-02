@@ -1,0 +1,41 @@
+{
+  "complete": true,
+  "running": null,
+  "completed": [
+    {
+      "tag": "original-eager",
+      "backend": "original",
+      "pid": 168625,
+      "actual_exit": 0
+    },
+    {
+      "tag": "source-eager",
+      "backend": "source",
+      "pid": 168954,
+      "actual_exit": 0
+    },
+    {
+      "tag": "original-graph-repeat",
+      "backend": "original",
+      "pid": 169318,
+      "actual_exit": 0
+    }
+  ],
+  "GPU_waits": [
+    {
+      "tag": "original-eager",
+      "free_memory_MiB": 18541,
+      "compute_apps": "139673, /home/oem/code/worldparticle/.venv/bin/python"
+    },
+    {
+      "tag": "source-eager",
+      "free_memory_MiB": 18509,
+      "compute_apps": "139673, /home/oem/code/worldparticle/.venv/bin/python"
+    },
+    {
+      "tag": "original-graph-repeat",
+      "free_memory_MiB": 18605,
+      "compute_apps": "139673, /home/oem/code/worldparticle/.venv/bin/python"
+    }
+  ]
+}

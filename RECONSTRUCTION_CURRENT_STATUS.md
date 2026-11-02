@@ -17,6 +17,12 @@
 新结果、限制、命令和接续见[四demo实际结果](reconstruction/csrc/OFFICIAL_DEMO_FOUR_SHARED_GPU_RESULTS.md)。
 604f的准备页及71文件清单保留为历史，不能据旧页重启已经停止的队列。
 
+ANYmal追加500帧eager及原版Graph重复均实测，异常双端都有，不是Graph独有。
+首Python预测器在native step之前已因eval_fk后未同步代理而产生约136的伪速度；四真实观测双端逐位同。
+诊断副本仅调用已有sync_affine_body_state及合并测试lambda，首伪速度归零；500帧两端速度均达原界限。
+但两端同有32脚部高度失败，原界限未改，副本未合入。结果与接续见
+[ANYmal初始化定位](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-graph-eager/README.md)。
+
 当前正式cable bend stiffness的Newton/PD各60帧均独立运行，但固定8原版/3源码逐步C8两mode全false。
 另六份held-out原版也全false，不能单靠该失败判源码错误；记录和后续首CG核对见
 [cable bend实测](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。

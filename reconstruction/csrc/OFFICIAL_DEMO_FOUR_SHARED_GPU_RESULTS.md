@@ -30,7 +30,8 @@ run="$phase/shared-GPU-v2"
 粒子指 `example_cloth_particles.py`，ANYmal为 `example_robot_anymal_d.py`，bundle为
 `examples/cable/example_cable_bundle_hysteresis.py`。
 
-以下q是particle_q、qd是particle_qd；单位为米及米/秒。严格一栏指完整逐位，而非误差包络。
+以下q是particle_q、qd是particle_qd，报告原始分量最大差。布料/自由粒子位置单位为米；
+刚体还含仿射代理的方向轴分量，不能将ANYmal/bundle的整张数组统一作长度解释。严格一栏指完整逐位。
 
 | demo | 3帧子步 | 3帧q最大差 | 60帧子步 | 60帧q最大差 | 60帧qd最大差 | 原版两次60帧q差 | 严格 |
 |---|---:|---:|---:|---:|---:|---:|---|
@@ -112,7 +113,8 @@ GPU回放根退出1明确保留，不因后续解释而改成0。
 报告在`functional-tests/anymal-predicate/`，没有修改原例子、求解器或0.25界限。
 因此只能记另四例八次原始测试正常，不能把ANYmal正常退出算物理验收。
 该异常也存在于固定原版，不能无证据修改源码数学以追求一个原版自己未达到的静止结果。
-下一步核ANYmal真实Graph与eager长程及原版自身对照，判断爆高现象来自当前原例子/适配层/Graph还是求解差异。
+随后追加的Graph/eager与首预测器实测已定位FK代理未同步；仅诊断副本补同步后不再飞高，但双端脚部高度仍失败。
+详细数据与后续入口见根CURRENT_STATUS链接的ANYmal阶段，原始失败和本页冻结数值均保持。
 
 ## 命令与新电脑接续
 

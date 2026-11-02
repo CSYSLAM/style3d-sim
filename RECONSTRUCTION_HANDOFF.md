@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **ANYmal追加定位：首步伪速度来自未同步的FK代理。** 原版/源码eager500同样飞高；真实预测器在native step前已约136。
+> 诊断副本仅补已有sync调用和原测试lambda换行，首伪速度归零，双端500帧速度达标，但均32脚部高度失败。
+> 原例子/so/阈值未改，副本未合入；未将完整轨迹或物理测试改判通过。
+> 原始数据、四次逐位预测器证据和下一步见
+> [ANYmal初始化定位](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-graph-eager/README.md)。
+
 > **四demo3/60帧与首差核对已完成，逐位轨迹仍不同。** 显存够用时允许外部GPU任务，自己的worker始终串行；
 > 原空等队列70166/99307/39819已实际停止143，不能重启或当作live。未停止用户任务，没有OOM。
 > 正常源码Core715五例各60帧退出0，无SDK映射；粒子原版自身60帧重复差1.39326m，不据此宣称源码通过。
