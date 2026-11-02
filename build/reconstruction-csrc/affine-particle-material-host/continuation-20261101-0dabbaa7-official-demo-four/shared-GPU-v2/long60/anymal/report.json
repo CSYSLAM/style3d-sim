@@ -1,0 +1,63 @@
+{
+  "case": {
+    "name": "anymal",
+    "example": "examples/example_robot_anymal_d.py",
+    "substeps": 240
+  },
+  "workers": [
+    {
+      "case": "anymal",
+      "backend": "original",
+      "pid": 114232,
+      "actual_exit": 0,
+      "capture_exists": true
+    },
+    {
+      "case": "anymal",
+      "backend": "source",
+      "pid": 114389,
+      "actual_exit": 0,
+      "capture_exists": true
+    }
+  ],
+  "frames": 60,
+  "default_parameters_unchanged": true,
+  "test_final_invoked": false,
+  "full_demo_accepted": false,
+  "states_finite": true,
+  "comparison": {
+    "body_q": {
+      "substeps": 240,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.0039825439453125,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 240,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.10446060262620449,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 240,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.006700269877910614,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 240,
+      "length_match": true,
+      "bitwise_substeps": 0,
+      "first_diff_substep": 0,
+      "max_abs": 0.10449701733887196,
+      "nonfinite": false
+    },
+    "bitwise": false
+  }
+}

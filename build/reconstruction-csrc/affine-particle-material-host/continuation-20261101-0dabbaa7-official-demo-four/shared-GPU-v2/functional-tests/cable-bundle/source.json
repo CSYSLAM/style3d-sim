@@ -1,0 +1,79 @@
+{
+  "backend": "source",
+  "image": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/source-core/5037032b98b9d614/_core.cpython-312-x86_64-linux-gnu.so",
+  "image_sha256": "7151054e4597e6ea919c0caee576579e577aca233ea4de4dc8ad7aa20fa4b4e7",
+  "example": "/home/oem/code/agent/style3d-sim/examples/cable/example_cable_bundle_hysteresis.py",
+  "example_sha256": "abbcc4ec8d9d1728d7ea6e98a8b450147586bd04fe69577777fb9f60b17e62c8",
+  "runner_sha256": "e1a3ebeea232cd00c863975df9a35811ed86842c3d0fb2028b66dcc3cf6bd083",
+  "arguments": [
+    "--viewer",
+    "null",
+    "--num-frames",
+    "180",
+    "--test"
+  ],
+  "public_core_abi": true,
+  "ab_bridge_used": false,
+  "capture_or_step_replaced": false,
+  "final_test_entered": true,
+  "final_test_returned": true,
+  "exit": 0,
+  "whole_solver_complete": false,
+  "frames_requested": 180,
+  "all_final_states_finite": true,
+  "final_state_shapes": {
+    "particle_q": [
+      1136,
+      3
+    ],
+    "particle_qd": [
+      1136,
+      3
+    ],
+    "body_q": [
+      284,
+      7
+    ],
+    "body_qd": [
+      284,
+      6
+    ]
+  },
+  "final_sim_time": 3.0000686645507812,
+  "source_launch_counts": {
+    "velocity": 10,
+    "hard_snapshot": 10,
+    "so3_update": 20,
+    "hard_update": 20,
+    "refresh_diagonals": 10,
+    "cable_prepare": 20,
+    "start": 10,
+    "update": 100,
+    "combine": 10,
+    "hard_evaluate": 140,
+    "rolling_force": 20,
+    "refresh_nonzeros": 10,
+    "hard_initialize": 10,
+    "cable_evaluate": 140,
+    "so3_force": 20,
+    "blocks": 20,
+    "rolling_preconditioner": 20,
+    "affine_build": 20,
+    "block_apply": 100,
+    "multiply": 100,
+    "soft_contact": 40,
+    "so3_preconditioner": 20,
+    "direction": 100,
+    "rhs": 20,
+    "block_entries": 10,
+    "apply": 20,
+    "affine_apply": 100,
+    "so3_tangent": 100,
+    "precondition": 100,
+    "inverse": 20,
+    "soft_contact_product": 100,
+    "so3_initialize": 10,
+    "rolling_tangent": 100
+  },
+  "reference_solver_mapped": false
+}

@@ -7177,3 +7177,86 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   两队列当前真实退出未知；不从status或观测超时推断结束，不重复启动。两份身份及新接续文档已写。
 - 下一步等原任务真实终态，独立CPU核原始状态/runtime/计数，再跑至少60帧覆盖球/粒子落布接触，继续定位实际差异。
   本准备检查点排除live status/log和未来NPZ，不声明任何新的GPU数值通过项，完整替代目标仍active。
+
+### 2026-11-01：四个正式demo的独立CPU后继
+
+- 上一goal turn为progress：604f3097dde2360e2acc42e10bffea62555edbbd已推并核远端精确同HEAD；
+  310052文件总快照0失败。起始tracked clean，两个原工具70166/99307均重新poll确认live，PID/start仍同。
+  GPU70741/worldparticle仍占用，自己的GPU worker0，没有中断或重复启动任务。
+- 新official_demo_audit不调用原compare函数，独立重读F32原始NPZ，以u32逐位核状态、首差子步及F64最大差，
+  同时核finite/长度/worker退出/runtime镜像与场景SHA/实际参数/source调用计数及每worker启动前空闲门禁。
+  正常公开Core只有运行记录，无原始轨迹，明确不声明Graph状态数值对照。
+- CPU预检08e72e实际0：当前正式cable Newton/PD的两份真实失败，以及0dab Dzhanibekov的真实严格通过，
+  全部与既有完整统计逐字段相同；输入和源码SHA保存auditor-preflight.json，旧失败不改判。
+- 新run-cpu-audit工具session39819已启动，严格等待同一正常Core队列；在等待前固定实际代码和请求SHA，
+  之后才调用CPU审计子进程并记录真实wait退出。未创建GPU上下文，不替代实际仿真，不重启旧GPU队列。
+  原两根工具与新根工具真实退出均仍未知，不从status.complete猜0；新PID/boot/start_ticks已存audit-waiter-identity.json。
+- 新CPU后继、预检及接续补充单独封存；不修改604f准备清单中的旧结果页和源文件，所有live输出排除。
+  主状态/Windows交接及补充文档写清三条队列和后续60帧接触验证，生产0dab/Core715、SDK64a、CUDA176/f0及360pyc保持。
+
+
+### 2026-11-01/02：按用户要求允许共享GPU，完成四正式demo及粒子真实核诊断
+
+- 用户指出另一程序约12GB，询问为何不能利用剩余显存。确认独占是agent过度保守的自设条件，未发生实测OOM。
+  只停止自己空等的审计39819、正常99307、短程70166；均核PID/start/argv后SIGTERM，实际工具终态143。
+  当时自己的GPU worker为0，外部70741/worldparticle保持；实测总24455/用5036/余18907MiB。
+  新准入每worker检查free>=4096MiB，记录同卡进程/显存，自己的所有任务仍严格串行。
+  不追溯改判历史隔离失败或旧cohort；旧status.completeFalse为停止前历史，不代表live。
+- 新shared-GPU-v2串行pipeline54748实际0：8个三帧A/B、4个正常Core3、独立CPU全0。
+  四正式例子原配置运行，状态全有限，四项逐位均false；source无SDK映射。
+  正常Core只有Graph运行记录，无逐帧原始状态，不宣称Graph数值一致。
+- 六十帧driver30614实际0：8个原版/源码worker和独立CPU全0，四例严格仍false。
+  粒子q差1.38706548m，ball0.003998756m，bundle0.0501202345m，ANYmal0.00670027m。
+  默认物理、迭代、profile、launch与阈值未改，未替换首个失败样本。
+- 正常公开Core60工具30829实际0：四例和另加cable-bend全0，Core715/noSDK/noABbridge。
+  SDK额外重复工具48259实际0：四例各一份60帧原版，粒子原版自身q差1.39326006m。
+  两原版不是C8，不能代替固定验收；五正常入口及四重复已由另一CPU实现重读核准，工具32686实际0。
+- 粒子首阶段采集93954实际0，每端74dump；十生产消费链接/端均核准。
+  本诊断首拉伸RHS差3.72529e-9、弯曲后3.81470e-6、inverse前矩阵4.0；首CG与首apply隔12次CG，禁止错误直连。
+  新诊断不复现旧冻结首子步，不将新上下文当原私有历史。
+- 完整九算子捕获56815实际0；18完整输入/54真实三端回放工具51964实际1，独立CPU子0。
+  9/18逐位，差异在散射力/膜Hessian/CG scalar；inverse/direction/update/apply同输入逐位。
+  1218实际参数字节、36018048输出字节、37446576保护字节及2alias组均核。
+- 实际PTX操作数追踪65573实际0、独立CPU f70623实际0：三个核分别10368/20160/93312原子操作。
+  总123840项target/值/线程内序均同；未推断跨线程实际顺序，没有改生产核。
+- 另一完整捕获中，第一拉伸6个before全同、215个post RHS word不同；全用真实相同addends找到两端F32排列。
+  430次实际GPU atom.add/2556历史word全严格，GPU cdd61f/CPU661af7均实际0。
+  首膜Hessian8个before全同，diag164/ELL2个word差；332次实际GPU/1952历史word全严格，bd0e7c/4c8831均0。
+  完整捕获弯曲before RHS已不同；其本次post最大差1.49011612e-8，不能混用另一部分捕获的3.8147e-6。
+- 六组真实public位置取原版/源码的零基子步9/299/599，材料、拓扑、初始累加器保持第一捕获。
+  只换x，弯曲previous换同轨迹前一public子步；明确不是原私有迭代历史。
+  18packet/54未改SDK-runtime/原PTX/源码PTX调用，36真实追踪，工具63004实际0。
+  三核全部743040项实际target/值/线程内序同；独立CPU52948实际0，重读全部ABI、guard和未改核输出统计。
+  聚合输出仍有浮点散射差，不将操作数同外推成完整轨迹接受。
+- 两个生成脚本先写文件后才做128列检查，分别在normal-core.py:25(157列)、trace-deformed-inputs.py:177(147列)退出1；
+  后续执行已成功，保留as-run文本及hash，登记格式例外，不为美化破坏已运行文件。
+  后续代码生成均改为先AST/列宽检查再写，不改任何计算以通过格式检查。
+- 足时长原demo --test队列33203已启动，Graph保留：粒子100/ball100/bundle180/bend510/ANYmal500。
+  新functional-worker只观察实际test_final进入/返回、最终state、实际镜像与SDK映射，既有断言原样执行。
+  bundle180显式跨过release2s+0.4s，否则默认100会直接跳过最终断言；ANYmal500依据其CUDA测试原注释。
+  当前不能提前记录该队列终态，完成后单独补真实结果。生产0dab/Core715、SDK64a、176核/f0和360pyc保持。
+
+- 足时长功能队列33203实际0，十个子worker均0；原例子的test_final十次均进入/返回，最终NPZ全有限。
+  但独立CPU8326e3发现ANYmal真正速度不达标：原版38.4399414/源码38.4887695m/s量级，最低z约870m。
+  已立即向用户修正“全部通过”的表述，ANYmal不计settling验收；另四例原始测试共八次正常通过。
+- ANYmal假阳性定位到Warp1.16多行lambda源码提取：漏掉下一行<0.25，生成CUDA返回max(abs(qd))的float，
+  正值被bool当True。保留当时真实生成.cu；原例子与生产数学没有修改，阈值仍0.25。
+  工具16866实际0：同一保存state和同一个Newton helper，用原lambda均假通过；具名wp.func表达同一界限均抛ValueError。
+  真实GPU直接核每端136刚体全部超速，CPU7c5b51独立重读共272份failure标记全部匹配，原/源失败同时保留。
+  这是原例子辅助测试缺陷，不以修源码数学去掩盖；ANYmal完整轨迹/物理问题仍需继续核对。
+- 新actual-tool-receipts.json记录所有根工具真实退出，当前自己的GPU任务0；外部任务保持。
+  生成格式例外清单第一次b3a5b1因相对/绝对Path.relative_to混用退出1，未运行GPU、未改实测文件；
+  随后只修清单路径后实际0。全部as-run长行位置保存as-run-format-exceptions.json。
+
+- 604f准备71文件已再次逐一SHA核对完全未改；本批变形trace report.json为147365458字节，超GitHub100MiB。
+  原147MB文件保持原地不改，生成mtime0无损gzip9753946字节，快照同时固定两端长度/SHA，不使用LFS指针。
+  新scripts/restore_reconstruction_evidence.py流式验证/原子恢复，已有不同结果拒绝覆盖；快照验证器流式核gzip原payload。
+  真正fresh恢复/幂等核验/冲突拒绝三项工具a0e261实际0，原数据不改。新WSL恢复命令已写根交接和结果页。
+- 本批实际结束后自己的GPU worker为0，没有旧队列需要接续；下一步按结果页查ANYmal Graph/eager异常及完整接触/CG链条。
+  本阶段只增加证据和审计工具，生产数学、默认加载、SDK、360pyc、当前74/C10及所有旧冻结失败保持。
+
+- 初次全快照310797文件实际核0失败，压缩payload流式核准；原地恢复检查2d7b5e实际0。
+  SDK64a/host0dab/Core715及全部360pyc再次逐字节SHA确认未改。
+  原始git diff --cached --check为2：380处全在原始instrumented PTX/真实生成CUDA/原样USD尾空白，
+  没有可编辑代码或文档错误；精确排除这批保真证据后实际0，逐位置登记publication-checks.json，不重写证据。
+  原数据147MB的gzip内容及fresh/幂等/拒绝冲突恢复均已实测，Git仓库只存低于100MiB的实体文件。

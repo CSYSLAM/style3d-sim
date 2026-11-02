@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Verify the frozen handoff without importing the solver or executing project bytecode."""
 import argparse
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -35,6 +36,18 @@ def main():
             failures.append((name, 'not PE'))
         count += 1
     if not args.reference_only:
+        for entry in snapshot.get('compressed_evidence', []):
+            packed = ROOT / entry['compressed_path']
+            actual, total = hashlib.sha256(), 0
+            try:
+                with gzip.open(packed, 'rb') as stream:
+                    while chunk := stream.read(1024 * 1024):
+                        actual.update(chunk)
+                        total += len(chunk)
+                if total != entry['bytes'] or actual.hexdigest() != entry['sha256']:
+                    failures.append((entry['path'], 'compressed evidence payload mismatch'))
+            except (OSError, EOFError) as error:
+                failures.append((entry['path'], f'compressed evidence unreadable: {error}'))
         for name in ('build/third_party/glm-1.0.1/glm/glm.hpp',
                      'build/toolchains/cuda_nvcc-linux-x86_64-12.4.131-archive.tar.xz'):
             if name not in snapshot['files'] or not (ROOT / name).is_file():

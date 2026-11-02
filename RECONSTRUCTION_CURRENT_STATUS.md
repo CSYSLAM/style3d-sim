@@ -4,9 +4,18 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
-另四个正式demo已启动串行接续：粒子落布、ball_cloth、bundle、ANYmal的三帧A/B，随后跑支持场景的真实Core入口。
-本准备检查点只纳入parser修正及CPU核准、20份固定ANYmal资产/恢复/实际缓存解析和USD拓扑，不计新GPU通过项。
-原队列70166及其后继99307须先核同一进程；见[四demo接续](reconstruction/csrc/OFFICIAL_DEMO_FOUR_0DABBAA7.md)。
+用户纠正GPU准入后，已取消“GPU必须独占”的自设条件；只检查剩余显存至少4096MiB，自己的worker始终串行。
+原空等队列70166/99307/39819均由本agent停止并实际退出143，没有启动自己的GPU worker，也未停止外部任务。
+粒子落布、ball_cloth、bundle、ANYmal各3/60帧原版/源码均实际退出0、状态有限，但四例完整逐位对照均未通过。
+另五例通过真实公开源码Core715运行60帧，未映射SDK；正常Graph报告没有完整逐帧状态，不当作数值一致。
+增加四份60帧原版重复，粒子原版自身最大位置差1.39326m；两个原版样本不能充当C8或改判源码通过。
+首轮拉伸/弯曲/膜矩阵123840项实际GPU原子操作数同；215个拉伸、166个膜矩阵差异有762次GPU累加顺序证书。
+另六组真实变形几何的54次未改核调用/36次追踪，743040项原版/源码实际操作数同，独立CPU核准。
+足时长十个原始test_final均正常返回；其中ANYmal是假阳性：Warp提取多行lambda漏掉<0.25，
+真实GPU/独立CPU核两端各136刚体均超速，不计settling通过；其余四例原/源八次原始测试正常。
+这些均不代表完整轨迹验收；旧C8、当前74及生产镜像保持。
+新结果、限制、命令和接续见[四demo实际结果](reconstruction/csrc/OFFICIAL_DEMO_FOUR_SHARED_GPU_RESULTS.md)。
+604f的准备页及71文件清单保留为历史，不能据旧页重启已经停止的队列。
 
 当前正式cable bend stiffness的Newton/PD各60帧均独立运行，但固定8原版/3源码逐步C8两mode全false。
 另六份held-out原版也全false，不能单靠该失败判源码错误；记录和后续首CG核对见

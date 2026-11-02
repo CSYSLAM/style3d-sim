@@ -1,0 +1,79 @@
+{
+  "particle_count": 8625,
+  "frames": 1,
+  "fields": {
+    "14initialize_rhs": {
+      "1": 103500,
+      "2": 103500,
+      "9": 103500
+    },
+    "22evaluate_stretch_force": {
+      "5": 103500
+    },
+    "22evaluate_bending_force": {
+      "7": 103500
+    },
+    "22accumulate_vertex_face": {
+      "11": 103500,
+      "12": 310500
+    },
+    "20accumulate_edge_edge": {
+      "9": 103500,
+      "10": 310500
+    },
+    "20accumulate_edge_face": {
+      "10": 103500,
+      "11": 310500
+    },
+    "27invert_block_preconditioner": {
+      "0": 310500,
+      "1": 34500,
+      "2": 34500,
+      "3": 310500
+    },
+    "23precondition_and_reduce": {
+      "0": 310500,
+      "1": 103500,
+      "2": 103500,
+      "6": 4
+    },
+    "19update_cg_direction": {
+      "1": 103500,
+      "4": 4,
+      "6": 103500
+    },
+    "26multiply_matrix_and_reduce": {
+      "0": 34500,
+      "3": 310500,
+      "4": 103500,
+      "5": 103500,
+      "6": 103500,
+      "9": 4
+    },
+    "28update_solution_and_residual": {
+      "2": 4,
+      "3": 4,
+      "4": 103500,
+      "5": 103500,
+      "6": 103500,
+      "7": 103500
+    },
+    "20apply_nonlinear_step": {
+      "0": 103500,
+      "1": 103500,
+      "2": 103500
+    }
+  },
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/capture-particles-first.py": "28edd7a5f18a81fe9db2174bf156bc35eb9d8ab8fa891517f10e3041c5471eb3",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/full-owned-hook-129/cudahook.so": "d08bc05e699e16b1b3b7e0fcae644667f3f804cd0f233c32b1a7d16ddfc31518",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/demo_source_ab.py": "dd83610440b73267fe526eeaea1c60e69caed74db7884f4f31fe5e005253e2ea",
+    "/home/oem/code/agent/style3d-sim/examples/example_cloth_particles.py": "cc7e813a25b8febd833c0f270f210fdcfe79b8080b39c3cab2d0201514bd2e65",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/independent-cpu.json": "f74dd314e9603e87309169264a510833b2a00944a4660afef9a70fbef65e2e5e"
+  },
+  "GPU_admission_policy": "available-memory",
+  "original_frozen_failure_replaced": false,
+  "complete_matrix_inputs_claimed": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

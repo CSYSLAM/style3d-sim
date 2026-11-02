@@ -1,0 +1,63 @@
+{
+  "case": {
+    "name": "cable-bundle",
+    "example": "examples/cable/example_cable_bundle_hysteresis.py",
+    "substeps": 600
+  },
+  "workers": [
+    {
+      "case": "cable-bundle",
+      "backend": "original",
+      "pid": 113953,
+      "actual_exit": 0,
+      "capture_exists": true
+    },
+    {
+      "case": "cable-bundle",
+      "backend": "source",
+      "pid": 114065,
+      "actual_exit": 0,
+      "capture_exists": true
+    }
+  ],
+  "frames": 60,
+  "default_parameters_unchanged": true,
+  "test_final_invoked": false,
+  "full_demo_accepted": false,
+  "states_finite": true,
+  "comparison": {
+    "body_q": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 1,
+      "first_diff_substep": 1,
+      "max_abs": 0.029475867748260498,
+      "nonfinite": false
+    },
+    "body_qd": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 1,
+      "first_diff_substep": 1,
+      "max_abs": 8.546468496322632,
+      "nonfinite": false
+    },
+    "particle_q": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 1,
+      "first_diff_substep": 1,
+      "max_abs": 0.05012023448944092,
+      "nonfinite": false
+    },
+    "particle_qd": {
+      "substeps": 600,
+      "length_match": true,
+      "bitwise_substeps": 1,
+      "first_diff_substep": 1,
+      "max_abs": 9.507457733154297,
+      "nonfinite": false
+    },
+    "bitwise": false
+  }
+}

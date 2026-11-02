@@ -1,0 +1,1974 @@
+{
+  "packets": [
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "original-substep009-0035-22evaluate_stretch_force",
+        "kind": "22evaluate_stretch_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+          "key": "22evaluate_stretch_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "0088070303000000",
+            "00d4060303000000",
+            "009e060303000000",
+            "005c0b0303000000",
+            "009821a36b780000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 35
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-5"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep009.npz"
+    },
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "original-substep009-0036-22evaluate_bending_force",
+        "kind": "22evaluate_bending_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+          "key": "22evaluate_bending_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "002e23a36b780000",
+            "00920b0303000000",
+            "00ae0b0303000000",
+            "009a070303000000",
+            "0042080303000000",
+            "00001644",
+            "009821a36b780000",
+            "f006000000000000",
+            "f006000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            7,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 36
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 132403693825536,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935991808,
+            "bytes": 7104
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935998976,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935731712,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 12935774720,
+            "bytes": 14208
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep009.npz"
+    },
+    {
+      "worker": 0,
+      "frame": 0,
+      "stage": {
+        "key": "original-substep009-0038-add_cloth_membrane_gauss_newton_hessian",
+        "kind": "add_cloth_membrane_gauss_newton_hessian",
+        "node": {
+          "name": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+          "key": "add_cloth_membrane_gauss_newton_hessian",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "009e060303000000",
+            "00d4060303000000",
+            "0088070303000000",
+            "005c0b0303000000",
+            "007a28a36b780000",
+            "00b035a36b780000",
+            "000080c66b780000",
+            "0c00000000000000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 38
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403694172672,
+            "bytes": 310500
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 132403695038464,
+            "bytes": 34500
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132404287111168,
+            "bytes": 4140000
+          }
+        ],
+        "outputs": [
+          "arg-5",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep009.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 29,
+      "stage": {
+        "key": "original-substep299-0035-22evaluate_stretch_force",
+        "kind": "22evaluate_stretch_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+          "key": "22evaluate_stretch_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "0088070303000000",
+            "00d4060303000000",
+            "009e060303000000",
+            "005c0b0303000000",
+            "009821a36b780000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 35
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-5"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep299.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 29,
+      "stage": {
+        "key": "original-substep299-0036-22evaluate_bending_force",
+        "kind": "22evaluate_bending_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+          "key": "22evaluate_bending_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "002e23a36b780000",
+            "00920b0303000000",
+            "00ae0b0303000000",
+            "009a070303000000",
+            "0042080303000000",
+            "00001644",
+            "009821a36b780000",
+            "f006000000000000",
+            "f006000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            7,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 36
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 132403693825536,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935991808,
+            "bytes": 7104
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935998976,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935731712,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 12935774720,
+            "bytes": 14208
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep299.npz"
+    },
+    {
+      "worker": 1,
+      "frame": 29,
+      "stage": {
+        "key": "original-substep299-0038-add_cloth_membrane_gauss_newton_hessian",
+        "kind": "add_cloth_membrane_gauss_newton_hessian",
+        "node": {
+          "name": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+          "key": "add_cloth_membrane_gauss_newton_hessian",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "009e060303000000",
+            "00d4060303000000",
+            "0088070303000000",
+            "005c0b0303000000",
+            "007a28a36b780000",
+            "00b035a36b780000",
+            "000080c66b780000",
+            "0c00000000000000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 38
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403694172672,
+            "bytes": 310500
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 132403695038464,
+            "bytes": 34500
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132404287111168,
+            "bytes": 4140000
+          }
+        ],
+        "outputs": [
+          "arg-5",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep299.npz"
+    },
+    {
+      "worker": 2,
+      "frame": 59,
+      "stage": {
+        "key": "original-substep599-0035-22evaluate_stretch_force",
+        "kind": "22evaluate_stretch_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+          "key": "22evaluate_stretch_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "0088070303000000",
+            "00d4060303000000",
+            "009e060303000000",
+            "005c0b0303000000",
+            "009821a36b780000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 35
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-5"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep599.npz"
+    },
+    {
+      "worker": 2,
+      "frame": 59,
+      "stage": {
+        "key": "original-substep599-0036-22evaluate_bending_force",
+        "kind": "22evaluate_bending_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+          "key": "22evaluate_bending_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "002e23a36b780000",
+            "00920b0303000000",
+            "00ae0b0303000000",
+            "009a070303000000",
+            "0042080303000000",
+            "00001644",
+            "009821a36b780000",
+            "f006000000000000",
+            "f006000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            7,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 36
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 132403693825536,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935991808,
+            "bytes": 7104
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935998976,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935731712,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 12935774720,
+            "bytes": 14208
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep599.npz"
+    },
+    {
+      "worker": 2,
+      "frame": 59,
+      "stage": {
+        "key": "original-substep599-0038-add_cloth_membrane_gauss_newton_hessian",
+        "kind": "add_cloth_membrane_gauss_newton_hessian",
+        "node": {
+          "name": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+          "key": "add_cloth_membrane_gauss_newton_hessian",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "009e060303000000",
+            "00d4060303000000",
+            "0088070303000000",
+            "005c0b0303000000",
+            "007a28a36b780000",
+            "00b035a36b780000",
+            "000080c66b780000",
+            "0c00000000000000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 38
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403694172672,
+            "bytes": 310500
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 132403695038464,
+            "bytes": 34500
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132404287111168,
+            "bytes": 4140000
+          }
+        ],
+        "outputs": [
+          "arg-5",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep599.npz"
+    },
+    {
+      "worker": 3,
+      "frame": 0,
+      "stage": {
+        "key": "source-substep009-0035-22evaluate_stretch_force",
+        "kind": "22evaluate_stretch_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+          "key": "22evaluate_stretch_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "0088070303000000",
+            "00d4060303000000",
+            "009e060303000000",
+            "005c0b0303000000",
+            "009821a36b780000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 35
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-5"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep009.npz"
+    },
+    {
+      "worker": 3,
+      "frame": 0,
+      "stage": {
+        "key": "source-substep009-0036-22evaluate_bending_force",
+        "kind": "22evaluate_bending_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+          "key": "22evaluate_bending_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "002e23a36b780000",
+            "00920b0303000000",
+            "00ae0b0303000000",
+            "009a070303000000",
+            "0042080303000000",
+            "00001644",
+            "009821a36b780000",
+            "f006000000000000",
+            "f006000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            7,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 36
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 132403693825536,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935991808,
+            "bytes": 7104
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935998976,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935731712,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 12935774720,
+            "bytes": 14208
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep009.npz"
+    },
+    {
+      "worker": 3,
+      "frame": 0,
+      "stage": {
+        "key": "source-substep009-0038-add_cloth_membrane_gauss_newton_hessian",
+        "kind": "add_cloth_membrane_gauss_newton_hessian",
+        "node": {
+          "name": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+          "key": "add_cloth_membrane_gauss_newton_hessian",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "009e060303000000",
+            "00d4060303000000",
+            "0088070303000000",
+            "005c0b0303000000",
+            "007a28a36b780000",
+            "00b035a36b780000",
+            "000080c66b780000",
+            "0c00000000000000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 38
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403694172672,
+            "bytes": 310500
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 132403695038464,
+            "bytes": 34500
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132404287111168,
+            "bytes": 4140000
+          }
+        ],
+        "outputs": [
+          "arg-5",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep009.npz"
+    },
+    {
+      "worker": 4,
+      "frame": 29,
+      "stage": {
+        "key": "source-substep299-0035-22evaluate_stretch_force",
+        "kind": "22evaluate_stretch_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+          "key": "22evaluate_stretch_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "0088070303000000",
+            "00d4060303000000",
+            "009e060303000000",
+            "005c0b0303000000",
+            "009821a36b780000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 35
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-5"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep299.npz"
+    },
+    {
+      "worker": 4,
+      "frame": 29,
+      "stage": {
+        "key": "source-substep299-0036-22evaluate_bending_force",
+        "kind": "22evaluate_bending_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+          "key": "22evaluate_bending_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "002e23a36b780000",
+            "00920b0303000000",
+            "00ae0b0303000000",
+            "009a070303000000",
+            "0042080303000000",
+            "00001644",
+            "009821a36b780000",
+            "f006000000000000",
+            "f006000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            7,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 36
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 132403693825536,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935991808,
+            "bytes": 7104
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935998976,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935731712,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 12935774720,
+            "bytes": 14208
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep299.npz"
+    },
+    {
+      "worker": 4,
+      "frame": 29,
+      "stage": {
+        "key": "source-substep299-0038-add_cloth_membrane_gauss_newton_hessian",
+        "kind": "add_cloth_membrane_gauss_newton_hessian",
+        "node": {
+          "name": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+          "key": "add_cloth_membrane_gauss_newton_hessian",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "009e060303000000",
+            "00d4060303000000",
+            "0088070303000000",
+            "005c0b0303000000",
+            "007a28a36b780000",
+            "00b035a36b780000",
+            "000080c66b780000",
+            "0c00000000000000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 38
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403694172672,
+            "bytes": 310500
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 132403695038464,
+            "bytes": 34500
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132404287111168,
+            "bytes": 4140000
+          }
+        ],
+        "outputs": [
+          "arg-5",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep299.npz"
+    },
+    {
+      "worker": 5,
+      "frame": 59,
+      "stage": {
+        "key": "source-substep599-0035-22evaluate_stretch_force",
+        "kind": "22evaluate_stretch_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_stretch_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKfPKNS1_3matILi2ELi2EfLS3_0EEEPKNS2_ILi3EiLS3_0EEES6_PS4_mmm",
+          "key": "22evaluate_stretch_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "0088070303000000",
+            "00d4060303000000",
+            "009e060303000000",
+            "005c0b0303000000",
+            "009821a36b780000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 35
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-5"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep599.npz"
+    },
+    {
+      "worker": 5,
+      "frame": 59,
+      "stage": {
+        "key": "source-substep599-0036-22evaluate_bending_force",
+        "kind": "22evaluate_bending_force",
+        "node": {
+          "name": "_ZN7synreal6kernel22evaluate_bending_forceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKNS2_ILi4EfLS3_0EEEPKNS2_ILi4EiLS3_0EEEPKNS2_ILi2EfLS3_0EEEfPS4_mmm",
+          "key": "22evaluate_bending_force",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            4,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "002e23a36b780000",
+            "00920b0303000000",
+            "00ae0b0303000000",
+            "009a070303000000",
+            "0042080303000000",
+            "00001644",
+            "009821a36b780000",
+            "f006000000000000",
+            "f006000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            7,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 36
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 132403693825536,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935991808,
+            "bytes": 7104
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935998976,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935731712,
+            "bytes": 28416
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 12935774720,
+            "bytes": 14208
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132403693721600,
+            "bytes": 103500
+          }
+        ],
+        "outputs": [
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep599.npz"
+    },
+    {
+      "worker": 5,
+      "frame": 59,
+      "stage": {
+        "key": "source-substep599-0038-add_cloth_membrane_gauss_newton_hessian",
+        "kind": "add_cloth_membrane_gauss_newton_hessian",
+        "node": {
+          "name": "_ZN7synreal6kernel39add_cloth_membrane_gauss_newton_hessianEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi3EiLS3_0EEEPKNS1_3matILi2ELi2EfLS3_0EEEPKfS6_PNSA_ILi3ELi3EfLS3_0EEEPKiPNS_17BlockNonZeroEntryEmmmmm",
+          "key": "add_cloth_membrane_gauss_newton_hessian",
+          "parameter_widths": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "parameter_hex": [
+            "006e1c0303000000",
+            "009e060303000000",
+            "00d4060303000000",
+            "0088070303000000",
+            "005c0b0303000000",
+            "007a28a36b780000",
+            "00b035a36b780000",
+            "000080c66b780000",
+            "0c00000000000000",
+            "8004000000000000",
+            "8004000000000000",
+            "b121000000000000",
+            "b121000000000000"
+          ],
+          "geometry": [
+            5,
+            1,
+            1,
+            256,
+            1,
+            1,
+            0
+          ],
+          "stream_kind": 3,
+          "owned_launch": 38
+        },
+        "bindings": [
+          {
+            "label": "arg-0",
+            "argument": 0,
+            "offset": 0,
+            "address": 12937096704,
+            "bytes": 103500
+          },
+          {
+            "label": "arg-1",
+            "argument": 1,
+            "offset": 0,
+            "address": 12935667200,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-2",
+            "argument": 2,
+            "offset": 0,
+            "address": 12935681024,
+            "bytes": 18432
+          },
+          {
+            "label": "arg-3",
+            "argument": 3,
+            "offset": 0,
+            "address": 12935727104,
+            "bytes": 4608
+          },
+          {
+            "label": "arg-4",
+            "argument": 4,
+            "offset": 0,
+            "address": 12935977984,
+            "bytes": 13824
+          },
+          {
+            "label": "arg-5",
+            "argument": 5,
+            "offset": 0,
+            "address": 132403694172672,
+            "bytes": 310500
+          },
+          {
+            "label": "arg-6",
+            "argument": 6,
+            "offset": 0,
+            "address": 132403695038464,
+            "bytes": 34500
+          },
+          {
+            "label": "arg-7",
+            "argument": 7,
+            "offset": 0,
+            "address": 132404287111168,
+            "bytes": 4140000
+          }
+        ],
+        "outputs": [
+          "arg-5",
+          "arg-7"
+        ],
+        "all_flat_nonnull_inputs_captured": true
+      },
+      "input": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep599.npz"
+    }
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/prepare-deformed-inputs.py": "720429c57143817fb9d76d9f209aa52ae563c332633276625d5978e0a7165e29",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/plan.json": "a5735061848cdb92a4ae7ce2159de86868708b1c4c9af27b8b6c6137101c2fb3",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/atomic-operands/independent-cpu.json": "1e93714cbb396e673355c62eccc92f8c4044cb5a7b131e95abb5c7c5c5fc6d2b",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/worker-0.npz": "a65615ce9a499f274a8dbe2f82f49fe9337ec939fab39909239d739e7ce11b6e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/original.npz": "f0cc8753fe4f89304c82fb48a0bd4ce5422cc12131ffdc97cae0b952e6882124",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep009.npz": "d48a94265bd8ed36a434e7f9e5e48d6075709abfec5ff740e7f9d9dd6291505f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep299.npz": "950748506f4c498993869f0d2c81ce2a3deef2df3841af581942708f85b43441",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/original-substep599.npz": "d8651483a9aeff8fca2d25e24bd180a2455a357d8047423462cfa0b176c05b4d",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/source.npz": "424637bb76db72a9d819378abf467aee179c8987d061c362c54cfb857d5f972f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep009.npz": "1dbb1027d5cad6178e4807c68b6d41625582cec38eacd8b81af2812e5c0e495e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep299.npz": "064c1a51cf674542ede701e269272e15c9faa0f7e479ffcfec6f7d838182f89c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-deformed-common-inputs/source-substep599.npz": "f29bc8aa3ba293d84ed9bcf0d8b6390c06af89712a188cba3d63b4f39d14198d"
+  },
+  "geometry_provenance": [
+    {
+      "tag": "original-substep009",
+      "trajectory": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/original.npz",
+      "public_substep": 9,
+      "position_sha256": "0044428e925032f71a4827336a328f3587387c8094840af98312c93fc21905fe",
+      "bending_previous_public_substep": 8,
+      "private_solver_history_reproduced": false
+    },
+    {
+      "tag": "original-substep299",
+      "trajectory": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/original.npz",
+      "public_substep": 299,
+      "position_sha256": "ea73218987709d78dab418ec12ccf99a873c69033965ee57522c98902418116d",
+      "bending_previous_public_substep": 298,
+      "private_solver_history_reproduced": false
+    },
+    {
+      "tag": "original-substep599",
+      "trajectory": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/original.npz",
+      "public_substep": 599,
+      "position_sha256": "71ade64916e455e1f8aef1ff4aa086bdfc96ae6b8486ba4e04b0c0fd8204b282",
+      "bending_previous_public_substep": 598,
+      "private_solver_history_reproduced": false
+    },
+    {
+      "tag": "source-substep009",
+      "trajectory": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/source.npz",
+      "public_substep": 9,
+      "position_sha256": "4a4173c7254cbabbd950cddca173497da74bbd1f493a46e50b53ca16c15d9694",
+      "bending_previous_public_substep": 8,
+      "private_solver_history_reproduced": false
+    },
+    {
+      "tag": "source-substep299",
+      "trajectory": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/source.npz",
+      "public_substep": 299,
+      "position_sha256": "6f5d9afeacdd949ba831cca94c4f4ff293b1832a8d1e151e152e73129239dd40",
+      "bending_previous_public_substep": 298,
+      "private_solver_history_reproduced": false
+    },
+    {
+      "tag": "source-substep599",
+      "trajectory": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/long60/cloth-particles/source.npz",
+      "public_substep": 599,
+      "position_sha256": "67d465a0ca98e46da1ca501e8c1a4401009cd06ea6cbf5ee0b76853f878feced",
+      "bending_previous_public_substep": 598,
+      "private_solver_history_reproduced": false
+    }
+  ],
+  "only_changes_from_captured_inputs": [
+    "particle positions",
+    "previous public positions for bending"
+  ],
+  "public_substeps_are_zero_based": true,
+  "material_topology_initial_accumulators_unchanged": true,
+  "actual_unmodified_calls_planned": 54,
+  "actual_instrumented_calls_planned": 36,
+  "complete_trajectory_acceptance_claimed": false,
+  "production_changed": false
+}

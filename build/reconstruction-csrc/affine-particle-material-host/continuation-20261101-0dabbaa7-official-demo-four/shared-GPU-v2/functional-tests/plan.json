@@ -1,0 +1,52 @@
+{
+  "cases": [
+    [
+      "cloth-particles",
+      "examples/example_cloth_particles.py",
+      100
+    ],
+    [
+      "ball-cloth",
+      "examples/example_ball_cloth.py",
+      100
+    ],
+    [
+      "cable-bundle",
+      "examples/cable/example_cable_bundle_hysteresis.py",
+      180
+    ],
+    [
+      "cable-bend",
+      "examples/cable/example_cable_bend_stiffness.py",
+      510
+    ],
+    [
+      "anymal",
+      "examples/example_robot_anymal_d.py",
+      500
+    ]
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/run-functional.py": "b3a0192e2d73fb63803808a41a2f8a8f17718b1ff17ce02aace4cf76fd551559",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/functional-worker.py": "e1a3ebeea232cd00c863975df9a35811ed86842c3d0fb2028b66dcc3cf6bd083",
+    "/home/oem/code/agent/style3d-sim/src/style3d_sim/newton_solver.py": "737f881d6aa091e408ffaa8982c96c2d3848b796514b757d0ddd9898afc96081",
+    "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/source-core/5037032b98b9d614/_core.cpython-312-x86_64-linux-gnu.so": "7151054e4597e6ea919c0caee576579e577aca233ea4de4dc8ad7aa20fa4b4e7",
+    "/home/oem/code/agent/style3d-sim/examples/example_cloth_particles.py": "cc7e813a25b8febd833c0f270f210fdcfe79b8080b39c3cab2d0201514bd2e65",
+    "/home/oem/code/agent/style3d-sim/examples/example_ball_cloth.py": "d46955c6731038cc9d96a89312ac312c55823c749b3e2924940c82d0c897d5fa",
+    "/home/oem/code/agent/style3d-sim/examples/cable/example_cable_bundle_hysteresis.py": "abbcc4ec8d9d1728d7ea6e98a8b450147586bd04fe69577777fb9f60b17e62c8",
+    "/home/oem/code/agent/style3d-sim/examples/cable/example_cable_bend_stiffness.py": "ef2281351f1f94f8954f785c8e73c813ab6dd3b501a51c2d4614aad021f6ade7",
+    "/home/oem/code/agent/style3d-sim/examples/example_robot_anymal_d.py": "f93d69b329b3bdfa24b1b83f8117007bf99a742a0e99ad9d6ff4d68f4ef9ec1e"
+  },
+  "GPU_admission_policy": "available-memory",
+  "frames_rationale": {
+    "cloth-particles": "Authored default100",
+    "ball-cloth": "Newton default100",
+    "cable-bundle": "180 reaches release2s + mandatory0.4s;default100 skips final assertions",
+    "cable-bend": "Authored ramp2s + hold6s +30frames =510",
+    "anymal": "Authored CUDA test comment requires500 frames to settle"
+  },
+  "demo_final_tests_modified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

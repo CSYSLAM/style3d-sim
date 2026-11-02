@@ -1,8 +1,14 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
-> **四个正式demo接续已启动，准备检查点无新GPU通过项。** 粒子落布/ball_cloth/bundle/ANYmal三帧A/B队列70166，
-> 后继正常公开Core队列99307严格依赖前者；勿重复启动。已核bundle parser真实默认值及ANYmal离线恢复/缓存解析，
-> 20份固定资产随仓库提供；Windows用WSL2，实际命令及等待身份见[四demo接续](reconstruction/csrc/OFFICIAL_DEMO_FOUR_0DABBAA7.md)。
+> **四demo3/60帧与首差核对已完成，逐位轨迹仍不同。** 显存够用时允许外部GPU任务，自己的worker始终串行；
+> 原空等队列70166/99307/39819已实际停止143，不能重启或当作live。未停止用户任务，没有OOM。
+> 正常源码Core715五例各60帧退出0，无SDK映射；粒子原版自身60帧重复差1.39326m，不据此宣称源码通过。
+> 首轮三个核123840真实操作数同，215个拉伸/166个膜矩阵差异由762次真实GPU顺序证书复现。
+> 六组真实变形几何另有54次未改核/36次追踪、743040项实际操作数同，独立CPU核准；完整轨迹验收未完成。
+> 足时长十个原始test_final均返回，但ANYmal多行lambda漏检；两端各136刚体真实GPU/CPU均超速，不能计settling通过。
+> 另四例原/源八次原始测试正常；Windows继续用WSL2，详见[当前结果及命令](reconstruction/csrc/OFFICIAL_DEMO_FOUR_SHARED_GPU_RESULTS.md)。
+> 新机器先运行`python3 scripts/verify_reconstruction_snapshot.py`，再运行`python3 scripts/restore_reconstruction_evidence.py`。
+> 一份147MB追踪JSON以无损gzip纳入同一仓库，原/压缩SHA均固定；SDK/360pyc仍是仓库中的实际文件。
 
 > **当前正式cable bend已补查。** Newton/PD各60帧独立运行，六源码固定C8均false；六held-out原版也均越界。
 > 门槛/样本和失败均保持，继续核首CG真实输入；[结果及命令](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。

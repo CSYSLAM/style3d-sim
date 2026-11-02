@@ -1,0 +1,1694 @@
+{
+  "packets": [
+    {
+      "number": 0,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0035-22evaluate_stretch_force",
+      "kind": "22evaluate_stretch_force",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-5": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935667200,
+          "bytes": 13824,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12935681024,
+          "bytes": 18432,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902031872
+        },
+        {
+          "start": 12935727104,
+          "bytes": 4608,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902050816
+        },
+        {
+          "start": 12935977984,
+          "bytes": 13824,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902055936
+        },
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902070272
+        },
+        {
+          "start": 132403693721600,
+          "bytes": 103500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902174720
+        }
+      ],
+      "pointers": {
+        "arg-3": 125595902017792,
+        "arg-2": 125595902032128,
+        "arg-1": 125595902051072,
+        "arg-4": 125595902056192,
+        "arg-0": 125595902070528,
+        "arg-5": 125595902174976
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0000-w0-f00-0035-22evaluate_stretch_force.npz",
+      "output_sha256": "ad34da32c230ebfe1260833bc5a1d4accda19efbb6a5985c6fed4dca4c748ba1"
+    },
+    {
+      "number": 1,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0036-22evaluate_bending_force",
+      "kind": "22evaluate_bending_force",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935731712,
+          "bytes": 28416,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12935774720,
+          "bytes": 14208,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902046720
+        },
+        {
+          "start": 12935991808,
+          "bytes": 7104,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902061568
+        },
+        {
+          "start": 12935998976,
+          "bytes": 28416,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902069248
+        },
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902098432
+        },
+        {
+          "start": 132403693721600,
+          "bytes": 103500,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 125595902202880
+        },
+        {
+          "start": 132403693825536,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902307328
+        }
+      ],
+      "pointers": {
+        "arg-4": 125595902017792,
+        "arg-5": 125595902046976,
+        "arg-2": 125595902061824,
+        "arg-3": 125595902069504,
+        "arg-0": 125595902098688,
+        "arg-7": 125595902203136,
+        "arg-1": 125595902307584
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0001-w0-f00-0036-22evaluate_bending_force.npz",
+      "output_sha256": "04826831d5d1a56e390e7b4ca3c9a7be60ad46e5f2de50eec7c624542cfe02b4"
+    },
+    {
+      "number": 2,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0038-add_cloth_membrane_gauss_newton_hessian",
+      "kind": "add_cloth_membrane_gauss_newton_hessian",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false,
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-5": false,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false,
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935667200,
+          "bytes": 13824,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12935681024,
+          "bytes": 18432,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902031872
+        },
+        {
+          "start": 12935727104,
+          "bytes": 4608,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902050816
+        },
+        {
+          "start": 12935977984,
+          "bytes": 13824,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902055936
+        },
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902070272
+        },
+        {
+          "start": 132403694172672,
+          "bytes": 310500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902174720
+        },
+        {
+          "start": 132403695038464,
+          "bytes": 34500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902486016
+        },
+        {
+          "start": 132404287111168,
+          "bytes": 4140000,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 125595904114688
+        }
+      ],
+      "pointers": {
+        "arg-1": 125595902017792,
+        "arg-2": 125595902032128,
+        "arg-3": 125595902051072,
+        "arg-4": 125595902056192,
+        "arg-0": 125595902070528,
+        "arg-5": 125595902174976,
+        "arg-6": 125595902486272,
+        "arg-7": 125595904114944
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0002-w0-f00-0038-add_cloth_membrane_gauss_newton_hessian.npz",
+      "output_sha256": "077cc58e5b2da19901ade8feef4e763724a1bd1a1cbd8c815a1b7a4c4f598e07"
+    },
+    {
+      "number": 3,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0042-27invert_block_preconditioner",
+      "kind": "27invert_block_preconditioner",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12918664192,
+          "bytes": 34500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12918768640,
+          "bytes": 34500,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902052864
+        },
+        {
+          "start": 132403694483456,
+          "bytes": 310500,
+          "labels": [
+            "arg-0",
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902088192
+        }
+      ],
+      "pointers": {
+        "arg-1": 125595902017792,
+        "arg-2": 125595902053120,
+        "arg-0": 125595902088448,
+        "arg-3": 125595902088448
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0003-w0-f00-0042-27invert_block_preconditioner.npz",
+      "output_sha256": "41d7d9e7389a61ce3494fd2799e3bb778050d8e09b2ab7f0452e0710fd874c9c"
+    },
+    {
+      "number": 4,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0043-23precondition_and_reduce",
+      "kind": "23precondition_and_reduce",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 132403694483456,
+          "bytes": 310500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 132403697475072,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902328832
+        },
+        {
+          "start": 132403697682944,
+          "bytes": 103500,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902433280
+        },
+        {
+          "start": 132403697790976,
+          "bytes": 4,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902537728
+        }
+      ],
+      "pointers": {
+        "arg-0": 125595902017792,
+        "arg-1": 125595902329088,
+        "arg-2": 125595902433536,
+        "arg-6": 125595902537984
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0004-w0-f00-0043-23precondition_and_reduce.npz",
+      "output_sha256": "2fb79fb3a171522371abe23062ecf571ea84554a1b2121b67576af6eb7131b11"
+    },
+    {
+      "number": 5,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0044-19update_cg_direction",
+      "kind": "19update_cg_direction",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 132403697579008,
+          "bytes": 103500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 132403697682944,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902121984
+        },
+        {
+          "start": 132403697790976,
+          "bytes": 4,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902226432
+        }
+      ],
+      "pointers": {
+        "arg-6": 125595902017792,
+        "arg-1": 125595902122240,
+        "arg-4": 125595902226688
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0005-w0-f00-0044-19update_cg_direction.npz",
+      "output_sha256": "0046ef52398349e5a4763f56770006c2cf0c0bcaf940536ffb67fa85556748b8"
+    },
+    {
+      "number": 6,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0048-26multiply_matrix_and_reduce",
+      "kind": "26multiply_matrix_and_reduce",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 132403694172672,
+          "bytes": 310500,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 132403695038464,
+          "bytes": 34500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902328832
+        },
+        {
+          "start": 132403697579008,
+          "bytes": 103500,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902364160
+        },
+        {
+          "start": 132403697786880,
+          "bytes": 4,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 125595902468608
+        },
+        {
+          "start": 132403699468288,
+          "bytes": 103500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902469632
+        },
+        {
+          "start": 132403699572224,
+          "bytes": 103500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902574080
+        },
+        {
+          "start": 132404287111168,
+          "bytes": 4140000,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595904114688
+        }
+      ],
+      "pointers": {
+        "arg-3": 125595902017792,
+        "arg-0": 125595902329088,
+        "arg-4": 125595902364416,
+        "arg-9": 125595902468864,
+        "arg-6": 125595902469888,
+        "arg-5": 125595902574336,
+        "arg-1": 125595904114944
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0006-w0-f00-0048-26multiply_matrix_and_reduce.npz",
+      "output_sha256": "d4f1611870ecf9642a4b710b337bc4274eacd4d63d2af9be636bcdcc9f1438da"
+    },
+    {
+      "number": 7,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0049-28update_solution_and_residual",
+      "kind": "28update_solution_and_residual",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 132403693617664,
+          "bytes": 103500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 132403697475072,
+          "bytes": 103500,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 125595902121984
+        },
+        {
+          "start": 132403697579008,
+          "bytes": 103500,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902226432
+        },
+        {
+          "start": 132403697786880,
+          "bytes": 4,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902330880
+        },
+        {
+          "start": 132403697790976,
+          "bytes": 4,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902331904
+        },
+        {
+          "start": 132403699468288,
+          "bytes": 103500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902332928
+        }
+      ],
+      "pointers": {
+        "arg-6": 125595902017792,
+        "arg-7": 125595902122240,
+        "arg-4": 125595902226688,
+        "arg-3": 125595902331136,
+        "arg-2": 125595902332160,
+        "arg-5": 125595902333184
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0007-w0-f00-0049-28update_solution_and_residual.npz",
+      "output_sha256": "f42afcee8df33ab78561a20f879fb75d6626ed06e8d36d7183dce6473da61174"
+    },
+    {
+      "number": 8,
+      "worker": 0,
+      "frame": 0,
+      "stage": "0127-20apply_nonlinear_step",
+      "kind": "20apply_nonlinear_step",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12937489920,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902121984
+        },
+        {
+          "start": 132403693617664,
+          "bytes": 103500,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902226432
+        }
+      ],
+      "pointers": {
+        "arg-0": 125595902017792,
+        "arg-1": 125595902122240,
+        "arg-2": 125595902226688
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0008-w0-f00-0127-20apply_nonlinear_step.npz",
+      "output_sha256": "b7769ccea5466e6a486dfbcf41d748358db43754f73e5c50608b9c616b19751e"
+    },
+    {
+      "number": 9,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0035-22evaluate_stretch_force",
+      "kind": "22evaluate_stretch_force",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-5": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935667200,
+          "bytes": 13824,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12935681024,
+          "bytes": 18432,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902031872
+        },
+        {
+          "start": 12935727104,
+          "bytes": 4608,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902050816
+        },
+        {
+          "start": 12935977984,
+          "bytes": 13824,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902055936
+        },
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902070272
+        },
+        {
+          "start": 131287404877824,
+          "bytes": 103500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902174720
+        }
+      ],
+      "pointers": {
+        "arg-3": 125595902017792,
+        "arg-2": 125595902032128,
+        "arg-1": 125595902051072,
+        "arg-4": 125595902056192,
+        "arg-0": 125595902070528,
+        "arg-5": 125595902174976
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0009-w1-f00-0035-22evaluate_stretch_force.npz",
+      "output_sha256": "b188c087bd66673903db26382d2e95eb5e4f1cf29f1d09e5b2d947e0fac3cb90"
+    },
+    {
+      "number": 10,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0036-22evaluate_bending_force",
+      "kind": "22evaluate_bending_force",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935731712,
+          "bytes": 28416,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12935774720,
+          "bytes": 14208,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902046720
+        },
+        {
+          "start": 12935991808,
+          "bytes": 7104,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902061568
+        },
+        {
+          "start": 12935998976,
+          "bytes": 28416,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902069248
+        },
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902098432
+        },
+        {
+          "start": 131287404877824,
+          "bytes": 103500,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 125595902202880
+        },
+        {
+          "start": 131287404981760,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902307328
+        }
+      ],
+      "pointers": {
+        "arg-4": 125595902017792,
+        "arg-5": 125595902046976,
+        "arg-2": 125595902061824,
+        "arg-3": 125595902069504,
+        "arg-0": 125595902098688,
+        "arg-7": 125595902203136,
+        "arg-1": 125595902307584
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0010-w1-f00-0036-22evaluate_bending_force.npz",
+      "output_sha256": "7d0c6714237d092948f6269a7bcf0575a98c2f6825f949672986c5c8bc160574"
+    },
+    {
+      "number": 11,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0038-add_cloth_membrane_gauss_newton_hessian",
+      "kind": "add_cloth_membrane_gauss_newton_hessian",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false,
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-5": false,
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-5": false,
+            "arg-7": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12935667200,
+          "bytes": 13824,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12935681024,
+          "bytes": 18432,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902031872
+        },
+        {
+          "start": 12935727104,
+          "bytes": 4608,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902050816
+        },
+        {
+          "start": 12935977984,
+          "bytes": 13824,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902055936
+        },
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902070272
+        },
+        {
+          "start": 131287405328896,
+          "bytes": 310500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902174720
+        },
+        {
+          "start": 131287406194688,
+          "bytes": 34500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902486016
+        },
+        {
+          "start": 131287964712960,
+          "bytes": 4140000,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 125595904114688
+        }
+      ],
+      "pointers": {
+        "arg-1": 125595902017792,
+        "arg-2": 125595902032128,
+        "arg-3": 125595902051072,
+        "arg-4": 125595902056192,
+        "arg-0": 125595902070528,
+        "arg-5": 125595902174976,
+        "arg-6": 125595902486272,
+        "arg-7": 125595904114944
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0011-w1-f00-0038-add_cloth_membrane_gauss_newton_hessian.npz",
+      "output_sha256": "230ca80fae1634f26c23fb9c3f6dc22553502db24aacf3558f5a10db899d913a"
+    },
+    {
+      "number": 12,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0042-27invert_block_preconditioner",
+      "kind": "27invert_block_preconditioner",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-0": true,
+            "arg-3": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12918664192,
+          "bytes": 34500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12918768640,
+          "bytes": 34500,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902052864
+        },
+        {
+          "start": 131287405639680,
+          "bytes": 310500,
+          "labels": [
+            "arg-0",
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902088192
+        }
+      ],
+      "pointers": {
+        "arg-1": 125595902017792,
+        "arg-2": 125595902053120,
+        "arg-0": 125595902088448,
+        "arg-3": 125595902088448
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0012-w1-f00-0042-27invert_block_preconditioner.npz",
+      "output_sha256": "0935f8e31d0fa89dd5d99029dd3082e10bcbb2eb04742fc93246cce77a9288a2"
+    },
+    {
+      "number": 13,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0043-23precondition_and_reduce",
+      "kind": "23precondition_and_reduce",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-2": true,
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 131287405639680,
+          "bytes": 310500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 131287408631296,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902328832
+        },
+        {
+          "start": 131287408839168,
+          "bytes": 103500,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902433280
+        },
+        {
+          "start": 131287408947200,
+          "bytes": 4,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902537728
+        }
+      ],
+      "pointers": {
+        "arg-0": 125595902017792,
+        "arg-1": 125595902329088,
+        "arg-2": 125595902433536,
+        "arg-6": 125595902537984
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0013-w1-f00-0043-23precondition_and_reduce.npz",
+      "output_sha256": "cc2306f8a9b81cc0056e9df530f1845598eebe5c8a35c0ac789c023edbec0a89"
+    },
+    {
+      "number": 14,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0044-19update_cg_direction",
+      "kind": "19update_cg_direction",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 131287408735232,
+          "bytes": 103500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 131287408839168,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902121984
+        },
+        {
+          "start": 131287408947200,
+          "bytes": 4,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902226432
+        }
+      ],
+      "pointers": {
+        "arg-6": 125595902017792,
+        "arg-1": 125595902122240,
+        "arg-4": 125595902226688
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0014-w1-f00-0044-19update_cg_direction.npz",
+      "output_sha256": "b399f56ebe702a6b7ec1f12def423926d1b0012556b6fee9f9e334369fc8e887"
+    },
+    {
+      "number": 15,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0048-26multiply_matrix_and_reduce",
+      "kind": "26multiply_matrix_and_reduce",
+      "checks": [
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": false
+          },
+          "all_complete_outputs_strict": false,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-9": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 131287405328896,
+          "bytes": 310500,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 131287406194688,
+          "bytes": 34500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902328832
+        },
+        {
+          "start": 131287408735232,
+          "bytes": 103500,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902364160
+        },
+        {
+          "start": 131287408943104,
+          "bytes": 4,
+          "labels": [
+            "arg-9"
+          ],
+          "prefix": 256,
+          "device_base": 125595902468608
+        },
+        {
+          "start": 131287410624512,
+          "bytes": 103500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902469632
+        },
+        {
+          "start": 131287410728448,
+          "bytes": 103500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902574080
+        },
+        {
+          "start": 131287964712960,
+          "bytes": 4140000,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595904114688
+        }
+      ],
+      "pointers": {
+        "arg-3": 125595902017792,
+        "arg-0": 125595902329088,
+        "arg-4": 125595902364416,
+        "arg-9": 125595902468864,
+        "arg-6": 125595902469888,
+        "arg-5": 125595902574336,
+        "arg-1": 125595904114944
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0015-w1-f00-0048-26multiply_matrix_and_reduce.npz",
+      "output_sha256": "5310d97f14d84cee9b275a9f4032e31159285a5aa80fc8c9bb51a82557a14de4"
+    },
+    {
+      "number": 16,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0049-28update_solution_and_residual",
+      "kind": "28update_solution_and_residual",
+      "checks": [
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-6": true,
+            "arg-7": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 131287404773888,
+          "bytes": 103500,
+          "labels": [
+            "arg-6"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 131287408631296,
+          "bytes": 103500,
+          "labels": [
+            "arg-7"
+          ],
+          "prefix": 256,
+          "device_base": 125595902121984
+        },
+        {
+          "start": 131287408735232,
+          "bytes": 103500,
+          "labels": [
+            "arg-4"
+          ],
+          "prefix": 256,
+          "device_base": 125595902226432
+        },
+        {
+          "start": 131287408943104,
+          "bytes": 4,
+          "labels": [
+            "arg-3"
+          ],
+          "prefix": 256,
+          "device_base": 125595902330880
+        },
+        {
+          "start": 131287408947200,
+          "bytes": 4,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902331904
+        },
+        {
+          "start": 131287410624512,
+          "bytes": 103500,
+          "labels": [
+            "arg-5"
+          ],
+          "prefix": 256,
+          "device_base": 125595902332928
+        }
+      ],
+      "pointers": {
+        "arg-6": 125595902017792,
+        "arg-7": 125595902122240,
+        "arg-4": 125595902226688,
+        "arg-3": 125595902331136,
+        "arg-2": 125595902332160,
+        "arg-5": 125595902333184
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0016-w1-f00-0049-28update_solution_and_residual.npz",
+      "output_sha256": "aa61da234d2c99952c85e7f01c37bb34f84b6f924972940f7cb36b38ffb1bf71"
+    },
+    {
+      "number": 17,
+      "worker": 1,
+      "frame": 0,
+      "stage": "0127-20apply_nonlinear_step",
+      "kind": "20apply_nonlinear_step",
+      "checks": [
+        {
+          "backend": "source-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "SDK-runtime",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        },
+        {
+          "backend": "original-ptx",
+          "complete_output_equal_to_capture": {
+            "arg-1": true,
+            "arg-2": true
+          },
+          "all_complete_outputs_strict": true,
+          "all_unwritten_and_guards_equal": true
+        }
+      ],
+      "groups": [
+        {
+          "start": 12937096704,
+          "bytes": 103500,
+          "labels": [
+            "arg-0"
+          ],
+          "prefix": 256,
+          "device_base": 125595902017536
+        },
+        {
+          "start": 12937489920,
+          "bytes": 103500,
+          "labels": [
+            "arg-1"
+          ],
+          "prefix": 256,
+          "device_base": 125595902121984
+        },
+        {
+          "start": 131287404773888,
+          "bytes": 103500,
+          "labels": [
+            "arg-2"
+          ],
+          "prefix": 256,
+          "device_base": 125595902226432
+        }
+      ],
+      "pointers": {
+        "arg-0": 125595902017792,
+        "arg-1": 125595902122240,
+        "arg-2": 125595902226688
+      },
+      "output": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-0dabbaa7-official-demo-four/shared-GPU-v2/particles-full-inputs/full-input-replays/packets/0017-w1-f00-0127-20apply_nonlinear_step.npz",
+      "output_sha256": "98957486e30497eca7e372c235cd76a4015bb77941bebb44160c9b686d2822ff"
+    }
+  ],
+  "actual_calls": 54,
+  "error": null,
+  "complete": true,
+  "strict_packets": 9,
+  "all_unwritten_and_guards_equal": true,
+  "original_frozen_failure_reclassified": false,
+  "production_changed": false,
+  "whole_solver_complete": false
+}

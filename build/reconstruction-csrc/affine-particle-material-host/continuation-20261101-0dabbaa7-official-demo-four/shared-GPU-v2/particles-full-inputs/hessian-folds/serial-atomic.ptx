@@ -1,0 +1,32 @@
+.version 8.4
+.target sm_52
+.address_size 64
+.visible .entry audit_serial_atomic(
+    .param .u64 values, .param .u64 order, .param .u64 total, .param .u64 history, .param .u32 count)
+{
+    .reg .b64 %rd<12>;
+    .reg .b32 %r<5>;
+    .reg .f32 %f<3>;
+    .reg .pred %p<2>;
+    ld.param.u64 %rd0, [values];
+    ld.param.u64 %rd1, [order];
+    ld.param.u64 %rd2, [total];
+    ld.param.u64 %rd3, [history];
+    ld.param.u32 %r0, [count];
+    mov.u32 %r1, 0;
+LOOP:
+    mul.wide.u32 %rd4, %r1, 4;
+    add.u64 %rd5, %rd1, %rd4;
+    ld.global.u32 %r2, [%rd5];
+    mul.wide.u32 %rd6, %r2, 4;
+    add.u64 %rd7, %rd0, %rd6;
+    ld.global.f32 %f0, [%rd7];
+    atom.global.add.f32 %f1, [%rd2], %f0;
+    add.u64 %rd8, %rd3, %rd4;
+    st.global.f32 [%rd8], %f1;
+    membar.gl;
+    add.u32 %r1, %r1, 1;
+    setp.lt.u32 %p0, %r1, %r0;
+    @%p0 bra LOOP;
+    ret;
+}
