@@ -1,0 +1,7073 @@
+{
+  "proofs": [
+    {
+      "name": "_ZN7synreal21self_collision_kernel20accumulate_edge_edgeEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_SB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 17,
+        "store_instructions": [
+          {
+            "instruction": "atom.global.add.u32 %r57, [%rd21], 1;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85], %r3;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+4], %r5;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+8], %r60;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+12], %r61;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+16], %r58;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+20], %f425;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+24], %r72;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+28], %f464;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+32], %f463;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+36], %r58;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+40], %f71;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+44], %f72;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+48], %f73;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+52], %f462;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+56], %r59;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd87], %f338;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd88], %f340;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd89], %f342;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd91], %f345;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd92], %f346;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd93], %f347;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd94], %f346;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd95], %f348;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd96], %f349;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd97], %f347;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd98], %f349;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd99], %f350;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd101], %f361;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd102], %f363;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd103], %f365;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd105], %f368;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd106], %f369;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd107], %f370;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd108], %f369;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd109], %f371;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd110], %f372;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd111], %f370;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd112], %f372;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd113], %f373;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd115], %f483;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd116], %f484;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd117], %f485;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd119], %f465;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd120], %f466;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd121], %f467;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd122], %f468;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd123], %f469;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd124], %f470;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd125], %f471;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd126], %f472;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd127], %f473;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd129], %f486;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd130], %f487;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd131], %f488;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd133], %f474;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd134], %f475;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd135], %f476;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd136], %f477;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd137], %f478;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd138], %f479;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd139], %f480;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd140], %f481;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd141], %f482;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            9,
+            0
+          ],
+          [
+            10,
+            0
+          ],
+          [
+            11,
+            0
+          ],
+          [
+            12,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 %rd23, [%rd63];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd23"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "28702acc62c10ab9d381d28634ac0881da2d07828e80dfd8d29ade89c29308d1",
+        "canonical_analysis_entry_sha256": "28702acc62c10ab9d381d28634ac0881da2d07828e80dfd8d29ade89c29308d1"
+      },
+      "captured_output_union": [
+        [
+          9,
+          0
+        ],
+        [
+          10,
+          0
+        ],
+        [
+          11,
+          0
+        ],
+        [
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel20accumulate_edge_edgeEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_SB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 17,
+        "store_instructions": [
+          {
+            "instruction": "atom.global.add.u32 \t%r46, [%rd21], 1;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85], %r3;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+4], %r5;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+8], %r49;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+12], %r50;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+16], %r47;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+20], %f429;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+24], %f462;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+28], %f467;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+32], %f466;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+36], %r47;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+40], %f71;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+44], %f72;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+48], %f73;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+52], %f465;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+56], %r48;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ],
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd87], %f340;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd88], %f342;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd89], %f344;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd91], %f347;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd92], %f348;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd93], %f349;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd94], %f348;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd95], %f350;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd96], %f351;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd97], %f349;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd98], %f351;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd99], %f352;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd101], %f363;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd102], %f365;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd103], %f367;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd105], %f370;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd106], %f371;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd107], %f372;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd108], %f371;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd109], %f373;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd110], %f374;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd111], %f372;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd112], %f374;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd113], %f375;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd115], %f489;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd116], %f490;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd117], %f491;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd119], %f477;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd120], %f478;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd121], %f479;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd122], %f480;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd123], %f481;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd124], %f482;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd125], %f483;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd126], %f484;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd127], %f485;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd129], %f486;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd130], %f487;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd131], %f488;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd133], %f468;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd134], %f469;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd135], %f470;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd136], %f471;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd137], %f472;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd138], %f473;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd139], %f474;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd140], %f475;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd141], %f476;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            9,
+            0
+          ],
+          [
+            10,
+            0
+          ],
+          [
+            11,
+            0
+          ],
+          [
+            12,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 \t%rd23, [%rd63];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd23"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "dcc9dc8c256bb8690fd2bbb1232503f219a6d5d3559c2450308eeb316181ebc5",
+        "canonical_analysis_entry_sha256": "dcc9dc8c256bb8690fd2bbb1232503f219a6d5d3559c2450308eeb316181ebc5"
+      },
+      "captured_output_union": [
+        [
+          9,
+          0
+        ],
+        [
+          10,
+          0
+        ],
+        [
+          11,
+          0
+        ],
+        [
+          12,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel20accumulate_edge_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_PKNS2_ILi3EiLS3_0EEESB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 18,
+        "store_instructions": [
+          {
+            "instruction": "atom.global.add.u32 %r85, [%rd19], 1;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85], %r87;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+4], %r88;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+8], %r18;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+12], %r21;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+16], %r24;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+20], %f134;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+24], %f135;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+28], %f636;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+32], %f635;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+36], %f634;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+40], %f115;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+44], %f116;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+48], %f117;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd85+52], %f633;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd85+56], %r86;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd87], %f498;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd88], %f500;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd89], %f502;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd91], %f505;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd92], %f506;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd93], %f507;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd94], %f506;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd95], %f508;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd96], %f509;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd97], %f507;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd98], %f509;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd99], %f510;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd101], %f520;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd102], %f522;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd103], %f524;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd105], %f527;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd106], %f528;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd107], %f529;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd108], %f528;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd109], %f530;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd110], %f531;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd111], %f529;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd112], %f531;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd113], %f532;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd115], %f542;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd116], %f544;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd117], %f546;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd119], %f549;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd120], %f550;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd121], %f551;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd122], %f550;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd123], %f552;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd124], %f553;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd125], %f551;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd126], %f553;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd127], %f554;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd129], %f655;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd130], %f656;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd131], %f657;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd133], %f637;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd134], %f638;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd135], %f639;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd136], %f640;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd137], %f641;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd138], %f642;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd139], %f643;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd140], %f644;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd141], %f645;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd143], %f658;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd144], %f659;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd145], %f660;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd147], %f646;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd148], %f647;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd149], %f648;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd150], %f649;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd151], %f650;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd152], %f651;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd153], %f652;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd154], %f653;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd155], %f654;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            10,
+            0
+          ],
+          [
+            11,
+            0
+          ],
+          [
+            12,
+            0
+          ],
+          [
+            13,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "fae2a4d48ff93b81ebf50fe558fce058f2e59a0cdb55380a9b979ee66b358e27",
+        "canonical_analysis_entry_sha256": "fae2a4d48ff93b81ebf50fe558fce058f2e59a0cdb55380a9b979ee66b358e27"
+      },
+      "captured_output_union": [
+        [
+          10,
+          0
+        ],
+        [
+          11,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel20accumulate_edge_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKNS2_ILi4EiLS3_0EEEPKiSB_PKNS2_ILi3EiLS3_0EEESB_SB_PKfffPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 18,
+        "store_instructions": [
+          {
+            "instruction": "atom.global.add.u32 \t%r41, [%rd19], 1;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85], %r43;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+4], %r44;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+8], %r12;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+12], %r15;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+16], %r18;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+20], %f148;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+24], %f149;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+28], %f640;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+32], %f639;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+36], %f638;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+40], %f129;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+44], %f130;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+48], %f131;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd85+52], %f637;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd85+56], %r42;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ],
+              [
+                13,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd87], %f495;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd88], %f497;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd89], %f499;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd91], %f502;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd92], %f503;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd93], %f504;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd94], %f503;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd95], %f505;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd96], %f506;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd97], %f504;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd98], %f506;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd99], %f507;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd101], %f517;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd102], %f519;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd103], %f521;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd105], %f524;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd106], %f525;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd107], %f526;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd108], %f525;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd109], %f527;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd110], %f528;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd111], %f526;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd112], %f528;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd113], %f529;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd115], %f539;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd116], %f541;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd117], %f543;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd119], %f546;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd120], %f547;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd121], %f548;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd122], %f547;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd123], %f549;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd124], %f550;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd125], %f548;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd126], %f550;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd127], %f551;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd129], %f662;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd130], %f663;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd131], %f664;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd133], %f650;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd134], %f651;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd135], %f652;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd136], %f653;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd137], %f654;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd138], %f655;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd139], %f656;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd140], %f657;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd141], %f658;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd143], %f659;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd144], %f660;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd145], %f661;",
+            "parameter_pointer_origins": [
+              [
+                10,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd147], %f641;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd148], %f642;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd149], %f643;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd150], %f644;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd151], %f645;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd152], %f646;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd153], %f647;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd154], %f648;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd155], %f649;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            10,
+            0
+          ],
+          [
+            11,
+            0
+          ],
+          [
+            12,
+            0
+          ],
+          [
+            13,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "0afac94ac9f8ef6b8506a66c6c31a999c8667abc2e8907c55b5131a513d75637",
+        "canonical_analysis_entry_sha256": "0afac94ac9f8ef6b8506a66c6c31a999c8667abc2e8907c55b5131a513d75637"
+      },
+      "captured_output_union": [
+        [
+          10,
+          0
+        ],
+        [
+          11,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          13,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel20add_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_m",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 3,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 [%rd9], %f3;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+4], %f6;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+8], %f9;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+12], %f12;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+16], %f15;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+20], %f18;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+24], %f21;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+28], %f24;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd9+32], %f27;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "191668b8635dfbf12416ee19cbaafba04a062ec08f51a82125b70627b51b0ea1",
+        "canonical_analysis_entry_sha256": "191668b8635dfbf12416ee19cbaafba04a062ec08f51a82125b70627b51b0ea1"
+      },
+      "captured_output_union": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel20add_hessian_diagonalEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPS4_m",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 3,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 \t[%rd9], %f3;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+4], %f6;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+8], %f9;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+12], %f12;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+16], %f15;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+20], %f18;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+24], %f21;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+28], %f24;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd9+32], %f27;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "acc171be97f172a72e3d1f947cf3daac1d7d683e122c317aedf08e0ccf1591b5",
+        "canonical_analysis_entry_sha256": "acc171be97f172a72e3d1f947cf3daac1d7d683e122c317aedf08e0ccf1591b5"
+      },
+      "captured_output_union": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel22accumulate_vertex_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPKNS2_ILi3EiLS3_0EEES8_S8_SA_ffbfPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 19,
+        "store_instructions": [
+          {
+            "instruction": "atom.global.add.u32 %r46, [%rd17], 1;",
+            "parameter_pointer_origins": [
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75], %r2;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+4], %r9;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+8], %r12;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+12], %r15;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+16], %r47;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+20], %r48;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd75+24], %f387;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd75+28], %f386;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd75+32], %f385;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+36], %r47;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+40], %r52;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+44], %r53;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+48], %r54;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd75+52], %f384;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd75+56], %r49;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd77], %f273;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd78], %f275;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd79], %f277;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd81], %f280;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd82], %f281;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd83], %f282;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd84], %f281;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd85], %f283;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd86], %f284;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd87], %f282;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd88], %f284;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd89], %f285;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd91], %f295;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd92], %f297;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd93], %f299;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd95], %f302;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd96], %f303;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd97], %f304;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd98], %f303;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd99], %f305;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd100], %f306;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd101], %f304;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd102], %f306;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd103], %f307;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd105], %f317;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd106], %f319;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd107], %f321;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd109], %f324;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd110], %f325;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd111], %f326;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd112], %f325;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd113], %f327;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd114], %f328;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd115], %f326;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd116], %f328;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd117], %f329;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd119], %f400;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd120], %f401;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd121], %f402;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd123], %f388;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd124], %f389;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd125], %f390;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd126], %f391;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd127], %f392;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd128], %f393;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd129], %f394;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd130], %f395;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd131], %f396;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            11,
+            0
+          ],
+          [
+            12,
+            0
+          ],
+          [
+            13,
+            0
+          ],
+          [
+            14,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "d79383748a2cb2fde1d17fd213b4a9bcc08f620d726140b29d43f556dc86e10c",
+        "canonical_analysis_entry_sha256": "d79383748a2cb2fde1d17fd213b4a9bcc08f620d726140b29d43f556dc86e10c"
+      },
+      "captured_output_union": [
+        [
+          11,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          13,
+          0
+        ],
+        [
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel22accumulate_vertex_faceEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKiPKfPKNS2_ILi3EiLS3_0EEES8_S8_SA_ffbfPS4_PNS1_3matILi3ELi3EfLS3_0EEEPNS_27SelfCollisionContactTangentEPjmmmi",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 19,
+        "store_instructions": [
+          {
+            "instruction": "atom.global.add.u32 \t%r34, [%rd17], 1;",
+            "parameter_pointer_origins": [
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75], %r2;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75+4], %r9;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75+8], %r12;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75+12], %r15;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75+16], %r35;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75+20], %r36;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+24], %f369;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+28], %f368;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+32], %f367;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75+36], %r35;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+40], %f363;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+44], %f364;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+48], %f365;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+52], %f366;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd75+56], %r37;",
+            "parameter_pointer_origins": [
+              [
+                13,
+                0
+              ],
+              [
+                14,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd77], %f264;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd78], %f266;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd79], %f268;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd81], %f271;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd82], %f272;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd83], %f273;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd84], %f272;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd85], %f274;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd86], %f275;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd87], %f273;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd88], %f275;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd89], %f276;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd91], %f286;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd92], %f288;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd93], %f290;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd95], %f293;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd96], %f294;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd97], %f295;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd98], %f294;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd99], %f296;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd100], %f297;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd101], %f295;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd102], %f297;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd103], %f298;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd105], %f308;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd106], %f310;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd107], %f312;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd109], %f315;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd110], %f316;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd111], %f317;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd112], %f316;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd113], %f318;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd114], %f319;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd115], %f317;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd116], %f319;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd117], %f320;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd119], %f379;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd120], %f380;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd121], %f381;",
+            "parameter_pointer_origins": [
+              [
+                11,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd123], %f370;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd124], %f371;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd125], %f372;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd126], %f373;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd127], %f374;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd128], %f375;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd129], %f376;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd130], %f377;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd131], %f378;",
+            "parameter_pointer_origins": [
+              [
+                12,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            11,
+            0
+          ],
+          [
+            12,
+            0
+          ],
+          [
+            13,
+            0
+          ],
+          [
+            14,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "345e287f88bc94e5d89664b119740c50890411df3f6019714706d442dc861531",
+        "canonical_analysis_entry_sha256": "345e287f88bc94e5d89664b119740c50890411df3f6019714706d442dc861531"
+      },
+      "captured_output_union": [
+        [
+          11,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          13,
+          0
+        ],
+        [
+          14,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel25multiply_contact_tangentsEPKNS_27SelfCollisionContactTangentEPKjPKN3glm3vecILi3EfLNS6_9qualifierE0EEEPS9_",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 4,
+        "store_instructions": [
+          {
+            "instruction": "red.global.add.f32 [%rd45], %f89;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd46], %f90;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd47], %f91;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd49], %f96;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd50], %f97;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd51], %f98;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd53], %f103;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd54], %f104;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd55], %f105;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd57], %f110;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd58], %f111;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd59], %f112;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd62], %f117;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd63], %f118;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd64], %f119;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd66], %f124;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd67], %f125;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd68], %f126;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd70], %f131;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd71], %f132;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd72], %f133;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            3,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.u32 %rd20, [%rd6];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd20"
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 %rd73, [%rd6];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd73"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "0761d94819a5dcf88908ee5499575c11439a3d2a06bef0e411f69a98950ee115",
+        "canonical_analysis_entry_sha256": "0761d94819a5dcf88908ee5499575c11439a3d2a06bef0e411f69a98950ee115"
+      },
+      "captured_output_union": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal21self_collision_kernel25multiply_contact_tangentsEPKNS_27SelfCollisionContactTangentEPKjPKN3glm3vecILi3EfLNS6_9qualifierE0EEEPS9_",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 4,
+        "store_instructions": [
+          {
+            "instruction": "red.global.add.f32 \t[%rd45], %f89;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd46], %f90;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd47], %f91;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd49], %f96;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd50], %f97;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd51], %f98;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd53], %f103;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd54], %f104;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd55], %f105;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd57], %f110;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd58], %f111;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd59], %f112;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd62], %f117;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd63], %f118;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd64], %f119;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd66], %f124;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd67], %f125;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd68], %f126;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd70], %f131;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd71], %f132;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd72], %f133;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            3,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.u32 \t%rd20, [%rd6];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd20"
+            ]
+          },
+          {
+            "instruction": "ld.global.u32 \t%rd73, [%rd6];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd73"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "5185a6ea22263adde64cfeb0dfb473c601563ff73f43baf0ae4edbc0774e162d",
+        "canonical_analysis_entry_sha256": "5185a6ea22263adde64cfeb0dfb473c601563ff73f43baf0ae4edbc0774e162d"
+      },
+      "captured_output_union": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 12,
+        "store_instructions": [
+          {
+            "instruction": "st.global.u32 [%rd8], %r70;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd8+4], %r70;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd8+8], %r70;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd90], %f110;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd90+4], %f111;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd90+8], %f112;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            9,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 %rd14, [%rd100];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd14"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd18, [%rd17];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd18"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd22, [%rd21];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd22"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd26, [%rd25];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd26"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd32, [%rd31];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd32"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "cf9a1f5300fe0ded00a9385147d3f86316b4193358f2d2a56cc803a1adf87efd",
+        "canonical_analysis_entry_sha256": "cf9a1f5300fe0ded00a9385147d3f86316b4193358f2d2a56cc803a1adf87efd"
+      },
+      "captured_output_union": [
+        [
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel14initialize_rhsEfPKN3glm3vecILi3EfLNS1_9qualifierE0EEES6_PKfPKiPKNS_12NonZeroEntryEmS6_SA_PS4_mm",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 12,
+        "store_instructions": [
+          {
+            "instruction": "st.global.u32 \t[%rd8], %r25;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd8+4], %r25;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd8+8], %r25;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd8], %f135;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd8+4], %f136;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd8+8], %f137;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            9,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 \t%rd14, [%rd87];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd14"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd18, [%rd17];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd18"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd22, [%rd21];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd22"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd26, [%rd25];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd26"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd32, [%rd31];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd32"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "ef951db92becd700fbb258fcd83bbbedc5ab6a82c0a920beb75ce9f51a480e3f",
+        "canonical_analysis_entry_sha256": "ef951db92becd700fbb258fcd83bbbedc5ab6a82c0a920beb75ce9f51a480e3f"
+      },
+      "captured_output_union": [
+        [
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 8,
+        "store_instructions": [
+          {
+            "instruction": "st.global.u32 [%rd2], %r20;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd2+4], %r21;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd2+8], %r22;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "f9204c6faaed4f8224ba269447026dfb71e2f7ad2ebb97db9da8401c3342d61e",
+        "canonical_analysis_entry_sha256": "f9204c6faaed4f8224ba269447026dfb71e2f7ad2ebb97db9da8401c3342d61e"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel19update_cg_directionEiPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPKijPKfSA_PS4_m",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 8,
+        "store_instructions": [
+          {
+            "instruction": "st.global.u32 \t[%rd2], %r20;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd2+4], %r21;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd2+8], %r22;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "2db5a221897225486ba53d6d492384b283919e25385361f8f24e5a3f5ab03f2e",
+        "canonical_analysis_entry_sha256": "2db5a221897225486ba53d6d492384b283919e25385361f8f24e5a3f5ab03f2e"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 4,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 [%rd14], %f3;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd14+4], %f6;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd14+8], %f9;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd12], %r4;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd12+4], %r4;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd12+8], %r4;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "a440904f733fb4523f0b856c71e462bada1bce49d26b0890be69f0fdf286b87a",
+        "canonical_analysis_entry_sha256": "a440904f733fb4523f0b856c71e462bada1bce49d26b0890be69f0fdf286b87a"
+      },
+      "captured_output_union": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel20apply_nonlinear_stepEPKN3glm3vecILi3EfLNS1_9qualifierE0EEEPS4_S7_m",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 4,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 \t[%rd14], %f3;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd14+4], %f6;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd14+8], %f9;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd12], %r4;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd12+4], %r4;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd12+8], %r4;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "d8a19503cd5b82ae7181b327e99cc765671e8d2ec4af95720bf6350abfafc80e",
+        "canonical_analysis_entry_sha256": "d8a19503cd5b82ae7181b327e99cc765671e8d2ec4af95720bf6350abfafc80e"
+      },
+      "captured_output_union": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 8,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 [%rd2], %f37;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd2+4], %f36;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd2+8], %f35;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd23], %f33;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            2,
+            0
+          ],
+          [
+            6,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "0d34a56fa95fc8b5c31e66eb300202ee9912f57706dd63e862e6d8ca84ad20a4",
+        "canonical_analysis_entry_sha256": "0d34a56fa95fc8b5c31e66eb300202ee9912f57706dd63e862e6d8ca84ad20a4"
+      },
+      "captured_output_union": [
+        [
+          2,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel23precondition_and_reduceIN3glm3matILi3ELi3EfLNS2_9qualifierE0EEEEEvPKT_PKNS2_3vecILi3EfLS4_0EEEPSA_bPKijPfm",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 8,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 \t[%rd2], %f37;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd2+4], %f36;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd2+8], %f35;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd23], %f33;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            2,
+            0
+          ],
+          [
+            6,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "19aed913bffc6d8267cc8511d27d50940a483c8a47fcf7abf0a6d1d04448d8a4",
+        "canonical_analysis_entry_sha256": "19aed913bffc6d8267cc8511d27d50940a483c8a47fcf7abf0a6d1d04448d8a4"
+      },
+      "captured_output_union": [
+        [
+          2,
+          0
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 4,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 [%rd13], %f1;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+4], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+8], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+12], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+16], %f1;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+20], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+24], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+28], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd13+32], %f1;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16], %f1;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+4], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+8], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+12], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+16], %f1;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+20], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+24], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+28], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd16+32], %f1;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "53220208da4ef9e2ad68fc7edfd1ec42bf31c8b83686c2c8b6b005042e5186bf",
+        "canonical_analysis_entry_sha256": "53220208da4ef9e2ad68fc7edfd1ec42bf31c8b83686c2c8b6b005042e5186bf"
+      },
+      "captured_output_union": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel25initialize_block_diagonalEPKfPN3glm3matILi3ELi3EfLNS3_9qualifierE0EEES7_m",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 4,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 \t[%rd13], %f1;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+4], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+8], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+12], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+16], %f1;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+20], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+24], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+28], %f2;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd13+32], %f1;",
+            "parameter_pointer_origins": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16], %f1;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+4], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+8], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+12], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+16], %f1;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+20], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+24], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+28], %f2;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd16+32], %f1;",
+            "parameter_pointer_origins": [
+              [
+                2,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "67d15a68c04af3b7cd89ed9fbb18cc8d4d713ae5f91cc355a4aa7b35332763d6",
+        "canonical_analysis_entry_sha256": "67d15a68c04af3b7cd89ed9fbb18cc8d4d713ae5f91cc355a4aa7b35332763d6"
+      },
+      "captured_output_union": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 12,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 [%rd75], %f96;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd75+4], %f95;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd75+8], %f94;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd81], %f92;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 %rd13, [%rd94];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd13"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd17, [%rd16];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd17"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd21, [%rd20];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd21"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd25, [%rd24];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd25"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd31, [%rd30];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd31"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "df298ecd71ed97bf5058d0d4d682c2adb6c95cab6382b7e8985bbf001ba1777d",
+        "canonical_analysis_entry_sha256": "df298ecd71ed97bf5058d0d4d682c2adb6c95cab6382b7e8985bbf001ba1777d"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_12NonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 12,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 \t[%rd75], %f96;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+4], %f95;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd75+8], %f94;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd81], %f92;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 \t%rd13, [%rd94];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd13"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd17, [%rd16];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd17"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd21, [%rd20];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd21"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd25, [%rd24];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd25"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd31, [%rd30];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd31"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "18d2d918278117d4c2556c0085732af3b9b9eeef62352c3dc5b99f9e39fa4b1b",
+        "canonical_analysis_entry_sha256": "18d2d918278117d4c2556c0085732af3b9b9eeef62352c3dc5b99f9e39fa4b1b"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 12,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 [%rd65], %f127;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd65+4], %f126;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd65+8], %f125;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 [%rd71], %f123;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 %rd10, [%rd9];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd10"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd13, [%rd12];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd13"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 %rd18, [%rd17];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd18"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "aaeb9509f88720d1830f6d098ed8c388d4b861e2d9d7f4bdd2673b0c09bbbb8d",
+        "canonical_analysis_entry_sha256": "aaeb9509f88720d1830f6d098ed8c388d4b861e2d9d7f4bdd2673b0c09bbbb8d"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel26multiply_matrix_and_reduceINS_17BlockNonZeroEntryEN3glm3matILi3ELi3EfLNS3_9qualifierE0EEEEEvPKiPKT_mPKT0_PKNS3_3vecILi3EfLS5_0EEESI_PSG_S8_jPfmm",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 12,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 \t[%rd65], %f127;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd65+4], %f126;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd65+8], %f125;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "red.global.add.f32 \t[%rd71], %f123;",
+            "parameter_pointer_origins": [
+              [
+                9,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [
+          {
+            "instruction": "ld.global.s32 \t%rd10, [%rd9];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd10"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd13, [%rd12];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd13"
+            ]
+          },
+          {
+            "instruction": "ld.global.s32 \t%rd18, [%rd17];",
+            "load_bits": 32,
+            "wide_registers": [
+              "%rd18"
+            ]
+          }
+        ],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "a3747cccf1dc8aa1169693823421e01a997195373d2768a256109b699c88d7cb",
+        "canonical_analysis_entry_sha256": "a3747cccf1dc8aa1169693823421e01a997195373d2768a256109b699c88d7cb"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ],
+        [
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 6,
+        "store_instructions": [
+          {
+            "instruction": "st.global.u32 [%rd29], %r69;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+4], %r70;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+8], %r71;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+12], %r70;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+16], %r72;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+20], %r73;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+24], %r71;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+28], %r73;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 [%rd29+32], %r74;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            3,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "925326fb0e7967b2d65534553c7cd9dfe9de10e0470e02d24f069bf04b2e39ce",
+        "canonical_analysis_entry_sha256": "925326fb0e7967b2d65534553c7cd9dfe9de10e0470e02d24f069bf04b2e39ce"
+      },
+      "captured_output_union": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel27invert_block_preconditionerEPKN3glm3matILi3ELi3EfLNS1_9qualifierE0EEEPKfPKiPS4_mm",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 6,
+        "store_instructions": [
+          {
+            "instruction": "st.global.u32 \t[%rd29], %r69;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+4], %r70;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+8], %r71;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+12], %r70;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+16], %r72;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+20], %r73;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+24], %r71;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+28], %r73;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.u32 \t[%rd29+32], %r74;",
+            "parameter_pointer_origins": [
+              [
+                3,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            3,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "b313525d238bf3aaff7ddfcaa65f53fc806ab1520bd15a2ca83b16254112925f",
+        "canonical_analysis_entry_sha256": "b313525d238bf3aaff7ddfcaa65f53fc806ab1520bd15a2ca83b16254112925f"
+      },
+      "captured_output_union": [
+        [
+          3,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "backend": "original",
+      "proof": {
+        "parameter_count": 9,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 [%rd24], %f16;",
+            "parameter_pointer_origins": [
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd24+4], %f18;",
+            "parameter_pointer_origins": [
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd24+8], %f20;",
+            "parameter_pointer_origins": [
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd28], %f25;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd28+4], %f27;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 [%rd28+8], %f29;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ],
+          [
+            7,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "b5e137d20eae57045481515259b8f9419cc2ddd4d9be49dfc103897004d07421",
+        "canonical_analysis_entry_sha256": "b5e137d20eae57045481515259b8f9419cc2ddd4d9be49dfc103897004d07421"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ],
+        [
+          7,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "_ZN7synreal6kernel28update_solution_and_residualEPKijPKfS4_PKN3glm3vecILi3EfLNS5_9qualifierE0EEESA_PS8_SB_m",
+      "backend": "source",
+      "proof": {
+        "parameter_count": 9,
+        "store_instructions": [
+          {
+            "instruction": "st.global.f32 \t[%rd24], %f16;",
+            "parameter_pointer_origins": [
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd24+4], %f18;",
+            "parameter_pointer_origins": [
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd24+8], %f20;",
+            "parameter_pointer_origins": [
+              [
+                7,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd28], %f25;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd28+4], %f27;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          },
+          {
+            "instruction": "st.global.f32 \t[%rd28+8], %f29;",
+            "parameter_pointer_origins": [
+              [
+                6,
+                0
+              ]
+            ]
+          }
+        ],
+        "potential_written_pointer_fields": [
+          [
+            6,
+            0
+          ],
+          [
+            7,
+            0
+          ]
+        ],
+        "narrow_loads_into_wide_registers": [],
+        "indirect_64bit_loaded_store_addresses": false,
+        "noninlined_calls": false,
+        "bounds_proven_by_this_analysis": false,
+        "source_rule": "https://docs.nvidia.com/cuda/parallel-thread-execution/#operand-size-exceeding-instruction-type-size",
+        "parameter_address_aliases": {},
+        "canonicalized_parameter_loads": [],
+        "parameter_load_ranges_checked": true,
+        "analysis_only_canonicalization": true,
+        "alias_rule": "one unpredicated formal-parameter mov, in the entry prefix or same basic block as each load",
+        "actual_entry_sha256": "d50af67f1d3f391cca4ddeee7f90a9c56da9751413944a579d4ba71a057559f3",
+        "canonical_analysis_entry_sha256": "d50af67f1d3f391cca4ddeee7f90a9c56da9751413944a579d4ba71a057559f3"
+      },
+      "captured_output_union": [
+        [
+          6,
+          0
+        ],
+        [
+          7,
+          0
+        ]
+      ]
+    }
+  ],
+  "kernel_types": 14,
+  "actual_PTX_entries_checked": 28,
+  "all_potential_writes_captured": true,
+  "GPU_used": false,
+  "GPU_runtime_validation_claimed": false,
+  "fixed_C8_failures_reclassified": false,
+  "candidate_promoted": false,
+  "whole_solver_complete": false,
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-flow/audit-planned-writes.py": "5743c1047abcd70503305b747378aaa6fb7d23cb0c81f72a47c94bb6ca52c646",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-flow/linear-flow-plan.json": "3989b47ab4e4c47f641154afc59dd5511245fd6caa42ec36b9c67f0a9b756927",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/host-particles/build.json": "efa8a5301c2c3478c157d7d17285733727a924a8278fc230897030a90d680774",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/ptx_store_origins_param.py": "af9925b9bf64d1bf9e08165f283983f3443d90d447a30a719dd8c11eddf7421d",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/ptx_store_origins_typed.py": "fe8f63cdb54e27e828b677a03b43ab6e9f64434752dcf6d230a54eb7d8ab7d13",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/ptx_store_origins.py": "981d087c3a419370919067d923df2e02ff39dc200087552a041109f40fa0034e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.5.sm_52.ptx": "636c7548cb75dcd6f8ba73c986d2729d0c373d9a451e1b141e004566912ee057",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.1.sm_52.ptx": "f0a51e394b15bf8923ffa9be535b0b08d1948856a93918e2e9254088a9aa5b14",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-ptx/64a0be7f7a3c03cb/_core.cpython-312-x86_64-linux-gnu.4.sm_52.ptx": "a22824c519e1045bd728caefdcdc6591ebeb8839999ba6b1d490f3a36f67944c"
+  }
+}

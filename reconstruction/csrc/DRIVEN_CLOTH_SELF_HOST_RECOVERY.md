@@ -57,6 +57,48 @@ SO3第二步particle_qd偏差约7.01，第三步最大约18.28；SIX三步最大
 只对分析文本消除别名。两端实际PTX只以F32 red写RHS、不读取RHS、无跨线程barrier，执行PTX未改。
 短C8 CPU首版仅因int/JSON-string checkpoint键比较退出1，v2规范化JSON键后完整统计一致；旧报告未改。
 
+## 接续：host数据流核对与后续PCG采集
+
+已提交检查点`5c0a5bd4`包含上述恢复代码、失败轨迹及2541份已完成证据；273887文件快照完整校验退出0。
+新的接续目录为：
+`build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-flow/`。
+
+直接复用已完成constructor的真实内存轨迹，无新增GPU调用，补核了此前opaque视图中的指针：
+
+- 两个失败组合共144对SurfaceContactView调用全部一致，包括标量、26个指针字段的空值或目标。
+  每端288个owned字段的分配ID、偏移、完整span边界已核准；3312个external字段保留原始精确地址及已知model标签。
+  外部Warp分配的边界未由本observer记录，不能把相同地址外推为其内容或容量证明。
+- 四类场景每端共258次D2D复制、396次byte fill，记录到的大小、目标、值、异步模式、stream及owned调用边界全同。
+  每类仍有三次外部复制来源缺少语义标签，仅两端原始地址同；没有宣称覆盖所有CUDA API或所有外部输入值。
+
+下一批固定采集两组各原版/源码一次、各三步，观察RHS、自碰撞VF/EE/EF、预条件器、全部五轮CG和非线性apply。
+SO3每端621阶段/7524快照文件；SIX每端567阶段/7398文件，共计划2376阶段/29844快照文件。
+full-input阶段覆盖14种真实kernel，原版/源码28份实际PTX静态写入来源审计全部通过；这是静态准备，尚非GPU实测。
+同一scene中，SO3的CG行计数/矩阵为64/896字节，SIX为192/13440字节，均取自真实分配；不能套旧夹具尺寸。
+SIX的block-initialize参数2实际NULL，只采集有效输出；首CG direction的previous numerator同样按实际NULL模式处理。
+两次准备脚本失败、as-run源码和修复依据保留：先补self参数0的实际位置span，再正确识别block-initialize的NULL输出。
+这些修复仅作用于诊断采集规格，未修改求解器。
+
+首队列session79052在启动前复查发现审计器将dict传给要求`.files`接口的比较函数；
+确认尚无GPU worker后仅停止该等待进程，原工具实际退出143。v1脚本、计划及身份均保留。
+修正的v2适配器已用两组真实冻结轨迹核对，统计与既有NPZ报告完全同、旧严格失败保持；CPU预检实际0。
+当前原机器队列工具session37865、PID3301837，boot/start_ticks见`linear-captures-v2/runner-identity.json`。
+它先等待原scalar worker及独立CPU审计，再在设备空闲时串行启动四个worker；本检查点尚未启动GPU worker。
+核原进程和status，不要重复运行已有runner：
+
+```bash
+source scripts/reconstruction_env.sh
+flow_phase=build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-7ca67172-driven-self-flow
+ps -p 3301837,3272557,3280049 -o pid,etime,stat,args
+cat "$flow_phase/linear-captures-v2/status.json"
+```
+
+worker结束后会自动运行`audit-linear-flow-v2.py`，检查文件覆盖、未写区域、同一轨迹CG向量的生产/消费关系及公开位置。
+新轨迹只用于定位，必须报告其是否复现冻结失败，不能取代原C8样本。下一步依据实际apply增量和CG差异定位大响应，
+对出现差异的完整同输入packet调用SDK/PTX/source核对；本检查点没有新增轨迹通过或归因结论。
+Windows继续使用主交接的WSL2环境；这些PID仅适用于原机器。新机器须新建证据目录并生成自己的计划，
+不要直接执行旧runner；`--fresh-machine`仅跳过原机器等待依赖，不会修复历史绝对路径或替代新机器验收。
+
 ## GPU标量证书与当前等待
 
 首次593次单lane GPU标量/历史调用全部完成，独立CPU核593结果、13788 history words、2304来源标量及保护字节。

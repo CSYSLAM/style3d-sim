@@ -7005,3 +7005,33 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   新session2752/PID3280049仅等同一原进程并自动执行独立CPU审计，不重启/替换它；GPU实际退出仍需根工具session确认。
   生产、CUDA176/f0、SDK64a、360pyc及旧失败保持，候选未合入。默认/readyFalse和其它未验收范围不改。
   新DRIVEN_CLOTH_SELF_HOST_RECOVERY记录已做内容、两次审计问题、GPU编排失误、真实等待及Windows/WSL命令。
+
+### 2026-11-01：驱动self的host数据流核对，后续PCG采集排队
+
+- 上一问进度的turn只汇报状态并实际确认原等待进程，归类verified wait；本轮先重新核实3272557/3280049及GPU占用，
+  未重启旧队列、未中断外部任务。保持完整替代目标及全部失败，不用69/74计算总体完成率。
+- 原驱动self检查点2541份已完成数据实际重读SHA全同，明确排除隔离worker的可变输出。
+  新总快照273887文件完整验证实际0；源码、固定SDK64a和360pyc保留。提交5c0a5bd4982205ecfce88088b593416bdbd861cd，
+  push实际0且ls-remote精确HEAD同；候选7ca仍未合入，生产0dab/Core715及readyFalse保持。
+- 新接续目录continuation-20261101-7ca67172-driven-self-flow；复用constructor真实内存轨迹做CPU核对，不增加GPU负载。
+  audit-view-pointers实际0：两失败组合144对surface视图全部同。每端288个owned完整span/身份/偏移、3312个external精确地址同。
+  external的Warp边界及内容未被该observer记录，不扩大结论。
+- 既有device_memory_sequence_audit对四类场景实际均0：每端D2D分别69/69/51/69，共258；byte fill各99，共396。
+  记录到的次序、值、bytes、目标、stream和owned边界同；各类三次外部来源仍无语义标签，未声称所有CUDA API均覆盖。
+- 后续linear-flow规格来自实际原版/源码分配，不套旧场景：SO3的CG行/矩阵64/896字节，SIX为192/13440字节。
+  四worker计划为SO3每端621阶段/7524文件、SIX每端567阶段/7398文件；新轨迹只诊断，不替换旧8SDK/3source失败。
+  静态原版/源码14种kernel的28份PTX写入来源实际核准0，full-input输出覆盖所有潜在写域；尚非GPU回放结论。
+- prepare v1实际1，因self VF参数0外部位置span未分类；v2实际1，因SIX block-initialize参数2真实NULL。
+  两份as-run和失败receipt保留；只修诊断规格，v3实际0。逐项核对实际launch与源host调用，未改任何求解数学/阈值。
+  另一次只读ps查询PID列表语法错误实际1，随后用逗号列表重新核对实际0，队列未据此重启。
+- 新run-linear-flow工具session79052，Python3298587，boot/start_ticks/命令已通过实际/proc再核并保存。
+  它先等同一3272557及独立CPU审计完成，再检查GPU空闲；当前无新GPU worker，不能把静态准备记为动态通过。
+  后续自动audit-linear-flow核完整文件、readonly/alias、CG向量生产消费及公开位置，保留与原冻结轨迹是否相同的结论。
+  session67261/2752再次从原工具句柄poll仍运行；根线程仍需取得实际终态，不能从report.complete推断退出0。
+- 根状态、Windows交接及驱动self文档补充本批已完成核对、等待身份与未证明范围；全目标保持active。
+- 启动前复查发现audit-linear-flow给compare_states传dict，但既有接口要求.files；旧队列79052尚未启动任何GPU worker。
+  核实/proc身份及无worker后，仅停止自有CPU等待器3298587，原工具实际退出143；原scalar队列及外部任务均未触碰。
+  原v1脚本/计划/21文件准备检查点原样保存，没有覆盖历史输入。
+  新audit-linear-flow-v2用显式CapturedState适配器；两组真实冻结原版/源码轨迹的完整统计与既有报告全同，CPU实际0。
+  v2改用独立输出目录，工具session37865/PID3301837真实等待同一旧scalar进程，boot/start_ticks及命令已保存。
+  新GPU worker计数仍0；后续从37865取得真实终态，并读取linear-independent-cpu-v2.json，不能继承v1或旧场景通过项。
