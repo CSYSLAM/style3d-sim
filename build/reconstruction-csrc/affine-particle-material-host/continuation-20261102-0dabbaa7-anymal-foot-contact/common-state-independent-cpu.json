@@ -1,0 +1,386 @@
+{
+  "config": {
+    "affine_body_block_preconditioner": false,
+    "affine_body_contact_block_preconditioner": true,
+    "affine_body_rigidity_model": 3,
+    "affine_body_rigidity_primal_iterations": 1,
+    "air_density": 1.225000023841858,
+    "cable_angular_beta": 0.0,
+    "cable_angular_k_start": 10.0,
+    "cable_linear_beta": 0.0,
+    "cable_linear_k_start": 100.0,
+    "cable_penalty_gamma": 0.9990000128746033,
+    "constraint_alpha": 100.0,
+    "enable_collision_hessian_non_diagonal": true,
+    "enable_self_collision": false,
+    "fluid_max_step_ratio": 0.25,
+    "fluid_relaxation": 0.5,
+    "inertia_mode": 3,
+    "joint_constraint_mode": 1,
+    "joint_constraint_primal_iterations": 1,
+    "linear_iterations": 50,
+    "nonlinear_iterations": 5,
+    "nonlinear_solver": 0,
+    "rigid_contact_alpha": 0.949999988079071,
+    "rigid_contact_beta": 0.0,
+    "rigid_contact_friction_epsilon": 0.0,
+    "rigid_contact_gamma": 0.9990000128746033,
+    "rigid_contact_hard": false,
+    "rigid_contact_history": false,
+    "rigid_contact_k_start": 100.0,
+    "rigid_contact_sliding_tangent": false,
+    "rolling_friction_velocity_epsilon": 0.10000000149011612,
+    "self_collision_edge_edge_stiffness": 0.10000000149011612,
+    "self_collision_edge_face_stiffness": 1.0,
+    "self_collision_particle_particle_stiffness": 1.0,
+    "self_collision_radius": 0.003000000026077032,
+    "self_collision_vertex_face_stiffness": 0.5
+  },
+  "public_state_inputs_bitwise_equal": true,
+  "one_step_outputs": {
+    "particle_q": {
+      "bitwise": false,
+      "max_abs": 0.00034276721999049187
+    },
+    "particle_qd": {
+      "bitwise": false,
+      "max_abs": 0.06855344399809837
+    },
+    "body_q": {
+      "bitwise": false,
+      "max_abs": 0.00011998414993286133
+    },
+    "body_qd": {
+      "bitwise": false,
+      "max_abs": 0.06645291857421398
+    }
+  },
+  "metadata": {
+    "common-": {
+      "left_launches": 2608,
+      "right_launches": 2608,
+      "different_launches": 0,
+      "examples": [],
+      "arguments_equal": true,
+      "geometry_and_shared_memory_complete": true,
+      "equal": true
+    },
+    "native-contact/": {
+      "left_launches": 2608,
+      "right_launches": 2608,
+      "different_launches": 0,
+      "examples": [],
+      "arguments_equal": true,
+      "geometry_and_shared_memory_complete": true,
+      "equal": true
+    }
+  },
+  "metadata_pointer_comparison_scope": "NULL/present only;not addresses, alias relationships or pointed-to contents",
+  "actual_foot_center_z_atomic_contributions": [
+    {
+      "contact_row": 16,
+      "global_shape": 316,
+      "center_particle": 404,
+      "actual_center_z_atomic_addends": [
+        77.18622589111328,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 25,
+      "global_shape": 368,
+      "center_particle": 424,
+      "actual_center_z_atomic_addends": [
+        73.6336898803711,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 26,
+      "global_shape": 369,
+      "center_particle": 440,
+      "actual_center_z_atomic_addends": [
+        74.64805603027344,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 27,
+      "global_shape": 370,
+      "center_particle": 456,
+      "actual_center_z_atomic_addends": [
+        75.8681640625,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 28,
+      "global_shape": 371,
+      "center_particle": 472,
+      "actual_center_z_atomic_addends": [
+        77.08950805664062,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 45,
+      "global_shape": 423,
+      "center_particle": 492,
+      "actual_center_z_atomic_addends": [
+        73.9078369140625,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 46,
+      "global_shape": 424,
+      "center_particle": 508,
+      "actual_center_z_atomic_addends": [
+        75.25029754638672,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 47,
+      "global_shape": 425,
+      "center_particle": 524,
+      "actual_center_z_atomic_addends": [
+        75.96359252929688,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 48,
+      "global_shape": 426,
+      "center_particle": 540,
+      "actual_center_z_atomic_addends": [
+        77.48937225341797,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 49,
+      "global_shape": 38,
+      "center_particle": 16,
+      "actual_center_z_atomic_addends": [
+        73.67317962646484,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 50,
+      "global_shape": 39,
+      "center_particle": 32,
+      "actual_center_z_atomic_addends": [
+        74.89750671386719,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 51,
+      "global_shape": 40,
+      "center_particle": 48,
+      "actual_center_z_atomic_addends": [
+        75.54693603515625,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 52,
+      "global_shape": 41,
+      "center_particle": 64,
+      "actual_center_z_atomic_addends": [
+        76.98966979980469,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 69,
+      "global_shape": 93,
+      "center_particle": 84,
+      "actual_center_z_atomic_addends": [
+        74.0214614868164,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 70,
+      "global_shape": 94,
+      "center_particle": 100,
+      "actual_center_z_atomic_addends": [
+        75.20465850830078,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 71,
+      "global_shape": 95,
+      "center_particle": 116,
+      "actual_center_z_atomic_addends": [
+        75.58016967773438,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 72,
+      "global_shape": 96,
+      "center_particle": 132,
+      "actual_center_z_atomic_addends": [
+        77.1810302734375,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 93,
+      "global_shape": 258,
+      "center_particle": 288,
+      "actual_center_z_atomic_addends": [
+        73.88190460205078,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 94,
+      "global_shape": 259,
+      "center_particle": 304,
+      "actual_center_z_atomic_addends": [
+        74.8165512084961,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 95,
+      "global_shape": 260,
+      "center_particle": 320,
+      "actual_center_z_atomic_addends": [
+        75.59610748291016,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 96,
+      "global_shape": 261,
+      "center_particle": 336,
+      "actual_center_z_atomic_addends": [
+        76.89044189453125,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 113,
+      "global_shape": 313,
+      "center_particle": 356,
+      "actual_center_z_atomic_addends": [
+        73.52677154541016,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 114,
+      "global_shape": 314,
+      "center_particle": 372,
+      "actual_center_z_atomic_addends": [
+        74.63060760498047,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 115,
+      "global_shape": 315,
+      "center_particle": 388,
+      "actual_center_z_atomic_addends": [
+        75.9350814819336,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 136,
+      "global_shape": 148,
+      "center_particle": 152,
+      "actual_center_z_atomic_addends": [
+        73.95843505859375,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 137,
+      "global_shape": 149,
+      "center_particle": 168,
+      "actual_center_z_atomic_addends": [
+        74.98004150390625,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 138,
+      "global_shape": 150,
+      "center_particle": 184,
+      "actual_center_z_atomic_addends": [
+        75.49862670898438,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 139,
+      "global_shape": 151,
+      "center_particle": 200,
+      "actual_center_z_atomic_addends": [
+        76.94963836669922,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 156,
+      "global_shape": 203,
+      "center_particle": 220,
+      "actual_center_z_atomic_addends": [
+        73.80513000488281,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 157,
+      "global_shape": 204,
+      "center_particle": 236,
+      "actual_center_z_atomic_addends": [
+        75.46424102783203,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 158,
+      "global_shape": 205,
+      "center_particle": 252,
+      "actual_center_z_atomic_addends": [
+        75.63066101074219,
+        -0.0
+      ]
+    },
+    {
+      "contact_row": 159,
+      "global_shape": 206,
+      "center_particle": 268,
+      "actual_center_z_atomic_addends": [
+        77.23318481445312,
+        -0.0
+      ]
+    }
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/common-original/report.json": "1968f4edc95e7996969e7ccb634771fd74e6b7578d2900a6b3319c51427274ce",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/common-source/report.json": "560b374d3133b8b39fc0cb68e1cf2bb4bce32e927fe174b79a02efa57a983480",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/common-original/launches.txt": "eb8e0ddd7d22d0027111fc2f18824974eb1c6548e882dab158bffb4447a71f63",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/common-source/launches.txt": "9b05ea845aa26694ba74b04cd379727243fb5688d319f2e5fe479f5eee4ec8df",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/native-contact/original/launches.txt": "09916170e5c9f87083d64d79b1512c3eb02de9d2be30a260498326c24cfe9c75",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/native-contact/source/launches.txt": "cdc0b9e9a8eecf44e092f0ca2e9241c6d429344f77daa2ddd64184b0d416571c",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/common-original/raw.npz": "0f43bc470903d487f1290dde1442d56e2768caed0868bc87541b38868f59e434",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/common-source/raw.npz": "ebf6c460faad428593c48d88c2f275c209ad0c1c6f9b0393e2f70044ef9c5859",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/native-contact/full-input-replays/plan.json": "969215da194f519753d88538a54401ef0e2ec0fc7219edaea784eab9883d8210",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/native-contact/atomic-operands/report.json": "df778a7155346e4c54059b1ea8b5033e907d82474f3f9c0bd37506874d56f554",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/audit-common-state.py": "06475e8cd274fbb2f9ebaa8db7002ce3d4dd018aac37b22c21a85c6fc89bc008",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/native-contact/full-input-replays/worker-0.npz": "756b415bbfec05e03b244ceec6a17f039dc7164b229825a8efd0eee225f8717c"
+  },
+  "GPU_used": false,
+  "static_support_balance_proved": false,
+  "full_trajectory_accepted": false
+}

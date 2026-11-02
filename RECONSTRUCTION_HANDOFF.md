@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **ANYmal接触进一步核准，完整轨迹仍未过。** 两端脚球均实穿透3.4至3.6cm，静态几何/材质相同。
+> 同一冻结状态的真实一步不同，但首次接触前160条记录仅排列不同；按记录对应的真实贡献同。
+> force/tangent12三端调用2packet严格，33280真实操作数同，剩余12word有24次真实GPU顺序证书。
+> 阈值/数学/旧失败均不改；下步追接触后RHS/CG传播，见
+> [脚部几何与native接触](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/README.md)。
+
 > **ANYmal追加定位：首步伪速度来自未同步的FK代理。** 原版/源码eager500同样飞高；真实预测器在native step前已约136。
 > 诊断副本仅补已有sync调用和原测试lambda换行，首伪速度归零，双端500帧速度达标，但均32脚部高度失败。
 > 原例子/so/阈值未改，副本未合入；未将完整轨迹或物理测试改判通过。

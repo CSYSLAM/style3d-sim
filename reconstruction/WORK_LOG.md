@@ -7284,3 +7284,43 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 第二阶段60文件/67468974字节已封存，全部新Python AST/128列通过；诊断副本保留原例子CRLF，
   默认git whitespace将每行CR报尾空白；只启用标准cr-at-eol识别后，全部staged diff实际0，不重写实测文件。
   本阶段未提升诊断副本、未改原demo，最终高度32失败和旧完整轨迹失败都保留。
+
+
+### 2026-11-02：接续b2f807e3，核ANYmal实际脚部几何和native接触
+
+- 上一goal turn为progress：b2f807e37efb5611db4301d6e8a9130bcdbaaecb已推，远端精确同HEAD，310859文件全核0失败。
+  本轮起始tracked clean，原SDK64a/host0dab/Core715保持；GPU实际24455总/3613用/20330MiB余，不要求独占。
+- 原/源分别构造同一同步诊断模型，并恢复各自固定500帧最终state，真正Newton碰撞管线重新生成160接触。
+  模型初始化仍实际使用所选native后端，但probe不step solver；原工具99844、源85758实际0，源无SDK映射。
+- CPU783f40实际0：静态shape几何/材质/bodyCOM原源逐位同，160接触shape pair多重集同。
+  两端各32球形脚部真实表面和接触gap均低于地面，原球底-0.035989至-0.034070，源-0.035908至-0.034094m。
+  因此不是仅body原点误判，不改高度界限；当前还不能把有限刚度看作已证实的native接触力成因。
+- 新common-step从同一份冻结SDK最终state启动，原46930/源2046实际0，两端state四数组初值逐位同。
+  一次真实public native step后并非严格：particle_q最大差0.000342767、qd0.0685534，body_q0.000119984。
+  这是新的重初始化诊断，不冒充旧长程私有history；完整失败样本保持。
+  实测config为rigid_contact_hard=False、epsilon0、NL5/linear50，8worlds、每world68粒子、shared17body/56shape。
+- common-step代码生成第一次76f20b因128列检查退出1，随后0d5415试运行因文件未生成退出2，没有solver执行。
+  保留原错误log；调整生成字符串换行后003cb9先AST/128核准再落盘，原/源实际调用随后各0，不改计算。
+- 后续抓真实force/tangent的全部非空flat指针：按实际metadata和34/35参数类型核准容量1000、N544、B17、S56。
+  capture-native-contact.py按同一冻结原版state串行两端，原始hook日志、全before/post均保留；后续完整三端回放需单独核。
+
+- native-contact根7342实际0，两端2608 metadata标量/类型/指针NULL状态/geometry同；不比较地址/alias或buffer内容。
+  四完整packet12三端调用根e73d2a实际1，子GPU1/CPU0；2packet严格，完整原始失败保持。
+  独立CPU核1072参数字节、287232输出字节、1314096保护字节、0alias组。
+- 真实PTX追踪99081实际0，四packet共8调用：force各5120、tangent各11520，合33280操作数target/值/线程内序同。
+  CPU568520实际0；全部12个回放差异word经受线程目标内顺序约束的CPU排列搜索，24个GPU target逐位复现。
+  GPU2d5db4/CPU6792d6均实际0，144历史word及真实参数/guard核准，不推断生产联合全局顺序。
+- 两份捕获首次force的非contact readonly和RHS/scale初值都同；完整160条76字节contact集合逐字节同但全部换位。
+  按接触对应后force5120/tangent11520实际贡献也同，e05882 CPU实际0。
+  先前矩阵before3字节差已存在，不当作tangent同输入错误；不外推到旧冻结整轨迹。
+- CPU f27424独立保存共同状态、一步差异、metadata范围说明及32条脚部真实center z addends，范围73.52677到77.48937。
+  有限刚度/hardFalse是实际config，但静力平衡和整个长期穿透原因尚未全部证明，不擅改源码或原门槛。
+- 两次生成器355afd/53892c在落盘前因128列失败，均未运行GPU；修短docstring/日志文本后才执行真实追踪/证书。
+  当前所有新Python AST/128列均过，自己的GPU工作已全部终态，外部任务保持。
+  下一步为同一起点接触后RHS/CG完整传播，完整一步、旧C8/C10和整个源码替代目标仍未通过。
+
+- 新阶段当前所有Python AST/128列及小于100MiB门禁通过，原始PTX72处尾空白/EOF在8个instrumented文件中原样保留。
+  精确排除原始证据后git diff --cached --check实际0，逐位置存publication-checks.json；不为格式改实测PTX。
+  已补手工命令等价argv/env、六个首CG真实历史节点及size注意事项，避免下一agent把shared68误当global544。
+  实测首inverse23/precond24/direction25/matrix32/update33/apply524，50轮CG之间不得省略因果阶段。
+  本批自己的GPU任务全部真实终态，后续按README抓RHS/CG；完整一步和长程仍失败，目标继续active。

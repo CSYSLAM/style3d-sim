@@ -23,6 +23,13 @@ ANYmal追加500帧eager及原版Graph重复均实测，异常双端都有，不�
 但两端同有32脚部高度失败，原界限未改，副本未合入。结果与接续见
 [ANYmal初始化定位](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-graph-eager/README.md)。
 
+ANYmal脚部进一步实测：两端球面均实穿透约3.4至3.6cm，静态几何/材质逐位同，未调整高度阈值。
+同一冻结状态的真实一步仍不同；首次接触前只有160条完整接触记录的排列不同，集合完全同。
+完整force/tangent四输入/12三端调用2严格；33280真实原子贡献同，跨两运行按接触对应的16640贡献也同。
+回放剩余12个word由24次真实GPU、144个历史word全复现，保存每线程目标内顺序，不推断全局次序。
+完整一步/长程失败不改，继续位置是接触后RHS/CG完整传播；
+[真实脚部与接触核](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/README.md)。
+
 当前正式cable bend stiffness的Newton/PD各60帧均独立运行，但固定8原版/3源码逐步C8两mode全false。
 另六份held-out原版也全false，不能单靠该失败判源码错误；记录和后续首CG核对见
 [cable bend实测](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。
