@@ -1,5 +1,10 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新[缆绳＋plain约束及缓存恢复](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/README.md)：
+> 隔离b82修复SDK实证的六缓存typed-zero/顺序，24短程、六构造、96项60步及12 initcheck全过；生产仍0dab/Core715。
+> 先补混合plain约束和penalty/reset，再保存checkpoint合入重验；旧正常demo/C8/C10失败不改，完整替代仍未完成。
+> candidate_demo_worker仅重定位读取路径且严格校验原SHA，可供新WSL目录运行冻结候选；没有在本机测试WSL。
+
 > 最新[缓存返回与Newton mixed复核](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cache-return-sync/README.md)：
 > 允许共享GPU、自己的worker串行，732固定输入/4392次fenced三端调用全严格，独立CPU核完整原始字节。
 > 39缓存返回ready、33非阻塞consumer正确；只修mixed检查器，不改生产/阈值/固定失败，完整替代仍未完成。

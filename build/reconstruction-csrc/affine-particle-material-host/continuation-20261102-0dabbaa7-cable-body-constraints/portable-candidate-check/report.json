@@ -1,0 +1,38 @@
+{
+  "actual_worker_pid": 371678,
+  "actual_worker_exit": 0,
+  "full_three_step_state_bytes_equal": true,
+  "recorded_root_differs_from_actual_root": true,
+  "original_manifest_unchanged": true,
+  "negative_controls": [
+    {
+      "case": "wrong-image-hash",
+      "rejected_before_GPU": true,
+      "error": "Candidate image SHA256 differs"
+    },
+    {
+      "case": "parent-traversal",
+      "rejected_before_GPU": true,
+      "error": "Parent traversal is not a candidate repository path"
+    },
+    {
+      "case": "outside-root",
+      "rejected_before_GPU": true,
+      "error": "'/outside/the-recorded-repository' is not in the subpath of '/home/previous-machine/style3d-sim'"
+    }
+  ],
+  "free_memory_MiB": 15587,
+  "external_compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 4010 MiB",
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/check-portable-candidate.py": "9d7c43d14554a9a36f722d32793bc5d22c7f122cf45ad5ec6d83ac43b88ff758",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/candidate-cache-order/build.json": "9dbc86193210007f48e43481b8e8cb23d81890bfab5947d2cfbd55f8b370668f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/portable-candidate-check/relocated-build.json": "d5a95e063d60ad2352896d32c2039faba006965c568ce57d5429cd90ebb766b7",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/discovery-v2-3/spring-w1-newton-b0/original/capture.npz": "2c31d859734da0e827df4ebe28da15abb07c4a61513a130774e1c7b124b2a933",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/portable-candidate-check/actual-source/capture.npz": "2c31d859734da0e827df4ebe28da15abb07c4a61513a130774e1c7b124b2a933",
+    "/home/oem/code/agent/style3d-sim/reconstruction/csrc/candidate_demo_worker.py": "1c8a24e92d8e627850e635b734abd822a6983cfaa9de24619d1ab11f6890aaed"
+  },
+  "native_Windows_tested": false,
+  "WSL_tested_here": false,
+  "production_modified": false,
+  "whole_solver_complete": false
+}

@@ -1,0 +1,112 @@
+{
+  "SDK_typed_initializers": 33,
+  "scope_only_candidate_typed_initializers": 27,
+  "six_missing_initializers": [
+    {
+      "sequence": 737,
+      "type": "mat3",
+      "count": 8,
+      "pointer": "0x71964f400a00",
+      "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+      "grid_x": 1,
+      "block_x": 256,
+      "grid_matches_thrust_256x2": true,
+      "owned_uses": []
+    },
+    {
+      "sequence": 761,
+      "type": "mat3",
+      "count": 8,
+      "pointer": "0x71964f400c00",
+      "value_hex": "000000000000000000000000000000000000000000000000000000000000000000000000",
+      "grid_x": 1,
+      "block_x": 256,
+      "grid_matches_thrust_256x2": true,
+      "owned_uses": []
+    },
+    {
+      "sequence": 784,
+      "type": "int",
+      "count": 8,
+      "pointer": "0x71964f400e00",
+      "value_hex": "00000000",
+      "grid_x": 1,
+      "block_x": 256,
+      "grid_matches_thrust_256x2": true,
+      "owned_uses": []
+    },
+    {
+      "sequence": 807,
+      "type": "int",
+      "count": 1,
+      "pointer": "0x71964f401000",
+      "value_hex": "00000000",
+      "grid_x": 1,
+      "block_x": 256,
+      "grid_matches_thrust_256x2": true,
+      "owned_uses": []
+    },
+    {
+      "sequence": 830,
+      "type": "vec4",
+      "count": 1,
+      "pointer": "0x71964f401200",
+      "value_hex": "00000000000000000000000000000000",
+      "grid_x": 1,
+      "block_x": 256,
+      "grid_matches_thrust_256x2": true,
+      "owned_uses": []
+    },
+    {
+      "sequence": 854,
+      "type": "int",
+      "count": 1,
+      "pointer": "0x71964f401400",
+      "value_hex": "00000000",
+      "grid_x": 1,
+      "block_x": 256,
+      "grid_matches_thrust_256x2": true,
+      "owned_uses": []
+    }
+  ],
+  "first_four_CableView_fields_tied_to_actual_allocations": [
+    104,
+    112,
+    120,
+    128
+  ],
+  "SDK_cable_allocation_bytes": [
+    288,
+    288,
+    32,
+    4,
+    16,
+    4
+  ],
+  "remaining_typed_initializers_and_order_equal_after_removing_six": true,
+  "SDK_reset_copy_disassembly_actual_exit": 0,
+  "SDK_reset_copy_command": [
+    "objdump",
+    "-d",
+    "-C",
+    "--start-address=0xfac30",
+    "--stop-address=0xfaf00",
+    "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+  ],
+  "input_sha256": {
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-initializers/original/memory.jsonl": "7d7472d06c0ef512f2171a44588f7337607805a6d026dbf12f9db17a16296872",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-initializers/original/launches.txt": "82c39c576d85a498ff19385013322aeda5c96747362ded2e1f5e7a1c82c354ed",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-initializers/original/capture.runtime.json": "117769db4c0be533666268e9e7bce8b6baf611cbd8dde014173aaa1852674d1e",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-initializers/source/memory.jsonl": "775604d65231dc145b67cf220d1c8bb1c877ab76766653b1c5e31ae19579af9a",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-initializers/source/launches.txt": "a79ede752434fb326fe93e8eb5a54193f5abc34ff594bb67aa175f07ee3705bb",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-initializers/source/capture.runtime.json": "ca890f4acbe833f46bfca887b44825a560a5eddc3c8c8205c06866b397182367",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-full-memory/original/memory.jsonl": "4dbc0459a95864062973ebf767927133782dd4f1deb663549af8629cc26979ae",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/external-full-memory/original/launches.txt": "21aa0f835ca3d686f0cb0e269885d209248682a4a5a673950133b14660f9f631",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/audit-cable-cache-difference.py": "a776cc451730f51a989b291242fb1d9bf24f48b12e7fbff1b1e2c26c00c9285f",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/constructors-scope-only/spring-w1-newton-b0/audit.json": "1c78d3c82e917dc5b7bacc9b430e278811ed56ae8af6aad73d9ac4e1e15b30b5",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/SDK-cable-reset-copy.asm": "b04ac140d11f69fb04045f346219c1a35905b55149440c91d48098110ac91aff",
+    "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/SDK-initialize.asm": "e857615a841aaf1a3617f2ffed95f0ac479383893f7869d3b479893ae242008b"
+  },
+  "production_modified": false,
+  "whole_solver_complete": false
+}

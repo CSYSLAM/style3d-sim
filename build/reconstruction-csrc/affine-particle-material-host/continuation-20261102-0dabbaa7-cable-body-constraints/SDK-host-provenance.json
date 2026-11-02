@@ -1,0 +1,54 @@
+{
+  "image": "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so",
+  "image_sha256": "64a0be7f7a3c03cb6afe3c8ccb2eb3b58d64a760954ec7c1da08a7b8dd115c63",
+  "functions": [
+    {
+      "name": "step",
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--start-address=0xfb060",
+        "--stop-address=0x104370",
+        "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "actual_exit": 0,
+      "path": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/SDK-step.asm",
+      "bytes": 624417,
+      "sha256": "7f2c9c8ffc1f26fcc7618edc1572f179d56732f0f16a060e4d76641db99e5db9"
+    },
+    {
+      "name": "precompute",
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--start-address=0x104370",
+        "--stop-address=0x10cd30",
+        "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "actual_exit": 0,
+      "path": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/SDK-precompute.asm",
+      "bytes": 552906,
+      "sha256": "4f09b95bef9aff693b65d1877820984bedc46399cc567fa5d01a20a777e583ea"
+    },
+    {
+      "name": "initialize",
+      "command": [
+        "objdump",
+        "-d",
+        "-C",
+        "--start-address=0x10cd30",
+        "--stop-address=0x10f2f0",
+        "/home/oem/code/agent/style3d-sim/style3d-sim-bin/Linux/Release/_core.cpython-312-x86_64-linux-gnu.so"
+      ],
+      "actual_exit": 0,
+      "path": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/SDK-initialize.asm",
+      "bytes": 151601,
+      "sha256": "e857615a841aaf1a3617f2ffed95f0ac479383893f7869d3b479893ae242008b"
+    }
+  ],
+  "script_sha256": "339ae5ead37f2fbed8507a2ea2fe9a62fc985df2ec50dabcbf16898af838428b",
+  "production_modified": false,
+  "whole_solver_complete": false
+}

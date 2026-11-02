@@ -7602,3 +7602,53 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 修正后freeze bea499实际0：776阶段文件、primary352909+indexed164712=517621，根JSON100410138字节。
   真实全量verifier6370b5实际0：517621文件、零失败；staged格式门禁159e77实际0，自己的GPU worker均已结束。
   验证后仅追加本行收据并更新其primary SHA；未重写已冻结阶段或原始证据。接续维持共享GPU/串行规则。
+
+### 2026-11-02：接续缆绳＋刚体约束实际host缺口
+
+- 上一turn为实质进展，提交e9f06062d797b22f2f4bf3c2f799abcf8479d493已推送，远端8013db实际0确认同SHA。
+  本turn起点git clean、该HEAD不变；GPU初余17668MiB，继续共享/自己的worker串行，不停止外部程序。
+- 生产source_solver.cpp的precompute_cables直接拒绝缆绳＋刚体约束。新增小夹具，固定三种plain约束、
+  W1/W3、Newton/PD、body block开关24组合，先SDK与生产源码各一次实际三步，不猜删guard后就宣称恢复。
+  新证据目录：continuation-20261102-0dabbaa7-cable-body-constraints。
+- 首discovery根35472/864d1c实际1：前四组各双端完成，W3 SDK worker实际0，但template.replicate未携带手工body spring，
+  没有body spring launch/dump，CPU检查拒绝。旧夹具/driver/完整原运行/失败原因全部保留，不作有效耦合覆盖。
+  改为begin_world/end_world逐世界显式构造，不动生产builder；新discovery-v2完整48 workers根22c40a实际0。
+  独立CPU77ac0b实际0：SDK24组合finite，两个force模块都实际改RHS，生产24均同一guard退出1，source均未映射SDK。
+- SDK64a实际step/precompute/initialize反汇编e214e7实际0保存；不是用旧版分析代替当前so。
+  第一隔离候选只准入无joint/self/fluid/外部接触的plain cable组合，数学/CUDA176不改；718c06编译实际0，image d2c07018。
+  实GPU24三步case根c0bab1实际0，状态24/24严格，10680 owned调用的已审计scalar/view/nullness、完整geometry/共享内存同。
+  这不冒称所有pointer身份/pointee已由launch比较证明。source独立运行，SDK未映射。
+- 第一候选graph60根c276d3实际0：双worker真实0、三约束/W1/W3/两mode/bodyblock24类的eager/graph共96比较全部严格。
+  每world使用seed1或3的预定变形几何；这是新scope验证，不替换旧正常demo/C8/C10的失败。
+- 构造核对53399/9465de实际1，六GPU子worker都0，首CPU实际1。首spring W1的上传29/29同，
+  但62 allocation events顺序不同、typed33/27、flat pointer身份/owned+library次序不同；旧失败完整保留，未合入。
+- 独立CPU533fc3实际0：SDK在核心四vector后先分配并typed-zero六缓存：
+  mat3×8、mat3×8、int×8、int×1、vec4×1、int×1，字节288/288/32/4/16/4；
+  CableView104/112/120/128实际分别指向前四块。去掉SDK这六项后，其余27 typed signature及顺序完全同。
+  原源码六块在矩阵后晚分配、仅initialized做byte清零，其他五块未初始化；不因轨迹同而忽略真实契约差异。
+  保存actual reset/copy反汇编，copy读取0x3120、prepare接受0x3140，与vec4 penalty/int initialized缓存对应。
+- 第二隔离候选恢复六块typed-zero及初始化位置，不改求解算术；f76bad实际编译0，image b82ecd80。
+  旧候选/全部成功与失败原样保留。29403e仅版本化24短程、六constructor、96 graph60的candidate/output路径，预算/门槛不变。
+  当前正在依次实跑第二候选，后续按真实工具终态记账；生产0dab/Core715/SDK64a、360pyc及readyFalse未变。
+- 第二候选短程40537/5bb47d实际0：24/24状态/geometry/已审计ABI全严格，10680 owned调用全覆盖。
+  独立CPU c07e7a/3c7427均0：两候选各24完整三步状态、96份完整force pre/post buffers直接字节同；未扩大launch比较的证明范围。
+- 第二候选六constructor根72505/0e3ea7实际0，36GPU及6CPU子进程均实际0，全部五项检查同；
+  六块zero缓存补齐后，原33/27变为实际typed原源完全同，分配和指针身份/库序列也同。
+  另CPU6cfdab实际0核459对完整160B CableView，全部scalar、17指针字段的空值/外部精确地址标签/owned分配身份同，
+  四缓存完整span均在live allocation内。外部Warp真实分配边界与pointee未由该observer捕获，不冒称已证明。
+- 第二候选graph60根19703/3d8b4b实际0：两GPU worker均0、96/96比较严格；独立CPU59297a实际0重核两候选全部192比较完整字节。
+  131列generator原运行另存as-run并记录SHA，当前generator只拆行，不改变生成worker/运行结果。
+- 当前正按六预定class、原/源各一次60步做12份initcheck；自己的GPU仍严格串行，原失败/预算均保持。
+  合入前还须覆盖candidate新准入中spring+distance/line+distance组合及原有penalty API/ramp/reset分支，
+  不用单family24组合冒称完整准入范围封闭。之后保存0dab完整checkpoint，合入并对新host/Core重验，不能继承旧image结果。
+- initcheck根18564/a53563实际0，12个sanitizer子进程均0且零错误；独立CPUee43e0实际0，六对完整60步状态逐位同。
+  GPU无live worker、外部任务未动，没有因共享GPU等待或OOM；检查器不改launch大小或物理参数。
+- 新增candidate_demo_worker仅在读时重定位记录repo前缀，逐输入/so严格核原SHA，原manifest不改。
+  真实不同记录前缀的独立source三步控制81163/52e91f实际0，全状态与SDK相同、SDK未映射。
+  错误image hash、parent traversal及repo外路径三个CPU负控制都在GPU前拒绝；这是Linux路径搬运控制，未冒称实际WSL/Windows实测。
+- 本批README及根CURRENT/两HANDOFF明确记录b82尚未合入、下一步mixed plain与penalty/reset、生产checkpoint/新Core重验。
+  源码C++、两个真实候选so、SDK actual反汇编、旧guard/构造失败和全部原始证据均准备同仓库冻结，生产与旧失败保持。
+- freeze0100cf实际0：2403阶段文件，primary355315＋indexed164712＝520027；根JSON101078003字节，小于100MiB。
+  全量真实verifier18167/b68fa7实际0，520027文件零失败；SDK/360pyc及旧gzip与build provenance均保持。
+- staged格式初查db45d3实际2仅因两份原始kernel-layout.tsv的CUB EmptyKernel零参数行保留末尾tab。
+  原始ASM/这两份TSV精确排除后fdb28f实际0，未修改冻结原始字节。现仅追加此收据并刷新WORK_LOG primary SHA。

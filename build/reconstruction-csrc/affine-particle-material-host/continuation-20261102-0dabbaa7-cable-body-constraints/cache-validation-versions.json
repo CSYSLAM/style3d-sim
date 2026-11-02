@@ -1,0 +1,60 @@
+{
+  "versions": [
+    {
+      "source": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/run-cases.py",
+      "source_sha256": "c48b68aa86b3772ab50c2301929760655b0ac73d15cb6e5e2b2a4b3355f501bc",
+      "target": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/run-cases-cache-order.py",
+      "target_sha256": "6f1b3c572efec829c6de1decdb3c114ce3eaa08ba7db92cb1c0e7b4abc5cb626",
+      "changes": [
+        [
+          "args.stage + '-v2-'",
+          "args.stage + '-cache-order-v2-'"
+        ]
+      ]
+    },
+    {
+      "source": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/check-constructors.py",
+      "source_sha256": "b15c156d31c26d1206822b3664f259839d6a6e006d80c6a789092b5be353a8e2",
+      "target": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/check-constructors-cache-order.py",
+      "target_sha256": "ddf124bff5541b25566c4e70b17bba612eea54d9fac1288f8326fb0670dc7853",
+      "changes": [
+        [
+          "candidate-scope-only/build.json",
+          "candidate-cache-order/build.json"
+        ],
+        [
+          "candidate-v2-3/status.json",
+          "candidate-cache-order-v2-3/status.json"
+        ],
+        [
+          "constructors-scope-only",
+          "constructors-cache-order"
+        ]
+      ]
+    },
+    {
+      "source": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/run-graph60.py",
+      "source_sha256": "5dde31121737e01eb06c474f229eaf78f6cf72eaa3d70e3666283f72bbd0b31f",
+      "target": "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/run-graph60-cache-order.py",
+      "target_sha256": "0f46dfd5eccc3bc4ebb21d1f01bfee68ee2fcf424d09f37c80a70a183b170f68",
+      "changes": [
+        [
+          "candidate-scope-only/build.json",
+          "candidate-cache-order/build.json"
+        ],
+        [
+          "candidate-v2-3/status.json",
+          "candidate-cache-order-v2-3/status.json"
+        ],
+        [
+          "BASE / 'graph60'",
+          "BASE / 'graph60-cache-order'"
+        ]
+      ]
+    }
+  ],
+  "only_candidate_and_output_locations_changed": true,
+  "frames_cases_thresholds_and_budgets_unchanged": true,
+  "production_modified": false,
+  "whole_solver_complete": false
+}

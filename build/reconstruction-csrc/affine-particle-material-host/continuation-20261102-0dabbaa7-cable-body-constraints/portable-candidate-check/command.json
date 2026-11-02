@@ -1,0 +1,23 @@
+[
+  "/home/oem/code/agent/style3d-sim/.venv/bin/python",
+  "-B",
+  "-m",
+  "reconstruction.csrc.candidate_demo_worker",
+  "--backend",
+  "source",
+  "--candidate-build",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/portable-candidate-check/relocated-build.json",
+  "--example",
+  "reconstruction/csrc/cable_body_constraint_scene.py",
+  "--frames",
+  "3",
+  "--output",
+  "/home/oem/code/agent/style3d-sim/build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/portable-candidate-check/actual-source",
+  "--",
+  "--constraint",
+  "spring",
+  "--worlds",
+  "1",
+  "--mode",
+  "newton"
+]

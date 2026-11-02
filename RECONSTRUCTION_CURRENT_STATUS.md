@@ -4,6 +4,13 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+新增缆绳＋plain刚体约束隔离候选b82ecd80，生产仍0dab/Core715。
+实际发现并修复六块缆绳缓存的晚分配/五块未初始化问题；原SDK为提前typed-zero，原构造失败保留。
+24短程及10680 owned调用一致，六构造五项同，459完整CableView对核准；60步96/96严格，双端12份initcheck均零错。
+合入前继续混合plain约束及penalty/reset分支，再对新生产image/Core重验，不继承本批局部结果为全solver通过。
+实现、原始失败、实际so及Windows/WSL命令见
+[缆绳与刚体约束恢复](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/README.md)。
+
 允许共享GPU，自己的worker串行，启动核剩余显存>=4096MiB，不等外部程序退出。
 本批Newton mixed固定732输入/4392次fenced三端回放全部严格，独立CPU核输出/只读/参数完整字节；
 运行时采样最低仍余15929MiB。39次实际缓存初始化返回ready，33次非阻塞consumer正确；不猜改生产同步。

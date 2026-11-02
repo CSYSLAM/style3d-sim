@@ -1,5 +1,11 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> **新增b82缆绳＋plain约束候选，尚未合入生产。** 据实际SDK恢复六块提前typed-zero缓存，旧构造失败保留。
+> 24短程/10680调用同、六构造五项全同、459 view对同、60步96比较同、双端12 initcheck零错。
+> 下一步混合plain约束和penalty/reset，再保存0dab checkpoint并合入、重建公开Core及重新验收。
+> 新目录可用严格SHA校验的candidate_demo_worker读取时重定位旧仓库前缀；真实so及原始数据仍在同仓库。
+> [完整记录与WSL命令](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/README.md)。
+
 > **共享GPU可继续，不再等外部程序退出。** 自己的worker串行、剩余>=4096MiB；本批最低采样15929MiB。
 > Newton mixed原732固定输入/4392次fenced回放全部严格，完整原始字节经独立CPU核准；旧C10失败不改判。
 > 实编译缓存39次返回ready，33非阻塞consumer正确；只修mixed检查器上传屏障，生产image/数学不改。

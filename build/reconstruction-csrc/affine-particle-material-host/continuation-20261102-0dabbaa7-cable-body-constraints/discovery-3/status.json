@@ -1,0 +1,240 @@
+{
+  "complete": false,
+  "running": {
+    "case": "spring-w3-newton-b0",
+    "backend": "original",
+    "pid": 342602
+  },
+  "completed": [
+    {
+      "case": "spring-w1-newton-b0",
+      "backend": "original",
+      "pid": 341862,
+      "actual_exit": 0,
+      "scope_error": null,
+      "finite": true,
+      "arrays": {
+        "particle_q": [
+          3,
+          8,
+          3
+        ],
+        "particle_qd": [
+          3,
+          8,
+          3
+        ],
+        "body_q": [
+          3,
+          2,
+          7
+        ],
+        "body_qd": [
+          3,
+          2,
+          6
+        ]
+      },
+      "active_force_outputs": {
+        "26evaluate_body_spring_force": true,
+        "evaluate_cables": true
+      }
+    },
+    {
+      "case": "spring-w1-newton-b0",
+      "backend": "source",
+      "pid": 341987,
+      "actual_exit": 1,
+      "scope_error": "RuntimeError: Cable mixed with body constraints has not been captured"
+    },
+    {
+      "case": "spring-w1-newton-b1",
+      "backend": "original",
+      "pid": 342072,
+      "actual_exit": 0,
+      "scope_error": null,
+      "finite": true,
+      "arrays": {
+        "particle_q": [
+          3,
+          8,
+          3
+        ],
+        "particle_qd": [
+          3,
+          8,
+          3
+        ],
+        "body_q": [
+          3,
+          2,
+          7
+        ],
+        "body_qd": [
+          3,
+          2,
+          6
+        ]
+      },
+      "active_force_outputs": {
+        "26evaluate_body_spring_force": true,
+        "evaluate_cables": true
+      }
+    },
+    {
+      "case": "spring-w1-newton-b1",
+      "backend": "source",
+      "pid": 342137,
+      "actual_exit": 1,
+      "scope_error": "RuntimeError: Cable mixed with body constraints has not been captured"
+    },
+    {
+      "case": "spring-w1-pd-b0",
+      "backend": "original",
+      "pid": 342222,
+      "actual_exit": 0,
+      "scope_error": null,
+      "finite": true,
+      "arrays": {
+        "particle_q": [
+          3,
+          8,
+          3
+        ],
+        "particle_qd": [
+          3,
+          8,
+          3
+        ],
+        "body_q": [
+          3,
+          2,
+          7
+        ],
+        "body_qd": [
+          3,
+          2,
+          6
+        ]
+      },
+      "active_force_outputs": {
+        "26evaluate_body_spring_force": true,
+        "evaluate_cables": true
+      }
+    },
+    {
+      "case": "spring-w1-pd-b0",
+      "backend": "source",
+      "pid": 342328,
+      "actual_exit": 1,
+      "scope_error": "RuntimeError: Cable mixed with body constraints has not been captured"
+    },
+    {
+      "case": "spring-w1-pd-b1",
+      "backend": "original",
+      "pid": 342419,
+      "actual_exit": 0,
+      "scope_error": null,
+      "finite": true,
+      "arrays": {
+        "particle_q": [
+          3,
+          8,
+          3
+        ],
+        "particle_qd": [
+          3,
+          8,
+          3
+        ],
+        "body_q": [
+          3,
+          2,
+          7
+        ],
+        "body_qd": [
+          3,
+          2,
+          6
+        ]
+      },
+      "active_force_outputs": {
+        "26evaluate_body_spring_force": true,
+        "evaluate_cables": true
+      }
+    },
+    {
+      "case": "spring-w1-pd-b1",
+      "backend": "source",
+      "pid": 342535,
+      "actual_exit": 1,
+      "scope_error": "RuntimeError: Cable mixed with body constraints has not been captured"
+    }
+  ],
+  "GPU_admission": [
+    {
+      "UTC": "2026-11-02T06:38:31.313786+00:00",
+      "case": "spring-w1-newton-b0",
+      "backend": "original",
+      "free_memory_MiB": 17513,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 2018 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:33.788989+00:00",
+      "case": "spring-w1-newton-b0",
+      "backend": "source",
+      "free_memory_MiB": 17553,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 1998 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:35.977365+00:00",
+      "case": "spring-w1-newton-b1",
+      "backend": "original",
+      "free_memory_MiB": 17554,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 1998 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:38.085239+00:00",
+      "case": "spring-w1-newton-b1",
+      "backend": "source",
+      "free_memory_MiB": 17551,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 1998 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:40.227054+00:00",
+      "case": "spring-w1-pd-b0",
+      "backend": "original",
+      "free_memory_MiB": 17553,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 1998 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:42.516359+00:00",
+      "case": "spring-w1-pd-b0",
+      "backend": "source",
+      "free_memory_MiB": 17513,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 2038 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:44.729112+00:00",
+      "case": "spring-w1-pd-b1",
+      "backend": "original",
+      "free_memory_MiB": 17553,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 1998 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:46.863181+00:00",
+      "case": "spring-w1-pd-b1",
+      "backend": "source",
+      "free_memory_MiB": 17552,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 1998 MiB"
+    },
+    {
+      "UTC": "2026-11-02T06:38:49.023795+00:00",
+      "case": "spring-w3-newton-b0",
+      "backend": "original",
+      "free_memory_MiB": 17552,
+      "compute_apps": "327688, /home/oem/code/worldparticle/.venv/bin/python, 1998 MiB"
+    }
+  ],
+  "whole_solver_complete": false
+}
