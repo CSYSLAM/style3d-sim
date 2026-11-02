@@ -1,0 +1,85 @@
+{
+  "backend": "source",
+  "opposite_vertices": 200790,
+  "reachable_tangent_records": 7284101,
+  "reachable_tangent_bytes": 437046060,
+  "initial_counter": 0,
+  "ranges": {
+    "opposite-offsets": {
+      "address": 128285075968512,
+      "logical_bytes": 402540,
+      "backing_base": 128285075968512,
+      "backing_bytes": 402540,
+      "provider": "cuMemGetAddressRange_v2",
+      "read_bytes": 402540
+    },
+    "opposite-vertices": {
+      "address": 128285076371456,
+      "logical_bytes": 803160,
+      "backing_base": 128285076371456,
+      "backing_bytes": 803160,
+      "provider": "cuMemGetAddressRange_v2",
+      "read_bytes": 803160
+    },
+    "mesh-vertices": {
+      "address": 128285077174784,
+      "logical_bytes": 134812,
+      "backing_base": 128285077174784,
+      "backing_bytes": 134812,
+      "provider": "cuMemGetAddressRange_v2",
+      "read_bytes": 134812
+    },
+    "triangles": {
+      "address": 13020081664,
+      "logical_bytes": 803160,
+      "backing_base": 13020081664,
+      "backing_bytes": 803160,
+      "provider": "model.tri_indices",
+      "read_bytes": 803160
+    },
+    "edges": {
+      "address": 13023830528,
+      "logical_bytes": 1610144,
+      "backing_base": 13023830528,
+      "backing_bytes": 1610144,
+      "provider": "model.edge_indices",
+      "read_bytes": 1610144
+    },
+    "initial-counter": {
+      "address": 128287506426368,
+      "logical_bytes": 4,
+      "backing_base": 128287506426368,
+      "backing_bytes": 4,
+      "provider": "cuMemGetAddressRange_v2",
+      "read_bytes": 4
+    },
+    "tangent-full-reachable-capacity": {
+      "address": 128284062908416,
+      "logical_bytes": 437046060,
+      "backing_base": 128284062908416,
+      "backing_bytes": 437046060,
+      "provider": "cuMemGetAddressRange_v2",
+      "read_bytes": 0
+    }
+  },
+  "first_CG_tangent_consumer": [
+    {
+      "rank": 102,
+      "name": "_ZN7synreal21self_collision_kernel25multiply_contact_tangentsEPKNS_27SelfCollisionContactTangentEPKjPKN3glm3vecILi3EfLNS6_9qualifierE0EEEPS9_",
+      "geometry": [
+        256,
+        1,
+        1,
+        256,
+        1,
+        1,
+        0
+      ]
+    }
+  ],
+  "graph_nodes_added": 0,
+  "GPU_allocations_added": 0,
+  "physics_replays": 0,
+  "full_dynamic_self_contact_outputs_not_read": true,
+  "whole_solver_complete": false
+}

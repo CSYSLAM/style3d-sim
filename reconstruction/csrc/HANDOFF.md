@@ -1,5 +1,9 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 仅本地推进，不上传。最新[H1实际self与有效EF](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-self-producer-spans/README.md)：
+> 13GPU任务闭合，850560逐query三端完整输出严格，6225792整数F32核准、40原query编号控制同；有效EF/多世界及5点T另76GPU严格。
+> 7423完整接触record、22112448真实F32逐query对应；42aggregate/C8失败保持。下一步同次第一子步10NL/每NL20T及其他extra。
+
 > 最新[H1 stretch/bend及self-Hessian消费](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)：
 > 8 GPU任务闭合，self-add六输出严格；335128实际primitive试验/1005384三端原生调用完整RHS/guard严格，3608484整数步骤同。
 > 两套实际RHS都验过；7216968真实PTX贡献同，但12 aggregate及正常H1 C8失败未重判。

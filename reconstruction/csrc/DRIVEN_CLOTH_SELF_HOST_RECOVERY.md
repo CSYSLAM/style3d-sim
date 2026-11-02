@@ -1,5 +1,9 @@
 # 驱动关节、布料与自碰撞：隔离候选7ca67172
 
+当前H1首NL self已闭合：双端7423完整record、22112448真实F32对应；850560原生逐query输出严格，6225792整数步骤核准。
+40原query编号控制及另76有效EF/三世界/4-5点T GPU调用严格，13GPU任务闭合；42aggregate及正常C8失败不改。
+仅本地接续第一子步10NL/全部20T及其他extra，见[完整证据](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-self-producer-spans/README.md)。
+
 接续首NL stretch/bend的两套真实RHS、各66930三角形/100634弯曲边已核：1005384三端原生调用全RHS/guard严格，
 3608484整数F32历史同；self-Hessian diagonal消费六输出严格，8 GPU任务闭合。
 12 aggregate及正常H1 C8失败保持，VF/EE/EF完整producer还待核；不将消费核通过扩大为全self。

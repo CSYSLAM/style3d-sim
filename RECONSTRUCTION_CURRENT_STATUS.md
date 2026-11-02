@@ -3,6 +3,7 @@
 最终目标是用仓库中的恢复源码编译独立`_core`，经正常Python API运行相关demo，
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
+用户最新要求仅在本地完成全部目标，不再上传或准备Git传输。
 
 最新组合候选host f07b35a4、公开Core aa3466ef，生产仍d09/Core55，尚未合入或切换默认后端。
 在ae基线上按旧SDK实证恢复驱动布料/self范围和self force调用顺序；12短程10项严格，
@@ -34,6 +35,13 @@ stretch/bend的12 aggregate失败保持；7216968条原/source PTX贡献相同�
 VF/EE/EF完整producer接触表仍待做，self-add消费核通过不替代生产核验收。接续其完整输入及matrix-free消费链，
 保留H1 C8失败和生产版本。数据/命令/Windows范围见
 [H1布料力及self-Hessian消费](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)。
+
+最新H1首NL self已闭合：完整CSR独立重建，双端7423个完整接触record对应同；22112448 F32和29692 append行号核准。
+全部真实VF/EE query及tangent contact、两套真实种子，850560三端原生调用完整输出/guard严格，6225792整数F32步骤CPU同。
+40个原query编号gate控制同；另76 GPU调用覆盖有效五点EF/三世界边界异常及4/5点tangent不同grid，原始输出全严格。
+首NL八完整输入的78输出仍36严格/42aggregate失败，H1 C8不改判；此证据不证明联合全局调度或后续NL。
+下一步第一子步全部10NL/每NL20T及其他extra传播，再继续正常demo验收。数据和命令见
+[H1实际self生产核与有效EF](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-self-producer-spans/README.md)。
 
 上一阶段颗粒/SO3/外部接触隔离候选ae3a5997，公开候选Core5688f23b，生产仍d09/Core55。
 四类构造五项全同、四initcheck零错、两短C8通过；正常公开Core的牛肉低分辨率3帧三source固定C8全过、原测试通过。

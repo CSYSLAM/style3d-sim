@@ -1,5 +1,12 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> 用户最新要求：先在本地完成全部恢复与验证，暂不上传。已停止上传及Git打包准备；下文历史同步计划不再执行。
+
+> 最新[H1首NL self生产核及有效EF](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-self-producer-spans/README.md)：
+> 850560原生SDK/PTX/f07逐query全输出严格，6225792整数步骤同，40实际query编号控制同；有效EF/三世界边界及4/5点T另76GPU严格。
+> 双端全部7423完整record对应，22112448实际F32核准；13GPU任务闭合。42aggregate和正常H1 C8失败仍保留。
+> 下一步第一子步完整10NL/20CG的self/tangent及其他extra，不重做已完成的首NL逐query，也不据此切换默认。
+
 > 最新[当前H1 stretch/bend与self-Hessian消费](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)：
 > self-add六完整输出严格；两套实际RHS、各66930三角形/100634边，1005384三端原生隔离严格，3608484整数F32历史同。
 > 12 aggregate及原H1 C8失败保留。8 GPU任务闭合；下一步VF/EE/EF完整producer大接触表与matrix-free消费，不能冒称self已全证。

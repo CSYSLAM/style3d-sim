@@ -8055,3 +8055,56 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   53539/c322f2全量verifier实际0：538590 frozen files、zero failures。
   20407/d0bacf stage实际0；5926d5实证279本批文件精确齐全，总286 staged，原PTX四文件36项空白警告actual2原样保留，
   自有26代码/文档whitespace actual0。全量核后仅追加此receipt并刷新WORK_LOG单项SHA，按完整阶段集中提交。
+
+### 2026-11-02：H1自碰撞真实CSR、完整有效接触表及首tangent
+
+- 第二阶段ecf0c4集中提交4787fab102dbfe9dd725b8d856d152e81fc6906a；源码/数学/生产和固定SDK/pyc未改。
+  SSH keepalive重试75750/feb4f2实际1：GitHub明确拒绝pack超过2.00GiB，非数值失败；remote原1fa未推进。
+  当前两个已完成阶段均有本地提交。30ba7f核pack设置均默认，35972在/tmp只试window100/2threads的有界本地pack，
+  先量真实大小再决定传输方案，不删证据、不假报remote成功，不动已经发布的历史。
+- 新目录continuation-20261102-f07b35a4-h1-self-producer-spans，efeb11 AST/128＋固定输入守卫0。
+  91918/96fdd7两实际GPU各0；只在正常H1首capture后读静态数据及实际allocation query，没有物理replay/图修改/额外GPU分配。
+  acf3f0独立CPU真实0：双端mesh33703、CSR100635 offsets/200790 opposite全部从实际66930 triangles/100634 edges重建，
+  全静态字节同。两端真实tangent backing均437046060 bytes＝7284101×60，首CG消费在rank102/grid256×256。
+- 新canonical h1_self_assembly_layout选择75VF、76EE、77EF、102full tangent；contact只抓131072条前缀并记录counter，
+  只有真实before/after计数全在范围且已存在prefix/末尾不变才确认有效记录齐全，不宣称读取437MB未用尾部。
+  5f107e CPU守卫50快照/105105340bytes每端；33071/4d36f5两个正常capture child各0。
+  两端真实计数同：VF0→2168、EE2168→7423、EF7423→7423、tangent读7423；EF本时刻零有效新增，不冒称有效EF算术通过。
+- 38673/683938独立CPU真实0：100copy descriptor/210210680bytes、原图节点/边及全部active-prefix覆盖同，
+  跨端50payload中27同。58390/e537a5真实0：两端全部7423条完整60-byte contact record multiset同（含未活动struct字段），
+  各阶段完整前缀逐字节连接同；25个cache差异均在33708..33838、与全部实际引用33703粒子索引交集为空。
+  没有忽略实际读入的质量/刚度字段或排序生产输入；record比较只在CPU副本进行。
+- b47f42生成fenced三端回放配方；每端完整437046060byte表实际reserve，缺省未抓尾部置诊断guard，
+  实际活跃prefix保持捕获原字节；越界写会保存完整guard失败，不依赖131072上界来避免物理越界。
+  84367/febb32实际GPU及独立CPU均0：8packet/24调用/78输出，36严格、42 aggregate非严格保留；
+  全10757831400实际after bytes/10584555336只读及guard bytes核准。EF24输出及VF/EE计数12输出严格，tangent仍非严格。
+- 本阶段未闭合/冻结/集中提交；接续原PTX/source真实F32贡献和原生逐query核验，旧C8/aggregate失败保持。
+  EE不能直接移动edge到row0：edge编号参与other排序及opposite CSR；下一步具体等价隔离方法写本阶段README。
+- 用户最新指示：先不用上传，在本地完成全部目标。停止所有后续push/分批传输计划；本地已完成的两个提交及全部证据保留。
+  当前没有活跃上传；已向本任务PID783086的纯Git本地pack优化发送SIGTERM，停止与本地求解器恢复无关的传输准备。
+  后续目标只在本地推进，旧文档中的待上传/同步计划是历史记录，不应据此自动重试上传。
+- 用户要求继续至最终目标并强调GPU；恢复本地GPU核验，不上传。d03261按实际原/source PTX核VF/EE/EF各一个u32 append site，
+  F32静态sites48/48/60，tangent21 sites且无append。新self_contact_operand_trace保留全部原指令并追加独立记录。
+- bab90f初版生成CPU128列guard拒绝130/129列，未写GPU worker或启动child；cf2421重写配方AST/128守卫0。
+  F32每producer线程1152、tangent128，append32；实际每launch线程都有计数，未用存储全检查0后无损packed保存。
+  71018/428acc根真实0，16原/source PTX GPU探针全完成；准入仍允许外部worldparticle，free17606MiB，不等待外部程序。
+- 86300/b60e95独立CPU实际0：22112448真实F32原子记录、29692 append返回行号全核，八packet原/source逐query操作数、
+  完整60-byte追加record次序全部同；VF/EE/EF跨两个真实上下文也同。tangent跨上下文方向/接触顺序不同未硬判同。
+  原PTX全部body指令在探针中逐行保持，实际参数/四诊断缓冲分配完整不相交、alignment及ABI全核。
+  normalized-operands保存原生逐query隔离所需目标/F32位值及按query对应的完整contact records，完整trace可按counts补0无损还原。
+- 083923/a989f1实读原SDK EE PTX：local edge ID rd156仅用于edge地址、CSR offsets地址及edge>=other；world为0。
+  下一步按真实slot保留循环，重定向edge0/offsets0..1，原other<=edge改为0保持原跳过分支；其他other不变，
+  原edge0时offsets0..1原样，原edge>=1时所有有效other>=2，不会误读被改的offsets1。
+  计划用原PTX额外只运行实际queryID的gate控制与重定位三端逐项比对，不能只靠源码推导宣布重定位正确。
+- 3a7719 native-query配方AST/128守卫0，27436/2eb3ff根实际0，六GPU child均0：两套实际seed全部33703VF、100634EE、7423T，
+  850560次原生SDK64a/原PTX/实际f07全RHS/Hessian/已有及新contact/counter/guard严格；40实际query编号gate控制严格。
+  18057/d1cc6c独立CPU实际0：6225792整数RNE/FTZ步骤、2747826实际改变word及352924666200全输出/guard GPU比较核准。
+  重定位只改工作count/指定metadata，world0和原geometry保持，EE真实index用途/gate已实证，不是直接丢掉edge ID。
+- 57927/fa9217根实际0，另76 GPU真实调用：复用既有edge_accumulate_cases三世界/边界/异常输入，显式选择SDK64a/PTX/实际f07，
+  不走legacy4c或SDK代算source。有效EF五点record、4/5点tangent grid1/7/256全部严格。
+  e7adb1独立CPU真实0，38完整输出对/76原始call输入输出全核，实际保存EE504/EF384有效records（含重复对照端），只读/物理guard同。
+- 495f65本阶段独立闭合真实0：13GPU任务/一driver内CPU child终态，原SDK/360pyc/生产/default不改；
+  首NL42aggregate及正常H1 C8失败不改判，不宣称联合全局调度或全部10NL通过。根状态/交接及本批README已更新。
+- 9a0b82冻结本批354文件＋manifest，primary355344/总538947，根JSON101097976 bytes。
+  1734/0a8dba全量verifier实际0：538947 frozen files、zero failures；20748/88e475本地stage实际0。
+  本阶段本地集中提交，不上传。下一批CPU布局de8085守卫通过：同一子步10NL/每NL20T，共230调用/1450快照/2777062040 bytes每端。
