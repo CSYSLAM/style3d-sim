@@ -1,5 +1,10 @@
 # CUDA 源码重建交接文档（给接手的 agent）
 
+> 最新[缓存返回与Newton mixed复核](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cache-return-sync/README.md)：
+> 允许共享GPU、自己的worker串行，732固定输入/4392次fenced三端调用全严格，独立CPU核完整原始字节。
+> 39缓存返回ready、33非阻塞consumer正确；只修mixed检查器，不改生产/阈值/固定失败，完整替代仍未完成。
+> 旧计划固定旧canonical SHA时使用保留as-run，不能绕过断言。显存足够即可继续，不恢复独占等待。
+
 > 最新为[ANYmal同一完整步及检查器同步修复](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-full-native-step/README.md)。
 > 35类/2608调用、5NL/250CG、5216输入/15648回放；1460非严格的2071168贡献同，6054word/12885GPU目标全核。
 > 已用同顺序/同地址控制复现旧检查器pageable H2D竞态，无fence6错/fenced750全严格；新回放均fence。

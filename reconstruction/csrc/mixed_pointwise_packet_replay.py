@@ -222,6 +222,8 @@ def main():
                 for trial in range(args.trials):
                     for backend in backends[trial % 3:] + backends[:trial % 3]:
                         reset()
+                        # Pageable H2D must complete before a nonblocking stream consumes these buffers.
+                        driver.check(driver.cu.cuCtxSynchronize())
                         function = functions[name][backend]
                         if backend == 'original-runtime':
                             status = launch_runtime(function, Dim3(meta['grid'], 1, 1), Dim3(meta['block'], 1, 1),

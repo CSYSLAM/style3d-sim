@@ -4,6 +4,10 @@
 本页没有修改生产数学、容差、固定source0或十次原版cohort。
 当前74仍是69严格；Newton mixed固定C10仍false，不能用本页局部证据改成整段通过。
 
+新增上传同步复核：同一732固定输入/4392次三端调用全部严格，完整实际参数、分配内输入/输出和只读字节另存，
+独立CPU核准。原回放/旧失败保持，canonical仅增加上传完成屏障；接续命令和边界见
+[缓存返回及fenced mixed复核](../../build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cache-return-sync/README.md)。
+
 ## 目标与实际采集
 
 目标为seed3的`mixed_w129_duplicates`。当前source0的18份三步目标状态与历史869源码目标逐字节同，

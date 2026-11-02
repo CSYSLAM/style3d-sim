@@ -4,6 +4,12 @@
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
 
+允许共享GPU，自己的worker串行，启动核剩余显存>=4096MiB，不等外部程序退出。
+本批Newton mixed固定732输入/4392次fenced三端回放全部严格，独立CPU核输出/只读/参数完整字节；
+运行时采样最低仍余15929MiB。39次实际缓存初始化返回ready，33次非阻塞consumer正确；不猜改生产同步。
+只修mixed诊断上传屏障，旧正常轨迹和C10失败保留。数据、准确边界与命令见
+[缓存返回及mixed同步复核](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cache-return-sync/README.md)。
+
 已确认并修复隔离检查器的pageable上传/非阻塞流竞态：同顺序同地址控制无fence6/750错误，有fence750/750严格。
 原始带rotation控制另有13/750错误，也完整保留；不据此改判正常demo或旧C8/C10。
 修正后的ANYmal同一次完整步覆盖35类/2608调用、5NL/250CG：5216输入/15648三端调用，3756严格。

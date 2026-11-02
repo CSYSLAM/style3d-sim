@@ -7574,3 +7574,31 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
   自己GPU全部终态，下一步正常demo固定失败；不能据局部证书或checker修复改判已有C8/C10。
 - 额外阅读initialize发现precompute之后仍有CG/self/fluid/granular缓存分配。已有1117/267/342同步只能证明对应段，
   不将带hook的pre-copy同步冒充未插桩初始化的全程安全证明；正常首步/显式stream路径可继续核此契约，暂不猜改生产。
+
+### 2026-11-02：共享GPU继续、真实缓存返回与Newton mixed固定输入同步复核
+
+- 接续起点67092eb4，远端csy同分支查询c7ecde实际0，完整SHA一致。原全步证据516844文件已冻结。
+  用户再次说明别的程序约用12G、自己demo应逐一跑；明确允许共享，自己的GPU worker串行，不再等外部程序退出。
+  启动实查当前余17993MiB；新调度只核free>=4096并记录进程/显存，没停止外部任务，没改预算/geometry。
+- 上一turn已生成cache-return-sync/probe实际0，本轮补独立CPU审计323d1a实际0：39实际编译缓存调用，
+  11种零类型及int+1/-1，各1/129/128871；立即legacy query全0，33非阻塞consumer全正确，负控制query600。
+  CPU重算22704176完整payload、19968guard及936参数字节。六整数案例没有非阻塞consumer，error flags未存raw，
+  不声称CPU重放query或全部初始化路径已证明。库par/CCCL200302本身同步，未猜改生产。
+- 检查旧mixed pointwise checker也使用pageable H2D后直接非阻塞launch；保存旧canonical as-run，
+  版本化fenced检查器另存全部实际参数、完整分配内before/after及输出。未更换原732固定输入或2trial/端预算。
+  generator f33821实际0；单GPU worker89935/50bd7c实际0，4392实际三端调用，732/732严格。
+  两秒采样最低free15929MiB，外部任务同期存在，自己的GPU进程约500MiB；不据采样声称瞬时峰值。
+- CPU审计初次227442实际1：独立脚本误写两个kernel mangled token；检查真实入口后更正，不改GPU输出/输入。
+  失败脚本和原因原样保留，含原129列一行；当前脚本改为<=128列。纠正后951253实际0，格式调整后08a222再核实际0。
+  重建732组实际输入、逐字节核291132实际参数、28811376输出、85948128分配内只读字节及250776计数字。
+  18个同起点alias packet保持，无不同起点部分重叠；501552输出字节明确为SDK首回放衍生apply dx目标。
+  没有分配外guard或完整3D launch捕获，不能扩大证明范围。
+- canonical mixed_pointwise_packet_replay仅补注释和上传后cuCtxSynchronize；旧SHA固定计划用保留as-run，不绕过断言。
+  原SDK64a、host0dab/Core715、生产数学/参数/阈值、360pyc、default及readyFalse不变。
+  当前74仍69严格、Newton mixed固定C10及旧正常demo/候选长程失败保持；局部核准不是完整solver验收。
+- README、根CURRENT/HANDOFF和csrc两入口均补准确边界、命令及WSL接续；后续继续正常固定失败和未捕获host组合。
+- freeze f70eef实际1：误用indent=2使原本compact的根JSON超过100MiB，root未写入，无GPU/求解修改。
+  保存失败脚本/中止manifest/原因，改用原compact separators保留全部条目；不是删证据或放宽限制。
+- 修正后freeze bea499实际0：776阶段文件、primary352909+indexed164712=517621，根JSON100410138字节。
+  真实全量verifier6370b5实际0：517621文件、零失败；staged格式门禁159e77实际0，自己的GPU worker均已结束。
+  验证后仅追加本行收据并更新其primary SHA；未重写已冻结阶段或原始证据。接续维持共享GPU/串行规则。
