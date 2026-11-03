@@ -30,6 +30,20 @@ CUDA graph capture is disabled during comparison (every substep is recorded eage
 | `*.py` (top level) | Python specification of the solver, imported by the tools |
 | `assets/` | Frozen robot assets used by the G1/ANYmal demos |
 
+## Run a demo with either image
+
+```bash
+.venv/bin/python -m reconstruction.run_demo --backend original examples/example_fluid.py
+.venv/bin/python -m reconstruction.run_demo --backend source   examples/example_fluid.py
+# headless, then compare the final states
+.venv/bin/python -m reconstruction.run_demo --backend original examples/example_body_spring.py --viewer null --save-final /tmp/o.npz
+.venv/bin/python -m reconstruction.run_demo --backend source   examples/example_body_spring.py --viewer null --save-final /tmp/s.npz
+.venv/bin/python -m reconstruction.compare_final /tmp/o.npz /tmp/s.npz
+```
+
+Example options pass through unchanged and the example runs in its default mode (CUDA graph capture on). Final
+states are bitwise identical only for demos whose reference is reproducible against itself (see the closure table).
+
 ## Build (Linux)
 
 Needs `build/toolchains/cuda-12.4`, `build/third_party/glm-1.0.1`, a C++17 compiler and the project `.venv`.

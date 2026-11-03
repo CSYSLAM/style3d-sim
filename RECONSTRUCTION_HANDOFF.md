@@ -1,3 +1,5 @@
+> **2026-11-03**：本文件是上一位 agent 的交接记录，其中引用的大量调试数据和快照已在整理时删除。当前状态见 `RECONSTRUCTION_CURRENT_STATUS.md` 和 `reconstruction/README.md`。
+
 > 当前先读[状态](RECONSTRUCTION_CURRENT_STATUS.md)、[逐demo进度](reconstruction/csrc/DEMO_CLOSURE_PROGRESS.md)
 > 及[正常源码安装](reconstruction/csrc/INSTALLED_SOURCE_GPU_VALIDATION.md)。下方所有旧“最新”属于历史。
 > 主host13d/Core1f309，CUDA176/f0e，固定SDK64a/360pyc；五优先demo按用户允许GPU浮点差异的口径闭环。
