@@ -91,6 +91,23 @@ sdist.include = [
     "/style3d-sim-bin/git_commit.txt",
     "/style3d-sim-bin/Windows/Release/*.pyd",
     "/style3d-sim-bin/Linux/Release/*.so",
+    "/scripts/build_recovered_extension.py",
+    "/reconstruction/__init__.py",
+    "/reconstruction/csrc/__init__.py",
+    "/reconstruction/csrc/build_standalone.py",
+    "/reconstruction/csrc/build_host.py",
+    "/reconstruction/csrc/build_native.py",
+    "/reconstruction/csrc/library_entries.py",
+    "/reconstruction/csrc/ptx_compare.py",
+    "/reconstruction/csrc/kernels/*.cu",
+    "/reconstruction/csrc/kernels/*.cuh",
+    "/reconstruction/csrc/library/*.cu",
+    "/reconstruction/csrc/library/*.cuh",
+    "/reconstruction/csrc/revisions/*.cu",
+    "/reconstruction/csrc/native/*.cpp",
+    "/reconstruction/csrc/native/*.cu",
+    "/reconstruction/csrc/native/*.h",
+    "/reconstruction/csrc/native/*.json",
 ]
 
 [tool.poe.tasks]

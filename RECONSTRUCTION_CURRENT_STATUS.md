@@ -1,262 +1,113 @@
-# 源码替换原版SDK：当前状态
+# 源码替换SDK：当前状态
 
-最新H1首NL完整20CG的六类extra共720输出严格；soft的120 aggregate非严格保持。
-全部40真实CG seed/355640接触的1066920次未插桩SDK、原PTX、实际f07调用全输出/guard严格，
-另355640 source记录器调用逐一证明忠实，790800步整数F32同。
-插桩原版在4个单接触控制中改变了结果，错误的分步平方候选被原生SDK否决；旧源码数学保持。
-[数据/原始失败/命令](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-soft-offdiag-friction/README.md)，[记录器验收边界](reconstruction/csrc/PTX_PROBE_VALIDATION.md)。
-正在捕获并核对20个NL各自完整CG链；旧H1 C8、aggregate失败/default/readyFalse保持，最终目标未完成。
-以下“soft正核对/10NL待做”等为历史阶段，不能据旧叙述重跑队列或应用错误候选。
+最终目标尚未完成。只在本地推进，暂不上传；默认后端仍为SDK，`solver_api_ready=False`。
+GPU实际数值及完整轨迹是验收依据，正常退出0不代表与原版完全一致。
 
-当前H1已补第一个物理子步全部10NL/每NL20T：460同输入的241968504真实F32及121662 append行号同，
-440完整接触表连接核准；真实有效EF及对应全部20CG五点T的126三端原生调用全输出严格，42控制/720整数步骤同。
-46GPU child闭合；1560 aggregate和正常H1 C8失败保持。七类CG extra的840三端回放已实测720严格，
-余120为soft off-diagonal，正在GPU核实际贡献；候选未合入，最终替代仍未完成。
-[完整数据、命令及接续](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-ten-nl-self/README.md)。下文“10NL/self待做”等为此前阶段历史。
+最新验收口径：用户已明确允许GPU浮点差异，要求严格核准算法、调用调度和完整demo行为。
+历史逐位差异及旧失败样本继续保留。按一个demo闭环后再换下一个推进，暂停新增host组合。
+ANYmal已按此口径闭环：正式示例两处前端修复落地，双端500帧及完整调度已复验，原版共有穿地缺陷仍报告。
+新正式对照最坏位置差6.347mm，source上尾大于本批SDK上尾，完整统计如实保存；不宣称逐位通过或通用误差界限。
+cable bend也已闭环：三SDK/两source完整默认510原测试全0，完整730节点及同输入CG数学核准，原/源位置差小于SDK自差。
+bundle、cloth-particles、ball_cloth也已闭环；后两项均实际原默认100，全部原测试0，完整调度及原物理检查独立核准。
+五demo状态见`reconstruction/csrc/DEMO_CLOSURE_PROGRESS.md`，五项已按新口径关闭，仍不是全部solver完成。
+最新版源码已从无SDK副本离线构建普通wheel并独立安装，五个原demo直接GPU运行已验证，仅映射源码Core。
+四项原测试0，ANYmal仍为同样已知ground失败1；命令见`reconstruction/csrc/INSTALLED_SOURCE_GPU_VALIDATION.md`。
+UR10默认128world/100复现对照也已核准：真实SIX力/Hessian32调用全严格，共有3.437km子步跳变及完整world严格同。
+原例严重Cayley病态保留；不认证物理稳定、逐位长程或位置误差上界。见`reconstruction/csrc/UR10_GPU_DEMO_DIAGNOSTICS.md`。
+Dzhanibekov默认SynReal/100也已闭环，三运行四通道全部逐位同，frame38翻转，COM漂移5.77e-10m。
+fluid五鸭默认32/600已闭环，三原测试0，独立全密度/漂浮/轨迹及2354节点核准，当前同输入row8调用全输出严格。
+新增诊断工具只核Model真实读取字段，不宣称opaque Model全部还原；旧C8/W3/eager失败及原过渡穿透保留。
+当前仅活动项颗粒牛排原默认resolution64/360/no_cut=True；自动切割另需单独验证，不改SDK环境或外部训练。
+本轮接续见`reconstruction/csrc/ANYMAL_GPU_DEMO_CLOSURE.md`，最新事实优先于下方历史严格判据的阶段记录。
 
-最终目标是用仓库中的恢复源码编译独立`_core`，经正常Python API运行相关demo，
-不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
-当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。
-用户最新要求仅在本地完成全部目标，不再上传或准备Git传输。
+## 当前主版本
 
-最新组合候选host f07b35a4、公开Core aa3466ef，生产仍d09/Core55，尚未合入或切换默认后端。
-在ae基线上按旧SDK实证恢复驱动布料/self范围和self force调用顺序；12短程10项严格，
-两项W3/PD/surface对固定8SDK的三source检查全部失败，三个独立原版控制也全部失败，均保留。
-四类构造五项全同；颗粒外部接触六项回归4项严格，原有两个W3差异仍在。
-真实H1 free正常公开API固定8SDK/3source、4帧（capture＋3replay），原test_final均退出0、源码未映射SDK。
-三source固定C8为[true,false,false]，三个独立SDK控制为[true,true,false]；所有初始状态同、首source0原字节保留。
-完整6120节点/6119边、有效参数及270指针对应全同，含8 alloc/8 free；本轮已补首NL完整CG及三个装配核的实际完整输入。
-四类self/drive initcheck零错；H1两端各7错已定位为仿真后NaN扫描读取BVH uint32缓存的未用尾部（有效50/容量99）。
-该host只读不写回仿真，原actual97和完整轨迹失败均保留，不能据此改判H1或候选通过。
-上一阶段68个GPU诊断/对照任务和独立CPU已闭合。
-源码、实际so、原始失败和WSL命令见
-[当前组合候选与H1](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-ae3a5997-driven-self/README.md)。
+- host：`13d6290f`；公开Core：`1f309794`，位于`build/reconstruction-csrc/source-core/9c57b3335772646f`。
+- 两镜像由主源码重新编译，与最终已验private二进制完全相同。
+- 932遗留权重key碰撞已修复：统一spring/distance/line/drive次序并移除旧remap；主构建旧32组完整回归全严格。
+- CUDA176入口（129 owned＋47辅助），CUDA数学digest `f0e0137a…`保持。
+- 固定SDK仍为项目内`64a0be7f…`，360冻结pyc保持。源码端不加载SDK、不需要账号。
 
-最新H1首NL20CG的166完整输入/498次三端回放：624非归约输出全部严格，240标量仅2严格、238失败保留。
-三个装配入口六完整输入的36个aggregate输出均非严格，包含原SDK自身同输入重放；没有据此改判通过。
-实际22006912原子记录逐一核原/source PTX目标/顺序/F32同；两端8891个44-byte接触记录multiset同而次序不同。
-进一步原生SDK/原PTX/当前f07逐个实际接触及三角形隔离：力8891、两套矩阵初值各8891、膜Hessian66930，
-共280809次完整输出严格，5561038整数F32历史独立CPU同；膜核完整输出/guard比较器先经CPU完整回读破坏控制核准。
-13 GPU任务及独立CPU全部闭合，生产数学/镜像/容差/固定C8保持。这证明本批实际贡献算术，不证明联合全局原子调度。
-下一步继续aggregate硬件证书、自碰撞/其余装配及后续NL/CG extra/子步；没有覆盖全部默认20NL或601帧。
-数据、准确scope、历史命令及新WSL接续见
-[H1首轮CG与三个装配入口](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-first-cg/README.md)。
+此前完成：[cable/驱动/普通约束/实际刚体接触恢复](reconstruction/csrc/CABLE_DRIVEN_PLAIN_CONTACT_HOST_RECOVERY.md)。
+112压力组合/89688 owned调用、十四constructor五项、十四公开graph120、七组双端initcheck3（14 worker）均通过。
+七种组合240步历史/复用/扩容完整严格，484080调用同，实际正history命中和六缓存重分配已核。
+主五正常demo60＋十四canonical graph120共19 GPU worker全0；112完整数组对1011136字节独立复核严格。
+30步coverage不足和近静止coverage不足均原样保留；原压力场景只延长时长即通过，原有六份前30步完全重现。
+这里只改两处host范围保护，GPU数学、阈值、迭代和固定SDK不动。
+此前[cable/drive/mixed plain恢复](reconstruction/csrc/CABLE_DRIVEN_MIXED_PLAIN_HOST_RECOVERY.md)保持；
+原932权重key兼容回归已在a6d9修复，旧32组/12576调用与首force前后buffer已在a6d9主/private严格回归。
+五个正常demo仍为粒子、ball_cloth、cable bend、bundle、ANYmal；退出0不改判旧长程或物理失败。
 
-继续已闭合首NL stretch/bend及self-Hessian diagonal消费：36完整快照/27758240 bytes全核，self-add六完整输出严格。
-stretch/bend的12 aggregate失败保持；7216968条原/source PTX贡献相同，两端对应primitive同。
-进一步两套真实RHS初值、每套66930三角形＋100634弯曲边，1005384次原生SDK/原PTX/f07完整RHS及guard全严格，
-3608484整数F32历史和10825452实际写入值独立CPU同；8 GPU worker及CPU审计闭合。
-VF/EE/EF完整producer接触表仍待做，self-add消费核通过不替代生产核验收。接续其完整输入及matrix-free消费链，
-保留H1 C8失败和生产版本。数据/命令/Windows范围见
-[H1布料力及self-Hessian消费](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-cloth-forces/README.md)。
+此前bc81的[PD矩阵调度恢复](reconstruction/csrc/PD_MATRIX_DISPATCH_RECOVERY.md)：24严格控制、四graph、双端initcheck已验。
+更早SIX/constitutive/cable等源码和证据保留。旧176e的74回归71严格/三粒子失败没有继承为新主通过率；
+当前13d未重跑整套74，旧C10和长程失败保持。源码wheel和无SDK的sdist曾实际构建运行，不代表所有demo一致。
 
-最新H1首NL self已闭合：完整CSR独立重建，双端7423个完整接触record对应同；22112448 F32和29692 append行号核准。
-全部真实VF/EE query及tangent contact、两套真实种子，850560三端原生调用完整输出/guard严格，6225792整数F32步骤CPU同。
-40个原query编号gate控制同；另76 GPU调用覆盖有效五点EF/三世界边界异常及4/5点tangent不同grid，原始输出全严格。
-首NL八完整输入的78输出仍36严格/42aggregate失败，H1 C8不改判；此证据不证明联合全局调度或后续NL。
-下一步第一子步全部10NL/每NL20T及其他extra传播，再继续正常demo验收。数据和命令见
-[H1实际self生产核与有效EF](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-self-producer-spans/README.md)。
+## 未完成与接续
 
-上一阶段颗粒/SO3/外部接触隔离候选ae3a5997，公开候选Core5688f23b，生产仍d09/Core55。
-四类构造五项全同、四initcheck零错、两短C8通过；正常公开Core的牛肉低分辨率3帧三source固定C8全过、原测试通过。
-W3长程12组只有首source9/12、全部三source8/12，候选未合入；三个相同SDK控制也仅10/12、9/12、9/12。
-PD/eager/source0最早失败的前两帧六数组，与同一个真实SDK控制完整前缀逐位同；不据此改判整段失败。
-源码、实际两个.so、原始失败、正常API和WSL命令见
-[当前颗粒外部接触候选](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-granular-contacts/README.md)。
+非SO3＋布片private48为33严格/15失败，全部26016调用元数据同，范围保护尚未合入。
+原生SDK/源码surface逐接触及实际原子操作数同，body block36 packet/864同输入调用也同；
+这些局部证据不能替代完整联合轨迹，不能按误差小或逐word累加可达放行。
 
-当前 d09/Core55 的 G1 另固定三次真实 graph60，对照原八份 SDK，C8 仍失败，123 个字段/帧越界。
-最新已补同一次受控第4子步全部5NL/250CG及apply：7620份非归约全严格，1704标量严格失败保留；
-1000份实际归约输入贡献同，6000次SDK/PTX/source隔离及2633份硬件F32证书全部通过。
-原子证书不证明联合调度或完整轨迹等价，当前没有改生产数学或重判旧失败。
-见[同次五NL及接续host组合](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-d09d4be9-g1-fourth-five-nl/README.md)。
+此前bc81做过[G1真实graph60诊断](reconstruction/csrc/CURRENT_G1_CORE_BC81.md)：两端原test0，
+source对旧C8位置60/60、速度59/60，仍失败；新SDK控制也被旧规则拒绝。旧23.85尖峰未解释，基准不改。
+H1/ANYmal/G1、自碰撞/颗粒/流体的其它旧长程或固定cohort失败均保留；H1两端601帧触发原穿地断言，不算通过。
 
-当前主源码/host为d09d4be9，匹配公开Core为55d626f0（`source-core/9cb2fcaa1082d1df`）。
-已修复六块cable缓存typed-zero/位置及distance/point-line的weight上传顺序；176 kernel specs和CUDA digest保持。
-新生产104个cable组合全部严格；新image独立74回归为71严格，三个粒子首source0的固定C10均在原版波动范围内。
-严格失败原样保留，这不是74项全逐位同；旧0dab的Newton mixed C10失败也没有被重新判成通过。
-当前Core的八个正常入口运行全0、无SDK映射，含用户五例各60帧；接口成功不证明其完整轨迹/物理验收通过。
-旧0dab完整checkpoint已保存；过程、实际so、结果和新WSL命令见
-[本批合入及验证](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-b82ecd80-cable-closure/README.md)。
-以下“生产仍0dab/Core715”和b82段落为历史阶段；当前image结论以本段及WORK_LOG最新终态为准。
+cable＋drive＋两/三种plain无接触范围已合入；[cable完整首帧CG核对](reconstruction/csrc/CABLE_FULL_CG_CONTEXT_RECOVERY.md)
+新抓四份完整首frame，920同输入packet/2760 GPU调用：全部向量严格，375 packet只差两个归约标量。
+400归约上下文76800实际lane对相同，2400预定目标由1339真实GPU原子顺序证书精确复现，独立CPU复核通过。
+该局部结果不关闭旧C8或长程失败，生产数学未改。
+cable/drive/plain的实际rigid contact范围已合入dd62并保留。
+此前[非SO3纯普通约束恢复](reconstruction/csrc/NONSO3_PLAIN_CONSTRAINT_HOST_RECOVERY.md)已合入d3f/Core18e：
+96组/34056调用、24构造五项、24真实graph120、12组双端initcheck3（24 worker）全部通过，独立CPU已闭合。
+主五正常demo60＋24 canonical graph120共29 GPU worker全0；192完整数组对1733376字节独立逐位复核。
+只开放已证明的纯ordinary范围，CUDA数学/调用顺序不动。正在验证[非SO3关节](reconstruction/csrc/NONSO3_AXIS_JOINT_HOST_RECOVERY.md)。
+非SO3关节现已合入13d/Core1f309。v1的SIX/无drive prismatic/AL/PD严重差异保留并已修复；
+根据真实SDK恢复PD/AL line的块预条件器和extra product，及零alpha下joint AL物理调用门槛。
+192完整控制/79938调用、24零alpha/8550调用严格，
+旧SO3零alpha八组及首败/边界九组也严格；48构造五项、48真实graph120、24组双端initcheck3全通过。
+主五正常60＋六预定package graph120全部0；48完整数组对433344字节独立逐位同。
+主两镜像均与已验private完全同，CUDA176/f0e数学不动；旧74/C8/C10/长程失败没有重判。
+继续按实际SDK恢复尚被保护拒绝的host组合，并处理完整demo差异。所有修复先保存首差、读实际调用/反汇编再修改，
+维护固定SDK、首次样本及门槛。完整目标验收后才切默认/ready。Windows继续WSL2＋NVIDIA CUDA＋Python3.12。
+详细进度看WORK_LOG末尾和本批恢复页；旧状态保存在`reconstruction/history`，按历史时间理解。
 
-新增缆绳＋plain刚体约束隔离候选b82ecd80，生产仍0dab/Core715。
-实际发现并修复六块缆绳缓存的晚分配/五块未初始化问题；原SDK为提前typed-zero，原构造失败保留。
-24短程及10680 owned调用一致，六构造五项同，459完整CableView对核准；60步96/96严格，双端12份initcheck均零错。
-合入前继续混合plain约束及penalty/reset分支，再对新生产image/Core重验，不继承本批局部结果为全solver通过。
-实现、原始失败、实际so及Windows/WSL命令见
-[缆绳与刚体约束恢复](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cable-body-constraints/README.md)。
+当前正式demo首差：主13d/Core1f309的cloth-particles，原版/source均真实graph60且原测试0，初始完整状态同，
+60帧数值仍不同；第一帧位置max7.1049e-5、速度max0.022244，最早为布片顶点1，不能按退出0计一致。
+数据见`build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-13d6290f-public-five-graph`。
+首对照及独立CPU全帧审计已保存；完整24860节点/24859依赖、所有typed参数及跨节点指针别名关系同。
+26份只读模型/缓存输入共2267844字节也逐位同。六个函数的编译资源属性有差异，尚未证明为原因。
+独立诊断graph增加58个D2D观测节点，首次非线性迭代的拉伸力后RHS首差213 word、max3.7253e-9；
+该入口的预测位置和入RHS逐位同。观测路径没有重现已冻结60帧首样本，不能据此关闭正式轨迹失败。
+实际两端CUfunction隔离拉伸贡献完成：10368个有效atomic分量逐位同；scatter仍差61 word。
+原/源观测和direct四份目标的327个不同word、1308标签，由673次真实GPU原子顺序证书全部精确复现。
+Hessian实际两端CUfunction的93312逐三角形有效atomic分量也同；全局row-count实读核准。
+四目标343 word/1372标签由687真实GPU顺序证书全复现，原trace259差异均覆盖；独立CPU全核，继续首CG。
+三个已存原版60帧、同镜像/初始state/参数，三种相互组合q/qd均0/60帧逐位同，原版自身重复也有差异。
+这些局部证据和重复性事实不证明全局执行顺序或关闭原60帧失败；生产数学、资源和门槛未改。
+首CG及首apply同输入实际核对32次全严格，34500有效归约lane对同；四上下文12目标有8真实GPU顺序证书。
+独立CPU核69000硬件history word；未声称首帧全部CG迭代或60帧通过。apply清零误标readonly的探针首败保留并已修正。
+ball-cloth独立正式60已做：两端原测试0，完整state初始同，但q/qd都0/60严格帧；4238节点typed全同。
+frame0 q max2.03848e-5、qd max0.00117302。首观测差异先在布片stretch，不能直接归因四面体球。
+实际两端×两真实输入×三四面体核normal/isolated共24调用，38400有效分量严格，全部guard/readonly独立CPU核准。
+controller末尾NumPy bool JSON错误1保留，独立CPU恢复报告，没有重跑GPU；完整ball轨迹失败不改。
+详见[正式GPU诊断接续页](reconstruction/csrc/CURRENT_PUBLIC_GPU_DEMO_DIAGNOSTICS.md)。原public-five首cloth失败及其余三demo本轮未验状态不改。
+不改生产数学或放宽门槛，最终目标仍未完成。
 
-允许共享GPU，自己的worker串行，启动核剩余显存>=4096MiB，不等外部程序退出。
-本批Newton mixed固定732输入/4392次fenced三端回放全部严格，独立CPU核输出/只读/参数完整字节；
-运行时采样最低仍余15929MiB。39次实际缓存初始化返回ready，33次非阻塞consumer正确；不猜改生产同步。
-只修mixed诊断上传屏障，旧正常轨迹和C10失败保留。数据、准确边界与命令见
-[缓存返回及mixed同步复核](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-cache-return-sync/README.md)。
+cable bend已核原60和默认完整510帧：60两端原线性挠度测试失败，默认510两端原测试均0。
+完整四state全部保留，730节点typed/global aliases全同，四channel仍均0/510逐位帧；不是数值通过。
+接续bundle180帧以越过原test的release＋0.4s早退条件，记录实际覆盖，不把短时长退出0当塑性已验。
 
-已确认并修复隔离检查器的pageable上传/非阻塞流竞态：同顺序同地址控制无fence6/750错误，有fence750/750严格。
-原始带rotation控制另有13/750错误，也完整保留；不据此改判正常demo或旧C8/C10。
-修正后的ANYmal同一次完整步覆盖35类/2608调用、5NL/250CG：5216输入/15648三端调用，3756严格。
-余1460份的2071168真实贡献同，6054差异word/12885目标均经fenced GPU复现，708910历史word经独立CPU核准。
-500份SO3 tangent全严格；12298个实际值连接及88个初始化完整buffer跨端相同，8个CSR输出CPU独立重算相同。
-只改诊断上传屏障和同仓库证据索引，生产host/Core/SDK/数学不改；每scalar证书不证明联合全局次序或完整轨迹通过。
-本批已补全同一上下文，接续回到正常demo及固定失败；旧无fence隔离回放需先复核，不用于猜改生产数学。
-原始数据、控制、fenced命令和Windows接续见
-[完整native step及同步修复](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-full-native-step/README.md)。
+bundle180现已实际覆盖释放后检验，两端7根/40segments/Dahl原断言均0，完整1977节点typed/global aliases同；
+四state仍0/180严格帧，不改判数值通过。
+ANYmal默认8world/500原例虽两端退出0，却首帧产生约135.8速度，最终高度约870、全部136 body超原0.25。
+实际generated CUDA证明multiline速度lambda丢了<0.25而返回float，故原test是假阳性，不能算物理通过。
+版本化副本已验证两处前端问题：FK后调用既有proxy sync，及把原速度判据合成一行。Native/原根example未动。
+sync两端均补了约0.68m proxy初始位置，异常起飞消失；最终速度原0.070/source0.043，原ground断言仍失败32FOOT。
+8次真实GPU谓词查询已确认旧式漏拦、修正式正确，不重跑/修改native状态。正在核实foot实际碰撞几何与body原点。
 
-ANYmal五NL完整RHS/预条件器及outer状态已补查：222完整输入/666三端调用，181严格。
-余41份的175840项真实原子贡献同，全部726差异word/1477目标由真实GPU复现，19004历史word经独立CPU核准。
-298个实际值连接及4个public particle输出相同；所有状态更新、inverse、末位置/速度更新等同输入严格。
-该阶段只抓CG首/末，完整五NL已由上述新捕获补齐；各批中间数据仍不能混用，整段及旧失败不改。
-选择copy的独立诊断hook保留全部2608个launch和原ordinal，原hook/生产未改；两端各3098个raw文件全集精确匹配。
-结果、尺寸区别及命令见
-[五NL组装与状态](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-RHS-preconditioners/README.md)。
-
-ANYmal首NL的六类matrix.extra生产者及direction/matrix已补齐50轮：800完整输入/2400三端调用，552严格。
-248份非严格输入的545056项真实原子贡献同，全部892个差异word/1785目标由真实GPU复现、62940历史word经独立CPU核准。
-1300个真实地址与字节连接全同，包括六算子累积到matrix.arg5；soft/limit此上下文未改输出，不外推一般分支。
-原严格失败及完整轨迹失败不改；本批之后的RHS/预条件器和outer状态已由上述新上下文补查，完整CG传播仍未闭合。
-范围、计数陷阱、实际终态和命令见
-[完整50轮extra生产者](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-CG-extra/README.md)。
-
-ANYmal同一public起点的首NL全部50轮CG核心已补查：430份完整输入/1290次三端调用，232份严格。
-198份非严格仅世界系数归约差，所有向量/矩阵输出同输入逐位一致；原失败退出1保留。
-108800对真实原子贡献相同，全部1017个差异word的2303个实际目标已由真实GPU累加排列复现，
-独立CPU核156604历史word；1096个观测生产/消费字节连接全同，包含末update→首apply。
-每标量可达排列不证明全局联合次序；该阶段未全回放的六类extra生产者已由上述新上下文补查，完整轨迹仍未通过。
-本批2303次GPU证书在外部任务运行、余17553MiB时已完成；继续显存准入和自己的worker串行。
-结果、失败搜索、命令及准确接续见
-[完整50轮CG核对](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-first-CG/README.md)。
-
-用户纠正GPU准入后，已取消“GPU必须独占”的自设条件；只检查剩余显存至少4096MiB，自己的worker始终串行。
-原空等队列70166/99307/39819均由本agent停止并实际退出143，没有启动自己的GPU worker，也未停止外部任务。
-粒子落布、ball_cloth、bundle、ANYmal各3/60帧原版/源码均实际退出0、状态有限，但四例完整逐位对照均未通过。
-另五例通过真实公开源码Core715运行60帧，未映射SDK；正常Graph报告没有完整逐帧状态，不当作数值一致。
-增加四份60帧原版重复，粒子原版自身最大位置差1.39326m；两个原版样本不能充当C8或改判源码通过。
-首轮拉伸/弯曲/膜矩阵123840项实际GPU原子操作数同；215个拉伸、166个膜矩阵差异有762次GPU累加顺序证书。
-另六组真实变形几何的54次未改核调用/36次追踪，743040项原版/源码实际操作数同，独立CPU核准。
-足时长十个原始test_final均正常返回；其中ANYmal是假阳性：Warp提取多行lambda漏掉<0.25，
-真实GPU/独立CPU核两端各136刚体均超速，不计settling通过；其余四例原/源八次原始测试正常。
-这些均不代表完整轨迹验收；旧C8、当前74及生产镜像保持。
-新结果、限制、命令和接续见[四demo实际结果](reconstruction/csrc/OFFICIAL_DEMO_FOUR_SHARED_GPU_RESULTS.md)。
-604f的准备页及71文件清单保留为历史，不能据旧页重启已经停止的队列。
-
-ANYmal追加500帧eager及原版Graph重复均实测，异常双端都有，不是Graph独有。
-首Python预测器在native step之前已因eval_fk后未同步代理而产生约136的伪速度；四真实观测双端逐位同。
-诊断副本仅调用已有sync_affine_body_state及合并测试lambda，首伪速度归零；500帧两端速度均达原界限。
-但两端同有32脚部高度失败，原界限未改，副本未合入。结果与接续见
-[ANYmal初始化定位](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-graph-eager/README.md)。
-
-ANYmal脚部进一步实测：两端球面均实穿透约3.4至3.6cm，静态几何/材质逐位同，未调整高度阈值。
-同一冻结状态的真实一步仍不同；首次接触前只有160条完整接触记录的排列不同，集合完全同。
-完整force/tangent四输入/12三端调用2严格；33280真实原子贡献同，跨两运行按接触对应的16640贡献也同。
-回放剩余12个word由24次真实GPU、144个历史word全复现，保存每线程目标内顺序，不推断全局次序。
-完整一步/长程失败不改，继续位置是接触后RHS/CG完整传播；
-[真实脚部与接触核](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-0dabbaa7-anymal-foot-contact/README.md)。
-
-当前正式cable bend stiffness的Newton/PD各60帧均独立运行，但固定8原版/3源码逐步C8两mode全false。
-另六份held-out原版也全false，不能单靠该失败判源码错误；记录和后续首CG核对见
-[cable bend实测](reconstruction/csrc/OFFICIAL_CABLE_BEND_0DABBAA7.md)。
-
-新增驱动布料/self隔离候选7ca67172：实际SDK12组合支持、生产12 guard拒绝；据SDK恢复两处范围条件及self force位置。
-候选9243调用参数/geometry全部同，10短程严格、两W3/PD/surface固定C8均三source false；四类constructor五项全同。
-首表面力25输入/RHS同，792三端逐接触输出严格、每端8496真实操作数同；后续大响应尚未完整解释，候选未合入。
-首次非隔离593证据仍不计隔离验收；隔离重跑已产出593份GPU结果并通过独立CPU，旧根工具退出码unknown保留。
-源码、原始数据、编排失误记录及WSL接续见[驱动布料自碰撞](reconstruction/csrc/DRIVEN_CLOTH_SELF_HOST_RECOVERY.md)。
-接续CPU已核两个失败组合144对surface视图，以及四类场景每端258次设备复制/396次byte fill，记录范围内全同。
-后续四worker已结束：2376阶段/29844快照及独立CPU过；1188份完整输入的3564次三端调用全部严格。
-新轨迹仍有大响应差异且未复现旧冻结轨迹，两个旧C8均false。首scale792隔离调用同、155份GPU标量证书过。
-contact记录集合相同但16个行位置不同；scale差异落在代理上，首VF/EE/EF Hessian同，不认作大响应根因。
-三个刚体块算子的198实际输入/594回放全部逐位同，独立CPU通过；首CG前RHS已差，完整轨迹仍失败。
-当前结果及继续点见
-[驱动self结果](reconstruction/csrc/DRIVEN_CLOTH_SELF_RESULTS_20261101.md)。
-
-完整PD tangent本批已结束：51120阶段实采/CPU核准，固定四帧2112输入的6336次三端调用全严格。
-其余1296输入/3888调用为1165严格、131份仅CG标量归约差异，逐粒子完整向量全同；
-131份原始操作数原版/源码逐位同，1048次诊断调用给出262份完整三组标量GPU证书，独立CPU全过。
-三条新轨迹首差均已连接到相同完整输入和两端GPU证书，不能外推为旧source0/frame32长程通过。
-本批新原版/三源码轨迹对旧C8均false，旧失败、生产数学和候选未合入状态保持。
-原始数据、命令和下一步见[完整PD阶段核对](reconstruction/csrc/PD_CONTACT_FULL_TANGENT_QUEUE.md)。
-
-当前构建已推进到host `0dabbaa7` / Core `7151054e`（`source-core/5037032b98b9d614`）。
-已合入验证后的bonds/刚体构造及准入；16短程、24项graph、三个正常Core入口及103/57/246合同已过。
-完整74已结束：69项严格一致，particles seed1/2/3、mixed_cloth seed3、pd_mixed_cloth seed3共五项严格失败。
-固定当前source0的十次原版对照已输出五项：三个particles与PD mixed在原版波动范围内，Newton mixed仍越界。
-独立CPU复核实际0，五项结论均复现；当前三类constructor五项全同、driver实际0。
-严格失败记录全部保留，不继承旧dec的通过项。
-当前Newton mixed已重新采集0dab的冻结失败路径：732公共packet/4392三端回放及72散射packet均核准。
-world85首差定位到调用90弹簧RHS，真实GPU相同操作数的两种顺序精确复现两端；固定C10仍false。
-详见[当前mixed固定路径](reconstruction/csrc/CURRENT_MIXED_FIXED_0DABBAA7.md)。
-外部接触组合隔离候选`4f638b4b`已编译：六SDK支持、当前生产六guard拒绝，候选四短程严格、两短程固定C8过。
-四类constructor五项全同、六initcheck零错误；60步严格16/24，长程固定C8三source为10/12。
-W3/subset/mixed/PD的eager/graph仍未通过全部长程门禁，候选未合入。
-见[外部接触恢复记录](reconstruction/csrc/GRANULAR_AFFINE_CONTACT_HOST_RECOVERY.md)。
-候选已独立跑现有牛肉demo低分辨率三帧，固定C8/独立CPU过；该短程配置不代表默认/长程验收。
-接续PD失败组合：两个实际graph的拓扑/已审计参数及跨graph指针模式同；
-960真实SO3输入/5760次三端调用完整输出严格，独立CPU重读及240份公开位置对应检查通过。
-新观测先出现位置输入差，再出现rotation差；旧固定长程失败不改。
-见[PD graph与SO3核对](reconstruction/csrc/PD_CONTACT_GRAPH_SO3_RECOVERY.md)，下一步向前核RHS/接触/颗粒与线性输入。
-接续已实采21600份RHS/CG阶段，三条新诊断首差均为同输入CG分母第三组1 ULP；
-72次真实SDK/PTX/source与18份GPU F32顺序证书核准，后续两向量36次同输入回放也全严格。
-旧固定长程失败不改，下一步补CG extra/tangent及后期接触完整输入；
-见[RHS与首CG差异](reconstruction/csrc/PD_CONTACT_RHS_CG_RECOVERY.md)。
-
-## 已经做到
-
-- 已重建176个CUDA入口：自有129、辅助47（Thrust22、CUB25），已纳入固定源码/版本清单。
-  这不代表原版全部host组合和完整长程仿真已经一致。
-- 已能从源码编译独立host扩展及真正的公开`_core`扩展。
-  现有公开入口验证能独立运行Dzhanibekov、塑料袋及G1示例，没有映射原版SDK。
-  G1原示例退出0不代表其独立长程一致性通过，原速度测试存在已记录的多行lambda读取问题。
-- 当前0dab的74项回归为69项严格一致；这不是总体完成率，也没有涵盖全部长程及材料/约束组合。
-  严格相等和固定原版重复运行的波动检查分开记录，不能将后者写成逐位一致。
-- 历史dec阶段：颗粒＋SO3刚体的隔离候选完成四短程、构造五项、60步eager/graph16项、双端initcheck及六扩展布局验证。
-  六布局状态全部逐位一致；两块中间buffer差异由真实SDK复现并定位为链表输入顺序，旧严格失败保留。
-  已合入新host dec858e5，其四短程、六布局及16项60步graph本次全严格；当前74已完成71严格，三个粒子固定C10全过，constructor五项全同。
-
-## 仍需完成
-
-1. 当前d09仍须相关正常demo的完整轨迹验收；本次71/74及三个粒子固定C10不能外推全部范围。
-   旧0dab Newton mixed固定失败保持，新image本次mixed短程严格通过不能改判旧source0。
-2. 继续解决G1及复杂布料的长程固定对照失败；G1旧速度误差约23.85的尖峰尚未完整解释。
-   已有大量同输入核对及归约顺序证据，不能据此把完整轨迹失败改判为通过。
-3. 继续颗粒/刚体加外部接触隔离候选的PD多世界长程首差；其余未验证host组合仍需逐一实测。
-   粒子seed2在旧host38的固定失败保留；当前0dab应按本构建的实际固定结果记录，不能相互继承。
-   未捕获的组合总量尚未封闭，不能只按74项回归的失败数计算剩余工作。
-4. 全部所需范围验收后，切换默认加载至源码构建后端，完成可安装交付及新机器复现。
-   Windows当前使用WSL2；原生Windows移植尚未完成。
-
-## 本轮记录及继续位置
-
-当前生产合入证据目录：
-`build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-bonds-production/`。
-`validation-0dabbaa7-v2/status.json`记录主验证，`constructors-0dabbaa7/status.json`记录三类构造；
-两个生产验证driver分别是session68428与29879，均已真实结束0；该生产队列已结束，新诊断队列见顶部。
-固定原版为项目内SDK64a，源码独立运行且无原版映射；原版及360份冻结pyc保持。
-当前74严格失败五项，固定source0未替换。Newton mixed固定C10仍false，不宣布整体验收。
-
-以下为上一生产dec的历史记录，不能用作0dab当前镜像的验收结果。
-
-生产合入证据目录：
-`build/reconstruction-csrc/affine-particle-material-host/continuation-20261101-granular-affine-production/`。
-已保存改前31个构建输入/产物及SHA，原版SDK64a与360份冻结pyc保持。
-首生产候选c915的新增范围检查误将自由刚体的6个DOF/6个target通道当作约束，首次worker被拒绝。
-`rejected-actual-model-fields.json`实测确认全部约束/drive/bond计数为0；保留失败镜像、日志和命令。
-只修此范围检查，未改求解数学；第二host已编译成功，SHA前缀`dec858e5`。
-独立CPU确认与已测候选的数学文本相同，176入口清单不变、helper26匹配；这不能代替当前镜像GPU验收。
-新公开Core SHA前缀`47ae9720`，路径`build/reconstruction-csrc/source-core/95f700673f9a3e0b/`，与host dec匹配。
-Dzhanibekov60、plastic bag3、G1 graph60正常入口全0，未映射原版；不能代替G1独立长程对照。
-验证session91260实际结束：74为71严格，particles seed1/2/3严格失败，但三个原首候选均通过固定C10、独立CPU复核同。
-当前constructor92644五项全同、真实终态0；旧Core7eb仅对应旧host38，没有继承旧38通过项。
-六组带authored/dynamic/mixed bonds的颗粒＋刚体已实测：SDK六组正常，当前生产均被guard拒绝。
-据so恢复的隔离候选EFE已通过六短程全buffer/状态/ABI、三类constructor五项、24项60步eager/graph及双端共六initcheck。
-这是隔离候选的实际GPU结果；随后已保存31文件检查点并合入0dab/Core715，正在对新image单独验收。
-
-```bash
-source scripts/reconstruction_env.sh
-.venv/bin/python -m reconstruction.csrc.build_host
-# 当前验证驱动已启动时不要重复运行，先读取其status.json及实际进程。
-phase_dir=build/reconstruction-csrc/affine-particle-material-host
-.venv/bin/python "$phase_dir/continuation-20261101-granular-affine-bonds-production/run-validation-v2.py"
-```
-
-详细历史见[主交接文档](RECONSTRUCTION_HANDOFF.md)、
-[颗粒刚体恢复记录](reconstruction/csrc/GRANULAR_AFFINE_HOST_RECOVERY.md)及[工作日志](reconstruction/WORK_LOG.md)。
+后续几何GPU实查确认32脚底球确实穿地，未扩张最小z原-0.03601176/source-0.03592178；并非仅body原点偏置。
+SOFT和另外的显式HARD控制各两端均完整500，ground都失败32；HARD不是默认基准，亦不计数值/物理通过。
+HARD v1漏prepare_contacts的构造失败保留；v2用既有API预留1000后完整执行，未改生产默认或native公式。
+四份冻结最终pose另做collision-only查询，4次真实collision、求解graph0；各32 plane/sphere脚底接触实读。
+接触margin实为半径0.031455，0.1 gap未被直接传作margin，不能按“半径丢失”猜测修改公式。
+详见正式GPU诊断接续页，继续核接触响应及全轨迹；最终替换目标尚未完成。当前只本地，无上传/commit。

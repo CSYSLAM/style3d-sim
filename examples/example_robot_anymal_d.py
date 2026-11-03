@@ -95,6 +95,9 @@ class Example:
         newton.eval_fk(
             self.model, self.model.joint_q, self.model.joint_qd, self.state_0
         )
+        if self.solver_type == "synreal":
+            # FK changes body poses after the affine proxies were constructed.
+            self.solver.sync_affine_body_state(self.state_0)
 
         self.use_mujoco_contacts = use_mujoco_contacts
         if use_mujoco_contacts:
@@ -163,8 +166,8 @@ class Example:
                 self.model,
                 self.state_0,
                 "body velocities are small",
-                lambda q, qd: max(abs(qd))
-                < 0.25,  # Relaxed from 0.1 - collision pipeline has residual velocities up to ~0.2
+                # Keep the entire predicate on one line for Warp's lambda source extraction.
+                lambda q, qd: max(abs(qd)) < 0.25,
             )
             # fmt: on
 

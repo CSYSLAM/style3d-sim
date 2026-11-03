@@ -1,4 +1,54 @@
+> 当前先读[状态](RECONSTRUCTION_CURRENT_STATUS.md)、[逐demo进度](reconstruction/csrc/DEMO_CLOSURE_PROGRESS.md)
+> 及[正常源码安装](reconstruction/csrc/INSTALLED_SOURCE_GPU_VALIDATION.md)。下方所有旧“最新”属于历史。
+> 主host13d/Core1f309，CUDA176/f0e，固定SDK64a/360pyc；五优先demo按用户允许GPU浮点差异的口径闭环。
+> 独立源码wheel普通安装/五项直接GPU已验，本机`.venv-reconstructed/bin/python`可运行；ANYmal共有穿地仍失败1。
+> UR10默认128world/100复现也已核准，共有严重失稳保留；详情见UR10_GPU_DEMO_DIAGNOSTICS.md。
+> Dzhanibekov默认100四通道全帧严格；fluid默认32/600也已闭环，详见FLUID_GPU_DEMO_CLOSURE.md。
+> 当前活动项颗粒牛排默认resolution64/360/no_cut=True；自动切割尚未验收。
+> 最终solver未完成、默认SDK/readyFalse。仅本地、不commit、不上传。
+
+> 最新主host93262f83/Corec6ea9d6d：cable＋drive＋一种plain约束48组/31584调用、六构造/六graph/六initcheck全验。
+> 新主五正常60、六canonical graph120终态0且完整graph状态严格；详见CABLE_DRIVEN_PLAIN_HOST_RECOVERY.md。
+> CUDA176/f0e、SDK64a/360pyc及旧长程失败保持；默认/readyFalse，仅本地不上传。以下内容为历史。
+
+> 最新主hostbc81d847/Core1c2aabcd：按SDK恢复无滚动SIX_SPRINGS的PD矩阵选择，CUDA数学未改。
+> 24严格、四公开graph120、双端initcheck通过；新主五正常60、四graph、两正history/growth30全终态0。
+> 非SO3＋布片private48为33严格/15失败，未合入；详细见PD_MATRIX_DISPATCH_RECOVERY.md及根CURRENT_STATUS。
+> 默认/readyFalse及旧长程失败保持，仅本地、不上传。以下较旧“最新”等按历史时间理解。
+
+> 最新主host34a83315/Core207fba92：两constitutive刚体接触36组/36732调用、四构造、八graph、八initcheck全过。
+> 新主五正常60、八canonical graph120、四正history/growth30均终态通过；见CONSTITUTIVE_RIGID_CONTACT_HOST_RECOVERY.md。
+> 下一块非SO3刚体＋布片真实接触在private恢复；默认/readyFalse及旧长程失败保持，仅本地不上传。
+
+> 最新主hostf561f0f1/Corea0563d48：SIX_SPRINGS刚体接触18组/16800调用、两构造、四graph、四initcheck全过。
+> 新主五正常60、四canonical graph120、两正history/growth30均终态通过；见SIX_SPRING_RIGID_CONTACT_HOST_RECOVERY.md。
+> 下一块两constitutive模式＋rigid contact在private恢复，默认/readyFalse及旧长程失败保持。仅本地、不上传。
+
+> 最新主host0dfd3961/Core36e46aa8已合入cable/plain/rigid范围，60组/104028调用、六构造、六graph、四initcheck全过。
+> 新主五正常60、六canonical graph120、六正history/growth30均终态通过；详细见CABLE_PLAIN_CONTACT_HOST_RECOVERY.md。
+> 下一块SIX_SPRINGS刚体接触在新目录支持发现；旧长程失败/default/readyFalse保持。仅本地、不上传。
+
+> 2026-11-02最新：主host9c2f710d/Core962ff0aa已恢复刚体接触缓存typed初始化与真实扩容顺序，
+> 20短程/45876调用、两构造、四graph120步、双端initcheck均通过。当前主镜像回归仍在执行。
+> 先读根CURRENT_STATUS、WORK_LOG末尾及CABLE_DRIVEN_CONTACT_HOST_RECOVERY.md；下面旧版本为历史。
+> 仅本地、不上传，默认/readyFalse及全部旧长程失败保持；下一块cable＋plain＋真实接触在private探索。
+
 # 求解器源码重建交接：Windows 接续（2026-10-31）
+
+> 当前主源码176e/Core b446已合入，最终候选16短程、2constructor、8 graph120步全部严格；新主镜像回归仍在执行。
+> 先读[本批恢复](reconstruction/csrc/CABLE_DRIVEN_JOINT_HOST_RECOVERY.md)及WORK_LOG末尾；默认/readyFalse、旧长程失败保持，仅本地不上传。
+
+# 当前接续（2026-11-02）
+
+主源码host已为f07b35a4，公开Core为aa3466ef（新目录c4d2849e220ce864），均与已验候选二进制同。
+继续读[当前状态](RECONSTRUCTION_CURRENT_STATUS.md)及[工作日志](reconstruction/WORK_LOG.md)末尾。
+新GPU队列在`.../continuation-20261102-f07b35a4-host-integration`，旧d09完整检查点在该目录内。
+H1正常601帧两端原始最终测试均失败；新74回归69严格/5失败，104 cable等尚在执行，切勿冒称全通过。
+当前只本地完成，不上传。下文为原交接历史。
+
+> 2026-11-02最新：[完整GPU链与纯源码安装包](reconstruction/csrc/H1_FULL_GPU_CHAIN_20261102.md)已完成，包含20NL/38类装配及原生约束核对。
+> 源码wheel和无SDK目录的sdist副本已实际编译/正常GPU运行；生产d09、默认SDK、readyFalse及旧C8失败保持。
+> 新H1原/源601帧另行运行中；先保存本批检查点，再将获原SDK实证的host范围/顺序整理进主源码重验，仅本地不上传。
 
 > 最新[H1首NL全部20CG的七类extra与未插桩原生核验](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-soft-offdiag-friction/README.md)：840整核输出720严格，120 soft aggregate失败保持。
 > soft的1066920次未插桩SDK/原PTX/实际f07逐接触全输出严格，另355640 source探针完整输出核准、790800整数步骤同。
@@ -740,3 +790,38 @@ mkdir -p build/windows-check/probe-source
 固定8f产物和独立重编译产物分别跑 `example_body_spring`，各3帧12子步，四种状态全部逐位相同。
 报告、日志、原始状态、两份build manifest及独立重编译产物保存在 `reconstruction/transfer/20261031/`。
 这是Linux本机的路径迁移/构建自检，没有在Windows/WSL上实际测试，不能替代新机器上的完整一致性验收。
+
+本地最新主host a6d9df42/Core762b1852（source-core/02c9d15f4f34efa9），默认SDK/readyFalse保持。
+cable/drive/mixed plain64全严格，并修复932旧weight key碰撞；旧32组在private和main均完整GPU严格。
+八constructor五项、八graph120、八initcheck3通过；main13公开worker和32旧回归实际0。
+详细命令、失败历史、Windows WSL2接续见`reconstruction/csrc/CABLE_DRIVEN_MIXED_PLAIN_HOST_RECOVERY.md`。
+后续仍查真实demo完整GPU轨迹及未捕获host范围，未上传、无新commit；旧C8/C10/长程失败保持。
+
+GPU接续：主a6d9/Core762b保持。cable完整首frame的920 packet/2760同输入调用已完成，全部向量严格；
+400归约上下文的76800实际lane对相同，2400标量目标有1339真实GPU原子顺序证书，257088历史word已独立核。
+具体范围和命令见`reconstruction/csrc/CABLE_FULL_CG_CONTEXT_RECOVERY.md`，不能替代旧C8或完整demo验收。
+下一阶段证据为`continuation-20261102-a6d9df42-cable-driven-plain-contacts`，私有scope候选未合入。
+
+前阶段主host dd62c878/Core2548bf76（source-core/0f01063c43241b62），默认SDK/readyFalse保持。
+GPU实际rigid contact与cable/drive/plain组合已恢复：112/89688严格、14构造/graph120/initcheck3通过。
+七种history/reuse/六缓存扩容240步全严格，484080调用同；主19 GPU worker0，完整112数组对1011136字节严格。
+30步与近静止的coverage失败保留，原压力场景只延长到240步即实际产生正history，前六份30步逐字节重现。
+命令和原因见`reconstruction/csrc/CABLE_DRIVEN_PLAIN_CONTACT_HOST_RECOVERY.md`；下一步非SO3普通约束调度。
+旧长程和固定C8/C10失败保持，完整替代未验收，未上传/commit。
+
+
+前阶段主host d3f33a6e/Core18e67cd5（source-core/2d5cab29c701c9ef），默认SDK/readyFalse保持。
+非SO3纯普通约束96/34056严格；24构造五项、24真实graph120、12组双端initcheck3（24 worker）全部通过。
+主29 GPU worker全0，192完整数组对1733376字节独立逐位核准，source未映射SDK，两镜像与private同。
+范围、首次样本和实际命令见`reconstruction/csrc/NONSO3_PLAIN_CONSTRAINT_HOST_RECOVERY.md`。
+下一步按SDK实际结果核对非SO3关节组合。CUDA176/f0e、固定SDK/360pyc及旧失败保持；未上传/commit。
+
+当前主host13d6290f/Core1f309794（build/reconstruction-csrc/source-core/9c57b3335772646f），默认SDK/readyFalse。
+非SO3关节192完整控制、24零alpha、旧SO3零alpha八组、九首败/边界均严格。
+48构造五项、48真实graph120、24组双端initcheck3通过；主11 GPU worker0。
+真实SDK已定位并修复SIX/无drive line/PD块预条件器及zero-alpha AL调度，数学与SDK/pyc不动。
+详见`reconstruction/csrc/NONSO3_AXIS_JOINT_HOST_RECOVERY.md`；所有v1失败保留，未上传/commit。
+
+当前公开Core真实GPU诊断与接续：
+[CURRENT_PUBLIC_GPU_DEMO_DIAGNOSTICS.md](reconstruction/csrc/CURRENT_PUBLIC_GPU_DEMO_DIAGNOSTICS.md)。
+主13d/Core1f309不变，完整目标尚未完成；按根CURRENT_STATUS和WORK_LOG末尾继续。
