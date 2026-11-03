@@ -1,5 +1,16 @@
 # 求解器源码重建交接：Windows 接续（2026-10-31）
 
+> 最新[H1首NL全部20CG的七类extra与未插桩原生核验](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-soft-offdiag-friction/README.md)：840整核输出720严格，120 soft aggregate失败保持。
+> soft的1066920次未插桩SDK/原PTX/实际f07逐接触全输出严格，另355640 source探针完整输出核准、790800整数步骤同。
+> 原版插桩改变结果的4个真实反例已确认，错误舍入候选被SDK否决，数学未改；不能仅靠探针差异改solver。
+> 当前正在把20个NL的完整CG核心/全部extra/self-T在各自同一上下文连起来；不同NL是独立cohort，不拼成全局轨迹证明。
+> 仅本地，不上传；SDK/360pyc/生产/default及旧H1 C8失败保持，最终替换尚未完成。
+
+> 最新[H1第一子步全部10NL/20CG self](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-ten-nl-self/README.md)：46GPU child闭合，460输入的241968504真实F32与121662追加行号全部同。
+> 真实有效EF及全部20CG五点消费：126原生SDK/PTX/f07全输出严格，42原query控制/720整数步骤同；440完整表连接核准。
+> 1920 aggregate仅360严格、H1 C8失败保持。七类CG extra已捕获并完成840三端回放，720严格，余120为soft off-diagonal，继续实测。
+> 仅本地，不上传；不宣称第二子步、全部联合调度或正常整段轨迹已通过。
+
 > 用户最新要求：先在本地完成全部恢复与验证，暂不上传。已停止上传及Git打包准备；下文历史同步计划不再执行。
 
 > 最新[H1首NL self生产核及有效EF](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-self-producer-spans/README.md)：

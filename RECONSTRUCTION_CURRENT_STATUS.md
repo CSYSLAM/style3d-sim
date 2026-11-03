@@ -1,5 +1,19 @@
 # 源码替换原版SDK：当前状态
 
+最新H1首NL完整20CG的六类extra共720输出严格；soft的120 aggregate非严格保持。
+全部40真实CG seed/355640接触的1066920次未插桩SDK、原PTX、实际f07调用全输出/guard严格，
+另355640 source记录器调用逐一证明忠实，790800步整数F32同。
+插桩原版在4个单接触控制中改变了结果，错误的分步平方候选被原生SDK否决；旧源码数学保持。
+[数据/原始失败/命令](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-soft-offdiag-friction/README.md)，[记录器验收边界](reconstruction/csrc/PTX_PROBE_VALIDATION.md)。
+正在捕获并核对20个NL各自完整CG链；旧H1 C8、aggregate失败/default/readyFalse保持，最终目标未完成。
+以下“soft正核对/10NL待做”等为历史阶段，不能据旧叙述重跑队列或应用错误候选。
+
+当前H1已补第一个物理子步全部10NL/每NL20T：460同输入的241968504真实F32及121662 append行号同，
+440完整接触表连接核准；真实有效EF及对应全部20CG五点T的126三端原生调用全输出严格，42控制/720整数步骤同。
+46GPU child闭合；1560 aggregate和正常H1 C8失败保持。七类CG extra的840三端回放已实测720严格，
+余120为soft off-diagonal，正在GPU核实际贡献；候选未合入，最终替代仍未完成。
+[完整数据、命令及接续](build/reconstruction-csrc/affine-particle-material-host/continuation-20261102-f07b35a4-h1-ten-nl-self/README.md)。下文“10NL/self待做”等为此前阶段历史。
+
 最终目标是用仓库中的恢复源码编译独立`_core`，经正常Python API运行相关demo，
 不加载原版SDK、不调用原版代算，并通过与固定原版的功能及数值一致性验收。
 当前尚未完成完整替换；默认后端未切换，`solver_api_ready=False`。

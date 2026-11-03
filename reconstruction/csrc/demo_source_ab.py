@@ -128,7 +128,17 @@ def worker(args):
         if not counts or not sum(counts.values()):
             raise RuntimeError('The source Solver did not launch any compiled source kernels')
         (out/f'{args.tag}.launches.json').write_text(json.dumps(counts, indent=1)+'\n')
-        assert '_core.cpython-' not in Path('/proc/self/maps').read_text(), 'original solver mapped in source worker'
+        # Only the processed reference SDK image matters here; other packages may ship their own _core modules.
+        from reconstruction.csrc.host_api_probe import REFERENCE
+        mapped = [line.split()[-1] for line in Path('/proc/self/maps').read_text().splitlines()
+                  if line.split()[-1:] and line.split()[-1].endswith('.so') and '_core.cpython-' in line]
+        reference = str(Path(REFERENCE).resolve())
+        # Compare with the project-internal reference by path and by content (a copy elsewhere is still the SDK).
+        from reconstruction.csrc.host_api_probe import REFERENCE_SHA
+        offending = sorted({m for m in mapped if Path(m).resolve() == Path(reference)
+                            or hashlib.sha256(Path(m).read_bytes()).hexdigest() == REFERENCE_SHA})
+        assert not offending, f'original solver mapped in source worker: {offending}'
+        (out/f'{args.tag}.mapped_core_modules.json').write_text(json.dumps(sorted(set(mapped)), indent=1)+'\n')
     if os.environ.get('DEMO_POINTERS'):
         # Diagnostic: pointer -> Model span name, to name captured kernel arguments.
         model = getattr(example.solver, '_synreal_model', None)

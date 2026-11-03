@@ -1,0 +1,131 @@
+{
+ "example": "examples/example_snow.py",
+ "frames": 360,
+ "stage1_first_difference": {
+  "particle_q": 10,
+  "particle_qd": 10
+ },
+ "A_launch_sequence": {
+  "original": 2643845,
+  "source": 2643845,
+  "identical": true,
+  "first_difference": null,
+  "at": null
+ },
+ "B_uploads": {
+  "original": 20,
+  "source": 20,
+  "identical": true,
+  "only_original": [],
+  "only_source": []
+ },
+ "C_arguments": {
+  "original": 14693,
+  "source": 14693,
+  "identical": true,
+  "differences": []
+ },
+ "D_bitwise_prefix": {
+  "particle_q": {
+   "original_self_first_difference": 7,
+   "source_first_difference": [
+    10,
+    10,
+    7,
+    10,
+    7
+   ],
+   "pass": true
+  },
+  "particle_qd": {
+   "original_self_first_difference": 7,
+   "source_first_difference": [
+    10,
+    10,
+    7,
+    10,
+    7
+   ],
+   "pass": true
+  }
+ },
+ "E_distribution": {
+  "particle_q": {
+   "original_within": [
+    2160,
+    2119,
+    2160,
+    2113,
+    165
+   ],
+   "original_ratio_max": [
+    0.8794,
+    9.2108,
+    0.9715,
+    3.7895,
+    33.7597
+   ],
+   "source_within": [
+    2160,
+    2160,
+    2120,
+    2158,
+    2160
+   ],
+   "source_ratio_max": [
+    0.8,
+    0.953,
+    2.792,
+    1.3333,
+    0.8652
+   ],
+   "substeps": 2160,
+   "p_within_worse": 0.9365079365079365,
+   "p_ratio_worse": 0.9523809523809523,
+   "worst_original": {
+    "within": 165,
+    "ratio_max": 33.7596527641511
+   },
+   "pass": true
+  },
+  "particle_qd": {
+   "original_within": [
+    1863,
+    1814,
+    1879,
+    1616,
+    1669
+   ],
+   "original_ratio_max": [
+    4.1588,
+    30.4583,
+    3.1398,
+    8.0,
+    31.6637
+   ],
+   "source_within": [
+    1862,
+    1937,
+    1890,
+    1953,
+    1932
+   ],
+   "source_ratio_max": [
+    4.2011,
+    1.8726,
+    3.9164,
+    3.5556,
+    2.0684
+   ],
+   "substeps": 2160,
+   "p_within_worse": 0.9920634920634921,
+   "p_ratio_worse": 0.9722222222222222,
+   "worst_original": {
+    "within": 1616,
+    "ratio_max": 31.663653039832287
+   },
+   "pass": true
+  }
+ },
+ "closed": true
+}

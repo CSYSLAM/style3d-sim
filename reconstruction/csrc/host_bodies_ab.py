@@ -17,7 +17,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT/'build/reconstruction-csrc/host-bodies'
-SCENES = ('free_body', 'two_bodies', 'ground_box', 'ground_box_smooth')
+SCENES = ('free_body', 'two_bodies', 'ground_box', 'ground_box_smooth', 'rolling_ball')
 FIELDS = ('particle_q', 'particle_qd', 'body_q', 'body_qd')
 
 
@@ -26,6 +26,14 @@ def build(scene, worlds):
     import warp as wp
 
     def world(builder):
+        if scene == 'rolling_ball':
+            # Isolates the ball of example_ball_brick_wall: a sphere sliding then rolling on the ground with the
+            # default rolling/torsional friction (mu 0.65 as in that example).
+            cfg = newton.ModelBuilder.ShapeConfig(mu=0.65, density=600.0)
+            builder.add_ground_plane(cfg=cfg)
+            body = builder.add_body(xform=wp.transform(wp.vec3(0.0, 0.0, 0.4), wp.quat_identity()), mass=0.0)
+            builder.add_shape_sphere(body, radius=0.4, cfg=cfg)
+            builder.body_qd[-1] = (0.0, 6.0, 0.0, 0.0, 0.0, 0.0)
         if scene in ('ground_box', 'ground_box_smooth'):
             # A tilted box just above the ground: one corner reaches the plane within the first steps. The smooth
             # variant clears rolling/torsional friction to observe when the original launches the rolling kernels.
@@ -77,7 +85,7 @@ def simulate(scene, worlds, mode, steps):
     solver = s3d.NewtonSolver(model)
     solver.config.nonlinear_solver = s3d.NonlinearSolver.PD_NEWTON if mode == 'pd' else s3d.NonlinearSolver.NEWTON
     pipeline = contacts = None
-    if scene.startswith('ground_box'):
+    if scene.startswith('ground_box') or scene == 'rolling_ball':
         pipeline = newton.CollisionPipeline(model)
         contacts = model.contacts(pipeline)
         simulate.last_contacts = contacts   # diagnostic access for body_capture.py

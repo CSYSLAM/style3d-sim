@@ -697,15 +697,8 @@ class Solver {
             joint_diagonal(per_world_, 0.0f), joint_line_diagonal(per_world_, 0.0f);
         struct PendingWeightUpload { std::uint64_t* target; std::vector<char> bytes; };
         std::map<int, PendingWeightUpload> pending_weights;
-        const bool plain_distance_before_line = model_.body_distance_constraint_count &&
-            model_.body_point_line_count && !model_.joint_body_spring_count && !model_.joint_body_point_line_count &&
-            !model_.joint_drive_count && !model_.fluid_particle_count;
         auto upload_weight = [&](std::uint64_t& target, const auto& values, int order) {
-            // Actual plain-mixture allocation identities put distance weights before point-line weights.
-            if (plain_distance_before_line) {
-                if (order >= 2 && order <= 4) order += 2;
-                else if (order == 10 || order == 11) order -= 8;
-            }
+            // Canonical SDK order is spring, distance, point-line, then drive.
             // Actual body-constraint constructors upload weights after scalar ELL initialization.
             const auto begin = reinterpret_cast<const char*>(values.data());
             pending_weights.emplace(order, PendingWeightUpload{
@@ -872,11 +865,11 @@ class Solver {
                 w_cr[i] = weight(drive_bodies[i].b, cr[i]);
             }
             drive_total_ = n * (count_ / per_world_);
-            upload_weight(drive_w_po_, w_po, 5);
-            upload_weight(drive_w_co_, w_co, 6);
-            upload_weight(drive_w_pa_, w_pa, 7);
-            upload_weight(drive_w_pr_, w_pr, 8);
-            upload_weight(drive_w_cr_, w_cr, 9);
+            upload_weight(drive_w_po_, w_po, 7);
+            upload_weight(drive_w_co_, w_co, 8);
+            upload_weight(drive_w_pa_, w_pa, 9);
+            upload_weight(drive_w_pr_, w_pr, 10);
+            upload_weight(drive_w_cr_, w_cr, 11);
             angular_limits_ = model_.joint_limit_stiffnesses.size || model_.joint_limit_dampings.size;
             if (angular_limits_)
                 for (auto field : {std::make_pair(model_.joint_limit_lower, "joint_limit_lower"),
@@ -902,9 +895,13 @@ class Solver {
             if (model_.joint_body_point_line_count > n)
                 throw py::value_error("joint_body_point_line_count exceeds body_point_line_count");
             plain_line_count_ = n - model_.joint_body_point_line_count;
-            if (plain_spring_count_ && plain_line_count_ && (model_.joint_body_spring_count ||
-                    model_.joint_body_point_line_count || model_.joint_drive_count || model_.cable_count ||
-                    model_.fluid_particle_count))
+            const bool cable_drive_plain = model_.cable_count && model_.joint_drive_count &&
+                model_.joint_body_spring_count && !model_.joint_body_point_line_count &&
+                !model_.fluid_particle_count && !model_.granular_particle_count && !model_.spring_count &&
+                !model_.triangle_count && !model_.edge_count && !model_.tetrahedron_count;
+            if (plain_spring_count_ && plain_line_count_ && !cable_drive_plain &&
+                (model_.joint_body_spring_count || model_.joint_body_point_line_count || model_.joint_drive_count ||
+                 model_.cable_count || model_.fluid_particle_count))
                 throw std::runtime_error("Mixed plain constraints with joints/cables/fluid have not been captured");
             for (auto field : {std::make_pair(model_.body_point_line_indices, "body_point_line_indices"),
                     std::make_pair(model_.body_point_line_points, "body_point_line_points"),
@@ -955,9 +952,9 @@ class Solver {
             }
             point_line_total_ = n * (count_ / per_world_);
             joint_line_total_ = model_.joint_body_point_line_count * (count_ / per_world_);
-            upload_weight(point_line_wp_, wp, 2);
-            upload_weight(point_line_we0_, we0, 3);
-            upload_weight(point_line_we1_, we1, 4);
+            upload_weight(point_line_wp_, wp, 4);
+            upload_weight(point_line_we0_, we0, 5);
+            upload_weight(point_line_we1_, we1, 6);
             load("point_line_force", "kernel30evaluate_body_point_line_forceE");
             load("point_line_hessian", "kernel40add_body_point_line_gauss_newton_hessianE");
             if (joint_line_total_) {
@@ -1007,8 +1004,8 @@ class Solver {
                 accumulate(ends, scale[c], distance_diagonal, &Entry::l6);
             }
             distance_total_ = n * (count_ / per_world_);
-            upload_weight(distance_w0_, w0, 10);
-            upload_weight(distance_w1_, w1, 11);
+            upload_weight(distance_w0_, w0, 2);
+            upload_weight(distance_w1_, w1, 3);
             load("distance_initialize", "kernel41initialize_body_distance_constraint_stateE");
             load("distance_force", "kernel39evaluate_body_distance_constraint_forceE");
             load("distance_update", "kernel37update_body_distance_constraint_stateE");
@@ -1250,8 +1247,21 @@ class Solver {
     {
         cable_count_ = model_.cable_count * (count_ / per_world_);
         if (!cable_count_) return;
-        if (model_.joint_body_spring_count || model_.joint_body_point_line_count || model_.joint_drive_count)
-            throw std::runtime_error("Cable mixed with joint constraints has not been captured");
+        const bool driven_cable = model_.joint_drive_count && model_.joint_body_spring_count &&
+            model_.body_spring_count == model_.joint_body_spring_count && !model_.joint_body_point_line_count &&
+            !model_.body_point_line_count && !model_.body_distance_constraint_count && !model_.spring_count &&
+            !model_.triangle_count && !model_.edge_count && !model_.tetrahedron_count &&
+            !model_.fluid_particle_count && !model_.granular_particle_count;
+        const int plain_types = (model_.body_spring_count > model_.joint_body_spring_count) +
+            (model_.body_point_line_count > model_.joint_body_point_line_count) +
+            (model_.body_distance_constraint_count > 0);
+        const bool driven_plain_cable = model_.joint_drive_count && model_.joint_body_spring_count &&
+            !model_.joint_body_point_line_count && plain_types > 0 && !model_.spring_count &&
+            !model_.triangle_count && !model_.edge_count && !model_.tetrahedron_count &&
+            !model_.fluid_particle_count && !model_.granular_particle_count;
+        if ((model_.joint_body_spring_count || model_.joint_body_point_line_count || model_.joint_drive_count) &&
+            !driven_cable && !driven_plain_cable)
+            throw std::runtime_error("Cable mixed with this joint constraint combination has not been captured");
         const std::size_t n = model_.cable_count;
         for (auto field : {std::make_pair(model_.cable_body_indices, "cable_body_indices"),
                 std::make_pair(model_.cable_parent_transforms, "cable_parent_transforms"),
@@ -1670,13 +1680,14 @@ class Solver {
         const auto copies = count_ / per_world_;
         joint_spring_total_ = model_.joint_body_spring_count * copies;
         joint_line_total_ = model_.joint_body_point_line_count * copies;
+        // Native initialization places distance state before joint AL state.
+        distance_total_ = model_.body_distance_constraint_count * copies;
+        distance_target_ = initialized_cache(distance_total_, 12, SourceCacheType::Vector3);
+        distance_multiplier_ = initialized_cache(distance_total_, 12, SourceCacheType::Vector3);
         joint_multiplier_ = initialized_cache(joint_spring_total_, 12, SourceCacheType::Vector3);
         line_segment_ = initialized_cache(joint_line_total_, 4, SourceCacheType::Scalar);
         line_projector_ = initialized_cache(joint_line_total_, 36, SourceCacheType::Matrix3);
         line_multiplier_ = initialized_cache(joint_line_total_, 12, SourceCacheType::Vector3);
-        distance_total_ = model_.body_distance_constraint_count * copies;
-        distance_target_ = initialized_cache(distance_total_, 12, SourceCacheType::Vector3);
-        distance_multiplier_ = initialized_cache(distance_total_, 12, SourceCacheType::Vector3);
     }
 
     void precompute_affine_blocks()
@@ -2137,8 +2148,8 @@ public:
         rhs_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
         previous_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
         target_ = initialized_cache(count_, 12, SourceCacheType::Vector3);
-        initialize_drive_caches();
         initialize_cable_caches();
+        initialize_drive_caches();
         // initialize 10db31..10dbce creates drag geometry/cache before the four scalar diagonal caches.
         precompute_drag();
         base_diagonal_ = initialized_cache(count_, 4, SourceCacheType::Scalar);
@@ -2250,22 +2261,22 @@ public:
             hard_previous_count_ = driver_->allocate(4);
             check(cuMemsetD8(hard_previous_count_, 0, 4), "cuMemsetD8 hard previous count");
         }
-        auto resize = [&](std::uint64_t& pointer, std::size_t stride) {
+        auto resize = [&](std::uint64_t& pointer, std::size_t stride, SourceCacheType type) {
             const auto next = driver_->allocate(capacity * stride);
-            check(cuMemsetD8(next + hard_capacity_ * stride, 0, (capacity - hard_capacity_) * stride),
-                  "cuMemsetD8 hard capacity tail");
-            if (pointer) {
-                check(cuMemcpyDtoD(next, pointer, hard_capacity_ * stride), "cuMemcpyDtoD hard capacity");
-                driver_->release(pointer);
-            }
+            if (pointer) initialization_copy(next, pointer, hard_capacity_ * stride, 0);
+            // Native device-vector growth copies its prefix before typed initialization of the tail.
+            const auto tail = reinterpret_cast<void*>(next + hard_capacity_ * stride);
+            check_bvh_library(source_cache_initialize(tail, capacity - hard_capacity_, type),
+                              "Hard contact cache tail value initialization");
+            if (pointer) driver_->release(pointer);
             pointer = next;
         };
-        resize(hard_penalty_, 4);
-        resize(hard_dual_, 12);
-        resize(hard_anchor_, 12);
-        resize(hard_previous_penalty_, 4);
-        resize(hard_previous_dual_, 12);
-        resize(hard_previous_normal_, 12);
+        resize(hard_penalty_, 4, SourceCacheType::Scalar);
+        resize(hard_dual_, 12, SourceCacheType::Vector3);
+        resize(hard_anchor_, 12, SourceCacheType::Vector3);
+        resize(hard_previous_penalty_, 4, SourceCacheType::Scalar);
+        resize(hard_previous_dual_, 12, SourceCacheType::Vector3);
+        resize(hard_previous_normal_, 12, SourceCacheType::Vector3);
         hard_capacity_ = capacity;
     }
 
@@ -2289,21 +2300,22 @@ public:
         const auto rigidity = config.affine_body_rigidity_model;
         const bool so3 = bodies && rigidity == AffineBodyRigidityModel::SO3_AUGMENTED_LAGRANGIAN;
         if (bodies && granular_points_ &&
-            (!so3 || config.enable_self_collision || contact.max_count || contact.soft_max_count))
+            (!so3 || config.enable_self_collision))
             throw std::runtime_error("Granular bodies with other rigidity, self or external contacts are not captured");
         const bool six_springs = bodies && rigidity == AffineBodyRigidityModel::SIX_SPRINGS;
         const bool constitutive = bodies && !so3 && !six_springs;
         // Active drag, hard contacts, self-collision and other joint/material combinations remain outside this capture.
         const bool driven_cloth = bodies && (so3 || six_springs) && joint_al && triangle_count_ && drive_total_ &&
             joint_spring_total_ && body_spring_total_ == joint_spring_total_ && !point_line_total_ &&
-            !distance_total_ && !cable_count_ && !fluid_rows_ && !granular_points_ && !self && !drag_count_ &&
+            !distance_total_ && !cable_count_ && !fluid_rows_ && !granular_points_ && !drag_count_ &&
             !tetrahedron_count_ && !spring_count_ &&
             ((!contact.max_count && !contact.soft_max_count) ||
              (contact.soft_max_count && !config.rigid_contact_hard));
         if (bodies && (triangle_count_ || edge_count_) &&
             (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) && !driven_cloth)
             throw std::runtime_error("This constrained cloth/body combination has not been captured");
-        if (self && bodies && (!so3 || body_spring_total_ || distance_total_ || point_line_total_ || drive_total_ ||
+        if (self && bodies && !driven_cloth && (!so3 || body_spring_total_ || distance_total_ ||
+                              point_line_total_ || drive_total_ ||
                               cable_count_ || fluid_rows_ || (contact.max_count && config.rigid_contact_hard)))
             throw std::runtime_error("This affine self-collision constraint/rigidity branch has not been captured");
         if (bodies && surface && !driven_cloth &&
@@ -2315,16 +2327,42 @@ public:
                 ((contact.max_count || contact.soft_max_count) &&
                  (self || !contact.soft_max_count || config.rigid_contact_hard))))
             throw std::runtime_error("This affine tetrahedron/contact/material combination has not been captured");
-        if (bodies && !so3 && !driven_cloth &&
+        const bool six_spring_rigid = six_springs && contact.max_count && contact.count.size &&
+            count_ == body_state_count_ * 4 && !contact.soft_max_count && !body_spring_total_ &&
+            !distance_total_ && !point_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
+            !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+            !triangle_count_ && !edge_count_;
+        const bool constitutive_rigid = constitutive && contact.max_count && contact.count.size &&
+            count_ == body_state_count_ * 4 && !contact.soft_max_count && !body_spring_total_ &&
+            !distance_total_ && !point_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
+            !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+            !triangle_count_ && !edge_count_;
+        const bool nonso3_plain = bodies && !so3 && count_ == body_state_count_ * 4 &&
+            (plain_spring_count_ || plain_line_count_ || distance_total_) &&
+            !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
+            !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+            !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
+        // The fixed SDK accepts isolated nonSO3 axis joints, with or without drive descriptors.
+        const bool nonso3_joint = bodies && !so3 && count_ == body_state_count_ * 4 &&
+            ((joint_spring_total_ > 0) != (joint_line_total_ > 0)) &&
+            !plain_spring_count_ && !plain_line_count_ && !distance_total_ && !cable_count_ && !fluid_rows_ &&
+            !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
+            !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
+        if (bodies && !so3 && !driven_cloth && !six_spring_rigid && !constitutive_rigid && !nonso3_plain &&
+            !nonso3_joint &&
             (spring_count_ || triangle_count_ || edge_count_ || body_spring_total_ ||
                               distance_total_ || point_line_total_ || drive_total_ ||
                               cable_count_ || contact.max_count || contact.soft_max_count || fluid_rows_))
             throw std::runtime_error("Other affine rigidity models combined with constraints have not been captured");
         const float alpha = config.constraint_alpha;
         const bool rigid = bodies && contact.max_count && contact.count.size;
-        const bool body_tangent = (bodies && alpha > 0.0f && !six_springs) || rigid || cable_count_ || drive_total_;
-        // The SDK selects sparse block entries independently of PD when SIX_SPRINGS has rigid/surface input.
-        const bool block_matrix = !pd || (six_springs && alpha > 0.0f && (rigid || surface));
+        // Native zero alpha retains joint state initialization but skips its AL forces, tangents and updates.
+        const bool joint_al_active = joint_al && alpha > 0.0f;
+        const bool body_tangent = (bodies && alpha > 0.0f && !six_springs) || rigid || cable_count_ || drive_total_ ||
+            (pd && joint_al_active && joint_line_total_);
+        // The SDK overrides PD for SIX_SPRINGS only with bodies and rolling/full-surface contact input.
+        const bool block_matrix = !pd || (six_springs && alpha > 0.0f &&
+            ((rigid && rolling_) || (surface && model_.shape_count)));
         const bool block = block_matrix || self || surface || contact_product || bending_damping_ ||
                            tetrahedron_count_ || drag ||
                            body_tangent || fluid_rows_ || granular_points_;
@@ -2342,7 +2380,7 @@ public:
             (plain_spring_count_ || plain_line_count_ || distance_total_) &&
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !fluid_rows_ &&
             !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
-            !triangle_count_ && !edge_count_ && !contact.max_count && !contact.soft_max_count;
+            !triangle_count_ && !edge_count_ && !contact.soft_max_count;
         const bool isolated_plain =
             (plain_spring_count_ || plain_line_count_ || distance_total_) &&
             !joint_spring_total_ && !joint_line_total_ && !drive_total_ && !cable_count_ && !fluid_rows_ &&
@@ -2353,7 +2391,17 @@ public:
             !cable_count_ && !fluid_rows_ && !granular_points_ && !self &&
             !drag_count_ && !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&
             !contact.max_count && !contact.soft_max_count;
-        if (body_block && !driven_cloth && !isolated_plain && !plain_contact && !isolated_undriven_joint &&
+        const bool cable_driven = cable_count_ && so3 && joint_al && drive_total_ && joint_spring_total_ &&
+            body_spring_total_ == joint_spring_total_ && !point_line_total_ && !distance_total_ &&
+            !fluid_rows_ && !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ &&
+            !spring_count_ && !triangle_count_ && !edge_count_ && !contact.soft_max_count;
+        const int plain_types = (plain_spring_count_ > 0) + (plain_line_count_ > 0) + (distance_total_ > 0);
+        const bool cable_driven_plain = cable_count_ && so3 && joint_al && drive_total_ && joint_spring_total_ &&
+            !joint_line_total_ && plain_types > 0 && !fluid_rows_ && !granular_points_ && !self && !drag_count_ &&
+            !tetrahedron_count_ && !spring_count_ && !triangle_count_ && !edge_count_ &&
+            (!contact.max_count || (rigid && count_ == body_state_count_ * 4)) && !contact.soft_max_count;
+        if (body_block && !driven_cloth && !cable_driven && !cable_driven_plain && !isolated_plain &&
+            !plain_contact && !isolated_undriven_joint &&
             !cable_plain &&
             (body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             (plain_spring_count_ || plain_line_count_ || distance_total_ || !drive_total_ || cable_count_ ||
@@ -2368,13 +2416,15 @@ public:
         // Captured isolated plain PD routes omit Gauss-Newton blocks; undriven-line joint routes remain guarded.
         if ((body_spring_total_ || distance_total_ || point_line_total_ || drive_total_) &&
             !isolated_plain && !plain_contact && !isolated_undriven_joint && !cable_plain &&
+            !cable_driven_plain &&
             pd && (plain_spring_count_ || distance_total_ || plain_line_count_ || !drive_total_))
             throw std::runtime_error("Plain or undriven body constraints with PD_NEWTON have not been captured");
         if ((plain_spring_count_ || plain_line_count_ || distance_total_) &&
-            (rigid || contact.soft_max_count) && !plain_contact)
+            (rigid || contact.soft_max_count) && !plain_contact && !cable_plain && !cable_driven_plain)
             throw std::runtime_error("Plain body constraints with contacts have not been captured");
         if ((joint_spring_total_ || joint_line_total_) && !joint_al) {
-            const bool isolated_penalty = config.joint_constraint_mode == JointConstraintMode::PENALTY && so3 &&
+            const bool isolated_penalty = config.joint_constraint_mode == JointConstraintMode::PENALTY &&
+                (so3 || nonso3_joint) &&
                 !plain_spring_count_ && !plain_line_count_ && !distance_total_ &&
                 (drive_total_ || isolated_undriven_joint) && !cable_count_ && !fluid_rows_ &&
                 !granular_points_ && !self && !drag_count_ && !tetrahedron_count_ && !spring_count_ &&
@@ -2524,10 +2574,9 @@ public:
                 // Actual full-surface/self calls add to this scale before any self force accumulation.
                 if (surface)
                     launch_surface("surface_stiffness", contact.soft_max_count, stream, surface_data, self_pp_.stiffness);
-                accumulate_self_particle_pairs(in, stream);
             }
-            // Force order (captures + spec): plain body springs (the kernel skips joint springs), distance
-            // constraints, AL joint springs, point-lines, joint drive load, angular limits; finally SO(3).
+            // SDK force order: plain springs, AL joint springs, distance constraints, point-lines,
+            // joint drive load and angular limits, followed by self, SO(3), and particle materials.
             if (body_spring_total_)
                 launch("body_spring_force", body_spring_total_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
                        model_.body_spring_indices.ptr, model_.body_spring_points0.ptr, model_.body_spring_points1.ptr,
@@ -2535,18 +2584,18 @@ public:
                        model_.body_spring_rest_lengths.ptr, so3_alpha,
                        static_cast<std::size_t>(model_.joint_body_spring_count), !joint_al, rhs_, body_spring_total_,
                        static_cast<std::size_t>(model_.body_spring_count), per_world_);
+            if (joint_al_active && joint_spring_total_)
+                launch("joint_spring_force", joint_spring_total_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
+                       model_.body_spring_indices.ptr, model_.body_spring_points0.ptr, model_.body_spring_points1.ptr,
+                       body_spring_w0_, body_spring_w1_, model_.body_spring_stiffnesses.ptr, joint_multiplier_, so3_alpha,
+                       rhs_, joint_spring_total_, static_cast<std::size_t>(model_.body_spring_count),
+                       static_cast<std::size_t>(model_.joint_body_spring_count), per_world_);
             if (distance_total_)
                 launch("distance_force", distance_total_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
                        model_.body_distance_constraint_indices.ptr, model_.body_distance_constraint_points0.ptr,
                        model_.body_distance_constraint_points1.ptr, distance_w0_, distance_w1_,
                        model_.body_distance_constraint_mass_scales.ptr, distance_target_, distance_multiplier_, so3_alpha,
                        rhs_, distance_total_, static_cast<std::size_t>(model_.body_distance_constraint_count), per_world_);
-            if (joint_al && joint_spring_total_)
-                launch("joint_spring_force", joint_spring_total_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
-                       model_.body_spring_indices.ptr, model_.body_spring_points0.ptr, model_.body_spring_points1.ptr,
-                       body_spring_w0_, body_spring_w1_, model_.body_spring_stiffnesses.ptr, joint_multiplier_, so3_alpha,
-                       rhs_, joint_spring_total_, static_cast<std::size_t>(model_.body_spring_count),
-                       static_cast<std::size_t>(model_.joint_body_spring_count), per_world_);
             // The point-line force kernel receives state_in velocities for its damping term (captured argument).
             if (point_line_total_)
                 launch("point_line_force", point_line_total_, stream, in.particle_q.ptr, in.particle_qd.ptr,
@@ -2555,7 +2604,7 @@ public:
                        model_.body_point_line_stiffnesses.ptr, model_.body_point_line_dampings.ptr, so3_alpha,
                        static_cast<std::size_t>(model_.joint_body_point_line_count), !joint_al, rhs_, point_line_total_,
                        static_cast<std::size_t>(model_.body_point_line_count), per_world_);
-            if (joint_al && joint_line_total_)
+            if (joint_al_active && joint_line_total_)
                 launch("joint_line_force", joint_line_total_, stream, in.particle_q.ptr,
                        model_.affine_body_indices.ptr, model_.body_point_line_indices.ptr, point_line_wp_,
                        point_line_we0_, point_line_we1_, model_.body_point_line_endpoints0.ptr,
@@ -2576,14 +2625,15 @@ public:
                        per_world_, static_cast<std::size_t>(model_.joint_dof_count),
                        static_cast<std::size_t>(model_.joint_target_count), inverse_dt);
                 if (armature_) joint_armature(in, inverse_dt, stream, null, rhs_, null);
-                if (angular_limits_)
-                    launch("angular_limits", drive_total_, stream, joint_view(), limit_view(), in.particle_q.ptr,
-                           previous_, drive_angle_, drive_initialized_, inverse_dt, null, rhs_, null);
             }
-            // Contacts precede the joint forces/drives; SO(3) follows those constraint forces.
             if (cable_count_)
                 launch("cable_evaluate", cable_count_, stream, cable_view(), in.particle_q.ptr, previous_, inverse_dt,
                        null, rhs_, null);
+            if (drive_total_ && angular_limits_)
+                launch("angular_limits", drive_total_, stream, joint_view(), limit_view(), in.particle_q.ptr,
+                       previous_, drive_angle_, drive_initialized_, inverse_dt, null, rhs_, null);
+            // SDK cable evaluation precedes limits; self still follows the drive/limit force sequence.
+            if (self) accumulate_self_particle_pairs(in, stream);
             if (so3 && so3_alpha > 0.0f)
                 launch("so3_force", body_state_count_, stream, in.particle_q.ptr, model_.affine_body_indices.ptr,
                        model_.body_masses.ptr, body_rotation_, body_multiplier_, so3_alpha, rhs_, body_state_count_,
@@ -2633,13 +2683,16 @@ public:
                     launch("rigidity_spring_hessian", body_state_count_, stream, in.particle_q.ptr,
                            model_.affine_body_indices.ptr, model_.body_masses.ptr, so3_alpha, blocks_, row_count_,
                            block_entries_, max_entries_, body_state_count_, body_count_, per_world_, count_);
-                if (!pd && plain_spring_count_)
-                    launch("body_spring_hessian", body_spring_total_, stream, in.particle_q.ptr,
+                if (!pd && plain_spring_count_) {
+                    // The SDK Hessian visits only the plain prefix; AL joint springs are handled separately.
+                    const auto plain_total = plain_spring_count_ * (count_ / per_world_);
+                    launch("body_spring_hessian", plain_total, stream, in.particle_q.ptr,
                            model_.affine_body_indices.ptr, model_.body_spring_indices.ptr, model_.body_spring_points0.ptr,
                            model_.body_spring_points1.ptr, body_spring_w0_, body_spring_w1_,
                            model_.body_spring_stiffnesses.ptr, model_.body_spring_rest_lengths.ptr, blocks_, row_count_,
-                           block_entries_, max_entries_, body_spring_total_,
-                           static_cast<std::size_t>(model_.body_spring_count), per_world_, count_);
+                           block_entries_, max_entries_, plain_total, static_cast<std::size_t>(plain_spring_count_),
+                           per_world_, count_);
+                }
                 if (!pd && (plain_line_count_ || (!joint_al && joint_line_total_)))
                     launch("point_line_hessian", point_line_total_, stream, in.particle_q.ptr,
                            model_.affine_body_indices.ptr, model_.body_point_line_indices.ptr, point_line_wp_,
@@ -2648,7 +2701,7 @@ public:
                            static_cast<std::size_t>(model_.joint_body_point_line_count), !joint_al || !joint_line_total_,
                            blocks_, row_count_, block_entries_, max_entries_, point_line_total_,
                            static_cast<std::size_t>(model_.body_point_line_count), per_world_, count_);
-                if (!pd && joint_al && joint_line_total_)
+                if (!pd && joint_al_active && joint_line_total_)
                     launch("joint_line_hessian", joint_line_total_, stream, model_.affine_body_indices.ptr,
                            model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
                            model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
@@ -2697,7 +2750,7 @@ public:
                 if (surface)
                     launch_surface("surface_preconditioner", contact.soft_max_count, stream,
                                    surface_data, preconditioner_blocks_);
-                if (pd && joint_al && joint_line_total_)
+                if (pd && joint_al_active && joint_line_total_)
                     launch("joint_line_pd_preconditioner", joint_line_total_, stream, model_.affine_body_indices.ptr,
                            model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
                            model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
@@ -2714,10 +2767,13 @@ public:
                            preconditioner_blocks_, drive_total_, static_cast<std::size_t>(model_.joint_drive_count),
                            per_world_);
                     if (armature_) joint_armature(in, inverse_dt, stream, null, null, preconditioner_blocks_);
-                    if (angular_limits_)
-                        launch("angular_limits", drive_total_, stream, joint_view(), limit_view(), in.particle_q.ptr,
-                               previous_, drive_angle_, drive_initialized_, inverse_dt, null, null, preconditioner_blocks_);
                 }
+                if (cable_count_ && !body_block)
+                    launch("cable_evaluate", cable_count_, stream, cable_view(), in.particle_q.ptr, previous_, inverse_dt,
+                           null, null, preconditioner_blocks_);
+                if (drive_total_ && angular_limits_)
+                    launch("angular_limits", drive_total_, stream, joint_view(), limit_view(), in.particle_q.ptr,
+                           previous_, drive_angle_, drive_initialized_, inverse_dt, null, null, preconditioner_blocks_);
                 if (body_block) {
                     if (rolling)
                         launch("rolling_preconditioner", contact.max_count, stream, rolling_view(contact, in, inverse_dt),
@@ -2736,7 +2792,7 @@ public:
                     launch("so3_preconditioner", body_state_count_, stream, model_.affine_body_indices.ptr,
                            model_.body_masses.ptr, body_rotation_, so3_alpha, preconditioner_blocks_, body_state_count_,
                            body_count_, per_world_);
-                if (cable_count_)
+                if (cable_count_ && body_block)
                     launch("cable_evaluate", cable_count_, stream, cable_view(), in.particle_q.ptr, previous_, inverse_dt,
                            null, null, preconditioner_blocks_);
                 if (rolling && !body_block)
@@ -2777,7 +2833,7 @@ public:
                     launch("constitutive_tangent", body_state_count_, stream, in.particle_q.ptr, direction_,
                            model_.affine_body_indices.ptr, model_.body_masses.ptr, so3_alpha, rigidity, contact_product_,
                            body_state_count_, body_count_, per_world_);
-                if (pd && joint_al && joint_line_total_)
+                if (pd && joint_al_active && joint_line_total_)
                     launch("joint_line_pd_tangent", joint_line_total_, stream, direction_, model_.affine_body_indices.ptr,
                            model_.body_point_line_indices.ptr, point_line_wp_, point_line_we0_, point_line_we1_,
                            model_.body_point_line_stiffnesses.ptr, line_segment_, line_projector_, so3_alpha,
@@ -2819,14 +2875,13 @@ public:
                            model_.joint_passive_dampings.ptr, model_.joint_target_dampings.ptr, inverse_dt,
                            contact_product_, drive_total_, static_cast<std::size_t>(model_.joint_drive_count), per_world_);
                     if (armature_) joint_armature(in, inverse_dt, stream, direction_, contact_product_, null);
-                    if (angular_limits_)
-                        launch("angular_limits", drive_total_, stream, joint_view(), limit_view(), in.particle_q.ptr,
-                               previous_, drive_angle_, drive_initialized_, inverse_dt, direction_, contact_product_,
-                               null);
                 }
                 if (cable_count_)
                     launch("cable_evaluate", cable_count_, stream, cable_view(), in.particle_q.ptr, previous_, inverse_dt,
                            direction_, contact_product_, null);
+                if (drive_total_ && angular_limits_)
+                    launch("angular_limits", drive_total_, stream, joint_view(), limit_view(), in.particle_q.ptr,
+                           previous_, drive_angle_, drive_initialized_, inverse_dt, direction_, contact_product_, null);
                 if (rolling)
                     launch("rolling_tangent", contact.max_count, stream, rolling_view(contact, in, inverse_dt),
                            direction_, contact_product_);
@@ -2866,7 +2921,7 @@ public:
             }
             // Joint multipliers advance after iterations whose count is a multiple of the primal iteration count,
             // never after the last one (captured: iterations 2, 4, ..., 18 of 20 with primal = 2).
-            if (joint_al && joint_spring_total_) {
+            if (joint_al_active && joint_spring_total_) {
                 const int c = iteration + 1, primal = std::max(config.joint_constraint_primal_iterations, 1);
                 if (c < config.nonlinear_iterations && c % primal == 0)
                     launch("joint_spring_update", joint_spring_total_, stream, out.particle_q.ptr,
@@ -2876,7 +2931,7 @@ public:
                            static_cast<std::size_t>(model_.body_spring_count),
                            static_cast<std::size_t>(model_.joint_body_spring_count), per_world_);
             }
-            if (joint_al && joint_line_total_) {
+            if (joint_al_active && joint_line_total_) {
                 const int c = iteration + 1, primal = std::max(config.joint_constraint_primal_iterations, 1);
                 const bool advance = c < config.nonlinear_iterations && c % primal == 0;
                 launch("joint_line_update", joint_line_total_, stream, out.particle_q.ptr,

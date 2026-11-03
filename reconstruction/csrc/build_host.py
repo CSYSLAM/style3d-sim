@@ -17,6 +17,17 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+# Digest of the accepted build_native PTX bundle with nvcc's path-derived names normalised. nvcc names anonymous-namespace
+# globals _INTERNAL_<hash of the absolute source path>_..._cu_<hash>_<hash>; they only differ between checkouts, so the
+# raw digest would reject an identical build made in another directory.
+ACCEPTED_BUNDLE = 'fed8810889b217d85b6bb429481bcd40a12eb1704b80ab83830a972a31b0756d'
+
+
+def portable_digest(path):
+    text = re.sub(r'_INTERNAL_[0-9a-f]{8}_', '_INTERNAL_X_', path.read_text())
+    return hashlib.sha256(re.sub(r'_cu_[0-9a-f]{8}_[0-9a-f]{8}', '_cu_H', text).encode()).hexdigest()
+
+
 def api_header(schema):
     lines = ['#pragma once', '#include <array>', '#include <cmath>', '#include <sstream>',
              'struct Span { std::uintptr_t ptr = 0; std::size_t size = 0; };']
@@ -136,9 +147,8 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     native = pc.OUT/'native'
     manifest = json.loads((native/'build.json').read_text())
-    proof = json.loads((native/'provenance-final.json').read_text())
     bundle = native/'source_ptx_bundle.h'
-    assert digest(bundle) == proof['files'][str(bundle.relative_to(pc.ROOT))], 'Accepted PTX bundle changed'
+    assert portable_digest(bundle) == ACCEPTED_BUNDLE, 'Accepted PTX bundle changed'
     for name, expected in manifest['sources'].items():
         assert digest(pc.ROOT/name) == expected, 'Accepted CUDA/runtime source changed: ' + name
     revision = pc.CSRC/'revisions/pcg_23fb797.cu'

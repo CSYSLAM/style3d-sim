@@ -34,7 +34,9 @@ def build(output):
          '-arch=sm_52', '-std=c++17', '-O3', '-DNDEBUG', '-diag-suppress=20012',
          '-I'+str(pc.CSRC/'kernels'), '-I'+str(pc.ROOT/'build/third_party/glm-1.0.1'),
          str(source), '-o', str(output/'bvh_library.host.cpp')], 'generation.log')
-    inventory = json.loads((pc.ROOT/'build/reconstruction-csrc/host-particles/build.json').read_text())
+    # Check the device entries against build_native's inventory (not the previous host image), so a fresh checkout can
+    # build the BVH bridge before any _source_solver image exists. The 26 BVH digests are identical in both inventories.
+    inventory = json.loads((pc.OUT/'native/build.json').read_text())
     ptx = output/'bvh_library.ptx'
     checks = {}
     for name, body in entries(ptx.read_text()).items():
@@ -61,7 +63,7 @@ def build(output):
          '-Wl,-rpath,'+str(toolchain/'lib'), '-o', str(library)], 'link.log')
     inputs = [source, pc.CSRC/'native/bvh_library.h', pc.CSRC/'library/reduction_functors.cuh',
               pc.CSRC/'kernels/types.cuh', pc.CSRC/'kernels/common.cuh', Path(__file__)]
-    report = {'provisional_not_integrated': True, 'source_solver_image_at_build': inventory['extension_sha256'],
+    report = {'provisional_not_integrated': True, 'native_image_at_build': inventory['extension_sha256'],
               'commands': commands, 'inputs': {str(path.relative_to(pc.ROOT)): digest(path) for path in inputs},
               'host_type_reference_replacements': replacements, 'host_stub_before_sha256':
               hashlib.sha256(original).hexdigest(), 'host_stub_after_sha256': digest(stub),
