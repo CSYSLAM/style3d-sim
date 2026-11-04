@@ -9220,3 +9220,18 @@ native_step.py 中已按 SolverNewton::step 记录的规则（c == primal_iterat
 - 整理前的干净目录重编译测试：只复制保留的源码/工具到 scratchpad，从 .cu 重跑 build_native：188 kernel，PTX 包与已认可
   的一致（只差 nvcc 由绝对路径算出的 _INTERNAL_<hash>/_cu_<hash>_<hash> 匿名命名空间名）。build_host 原先用原始摘要
   对比 provenance-final.json，换目录必然失败；改为归一化这些名字后比对（ACCEPTED_BUNDLE）。
+- 2026-11-03 so/源码核对（reconstruction/audit/）：
+  1. kernel_audit：源码 so 实际嵌入的 PTX 对比原版 64a0be7f 抽出的 PTX：原版 170 个 kernel 源码全有；84 个归一化后逐字相同，
+     86 个不同。按浮点运算序列分：18 个完全相同（仅整数索引/调度不同）、17 个仅顺序不同、51 个种类/数量不同（多为循环展开、
+     比较取反、neg 位置；硬接触 fma↔add、缆绳 f64 路径等需逐个核）。
+  2. replay_hook（LD_PRELOAD）：源码运行中，对每个采样启动保存可达显存，原版 PTX 与源码 PTX 各跑两次、同输入逐字比较。
+     32 个 demo 全程、94 个 kernel、约 1.1 万次采样：无确定性大差异；原子加 kernel 的差异与原版自身两次之间同量级
+     （≤1e-7 量级相对缓冲区最大值；对照组 PTX 逐字相同的 precondition_and_reduce 也出现同类差异）。
+     demo 未覆盖且浮点运算不同的 15 个 kernel：缆绳 3、硬接触 3、apply_affine_body_torques、add_spring_gauss_newton_hessian、
+     build_affine_body_preconditioner×2、add_surface_contact_stiffness_scale、initialize_joint_coordinate_velocities、
+     add_affine_body_constitutive_preconditioner、multiply_joint_body_point_line_AL、add_joint_body_point_line_AL_preconditioner。
+  3. 仓库自带 tests/（pytest_backend 插件切换后端，排除 2 个登录测试和 1 个缺 benchmarks 模块的）：原版 736 过 1 跳过；
+     源码 40 失败：Span 无 __len__ / 报错文字（7）、校验报错文字（5）、step 时缺校验（4）、particle_rest_positions 被当必填（16）、
+     未实现组合（颗粒+其他材料、其他刚性模型+约束、缆绳元数据不全，6）。
+  4. 原版 so 中 227 条校验类报错字符串，源码缺 184 条（含 JSON/正则等库字符串；求解器相关约 120 条），列于
+     reconstruction/audit/reference_errors_missing.txt。host 端 initialize/step 校验需按原版反汇编逐条还原。
